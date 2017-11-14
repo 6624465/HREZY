@@ -1580,6 +1580,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1609,6 +1610,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HrEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LookUp.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
@@ -1708,6 +1712,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Employee\" />
     <Folder Include="Views\Master\" />
   </ItemGroup>
   <ItemGroup>

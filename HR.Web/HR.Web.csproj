@@ -1520,6 +1520,9 @@
     <Content Include="Models\HrEntity.edmx.diagram">
       <DependentUpon>HrEntity.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\proximanovalight.eot" />
+    <Content Include="fonts\proximanovalight.ttf" />
+    <Content Include="fonts\proximanovalight.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Core\app.js" />
     <Content Include="Scripts\Core\bootstrap-rating.min.js" />

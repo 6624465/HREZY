@@ -96,18 +96,19 @@
 </html>
 <script type="text/javascript">
     $("#frmLogin").validate({
-        rules:{
+        rules: {
             'UserName': {
-                required:true
+                required: true
             },
             'Password': {
                 required: true
             },
-        },
-        messages: {
-            UserID: 'UserId is Required',
-            Password: 'Password is Required'
         }
+        //,
+        //messages: {
+        //    UserID: 'Username is Required',
+        //    Password: 'Password is Required'
+        //}
     })
 
 </script>

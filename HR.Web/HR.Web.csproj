@@ -1550,6 +1550,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SelectHelpers.cs" />
     <Compile Include="Models\Branch.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

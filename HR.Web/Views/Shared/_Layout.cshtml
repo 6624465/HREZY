@@ -15,6 +15,7 @@
     <link href="@Url.Content("~/Css/lib/bootstrap/dist/css/bootstrap.css")" rel="stylesheet" />
     <link rel="stylesheet" href="@Url.Content("~/Css/main.min.css")">
     <link href="@Url.Content("~/Css/sitecss.css")" rel="stylesheet" />
+    @RenderSection("Styles", false)
 </head>
 <body id="app" class="app off-canvas">
 
@@ -523,7 +524,7 @@
     <script src="@Url.Content("~/Scripts/Core/app.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/index.init.js")"></script>
     <script src="@Url.Content("~/Scripts/ui-bootstrap.js")"></script>
-
+    @RenderSection("Scripts", false)
    
 
 </body>

@@ -1501,6 +1501,37 @@
     <Content Include="Css\waves.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\1.jpg" />
+    <Content Include="Images\2.jpg" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\4.jpg" />
+    <Content Include="Images\5.jpg" />
+    <Content Include="Images\6.jpg" />
+    <Content Include="Images\7.jpg" />
+    <Content Include="Images\admin.jpg" />
+    <Content Include="Images\ban.png" />
+    <Content Include="Images\bg.png" />
+    <Content Include="Images\boxed-bg.jpg" />
+    <Content Include="Images\boxed-bg.png" />
+    <Content Include="Images\col.png" />
+    <Content Include="Images\default-50x50.gif" />
+    <Content Include="Images\ezy-corporation-logo.png" />
+    <Content Include="Images\HKG.png" />
+    <Content Include="Images\icons.png" />
+    <Content Include="Images\laos.png" />
+    <Content Include="Images\myn.png" />
+    <Content Include="Images\pak.png" />
+    <Content Include="Images\phi.png" />
+    <Content Include="Images\RMA-Logo.png" />
+    <Content Include="Images\sing.png" />
+    <Content Include="Images\sort_asc.png" />
+    <Content Include="Images\sort_asc_disabled.png" />
+    <Content Include="Images\sort_both.png" />
+    <Content Include="Images\sort_desc.png" />
+    <Content Include="Images\sort_desc_disabled.png" />
+    <Content Include="Images\sri.png" />
+    <Content Include="Images\user2-160x160.jpg" />
+    <Content Include="Images\VIETNAM.png" />
     <Content Include="Models\HrEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HrEntity.edmx</DependentUpon>

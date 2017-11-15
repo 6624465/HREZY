@@ -11,6 +11,7 @@ namespace HR.Web.Controllers
         // GET: Config
         public ActionResult Index()
         {
+
             return View();
         }
     }

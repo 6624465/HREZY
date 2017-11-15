@@ -19,17 +19,7 @@ namespace HR.Web.Controllers
             var EmployeeData = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeDesignation").AsQueryable();
             return View(EmployeeData);
         }
-        [HttpPost]
-        public ActionResult GetDesignationById(int lookupId)
-        {
-            var id = dbContext.LookUps.Where(x => x.LookUpID == lookupId).FirstOrDefault();
-            if (id == null)
-            {
-      
-            }
-            else
-            { }
-            return View();
+       
         }
         public ActionResult EmployeeTypeList()
         {

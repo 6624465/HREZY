@@ -19,17 +19,7 @@ namespace HR.Web.Controllers
             var EmployeeData = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeDesignation").AsQueryable();
             return View(EmployeeData);
         }
-        [HttpPost]
-        public ActionResult GetDesignationById(int lookupId)
-        {
-            var id = dbContext.LookUps.Where(x => x.LookUpID == lookupId).FirstOrDefault();
-            if (id == null)
-            {
-      
-            }
-            else
-            { }
-            return View();
+       
         }
         
         public ActionResult EmpTypepaging(int page)
@@ -56,11 +46,10 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult EmployeeTypeList()
         {
-            using (var dbContext = new HrDataContext())
-            {
-                var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
+            
+                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
                 return View(list);
-            }
+            
         }
 
         [HttpGet]
@@ -129,6 +118,13 @@ namespace HR.Web.Controllers
                 return View(list);
             }
                 
+        }
+        public ActionResult GetEmployeeStatus()
+        {
+
+            var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeStatus").AsQueryable();
+            return View(list);
+
         }
     }
 }

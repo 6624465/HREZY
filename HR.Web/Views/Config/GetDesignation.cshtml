@@ -1,4 +1,4 @@
-﻿@model IQueryable<HR.Web.Models.LookUp>
+﻿@model   IQueryable<HR.Web.Models.LookUp>
    @{
        WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
    
@@ -13,26 +13,29 @@
         </div>
         <div class="panel-body">
             @grid.GetHtml(
-tableStyle: "table table-hover",
-headerStyle: "Grid-Header",
-alternatingRowStyle: "Grid-alt",
-selectedRowStyle: "Grid-selected",
-rowStyle: "Grid-rowstyle",
-footerStyle: "table-pager",
-mode: WebGridPagerModes.All,
-columns: grid.Columns(
-  grid.Column(columnName: "LookUpCode", header: "EmployeeCode"),
-  grid.Column(columnName: "LookUpDescription", header: "EmployeeDesgination"),
-  grid.Column(columnName: "IsActive", header: "Status"),
-  grid.Column("#Actions", format: @<text><button class="btn btn-xs btn-default waves-effect" onclick="editEmpType(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)))  
+            tableStyle: "table table-hover",
+            headerStyle: "Grid-Header",
+            alternatingRowStyle: "Grid-alt",
+            selectedRowStyle: "Grid-selected",
+            rowStyle: "Grid-rowstyle",
+            footerStyle: "table-pager",
+            mode: WebGridPagerModes.All,
+            columns: grid.Columns(
+              grid.Column(columnName: "LookUpCode", header: "EmployeeCode"),
+              grid.Column(columnName: "LookUpDescription", header: "EmployeeDesgination"),
+              grid.Column(columnName: "IsActive", header: "Status"),
+              grid.Column("#Actions",canSort="false" format: @<text><button class="btn btn-xs btn-default waves-effect" onclick="editDesigType(@item.LookUpID)">
+            <i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)))  
         </div>
     </div>
 </div>
-<div id="myModal" class="modal fade" role="dialog">
+ @using (Html.BeginForm("SaveEduProduct", "Config", FormMethod.Post, new { id = "myDesignationModal", name = "myDesignationModal" }))
+ {
+<div id="myDesignationModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Employee Type</h4>
+                <h4 class="modal-title">Add Employee Designation</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -44,12 +47,14 @@ columns: grid.Columns(
 
             </div>
             <div class="modal-footer">
+                <button type="submit"  class="btn btn-info" ng-click="SaveDesignation()">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
 
     </div>
 </div>
+    }
 <style>
     #grid {
         margin-top: 30px;
@@ -114,11 +119,28 @@ columns: grid.Columns(
 </style>
 @section Scripts{
     <script type="text/javascript">
-        function editEmpType(lookupID) {
-            $('#myModal').modal('show');
-        }
+        function editDesigType(lookupID) {
+                debugger;
+                $.ajax({
+                    url: '@Url.Content("~/Config/GetDesignationById?lookupId=")' + lookupID,
+                    method: 'get',
+                    contentType: 'text/html',
+                    success: function (html) {
+                        debugger
+                        $('#myDesignationModal').html(html);
+                        $('#myDesignationModal').modal('show');
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            }
+        
         function Add(lookupID) {
-            $('#myModal').modal('show');
+            $('#myDesignationModal').modal('show');
+        }
+        function SaveDesignation(){
+            $('#myDesignationModal').modal('hide');
         }
     </script>
 }

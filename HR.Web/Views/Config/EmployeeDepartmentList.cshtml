@@ -13,33 +13,24 @@
             <button class="md-raised md-button md-primary waves-effect pull-right"><i class="zmdi zmdi-plus"></i>&nbsp; ADD</button>
         </div>
         <div class="panel-body">
-        </div>
-          @grid.GetHtml(
-headerStyle: "Grid-Header",
-alternatingRowStyle: "Grid-alt",
-selectedRowStyle: "Grid-selected",
-rowStyle: "Grid-rowstyle",
-footerStyle: "Grid-Footer",
-mode: WebGridPagerModes.All,
+
+            @grid.GetHtml(
+            headerStyle: "Grid-Header",
+            alternatingRowStyle: "Grid-alt",
+            selectedRowStyle: "Grid-selected",
+            rowStyle: "Grid-rowstyle",
+            footerStyle: "Grid-Footer",
+            mode: WebGridPagerModes.All,
             columns: grid.Columns(
-            //grid.Column("LookUpId", format: (item) => item.GetSelectLink(item.LookUpId.ToString())),
-            grid.Column("LookUpCategory", header: "Employee Department Name"),
+            @*grid.Column("LookUpId", format: (item) => item.GetSelectLink(item.LookUpId.ToString())),*@
+            grid.Column("LookUpCode", header: "Employee Department Name"),
             grid.Column("LookUpDescription", header: "Employee Department Description"),
             grid.Column("IsActive", header: "Status"),
             grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-default waves-effect" onclick="editEmpType(@item.LookUpID)"><i class="fa fa-pencil"></i></button></text>)),
-                tableStyle: "table")
+            tableStyle: "table")
         </div>
     </div>
-
-@*<h3>Selected row</h3>*@
-@if (grid.HasSelection)
-{
-    var pd = (HR.Web.Models.LookUp)grid.Rows[grid.SelectedIndex].Value;
-        <p>Lookup Code: @pd.LookUpCode</p>
-        <p>Lookup Description : @pd.LookUpDescription</p>
-        <p>Status: @pd.IsActive</p>
-}
-
+    </div>
 <style>
     #grid {
         margin-top: 30px;

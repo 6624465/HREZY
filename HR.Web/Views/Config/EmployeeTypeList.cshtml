@@ -4,8 +4,8 @@
     ViewBag.Title = "EmployeeType";
 }
 @{ 
-    WebGrid grid = new WebGrid(Model) ;
-
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.All);
 }
 <div class="page">
     <div class="page-wrap">
@@ -19,10 +19,13 @@
                 </div>
                 <div class="box-body">
                     @grid.GetHtml(
+
+                footerStyle: "Grid-Footer",
                 columns: grid.Columns(
                 grid.Column("LookUpCode", "Employee Type Name", canSort: true),
                 grid.Column("LookUpDescription", "Employee Type Description", canSort: true),
-                grid.Column("IsActive", "Status", canSort: false),
+                 //grid.Column("IsActive", "Status", canSort: false),
+                 grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-default waves-effect" onclick="editEmpType(@item.LookUpID)"><i class="fa fa-pencil"></i></button></text>)),
                 tableStyle: "table")
                 </div>
@@ -64,13 +67,6 @@
                 }
             });
         }
-
-        function SaveChanges() {
-            if ($('#frm').valid()) {
-                $('#frm').submit();
-            }
-        }
-
         $('#frm').validate({
             rules: {
                 LookUpCode: {
@@ -81,8 +77,37 @@
                 }
             }
         });
+        function SaveChanges() {
+            $('#frm').submit();
+        }
+
+
+       
+       
     </script>
 }
+<style>
+    .Grid-Footer > td {
+        padding-top: 10px;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+        .Grid-Footer > td > a {
+            background: #fff;
+            display: inline-block;
+            border-radius: 1px;
+            padding: 6px 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid #eeeeee;
+        }
+
+            .Grid-Footer > td > a:hover {
+                color: #3f51b5;
+                text-decoration: none;
+            }
+</style>
 
 
 

@@ -1590,6 +1590,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SelectHelpers.cs" />
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Branch.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1723,6 +1726,8 @@
     <Content Include="Views\Config\GetEmployeeType.cshtml" />
     <Content Include="Views\Config\GetEmployeeDesignation.cshtml" />
     <Content Include="Views\Config\EmployeeDesignationList.cshtml" />
+    <Content Include="Views\Config\EmployeeDepartmentList.cshtml" />
+    <Content Include="Views\Config\GetEmployeeDepartment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

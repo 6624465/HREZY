@@ -18,16 +18,12 @@
                 </div>
                 <div class="box-body">
                     @grid.GetHtml(
-                    headerStyle: "Grid-Header",
-                    alternatingRowStyle: "Grid-alt",
-                    selectedRowStyle: "Grid-selected",
-                    rowStyle: "Grid-rowstyle",
                     footerStyle: "Grid-Footer",
                 columns: grid.Columns(
                 grid.Column("LookUpCode", "Employee Designation Name", canSort: true),
                 grid.Column("LookUpDescription", "Employee Designation Description", canSort: true),
                 grid.Column("IsActive", "Status"),
-                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-default waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
+                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised btn-default waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table")
                 </div>
             </div>
@@ -36,18 +32,18 @@
 </div>
 @using (Html.BeginForm("SaveEmployeeDesignation", "Config", FormMethod.Post, new { id = "frm", name = "frm" }))
 {
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="myDesignationModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Employee Designation</h4>
                 </div>
-                <div class="modal-body" id="modalContent">
+                <div class="modal-body" id="modalContent1">
 
                 </div>
                 <div class="modal-footer">
+                    <button type="submit" class="btn btn-info" ng-click="SaveDesignation()">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" onclick="SaveChanges()" class="btn btn-default">Save Changes</button>
                 </div>
             </div>
 
@@ -56,35 +52,31 @@
 }
 @section Scripts{
     <script type="text/javascript">
-        function editEmpType(lookupID) {
+        function editEmpDesignation(lookupID) {
+            debugger;
             $.ajax({
-                url: '@Url.Content("~/Config/GetDesignationByID?lookupID=")' + lookupID,
+                url: '@Url.Content("~/Config/GetEmployeeDesignation?lookupID=")' + lookupID,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    $('#myModal').modal('show');
-                    $('#modalContent').html('');
-                    $('#modalContent').html(data);
+                    debugger;
+                    $('#myDesignationModal').modal('show');
+                    $('#modalContent1').html('');
+                    $('#modalContent1').html(data);
+                },
+                error: function (err) {
+
                 }
             });
         }
 
-        function SaveChanges() {
+        function SaveDesignation() {
+            debugger
             if ($('#frm').valid()) {
                 $('#frm').submit();
             }
         }
 
-        $('#frm').validate({
-            rules: {
-                LookUpCode: {
-                    required: true
-                },
-                LookUpDescription: {
-                    required: true
-                }
-            }
-        });
     </script>
 }<style>
      .Grid-Footer > td {

@@ -22,5 +22,10 @@ namespace HR.Web.Controllers
 
             return View();
         }
+        public ActionResult EmployeeDepartmentList()
+        {
+            var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeDepartment").AsQueryable();
+            return View(list);
+        }
     }
 }

@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace HR.Web.Controllers
 {
-    public class EmployeeController : Controller
+    [SessionFilter]
+    public class EmployeeController : BaseController
     {
         [HttpGet]
         public ActionResult Index()

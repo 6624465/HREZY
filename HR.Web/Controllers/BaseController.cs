@@ -8,6 +8,17 @@ namespace HR.Web.Controllers
 {
     public class BaseController : Controller
     {
-             
+
+        public string USERID
+        {
+            get
+            {
+                return (string)System.Web.HttpContext.Current.Session[UTILITY.SSN_USERID];
+            }
+            set
+            {
+                Session[UTILITY.SSN_USERID] = value;
+            }
+        }
     }
 }

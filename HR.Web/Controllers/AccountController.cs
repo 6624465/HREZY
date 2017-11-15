@@ -24,7 +24,7 @@ namespace HR.Web.Controllers
 
             if (userObj != null) {
                 FormsAuthentication.SetAuthCookie(userObj.UserName,false);
-                USERID = user.Email;
+                USERID = user.UserName;
                 return RedirectToAction("Index", "Home");
             }
             return View();

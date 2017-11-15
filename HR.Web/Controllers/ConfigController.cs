@@ -11,10 +11,24 @@ namespace HR.Web.Controllers
 
     [SessionFilter]
     public class ConfigController : BaseController
-    {       
-       
-        public  ActionResult Index()
+    {
+        HrDataContext dbContext = new HrDataContext();
+
+        public ActionResult GetDesignation()
         {
+            var EmployeeData = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeDesignation").AsQueryable();
+            return View(EmployeeData);
+        }
+        [HttpPost]
+        public ActionResult GetDesignationById(int lookupId)
+        {
+            var id = dbContext.LookUps.Where(x => x.LookUpID == lookupId).FirstOrDefault();
+            if (id == null)
+            {
+      
+            }
+            else
+            { }
             return View();
         }
         
@@ -27,7 +41,7 @@ namespace HR.Web.Controllers
             
             using (var dbctx = new HrDataContext())
             {
-                
+
                     totalRecords = dbctx.LookUps.ToList().Count();
         
                     totalpages = (totalRecords / pageSize) + ((totalRecords % pageSize) > 0 ? 1 : 0);

@@ -253,6 +253,7 @@ namespace HR.Web.Controllers
                         ModifiedBy = USERID
                     };
 
+
                     dbCntx.LookUps.Add(lookupObj);
                     dbCntx.SaveChanges();
             }

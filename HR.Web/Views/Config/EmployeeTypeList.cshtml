@@ -53,11 +53,13 @@
 @section Scripts{
     <script type="text/javascript">
         function editEmpType(lookupID) {
+            debugger
             $.ajax({
                 url: '@Url.Content("~/Config/GetEmployeeType?lookupID=")' + lookupID,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
+                    debugger
                     $('#myModal').modal('show');
                     $('#modalContent').html('');
                     $('#modalContent').html(data);
@@ -71,16 +73,6 @@
             }
         }
 
-        $('#frm').validate({
-            rules: {
-                LookUpCode: {
-                    required: true
-                },
-                LookUpDescription: {
-                    required: true
-                }
-            }
-        });
     </script>
 }
 

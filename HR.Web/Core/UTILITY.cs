@@ -12,12 +12,7 @@ namespace HR.Web
 
         /* Config Keys Start */
         public static string CONFIG_EMPLOYEETYPE = "EmployeeType";
-        public static string CONFIG_MARTIALSATUS = "MartialSatus";
-        public static string CONFIG_EMPLOYEEDESIGNATION = "EmployeeDesignation";
-        public static string CONFIG_EMPLOYEEDEPARTMENT = "EmployeeDepartment";
-        public static string CONFIG_NOTICEPERIOD = "NoticePeriod";
-        public static string CONFIG_PROHIBATIONPERIOD = "ProbabtonPeriod";
-        
+        public static string CONFIG_EMPLOYEESTATUS = "EmployeeStatus";
         /* Config Keys End */
     }
 }

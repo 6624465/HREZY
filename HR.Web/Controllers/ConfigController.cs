@@ -11,33 +11,35 @@ namespace HR.Web.Controllers
 
     [SessionFilter]
     public class ConfigController : BaseController
-    {       
-       
+    {
+        HrDataContext dbCntx = new HrDataContext();
+
+
         public  ActionResult Index()
         {
             return View();
         }
         public ActionResult EmployeeTypeList()
         {
-            using (var dbContext = new HrDataContext())
-            {
-                var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
+            
+                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
                 return View(list);
-            }
+            
         }
 
         public PartialViewResult GetEmployeeType(int lookupID)
         {
-            using (var dbCntx = new HrDataContext())
-            {
+           
                 var employeeType = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
                 return PartialView(employeeType);
-            }
+            
         }
         public ActionResult EmployeeDepartmentList()
         {
-            var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeDepartment").AsQueryable();
-            return View(list);
+           
+                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeDepartment").AsQueryable();
+                return View(list);
+            
         }
     }
 }

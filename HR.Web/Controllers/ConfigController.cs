@@ -22,20 +22,20 @@ namespace HR.Web.Controllers
                 return View(EmployeeData);
             }
         }
-
-        public PartialViewResult GetDesignationByID(int lookupID)
+        [HttpGet]
+        public PartialViewResult GetEmployeeDesignation(int lookupID)
         {
             if (lookupID != -1)
             {
                 using (var dbCntx = new HrDataContext())
                 {
                     var employeeDesign = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
-                    return PartialView(employeeDesign);
+                    return PartialView("GetEmployeeDesignation",employeeDesign);
                 }
 
             }
             else
-                return PartialView(new LookUp { LookUpID = -1 });
+                return PartialView("GetEmployeeDesignation", new LookUp { LookUpID = -1 });
         }
 
         [HttpPost]
@@ -63,7 +63,7 @@ namespace HR.Web.Controllers
                     {
                         LookUpCode = lookup.LookUpCode,
                         LookUpDescription = lookup.LookUpDescription,
-                        LookUpCategory = UTILITY.CONFIG_EMPLOYEETYPE,
+                        LookUpCategory = UTILITY.CONFIG_EMPLOYEEDESIGNATION,
                         IsActive = true,
                         CreatedOn = DateTime.Now,
                         CreatedBy = USERID,
@@ -76,7 +76,7 @@ namespace HR.Web.Controllers
                 }
 
             }
-            return RedirectToAction("GetDesignation");
+            return RedirectToAction("EmployeeDesignationList");
         }
 
         #endregion

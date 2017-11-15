@@ -1721,6 +1721,8 @@
     <Content Include="Views\Employee\Add.cshtml" />
     <Content Include="Views\Config\EmployeeTypeList.cshtml" />
     <Content Include="Views\Config\GetEmployeeType.cshtml" />
+    <Content Include="Views\Config\GetEmployeeDesignation.cshtml" />
+    <Content Include="Views\Config\EmployeeDesignationList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -365,3 +365,7 @@ body {
 .input-group-addon {
     padding: 3px 12px;
 }
+
+.form-control {
+    font-weight:bold;
+}

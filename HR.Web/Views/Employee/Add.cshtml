@@ -1,108 +1,368 @@
 ﻿@model HR.Web.ViewModels.EmployeeVm
 
     <div class="page">
-        <div class="page-wrap">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="panel panel-default panel-hovered panel-stacked mb30">
-                        <div class="panel-heading">Profile</div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">ID Type</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(x => x.empHeader.IDType,
-                                    SelectListItemHelper.EmployeeType(),
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                    <div class="panel-heading">Profile</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">ID Type</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.empHeader.IDType,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEETYPE),
                                     "Select Type",
                                     new { @class = "form-control" })
-                                    </div>
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">DOJ</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <div class="input-group date" id="datepickerDemo">
-                                            @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control" })
-                                            <span class="input-group-addon">
-                                                <i class=" ion ion-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">First Name</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.empHeader.FirstName,
-                                    new { @class = "form-control" })
-                                    </div>
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Last Name</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.empHeader.LastName,
-                                    new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Middle Name</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.empHeader.MiddleName,
-                                    new { @class = "form-control" })
-                                    </div>                                    
-                                </div>
-                            </div>
-                            <div class="row css5">
                                 <label class="col-md-2 control-label">
-                                    <span class="pull-right">DOB</span>
+                                    <span class="pull-right">DOJ</span>
                                 </label>
                                 <div class="col-md-4">
                                     <div class="input-group date" id="datepickerDemo">
-                                        @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control" })
                                         <span class="input-group-addon">
                                             <i class=" ion ion-calendar"></i>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-1"></div>
-                                <div class="col-md-5">
-                                    <div class="ui-radio ui-radio-primary">
-                                        <label class="ui-radio-inline">
-                                            @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Male", "101")
-                                            <span>Male</span>
-                                        </label>
-                                        <label class="ui-radio-inline">
-                                            @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Female", "102")
-                                            <span>Female</span>
-                                        </label>                                        
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">First Name</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.empHeader.FirstName,
+                                    new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Last Name</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.empHeader.LastName,
+                                    new { @class = "form-control" })
                                 </div>
                             </div>
-                            <div class="clearfix right css10">
-                                <button class="btn btn-primary mr5 waves-effect" type="submit">Submit</button>
-                                <button class="btn btn-default waves-effect">Cancel</button>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Middle Name</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.empHeader.MiddleName,
+                                    new { @class = "form-control" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default panel-hovered panel-stacked mb30">
-                        <div class="panel-heading">Address</div>
-                        <div class="panel-body">
-
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">DOB</span>
+                            </label>
+                            <div class="col-md-4">
+                                <div class="input-group date" id="datepickerDemo">
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control" })
+                                    <span class="input-group-addon">
+                                        <i class=" ion ion-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="ui-radio ui-radio-primary">
+                                    <label class="ui-radio-inline">
+                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Male", "101")
+                                        <span>Male</span>
+                                    </label>
+                                    <label class="ui-radio-inline">
+                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Female", "102")
+                                        <span>Female</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Email</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.address.Email,
+                                        new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Mobile</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.address.MobileNo,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Father's Name</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
+                                        new { @class = "form-control" })
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Nationality</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.empHeader.Nationality,
+                                        SelectListItemHelper.CountryList(), "Select Country",
+                                        new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Maritial Status</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
+                                        SelectListItemHelper.ConfigData(UTILITY.CONFIG_MARTIALSATUS), "Select MartialStatus",
+                                        new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group" style="white-space:nowrap">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Emg. Contact Name</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
+                                        new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Emg. Contact No</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
             
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                    <div class="panel-heading">Address</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Address 1</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(x => x.address.Address1,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Address 2</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(x => x.address.Address2,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">City</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(x => x.address.CityName,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">State</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(x => x.address.StateName,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Postal Code</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(x => x.address.ZipCode,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                    <div class="panel-heading">Employee Position</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Designation</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEDESIGNATION),
+                                    "Select Designation",
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Department</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEDEPARTMENT),
+                                    "Select Department",
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Notice Period</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_NOTICEPERIOD),
+                                    "Select NoticePeriod",
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Prohibation</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(x => x.empWorkDetail.ProbationPeriod,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_PROHIBATIONPERIOD),
+                                    "Select Prohibation",
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Confirmation Dt</span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group date" id="datepickerDemo">
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control" })
+                                        <span class="input-group-addon">
+                                            <i class=" ion ion-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Resigned Dt</span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group date" id="datepickerDemo">
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control" })
+                                        <span class="input-group-addon">
+                                            <i class=" ion ion-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                    <div class="panel-heading">Employee Login Info</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Email</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.empHeader.UserId,
+                                    new { @class = "form-control" })
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Password</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(x => x.empHeader.Password,
+                                    new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Confirm Password</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(x => x.empHeader.ConfirmPassword,
+                                    new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Status</span>
+                                </label>
+                                <div class="col-md-2">
+                                    <div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
+                                        <label class="ui-toggle-inline">
+                                            @*@Html.CheckBoxFor(x => x.empHeader.IsActive.Value)*@
+                                            <label class="ui-toggle-inline">
+                                                <input id="empHeader_IsActive_Value" name="empHeader.IsActive.Value" type="checkbox">
+                                                <span></span>
+                                            </label>                                            
+                                        </label>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>        
     </div>
+
 

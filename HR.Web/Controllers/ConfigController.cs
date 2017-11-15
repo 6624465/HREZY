@@ -28,7 +28,7 @@ namespace HR.Web.Controllers
       
             }
             else
-        {
+            { }
             return View();
         }
         public ActionResult EmployeeTypeList()

@@ -29,5 +29,9 @@ namespace HR.Web.Models
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<EmployeeDocumentDetail> EmployeeDocumentDetails { get; set; }
+        public virtual DbSet<EmployeeHeader> EmployeeHeaders { get; set; }
+        public virtual DbSet<EmployeePersonalDetail> EmployeePersonalDetails { get; set; }
+        public virtual DbSet<EmployeeWorkDetail> EmployeeWorkDetails { get; set; }
     }
 }

@@ -20,11 +20,11 @@ namespace HR.Web.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult SaveEmployee(EmployeeHeader empHeader)
-        {
-            return View();
-        }
+      //  [HttpPost]
+        //public ActionResult SaveEmployee(EmployeeHeader empHeader)
+        //{
+        //    return View();
+        //}
 
 
     }

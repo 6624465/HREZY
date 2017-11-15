@@ -1,18 +1,21 @@
-﻿using HR.Web.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using HR.Web.Models;
+using HR.Web.ViewModels;
+
 namespace HR.Web.Controllers
 {
-    public class EmployeeController : Controller
+    [SessionFilter]
+    public class EmployeeController : BaseController
     {
-               // GET: Employee
-        public ActionResult GetEmployees()
+        [HttpGet]
+        public ActionResult Add()
         {
-            return View();
+            return View(new EmployeeVm { });
         }
 
 

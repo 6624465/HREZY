@@ -12,13 +12,18 @@ namespace HR.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class LookUp
+    public partial class EmployeeWorkDetail
     {
-        public int LookUpID { get; set; }
-        public string LookUpCode { get; set; }
-        public string LookUpDescription { get; set; }
-        public string LookUpCategory { get; set; }
-        public bool IsActive { get; set; }
+        public int WorkDetailID { get; set; }
+        public int EmployeeId { get; set; }
+        public int BranchId { get; set; }
+        public System.DateTime JoiningDate { get; set; }
+        public System.DateTime ConfirmationDate { get; set; }
+        public Nullable<short> ProbationPeriod { get; set; }
+        public Nullable<short> NoticePeriod { get; set; }
+        public Nullable<int> DesignationId { get; set; }
+        public Nullable<int> DepartmentId { get; set; }
+        public Nullable<System.DateTime> ResignationDate { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }

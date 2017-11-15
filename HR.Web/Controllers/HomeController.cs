@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace HR.Web.Controllers
 {
-    public class HomeController : Controller
+    [SessionFilter]
+    public class HomeController : BaseController
     {
         // GET: Home
         public ActionResult Index()

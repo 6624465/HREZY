@@ -1570,11 +1570,6 @@
     <Content Include="Scripts\Core\vendors.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ui-bootstrap.js" />
     <Content Include="Web.config" />
@@ -1582,6 +1577,7 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\SessionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -1589,6 +1585,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Core\UTILITY.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1600,6 +1597,18 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Country.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeDocumentDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeePersonalDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeWorkDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HrEntity.Context.cs">
@@ -1617,13 +1626,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HrEntity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\LookUp.cs">
-      <DependentUpon>HrEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\EmployeeVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1708,7 +1715,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Config\Index.cshtml" />
+    <Content Include="Views\Employee\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1719,7 +1726,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Employee\" />
+    <Folder Include="Views\Config\" />
     <Folder Include="Views\Master\" />
   </ItemGroup>
   <ItemGroup>

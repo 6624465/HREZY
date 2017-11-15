@@ -4,15 +4,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using HR.Web.Models;
+using HR.Web.ViewModels;
+
 namespace HR.Web.Controllers
 {
     [SessionFilter]
     public class EmployeeController : BaseController
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Add()
+        {
+            return View(new EmployeeVm { });
+        }
+
+
+        public ActionResult SaveEmployee()
         {
             return View();
         }
+      //  [HttpPost]
+        //public ActionResult SaveEmployee(EmployeeHeader empHeader)
+        //{
+        //    return View();
+        //}
+
+
     }
 }

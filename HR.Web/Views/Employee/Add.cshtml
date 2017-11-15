@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row css5">
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">
                                         <span class="pull-right">First Name</span>
@@ -49,7 +49,43 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="row css5">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">Middle Name</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.empHeader.MiddleName,
+                                    new { @class = "form-control" })
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="row css5">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">DOB</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <div class="input-group date" id="datepickerDemo">
+                                        @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control" })
+                                        <span class="input-group-addon">
+                                            <i class=" ion ion-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5">
+                                    <div class="ui-radio ui-radio-primary">
+                                        <label class="ui-radio-inline">
+                                            @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Male", "101")
+                                            <span>Male</span>
+                                        </label>
+                                        <label class="ui-radio-inline">
+                                            @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Female", "102")
+                                            <span>Female</span>
+                                        </label>                                        
+                                    </div>
+                                </div>
+                            </div>
                             <div class="clearfix right css10">
                                 <button class="btn btn-primary mr5 waves-effect" type="submit">Submit</button>
                                 <button class="btn btn-default waves-effect">Cancel</button>

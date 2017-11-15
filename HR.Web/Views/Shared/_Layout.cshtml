@@ -376,7 +376,7 @@
                             <i class="arrow ion-chevron-left"></i>
                         </a>
                         <ul class="inner-drop list-unstyled">
-                            <li><a href="/Config/Index">Employee Designation</a></li>
+                            <li><a href="@Url.Content("~/Config/GetDesignation")">Employee Designation</a></li>
                             <li><a href="@Url.Content("~/Config/EmployeeTypeList")">Employee Type</a></li>
                             <li><a href="@Url.Content("~/Config/EmployeeDepartmentList")">Employee Department</a></li>
                             <li><a href="#">Employee Status</a></li>
@@ -557,7 +557,9 @@
     <!-- #end theme settings -->
     <!-- Dev only -->
     <!-- Vendors -->
-    
+
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.js")"></script>
+    <script src="@Url.Content("~/Scripts/Core/jquery.validate.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/vendors.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/d3.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/c3.min.js")"></script>
@@ -573,7 +575,7 @@
             $('#app').perfectScrollbar();
         });
     </script>*@
-    @RenderSection("Scripts", false)  
-
+    @RenderSection("Scripts", false)
+   
 </body>
 </html>

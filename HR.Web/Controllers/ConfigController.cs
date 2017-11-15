@@ -105,10 +105,11 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult EmployeeTypeList()
         {
-            
+            using (var dbCntx = new HrDataContext())
+            {
                 var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
                 return View(list);
-            
+            }
         }
 
         [HttpGet]
@@ -181,9 +182,12 @@ namespace HR.Web.Controllers
         }
         public ActionResult GetEmployeeStatus()
         {
+            using (var dbCntx = new HrDataContext())
+            {
 
-            var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeStatus").AsQueryable();
-            return View(list);
+                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeStatus").AsQueryable();
+                return View(list);
+            }
 
         }
     }

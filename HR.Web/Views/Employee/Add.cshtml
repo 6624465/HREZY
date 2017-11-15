@@ -1,174 +1,51 @@
 ﻿@model HR.Web.ViewModels.EmployeeVm
 
-<div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default panel-hovered panel-stacked mb30">
-            <div class="panel-heading">Native Controls</div>
-            <div class="panel-body">
-                <form role="form" class="form-horizontal" action="javascript:;">
-                    <!-- form horizontal acts as a row -->
-                    <!-- normal control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Normal Control</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-
-                    <!-- with hint -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">With Hint</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" placeholder="Hint Text">
-                            <p class="text-danger text-right xsmall">hint description</p>
-                        </div>
-                    </div>
-
-                    <!-- passowrd control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Password</label>
-                        <div class="col-md-9">
-                            <input type="password" class="form-control" placeholder="Password Text">
-                        </div>
-                    </div>
-
-                    <!-- Disabled control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Disabled</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" placeholder="Input is disabled" disabled="">
-                        </div>
-                    </div>
-
-                    <!-- textarea control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Textarea</label>
-                        <div class="col-md-9">
-                            <textarea rows="5" class="form-control resize-v" placeholder="Message here"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- native select -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Native Select</label>
-                        <div class="col-md-9">
-                            <select class="form-control">
-                                <option value="0" selected="" disabled="">Select a fruit</option>
-                                <option value="1">Apple</option>
-                                <option value="2">Orange</option>
-                                <option value="3">Grapes</option>
-                                <option value="4">Pineapple</option>
-                                <option value="5">Cherry</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- success control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Success Control</label>
-                        <div class="col-md-9">
-                            <div class="has-success">
-                                <input type="text" class="form-control">
+    <div class="page">
+        <div class="page-wrap">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="panel panel-default panel-hovered panel-stacked mb30">
+                        <div class="panel-heading">Profile</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">ID Type</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(x => x.empHeader.IDType,
+                                    SelectListItemHelper.EmployeeType(),
+                                    "Select Type",
+                                    new { @class = "form-control" })
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- warning control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Warning Control</label>
-                        <div class="col-md-9">
-                            <div class="has-warning">
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- error control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Error Control</label>
-                        <div class="col-md-9">
-                            <div class="has-error">
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- prepend control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Prepend</label>
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <span class="input-group-addon ion ion-person"></span>
-                                <input type="text" class="form-control" placeholder="Full Name">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- append control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Append</label>
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <input type="email" class="form-control" placeholder="Email Address">
-                                <span class="input-group-addon ion ion-email-unread"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- both control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Both Addon</label>
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <span class="input-group-addon">$</span>
-                                <input type="email" class="form-control" placeholder="Both Addon">
-                                <span class="input-group-addon">0.0</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- dropdown control -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Dropdown</label>
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <div class="dropdown" dropdown="">
-                                        <button class="btn btn-pink dropdown-toggle waves-effect" dropdown-toggle="" type="button">Click Me<span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="javascript:;">Action</a></li>
-                                            <li><a href="javascript:;">Another action</a></li>
-                                            <li><a href="javascript:;">Something else here</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="javascript:;">Separated link</a></li>
-                                        </ul>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Append</label>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" placeholder="Email Address">
+                                        <span class="input-group-addon ion ion-email-unread"></span>
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Dropdown button addon">
+                            </div>
+                            
+
+                            <div class="clearfix right css10">
+                                <button class="btn btn-primary mr5 waves-effect" type="submit">Submit</button>
+                                <button class="btn btn-default waves-effect">Cancel</button>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default panel-hovered panel-stacked mb30">
+                        <div class="panel-heading">Address</div>
+                        <div class="panel-body">
 
-                    <!-- button addon -->
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Button Addon</label>
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default ion ion-paper-airplane waves-effect"></button>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Button Addon">
-                            </div>
                         </div>
                     </div>
-
-                    <div class="clearfix right">
-                        <button class="btn btn-primary mr5 waves-effect" type="submit">Submit</button>
-                        <button class="btn btn-default waves-effect">Cancel</button>
-                    </div>
-                </form>
+                </div>
             </div>
+            
         </div>
     </div>
-</div>
 

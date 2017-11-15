@@ -1,0 +1,146 @@
+﻿@model   IQueryable<HR.Web.Models.LookUp>
+   @{
+       WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
+   
+        grid.Pager(WebGridPagerModes.All);
+       // grid.Bind(source: Model, rowCount: ViewBag.TotalRows);
+}
+<div class="col-md-12">
+    <div class="panel panel-lined table-responsive panel-hovered mb20 data-table" style="margin-top:66px;padding-bottom: 20px">
+        <div class="panel-heading" style="font-size: large;">
+            Employee Designation
+            <button class="md-raised md-button md-primary waves-effect pull-right" onclick="Add('NEW')"><i class="fa fa-plus"></i>&nbsp; ADD</button>
+        </div>
+        <div class="panel-body">
+            @grid.GetHtml(
+            tableStyle: "table table-hover",
+            headerStyle: "Grid-Header",
+            alternatingRowStyle: "Grid-alt",
+            selectedRowStyle: "Grid-selected",
+            rowStyle: "Grid-rowstyle",
+            footerStyle: "table-pager",
+            mode: WebGridPagerModes.All,
+            columns: grid.Columns(
+              grid.Column(columnName: "LookUpCode", header: "EmployeeCode"),
+              grid.Column(columnName: "LookUpDescription", header: "EmployeeDesgination"),
+              grid.Column(columnName: "IsActive", header: "Status"),
+              grid.Column("#Actions",canSort="false" format: @<text><button class="btn btn-xs btn-default waves-effect" onclick="editDesigType(@item.LookUpID)">
+            <i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)))  
+        </div>
+    </div>
+</div>
+ @using (Html.BeginForm("SaveEduProduct", "Config", FormMethod.Post, new { id = "myDesignationModal", name = "myDesignationModal" }))
+ {
+<div id="myDesignationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Employee Designation</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                 
+                </div>
+                <div>
+                    
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit"  class="btn btn-info" ng-click="SaveDesignation()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+    }
+<style>
+    #grid {
+        margin-top: 30px;
+        margin-left: 50px;
+    }
+
+    .table table-hover {
+        margin: 4px;
+        border-collapse: collapse;
+        width: 500px;
+        background-color: #B4CFC3;
+    }
+
+    .Grid-Header {
+        background-color: #C1D4E6;
+        font-weight: bold;
+        color: #FFF;
+    }
+
+    .webGrid th, .webGrid td {
+        border: 1px solid #C0C0C0;
+        padding: 5px;
+    }
+
+    .Grid-alt {
+        background-color: #E4E9F5;
+        color: #000;
+    }
+
+    .gridHead a:hover {
+        text-decoration: underline;
+    }
+
+    .description {
+        width: auto;
+    }
+
+    .Grid-selected {
+        background-color: #71857C;
+    }
+  .table-pager > td {
+  padding-top: 10px;
+    text-align: right;
+    margin-bottom:10px;
+}
+
+  .table-pager > td > a {
+    background: #fff;
+    display: inline-block;
+    border-radius: 1px;
+    padding: 6px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #eeeeee;
+  }
+
+  .table-pager > td > a:hover {
+   color: #3f51b5;
+    text-decoration: none;
+  }
+
+</style>
+@section Scripts{
+    <script type="text/javascript">
+        function editDesigType(lookupID) {
+                debugger;
+                $.ajax({
+                    url: '@Url.Content("~/Config/GetDesignationById?lookupId=")' + lookupID,
+                    method: 'get',
+                    contentType: 'text/html',
+                    success: function (html) {
+                        debugger
+                        $('#myDesignationModal').html(html);
+                        $('#myDesignationModal').modal('show');
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            }
+        
+        function Add(lookupID) {
+            $('#myDesignationModal').modal('show');
+        }
+        function SaveDesignation(){
+            $('#myDesignationModal').modal('hide');
+        }
+    </script>
+}

@@ -10,8 +10,8 @@ namespace HR.Web.ViewModels
     public class EmployeeVm
     {
         public EmployeeHeader empHeader { get; set; }
-        public List<EmployeePersonalDetail> empPersonalDetail { get; set; }
-        public List<EmployeeWorkDetail> empWorkDetail { get; set; }
-        public List<EmployeeDocumentDetail> empDocumentDetail { get; set; }
+        public EmployeePersonalDetail empPersonalDetail { get; set; }
+        public EmployeeWorkDetail empWorkDetail { get; set; }
+        public EmployeeDocumentDetail empDocumentDetail { get; set; }
     }
 }

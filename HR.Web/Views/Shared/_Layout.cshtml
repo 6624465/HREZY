@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -54,7 +54,8 @@
 
         .app .off-canvas {
             background-color: rgba(255, 255, 255, .15);
-        }
+        }
+
     </style>
     @RenderSection("Styles", false)
 </head>
@@ -376,7 +377,7 @@
                         </a>
                         <ul class="inner-drop list-unstyled">
                             <li><a href="/Config/Index">Employee Designation</a></li>
-                            <li><a href="@Url.Content("~/Config/EmployeeTypeList")">Employee Type</a></li>
+                            <li><a href="#">Employee Type</a></li>
                             <li><a href="#">Employee Department</a></li>
                             <li><a href="#">Employee Status</a></li>
                             <li><a href="#">Marital Status</a></li>
@@ -572,8 +573,7 @@
             $('#app').perfectScrollbar();
         });
     </script>*@
-    @RenderSection("Scripts", false)
-   
+    @RenderSection("Scripts", false)  
 
 </body>
 </html>

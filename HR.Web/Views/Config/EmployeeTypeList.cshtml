@@ -14,7 +14,7 @@
                 <div class="box-header">
                     <h4>Employee Type</h4>
                     <div class="box-tools">
-                        <button class="btn btn-default waves-effect" type="button" onclick="editEmpType(-1);"><i class="fa fa-plus"></i> Add</button>
+                        <button class="btn btn-info btn-raised waves-effect" type="button" onclick="editEmpType(-1);"><i class="fa fa-plus"></i> Add</button>
                     </div>
                 </div>
                 <div class="box-body">
@@ -26,7 +26,7 @@
                 grid.Column("LookUpDescription", "Employee Type Description", canSort: true),
                  //grid.Column("IsActive", "Status", canSort: false),
                  grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),
-                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-default waves-effect" onclick="editEmpType(@item.LookUpID)"><i class="fa fa-pencil"></i></button></text>)),
+                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" onclick="editEmpType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table")
                 </div>
             </div>

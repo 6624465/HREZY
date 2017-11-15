@@ -217,6 +217,18 @@
           <EntitySet Name="EmployeeHeaders" EntityType="DB_9F30C5_HRDBModel.EmployeeHeader" />
           <EntitySet Name="EmployeePersonalDetails" EntityType="DB_9F30C5_HRDBModel.EmployeePersonalDetail" />
           <EntitySet Name="EmployeeWorkDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeWorkDetail" />
+          <AssociationSet Name="EmployeeHeaderEmployeePersonalDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeePersonalDetail">
+            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
+            <End Role="EmployeePersonalDetail" EntitySet="EmployeePersonalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeHeaderEmployeeWorkDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeWorkDetail">
+            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
+            <End Role="EmployeeWorkDetail" EntitySet="EmployeeWorkDetails" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeHeaderEmployeeDocumentDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail">
+            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
+            <End Role="EmployeeDocumentDetail" EntitySet="EmployeeDocumentDetails" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -317,6 +329,48 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
+        <Association Name="EmployeeHeaderEmployeePersonalDetail">
+          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.EmployeePersonalDetail" Role="EmployeePersonalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeHeader">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="EmployeePersonalDetail">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmployeeHeaderEmployeeWorkDetail">
+          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.EmployeeWorkDetail" Role="EmployeeWorkDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeHeader">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="EmployeeWorkDetail">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmployeeHeaderEmployeeDocumentDetail">
+          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Role="EmployeeDocumentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeHeader">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="EmployeeDocumentDetail">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

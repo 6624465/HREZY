@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DB_9F30C5_HRDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LookUp">
+          <Key>
+            <PropertyRef Name="LookUpID" />
+          </Key>
+          <Property Name="LookUpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LookUpCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LookUpDescription" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LookUpCategory" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Branches">
           <Key>
             <PropertyRef Name="BranchID" />
@@ -150,6 +164,7 @@
           <Property Name="BranchId" Type="int" />
         </EntityType>
         <EntityContainer Name="DB_9F30C5_HRDBModelStoreContainer">
+          <EntitySet Name="LookUp" EntityType="Self.LookUp" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Branches" EntityType="Self.Branches" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Companies" EntityType="Self.Companies" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="Master" store:Type="Tables" />
@@ -229,6 +244,7 @@
             <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
             <End Role="EmployeeDocumentDetail" EntitySet="EmployeeDocumentDetails" />
           </AssociationSet>
+          <EntitySet Name="LookUps" EntityType="DB_9F30C5_HRDBModel.LookUp" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -371,6 +387,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LookUp">
+          <Key>
+            <PropertyRef Name="LookUpID" />
+          </Key>
+          <Property Name="LookUpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LookUpCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LookUpDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LookUpCategory" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -521,6 +551,21 @@
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="WorkDetailID" ColumnName="WorkDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LookUps">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.LookUp">
+              <MappingFragment StoreEntitySet="LookUp">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LookUpCategory" ColumnName="LookUpCategory" />
+                <ScalarProperty Name="LookUpDescription" ColumnName="LookUpDescription" />
+                <ScalarProperty Name="LookUpCode" ColumnName="LookUpCode" />
+                <ScalarProperty Name="LookUpID" ColumnName="LookUpID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

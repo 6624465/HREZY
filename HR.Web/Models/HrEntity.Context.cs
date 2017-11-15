@@ -34,5 +34,6 @@ namespace HR.Web.Models
         public virtual DbSet<EmployeeHeader> EmployeeHeaders { get; set; }
         public virtual DbSet<EmployeePersonalDetail> EmployeePersonalDetails { get; set; }
         public virtual DbSet<EmployeeWorkDetail> EmployeeWorkDetails { get; set; }
+        public virtual DbSet<LookUp> LookUps { get; set; }
     }
 }

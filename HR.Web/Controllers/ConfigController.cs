@@ -237,10 +237,52 @@ namespace HR.Web.Controllers
             return RedirectToAction("EmployeeDepartmentList");
         }
         #endregion
-        public ActionResult GetEmployeeStatus()
+        #region EmployeeStatus
+        public ActionResult EmployeeStatusList()
         {
             using (var dbCntx = new HrDataContext())
             {
+                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeStatus").ToList().AsEnumerable();
+                return View(list);
+            }
+
+        }
+        [HttpGet]
+        public PartialViewResult GetEmployeeStatus(int lookupID)
+        {
+            if (lookupID != -1)
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var employeeStatus = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    return PartialView(employeeStatus);
+                }
+
+            }
+            else
+                return PartialView(new LookUp { LookUpID = -1 });
+        }
+        [HttpPost]
+        public ActionResult SaveEmployeeStatus(LookUp lookup)
+        {
+            if (lookup.LookUpID != -1)
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+
+                    _lookupObj.LookUpCode = lookup.LookUpCode;
+                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
+                    _lookupObj.ModifiedBy = USERID;
+                    _lookupObj.ModifiedOn = DateTime.Now;
+
+                    dbCntx.SaveChanges();
+                }
+            }
+            else
+            {
+                using (var dbCntx = new HrDataContext())
+                {
                     var lookupObj = new LookUp
                     {
                         LookUpCode = lookup.LookUpCode,
@@ -253,16 +295,16 @@ namespace HR.Web.Controllers
                         ModifiedBy = USERID
                     };
 
-
                     dbCntx.LookUps.Add(lookupObj);
                     dbCntx.SaveChanges();
-            }
+                }
 
-        }
+            }
             return RedirectToAction("EmployeeStatusList");
         }
-        #endregion
-       
+#endregion
+
     }
+
 
 }

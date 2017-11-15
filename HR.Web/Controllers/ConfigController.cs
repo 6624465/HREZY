@@ -19,7 +19,7 @@ namespace HR.Web.Controllers
         }
         public ActionResult EmployeeType()
         {
-           
+
             return View();
         }
     }

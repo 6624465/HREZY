@@ -1719,8 +1719,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Employee\Add.cshtml" />
-    <Content Include="Views\Config\EmployeeType.cshtml" />
-    <Content Include="Views\Config\EmployeeDepartmentList.cshtml" />
+    <Content Include="Views\Config\EmployeeTypeList.cshtml" />
+    <Content Include="Views\Config\GetEmployeeType.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

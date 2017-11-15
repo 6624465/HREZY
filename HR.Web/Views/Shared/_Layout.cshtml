@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -15,6 +15,48 @@
     <link href="@Url.Content("~/Css/lib/bootstrap/dist/css/bootstrap.css")" rel="stylesheet" />
     <link rel="stylesheet" href="@Url.Content("~/Css/main.min.css")">
     <link href="@Url.Content("~/Css/sitecss.css")" rel="stylesheet" />
+    <style type="text/css">
+        /*#app {
+            width: 400px;
+            height: 300px;
+            margin: 50px auto 0 auto;
+            position: relative;
+            overflow: auto;
+        }*/
+
+        /*#content {
+            background: url('https://noraesae.github.io/perfect-scrollbar/azusa.jpg') top left no-repeat;
+            width: 1280px;
+            height: 720px;
+        }*/
+        /* Track */
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 20px;
+            border-radius: 10px;
+            background: rgb(236, 240, 245);
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+            background: rgba(255,0,0,0.4);
+        }
+
+        .css10 {
+            margin-top: 10px;
+        }
+
+        .app .off-canvas {
+            background-color: rgba(255, 255, 255, .15);
+        }
+
+    </style>
     @RenderSection("Styles", false)
 </head>
 <body id="app" class="app off-canvas">
@@ -335,7 +377,7 @@
                         </a>
                         <ul class="inner-drop list-unstyled">
                             <li><a href="/Config/Index">Employee Designation</a></li>
-                            <li><a href="#">Employee Type</a></li>
+                            <li><a href="@Url.Content("~/Config/EmployeeTypeList")">Employee Type</a></li>
                             <li><a href="#">Employee Department</a></li>
                             <li><a href="#">Employee Status</a></li>
                             <li><a href="#">Marital Status</a></li>
@@ -526,8 +568,12 @@
     <script src="@Url.Content("~/Scripts/Core/jquery.easypiechart.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/app.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/index.init.js")"></script>
-    @RenderSection("Scripts", false)
-   
+    @*<script type="text/javascript">
+        $(function () {
+            $('#app').perfectScrollbar();
+        });
+    </script>*@
+    @RenderSection("Scripts", false)  
 
 </body>
 </html>

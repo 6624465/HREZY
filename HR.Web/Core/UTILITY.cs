@@ -8,5 +8,10 @@ namespace HR.Web
     public static class UTILITY
     {
         public static string SSN_USERID = "SSN_USERID";
+
+
+        /* Config Keys Start */
+        public static string CONFIG_EMPLOYEETYPE = "EmployeeType";
+        /* Config Keys End */
     }
 }

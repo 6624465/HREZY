@@ -8,25 +8,31 @@ using System.Web.Mvc;
 
 namespace HR.Web.Controllers
 {
-    public class ConfigController : Controller
-    {
-        HrDataContext dbContext = new HrDataContext();
-        // GET: Config
-        public ActionResult EmployeeDesignation()
-        {
-         var  list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeDesignation").Select(m => new
-            {
-                LookUpCode = m.LookUpCode,
-                LookUpDescription = m.LookUpDescription,
-                LookUpID = m.LookUpID,
-                IsActive = m.IsActive
-            }).AsQueryable();
-            return Json(list,JsonRequestBehavior.AllowGet);
-        }
+
+    [SessionFilter]
+    public class ConfigController : BaseController
+    {       
+       
         public  ActionResult Index()
         {
-
             return View();
+        }
+        public ActionResult EmployeeTypeList()
+        {
+            using (var dbContext = new HrDataContext())
+            {
+                var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
+                return View(list);
+            }
+        }
+
+        public PartialViewResult GetEmployeeType(int lookupID)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var employeeType = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                return PartialView(employeeType);
+            }
         }
     }
 }

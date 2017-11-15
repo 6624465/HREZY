@@ -8,19 +8,31 @@ using System.Web.Mvc;
 
 namespace HR.Web.Controllers
 {
-    public class ConfigController : Controller
-    {
-        HrDataContext dbContext = new HrDataContext();
+
+    [SessionFilter]
+    public class ConfigController : BaseController
+    {       
        
         public  ActionResult Index()
         {
-
             return View();
         }
-        public ActionResult EmployeeType()
+        public ActionResult EmployeeTypeList()
         {
+            using (var dbContext = new HrDataContext())
+            {
+                var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
+                return View(list);
+            }
+        }
 
-            return View();
+        public PartialViewResult GetEmployeeType(int lookupID)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var employeeType = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                return PartialView(employeeType);
+            }
         }
     }
 }

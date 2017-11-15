@@ -119,5 +119,12 @@ namespace HR.Web.Controllers
             }
                 
         }
+        public ActionResult GetEmployeeStatus()
+        {
+
+            var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeStatus").AsQueryable();
+            return View(list);
+
+        }
     }
 }

@@ -13,43 +13,37 @@ namespace HR.Web.Controllers
     public class ConfigController : BaseController
     {
         HrDataContext dbContext = new HrDataContext();
-
         public ActionResult GetDesignation()
         {
             var EmployeeData = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeDesignation").AsQueryable();
             return View(EmployeeData);
         }
-       
-        }
-        
+
         public ActionResult EmpTypepaging(int page)
         {
-            
-                int pageSize = 5;
-                int totalpages = 0;
-                int totalRecords = 0;
-            
+
+            int pageSize = 5;
+            int totalpages = 0;
+            int totalRecords = 0;
+
             using (var dbctx = new HrDataContext())
             {
-
-                    totalRecords = dbctx.LookUps.ToList().Count();
-        
-                    totalpages = (totalRecords / pageSize) + ((totalRecords % pageSize) > 0 ? 1 : 0);
-   
-                   var allList = dbctx.LookUps.OrderBy(a => a.LookUpID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                totalRecords = dbctx.LookUps.ToList().Count();
+                totalpages = (totalRecords / pageSize) + ((totalRecords % pageSize) > 0 ? 1 : 0);
+                var allList = dbctx.LookUps.OrderBy(a => a.LookUpID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
                 return View(allList);
             }
-           
         }
 
         #region EmployeeType
         [HttpGet]
         public ActionResult EmployeeTypeList()
         {
-            
+            using (var dbCntx = new HrDataContext())
+            {
                 var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
                 return View(list);
-            
+            }
         }
 
         [HttpGet]
@@ -117,14 +111,12 @@ namespace HR.Web.Controllers
                 var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeDepartment").AsQueryable();
                 return View(list);
             }
-                
+
         }
         public ActionResult GetEmployeeStatus()
         {
-
             var list = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeStatus").AsQueryable();
             return View(list);
-
         }
     }
 }

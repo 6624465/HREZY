@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Company" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Country" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.User" Width="1.5" PointX="6.625" PointY="0.75" />
-        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Width="1.5" PointX="6.875" PointY="10.375" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Width="1.5" PointX="4.125" PointY="8.375" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeHeader" Width="1.5" PointX="10.25" PointY="5.375" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeePersonalDetail" Width="1.5" PointX="12.625" PointY="10.375" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeWorkDetail" Width="1.5" PointX="9.625" PointY="10.375" />
@@ -17,6 +17,8 @@
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeWorkDetail" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LookUp" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Address" Width="1.5" PointX="6.875" PointY="9.5" />
+        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

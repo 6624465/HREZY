@@ -1,0 +1,12 @@
+﻿@{
+    var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5,
+    selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+    grid.Pager(WebGridPagerModes.NextPrevious);
+    }
+ 
+@{
+    ViewBag.Title = "EmployeeDepartment";
+}
+
+<h2>Employee Department</h2>
+

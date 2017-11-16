@@ -1,17 +1,14 @@
 ﻿
-@using (Html.BeginForm("SaveEmployeeLeaveRequest", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
-{
-    <div class="page">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default  panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Employee Leave Request Form</div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="form-group">icon ion-thumbsup
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">ID Type</span>
-                                </label>
+
+<div class="page">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="panel-heading">Employee Leave Details</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
                             </div>
                         </div>
                     </div>
@@ -19,29 +16,44 @@
             </div>
         </div>
     </div>
-}
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="panel-heading">Employee Leave Form</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label">
+                                        <span class="pull-right">From Date</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        <div class="input-group date" id="fromDate">
+                                            @*@Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCss", required = "required" })*@
+                                            <span class="input-group-addon">
+                                                <i class="ion ion-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label">
+                                        <span class="pull-right">To Date</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        <div class="input-group date" id="ToDate">
+                                            @*@Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCss", required = "required" })*@
+                                            <span class="input-group-addon">
+                                                <i class="ion ion-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -33,8 +33,7 @@ namespace HR.Web.Models
         public virtual DbSet<EmployeePersonalDetail> EmployeePersonalDetails { get; set; }
         public virtual DbSet<EmployeeWorkDetail> EmployeeWorkDetails { get; set; }
         public virtual DbSet<LookUp> LookUps { get; set; }
-        public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<CompanyAddress> CompanyAddresses { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
     }
 }

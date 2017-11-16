@@ -16,11 +16,10 @@
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeWorkDetail" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LookUp" Width="1.5" PointX="0.75" PointY="5.75" />
-        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Address" Width="1.5" PointX="6.875" PointY="9.5" />
-        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress" />
-        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.CompanyAddress" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Company" Width="1.5" PointX="3.375" PointY="3.75" />
-        <AssociationConnector Association="DB_9F30C5_HRDBModel.CompanyCompanyAddress" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Address" Width="1.5" PointX="5.375" PointY="5.75" />
+        <AssociationConnector Association="DB_9F30C5_HRDBModel.CompanyAddress" />
+        <AssociationConnector Association="DB_9F30C5_HRDBModel.BranchAddress" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

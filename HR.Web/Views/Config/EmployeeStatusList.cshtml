@@ -39,7 +39,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info" ng-click="SaveStatus()">Save</button>
+                    <button type="submit" class="btn btn-info" onclick="SaveStatus()">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -47,6 +47,7 @@
         </div>
     </div>
 }
+
 @section Scripts{
     <script type="text/javascript">
         function editEmpStatus(lookupID) {
@@ -68,11 +69,22 @@
         }
 
         function SaveStatus() {
-            debugger
-            if ($('#frm').valid()) {
+            debugger;
                 $('#frm').submit();
-            }
         }
+        
+        $('#frm').validate({
+            rules: {
+                LookUpCode: {
+                    required: true
+                },
+                LookUpDescription: {
+                    required: true
+                }
+            }
+        });
+            
+              
 
     </script>
 }

@@ -81,25 +81,7 @@ namespace HR.Web.Controllers
 
         #endregion
 
-        //public ActionResult EmpTypepaging(int page)
-        //{
-
-        //        int pageSize = 5;
-        //        int totalpages = 0;
-        //        int totalRecords = 0;
-
-        //    using (var dbctx = new HrDataContext())
-        //    {
-
-        //            totalRecords = dbctx.LookUps.ToList().Count();
-
-        //            totalpages = (totalRecords / pageSize) + ((totalRecords % pageSize) > 0 ? 1 : 0);
-
-        //           var allList = dbctx.LookUps.OrderBy(a => a.LookUpID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //        return View(allList);
-        //    }
-
-        //}
+        
 
         #region EmployeeType
         [HttpGet]

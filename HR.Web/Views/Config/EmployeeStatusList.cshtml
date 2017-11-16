@@ -19,7 +19,7 @@
                 columns: grid.Columns(
                 grid.Column("LookUpCode", "Employee Status Name", canSort: true),
                 grid.Column("LookUpDescription", "Employee Status Description", canSort: true),
-                grid.Column("IsActive", "Status"),
+                //grid.Column("IsActive", "Status"),
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpStatus(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table")
                 </div>
@@ -39,7 +39,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info" onclick="SaveStatus()">Save</button>
+                    <button type="submit" class="btn btn-info" ng-click="SaveStatus()">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -47,7 +47,6 @@
         </div>
     </div>
 }
-
 @section Scripts{
     <script type="text/javascript">
         function editEmpStatus(lookupID) {
@@ -67,24 +66,24 @@
                 }
             });
         }
-
-        function SaveStatus() {
-            debugger;
-                $('#frm').submit();
-        }
-        
         $('#frm').validate({
             rules: {
-                LookUpCode: {
-                    required: true
-                },
-                LookUpDescription: {
-                    required: true
-                }
+                LookUpCode:
+                    {
+                        required:true
+                    },
+                LookUpDescription:
+                    {
+                        required:true
+                    }
             }
+
+
         });
-            
-              
+
+        function SaveStatus() {
+                $('#frm').submit();
+        }
 
     </script>
 }

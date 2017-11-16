@@ -1562,7 +1562,6 @@
     <Content Include="Scripts\Core\index.init.js" />
     <Content Include="Scripts\Core\jquery.easypiechart.min.js" />
     <Content Include="Scripts\Core\jquery.sparkline.min.js" />
-    <Content Include="Scripts\Core\jquery.validate.js" />
     <Content Include="Scripts\Core\perfect-scrollbar.min.js" />
     <Content Include="Scripts\Core\screenfull.js" />
     <Content Include="Scripts\Core\sitescript.js" />
@@ -1570,6 +1569,8 @@
     <Content Include="Scripts\Core\vendors.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ui-bootstrap.js" />
     <Content Include="Web.config" />
@@ -1584,7 +1585,9 @@
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\PayRollController.cs" />
     <Compile Include="Core\UTILITY.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1736,6 +1739,11 @@
     <Content Include="Views\Config\GetLeaveType.cshtml" />
     <Content Include="Views\Config\PaymentTypeList.cshtml" />
     <Content Include="Views\Config\GetPaymentType.cshtml" />
+    <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
+    <Content Include="Views\Leave\HolidayList.cshtml" />
+    <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
+    <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
+    <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1580,6 +1580,7 @@
     <Compile Include="ActionFilters\SessionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -1597,6 +1598,9 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Company.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompanyAddress.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Country.cs">
@@ -1636,6 +1640,7 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CompanyVm.cs" />
     <Compile Include="ViewModels\EmployeeVm.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1734,6 +1739,7 @@
     <Content Include="Views\Config\GetEmployeeMaritalStatus.cshtml" />
     <Content Include="Views\Config\LeaveList.cshtml" />
     <Content Include="Views\Config\GetLeaveType.cshtml" />
+    <Content Include="Views\Administration\Company.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

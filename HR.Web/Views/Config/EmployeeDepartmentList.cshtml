@@ -2,14 +2,14 @@
 @model IEnumerable<HR.Web.Models.LookUp>
 
 @{
-    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
     grid.Pager(WebGridPagerModes.All);
-    
+
 }
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
-            <div class="box">
+            <div class="box" id="grid">
                 <div class="box-header">
                     <h4>Employee Department</h4>
                     <div class="box-tools">
@@ -17,14 +17,22 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    @grid.GetHtml(
-                    footerStyle: "Grid-Footer",
+                    <div class="row">
+                        <div class="col-md-12">
+                            @grid.GetHtml(
                 columns: grid.Columns(
                 grid.Column("LookUpCode", "Employee Department Name", canSort: true),
                 grid.Column("LookUpDescription", "Employee Department Description", canSort: true),
                 @*grid.Column("IsActive", "Status",format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDepartment(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,22 +77,19 @@
                 }
             });
         }
+
         $('#frm').validate({
             rules: {
                 LookUpCode: {
                     required: true
-        },
-        LookUpDescription:{
-            required: true
-
-        }
-
-     }
-
- });
-
-        function SaveDepartment() {
-                $('#frm').submit();
+                },
+                LookUpDescription: {
+                    required: true
+                }
+            }
+        });
+        function SaveChanges() {
+            $('#frm').submit();
         }
 
     </script>

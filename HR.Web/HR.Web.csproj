@@ -1652,6 +1652,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CompanyVm.cs" />
+    <Compile Include="ViewModels\EmployeeListVm.cs" />
     <Compile Include="ViewModels\EmployeeVm.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
   </ItemGroup>

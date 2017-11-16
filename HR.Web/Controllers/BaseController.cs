@@ -20,5 +20,17 @@ namespace HR.Web.Controllers
                 Session[UTILITY.SSN_USERID] = value;
             }
         }
+
+        public int BRANCHID
+        {
+            get
+            {
+                return (int)System.Web.HttpContext.Current.Session[UTILITY.SSN_BRANCHID];
+            }
+            set
+            {
+                Session[UTILITY.SSN_BRANCHID] = value;
+            }
+        }
     }
 }

@@ -14,5 +14,11 @@ namespace HR.Web.ViewModels
         public EmployeeWorkDetail empWorkDetail { get; set; }
         public EmployeeDocumentDetail empDocumentDetail { get; set; }
         public EmployeeAddress address { get; set; }
+
+        public HttpPostedFileBase UIDCard { get; set; }
+        public HttpPostedFileBase EducationDocument { get; set; }
+        public HttpPostedFileBase ExperienceLetters { get; set; }
+        public HttpPostedFileBase ProjectDocuments { get; set; }
+        public HttpPostedFileBase OtherDocuments { get; set; }
     }
 }

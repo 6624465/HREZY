@@ -8,6 +8,7 @@ namespace HR.Web
     public static class UTILITY
     {
         public static string SSN_USERID = "SSN_USERID";
+        public static string SSN_BRANCHID = "SSN_BRANCHID";
 
 
         /* Config Keys Start */
@@ -27,5 +28,16 @@ namespace HR.Web
 
 
         /* Config Keys End */
+
+        public static DateTime SINGAPORETIME
+        {
+            get
+            {
+                string nzTimeZoneKey = "SE Asia Standard Time";
+                TimeZoneInfo nzTimeZone = TimeZoneInfo.FindSystemTimeZoneById(nzTimeZoneKey);
+                return TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, nzTimeZone);
+            }
+
+        }
     }
 }

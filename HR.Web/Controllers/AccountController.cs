@@ -25,6 +25,7 @@ namespace HR.Web.Controllers
             if (userObj != null) {
                 FormsAuthentication.SetAuthCookie(userObj.UserName,false);
                 USERID = user.UserName;
+                BRANCHID = userObj.BranchId.Value;
                 return RedirectToAction("Index", "Home");
             }
             return View();

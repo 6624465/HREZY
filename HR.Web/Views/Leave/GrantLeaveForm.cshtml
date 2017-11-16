@@ -47,59 +47,62 @@
                 </div>
             </div>
         </div>
-            @*<div class="col-md-6">*@
-            <div class="col-md-12 col-md-8">
-                <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Grant Leave List</div>
-                    <div class="table-responsive">
-                        <table class="table table-condensed">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>Leave Granter</th>
-                                    <th>Periodicity</th>
-                                    <th>Period</th>
-                                    <th>Leave Scheme</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+        @*<div class="col-md-6">*@
+        <div class="col-md-12 col-md-8">
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="panel-heading">Grant Leave List</div>
+                <div class="table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Leave Granter</th>
+                                <th>Periodicity</th>
+                                <th>Period</th>
+                                <th>Leave Scheme</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
-                    @*<div class="panel-body">
-            <div class="row">
-                <div class="col-md-12">
-                    @grid.GetHtml(
-                       columns: grid.Columns(
-                       grid.Column("Action"),
-                       grid.Column("Leave Granter"),
-                       grid.Column("Periodicity"),
-                       grid.Column("Period"),
-                       grid.Column("Leave Scheme")
-                      ));
-                </div>
-                </div>
-            </div>*@
-                </div>
+                @*<div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @grid.GetHtml(
+                               columns: grid.Columns(
+                               grid.Column("Action"),
+                               grid.Column("Leave Granter"),
+                               grid.Column("Periodicity"),
+                               grid.Column("Period"),
+                               grid.Column("Leave Scheme")
+                              ));
+                        </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
     </div>
 </div>
     <div class="col-md-12 col-md-4">
         <div class="panel panel-default panel-hovered panel-stacked mb10">
             <div class="checkbox m-b-15"></div>
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Leave Type</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Privilege Leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Casual Leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Sick Leave or Medical Leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Maternity Leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Half Pay Leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Study Leave or Sabbatical Leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Paternity Leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Compensatory leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Earned Leave</label><br />
-            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Restricted Holiday</label>
-        </div>
+         
+                <div class="panel-heading">Leave Type</div>
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Privilege Leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Casual Leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Sick Leave or Medical Leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Maternity Leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Half Pay Leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Study Leave or Sabbatical Leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Paternity Leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Compensatory leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Earned Leave</label><br />
+                <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Restricted Holiday</label>
             </div>
-   <div class="col-md-12 col-md-12">
-            <button type="submit" class="btn btn-info">Grant</button>
-            <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
-        </div>
+       </div>
+    <div class="col-md-12 col-md-12">
+        <button type="submit" class="btn btn-info">Grant</button>
+        <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
+    </div>
+
     

@@ -69,11 +69,18 @@
             });
         }
 
-        function SaveDepartment() {
-            debugger
-            if ($('#frm').valid()) {
-                $('#frm').submit();
+        $('#frm').validate({
+            rules: {
+                LookUpCode: {
+                    required: true
+                },
+                LookUpDescription: {
+                    required: true
+                }
             }
+        });
+        function SaveChanges() {
+            $('#frm').submit();
         }
 
     </script>

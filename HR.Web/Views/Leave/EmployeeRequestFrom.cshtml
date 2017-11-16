@@ -28,7 +28,7 @@
                                     <label class="col-md-1 control-label">
                                         <span class="pull-right">From Date</span>
                                     </label>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="input-group date" id="fromDate">
                                             @*@Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCss", required = "required" })*@
                                             <span class="input-group-addon">
@@ -41,7 +41,7 @@
                                     <label class="col-md-1 control-label">
                                         <span class="pull-right">To Date</span>
                                     </label>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="input-group date" id="ToDate">
                                             @*@Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCss", required = "required" })*@
                                             <span class="input-group-addon">
@@ -50,10 +50,76 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label">
+                                        <span class="pull-right">Days</span>
+                                    </label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="text" disabled="disabled" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row">
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-md-1 control-label">
+                                                    <span class="pull-right">LeaveType</span>
+                                                </label>
+                                                <div class="col-md-3">
+                                                    <select class="form-control">
+
+                                                    </select>
+                                                    @*@Html.DropDownListFor(x => x.lookup.LookUpDescription,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEELEAVETYPE),
+                                    "--Select --",
+                                    new { @class = "form-control" })*@  
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-1 control-label">
+                                                    <span class="pull-right">Reason</span>
+                                                </label>
+                                                <div class="col-md-3">
+                                                    <input class="form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-md-1 control-label">
+                                                    <span class="pull-right">Remarks</span>
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <input class="form-control" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="submit" class="btn btn-info">Save</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

@@ -25,7 +25,16 @@
                 grid.Column("LookUpCode", "Employee Type Name", canSort: true),
                 grid.Column("LookUpDescription", "Employee Type Description", canSort: true),
                  //grid.Column("IsActive", "Status", canSort: false),
-                 grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),
+                @*grid.Column("IsActive", "Status", format:@<text>
+                    <div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
+                        <label class="ui-toggle-inline">
+                            <label class="ui-toggle-inline">
+                                <input id="IsActive" name="IsActive.Value" type="checkbox" checked="@item.IsActive" >
+                                <span></span>
+                            </label>
+                        </label>
+                        </div>
+                </text>),*@
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" onclick="editEmpType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table")
                 </div>

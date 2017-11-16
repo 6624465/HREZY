@@ -18,17 +18,12 @@ namespace HR.Web.Controllers
             return View(new EmployeeVm { });
         }
 
-
+        [HttpPost]
         public ActionResult SaveEmployee()
         {
             return View();
-        }
-       
-      //  [HttpPost]
-        //public ActionResult SaveEmployee(EmployeeHeader empHeader)
-        //{
-        //    return View();
-        //}
+        }    
+      
 
 
     }

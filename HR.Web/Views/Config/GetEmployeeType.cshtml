@@ -12,7 +12,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row css10">
     <div class="form-group">
         <label class="col-md-4 control-label">
             <span class="pull-right">Description</span>
@@ -24,28 +24,18 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group">
-        <label class="col-md-4 control-label">
-            <span class="pull-right">Status</span>
+    <div class="ui-checkbox ui-checkbox-success">
+        <label>
+            <input type="checkbox">
+            <span>Success</span>
         </label>
-        @Html.CheckBoxFor(x => x.IsActive)
-    @*<div class="col-md-8">
-        <label class="switch">
-           @Html.CheckBoxFor(x => x.IsActive, new { @class="form-control"})
-            <span class="slider round"></span>
-        </label>
-    </div>*@
-    @*<div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
-        <label class="ui-toggle-inline">
-            <label class="ui-toggle-inline">
-                <input id="IsActive" name="IsActive.Value" type="checkbox" checked="@Model.IsActive"/>
-                
-                <span></span>
-            </label>
-        </label>
-    </div>*@
-  </div>
+    </div>
 </div>
+<script type="text/javascript">
+    function chkChanged(el) {
+        debugger;
+    }
+</script>
 
 
 

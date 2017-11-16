@@ -1570,7 +1570,9 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ui-bootstrap.js" />
     <Content Include="Web.config" />
@@ -1591,6 +1593,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SelectHelpers.cs" />
+    <Compile Include="Helpers\WebGridExtensions.cs" />
     <Compile Include="Models\Address.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

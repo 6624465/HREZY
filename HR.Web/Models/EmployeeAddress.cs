@@ -12,11 +12,11 @@ namespace HR.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CompanyAddress
+    public partial class EmployeeAddress
     {
         public int AddressId { get; set; }
-        public int CompanyId { get; set; }
-        public int BranchID { get; set; }
+        public int EmployeeId { get; set; }
+        public int BranchId { get; set; }
         public short SeqNo { get; set; }
         public string AddressType { get; set; }
         public string Address1 { get; set; }

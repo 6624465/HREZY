@@ -14,6 +14,7 @@ namespace HR.Web
             if (string.IsNullOrWhiteSpace(SSN_USERID))
             {
                 filterContext.Result = new RedirectResult("~/Account/Login");
+                return;
             }
         }
     }

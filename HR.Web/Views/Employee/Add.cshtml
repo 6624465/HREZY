@@ -1,9 +1,10 @@
 ﻿@model HR.Web.ViewModels.EmployeeVm
-
+@using (Html.BeginForm("SaveEmployee", "Employee", FormMethod.Post, new { id = "frmEmp", name = "frmEmp" }))
+{
     <div class="page">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">Profile</div>
                     <div class="panel-body">
                         <div class="row">
@@ -22,7 +23,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     <div class="input-group date" id="datepickerDemo">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control", required = "required" })
                                         <span class="input-group-addon">
                                             <i class=" ion ion-calendar"></i>
                                         </span>
@@ -37,14 +38,14 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.FirstName,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Last Name</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.LastName,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -55,7 +56,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -67,7 +68,7 @@
                                 <div class="input-group date" id="datepickerDemo">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control" })
                                     <span class="input-group-addon">
-                                        <i class=" ion ion-calendar"></i>
+                                        <i class="ion ion-calendar"></i>
                                     </span>
                                 </div>
                             </div>
@@ -92,14 +93,14 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.address.Email,
-                                        new { @class = "form-control" })
+             new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Mobile</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.address.MobileNo,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -110,8 +111,8 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
-                                        new { @class = "form-control" })
-                                </div>                                
+             new { @class = "form-control" })
+                                </div>
                             </div>
                         </div>
                         <div class="row css5">
@@ -121,16 +122,16 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empHeader.Nationality,
-                                        SelectListItemHelper.CountryList(), "Select Country",
-                                        new { @class = "form-control" })
+             SelectListItemHelper.CountryList(), "Select Country",
+             new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Maritial Status</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
-                                        SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEMARITALSTATUS), "Select MartialStatus",
-                                        new { @class = "form-control" })
+             SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEMARITALSTATUS), "Select MartialStatus",
+             new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -141,25 +142,25 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
-                                        new { @class = "form-control" })
+             new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Emg. Contact No</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">Address</div>
                     <div class="panel-body">
                         <div class="row">
@@ -169,7 +170,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextAreaFor(x => x.address.Address1,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -180,7 +181,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextAreaFor(x => x.address.Address2,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -191,7 +192,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.CityName,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -202,7 +203,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.StateName,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -213,7 +214,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.ZipCode,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -221,7 +222,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">Employee Position</div>
                     <div class="panel-body">
                         <div class="row">
@@ -231,9 +232,9 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEDESIGNATION),
-                                    "Select Designation",
-                                    new { @class = "form-control" })
+         SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEDESIGNATION),
+         "Select Designation",
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -244,9 +245,9 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEDEPARTMENT),
-                                    "Select Department",
-                                    new { @class = "form-control" })
+         SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEDEPARTMENT),
+         "Select Department",
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -257,9 +258,9 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_NOTICEPERIOD),
-                                    "Select NoticePeriod",
-                                    new { @class = "form-control" })
+         SelectListItemHelper.ConfigData(UTILITY.CONFIG_NOTICEPERIOD),
+         "Select NoticePeriod",
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -270,9 +271,9 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(x => x.empWorkDetail.ProbationPeriod,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_PROHIBATIONPERIOD),
-                                    "Select Prohibation",
-                                    new { @class = "form-control" })
+         SelectListItemHelper.ConfigData(UTILITY.CONFIG_PROHIBATIONPERIOD),
+         "Select Prohibation",
+         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -312,7 +313,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">Employee Login Info</div>
                     <div class="panel-body">
                         <div class="row">
@@ -322,26 +323,26 @@
                                 </label>
                                 <div class="col-md-3">
                                     @Html.TextBoxFor(x => x.empHeader.UserId,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="row css5">
                             <div class="form-group">
-                                <label class="col-md-2 control-label">
+                                <label class="col-md-1 control-label">
                                     <span class="pull-right">Password</span>
                                 </label>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     @Html.TextBoxFor(x => x.empHeader.Password,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Confirm Password</span>
                                 </label>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     @Html.TextBoxFor(x => x.empHeader.ConfirmPassword,
-                                    new { @class = "form-control" })
+         new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Status</span>
@@ -353,19 +354,19 @@
                                             <label class="ui-toggle-inline">
                                                 <input id="empHeader_IsActive_Value" name="empHeader.IsActive.Value" type="checkbox">
                                                 <span></span>
-                                            </label>                                            
+                                            </label>
                                         </label>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>            
-        </div>  
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">Employee Documents</div>
                     <div class="panel-body">
                         <div class="row">
@@ -416,6 +417,73 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" type="button" onclick="SaveEmployee()">Save</button>
+            </div>
+        </div>
     </div>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            debugger;
+            $('#frmEmp').validate({
+                rules: {
+                    'empHeader.IDType': {
+                        required: true
+                    },
+                    'empWorkDetail.JoiningDate': {
+                        required: true
+                    },
+                    'empHeader.FirstName': {
+                        required: true
+                    },
+                    'empHeader.LastName': {
+                        required: true
+                    },
+                    'empPersonalDetail.DOB': {
+                        required: true
+                    },
+                    'address.Email': {
+                        required: true
+                    },
+                    'address.MobileNo': {
+                        required: true
+                    },
+                    'empHeader.Nationality': {
+                        required: true
+                    },
+                    'empPersonalDetail.MaritalStatus': {
+                        required: true
+                    },
+                    'empWorkDetail.ConfirmationDate': {
+                        required: true
+                    },
+                    'address.Address1': {
+                        required: true
+                    },
+                    'address.CityName': {
+                        required: true
+                    },
+                    'empHeader.Password': {
+                        required: true
+                    },
+                    'empHeader.ConfirmPassword': {
+                        required: true
+                    }
+                }
+            });
+        });
+        
+
+        function SaveEmployee() {
+            if ($('#frmEmp').valid()) {
+                $('#frmEmp').submit();
+            }
+        }
+    </script>
+}
 
 

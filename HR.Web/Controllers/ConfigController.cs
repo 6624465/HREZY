@@ -81,25 +81,7 @@ namespace HR.Web.Controllers
 
         #endregion
 
-        //public ActionResult EmpTypepaging(int page)
-        //{
-
-        //        int pageSize = 5;
-        //        int totalpages = 0;
-        //        int totalRecords = 0;
-
-        //    using (var dbctx = new HrDataContext())
-        //    {
-
-        //            totalRecords = dbctx.LookUps.ToList().Count();
-
-        //            totalpages = (totalRecords / pageSize) + ((totalRecords % pageSize) > 0 ? 1 : 0);
-
-        //           var allList = dbctx.LookUps.OrderBy(a => a.LookUpID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        //        return View(allList);
-        //    }
-
-        //}
+        
 
         #region EmployeeType
         [HttpGet]
@@ -140,6 +122,7 @@ namespace HR.Web.Controllers
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
+                    _lookupObj.IsActive = lookup.IsActive;
                     _lookupObj.ModifiedBy = USERID;
                     _lookupObj.ModifiedOn = DateTime.Now;
 
@@ -155,7 +138,7 @@ namespace HR.Web.Controllers
                         LookUpCode = lookup.LookUpCode,
                         LookUpDescription = lookup.LookUpDescription,
                         LookUpCategory = UTILITY.CONFIG_EMPLOYEETYPE,
-                        IsActive = true,
+                        IsActive = lookup.IsActive,
                         CreatedOn = DateTime.Now,
                         CreatedBy = USERID,
                         ModifiedOn = DateTime.Now,
@@ -370,6 +353,7 @@ namespace HR.Web.Controllers
             return RedirectToAction("MaritalStatusList");
         }
         #endregion
+        #region LeaveList
         public ActionResult LeaveList()
         {
             using (var dbContext = new HrDataContext())
@@ -434,6 +418,73 @@ namespace HR.Web.Controllers
             }
             return RedirectToAction("LeaveList");
         }
+        #endregion
+        #region PaymentType
+        public ActionResult PaymentTypeList()
+        {
+            using (var dbContext = new HrDataContext())
+            {
+                var paymentType = dbContext.LookUps.Where(x => x.LookUpCategory == "PaymentType").ToList().AsEnumerable();
+                return View(paymentType);
+            }
+
+        }
+        [HttpGet]
+        public PartialViewResult GetPaymentType(int lookupID)
+        {
+            if (lookupID != -1)
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var payment_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    return PartialView(payment_data);
+                }
+
+            }
+            else
+                return PartialView(new LookUp { LookUpID = -1 });
+        }
+        [HttpPost]
+        public ActionResult SavePaymentType(LookUp lookup)
+        {
+            if (lookup.LookUpID != -1)
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+
+                    _lookupObj.LookUpCode = lookup.LookUpCode;
+                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
+                    _lookupObj.ModifiedBy = USERID;
+                    _lookupObj.ModifiedOn = DateTime.Now;
+
+                    dbCntx.SaveChanges();
+                }
+            }
+            else
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var lookupObj = new LookUp
+                    {
+                        LookUpCode = lookup.LookUpCode,
+                        LookUpDescription = lookup.LookUpDescription,
+                        LookUpCategory = UTILITY.CONFIG_EMPLOYEEPAYMENTTYPE,
+                        IsActive = true,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = USERID,
+                        ModifiedOn = DateTime.Now,
+                        ModifiedBy = USERID
+                    };
+
+                    dbCntx.LookUps.Add(lookupObj);
+                    dbCntx.SaveChanges();
+                }
+
+            }
+            return RedirectToAction("PaymentTypeList");
+        }
+        #endregion
     }
 
 

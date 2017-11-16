@@ -15,6 +15,7 @@
     <link href="@Url.Content("~/Css/lib/bootstrap/dist/css/bootstrap.css")" rel="stylesheet" />
     <link rel="stylesheet" href="@Url.Content("~/Css/main.min.css")">
     <link href="@Url.Content("~/Css/sitecss.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/jquery-2.2.3.min.js")"></script>
     <style type="text/css">
         /*#app {
             width: 400px;
@@ -60,6 +61,43 @@
             background-color: rgba(255, 255, 255, .15);
         }
 
+        label.error {
+            display: none !important;
+        }
+
+        input[type=text].error, input[type=password].error, textarea.error, select.error {
+            /*border-color: #F44336;*/
+            border-bottom-color: #F44336;
+            /*border-color: #a94442;*/
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075);
+            border-bottom-width: 1px;
+        }        
+
+        /*.has-error .form-control {
+            border-color: #a94442;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        }*/
+
+        .table tfoot {
+            display: none;
+        }
+
+        .class_checkbox {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            *display: inline;
+            vertical-align: middle;
+            margin: 0;
+            padding: 0;
+            width: 18px;
+            height: 18px;
+            background: url(../images/blue.png) no-repeat;
+            border: none;
+            cursor: pointer;
+        }
     </style>
     @RenderSection("Styles", false)
 </head>
@@ -384,10 +422,9 @@
                             <li><a href="@Url.Content("~/Config/EmployeeTypeList")">Employee Type</a></li>
                             <li><a href="@Url.Content("~/Config/EmployeeDepartmentList")">Employee Department</a></li>
                             <li><a href="@Url.Content("~/Config/EmployeeStatusList")">Employee Status</a></li>
-                            <li><a href="@Url.Content("~/Config/EmployeeDepartmentList")">Employee Department</a></li>
                             <li><a href="@Url.Content("~/Config/MaritalStatusList")">Marital Status</a></li>
                             <li><a href="@Url.Content("~/Config/LeaveList")">Leave</a></li>
-                            <li><a href="#">Pay Roll</a></li>
+                            <li><a href="@Url.Content("~/Config/PaymentTypeList")">Pay Roll</a></li>
                         </ul>
                     </li>
 
@@ -406,12 +443,24 @@
                     <li>
                         <a href="javascript:;">
                             <i class="ion ion-calendar"></i>
-                            <span class="text">Administration</span>
+                            <span class="text">PayRoll</span>
                             <i class="arrow ion-chevron-left"></i>
                         </a>
                         <ul class="inner-drop list-unstyled">
-                            <li><a href="@Url.Content("~/Administration/Company")">Company</a></li>
-                            <li><a href="@Url.Content("~/Employee/Add")">Role Rights</a></li>
+                            <li><a href="@Url.Content("~/PayRoll/PayRollInfo")">Salary</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="ion ion-calendar"></i>
+                            <span class="text">Leave</span>
+                            <i class="arrow ion-chevron-left"></i>
+                        </a>
+                        <ul class="inner-drop list-unstyled">
+                            <li><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
+                            <li><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+                            <li><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Employee Leave Request</a></li>
+                            <li><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
                         </ul>
                     </li>
                     <li>
@@ -575,9 +624,10 @@
     <!-- Dev only -->
     <!-- Vendors -->
 
-    <script src="@Url.Content("~/Scripts/jquery-1.10.2.js")"></script>
-    <script src="@Url.Content("~/Scripts/Core/jquery.validate.js")"></script>
-    <script src="@Url.Content("~/Scripts/Core/vendors.js")"></script>
+    
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/Core/vendors.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Core/d3.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/c3.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/screenfull.js")"></script>

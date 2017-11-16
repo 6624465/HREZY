@@ -4,6 +4,7 @@
 @{
     WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
     grid.Pager(WebGridPagerModes.All);
+    
 }
 <div class="page">
     <div class="page-wrap">
@@ -21,7 +22,7 @@
                 columns: grid.Columns(
                 grid.Column("LookUpCode", "Employee Department Name", canSort: true),
                 grid.Column("LookUpDescription", "Employee Department Description", canSort: true),
-                grid.Column("IsActive", "Status"),
+                @*grid.Column("IsActive", "Status",format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDepartment(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table")
                 </div>
@@ -68,12 +69,22 @@
                 }
             });
         }
+        $('#frm').validate({
+            rules: {
+                LookUpCode: {
+                    required: true
+        },
+        LookUpDescription:{
+            required: true
+
+        }
+
+     }
+
+ });
 
         function SaveDepartment() {
-            debugger
-            if ($('#frm').valid()) {
                 $('#frm').submit();
-            }
         }
 
     </script>
@@ -99,5 +110,62 @@
                 color: #3f51b5;
                 text-decoration: none;
             }
+
+.switch {
+  position: relative;
+  display: inline-block;
+ width: 50px;
+  height: 23px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+   height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 </style>
+
 

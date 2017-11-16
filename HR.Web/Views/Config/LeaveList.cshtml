@@ -22,10 +22,10 @@
 
                 footerStyle: "Grid-Footer",
                 columns: grid.Columns(
-                grid.Column("LookUpCode", "Employee Type Name", canSort: true),
-                grid.Column("LookUpDescription", "Employee Type Description", canSort: true),
+                grid.Column("LookUpCode", "Leave Type Name", canSort: true),
+                grid.Column("LookUpDescription", "Leave Type Description", canSort: true),
                  //grid.Column("IsActive", "Status", canSort: false),
-                 grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),
+                 @*grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table")
                 </div>

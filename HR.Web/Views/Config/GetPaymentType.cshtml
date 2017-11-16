@@ -4,7 +4,7 @@
     @Html.HiddenFor(x => x.IsActive)
     <div class="form-group">
         <label class="col-md-4 control-label">
-            <span class="pull-right">Type</span>
+            <span class="pull-right"> Payment Type</span>
         </label>
         <div class="col-md-8">
             @Html.TextBoxFor(x => x.LookUpCode,
@@ -15,21 +15,15 @@
 <div class="row">
     <div class="form-group">
         <label class="col-md-4 control-label">
-            <span class="pull-right">Description</span>
+            <span class="pull-right"> Payment Description</span>
         </label>
         <div class="col-md-8">
             @Html.TextAreaFor(x => x.LookUpDescription,
             new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label">
-            <span class="pull-right">IsActive</span>
-        </label>
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-        </label>
-    </div>
 </div>
+
+
+
 

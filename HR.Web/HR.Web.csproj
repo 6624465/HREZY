@@ -1734,6 +1734,8 @@
     <Content Include="Views\Config\GetEmployeeMaritalStatus.cshtml" />
     <Content Include="Views\Config\LeaveList.cshtml" />
     <Content Include="Views\Config\GetLeaveType.cshtml" />
+    <Content Include="Views\Config\PaymentTypeList.cshtml" />
+    <Content Include="Views\Config\GetPaymentType.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -129,7 +129,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
-                                        SelectListItemHelper.ConfigData(UTILITY.CONFIG_MARTIALSATUS), "Select MartialStatus",
+                                        SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEMARITALSTATUS), "Select MartialStatus",
                                         new { @class = "form-control" })
                                 </div>
                             </div>
@@ -362,7 +362,60 @@
                     </div>
                 </div>
             </div>            
-        </div>        
+        </div>  
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb30">
+                    <div class="panel-heading">Employee Documents</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Document Name</th>
+                                            <th>Document Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>UID Card</td>
+                                            <td>
+                                                <input type="file" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Education Document</td>
+                                            <td>
+                                                <input type="file" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Experience Letters</td>
+                                            <td>
+                                                <input type="file" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Project Documents</td>
+                                            <td>
+                                                <input type="file" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Other Documents</td>
+                                            <td>
+                                                <input type="file" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

@@ -241,3 +241,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /HR.Web/Views/Config/Index.cshtml
+/HR.Web/Css/bootstrap-timepicker.css

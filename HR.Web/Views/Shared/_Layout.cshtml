@@ -113,7 +113,7 @@
                     <li><a href="javascript:;"><span class="ion ion-settings">&nbsp;&nbsp;</span>Settings</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:;"><span class="ion ion-lock-combination">&nbsp;&nbsp;</span>Lock Screen</a></li>
-                    <li><a href="javascript:;"><span class="ion ion-power">&nbsp;&nbsp;</span>Logout</a></li>
+                    <li><a href="@Url.Content("~/Account/LogOut")"><span class="ion ion-power">&nbsp;&nbsp;</span>LogOut</a></li>
                 </ul>
             </li>
             <!-- #end profile-drop -->
@@ -381,6 +381,17 @@
                             <li><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
                             <li><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Employee Leave Request</a></li>
                             <li><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="ion ion-calendar"></i>
+                            <span class="text">Administration</span>
+                            <i class="arrow ion-chevron-left"></i>
+                        </a>
+                        <ul class="inner-drop list-unstyled">
+                            <li><a href="@Url.Content("~/Administration/Company")">Company</a></li>
+                            
                         </ul>
                     </li>
                     <li>

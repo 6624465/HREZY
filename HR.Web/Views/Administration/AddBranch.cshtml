@@ -3,13 +3,16 @@
 { id = "frmBranch", name = "frmBranch", enctype = "multipart/form-data" })) { 
 <div class="page">
     <div class="row">
+        @{Html.RenderPartial("_TreeView", Model.companyTreeVm); }
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default panel-hovered panel-stacked mb10">
                 <div class="panel-heading">Branch</div>
 
                 <div class="panel-body">
                     <div class="row css5">
-
+                        @Html.HiddenFor(x => x.branch.BranchID)
                         <div class="form-group">
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Branch Code</span>
@@ -113,7 +116,7 @@
                     },
                 }
             });
-        })
+       
         function SaveBranch()
         {
             if ($('#frmBranch').valid()) {

@@ -1,0 +1,38 @@
+﻿@using Newtonsoft.Json;
+
+@model List<HR.Web.ViewModels.companyTreeVm>
+
+<div class="container ">
+    <div class="row">
+        <div id="treeview1" class="col-md-4"></div>
+    </div>
+</div>
+
+<link href="@Url.Content("~/Scripts/treeview/bootstrap.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/treeview/jquery.js")"></script>
+<script src="@Url.Content("~/Scripts/treeview/bootstrap-treeview.js")"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        var defaultData;
+        var obj = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+
+
+        $('#treeview1').treeview({
+            color: "#428bca",
+            //expandIcon: 'glyphicon glyphicon-chevron-right',
+            //collapseIcon: 'glyphicon glyphicon-chevron-down',
+            //nodeIcon: 'glyphicon glyphicon-bookmark',
+            onNodeSelected: function (event, node) {
+                if (node.nodeId == 0) {
+                    location.href = '@Url.Content("~/Administration/Company?companyId=")'+node.href;
+                }
+                else
+                    location.href = '@Url.Content("~/Administration/AddBranch?branchId=")' + node.href;
+
+            },
+            data: obj
+        });
+    })
+</script>

@@ -70,8 +70,18 @@
             });
         }
 
+        $('#frm').validate({
+            rules: {
+                LookUpCode: {
+                    required: true
+                },
+                LookUpDescription: {
+                    required: true
+                }
+            }
+        });
+
         function SaveDesignation() {
-            debugger
             if ($('#frm').valid()) {
                 $('#frm').submit();
             }

@@ -66,12 +66,23 @@
                 }
             });
         }
+        $('#frm').validate({
+            rules: {
+                LookUpCode:
+                    {
+                        required:true
+                    },
+                LookUpDescription:
+                    {
+                        required:true
+                    }
+            }
+
+
+        });
 
         function SaveStatus() {
-            debugger
-            if ($('#frm').valid()) {
                 $('#frm').submit();
-            }
         }
 
     </script>

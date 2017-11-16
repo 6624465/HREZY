@@ -1670,6 +1670,7 @@
     <Content Include="fonts\proximanovalight.eot" />
     <Content Include="fonts\proximanovalight.ttf" />
     <Content Include="fonts\proximanovalight.woff" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Core\app.js" />
     <Content Include="Scripts\Core\bootstrap-rating.min.js" />
@@ -1870,7 +1871,6 @@
     <Content Include="Views\Config\GetLeaveType.cshtml" />
     <Content Include="Views\Config\PaymentTypeList.cshtml" />
     <Content Include="Views\Config\GetPaymentType.cshtml" />
-    <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
     <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
     <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
     <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
@@ -1880,6 +1880,7 @@
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Employee\employeedirectory.cshtml" />
     <Content Include="Views\Leave\HolidaysList.cshtml" />
+    <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

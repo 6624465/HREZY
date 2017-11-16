@@ -102,8 +102,10 @@
             }
         });
         function SaveChanges() {
+            if($('#frm').valid()){
             $('#frm').submit();
         }
+      }
 
 
        

@@ -39,7 +39,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info" ng-click="SavePayment()">Save</button>
+                    <button type="submit" class="btn btn-info" onclick="SavePayment()">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -67,11 +67,26 @@
             });
         }
 
-        function SavePayment() {
-            debugger
-            if ($('#frm').valid()) {
-                $('#frm').submit();
+
+        $('#frm').validate({
+            rules: {
+                LookUpCode:
+                    {
+                        required: true
+                    },
+                LookUpDescription:
+                    {
+                        required: true
+                    }
             }
+
+
+        });
+
+
+        function SavePayment() {
+            debugger;
+            $('#frm').submit();
         }
 
     </script>

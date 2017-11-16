@@ -14,6 +14,6 @@ namespace HR.Web.ViewModels
         public string ContactNo { get; set; }
         public string PersonalEmailId { get; set; }
         public string OfficialEmailId { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
     }
 }

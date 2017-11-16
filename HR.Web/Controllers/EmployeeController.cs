@@ -9,7 +9,7 @@ using HR.Web.ViewModels;
 
 namespace HR.Web.Controllers
 {
-    [SessionFilter]
+    [Authorize]
     public class EmployeeController : BaseController
     {
         [HttpGet]
@@ -28,9 +28,19 @@ namespace HR.Web.Controllers
                             e => e.C.A.EmployeeId, f => f.EmployeeId,
                             (e, f) => new { E = e, F = f })
                             .Select(x => new EmployeeListVm {
-                                EmployeeNo = x.E.C.A.IDNumber
-                            }).ToList();
-                return View();
+                                EmployeeNo = x.E.C.A.IDNumber,
+                                EmployeeName = x.E.C.A.FirstName + " " + x.E.C.A.LastName + " " + x.E.C.A.MiddleName,
+                                JoiningDate = x.E.D.JoiningDate,
+                                JobTitle = dbCntx.LookUps
+                                            .Where(y => y.LookUpID == x.E.D.DesignationId)
+                                            .FirstOrDefault().LookUpDescription,
+                                ContactNo = x.F.Contact,
+                                PersonalEmailId = x.F.Email,
+                                OfficialEmailId = x.F.Email,
+                                DateOfBirth = x.E.C.B.DOB
+                            }).ToList().AsEnumerable();
+
+                return View(list);
             }
         }
 

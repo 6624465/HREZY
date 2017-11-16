@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<HR.Web.Models.LookUp>
 @{
-    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
     grid.Pager(WebGridPagerModes.All);
 }
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
-            <div class="box">
+            <div class="box" id="grid">
                 <div class="box-header">
                     <h4>Employee Status</h4>
                     <div class="box-tools">
@@ -24,6 +24,12 @@
                 tableStyle: "table")
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>

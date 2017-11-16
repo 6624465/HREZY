@@ -18,9 +18,8 @@ namespace HR.Web.Models
         public string CompanyCode { get; set; }
         public string CompanyName { get; set; }
         public string RegNo { get; set; }
-        public byte[] Logo { get; set; }
+        public string CompanyLogo { get; set; }
         public bool IsActive { get; set; }
-        public int AddressID { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }

@@ -36,18 +36,16 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="CompanyId" Type="int" />
         </EntityType>
-        <EntityType Name="Companies">
+        <EntityType Name="Company">
           <Key>
             <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="CompanyCode" />
           </Key>
           <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompanyCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="RegNo" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Logo" Type="image" />
+          <Property Name="CompanyLogo" Type="varchar" MaxLength="250" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="AddressID" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
@@ -69,8 +67,7 @@
             <PropertyRef Name="AddressId" />
           </Key>
           <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeID" Type="int" Nullable="false" />
-          <Property Name="BranchID" Type="int" Nullable="false" />
+          <Property Name="LinkID" Type="int" Nullable="false" />
           <Property Name="SeqNo" Type="smallint" Nullable="false" />
           <Property Name="AddressType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address1" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -195,7 +192,7 @@
         <EntityContainer Name="DB_9F30C5_HRDBModelStoreContainer">
           <EntitySet Name="LookUp" EntityType="Self.LookUp" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Branches" EntityType="Self.Branches" Schema="Master" store:Type="Tables" />
-          <EntitySet Name="Companies" EntityType="Self.Companies" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeDocumentDetail" EntityType="Self.EmployeeDocumentDetail" Schema="Operation" store:Type="Tables" />
@@ -225,24 +222,6 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="CompanyId" Type="Int32" />
         </EntityType>
-        <EntityType Name="Company">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="CompanyCode" />
-          </Key>
-          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="AddressID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="InCorporationDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="CountryId" />
@@ -255,7 +234,6 @@
         </EntityType>
         <EntityContainer Name="HrDataContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Branches" EntityType="Self.Branch" />
-          <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="Users" EntityType="DB_9F30C5_HRDBModel.User" />
           <EntitySet Name="EmployeeDocumentDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" />
@@ -275,9 +253,14 @@
             <End Role="EmployeeDocumentDetail" EntitySet="EmployeeDocumentDetails" />
           </AssociationSet>
           <EntitySet Name="LookUps" EntityType="DB_9F30C5_HRDBModel.LookUp" />
+          <EntitySet Name="Companies" EntityType="DB_9F30C5_HRDBModel.Company" />
           <EntitySet Name="Addresses" EntityType="DB_9F30C5_HRDBModel.Address" />
-          <AssociationSet Name="EmployeeHeaderAddress" Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress">
-            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
+          <AssociationSet Name="CompanyAddress" Association="DB_9F30C5_HRDBModel.CompanyAddress">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="BranchAddress" Association="DB_9F30C5_HRDBModel.BranchAddress">
+            <End Role="Branch" EntitySet="Branches" />
             <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
         </EntityContainer>
@@ -436,13 +419,28 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="RegNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyLogo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="InCorporationDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
           </Key>
           <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="BranchID" Type="Int32" Nullable="false" />
+          <Property Name="LinkID" Type="Int32" Nullable="false" />
           <Property Name="SeqNo" Type="Int16" Nullable="false" />
           <Property Name="AddressType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Address1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -465,17 +463,27 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="EmployeeHeaderAddress">
-          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
+        <Association Name="CompanyAddress">
+          <End Type="DB_9F30C5_HRDBModel.Company" Role="Company" Multiplicity="1" />
           <End Type="DB_9F30C5_HRDBModel.Address" Role="Address" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EmployeeHeader">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
             </Principal>
             <Dependent Role="Address">
-              <PropertyRef Name="EmployeeID" />
+              <PropertyRef Name="LinkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchAddress">
+          <End Type="DB_9F30C5_HRDBModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
               <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="LinkID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -500,24 +508,6 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Companies">
-            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Company">
-              <MappingFragment StoreEntitySet="Companies">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="InCorporationDate" ColumnName="InCorporationDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -647,6 +637,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="InCorporationDate" ColumnName="InCorporationDate" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CompanyLogo" ColumnName="CompanyLogo" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Address">
               <MappingFragment StoreEntitySet="Address">
@@ -671,8 +678,7 @@
                 <ScalarProperty Name="Address1" ColumnName="Address1" />
                 <ScalarProperty Name="AddressType" ColumnName="AddressType" />
                 <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
-                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="LinkID" ColumnName="LinkID" />
                 <ScalarProperty Name="AddressId" ColumnName="AddressId" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1586,6 +1586,7 @@
     <Compile Include="ActionFilters\SessionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -1645,6 +1646,7 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CompanyVm.cs" />
     <Compile Include="ViewModels\EmployeeVm.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1750,6 +1752,7 @@
     <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
     <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
     <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
+    <Content Include="Views\Administration\Company.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1759,6 +1762,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Master\" />
   </ItemGroup>

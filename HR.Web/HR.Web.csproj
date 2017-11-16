@@ -1730,6 +1730,10 @@
     <Content Include="Views\Config\GetEmployeeDepartment.cshtml" />
     <Content Include="Views\Config\EmployeeStatusList.cshtml" />
     <Content Include="Views\Config\GetEmployeeStatus.cshtml" />
+    <Content Include="Views\Config\MaritalStatusList.cshtml" />
+    <Content Include="Views\Config\GetEmployeeMaritalStatus.cshtml" />
+    <Content Include="Views\Config\LeaveList.cshtml" />
+    <Content Include="Views\Config\GetLeaveType.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

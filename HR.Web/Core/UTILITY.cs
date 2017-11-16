@@ -20,6 +20,12 @@ namespace HR.Web
         public static string CONFIG_EMPLOYEEPAYMENTTYPE = "PaymentType";
         public static string CONFIG_NOTICEPERIOD = "NoticePeriod";
         public static string CONFIG_PROHIBATIONPERIOD = "ProbabtonPeriod";
+        public static string CONFIG_GRANTLEAVEYEAR = "Year";
+        public static string CONFIG_GRANTLEAVEPERIODICITY = "PeriodicityType";
+        public static string CONFIG_GRANTLEAVEPERIODTYPE = "PeriodType";
+        public static string CONFIG_GRANTLEAVESCHEMETYPE = "LeaveSchemeType";
+
+
         /* Config Keys End */
     }
 }

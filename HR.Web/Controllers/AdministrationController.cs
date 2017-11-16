@@ -17,7 +17,7 @@ namespace HR.Web.Controllers
         {
             CompanyVm companyvm = new CompanyVm();
             companyvm.companyAddress = new AddressVm();
-            return View();
+            return View(companyvm);
         }
         [HttpPost]
         public ActionResult Company(CompanyVm companyVM, AddressVm addressVm)

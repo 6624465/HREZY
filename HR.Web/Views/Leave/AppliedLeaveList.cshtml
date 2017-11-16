@@ -1,4 +1,7 @@
 ﻿
+@{ 
+//WebGrid grid = new WebGrid();
+}
 
 @using (Html.BeginForm("", "", FormMethod.Post, new { id = "appliedleavelistfrm", name = "appliedleavelistfrm" }))
 {
@@ -96,6 +99,23 @@
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">
                         Leaves List
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @*@grid.GetHtml(
+                               columns:grid.Columns(
+                               grid.Column("Employee Id"),
+                               grid.Column("Employee Name"),
+                               grid.Column("Applied On"),
+                               grid.Column("Days"),
+                               grid.Column("Status"),
+                               grid.Column("#Action")*@
+                              @*) );*@
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>

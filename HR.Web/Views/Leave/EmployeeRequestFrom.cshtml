@@ -113,6 +113,16 @@
             format: 'DD/MM/YYYY'
         });
 
+        $("#ToDt").on("dp.change", function (e) {
+            debugger;
+            var fromDate = $('#FromDt').find('input').val();
+            var toDate = $('#ToDt').find('input').val();
+            var from = moment(fromDate, 'DD/MM/YYYY');
+            var to = moment(toDate, 'DD/MM/YYYY');
+            var days = moment.duration(to.diff(from)).asDays();
+            $('#Days').val(days);
+        });
+
         $('#frmLeave').validate({
             rules: {
                 'FromDate': {

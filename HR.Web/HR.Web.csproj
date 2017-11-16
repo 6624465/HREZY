@@ -1765,6 +1765,7 @@
     <Content Include="Views\Administration\AddBranch.cshtml" />
     <Content Include="Views\Shared\_Address.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\Employee\employeedirectory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

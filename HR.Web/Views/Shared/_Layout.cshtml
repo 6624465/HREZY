@@ -7,100 +7,17 @@
     <link rel="stylesheet" href="@Url.Content("~/Css/ionicons-2.0.1/css/ionicons.css")">
     <link rel="stylesheet" href="@Url.Content("~/Css/font-awesome-4.7.0/css/font-awesome.css")">
 
-    <!-- Plugins -->
-    @*<link rel="stylesheet" href="@Url.Content("~/Css/c3.css")">*@
+    <!-- Plugins -->    
     <link rel="stylesheet" href="@Url.Content("~/Css/waves.css")">
     <link rel="stylesheet" href="@Url.Content("~/Css/perfect-scrollbar.css")">
     <!-- Css/Less Stylesheets -->
-    <link href="@Url.Content("~/Css/bootstrap.min.css")" rel="stylesheet" />
-    @*<link href="@Url.Content("~/Css/lib/bootstrap/dist/css/bootstrap.css")" rel="stylesheet" />*@
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="@Url.Content("~/Css/bootstrap.min.css")" rel="stylesheet" /> 
+    <link href="@Url.Content("~/Css/bootstrap-datetimepicker.css")" rel="stylesheet" />
     <link rel="stylesheet" href="@Url.Content("~/Css/main.min.css")">
     <link href="@Url.Content("~/Css/sitecss.css")" rel="stylesheet" />
     <script src="@Url.Content("~/Scripts/jquery-2.2.3.min.js")"></script>
     <style type="text/css">
-        /*#app {
-            width: 400px;
-            height: 300px;
-            margin: 50px auto 0 auto;
-            position: relative;
-            overflow: auto;
-        }*/
-
-        /*#content {
-            background: url('https://noraesae.github.io/perfect-scrollbar/azusa.jpg') top left no-repeat;
-            width: 1280px;
-            height: 720px;
-        }*/
-        /* Track */
-        ::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            -webkit-border-radius: 10px;
-            border-radius: 10px;
-        }
-
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            -webkit-border-radius: 20px;
-            border-radius: 10px;
-            background: rgb(236, 240, 245);
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-        }
-
-        ::-webkit-scrollbar-thumb:window-inactive {
-            background: rgba(255,0,0,0.4);
-        }
-
-        .css10 {
-            margin-top: 10px;
-        }
-
-        .css5 {
-            margin-top: 5px;
-        }
-
-        .app .off-canvas {
-            background-color: rgba(255, 255, 255, .15);
-        }
-
-        label.error {
-            display: none !important;
-        }
-
-        input[type=text].error, input[type=password].error, textarea.error, select.error {
-            /*border-color: #F44336;*/
-            border-bottom-color: #F44336;
-            /*border-color: #a94442;*/
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075);
-            border-bottom-width: 1px;
-        }        
-
-        /*.has-error .form-control {
-            border-color: #a94442;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        }*/
-
-        .table tfoot {
-            display: none;
-        }
-
-        .class_checkbox {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-            *display: inline;
-            vertical-align: middle;
-            margin: 0;
-            padding: 0;
-            width: 18px;
-            height: 18px;
-            background: url(../images/blue.png) no-repeat;
-            border: none;
-            cursor: pointer;
-        }
-
+        
     </style>
     @RenderSection("Styles", false)
 </head>
@@ -427,7 +344,7 @@
                             <li><a href="@Url.Content("~/Config/EmployeeStatusList")">Employee Status</a></li>
                             <li><a href="@Url.Content("~/Config/MaritalStatusList")">Marital Status</a></li>
                             <li><a href="@Url.Content("~/Config/LeaveList")">Leave</a></li>
-                            <li><a href="@Url.Content("~/Config/PaymentTypeList")">Pay Roll</a></li>
+                            <li><a href="@Url.Content("~/Config/PaymentTypeList")">Payment Type</a></li>
                         </ul>
                     </li>
 
@@ -464,6 +381,17 @@
                             <li><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
                             <li><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Employee Leave Request</a></li>
                             <li><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="ion ion-calendar"></i>
+                            <span class="text">Administration</span>
+                            <i class="arrow ion-chevron-left"></i>
+                        </a>
+                        <ul class="inner-drop list-unstyled">
+                            <li><a href="@Url.Content("~/Administration/Company")">Company</a></li>
+                            
                         </ul>
                     </li>
                     <li>
@@ -631,10 +559,7 @@
     <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
     <script src="@Url.Content("~/Scripts/moment.js")"></script>
-    <script src="@Url.Content("~/Scripts/bootstrap-datetimepicker.js")"></script>
-    @*<script src="@Url.Content("~/Scripts/Core/vendors.js")"></script>*@
-    @*<script src="@Url.Content("~/Scripts/Core/d3.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/Core/c3.min.js")"></script>*@
+    <script src="@Url.Content("~/Scripts/bootstrap-datetimepicker.js")"></script>    
     <script src="@Url.Content("~/Scripts/Core/screenfull.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/perfect-scrollbar.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/waves.min.js")"></script>
@@ -642,11 +567,7 @@
     <script src="@Url.Content("~/Scripts/Core/jquery.easypiechart.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/app.js")"></script>
     <script src="@Url.Content("~/Scripts/Core/index.init.js")"></script>
-    @*<script type="text/javascript">
-        $(function () {
-            $('#app').perfectScrollbar();
-        });
-    </script>*@
+    <script src="@Url.Content("~/Scripts/layout.js")"></script>
     @RenderSection("Scripts", false)
    
 </body>

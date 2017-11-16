@@ -15,12 +15,18 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult Company()
         {
-            return View();
+            CompanyVm companyvm = new CompanyVm();
+            companyvm.companyAddress = new AddressVm();
+            return View(companyvm);
         }
         [HttpPost]
-        public ActionResult Company(CompanyVm companyVM)
+        public ActionResult Company(CompanyVm companyVM, AddressVm addressVm)
         {
-            using(HrDataContext dbContext=new HrDataContext()) {
+            try
+            {
+
+            using (HrDataContext dbContext = new HrDataContext())
+            {
                 Company company = new Company();
 
                 company.CompanyCode = companyVM.company.CompanyCode;
@@ -38,55 +44,115 @@ namespace HR.Web.Controllers
                     {
                         Directory.CreateDirectory(path);
                     }
-                    companyVM.company.Logo.SaveAs(path+ company.CompanyLogo);
+                    companyVM.company.Logo.SaveAs(path + company.CompanyLogo);
                 }
-              
+
                 company.RegNo = companyVM.company.RegNo;
                 company.ModifiedBy = "Admin";
                 company.ModifiedOn = DateTime.Now;
-            
 
-            Address companyAddress = new Address()
-            {
-                Address1 = companyVM.companyAddress.Address1,
-                Address2 = companyVM.companyAddress.Address2,
-              
-                AddressType = "Company",
-                CityName= companyVM.companyAddress.CityName,
-                Contact = companyVM.companyAddress.Contact,
-                CountryCode = companyVM.companyAddress.CountryCode,
-                LinkID = company.CompanyId,
-                CreatedBy="Admin",
-                CreatedOn=DateTime.Now,
-                Email= companyVM.companyAddress.Email,
-                FaxNo = companyVM.companyAddress.FaxNo,
-                MobileNo = companyVM.companyAddress.MobileNo,
-                IsActive=true,
-                ModifiedBy = "Admin",
-                ModifiedOn = DateTime.Now,
-                SeqNo= companyVM.companyAddress.SeqNo,
-                StateName=companyVM.companyAddress.StateName,
-                TelNo = companyVM.companyAddress.TelNo,
-                WebSite = companyVM.companyAddress.WebSite,
-                ZipCode = companyVM.companyAddress.WebSite,
-            };
+
+                Address companyAddress = new Address()
+                {
+                    Address1 = addressVm.Address1,
+                    Address2 = addressVm.Address2,
+
+                    AddressType = "Company",
+                    CityName = addressVm.CityName,
+                    Contact = addressVm.Contact,
+                    CountryCode = addressVm.CountryCode,
+                    LinkID = company.CompanyId,
+                    CreatedBy = "Admin",
+                    CreatedOn = DateTime.Now,
+                    Email = addressVm.Email,
+                    FaxNo = addressVm.FaxNo,
+                    MobileNo = addressVm.MobileNo,
+                    IsActive = true,
+                    ModifiedBy = "Admin",
+                    ModifiedOn = DateTime.Now,
+                    SeqNo = addressVm.SeqNo,
+                    StateName = addressVm.StateName,
+                    TelNo = addressVm.TelNo,
+                    WebSite = addressVm.WebSite,
+                    ZipCode = addressVm.WebSite,
+                };
 
                 dbContext.Companies.Add(company);
                 dbContext.Addresses.Add(companyAddress);
                 dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
 
             return View();
         }
 
-        public ActionResult AddBranch() {
-            return View();
+        public ActionResult AddBranch()
+        {
+            BranchVm branchVm = new BranchVm();
+            branchVm.address = new AddressVm();
+            return View(branchVm);
         }
 
         [HttpPost]
-        public ActionResult AddBranch(Branch branch)
+        public ActionResult AddBranch(BranchVm branchVm, AddressVm addressVm)
         {
-            return View();
+            try
+            {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                Branch branch = new Branch()
+                {
+                    BranchCode = branchVm.branch.BranchCode,
+                    BranchName = branchVm.branch.BranchName,
+                    RegNo = branchVm.branch.RegNo,
+                    CreatedBy = "Admin",
+                    CreatedOn = DateTime.Now,
+                    ModifiedBy = "Admin",
+                    ModifiedOn = DateTime.Now,
+                    CompanyCode="EZY",
+                    CompanyId=1000
+                };
+
+                Address branchAddress = new Address()
+                {
+                    Address1 = addressVm.Address1,
+                    Address2 = addressVm.Address2,
+
+                    AddressType = "Company",
+                    CityName = addressVm.CityName,
+                    Contact = addressVm.Contact,
+                    CountryCode = addressVm.CountryCode,
+                    LinkID = branch.BranchID,
+                    CreatedBy = "Admin",
+                    CreatedOn = DateTime.Now,
+                    Email = addressVm.Email,
+                    FaxNo = addressVm.FaxNo,
+                    MobileNo = addressVm.MobileNo,
+                    IsActive = true,
+                    ModifiedBy = "Admin",
+                    ModifiedOn = DateTime.Now,
+                    SeqNo = addressVm.SeqNo,
+                    StateName = addressVm.StateName,
+                    TelNo = addressVm.TelNo,
+                    WebSite = addressVm.WebSite,
+                    ZipCode = addressVm.WebSite,
+                };
+                dbContext.Branches.Add(branch);
+                dbContext.Addresses.Add(branchAddress);
+                dbContext.SaveChanges();
+            }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return RedirectToAction("AddBranch");
         }
     }
 }

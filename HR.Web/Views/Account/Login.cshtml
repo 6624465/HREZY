@@ -89,26 +89,26 @@
     </div> <!-- #end main-container -->
     <!-- Dev only -->
     <!-- Vendors -->
+    <script src="@Url.Content("~/Scripts/jquery-2.2.3.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script> 
+    <script type="text/javascript">
+        $("#frmLogin").validate({
+            rules: {
+                'UserName': {
+                    required: true
+                },
+                'Password': {
+                    required: true
+                },
+            }
+            //,
+            //messages: {
+            //    UserID: 'Username is Required',
+            //    Password: 'Password is Required'
+            //}
+        })
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/Core/jquery.validate.js"></script>
+    </script>
 </body>
 </html>
-<script type="text/javascript">
-    $("#frmLogin").validate({
-        rules: {
-            'UserName': {
-                required: true
-            },
-            'Password': {
-                required: true
-            },
-        }
-        //,
-        //messages: {
-        //    UserID: 'Username is Required',
-        //    Password: 'Password is Required'
-        //}
-    })
 
-</script>

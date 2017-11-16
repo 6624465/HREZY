@@ -53,8 +53,8 @@
                                     <span class="pull-right">InCorporate Date</span>
                                 </label>
                                 <div class="col-md-4">
-                                    <div class="input-group date " id="CorporationDate">
-                                        @Html.TextBoxFor(x => x.company.InCorporationDate, new { @class = "form-control dtCss" })
+                                    <div class="input-group date dtCss" id="CorporationDate">
+                                        @Html.TextBoxFor(x => x.company.InCorporationDate, new { @class = "form-control" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -81,11 +81,11 @@
                     </div>
                 </div>
             </div>
-           
+
         </div>
-            
+
         @{Html.RenderPartial("_Address", Model.companyAddress); }
-       
+
         <div class="row">
             <div class="col-md-12">
                 <div>
@@ -93,12 +93,18 @@
                 </div>
             </div>
         </div>
-        </div>
-}
+    </div>
+            }
 
 @section Scripts{
     <script type="text/javascript">
         $(function () {
+            /*Tree View Starts*/
+            
+
+            /*Tree View Ends*/
+
+
             $('.dtCss').datetimepicker({
                 icons: {
                     time: 'fa fa-clock-o',
@@ -112,7 +118,7 @@
             $('#frmCompany').validate({
                 rules: {
                     'company.CompanyCode': {
-                        required:true
+                        required: true
                     },
                     'company.CompanyName': {
                         required: true
@@ -148,14 +154,13 @@
                         required: true
                     },
                     'Email': {
-                        'email':true,
+                        'email': true,
                         required: true
                     },
                 }
             });
         })
-        function SaveCompany()
-        {
+        function SaveCompany() {
             if ($('#frmCompany').valid()) {
                 $('#frmCompany').submit()
             }

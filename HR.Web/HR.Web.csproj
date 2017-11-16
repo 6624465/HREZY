@@ -1763,6 +1763,7 @@
     <Content Include="Views\Administration\Company.cshtml" />
     <Content Include="Views\Administration\AddBranch.cshtml" />
     <Content Include="Views\Shared\_Address.cshtml" />
+    <Content Include="Views\Administration\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

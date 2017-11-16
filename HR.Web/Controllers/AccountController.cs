@@ -22,13 +22,23 @@ namespace HR.Web.Controllers
         {
             User userObj = dbContext.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
 
-            if (userObj != null) {
-                FormsAuthentication.SetAuthCookie(userObj.UserName,false);
+            if (userObj != null)
+            {
+                FormsAuthentication.SetAuthCookie(userObj.UserName, false);
                 USERID = user.UserName;
                 return RedirectToAction("Index", "Home");
             }
             return View();
-            
+
+        }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }

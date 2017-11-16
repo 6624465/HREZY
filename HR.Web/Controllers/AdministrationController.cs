@@ -51,7 +51,7 @@ namespace HR.Web.Controllers
                 Address1 = companyVM.companyAddress.Address1,
                 Address2 = companyVM.companyAddress.Address2,
               
-                AddressType = "",
+                AddressType = "Company",
                 CityName= companyVM.companyAddress.CityName,
                 Contact = companyVM.companyAddress.Contact,
                 CountryCode = companyVM.companyAddress.CountryCode,
@@ -76,6 +76,16 @@ namespace HR.Web.Controllers
                 dbContext.SaveChanges();
             }
 
+            return View();
+        }
+
+        public ActionResult AddBranch() {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddBranch(Branch branch)
+        {
             return View();
         }
     }

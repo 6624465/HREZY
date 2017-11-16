@@ -1750,6 +1750,7 @@
     <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
     <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
     <Content Include="Views\Administration\Company.cshtml" />
+    <Content Include="Views\Administration\AddBranch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

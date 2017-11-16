@@ -286,7 +286,7 @@
                                     <div class="input-group date" id="ConfirmationDate">
                                         @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control dtCss" })
                                         <span class="input-group-addon">
-                                            <i class=" ion ion-calendar"></i>
+                                            <i class="ion ion-calendar"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@
                                     <div class="input-group date" id="ResignationDate">
                                         @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control dtCss" })
                                         <span class="input-group-addon">
-                                            <i class=" ion ion-calendar"></i>
+                                            <i class="ion ion-calendar"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -334,15 +334,15 @@
                                     <span class="pull-right">Password</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(x => x.empHeader.Password,
-         new { @class = "form-control" })
+                                    @Html.PasswordFor(x => x.empHeader.Password,
+                                    new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Confirm Password</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(x => x.empHeader.ConfirmPassword,
-         new { @class = "form-control" })
+                                    @Html.PasswordFor(x => x.empHeader.ConfirmPassword,
+                                    new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Status</span>

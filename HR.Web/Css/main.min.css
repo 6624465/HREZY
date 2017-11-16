@@ -3307,7 +3307,7 @@ fieldset[disabled] .btn-youtube.active {
 .ui-toggle-pink label > input + i {
   background-color: #e91e63;
 }
-[datepicker] {
+/*[datepicker] {
   border: none!important;
 }
 [datepicker],
@@ -3397,7 +3397,7 @@ fieldset[disabled] .btn-youtube.active {
   position: absolute;
   top: 0;
   z-index: 1000;
-}
+}*/
 .easypiechart {
   text-align: center;
   position: relative;

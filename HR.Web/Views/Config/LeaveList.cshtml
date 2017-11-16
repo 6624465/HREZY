@@ -1,0 +1,126 @@
+﻿@model IEnumerable<HR.Web.Models.LookUp>
+
+@{
+    ViewBag.Title = "LeaveType";
+}
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.All);
+}
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box">
+                <div class="box-header">
+                    <h4>Leave Type</h4>
+                    <div class="box-tools">
+                        <button class="btn btn-info btn-raised waves-effect" type="button" onclick="editLeaveType(-1);"><i class="fa fa-plus"></i> Add</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    @grid.GetHtml(
+
+                footerStyle: "Grid-Footer",
+                columns: grid.Columns(
+                grid.Column("LookUpCode", "Leave Type Name", canSort: true),
+                grid.Column("LookUpDescription", "Leave Type Description", canSort: true),
+                 //grid.Column("IsActive", "Status", canSort: false),
+                 grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),
+                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
+                tableStyle: "table")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("SaveLeaveType", "Config", FormMethod.Post, new { id = "frm", name = "frm" }))
+{
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Leave Type</h4>
+                </div>
+                <div class="modal-body" id="modalContent">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" onclick="SaveChanges()" class="btn btn-info btn-raised">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+@section Scripts{
+    <script type="text/javascript">
+        function editLeaveType(lookupID) {
+            debugger
+            $.ajax({
+                url: '@Url.Content("~/Config/GetLeaveType?lookupID=")' + lookupID,
+                contentType: 'text/html',
+                method: 'GET',
+                success: function (data) {
+                    debugger
+                    $('#myModal').modal('show');
+                    $('#modalContent').html('');
+                    $('#modalContent').html(data);
+                }
+            });
+        }
+        $('#frm').validate({
+            rules: {
+                LookUpCode: {
+                    required: true
+                },
+                LookUpDescription: {
+                    required: true
+                }
+            }
+        });
+        function SaveChanges() {
+            $('#frm').submit();
+        }
+
+
+
+
+    </script>
+}
+<style>
+    .Grid-Footer > td {
+        padding-top: 10px;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+        .Grid-Footer > td > a {
+            background: #fff;
+            display: inline-block;
+            border-radius: 1px;
+            padding: 6px 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid #eeeeee;
+        }
+
+            .Grid-Footer > td > a:hover {
+                color: #3f51b5;
+                text-decoration: none;
+            }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+

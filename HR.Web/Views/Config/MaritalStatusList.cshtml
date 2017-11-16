@@ -1,0 +1,100 @@
+﻿@model IEnumerable<HR.Web.Models.LookUp>
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.All);
+}
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box">
+                <div class="box-header">
+                    <h4>Marital Status</h4>
+                    <div class="box-tools">
+                        <button class="btn btn-info btn-raised waves-effect" type="button" onclick="editEmpMaritalStatus(-1);"><i class="fa fa-plus"></i> Add</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    @grid.GetHtml(
+                    footerStyle: "Grid-Footer",
+                columns: grid.Columns(
+                grid.Column("LookUpCode", "Marital Status Name", canSort: true),
+                grid.Column("LookUpDescription", "Marital Status Description", canSort: true),
+                grid.Column("IsActive", "Status"),
+                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpMaritalStatus(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
+                tableStyle: "table")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("SaveEmployeeMaritalStatus", "Config", FormMethod.Post, new { id = "frm", name = "frm" }))
+{
+    <div id="myMaritalStatusModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Marital Status</h4>
+                </div>
+                <div class="modal-body" id="modalContent1">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info" ng-click="SaveStatus()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+@section Scripts{
+    <script type="text/javascript">
+        function editEmpMaritalStatus(lookupID) {
+            debugger;
+            $.ajax({
+                url: '@Url.Content("~/Config/GetEmployeeMaritalStatus?lookupID=")' + lookupID,
+                contentType: 'text/html',
+                method: 'GET',
+                success: function (data) {
+                    debugger;
+                    $('#myMaritalStatusModal').modal('show');
+                    $('#modalContent1').html('');
+                    $('#modalContent1').html(data);
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+
+        function SaveStatus() {
+            debugger
+            if ($('#frm').valid()) {
+                $('#frm').submit();
+            }
+        }
+
+    </script>
+}
+<style>
+    .Grid-Footer > td {
+        padding-top: 10px;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+        .Grid-Footer > td > a {
+            background: #fff;
+            display: inline-block;
+            border-radius: 1px;
+            padding: 6px 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid #eeeeee;
+        }
+
+            .Grid-Footer > td > a:hover {
+                color: #3f51b5;
+                text-decoration: none;
+            }
+</style>

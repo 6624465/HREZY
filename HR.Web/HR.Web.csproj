@@ -1562,7 +1562,6 @@
     <Content Include="Scripts\Core\index.init.js" />
     <Content Include="Scripts\Core\jquery.easypiechart.min.js" />
     <Content Include="Scripts\Core\jquery.sparkline.min.js" />
-    <Content Include="Scripts\Core\jquery.validate.js" />
     <Content Include="Scripts\Core\perfect-scrollbar.min.js" />
     <Content Include="Scripts\Core\screenfull.js" />
     <Content Include="Scripts\Core\sitescript.js" />
@@ -1570,6 +1569,8 @@
     <Content Include="Scripts\Core\vendors.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ui-bootstrap.js" />
     <Content Include="Web.config" />
@@ -1730,6 +1731,12 @@
     <Content Include="Views\Config\GetEmployeeDepartment.cshtml" />
     <Content Include="Views\Config\EmployeeStatusList.cshtml" />
     <Content Include="Views\Config\GetEmployeeStatus.cshtml" />
+    <Content Include="Views\Config\MaritalStatusList.cshtml" />
+    <Content Include="Views\Config\GetEmployeeMaritalStatus.cshtml" />
+    <Content Include="Views\Config\LeaveList.cshtml" />
+    <Content Include="Views\Config\GetLeaveType.cshtml" />
+    <Content Include="Views\Config\PaymentTypeList.cshtml" />
+    <Content Include="Views\Config\GetPaymentType.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

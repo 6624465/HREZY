@@ -26,7 +26,6 @@ namespace HR.Web.Models
         }
     
         public virtual DbSet<Branch> Branches { get; set; }
-        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<EmployeeDocumentDetail> EmployeeDocumentDetails { get; set; }
@@ -35,5 +34,7 @@ namespace HR.Web.Models
         public virtual DbSet<EmployeeWorkDetail> EmployeeWorkDetails { get; set; }
         public virtual DbSet<LookUp> LookUps { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<CompanyAddress> CompanyAddresses { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
     }
 }

@@ -79,6 +79,25 @@
             -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         }*/
+
+        .table tfoot {
+            display: none;
+        }
+
+        .class_checkbox {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            *display: inline;
+            vertical-align: middle;
+            margin: 0;
+            padding: 0;
+            width: 18px;
+            height: 18px;
+            background: url(../images/blue.png) no-repeat;
+            border: none;
+            cursor: pointer;
+        }
     </style>
     @RenderSection("Styles", false)
 </head>
@@ -418,6 +437,41 @@
                         <ul class="inner-drop list-unstyled">
                             <li><a href="#">Directory</a></li>
                             <li><a href="@Url.Content("~/Employee/Add")">Info</a></li>                            
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <i class="ion ion-calendar"></i>
+                            <span class="text">PayRoll</span>
+                            <i class="arrow ion-chevron-left"></i>
+                        </a>
+                        <ul class="inner-drop list-unstyled">
+                            <li><a href="@Url.Content("~/PayRoll/PayRollInfo")">Salary</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="ion ion-calendar"></i>
+                            <span class="text">Leave</span>
+                            <i class="arrow ion-chevron-left"></i>
+                        </a>
+                        <ul class="inner-drop list-unstyled">
+                            <li><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
+                            <li><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+                            <li><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Employee Leave Request</a></li>
+                            <li><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="ion ion-calendar"></i>
+                            <span class="text">Administration</span>
+                            <i class="arrow ion-chevron-left"></i>
+                        </a>
+                        <ul class="inner-drop list-unstyled">
+                            <li><a href="@Url.Content("~/Administration/Company")">Company</a></li>
+                           
                         </ul>
                     </li>
                     <li>

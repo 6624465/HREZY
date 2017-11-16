@@ -1570,7 +1570,9 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ui-bootstrap.js" />
     <Content Include="Web.config" />
@@ -1581,16 +1583,20 @@
     <Compile Include="ActionFilters\SessionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\PayRollController.cs" />
     <Compile Include="Core\UTILITY.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SelectHelpers.cs" />
+    <Compile Include="Helpers\WebGridExtensions.cs" />
     <Compile Include="Models\Address.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1598,6 +1604,9 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Company.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompanyAddress.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Country.cs">
@@ -1637,6 +1646,7 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CompanyVm.cs" />
     <Compile Include="ViewModels\EmployeeVm.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1737,6 +1747,11 @@
     <Content Include="Views\Config\GetLeaveType.cshtml" />
     <Content Include="Views\Config\PaymentTypeList.cshtml" />
     <Content Include="Views\Config\GetPaymentType.cshtml" />
+    <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
+    <Content Include="Views\Leave\HolidayList.cshtml" />
+    <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
+    <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
+    <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

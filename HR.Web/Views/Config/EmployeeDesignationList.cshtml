@@ -3,7 +3,7 @@
 
 
 @{
-    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
     grid.Pager(WebGridPagerModes.All);
 }
 <div class="page">
@@ -17,14 +17,20 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    @grid.GetHtml(
-                    footerStyle: "Grid-Footer",
+                    <div class="row">
+                        @grid.GetHtml(
                 columns: grid.Columns(
                 grid.Column("LookUpCode", "Employee Designation Name", canSort: true),
                 grid.Column("LookUpDescription", "Employee Designation Description", canSort: true),
                 //grid.Column("IsActive", "Status"),
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table")
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                        </div>
+                    </div>    
                 </div>
             </div>
         </div>
@@ -70,8 +76,18 @@
             });
         }
 
+        $('#frm').validate({
+            rules: {
+                LookUpCode: {
+                    required: true
+                },
+                LookUpDescription: {
+                    required: true
+                }
+            }
+        });
+
         function SaveDesignation() {
-            debugger
             if ($('#frm').valid()) {
                 $('#frm').submit();
             }

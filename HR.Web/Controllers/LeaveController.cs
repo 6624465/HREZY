@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HR.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,7 +24,7 @@ namespace HR.Web.Controllers
         }
         public ActionResult GrantLeaveForm()
         {
-            return View();
+            return View(new LeaveVm { });
         }
         
     }

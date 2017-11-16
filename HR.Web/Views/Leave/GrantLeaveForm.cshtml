@@ -1,1 +1,53 @@
-﻿
+﻿@model HR.Web.ViewModels.LeaveVm
+
+<div class="page">
+    <div class="row">
+        <div class="col-md-12 col-md-4">
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="panel-heading">Leave Granter</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Leave Granter:</label>
+                                <div>
+                                    @Html.DropDownListFor(x => x.lookup.LookUpDescription,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_GRANTLEAVEYEAR),
+                                    "--Select Leave Granter--",
+                                    new { @class = "form-control" })
+                                </div>
+                                <label>Periodicity:</label>
+                                <div>
+                                    @Html.DropDownListFor(x => x.lookup.LookUpDescription,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_GRANTLEAVEPERIODICITY),
+                                    "--Select Periodicity--",
+                                    new { @class = "form-control" })
+                                </div>
+                                <label>Period:</label>
+                                <div>
+                                    @Html.DropDownListFor(x => x.lookup.LookUpDescription,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_GRANTLEAVEPERIODTYPE),
+                                    "--Select Period--",
+                                    new { @class = "form-control" })
+                                </div>
+                                <label>Leave Scheme:</label>
+                                <div>
+                                    @Html.DropDownListFor(x => x.lookup.LookUpDescription,
+                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_GRANTLEAVESCHEMETYPE),
+                                    "--Select Scheme--",
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-6">*@
+        <div class="col-md-12 col-md-8">
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="panel-heading">Grant Leave List</div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -35,5 +35,6 @@ namespace HR.Web.Models
         public virtual DbSet<LookUp> LookUps { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
     }
 }

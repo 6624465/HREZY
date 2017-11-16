@@ -20,6 +20,8 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Address" Width="1.5" PointX="5.375" PointY="5.75" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.CompanyAddress" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.BranchAddress" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeAddress" Width="1.5" PointX="0.75" PointY="9.75" />
+        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeAddress" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

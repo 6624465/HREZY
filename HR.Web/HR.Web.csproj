@@ -1612,6 +1612,9 @@
     <Compile Include="Models\Country.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeAddress.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeeDocumentDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

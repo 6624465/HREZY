@@ -1,1 +1,104 @@
 ﻿
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "appliedleavelistfrm", name = "appliedleavelistfrm" }))
+{
+    <div class="page">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Employee Leave
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    <span class="pull-right">Employee Id :</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    <span class="pull-right">Employee Name :</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    <span class="pull-right">Leave Type :</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    <span class="pull-right">Days :</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    <span class="pull-right">From :</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    <span class="pull-right">To :</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    <span class="pull-right">Reasons :</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    <span class="pull-right">Remarks :</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label class="control-label">
+                                        <span class="pull-right">Manager Remarks :</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-9">
+                                    @*@Html.TextAreaFor(x => x.address.Address1,
+                                        new { @class = "form-control" })*@
+                                    <textarea class="form-control" id="remarks" name="remarks"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6 col-md-offset-5 text-right">
+                                <button class="btn btn-default " type="button" onclick="Back()">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Leaves List
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

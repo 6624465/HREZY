@@ -53,7 +53,7 @@
                                     <span class="pull-right">InCorporate Date</span>
                                 </label>
                                 <div class="col-md-4">
-                                    <div class="input-group date" id="CorporationDate">
+                                    <div class="input-group date dtCss" id="CorporationDate">
                                         @Html.TextBoxFor(x => x.company.InCorporationDate, new { @class = "form-control" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
@@ -68,149 +68,57 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default panel-hovered panel-stacked mb10">
-                        <div class="panel-heading">Address</div>
-                        <div class="panel-body">
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Address1</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextAreaFor(x => x.companyAddress.Address1, new { @class = "form-control" })
-                                    </div>
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Address2</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextAreaFor(x => x.companyAddress.Address2, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">City Name</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.CityName, new { @class = "form-control" })
-                                    </div>
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">State Name</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.StateName, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Country Code</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(x => x.companyAddress.CountryCode, SelectListItemHelper.CountryList(),
-                                   "--Select--", new { @class = "form-control" })
-                                    </div>
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Zip Code</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.ZipCode, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Tel No</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.TelNo, new { @class = "form-control" })
-                                    </div>
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Fax No</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.FaxNo, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Mobile No</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.MobileNo, new { @class = "form-control" })
-                                    </div>
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Contact</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.Contact, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Email</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.Email, new { @class = "form-control" })
-                                    </div>
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">WebSite</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.companyAddress.WebSite, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Logo</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.company.Logo, new { type = "file" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div>
-                                        <button class="btn btn-primary" type="button" onclick="SaveCompany()">Save</button>
-                                    </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Logo</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.company.Logo, new { type = "file" })
                                 </div>
                             </div>
                         </div>
-
                     </div>
+                </div>
+            </div>
 
+        </div>
+
+        @{Html.RenderPartial("_Address", Model.companyAddress); }
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <button class="btn btn-primary" type="button" onclick="SaveCompany()">Save</button>
                 </div>
             </div>
         </div>
-}
+    </div>
+            }
 
 @section Scripts{
     <script type="text/javascript">
         $(function () {
+            /*Tree View Starts*/
+            
+
+            /*Tree View Ends*/
+
+
+            $('.dtCss').datetimepicker({
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down'
+                },
+                format: 'DD/MM/YYYY'
+            });
+
             $('#frmCompany').validate({
                 rules: {
                     'company.CompanyCode': {
-                        required:true
+                        required: true
                     },
                     'company.CompanyName': {
                         required: true
@@ -221,39 +129,38 @@
                     //'company.InCorporationDate': {
                     //    required: true
                     //},
-                    'companyAddress.Address1': {
+                    'Address1': {
                         required: true
                     },
-                    'companyAddress.CityName': {
+                    'CityName': {
                         required: true
                     },
-                    'companyAddress.StateName': {
+                    'StateName': {
                         required: true
                     },
-                    'companyAddress.CountryCode': {
+                    'CountryCode': {
                         required: true
                     },
-                    'companyAddress.TelNo': {
+                    'TelNo': {
                         required: true
                     },
-                    'companyAddress.FaxNo': {
+                    'FaxNo': {
                         required: true
                     },
-                    'companyAddress.MobileNo': {
+                    'MobileNo': {
                         required: true
                     },
-                    'companyAddress.Contact': {
+                    'Contact': {
                         required: true
                     },
-                    'companyAddress.Email': {
-                        'email':true,
+                    'Email': {
+                        'email': true,
                         required: true
                     },
                 }
             });
         })
-        function SaveCompany()
-        {
+        function SaveCompany() {
             if ($('#frmCompany').valid()) {
                 $('#frmCompany').submit()
             }

@@ -7,7 +7,7 @@ namespace HR.Web.ViewModels
     public class CompanyVm
     {
         public CompanyVmObj company { get; set; }
-        public Address companyAddress { get; set; }
+        public AddressVm companyAddress { get; set; }
     }
 
     public class CompanyVmObj

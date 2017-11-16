@@ -10,7 +10,7 @@ namespace HR.Web.Controllers
 {
     public class AccountController : BaseController
     {
-        HrDataContext dbContext = new HrDataContext();
+
         // GET: Account
         public ActionResult Login()
         {
@@ -20,15 +20,29 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult Login(User user)
         {
-            User userObj = dbContext.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                User userObj = dbContext.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
 
-            if (userObj != null) {
-                FormsAuthentication.SetAuthCookie(userObj.UserName,false);
-                USERID = user.UserName;
-                return RedirectToAction("Index", "Home");
+                if (userObj != null)
+                {
+                    FormsAuthentication.SetAuthCookie(userObj.UserName, false);
+                    USERID = user.UserName;
+                    BRANCHID = userObj.BranchId.Value;
+                    return RedirectToAction("Index", "Home");
+                }
             }
             return View();
-            
+
+        }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }

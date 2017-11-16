@@ -14,7 +14,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empHeader.IDType,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEETYPE),
+                                    SelectListItemHelper.EmployeeType(),
                                     "Select Type",
                                     new { @class = "form-control" })
                                 </div>
@@ -92,8 +92,8 @@
                                     <span class="pull-right">Email</span>
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.address.Email,
-             new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.empHeader.UserEmailId,
+                                    new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Mobile</span>
@@ -130,7 +130,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
-             SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEMARITALSTATUS), "Select Marital Status",
+             SelectListItemHelper.MaritalStatus(), "Select Marital Status",
              new { @class = "form-control" })
                                 </div>
                             </div>
@@ -203,7 +203,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.StateName,
-         new { @class = "form-control" })
+                                    new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.ZipCode,
-         new { @class = "form-control" })
+                                    new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -232,9 +232,9 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
-         SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEDESIGNATION),
-         "Select Designation",
-         new { @class = "form-control" })
+                                     SelectListItemHelper.Designation(),
+                                     "Select Designation",
+                                     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -245,9 +245,9 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
-         SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEEDEPARTMENT),
-         "Select Department",
-         new { @class = "form-control" })
+                                     SelectListItemHelper.Department(),
+                                     "Select Department",
+                                     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -257,10 +257,10 @@
                                     <span class="pull-right">Notice Period</span>
                                 </label>
                                 <div class="col-md-9">
-                                    @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
-         SelectListItemHelper.ConfigData(UTILITY.CONFIG_NOTICEPERIOD),
-         "Select NoticePeriod",
-         new { @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.empWorkDetail.NoticePeriod,
+                                     SelectListItemHelper.NoticePeriod(),
+                                     "Select NoticePeriod",
+                                     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -271,9 +271,9 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(x => x.empWorkDetail.ProbationPeriod,
-         SelectListItemHelper.ConfigData(UTILITY.CONFIG_PROHIBATIONPERIOD),
-         "Select Prohibation",
-         new { @class = "form-control" })
+                                     SelectListItemHelper.ProhibationPeriod(),
+                                     "Select Prohibation",
+                                     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -323,7 +323,7 @@
                                 </label>
                                 <div class="col-md-3">
                                     @Html.TextBoxFor(x => x.empHeader.UserId,
-         new { @class = "form-control" })
+                                    new { @class = "form-control" })
                                 </div>
 
                             </div>
@@ -382,31 +382,31 @@
                                         <tr>
                                             <td>UID Card</td>
                                             <td>
-                                                <input type="file" />
+                                                @Html.TextBoxFor(x => x.UIDCard, new { type = "file" })
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Education Document</td>
                                             <td>
-                                                <input type="file" />
+                                                @Html.TextBoxFor(x => x.EducationDocument, new { type = "file" })
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Experience Letters</td>
                                             <td>
-                                                <input type="file" />
+                                                @Html.TextBoxFor(x => x.ExperienceLetters, new { type = "file" })
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Project Documents</td>
                                             <td>
-                                                <input type="file" />
+                                                @Html.TextBoxFor(x => x.ProjectDocuments, new { type = "file" })
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Other Documents</td>
                                             <td>
-                                                <input type="file" />
+                                                @Html.TextBoxFor(x => x.OtherDocuments, new { type = "file" })
                                             </td>
                                         </tr>
                                     </tbody>
@@ -474,7 +474,7 @@
                 'address.Address1': {
                     required: true
                 },
-                'address.CityName': {
+                'empHeader.UserEmailId': {
                     required: true
                 },
                 'empHeader.Password': {

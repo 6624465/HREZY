@@ -1,5 +1,5 @@
 ﻿@model HR.Web.Models.EmployeeLeaveList
-@using (Html.BeginForm("SaveEmployeeLeaveForm", "Employee", FormMethod.Post, new { id = "frmEmp", name = "frmEmp" }))
+@using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
 <div class="page">
     <div class="row">
@@ -112,5 +112,38 @@
             },
             format: 'DD/MM/YYYY'
         });
+
+        $('#frmLeave').validate({
+            rules: {
+                'FromDate': {
+                    required: true
+                },
+                'ToDate': {
+                    required: true
+                },
+                'Days': {
+                    required: true
+                },
+                'EmployeeId': {
+                    required: true
+                },
+                'LeaveTypeId': {
+                    required: true
+                },
+                'Reason': {
+                    required: true,                    
+                },
+                'Remarks': {
+                    required: true,                    
+                }
+            }
+        });
+
+
+        function SaveEmployeeLeaveForm() {
+            if ($('#frmLeave').valid()) {
+                $('#frmLeave').submit();
+            }
+        }
 </script>
 }

@@ -1,17 +1,15 @@
 ﻿@model HR.Web.ViewModels.CompanyVm
-@{
-    ViewBag.Title = "Company";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<div class="page">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default panel-hovered panel-stacked mb30">
-                <div class="panel-heading">Company</div>
-                @using (Html.BeginForm("Company", "Administration", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
+@using (Html.BeginForm("Company", "Administration", FormMethod.Post, new
+{ id = "frmCompany", name = "frmCompany", enctype = "multipart/form-data" }))
+{
+    <div class="page">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">Company</div>
+
                     <div class="panel-body">
-                        <div class="row">
+                        <div class="row css5">
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
@@ -33,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Company Name</span>
@@ -49,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">InCorporate Date</span>
@@ -71,7 +69,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Address1</span>
@@ -88,7 +86,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">City Name</span>
@@ -105,14 +103,14 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Country Code</span>
                                 </label>
-                                <div class="col-md-4">                                   
-                                    @Html.DropDownListFor(x=>x.companyAddress.CountryCode, SelectListItemHelper.CountryList(),
-                                   "--Select--",new { @class= "form-control" })
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.companyAddress.CountryCode, SelectListItemHelper.CountryList(),
+                                   "--Select--", new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Zip Code</span>
@@ -123,7 +121,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Tel No</span>
@@ -139,7 +137,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Mobile No</span>
@@ -156,7 +154,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Email</span>
@@ -172,26 +170,86 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Logo</span>
                                 </label>
                                 <div class="col-md-4">
-                                  @Html.TextBoxFor(x=>x.company.CompanyLogo,new { type="file"})
+                                    @Html.TextBoxFor(x => x.company.Logo, new { type = "file" })
                                 </div>
                             </div>
                         </div>
-                                <div class="panel-footer">
-                                    <div>
-                                        <input type="submit" value="Save" />
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <button class="btn btn-primary" type="button" onclick="SaveCompany()">Save</button>
                                 </div>
-
                             </div>
-                            }
                         </div>
-
                     </div>
+
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#frmCompany').validate({
+                rules: {
+                    'company.CompanyCode': {
+                        required:true
+                    },
+                    'company.CompanyName': {
+                        required: true
+                    },
+                    'company.RegNo': {
+                        required: true
+                    },
+                    //'company.InCorporationDate': {
+                    //    required: true
+                    //},
+                    'companyAddress.Address1': {
+                        required: true
+                    },
+                    'companyAddress.CityName': {
+                        required: true
+                    },
+                    'companyAddress.StateName': {
+                        required: true
+                    },
+                    'companyAddress.CountryCode': {
+                        required: true
+                    },
+                    'companyAddress.TelNo': {
+                        required: true
+                    },
+                    'companyAddress.FaxNo': {
+                        required: true
+                    },
+                    'companyAddress.MobileNo': {
+                        required: true
+                    },
+                    'companyAddress.Contact': {
+                        required: true
+                    },
+                    'companyAddress.Email': {
+                        'email':true,
+                        required: true
+                    },
+                }
+            });
+        })
+        function SaveCompany()
+        {
+            if ($('#frmCompany').valid()) {
+                $('#frmCompany').submit()
+            }
+
+        }
+    </script>
+}

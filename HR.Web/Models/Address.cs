@@ -15,8 +15,7 @@ namespace HR.Web.Models
     public partial class Address
     {
         public int AddressId { get; set; }
-        public int EmployeeID { get; set; }
-        public int BranchID { get; set; }
+        public int LinkID { get; set; }
         public short SeqNo { get; set; }
         public string AddressType { get; set; }
         public string Address1 { get; set; }

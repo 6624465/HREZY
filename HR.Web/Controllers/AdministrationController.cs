@@ -2,6 +2,7 @@
 using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,31 +20,42 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult Company(CompanyVm companyVM)
         {
-            using(HrDataContext dbContext=new HrDataContext()) { 
-            Company company = new Company()
-            {
-                CompanyCode = companyVM.company.CompanyCode,
-                CompanyName = companyVM.company.CompanyName,
-                CreatedBy = "Admin",
-                CreatedOn = DateTime.Now,
-                InCorporationDate = companyVM.company.InCorporationDate,
-                IsActive = true,
-                CompanyLogo = companyVM.company.CompanyLogo,
-                RegNo = companyVM.company.RegNo,
-                ModifiedBy = "Admin",
-                ModifiedOn = DateTime.Now
-            };
+            using(HrDataContext dbContext=new HrDataContext()) {
+                Company company = new Company();
 
-            CompanyAddress companyAddress = new CompanyAddress()
+                company.CompanyCode = companyVM.company.CompanyCode;
+                company.CompanyName = companyVM.company.CompanyName;
+                company.CreatedBy = "Admin";
+                company.CreatedOn = DateTime.Now;
+                company.InCorporationDate = companyVM.company.InCorporationDate;
+                company.IsActive = true;
+
+                if (companyVM.company.Logo.ContentLength > 0)
+                {
+                    company.CompanyLogo = companyVM.company.Logo.FileName;
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    companyVM.company.Logo.SaveAs(path+ company.CompanyLogo);
+                }
+              
+                company.RegNo = companyVM.company.RegNo;
+                company.ModifiedBy = "Admin";
+                company.ModifiedOn = DateTime.Now;
+            
+
+            Address companyAddress = new Address()
             {
                 Address1 = companyVM.companyAddress.Address1,
                 Address2 = companyVM.companyAddress.Address2,
-                BranchID = 1,
+              
                 AddressType = "",
                 CityName= companyVM.companyAddress.CityName,
                 Contact = companyVM.companyAddress.Contact,
                 CountryCode = companyVM.companyAddress.CountryCode,
-                CompanyId = company.CompanyId,
+                LinkID = company.CompanyId,
                 CreatedBy="Admin",
                 CreatedOn=DateTime.Now,
                 Email= companyVM.companyAddress.Email,
@@ -60,7 +72,7 @@ namespace HR.Web.Controllers
             };
 
                 dbContext.Companies.Add(company);
-                dbContext.CompanyAddresses.Add(companyAddress);
+                dbContext.Addresses.Add(companyAddress);
                 dbContext.SaveChanges();
             }
 

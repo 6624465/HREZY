@@ -1,7 +1,7 @@
 ﻿@model HR.Web.Models.LookUp
 <div class="row">
     @Html.HiddenFor(x => x.LookUpID)
-    @Html.HiddenFor(x => x.IsActive)
+    @*@Html.HiddenFor(x => x.IsActive)*@
     <div class="form-group">
         <label class="col-md-4 control-label">
             <span class="pull-right">Type</span>
@@ -23,11 +23,28 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="form-group">
+        <label class="col-md-4 control-label">
+            <span class="pull-right">Status</span>
+        </label>
 
-    @*<label class="col-md-4 control-label">
-        <span class="pull-right">Status</span>
-    </label>
+    @*<div class="col-md-8">
+        <label class="switch">
+           @Html.CheckBoxFor(x => x.IsActive, new { @class="form-control"})
+            <span class="slider round"></span>
+        </label>
+    </div>*@
+    <div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
+        <label class="ui-toggle-inline">
+            <label class="ui-toggle-inline">
+                <input id="IsActive" name="IsActive.Value" type="checkbox" checked="@Model.IsActive"/>
+                <span></span>
+            </label>
+        </label>
+    </div>
+  </div>
+</div>
 
-        @Html.CheckBoxFor(x => x.IsActive, new { @class = "form-control" })*@
 
 

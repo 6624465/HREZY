@@ -140,6 +140,7 @@ namespace HR.Web.Controllers
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
+                    _lookupObj.IsActive = lookup.IsActive;
                     _lookupObj.ModifiedBy = USERID;
                     _lookupObj.ModifiedOn = DateTime.Now;
 
@@ -155,7 +156,7 @@ namespace HR.Web.Controllers
                         LookUpCode = lookup.LookUpCode,
                         LookUpDescription = lookup.LookUpDescription,
                         LookUpCategory = UTILITY.CONFIG_EMPLOYEETYPE,
-                        IsActive = true,
+                        IsActive = lookup.IsActive,
                         CreatedOn = DateTime.Now,
                         CreatedBy = USERID,
                         ModifiedOn = DateTime.Now,

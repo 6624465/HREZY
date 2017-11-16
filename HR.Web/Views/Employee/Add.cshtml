@@ -74,16 +74,15 @@
                             </div>
                             <div class="col-md-1"></div>
                             <div class="col-md-5">
-                                <div class="ui-radio ui-radio-primary">
-                                    <label class="ui-radio-inline">
-                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Male", "101")
-                                        <span>Male</span>
-                                    </label>
-                                    <label class="ui-radio-inline">
-                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Female", "102")
-                                        <span>Female</span>
-                                    </label>
-                                </div>
+                                <label>
+                                    @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Male", "101")
+                                    <span>Male</span>
+                                </label>
+                                &nbsp;
+                                <label>
+                                    @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Female", "102")
+                                    <span>Female</span>
+                                </label>
                             </div>
                         </div>
                         <div class="row css5">
@@ -348,15 +347,7 @@
                                     <span class="pull-right">Status</span>
                                 </label>
                                 <div class="col-md-2">
-                                    <div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
-                                        <label class="ui-toggle-inline">
-                                            @*@Html.CheckBoxFor(x => x.empHeader.IsActive.Value)*@
-                                            <label class="ui-toggle-inline">
-                                                <input id="empHeader_IsActive_Value" name="empHeader.IsActive.Value" type="checkbox">
-                                                <span></span>
-                                            </label>
-                                        </label>
-                                    </div>
+                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value)                                    
                                 </div>
                             </div>
                         </div>
@@ -436,7 +427,9 @@
                     down: 'fa fa-arrow-down'
                 },
                 format: 'DD/MM/YYYY'
-            });            
+            }); 
+
+            
         });
 
         $('#frmEmp').validate({

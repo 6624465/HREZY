@@ -22,8 +22,8 @@
                                     <span class="pull-right">DOJ</span>
                                 </label>
                                 <div class="col-md-4">
-                                    <div class="input-group date" id="datepickerDemo">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control", required = "required" })
+                                    <div class="input-group date" id="JoiningDate">
+                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCss", required = "required" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -65,8 +65,8 @@
                                 <span class="pull-right">DOB</span>
                             </label>
                             <div class="col-md-4">
-                                <div class="input-group date" id="datepickerDemo">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control" })
+                                <div class="input-group date" id="DOB">
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control dtCss" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -283,8 +283,8 @@
                                     <span class="pull-right">Confirmation Dt</span>
                                 </label>
                                 <div class="col-md-9">
-                                    <div class="input-group date" id="datepickerDemo">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control" })
+                                    <div class="input-group date" id="ConfirmationDate">
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control dtCss" })
                                         <span class="input-group-addon">
                                             <i class=" ion ion-calendar"></i>
                                         </span>
@@ -298,8 +298,8 @@
                                     <span class="pull-right">Resigned Dt</span>
                                 </label>
                                 <div class="col-md-9">
-                                    <div class="input-group date" id="datepickerDemo">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control" })
+                                    <div class="input-group date" id="ResignationDate">
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control dtCss" })
                                         <span class="input-group-addon">
                                             <i class=" ion ion-calendar"></i>
                                         </span>
@@ -428,53 +428,62 @@
 @section Scripts{
     <script type="text/javascript">
         $(function () {
-            debugger;
-            $('#frmEmp').validate({
-                rules: {
-                    'empHeader.IDType': {
-                        required: true
-                    },
-                    'empWorkDetail.JoiningDate': {
-                        required: true
-                    },
-                    'empHeader.FirstName': {
-                        required: true
-                    },
-                    'empHeader.LastName': {
-                        required: true
-                    },
-                    'empPersonalDetail.DOB': {
-                        required: true
-                    },
-                    'address.Email': {
-                        required: true
-                    },
-                    'address.MobileNo': {
-                        required: true
-                    },
-                    'empHeader.Nationality': {
-                        required: true
-                    },
-                    'empPersonalDetail.MaritalStatus': {
-                        required: true
-                    },
-                    'empWorkDetail.ConfirmationDate': {
-                        required: true
-                    },
-                    'address.Address1': {
-                        required: true
-                    },
-                    'address.CityName': {
-                        required: true
-                    },
-                    'empHeader.Password': {
-                        required: true
-                    },
-                    'empHeader.ConfirmPassword': {
-                        required: true
-                    }
+            $('.dtCss').datetimepicker({
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down'
+                },
+                format: 'DD/MM/YYYY'
+            });            
+        });
+
+        $('#frmEmp').validate({
+            rules: {
+                'empHeader.IDType': {
+                    required: true
+                },
+                'empWorkDetail.JoiningDate': {
+                    required: true
+                },
+                'empHeader.FirstName': {
+                    required: true
+                },
+                'empHeader.LastName': {
+                    required: true
+                },
+                'empPersonalDetail.DOB': {
+                    required: true
+                },
+                'address.Email': {
+                    required: true
+                },
+                'address.MobileNo': {
+                    required: true
+                },
+                'empHeader.Nationality': {
+                    required: true
+                },
+                'empPersonalDetail.MaritalStatus': {
+                    required: true
+                },
+                'empWorkDetail.ConfirmationDate': {
+                    required: true
+                },
+                'address.Address1': {
+                    required: true
+                },
+                'address.CityName': {
+                    required: true
+                },
+                'empHeader.Password': {
+                    required: true
+                },
+                'empHeader.ConfirmPassword': {
+                    required: true
                 }
-            });
+            }
         });
         
 

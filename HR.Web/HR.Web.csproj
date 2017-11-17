@@ -1901,11 +1901,11 @@
     <Content Include="Views\Shared\_Address.cshtml" />
     <Content Include="Views\Employee\employeedirectory.cshtml" />
     <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
-    <Content Include="Views\Leave\HolidayList.cshtml" />
-    <Content Include="Views\Leave\GetHolidayList.cshtml" />
     <Content Include="Views\Shared\_TreeView.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Shared\_GrantLeaveList.cshtml" />
+    <Content Include="Views\Leave\HolidayList.cshtml" />
+    <Content Include="Views\Leave\GetHolidayList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

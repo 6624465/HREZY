@@ -37,6 +37,29 @@ namespace HR.Web.Controllers
                 ToDate = DateTime.Now
             });
         }
+
+        [HttpPost]
+        public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
+        {
+
+            using (var dbCntx = new HrDataContext())
+            {
+                EmployeeLeaveList obj = new EmployeeLeaveList();
+
+                obj.FromDate = EmployeeLeaveList.FromDate;
+                obj.ToDate = EmployeeLeaveList.ToDate;
+                obj.Days = EmployeeLeaveList.Days;
+                obj.EmployeeId = EmployeeLeaveList.EmployeeId;
+                obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
+                obj.Remarks = EmployeeLeaveList.Remarks;
+                obj.Reason = EmployeeLeaveList.Reason;
+
+                dbCntx.EmployeeLeaveLists.Add(obj);
+                dbCntx.SaveChanges();
+
+                return View("EmployeeRequestFrom");
+            }
+        }
         public ActionResult GrantLeaveForm()
         {
             return View(new LeaveVm { });

@@ -1,5 +1,6 @@
 ﻿@model HR.Web.Models.EmployeeLeaveList
-
+@using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
+{
 <div class="page">
     <div class="row">
         <div class="col-md-12">
@@ -49,52 +50,55 @@
                             </label>
                             <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.EmployeeId,
-                                    SelectListItemHelper.EmployeeList(),
-                                    "Select Employee",
-                                    new { @class = "form-control" })
+             SelectListItemHelper.EmployeeList(),
+             "Select Employee",
+             new { @class = "form-control" })
                             </div>
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">LeaveType</span>
                             </label>
                             <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.LeaveTypeId,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEELEAVETYPE),
-                                    "Select Leave Type",
-                                    new { @class = "form-control" })
+             SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEELEAVETYPE),
+             "Select Leave Type",
+             new { @class = "form-control" })
                             </div>
-                            <div class="row css10">
-                                <div class="form-group">
-                                    <label class="col-md-1 control-label">
-                                        <span class="pull-right">Remarks</span>
-                                    </label>
-                                    <div class="col-md-3">
-                                        @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>                        
                     </div>
-                    <label class="col-md-1 control-label">
-                        <span class="pull-right">Reason</span>
-                    </label>
-                    <div class="col-md-5">
-                        @Html.TextAreaFor(x => x.Reason, new { @class = "form-control" })
-                    </div>
                     <div class="row css10">
+                        <label class="col-md-1 control-label">
+                            <span class="pull-right">Reason</span>
+                        </label>
+                        <div class="col-md-5">
+                            @Html.TextAreaFor(x => x.Reason, new { @class = "form-control" })
+                        </div>
                         <div class="form-group">
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-info">Save</button>
-                                <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Remarks</span>
+                            </label>
+                            <div class="col-md-5">
+                                @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control" })
                             </div>
                         </div>
-                    </div>
-                </div>
+                        </div>
+                        <div class="row css10">
+                            <div class="col-md-9"></div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-info" onclick="SaveEmployeeLeaveForm()">Save</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
+                                    </div>
+                                </div>
+                               
+                            </div>
             </div>
         </div>
     </div>
 </div>
 
-
+</div>
+}
 @section Scripts{
     
     <script type="text/javascript">     
@@ -118,5 +122,38 @@
             var days = moment.duration(to.diff(from)).asDays();
             $('#Days').val(days);
         });
+
+        $('#frmLeave').validate({
+            rules: {
+                'FromDate': {
+                    required: true
+                },
+                'ToDate': {
+                    required: true
+                },
+                'Days': {
+                    required: true
+                },
+                'EmployeeId': {
+                    required: true
+                },
+                'LeaveTypeId': {
+                    required: true
+                },
+                'Reason': {
+                    required: true,                    
+                },
+                'Remarks': {
+                    required: true,                    
+                }
+            }
+        });
+
+
+        function SaveEmployeeLeaveForm() {
+            if ($('#frmLeave').valid()) {
+                $('#frmLeave').submit();
+            }
+        }
 </script>
 }

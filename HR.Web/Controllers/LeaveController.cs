@@ -83,6 +83,9 @@ namespace HR.Web.Controllers
                                      PeriodTypeDescription=lookups.Where(y=>y.LookUpID==x.PeriodType).FirstOrDefault().LookUpDescription
                                  }).ToList().AsEnumerable();
                 leavevm.lvmList = lvmList;
+
+
+                ViewData["LeaveTypeList"] = lookups.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE).ToList();
                 return View(leavevm);
             }
            // return View(new LeaveHeader());

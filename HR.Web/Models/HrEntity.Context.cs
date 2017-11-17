@@ -39,5 +39,6 @@ namespace HR.Web.Models
         public virtual DbSet<LeaveDetail> LeaveDetails { get; set; }
         public virtual DbSet<LeaveHeader> LeaveHeaders { get; set; }
         public virtual DbSet<EmployeeLeaveList> EmployeeLeaveLists { get; set; }
+        public virtual DbSet<HolidayList> HolidayLists { get; set; }
     }
 }

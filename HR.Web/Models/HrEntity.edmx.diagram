@@ -26,6 +26,7 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveHeader" Width="1.5" PointX="9.375" PointY="0.5" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.LeaveHeaderLeaveDetail" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" Width="1.5" PointX="12.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.HolidayList" Width="1.5" PointX="7.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

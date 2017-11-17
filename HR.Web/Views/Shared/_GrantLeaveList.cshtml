@@ -1,0 +1,14 @@
+﻿@*@model HR.Web.Models.LeaveHeader
+
+@{
+    WebGrid grid = new WebGrid(Model);
+    Layout = null;
+}
+    @grid.GetHtml(
+    columns: grid.Columns(
+    grid.Column("Action"),
+    grid.Column("LeaveYear", "Leave Granter", canSort: true),
+    grid.Column("PeriodicityType", "Periodicity", canSort: true),
+    grid.Column("PeriodType", "Period", canSort: true),
+    grid.Column("LeaveSchemeType", "Leave Scheme", canSort: true)
+    ));*@

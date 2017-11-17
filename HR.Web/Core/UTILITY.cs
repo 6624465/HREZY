@@ -25,6 +25,7 @@ namespace HR.Web
         public static string CONFIG_GRANTLEAVEPERIODICITY = "PeriodicityType";
         public static string CONFIG_GRANTLEAVEPERIODTYPE = "PeriodType";
         public static string CONFIG_GRANTLEAVESCHEMETYPE = "LeaveSchemeType";
+        public static string CONFIG_DOCUMENTTYPE = "DocumentType";
 
 
         /* Config Keys End */

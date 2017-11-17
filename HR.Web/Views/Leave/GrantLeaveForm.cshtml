@@ -1,10 +1,13 @@
 ﻿@model HR.Web.ViewModels.LeaveVm
 
-@*@{
- WebGrid grid = new WebGrid();
-}*@
-
-<div class="page">
+@{
+ WebGrid grid = new WebGrid(Model.lvmList);
+  
+ 
+}
+@using (Html.BeginForm("SaveGrantLeave", "Leave", FormMethod.Post, new { id = "frmGrant", name = "frmGrant" }))
+{
+    <div class="page">
     <div class="row">
         <div class="col-md-12 col-md-4">
             <div class="panel panel-default panel-hovered panel-stacked mb10">
@@ -15,73 +18,63 @@
                             <div class="form-group">
                                 <label>Leave Granter:</label>
                                 <div>
-                                    @Html.DropDownListFor(x => x.lookup.LookUpDescription,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_GRANTLEAVEYEAR),
+                                    @Html.DropDownListFor(x => x.leaveHeader.LeaveYear,
+                                    SelectListItemHelper.LeaveYearList(),
                                     "--Select Leave Granter--",
                                     new { @class = "form-control" })
                                 </div>
+                                
                                 <label>Periodicity:</label>
                                 <div>
-                                    @Html.DropDownListFor(x => x.lookup.LookUpDescription,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_GRANTLEAVEPERIODICITY),
-                                    "--Select Periodicity--",
-                                    new { @class = "form-control" })
-                                </div>
-                                <label>Period:</label>
-                                <div>
-                                    @Html.DropDownListFor(x => x.lookup.LookUpDescription,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_GRANTLEAVEPERIODTYPE),
+                                    @Html.DropDownListFor(x => x.leaveHeader.PeriodicityType,
+                                    SelectListItemHelper.PeriodicityTypeList(),
                                     "--Select Period--",
                                     new { @class = "form-control" })
                                 </div>
+                                <label>Period:</label>Periodicity
+                                <div>
+                                    @Html.DropDownListFor(x =>x.leaveHeader.PeriodType,
+                                    SelectListItemHelper.PeriodTypeList(),
+                                    "--Select Periodicity--",
+                                    new { @class = "form-control" })
+                                </div>
+
                                 <label>Leave Scheme:</label>
                                 <div>
-                                    @Html.DropDownListFor(x => x.lookup.LookUpDescription,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_GRANTLEAVESCHEMETYPE),
+                                    @Html.DropDownListFor(x =>x.leaveHeader.LeaveSchemeType,
+                                    SelectListItemHelper.grantSchemeType(),
                                     "--Select Scheme--",
                                     new { @class = "form-control" })
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        @*<div class="col-md-6">*@
+        @*<grid txt></grid>*@
         <div class="col-md-12 col-md-8">
-            <div class="panel panel-default panel-hovered panel-stacked mb10">
-                <div class="panel-heading">Grant Leave List</div>
-                <div class="table-responsive">
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Action</th>
-                                <th>Leave Granter</th>
-                                <th>Periodicity</th>
-                                <th>Period</th>
-                                <th>Leave Scheme</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-
-                @*<div class="panel-body">
-                    <div class="row">
+            <div class="panel panel-default">
+                <div class="box" id="grid">
+                    <div class="box-header">
+                        <h4>Granted List</h4>
                         <div class="col-md-12">
                             @grid.GetHtml(
-                               columns: grid.Columns(
-                               grid.Column("Action"),
-                               grid.Column("Leave Granter"),
-                               grid.Column("Periodicity"),
-                               grid.Column("Period"),
-                               grid.Column("Leave Scheme")
-                              ));
+                         columns: grid.Columns(
+
+                         grid.Column("LeaveYearDescription", "Leave Granter", canSort: true),
+                         grid.Column("PeriodicityTypeDescription", "Periodicity", canSort: true),
+                         grid.Column("PeriodTypeDescription", "Period", canSort: true),
+                         grid.Column("LeaveSchemeTypeDescription", "Leave Scheme", canSort: true)
+                        ), tableStyle: "table")
                         </div>
-                        </div>
-                    </div>*@
+                    </div>
+                </div>
             </div>
         </div>
+
+
     </div>
 </div>
     <div class="col-md-12 col-md-4">
@@ -110,7 +103,7 @@
 </div>
     <div class="col-md-12 col-md-12">
      <button type="submit" class="btn btn-info">Grant</button>
-     <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
+     @*<button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>*@
     </div>
 
-
+}

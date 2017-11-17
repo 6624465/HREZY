@@ -18,6 +18,7 @@ namespace HR.Web.Models
         public HrDataContext()
             : base("name=HrDataContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

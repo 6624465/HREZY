@@ -1738,6 +1738,9 @@
     <Compile Include="Models\EmployeeHeader.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeLeaveList.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeePersonalDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1758,6 +1761,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HrEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LeaveDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LeaveHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LookUp.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>

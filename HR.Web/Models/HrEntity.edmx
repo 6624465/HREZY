@@ -159,6 +159,29 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="ManagerId" Type="int" />
         </EntityType>
+        <EntityType Name="EmployeeLeaveList">
+          <Key>
+            <PropertyRef Name="EmployeeLeaveID" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="EmployeeLeaveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="LeaveTypeId" Type="int" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" Nullable="false" />
+          <Property Name="Days" Type="int" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="500" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
+          <Property Name="ApplyDate" Type="date" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="date" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="date" />
+          <Property Name="ManagerId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmployeePersonalDetail">
           <Key>
             <PropertyRef Name="PersonalDetailID" />
@@ -201,6 +224,38 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="LeaveDetail">
+          <Key>
+            <PropertyRef Name="LeaveDetailID" />
+            <PropertyRef Name="LeaveHeaderId" />
+            <PropertyRef Name="LeaveType" />
+          </Key>
+          <Property Name="LeaveDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeaveHeaderId" Type="int" Nullable="false" />
+          <Property Name="LeaveType" Type="int" Nullable="false" />
+          <Property Name="TotalLeaves" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LeaveHeader">
+          <Key>
+            <PropertyRef Name="LeaveHeaderID" />
+          </Key>
+          <Property Name="LeaveHeaderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchID" Type="int" Nullable="false" />
+          <Property Name="LeaveYear" Type="smallint" />
+          <Property Name="PeriodicityType" Type="int" />
+          <Property Name="PeriodType" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="LeaveSchemeType" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -227,8 +282,11 @@
           <EntitySet Name="EmployeeAddress" EntityType="Self.EmployeeAddress" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeDocumentDetail" EntityType="Self.EmployeeDocumentDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeHeader" EntityType="Self.EmployeeHeader" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="EmployeeLeaveList" EntityType="Self.EmployeeLeaveList" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeePersonalDetail" EntityType="Self.EmployeePersonalDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeWorkDetail" EntityType="Self.EmployeeWorkDetail" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="LeaveDetail" EntityType="Self.LeaveDetail" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="LeaveHeader" EntityType="Self.LeaveHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -298,6 +356,13 @@
             <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
             <End Role="EmployeeAddress" EntitySet="EmployeeAddresses" />
           </AssociationSet>
+          <EntitySet Name="LeaveDetails" EntityType="DB_9F30C5_HRDBModel.LeaveDetail" />
+          <EntitySet Name="LeaveHeaders" EntityType="DB_9F30C5_HRDBModel.LeaveHeader" />
+          <AssociationSet Name="LeaveHeaderLeaveDetail" Association="DB_9F30C5_HRDBModel.LeaveHeaderLeaveDetail">
+            <End Role="LeaveHeader" EntitySet="LeaveHeaders" />
+            <End Role="LeaveDetail" EntitySet="LeaveDetails" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeLeaveLists" EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -565,6 +630,73 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LeaveDetail">
+          <Key>
+            <PropertyRef Name="LeaveDetailID" />
+            <PropertyRef Name="LeaveHeaderId" />
+            <PropertyRef Name="LeaveType" />
+          </Key>
+          <Property Name="LeaveDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeaveHeaderId" Type="Int32" Nullable="false" />
+          <Property Name="LeaveType" Type="Int32" Nullable="false" />
+          <Property Name="TotalLeaves" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="LeaveHeader">
+          <Key>
+            <PropertyRef Name="LeaveHeaderID" />
+          </Key>
+          <Property Name="LeaveHeaderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveYear" Type="Int16" />
+          <Property Name="PeriodicityType" Type="Int32" />
+          <Property Name="PeriodType" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="LeaveSchemeType" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="LeaveHeaderLeaveDetail">
+          <End Type="DB_9F30C5_HRDBModel.LeaveHeader" Role="LeaveHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveHeader">
+              <PropertyRef Name="LeaveHeaderID" />
+            </Principal>
+            <Dependent Role="LeaveDetail">
+              <PropertyRef Name="LeaveHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeLeaveList">
+          <Key>
+            <PropertyRef Name="EmployeeLeaveID" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="EmployeeLeaveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="LeaveTypeId" Type="Int32" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Days" Type="Int32" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ApplyDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+          <Property Name="ManagerId" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -788,6 +920,60 @@
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.LeaveDetail">
+              <MappingFragment StoreEntitySet="LeaveDetail">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TotalLeaves" ColumnName="TotalLeaves" />
+                <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+                <ScalarProperty Name="LeaveHeaderId" ColumnName="LeaveHeaderId" />
+                <ScalarProperty Name="LeaveDetailID" ColumnName="LeaveDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveHeaders">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.LeaveHeader">
+              <MappingFragment StoreEntitySet="LeaveHeader">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LeaveSchemeType" ColumnName="LeaveSchemeType" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="PeriodType" ColumnName="PeriodType" />
+                <ScalarProperty Name="PeriodicityType" ColumnName="PeriodicityType" />
+                <ScalarProperty Name="LeaveYear" ColumnName="LeaveYear" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="LeaveHeaderID" ColumnName="LeaveHeaderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeLeaveLists">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeLeaveList">
+              <MappingFragment StoreEntitySet="EmployeeLeaveList">
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeLeaveID" ColumnName="EmployeeLeaveID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

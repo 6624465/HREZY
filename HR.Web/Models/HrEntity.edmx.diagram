@@ -8,13 +8,11 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Branch" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Country" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.User" Width="1.5" PointX="6.625" PointY="0.75" />
-        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Width="1.5" PointX="3.375" PointY="10.375" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeHeader" Width="1.5" PointX="10.25" PointY="5.375" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeePersonalDetail" Width="1.5" PointX="12.625" PointY="10.375" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeWorkDetail" Width="1.5" PointX="9.625" PointY="10.375" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeePersonalDetail" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeWorkDetail" />
-        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LookUp" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Company" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Address" Width="1.5" PointX="5.375" PointY="5.75" />
@@ -27,6 +25,8 @@
         <AssociationConnector Association="DB_9F30C5_HRDBModel.LeaveHeaderLeaveDetail" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" Width="1.5" PointX="12.375" PointY="4.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.HolidayList" Width="1.5" PointX="7.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Width="1.5" PointX="3.375" PointY="12.75" />
+        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,6 +1,8 @@
 ﻿@model HR.Web.ViewModels.EmployeeVm
-@using (Html.BeginForm("SaveEmployee", "Employee", FormMethod.Post, new { id = "frmEmp", name = "frmEmp" }))
+@using (Html.BeginForm("SaveEmployee", "Employee", FormMethod.Post, new { id = "frmEmp", name = "frmEmp", enctype = "multipart/form-data" }))
 {
+    @Html.HiddenFor(x => x.empHeader.EmployeeId)
+    @Html.HiddenFor(x => x.empHeader.BranchId)
     <div class="page">
         <div class="row">
             <div class="col-md-12">
@@ -75,12 +77,12 @@
                             <div class="col-md-1"></div>
                             <div class="col-md-5">
                                 <label>
-                                    @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Male", "101")
+                                    @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 101, "Male")
                                     <span>Male</span>
                                 </label>
                                 &nbsp;
                                 <label>
-                                    @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, "Female", "102")
+                                    @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 102, "Female")
                                     <span>Female</span>
                                 </label>
                             </div>
@@ -321,7 +323,7 @@
                                     <span class="pull-right">Email</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(x => x.empHeader.UserId,
+                                    @Html.TextBoxFor(x => x.empHeader.UserEmailId,
                                     new { @class = "form-control" })
                                 </div>
 
@@ -334,14 +336,14 @@
                                 </label>
                                 <div class="col-md-3">
                                     @Html.PasswordFor(x => x.empHeader.Password,
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control", value = Model.empHeader.Password })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Confirm Password</span>
                                 </label>
                                 <div class="col-md-3">
                                     @Html.PasswordFor(x => x.empHeader.ConfirmPassword,
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control", value = Model.empHeader.ConfirmPassword })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Status</span>
@@ -450,7 +452,8 @@
                     required: true
                 },
                 'address.Email': {
-                    required: true
+                    required: true,
+                    email: true
                 },
                 'address.MobileNo': {
                     required: true
@@ -468,13 +471,15 @@
                     required: true
                 },
                 'empHeader.UserEmailId': {
-                    required: true
+                    required: true,
+                    email: true
                 },
                 'empHeader.Password': {
                     required: true
                 },
                 'empHeader.ConfirmPassword': {
-                    required: true
+                    required: true,
+                    equalTo: '#empHeader_Password'
                 }
             }
         });

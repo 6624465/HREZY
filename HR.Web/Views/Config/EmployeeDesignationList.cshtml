@@ -48,7 +48,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info" ng-click="SaveDesignation()">Save</button>
+                    <button type="submit" class="btn btn-info" onclick="SaveDesignation()">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -79,10 +79,12 @@
         $('#frm').validate({
             rules: {
                 LookUpCode: {
-                    required: true
+                    required: true,
+                    maxlength:20
                 },
                 LookUpDescription: {
-                    required: true
+                    required: true,
+                    maxlength:30
                 }
             }
         });

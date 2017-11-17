@@ -77,11 +77,13 @@
             rules: {
                 LookUpCode:
                     {
-                        required: true
+                        required: true,
+                        maxlength:20
                     },
                 LookUpDescription:
                     {
-                        required: true
+                        required: true,
+                        maxlength:30
                     }
             }
 
@@ -89,8 +91,9 @@
         });
 
         function SaveMaritalStatus() {
-            debugger;
-            $('#frm').submit();
+            if ($('#frm').valid()){
+                $('#frm').submit();
+            }
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using HR.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace HR.Web.ViewModels
@@ -8,6 +9,8 @@ namespace HR.Web.ViewModels
     {
         public CompanyVmObj company { get; set; }
         public AddressVm companyAddress { get; set; }
+
+        public List<companyTreeVm> companyTreeVm { get; set; }
     }
 
     public class CompanyVmObj
@@ -24,5 +27,19 @@ namespace HR.Web.ViewModels
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public DateTime? InCorporationDate { get; set; }
+    }
+
+
+    public class companyTreeVm
+    {
+        public string text { get; set; }
+        public string href { get; set; }
+        public List<branchTreeVm> nodes { get; set; }
+    }
+    public class branchTreeVm
+    {
+        public string text { get; set; }
+        public string href { get; set; }
+
     }
 }

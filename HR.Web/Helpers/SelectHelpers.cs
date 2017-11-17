@@ -132,7 +132,7 @@ namespace HR.Web.Helpers
                                     Value = x.CountryCode
                                 }).ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
             }
-        }
+        }        
         public static IEnumerable<System.Web.Mvc.SelectListItem> PeriodicityTypeList()
         {
             using (var dbCntx = new HrDataContext())

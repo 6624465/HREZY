@@ -95,10 +95,11 @@
             rules: {
                 LookUpCode: {
                     required: true,
-                    maxlength:10
+                    maxlength:20
                 },
                 LookUpDescription: {
-                    required: true
+                    required: true,
+                    maxlength:30
                 }
             }
         });
@@ -107,6 +108,15 @@
             $('#frm').submit();
         }
       }
+        //$(document).ready(function () {
+        //    debugger;
+        //    $('#frm').keypress(function (event) {
+        //        var inputValue = event.charCode;
+        //        if (!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) {
+        //            event.preventDefault();
+        //        }
+        //    });
+        //});
 
 
        

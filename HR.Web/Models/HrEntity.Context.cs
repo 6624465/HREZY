@@ -28,7 +28,6 @@ namespace HR.Web.Models
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<EmployeeDocumentDetail> EmployeeDocumentDetails { get; set; }
         public virtual DbSet<EmployeeHeader> EmployeeHeaders { get; set; }
         public virtual DbSet<EmployeePersonalDetail> EmployeePersonalDetails { get; set; }
         public virtual DbSet<EmployeeWorkDetail> EmployeeWorkDetails { get; set; }
@@ -40,5 +39,6 @@ namespace HR.Web.Models
         public virtual DbSet<LeaveHeader> LeaveHeaders { get; set; }
         public virtual DbSet<EmployeeLeaveList> EmployeeLeaveLists { get; set; }
         public virtual DbSet<HolidayList> HolidayLists { get; set; }
+        public virtual DbSet<EmployeeDocumentDetail> EmployeeDocumentDetails { get; set; }
     }
 }

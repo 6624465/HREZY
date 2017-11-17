@@ -143,6 +143,18 @@ namespace HR.Web.Helpers
                             Value = x.EmployeeId.ToString()
                         }).ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
             }
-        }     
+        }
+        public static IEnumerable<System.Web.Mvc.SelectListItem> CountryListById()
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                return dbCntx.Countries
+                                .Select(x => new System.Web.Mvc.SelectListItem
+                                {
+                                    Text = x.CountryName,
+                                    Value = x.CountryId.ToString()
+                                }).ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
+            }
+        }
     }
 }

@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HR.Web.Models;
 
 namespace HR.Web.Controllers
 {
-    public class LeaveController : Controller
+    [Authorize]
+    public class LeaveController : BaseController
     {
         // GET: Leave
         public ActionResult HolidayList()
@@ -26,7 +28,10 @@ namespace HR.Web.Controllers
         }
         public ActionResult EmployeeRequestFrom()
         {
-            return View();
+            return View(new EmployeeLeaveList {
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now
+            });
         }
         public ActionResult GrantLeaveForm()
         {

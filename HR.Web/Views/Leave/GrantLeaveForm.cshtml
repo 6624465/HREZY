@@ -20,7 +20,7 @@
                                 <div>
                                     @Html.DropDownListFor(x => x.leaveHeader.LeaveYear,
                                     SelectListItemHelper.LeaveYearList(),
-                                    "--Select Leave Granter--",
+                                    "Select Leave Granter",
                                     new { @class = "form-control" })
                                 </div>
                                 
@@ -28,14 +28,14 @@
                                 <div>
                                     @Html.DropDownListFor(x => x.leaveHeader.PeriodicityType,
                                     SelectListItemHelper.PeriodicityTypeList(),
-                                    "--Select Period--",
+                                    "Select Period",
                                     new { @class = "form-control" })
                                 </div>
                                 <label>Period:</label>Periodicity
                                 <div>
                                     @Html.DropDownListFor(x =>x.leaveHeader.PeriodType,
                                     SelectListItemHelper.PeriodTypeList(),
-                                    "--Select Periodicity--",
+                                    "Select Periodicity",
                                     new { @class = "form-control" })
                                 </div>
 
@@ -43,7 +43,7 @@
                                 <div>
                                     @Html.DropDownListFor(x =>x.leaveHeader.LeaveSchemeType,
                                     SelectListItemHelper.grantSchemeType(),
-                                    "--Select Scheme--",
+                                    "Select Scheme",
                                     new { @class = "form-control" })
                                 </div>
 

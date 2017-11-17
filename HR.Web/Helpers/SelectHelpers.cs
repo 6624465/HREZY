@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using HR.Web.Controllers;
 using HR.Web.Models;
 
 namespace HR.Web.Helpers
@@ -193,5 +193,23 @@ namespace HR.Web.Helpers
                                 .ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
             }
         }
+        public static IEnumerable<System.Web.Mvc.SelectListItem> EmployeeList()
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var data = (from emp in dbCntx.EmployeeHeaders
+                           join  empl in dbCntx.EmployeeLeaveLists
+                           on emp.EmployeeId equals empl.EmployeeId
+                           select emp).Select(x => new System.Web.Mvc.SelectListItem
+                                {
+                                    Text = x.FirstName+""+x.LastName,
+                                    Value = x.EmployeeId.ToString()
+                                })
+                                .OrderBy(x => x.Text)
+                                .ToList<System.Web.Mvc.SelectListItem>().AsEnumerable().Distinct();
+                return data;
+            }
+        }
+
     }
 }

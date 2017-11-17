@@ -1688,6 +1688,7 @@
     <Content Include="Scripts\Core\sitescript.js" />
     <Content Include="Scripts\Core\ui-bootstrap-tpls-2.4.0.min.js" />
     <Content Include="Scripts\Core\vendors.js" />
+    <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\icheck.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

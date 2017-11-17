@@ -80,15 +80,19 @@
         $('#frm').validate({
             rules: {
                 LookUpCode: {
-                    required: true
+                    required: true,
+                    maxlength:20
                 },
                 LookUpDescription: {
-                    required: true
+                    required: true,
+                    maxlength:30
                 }
             }
         });
         function SaveChanges() {
-            $('#frm').submit();
+            if ($('#frm').valid()) {
+                $('#frm').submit();
+            }
         }
 
 

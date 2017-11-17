@@ -79,10 +79,12 @@
         $('#frm').validate({
             rules: {
                 LookUpCode: {
-                    required: true
+                    required: true,
+                    maxlength:20
                 },
                 LookUpDescription: {
-                    required: true
+                    required: true,
+                    maxlength:30
                 }
             }
         });

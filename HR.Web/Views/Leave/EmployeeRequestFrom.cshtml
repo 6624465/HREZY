@@ -131,9 +131,9 @@
                 'ToDate': {
                     required: true
                 },
-                'Days': {
-                    required: true
-                },
+                //'Days': {
+                //    required: true
+                //},
                 'EmployeeId': {
                     required: true
                 },
@@ -149,10 +149,20 @@
             }
         });
 
-
+        function clearrec() {
+            $('#FromDate').val('');
+            $('#ToDate').val('');
+            $('#Days').val('');
+            $('#EmployeeId').val('');
+            $('#LeaveTypeId').val('');
+            $('#Reason').val('');
+            $('#Remarks').val('')
+        }
+        clearrec()
         function SaveEmployeeLeaveForm() {
             if ($('#frmLeave').valid()) {
                 $('#frmLeave').submit();
+               
             }
         }
 </script>

@@ -55,10 +55,8 @@ namespace HR.Web.Controllers
                 obj.Reason = EmployeeLeaveList.Reason;
                 obj.CreatedBy = USERID;
                 obj.CreatedOn = UTILITY.SINGAPORETIME;
-
                 dbCntx.EmployeeLeaveLists.Add(obj);
                 dbCntx.SaveChanges();
-
                 return View("EmployeeRequestFrom");
             }
         }

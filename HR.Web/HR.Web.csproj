@@ -1670,6 +1670,7 @@
     <Content Include="fonts\proximanovalight.eot" />
     <Content Include="fonts\proximanovalight.ttf" />
     <Content Include="fonts\proximanovalight.woff" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Core\app.js" />
     <Content Include="Scripts\Core\bootstrap-rating.min.js" />
@@ -1737,10 +1738,16 @@
     <Compile Include="Models\EmployeeHeader.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeLeaveList.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeePersonalDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeeWorkDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HolidayList.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HrEntity.Context.cs">
@@ -1757,6 +1764,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HrEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LeaveDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LeaveHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LookUp.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
@@ -1870,7 +1883,6 @@
     <Content Include="Views\Config\GetLeaveType.cshtml" />
     <Content Include="Views\Config\PaymentTypeList.cshtml" />
     <Content Include="Views\Config\GetPaymentType.cshtml" />
-    <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
     <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
     <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
     <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
@@ -1880,6 +1892,7 @@
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Employee\employeedirectory.cshtml" />
     <Content Include="Views\Leave\HolidaysList.cshtml" />
+    <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

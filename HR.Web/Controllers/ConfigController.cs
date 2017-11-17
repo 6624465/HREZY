@@ -13,6 +13,7 @@ namespace HR.Web.Controllers
     public class ConfigController : BaseController
     {
 
+
         #region Designation
         public ActionResult EmployeeDesignationList()
         {

@@ -6,6 +6,7 @@
     <title>HR</title>
     <link rel="stylesheet" href="@Url.Content("~/Css/ionicons-2.0.1/css/ionicons.css")">
     <link rel="stylesheet" href="@Url.Content("~/Css/font-awesome-4.7.0/css/font-awesome.css")">
+    @*<link rel="stylesheet" href="@Url.Content("~/Css/c3.css")">*@
     <link href="@Url.Content("~/Css/skins/flat/_all.css")" rel="stylesheet" />
     
     <link href="@Url.Content("~/Css/skins/flat/green.css")" rel="stylesheet" />
@@ -26,7 +27,7 @@
     </style>
     @RenderSection("Styles", false)
 </head>
-<body id="app" class="app off-canvas">
+<body id="app" class="app off-canvas nav-expand">
 
     <!-- header -->
     <header class="site-head" id="site-head">
@@ -562,6 +563,9 @@
 
     
     <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/Core/vendors.js")"></script>*@
+    @*<script src="@Url.Content("~/Scripts/Core/d3.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Core/c3.min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/icheck.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
     <script src="@Url.Content("~/Scripts/moment.js")"></script>

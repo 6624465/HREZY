@@ -53,6 +53,8 @@ namespace HR.Web.Controllers
                 obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
                 obj.Remarks = EmployeeLeaveList.Remarks;
                 obj.Reason = EmployeeLeaveList.Reason;
+                obj.CreatedBy = USERID;
+                obj.CreatedOn = UTILITY.SINGAPORETIME;
 
                 dbCntx.EmployeeLeaveLists.Add(obj);
                 dbCntx.SaveChanges();

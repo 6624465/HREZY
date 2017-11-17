@@ -1,0 +1,158 @@
+﻿
+
+
+<div class="page">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default panel-hovered panel-stacked mb30">
+                <div class="panel-heading">Employee Information</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Join Date:</span>
+                            </label>
+                            <div class="col-md-4">
+                                @*@Html.TextBoxFor(x => x.empHeader.FirstName,
+                                    new { @class = "form-control" })*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Designation:</span>
+                            </label>
+                            <div class="col-md-4">
+                                @*@Html.TextBoxFor(x => x.empHeader.FirstName,
+                                    new { @class = "form-control" })*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Experience:</span>
+                            </label>
+                            <div class="col-md-4">
+                                @*@Html.TextBoxFor(x => x.empHeader.FirstName,
+                                    new { @class = "form-control" })*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Department:</span>
+                            </label>
+                            <div class="col-md-4">
+                                @*@Html.TextBoxFor(x => x.empHeader.FirstName,
+                                    new { @class = "form-control" })*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-md-6">
+            <div class="panel panel-default panel-hovered panel-stacked mb30">
+                <div class="panel-heading">Salary</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Salary Item</th>
+                                        <th>Current Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>FULL Basic</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>FULL HRA</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>FULL CONVEYANCE</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>FULL DA</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>FULL SPECIAL ALLOWANCE</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>MONTHLY CTC</td>
+                                        <td></td>
+                                    <tr>
+                                        <td>ANNUAL CTC</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>MEDICAL MONTHLY ENTITLEMENT</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Effective From</span>
+                            </label>
+                            <div class="col-md-4">
+                                <div class="input-group date" id="datepickerDemo">
+                                    @*@Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control" })*@
+                                    <span class="input-group-addon">
+                                        <i class="ion ion-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Payout Month</span>
+                            </label>
+                            <div class="col-md-4">
+                                <div class="input-group date" id="datepickerDemo">
+                                    @*@Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control" })*@
+                                    <span class="input-group-addon">
+                                        <i class="ion ion-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Remarks</span>
+                            </label>
+                            <div class="col-md-6">
+                        
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button type="button" class="btn btn-info" ng-click="SaveSalary()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

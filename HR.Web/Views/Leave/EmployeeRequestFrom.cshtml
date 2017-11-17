@@ -59,7 +59,7 @@
                             </label>
                             <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.LeaveTypeId,
-             SelectListItemHelper.EmployeeLeaveType(),
+             SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEELEAVETYPE),
              "Select Leave Type",
              new { @class = "form-control" })
                             </div>
@@ -123,7 +123,6 @@
             $('#Days').val(days);
         });
 
-       
         $('#frmLeave').validate({
             rules: {
                 'FromDate': {
@@ -132,9 +131,9 @@
                 'ToDate': {
                     required: true
                 },
-                'Days': {
-                    required: true
-                },
+                //'Days': {
+                //    required: true
+                //},
                 'EmployeeId': {
                     required: true
                 },
@@ -149,7 +148,7 @@
                 }
             }
         });
-       
+
         function clearrec() {
             $('#FromDate').val('');
             $('#ToDate').val('');
@@ -157,16 +156,14 @@
             $('#EmployeeId').val('');
             $('#LeaveTypeId').val('');
             $('#Reason').val('');
-            $('#Remarks').val('');
-
+            $('#Remarks').val('')
         }
-        clearrec();
-
+        clearrec()
         function SaveEmployeeLeaveForm() {
             if ($('#frmLeave').valid()) {
                 $('#frmLeave').submit();
+               
             }
-
         }
 </script>
 }

@@ -10,7 +10,7 @@ namespace HR.Web.Controllers
     public class LeaveController : Controller
     {
         // GET: Leave
-        public ActionResult HolidaysList()
+        public ActionResult HolidayList()
         {
             return View();
         }

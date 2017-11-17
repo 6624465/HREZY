@@ -135,9 +135,7 @@
         </EntityType>
         <EntityType Name="EmployeeDocumentDetail">
           <Key>
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="BranchId" />
-            <PropertyRef Name="DocumentType" />
+            <PropertyRef Name="DocumentDetailID" />
           </Key>
           <Property Name="DocumentDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
@@ -339,7 +337,6 @@
           <EntitySet Name="Branches" EntityType="Self.Branch" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="Users" EntityType="DB_9F30C5_HRDBModel.User" />
-          <EntitySet Name="EmployeeDocumentDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" />
           <EntitySet Name="EmployeeHeaders" EntityType="DB_9F30C5_HRDBModel.EmployeeHeader" />
           <EntitySet Name="EmployeePersonalDetails" EntityType="DB_9F30C5_HRDBModel.EmployeePersonalDetail" />
           <EntitySet Name="EmployeeWorkDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeWorkDetail" />
@@ -350,10 +347,6 @@
           <AssociationSet Name="EmployeeHeaderEmployeeWorkDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeWorkDetail">
             <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
             <End Role="EmployeeWorkDetail" EntitySet="EmployeeWorkDetails" />
-          </AssociationSet>
-          <AssociationSet Name="EmployeeHeaderEmployeeDocumentDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail">
-            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
-            <End Role="EmployeeDocumentDetail" EntitySet="EmployeeDocumentDetails" />
           </AssociationSet>
           <EntitySet Name="LookUps" EntityType="DB_9F30C5_HRDBModel.LookUp" />
           <EntitySet Name="Companies" EntityType="DB_9F30C5_HRDBModel.Company" />
@@ -379,6 +372,11 @@
           </AssociationSet>
           <EntitySet Name="EmployeeLeaveLists" EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" />
           <EntitySet Name="HolidayLists" EntityType="DB_9F30C5_HRDBModel.HolidayList" />
+          <EntitySet Name="EmployeeDocumentDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" />
+          <AssociationSet Name="EmployeeHeaderEmployeeDocumentDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail">
+            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
+            <End Role="EmployeeDocumentDetail" EntitySet="EmployeeDocumentDetails" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -396,22 +394,6 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="BranchId" Type="Int32" />
-        </EntityType>
-        <EntityType Name="EmployeeDocumentDetail">
-          <Key>
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="BranchId" />
-            <PropertyRef Name="DocumentType" />
-          </Key>
-          <Property Name="DocumentDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="BranchId" Type="Int32" Nullable="false" />
-          <Property Name="DocumentType" Type="Int32" Nullable="false" />
-          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="EmployeeHeader">
           <Key>
@@ -502,20 +484,6 @@
               <PropertyRef Name="BranchId" />
             </Principal>
             <Dependent Role="EmployeeWorkDetail">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="EmployeeHeaderEmployeeDocumentDetail">
-          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Role="EmployeeDocumentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeHeader">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="EmployeeDocumentDetail">
               <PropertyRef Name="EmployeeId" />
               <PropertyRef Name="BranchId" />
             </Dependent>
@@ -727,6 +695,34 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="CountryId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="EmployeeDocumentDetail">
+          <Key>
+            <PropertyRef Name="DocumentDetailID" />
+          </Key>
+          <Property Name="DocumentDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="DocumentType" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="EmployeeHeaderEmployeeDocumentDetail">
+          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Role="EmployeeDocumentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeHeader">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="EmployeeDocumentDetail">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -776,21 +772,6 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeDocumentDetails">
-            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeDocumentDetail">
-              <MappingFragment StoreEntitySet="EmployeeDocumentDetail">
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="DocumentDetailID" ColumnName="DocumentDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1019,6 +1000,21 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="HolidayId" ColumnName="HolidayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeDocumentDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeDocumentDetail">
+              <MappingFragment StoreEntitySet="EmployeeDocumentDetail">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="DocumentDetailID" ColumnName="DocumentDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

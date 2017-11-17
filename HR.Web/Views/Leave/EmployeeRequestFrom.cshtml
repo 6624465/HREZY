@@ -1,5 +1,6 @@
 ﻿@model HR.Web.Models.EmployeeLeaveList
-
+@using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
+{
 <div class="page">
     <div class="row">
         <div class="col-md-12">
@@ -14,7 +15,7 @@
                                         <span class="pull-right">From Date</span>
                                     </label>
                                     <div class="col-md-2">
-                                        <div class="input-group date" id="FromDate">
+                                        <div class="input-group date" id="FromDt">
                                             @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCss", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
@@ -25,7 +26,7 @@
                                         <span class="pull-right">To Date</span>
                                     </label>
                                     <div class="col-md-2">
-                                        <div class="input-group date" id="ToDate">
+                                        <div class="input-group date" id="ToDt">
                                             @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCss", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
@@ -36,7 +37,7 @@
                                         <span class="pull-right">Days</span>
                                     </label>
                                     <div class="col-md-2">
-                                        @Html.TextBoxFor(x => x.Days, new { @class = "form-control", required = "required" })
+                                        @Html.TextBoxFor(x => x.Days, new { @class = "form-control", required = "required", @readonly = "readonly" })
                                     </div>
                                 </div>
                             </div>
@@ -49,54 +50,58 @@
                             </label>
                             <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.EmployeeId,
-                                    SelectListItemHelper.EmployeeList(),
-                                    "Select Employee",
-                                    new { @class = "form-control" })
+                                 SelectListItemHelper.EmployeeList(),
+                                 "Select Employee",
+                                 new { @class = "form-control" })
                             </div>
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">LeaveType</span>
                             </label>
                             <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.LeaveTypeId,
-                                    SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEELEAVETYPE),
-                                    "Select Leave Type",
-                                    new { @class = "form-control" })
+                                 SelectListItemHelper.EmployeeLeaveType(),
+                                 "Select Leave Type",
+                                 new { @class = "form-control" })
                             </div>
-                            <div class="row css10">
-                                <div class="form-group">
-                                    <label class="col-md-1 control-label">
-                                        <span class="pull-right">Remarks</span>
-                                    </label>
-                                    <div class="col-md-3">
-                                        @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>                        
                     </div>
-                    <label class="col-md-1 control-label">
-                        <span class="pull-right">Reason</span>
-                    </label>
-                    <div class="col-md-5">
-                        @Html.TextAreaFor(x => x.Reason, new { @class = "form-control" })
-                    </div>
                     <div class="row css10">
+                        <label class="col-md-1 control-label">
+                            <span class="pull-right">Reason</span>
+                        </label>
+                        <div class="col-md-5">
+                            @Html.TextAreaFor(x => x.Reason, new { @class = "form-control" })
+                        </div>
                         <div class="form-group">
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-info">Save</button>
-                                <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Remarks</span>
+                            </label>
+                            <div class="col-md-5">
+                                @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control" })
                             </div>
                         </div>
-                    </div>
-                </div>
+                        </div>
+                        <div class="row css10">
+                            <div class="col-md-9"></div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-info" onclick="SaveEmployeeLeaveForm()">Save</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
+                                    </div>
+                                </div>
+                               
+                            </div>
             </div>
         </div>
     </div>
 </div>
 
-
+</div>
+}
 @section Scripts{
-    <script type="text/javascript">       
+    
+    <script type="text/javascript">     
 
         $('.dtCss').datetimepicker({
             icons: {
@@ -107,5 +112,61 @@
             },
             format: 'DD/MM/YYYY'
         });
+
+        $("#ToDt").on("dp.change", function (e) {
+            debugger;
+            var fromDate = $('#FromDt').find('input').val();
+            var toDate = $('#ToDt').find('input').val();
+            var from = moment(fromDate, 'DD/MM/YYYY');
+            var to = moment(toDate, 'DD/MM/YYYY');
+            var days = moment.duration(to.diff(from)).asDays();
+            $('#Days').val(days);
+        });
+
+       
+        $('#frmLeave').validate({
+            rules: {
+                'FromDate': {
+                    required: true
+                },
+                'ToDate': {
+                    required: true
+                },
+                'Days': {
+                    required: true
+                },
+                'EmployeeId': {
+                    required: true
+                },
+                'LeaveTypeId': {
+                    required: true
+                },
+                'Reason': {
+                    required: true,                    
+                },
+                'Remarks': {
+                    required: true,                    
+                }
+            }
+        });
+       
+        function clearrec() {
+            $('#FromDate').val('');
+            $('#ToDate').val('');
+            $('#Days').val('');
+            $('#EmployeeId').val('');
+            $('#LeaveTypeId').val('');
+            $('#Reason').val('');
+            $('#Remarks').val('');
+
+        }
+        clearrec();
+
+        function SaveEmployeeLeaveForm() {
+            if ($('#frmLeave').valid()) {
+                $('#frmLeave').submit();
+            }
+
+        }
 </script>
 }

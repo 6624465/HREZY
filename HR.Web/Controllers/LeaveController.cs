@@ -19,9 +19,13 @@ namespace HR.Web.Controllers
 
         public PartialViewResult GetHolidayList()
         {
-                return PartialView();
+                return PartialView(new HolidayList
+                {
+                    Date = DateTime.Now,
+                });
             
         }
+      
         public ActionResult AppliedLeaveList()
         {
             return View();

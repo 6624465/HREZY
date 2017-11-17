@@ -1871,11 +1871,16 @@
     <Content Include="Views\Config\GetLeaveType.cshtml" />
     <Content Include="Views\Config\PaymentTypeList.cshtml" />
     <Content Include="Views\Config\GetPaymentType.cshtml" />
+    <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
+    <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
+    <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
+    <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
     <Content Include="Views\Administration\Company.cshtml" />
     <Content Include="Views\Administration\AddBranch.cshtml" />
     <Content Include="Views\Shared\_Address.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Employee\employeedirectory.cshtml" />
+    <Content Include="Views\Leave\HolidaysList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

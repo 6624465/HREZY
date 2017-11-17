@@ -1,9 +1,9 @@
 ﻿@model HR.Web.ViewModels.LeaveVm
 
 @{
- WebGrid grid = new WebGrid(Model.lvmList);
-  
- 
+    WebGrid grid = new WebGrid(Model.lvmList);
+    var leaveTypeList = (List<HR.Web.Models.LookUp>)ViewData["LeaveTypeList"];
+
 }
 @using (Html.BeginForm("SaveGrantLeave", "Leave", FormMethod.Post, new { id = "frmGrant", name = "frmGrant" }))
 {
@@ -77,13 +77,21 @@
 
     </div>
 </div>
-    <div class="col-md-12 col-md-4">
+<div class="col-md-12 col-md-4">
     <div class="panel panel-default panel-hovered panel-stacked mb10">
         <div class="checkbox m-b-15"></div>
         <div class="panel-heading">Leave Type</div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6">
+                    <div class="form-group">
+                        @for (var i = 0; i < leaveTypeList.Count; i++)
+                        {
+                            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Privilege Leave</label><br />
+                        }
+                    </div>
+                </div>
+                @*<div class="col-md-6">
                     <div class="form-group">
                         <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Privilege Leave</label><br />
                         <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Casual Leave</label><br />
@@ -96,7 +104,7 @@
                         <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Earned Leave</label><br />
                         <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Restricted Holiday</label>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>

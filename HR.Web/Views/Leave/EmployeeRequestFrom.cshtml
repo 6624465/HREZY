@@ -14,7 +14,7 @@
                                         <span class="pull-right">From Date</span>
                                     </label>
                                     <div class="col-md-2">
-                                        <div class="input-group date" id="FromDate">
+                                        <div class="input-group date" id="FromDt">
                                             @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCss", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
@@ -25,7 +25,7 @@
                                         <span class="pull-right">To Date</span>
                                     </label>
                                     <div class="col-md-2">
-                                        <div class="input-group date" id="ToDate">
+                                        <div class="input-group date" id="ToDt">
                                             @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCss", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
@@ -36,7 +36,7 @@
                                         <span class="pull-right">Days</span>
                                     </label>
                                     <div class="col-md-2">
-                                        @Html.TextBoxFor(x => x.Days, new { @class = "form-control", required = "required" })
+                                        @Html.TextBoxFor(x => x.Days, new { @class = "form-control", required = "required", @readonly = "readonly" })
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,8 @@
 
 
 @section Scripts{
-    <script type="text/javascript">       
+    
+    <script type="text/javascript">     
 
         $('.dtCss').datetimepicker({
             icons: {
@@ -106,6 +107,16 @@
                 down: 'fa fa-arrow-down'
             },
             format: 'DD/MM/YYYY'
+        });
+
+        $("#ToDt").on("dp.change", function (e) {
+            debugger;
+            var fromDate = $('#FromDt').find('input').val();
+            var toDate = $('#ToDt').find('input').val();
+            var from = moment(fromDate, 'DD/MM/YYYY');
+            var to = moment(toDate, 'DD/MM/YYYY');
+            var days = moment.duration(to.diff(from)).asDays();
+            $('#Days').val(days);
         });
 </script>
 }

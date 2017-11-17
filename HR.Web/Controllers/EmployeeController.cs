@@ -76,7 +76,7 @@ namespace HR.Web.Controllers
             }
             else
             {
-                return View(new EmployeeVm { });
+                return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true } });
             }
         }
 
@@ -85,89 +85,176 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult saveemployee(EmployeeVm empVm)
         {
-            using (var dbCntx = new HrDataContext())
+            if (empVm.empHeader.EmployeeId == -1)
             {
-                var empHdr = new EmployeeHeader {
-                    BranchId = BRANCHID,
-                    FirstName = empVm.empHeader.FirstName,
-                    MiddleName = empVm.empHeader.MiddleName,
-                    LastName = empVm.empHeader.LastName,
-                    Nationality = empVm.empHeader.Nationality,
-                    IDType = empVm.empHeader.IDType,
-                    IDNumber = "",
-                    UserEmailId = empVm.empHeader.UserEmailId,
-                    Password = empVm.empHeader.Password,
-                    ConfirmPassword = empVm.empHeader.ConfirmPassword,
-                    IsActive = true,
-                    CreatedBy = USERID,
-                    CreatedOn = UTILITY.SINGAPORETIME,
-                    ModifiedBy = USERID,
-                    ModifiedOn = UTILITY.SINGAPORETIME,
-                    //ManagerId = 0,
-                    //UserId = 0
-                    
-                };
-                dbCntx.EmployeeHeaders.Add(empHdr);
-                var empPerDetail = new EmployeePersonalDetail {
-                    EmployeeId = empHdr.EmployeeId,
-                    BranchId = BRANCHID,
-                    DOB = empVm.empPersonalDetail.DOB,
-                    Gender = empVm.empPersonalDetail.Gender, //
-                    BirthCountry = empVm.empPersonalDetail.BirthCountry, //
-                    CitizenshipCountry = "", //
-                    FatherName = empVm.empPersonalDetail.FatherName,
-                    MaritalStatus = empVm.empPersonalDetail.MaritalStatus,
-                    SpouseName = empVm.empPersonalDetail.SpouseName, //
-                    EmergencyContactName = empVm.empPersonalDetail.EmergencyContactName,
-                    EmergencyContactNumber = empVm.empPersonalDetail.EmergencyContactNumber,
-                    MarriageDate = empVm.empPersonalDetail.MarriageDate, //
-                    ResidentialStatus = empVm.empPersonalDetail.ResidentialStatus, //
-                    CreatedBy = USERID,
-                    CreatedOn = UTILITY.SINGAPORETIME,
-                    ModifiedBy = USERID,
-                    ModifiedOn = UTILITY.SINGAPORETIME
-                };
-                dbCntx.EmployeePersonalDetails.Add(empPerDetail);
-                var empWorkDetail = new EmployeeWorkDetail {
-                    BranchId = BRANCHID,
-                    JoiningDate = empVm.empWorkDetail.JoiningDate,
-                    ConfirmationDate = empVm.empWorkDetail.ConfirmationDate,
-                    ProbationPeriod = empVm.empWorkDetail.ProbationPeriod,
-                    NoticePeriod = empVm.empWorkDetail.NoticePeriod,
-                    DesignationId = empVm.empWorkDetail.DesignationId,
-                    DepartmentId = empVm.empWorkDetail.DepartmentId,
-                    ResignationDate = empVm.empWorkDetail.ResignationDate,
-                    CreatedBy = USERID,
-                    CreatedOn = UTILITY.SINGAPORETIME,
-                    ModifiedBy = USERID,
-                    ModifiedOn = UTILITY.SINGAPORETIME
-                };
-                dbCntx.EmployeeWorkDetails.Add(empWorkDetail);
-                var empAddress = new EmployeeAddress {
-                    EmployeeId = empHdr.EmployeeId,
-                    BranchId = BRANCHID,
-                    Address1 = empVm.address.Address1,
-                    Address2 = empVm.address.Address2,
-                    SeqNo = 0, //
-                    CityName = empVm.address.CityName,
-                    StateName = empVm.address.StateName,
-                    ZipCode = empVm.address.ZipCode,
-                    MobileNo = empVm.address.MobileNo,
-                    CountryCode = empHdr.Nationality,
-                    AddressType = "Employee",
-                    Contact = empVm.address.MobileNo,
-                    Email = empHdr.UserEmailId,
-                    IsActive = true,
-                    CreatedBy = USERID,
-                    CreatedOn = UTILITY.SINGAPORETIME,
-                    ModifiedBy = USERID,
-                    ModifiedOn = UTILITY.SINGAPORETIME
-                };
-                dbCntx.EmployeeAddresses.Add(empAddress);
+                using (var dbCntx = new HrDataContext())
+                {
+                    var empHdr = new EmployeeHeader
+                    {
+                        BranchId = BRANCHID,
+                        FirstName = empVm.empHeader.FirstName,
+                        MiddleName = empVm.empHeader.MiddleName,
+                        LastName = empVm.empHeader.LastName,
+                        Nationality = empVm.empHeader.Nationality,
+                        IDType = empVm.empHeader.IDType,
+                        IDNumber = "",
+                        UserEmailId = empVm.empHeader.UserEmailId,
+                        Password = empVm.empHeader.Password,
+                        ConfirmPassword = empVm.empHeader.ConfirmPassword,
+                        IsActive = true,
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        //ModifiedBy = USERID,
+                        //ModifiedOn = UTILITY.SINGAPORETIME,
+                        //ManagerId = 0,
+                        //UserId = 0
 
-                dbCntx.SaveChanges();
-                return View();
-            }                
+                    };
+                    dbCntx.EmployeeHeaders.Add(empHdr);
+                    var empPerDetail = new EmployeePersonalDetail
+                    {
+                        EmployeeId = empHdr.EmployeeId,
+                        BranchId = BRANCHID,
+                        DOB = empVm.empPersonalDetail.DOB,
+                        Gender = empVm.empPersonalDetail.Gender, //
+                        BirthCountry = empVm.empPersonalDetail.BirthCountry, //
+                        CitizenshipCountry = "", //
+                        FatherName = empVm.empPersonalDetail.FatherName,
+                        MaritalStatus = empVm.empPersonalDetail.MaritalStatus,
+                        SpouseName = empVm.empPersonalDetail.SpouseName, //
+                        EmergencyContactName = empVm.empPersonalDetail.EmergencyContactName,
+                        EmergencyContactNumber = empVm.empPersonalDetail.EmergencyContactNumber,
+                        MarriageDate = empVm.empPersonalDetail.MarriageDate, //
+                        ResidentialStatus = empVm.empPersonalDetail.ResidentialStatus, //
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        //ModifiedBy = USERID,
+                        //ModifiedOn = UTILITY.SINGAPORETIME
+                    };
+                    dbCntx.EmployeePersonalDetails.Add(empPerDetail);
+                    var empWorkDetail = new EmployeeWorkDetail
+                    {
+                        BranchId = BRANCHID,
+                        JoiningDate = empVm.empWorkDetail.JoiningDate,
+                        ConfirmationDate = empVm.empWorkDetail.ConfirmationDate,
+                        ProbationPeriod = empVm.empWorkDetail.ProbationPeriod,
+                        NoticePeriod = empVm.empWorkDetail.NoticePeriod,
+                        DesignationId = empVm.empWorkDetail.DesignationId,
+                        DepartmentId = empVm.empWorkDetail.DepartmentId,
+                        ResignationDate = empVm.empWorkDetail.ResignationDate,
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        //ModifiedBy = USERID,
+                        //ModifiedOn = UTILITY.SINGAPORETIME
+                    };
+                    dbCntx.EmployeeWorkDetails.Add(empWorkDetail);
+                    var empAddress = new EmployeeAddress
+                    {
+                        EmployeeId = empHdr.EmployeeId,
+                        BranchId = BRANCHID,
+                        Address1 = empVm.address.Address1,
+                        Address2 = empVm.address.Address2,
+                        SeqNo = 0, //
+                        CityName = empVm.address.CityName,
+                        StateName = empVm.address.StateName,
+                        ZipCode = empVm.address.ZipCode,
+                        MobileNo = empVm.address.MobileNo,
+                        CountryCode = empHdr.Nationality,
+                        AddressType = "Employee",
+                        Contact = empVm.address.MobileNo,
+                        Email = empHdr.UserEmailId,
+                        IsActive = true,
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        //ModifiedBy = USERID,
+                        //ModifiedOn = UTILITY.SINGAPORETIME
+                    };
+                    dbCntx.EmployeeAddresses.Add(empAddress);
+
+                    dbCntx.SaveChanges();
+                    return RedirectToAction("employeedirectory");
+                }
+            }
+            else
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var empHeader = dbCntx.EmployeeHeaders
+                                        .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && 
+                                                    x.BranchId == empVm.empHeader.BranchId)
+                                        .FirstOrDefault();
+
+                    empHeader.FirstName = empVm.empHeader.FirstName;
+                    empHeader.MiddleName = empVm.empHeader.MiddleName;
+                    empHeader.LastName = empVm.empHeader.LastName;
+                    empHeader.Nationality = empVm.empHeader.Nationality;
+                    empHeader.IDType = empVm.empHeader.IDType;
+                    empHeader.IDNumber = "";
+                    empHeader.UserEmailId = empVm.empHeader.UserEmailId;
+                    empHeader.Password = empVm.empHeader.Password;
+                    empHeader.ConfirmPassword = empVm.empHeader.ConfirmPassword;
+                    empHeader.IsActive = true;
+                    empHeader.ModifiedBy = USERID;
+                    empHeader.ModifiedOn = UTILITY.SINGAPORETIME;
+
+                    var empPerDetail = dbCntx.EmployeePersonalDetails
+                                        .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
+                                        .FirstOrDefault();
+
+                    
+                    empPerDetail.DOB = empVm.empPersonalDetail.DOB;
+                    empPerDetail.Gender = empVm.empPersonalDetail.Gender; //
+                    empPerDetail.BirthCountry = empVm.empPersonalDetail.BirthCountry; //
+                    empPerDetail.CitizenshipCountry = ""; //
+                    empPerDetail.FatherName = empVm.empPersonalDetail.FatherName;
+                    empPerDetail.MaritalStatus = empVm.empPersonalDetail.MaritalStatus;
+                    empPerDetail.SpouseName = empVm.empPersonalDetail.SpouseName; //
+                    empPerDetail.EmergencyContactName = empVm.empPersonalDetail.EmergencyContactName;
+                    empPerDetail.EmergencyContactNumber = empVm.empPersonalDetail.EmergencyContactNumber;
+                    empPerDetail.MarriageDate = empVm.empPersonalDetail.MarriageDate; //
+                    empPerDetail.ResidentialStatus = empVm.empPersonalDetail.ResidentialStatus; //
+                    empPerDetail.ModifiedBy = USERID;
+                    empPerDetail.ModifiedOn = UTILITY.SINGAPORETIME;
+
+                    var empWorkDetail = dbCntx.EmployeeWorkDetails
+                                        .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
+                                        .FirstOrDefault();
+
+
+                    empWorkDetail.JoiningDate = empVm.empWorkDetail.JoiningDate;
+                    empWorkDetail.ConfirmationDate = empVm.empWorkDetail.ConfirmationDate;
+                    empWorkDetail.ProbationPeriod = empVm.empWorkDetail.ProbationPeriod;
+                    empWorkDetail.NoticePeriod = empVm.empWorkDetail.NoticePeriod;
+                    empWorkDetail.DesignationId = empVm.empWorkDetail.DesignationId;
+                    empWorkDetail.DepartmentId = empVm.empWorkDetail.DepartmentId;
+                    empWorkDetail.ResignationDate = empVm.empWorkDetail.ResignationDate;
+                    empWorkDetail.ModifiedBy = USERID;
+                    empWorkDetail.ModifiedOn = UTILITY.SINGAPORETIME;
+
+                    var empAddress = dbCntx.EmployeeAddresses
+                                        .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
+                                        .FirstOrDefault();
+                    
+                    empAddress.Address1 = empVm.address.Address1;
+                    empAddress.Address2 = empVm.address.Address2;
+                    empAddress.SeqNo = 0; //
+                    empAddress.CityName = empVm.address.CityName;
+                    empAddress.StateName = empVm.address.StateName;
+                    empAddress.ZipCode = empVm.address.ZipCode;
+                    empAddress.MobileNo = empVm.address.MobileNo;
+                    empAddress.CountryCode = empHeader.Nationality;
+                    empAddress.AddressType = "Employee";
+                    empAddress.Contact = empVm.address.MobileNo;
+                    empAddress.Email = empHeader.UserEmailId;
+                    empAddress.IsActive = true;
+                    empAddress.ModifiedBy = USERID;
+                    empAddress.ModifiedOn = UTILITY.SINGAPORETIME;
+
+                    dbCntx.SaveChanges();
+
+                    return RedirectToAction("employeedirectory");
+                }
+            }
         }
 
         /*

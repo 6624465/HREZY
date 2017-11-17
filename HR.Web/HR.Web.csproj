@@ -1786,6 +1786,7 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />
     <Compile Include="ViewModels\BranchVm.cs" />
     <Compile Include="ViewModels\CompanyVm.cs" />

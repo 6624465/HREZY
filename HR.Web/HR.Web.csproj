@@ -84,6 +84,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -1693,6 +1697,9 @@
     <Content Include="Scripts\layout.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\treeview\bootstrap-treeview.js" />
+    <Content Include="Scripts\treeview\bootstrap.css" />
+    <Content Include="Scripts\treeview\jquery.js" />
     <Content Include="Scripts\ui-bootstrap.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -1705,6 +1712,7 @@
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
@@ -1880,6 +1888,8 @@
     <Content Include="Views\Shared\_Address.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Employee\employeedirectory.cshtml" />
+    <Content Include="Views\Shared\_TreeView.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

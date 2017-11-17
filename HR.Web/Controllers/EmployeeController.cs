@@ -63,7 +63,7 @@ namespace HR.Web.Controllers
                                 .Join(dbCntx.EmployeeAddresses,
                                 e => e.C.A.EmployeeId, f => f.EmployeeId,
                                 (e, f) => new { E = e, F = f })
-                                .Where(x => x.E.C.A.EmployeeId == EmployeeId && x.E.C.A.BranchId == BRANCHID)
+                                .Where(x => x.E.C.A.EmployeeId == EmployeeId)
                                 .Select(x => new EmployeeVm
                                 {
                                     empHeader = x.E.C.A,

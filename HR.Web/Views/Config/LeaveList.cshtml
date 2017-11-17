@@ -7,6 +7,7 @@
     WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
     grid.Pager(WebGridPagerModes.All);
 }
+
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
@@ -80,15 +81,19 @@
         $('#frm').validate({
             rules: {
                 LookUpCode: {
-                    required: true
+                    required: true,
+                    maxlength:20
                 },
                 LookUpDescription: {
-                    required: true
+                    required: true,
+                    maxlength:30
                 }
             }
         });
         function SaveChanges() {
-            $('#frm').submit();
+            if ($('#frm').valid()) {
+                $('#frm').submit();
+            }
         }
 
 

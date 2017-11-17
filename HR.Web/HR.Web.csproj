@@ -1914,7 +1914,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Master\" />
   </ItemGroup>

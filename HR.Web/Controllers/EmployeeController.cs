@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 using HR.Web.Models;
 using HR.Web.ViewModels;
+using System.IO;
 
 namespace HR.Web.Controllers
 {
@@ -62,7 +63,7 @@ namespace HR.Web.Controllers
                                 .Join(dbCntx.EmployeeAddresses,
                                 e => e.C.A.EmployeeId, f => f.EmployeeId,
                                 (e, f) => new { E = e, F = f })
-                                .Where(x => x.E.C.A.EmployeeId == EmployeeId && x.E.C.A.BranchId == BRANCHID)
+                                .Where(x => x.E.C.A.EmployeeId == EmployeeId)
                                 .Select(x => new EmployeeVm
                                 {
                                     empHeader = x.E.C.A,
@@ -76,7 +77,17 @@ namespace HR.Web.Controllers
             }
             else
             {
-                return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true } });
+                using (var dbCntx = new HrDataContext())
+                {
+                    //var documentTypes = dbCntx.LookUps
+                    //                        .Where(x => x.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+                    //                        .Select(x => new EmployeeDocumentVm
+                    //                        {
+                    //                            DocumentType = x.LookUpID,
+                    //                            DocumentDescription = x.LookUpDescription
+                    //                        }).ToList();
+                    return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true }});
+                }
             }
         }
 
@@ -170,8 +181,106 @@ namespace HR.Web.Controllers
                         //ModifiedOn = UTILITY.SINGAPORETIME
                     };
                     dbCntx.EmployeeAddresses.Add(empAddress);
+                    
+
+                    if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    {
+                        var uidDocument = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHdr.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(uidDocument);
+                    }
+
+                    if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
+                    {
+                        var educationDocument = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHdr.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(educationDocument);
+                    }
+
+                    if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
+                    {
+                        var experienceLetters = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHdr.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(experienceLetters);
+                    }
+
+                    if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
+                    {
+                        var projectDocuments = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHdr.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(projectDocuments);
+                    }
+
+                    if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
+                    {
+                        var otherDocuments = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHdr.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(otherDocuments);
+                    }
 
                     dbCntx.SaveChanges();
+
+                    string path = Server.MapPath("~/Uploads/" + empHdr.EmployeeId + "/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    {
+                        empVm.UIDCard.SaveAs(path + empVm.UIDCard.FileName);
+                    }
+                    if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
+                    {
+                        empVm.EducationDocument.SaveAs(path + empVm.EducationDocument.FileName);
+                    }
+                    if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
+                    {
+                        empVm.ExperienceLetters.SaveAs(path + empVm.ExperienceLetters.FileName);
+                    }
+                    if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
+                    {
+                        empVm.ProjectDocuments.SaveAs(path + empVm.ProjectDocuments.FileName);
+                    }
+                    if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
+                    {
+                        empVm.OtherDocuments.SaveAs(path + empVm.OtherDocuments.FileName);
+                    }
                     return RedirectToAction("employeedirectory");
                 }
             }
@@ -248,9 +357,106 @@ namespace HR.Web.Controllers
                     empAddress.Email = empHeader.UserEmailId;
                     empAddress.IsActive = true;
                     empAddress.ModifiedBy = USERID;
-                    empAddress.ModifiedOn = UTILITY.SINGAPORETIME;
+                    empAddress.ModifiedOn = UTILITY.SINGAPORETIME;                    
+
+                    if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    {
+                        var uidDocument = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHeader.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(uidDocument);
+                    }
+
+                    if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
+                    {
+                        var educationDocument = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHeader.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(educationDocument);
+                    }
+
+                    if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
+                    {
+                        var experienceLetters = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHeader.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(experienceLetters);
+                    }
+
+                    if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
+                    {
+                        var projectDocuments = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHeader.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(projectDocuments);
+                    }
+
+                    if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
+                    {
+                        var otherDocuments = new EmployeeDocumentDetail
+                        {
+                            EmployeeId = empHeader.EmployeeId,
+                            BranchId = BRANCHID,
+                            DocumentType = 1082,
+                            FileName = empVm.UIDCard.FileName,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.EmployeeDocumentDetails.Add(otherDocuments);
+                    }
 
                     dbCntx.SaveChanges();
+
+                    string path = Server.MapPath("~/Uploads/" + empHeader.EmployeeId + "/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    {
+                        empVm.UIDCard.SaveAs(path + empVm.UIDCard.FileName);
+                    }
+                    if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
+                    {
+                        empVm.EducationDocument.SaveAs(path + empVm.EducationDocument.FileName);
+                    }
+                    if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
+                    {
+                        empVm.ExperienceLetters.SaveAs(path + empVm.ExperienceLetters.FileName);
+                    }
+                    if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
+                    {
+                        empVm.ProjectDocuments.SaveAs(path + empVm.ProjectDocuments.FileName);
+                    }
+                    if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
+                    {
+                        empVm.OtherDocuments.SaveAs(path + empVm.OtherDocuments.FileName);
+                    }
 
                     return RedirectToAction("employeedirectory");
                 }

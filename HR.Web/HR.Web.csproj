@@ -1906,6 +1906,7 @@
     <Content Include="Views\Leave\GetHolidayList.cshtml" />
     <Content Include="Views\Shared\_TreeView.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Shared\_GrantLeaveList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1915,7 +1916,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Master\" />
   </ItemGroup>

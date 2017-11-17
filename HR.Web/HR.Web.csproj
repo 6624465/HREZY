@@ -1893,6 +1893,7 @@
     <Content Include="Views\Employee\employeedirectory.cshtml" />
     <Content Include="Views\Leave\HolidaysList.cshtml" />
     <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
+    <Content Include="Views\Shared\_GrantLeaveList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

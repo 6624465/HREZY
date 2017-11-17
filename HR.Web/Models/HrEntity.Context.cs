@@ -18,6 +18,7 @@ namespace HR.Web.Models
         public HrDataContext()
             : base("name=HrDataContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,5 +37,9 @@ namespace HR.Web.Models
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
+        public virtual DbSet<LeaveDetail> LeaveDetails { get; set; }
+        public virtual DbSet<LeaveHeader> LeaveHeaders { get; set; }
+        public virtual DbSet<EmployeeLeaveList> EmployeeLeaveLists { get; set; }
+        public virtual DbSet<HolidayList> HolidayLists { get; set; }
     }
 }

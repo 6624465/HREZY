@@ -28,6 +28,7 @@ namespace HR.Web.Controllers
                             e => e.C.A.EmployeeId, f => f.EmployeeId,
                             (e, f) => new { E = e, F = f })
                             .Select(x => new EmployeeListVm {
+                                EmployeeId = x.E.C.A.EmployeeId,
                                 EmployeeNo = x.E.C.A.IDNumber,
                                 EmployeeName = x.E.C.A.FirstName + " " + x.E.C.A.LastName + " " + x.E.C.A.MiddleName,
                                 JoiningDate = x.E.D.JoiningDate,
@@ -45,10 +46,41 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult add()
+        public ActionResult add(int? EmployeeId)
         {
-            return View(new EmployeeVm { });
-        }       
+            if (EmployeeId != null)
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var empObj = dbCntx.EmployeeHeaders
+                                .Join(dbCntx.EmployeePersonalDetails,
+                                a => a.EmployeeId, b => b.EmployeeId,
+                                (a, b) => new { A = a, B = b })
+                                .Join(dbCntx.EmployeeWorkDetails,
+                                c => c.A.EmployeeId, d => d.EmployeeId,
+                                (c, d) => new { C = c, D = d })
+                                .Join(dbCntx.EmployeeAddresses,
+                                e => e.C.A.EmployeeId, f => f.EmployeeId,
+                                (e, f) => new { E = e, F = f })
+                                .Where(x => x.E.C.A.EmployeeId == EmployeeId && x.E.C.A.BranchId == BRANCHID)
+                                .Select(x => new EmployeeVm
+                                {
+                                    empHeader = x.E.C.A,
+                                    empPersonalDetail = x.E.C.B,
+                                    empWorkDetail = x.E.D,
+                                    address = x.F
+                                }).FirstOrDefault();
+
+                    return View(empObj);
+                }
+            }
+            else
+            {
+                return View(new EmployeeVm { });
+            }
+        }
+
+
 
         [HttpPost]
         public ActionResult saveemployee(EmployeeVm empVm)

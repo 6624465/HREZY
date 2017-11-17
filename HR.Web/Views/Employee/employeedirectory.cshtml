@@ -4,7 +4,27 @@
     WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");    
 }
 <div class="page">
+    
     <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1" style="font-size:16px;font-weight:bold">Advanced Search</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Employee Name</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">Panel Footer</div>
+            </div>
+        </div>
         <div class="panel panel-default">
             <div class="box" id="grid">
                 <div class="box-header">

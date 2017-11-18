@@ -1,69 +1,4 @@
-﻿
-<div class="page">
-    <div class="row">
-        <div class="col-xs-4">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"></h3>
-                </div>
-                <div class="box-body">
-                    <div id="country" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-4">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"></h3>
-                </div>
-                <div class="box-body">
-                    <div id="gender" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-        
-        
-        <div class="col-xs-4">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"></h3>
-                </div>
-                <div class="box-body">
-                    <div class="spanboxNumber"><span class="spanClass">Male</span></div>
-                    <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
-                    <div id="PAKISTAN" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-4">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"></h3>
-                </div>
-                <div class="box-body">
-                    <div class="spanboxNumber"><span class="spanClass">Male</span></div>
-                    <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
-                    <div id="MAYANMAR" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-4">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"></h3>
-                </div>
-                <div class="box-body">
-                    <div class="spanboxNumber"><span class="spanClass">Male</span></div>
-                    <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
-                    <div id="HONGKONG" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+﻿@section Styles {
 <style>
     .highcharts-credits {
         display: none;
@@ -230,13 +165,81 @@
         }
     }
 </style>
+}
+<div class="page">
+    <div class="">
+        <div class="panel panel-default panel-hovered panel-stacked mb10">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div id="country" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div id="gender" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            <div id="PAKISTAN" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            <div id="MAYANMAR" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            <div id="HONGKONG" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
 @section scripts
     {
-    <script src="~/Scripts/highcharts.js"></script>
-<script src="@Url.Content("https://code.highcharts.com/modules/data.js")"></script>
-<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="@Url.Content("~/Scripts/highcharts.js")"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('#li_Dashboard').addClass('open');
             $.ajax({
                 type: 'GET',
                 url: '@Url.Content("~/Dashboard/GetData")',

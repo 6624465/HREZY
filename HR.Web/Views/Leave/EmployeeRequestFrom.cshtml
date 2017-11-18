@@ -102,7 +102,10 @@
 @section Scripts{
     
     <script type="text/javascript">     
-
+        $(function () {
+            $('#li_Leave').addClass('open');
+            $('#li_emprequestleave').addClass('active');
+        });
         $('.dtCss').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',

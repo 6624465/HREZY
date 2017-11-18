@@ -45,7 +45,10 @@
     }
 @section Scripts{
     <script type="text/javascript">
-
+        $(function () {
+            $('#li_Leave').addClass('open');
+            $('#li_holidaylist').addClass('active');
+        });
 
         function AddHoliday(holidayId) {
             $.ajax({

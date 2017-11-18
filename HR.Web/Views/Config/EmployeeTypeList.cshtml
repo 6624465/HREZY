@@ -77,6 +77,10 @@
 }
 @section Scripts{   
     <script type="text/javascript">
+        $(function () {
+            $('#li_Master').addClass('open');
+            $('#li_emptype').addClass('active');
+        });
         function editEmpType(lookupID) {
             debugger
             $.ajax({

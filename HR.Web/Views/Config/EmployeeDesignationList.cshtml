@@ -58,6 +58,10 @@
 }
 @section Scripts{
     <script type="text/javascript">
+        $(function () {
+            $('#li_Master').addClass('open');
+            $('#li_empdesignation').addClass('active');
+        });
         function editEmpDesignation(lookupID) {
             debugger;
             $.ajax({

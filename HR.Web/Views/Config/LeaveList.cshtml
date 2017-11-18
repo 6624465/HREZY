@@ -64,6 +64,11 @@
 }
 @section Scripts{
     <script type="text/javascript">
+        $(function () {
+            
+            $('#li_Master').addClass('open');
+            $('#li_leave').addClass('active');
+        });
         function editLeaveType(lookupID) {
             debugger
             $.ajax({

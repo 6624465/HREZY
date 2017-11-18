@@ -2,19 +2,15 @@
 
 @model List<HR.Web.ViewModels.companyTreeVm>
 
-<div class="container ">
-    <div class="row">
-        <div id="treeview1" class="col-md-4"></div>
-    </div>
-</div>
+<div id="treeview1"></div>
 
-<link href="@Url.Content("~/Scripts/treeview/bootstrap.css")" rel="stylesheet" />
+@*<link href="@Url.Content("~/Scripts/treeview/bootstrap.css")" rel="stylesheet" />*@
 <script src="@Url.Content("~/Scripts/treeview/jquery.js")"></script>
 <script src="@Url.Content("~/Scripts/treeview/bootstrap-treeview.js")"></script>
 
 <script type="text/javascript">
     $(function () {
-
+        
         var obj = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
 
 
@@ -24,6 +20,7 @@
             //collapseIcon: 'glyphicon glyphicon-chevron-down',
             //nodeIcon: 'glyphicon glyphicon-bookmark',
             onNodeSelected: function (event, node) {
+                sessionStorage.setItem('SsnSelectedNode', node.nodeId);
                 if (node.nodeId == 0) {
                     location.href = '@Url.Content("~/Administration/Company?companyId=")'+node.href;
                 }
@@ -33,5 +30,13 @@
             },
             data: obj
         });
+
+        setTimeout(function () {
+            var selectedNode = sessionStorage.getItem('SsnSelectedNode');            
+            if (selectedNode == null)
+                selectedNode = 0;
+            $('li[data-nodeid="' + selectedNode + '"]').addClass('node-selected').css({ 'color': '#FFFFFF', 'background-color': '#428bca' });
+            sessionStorage.removeItem('SsnSelectedNode');
+        }, 100);
     })
 </script>

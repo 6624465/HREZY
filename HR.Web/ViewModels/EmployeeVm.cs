@@ -28,4 +28,14 @@ namespace HR.Web.ViewModels
         public string DocumentDescription { get; set; }
         public HttpPostedFileBase Document { get; set; }
     }
+
+    public class EmpSearch
+    {
+        public string EmployeeName { get; set; }
+        public DateTime? DOJ { get; set; }
+        public string EmployeeNumber { get; set; }
+        public string Country { get; set; }
+        public int Designation { get; set; }
+        public int EmployeeType { get; set; }
+    }
 }

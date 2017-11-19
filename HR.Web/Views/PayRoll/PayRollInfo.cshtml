@@ -149,7 +149,7 @@
                             </div>
                             <div class="col-md-3"></div>
                             <div class="col-md-3 text-right">
-                                <button type="button" class="btn btn-info" ng-click="SaveSalary()">Save</button>
+                                <button type="button" class="btn btn-info btn-sm" ng-click="SaveSalary()">Save</button>
                             </div>
                         </div>
                 </div>
@@ -159,4 +159,12 @@
     </div>
 
 </div>
-
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#li_Payroll').addClass('open');
+            $('#li_payrollinfo').addClass('active');
+        });
+    </script>
+}

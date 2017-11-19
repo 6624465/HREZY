@@ -10,7 +10,7 @@
                 <div class="box-header">
                     <h4>Marital Status</h4>
                     <div class="box-tools">
-                        <button class="btn btn-info btn-raised waves-effect" type="button" onclick="editEmpMaritalStatus(-1);"><i class="fa fa-plus"></i> Add</button>
+                        <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="editEmpMaritalStatus(-1);"><i class="fa fa-plus"></i> Add</button>
                     </div>
                 </div>
                 <div class="box-body">
@@ -21,7 +21,7 @@
                 grid.Column("LookUpDescription", "Marital Status Description", canSort: true),
                 //grid.Column("IsActive", "Status"),
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpMaritalStatus(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
-                tableStyle: "table")
+                tableStyle: "table table-condensed")
                 </div>
             </div>
             <div class="row">
@@ -55,6 +55,11 @@
 }
 @section Scripts{
     <script type="text/javascript">
+        $(function () {
+            
+            $('#li_Master').addClass('open');
+            $('#li_maritalstatus').addClass('active');
+        });
         function editEmpMaritalStatus(lookupID) {
             debugger;
             $.ajax({

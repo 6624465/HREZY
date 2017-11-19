@@ -1,66 +1,85 @@
 ﻿@model HR.Web.ViewModels.BranchVm
+@section Styles{
+    <style type="text/css">
+        .icheckbox_flat {
+            margin-top: -23px;
+        }
+    </style>
+}
 @using (Html.BeginForm("AddBranch", "Administration", FormMethod.Post, new
 { id = "frmBranch", name = "frmBranch", enctype = "multipart/form-data" })) { 
 <div class="page">
     <div class="row">
-        @{Html.RenderPartial("_TreeView", Model.companyTreeVm); }
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default panel-hovered panel-stacked mb10">
-                <div class="panel-heading">Branch</div>
+        <div class="col-md-3">
+            <div class="row">
+                @{Html.RenderPartial("_TreeView", Model.companyTreeVm); }
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default panel-hovered panel-stacked mb10">
+                        <div class="panel-heading">Branch</div>
 
-                <div class="panel-body">
-                    <div class="row css5">
-                        @Html.HiddenFor(x => x.branch.BranchID)
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Branch Code</span>
-                            </label>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.branch.BranchCode, new { @class = "form-control" })
-                            </div>
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">IsActive</span>
-                            </label>
-                            <div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
-                                <label class="ui-toggle-inline">
-                                    <label class="ui-toggle-inline">
-                                        <input id="IsActive" name="IsActive.Value" type="checkbox">
-                                        <span></span>
+                        <div class="panel-body">
+                            <div class="row css5">
+                                @Html.HiddenFor(x => x.branch.BranchID)
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">Branch Code</span>
                                     </label>
-                                </label>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.branch.BranchCode, new { @class = "form-control" })
+                                    </div>
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">IsActive</span>
+                                    </label>
+                                    <div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
+                                        <label class="ui-toggle-inline">
+                                            <label class="ui-toggle-inline">
+                                                <input id="IsActive" name="IsActive.Value" type="checkbox">
+                                                <span></span>
+                                            </label>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row css5">
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Branch Name</span>
-                            </label>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.branch.BranchName, new { @class = "form-control" })
+                            <div class="row css5">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">Branch Name</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.branch.BranchName, new { @class = "form-control" })
+                                    </div>
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">Registration No</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.branch.RegNo, new { @class = "form-control" })
+                                    </div>
+                                </div>
                             </div>
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Registration No</span>
-                            </label>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.branch.RegNo, new { @class = "form-control" })
-                            </div>
-                        </div>
-                    </div>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @{Html.RenderPartial("_Address", Model.address);}
                 </div>
             </div>
         </div>
     </div>
+    
 
-    @{Html.RenderPartial("_Address", Model.address);}
+    
 
     <div class="row">
         <div class="col-md-12">
             <div>
-                <button class="btn btn-primary" type="button" onclick="SaveBranch()">Save</button>
+                <button class="btn btn-primary btn-sm" type="button" onclick="SaveBranch()">Save</button>
             </div>
         </div>
     </div>
@@ -70,7 +89,8 @@
 @section Scripts{
     <script type="text/javascript">
         $(function () {
-                      
+            $('#li_Admin').addClass('open');
+            $('#li_company').addClass('active');
         });
             $('#frmBranch').validate({
                 rules: {

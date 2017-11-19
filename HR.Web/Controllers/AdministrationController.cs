@@ -148,7 +148,7 @@ namespace HR.Web.Controllers
                             StateName = addressVm.StateName,
                             TelNo = addressVm.TelNo,
                             WebSite = addressVm.WebSite,
-                            ZipCode = addressVm.WebSite,
+                            ZipCode = addressVm.ZipCode,
                         };
 
                         dbContext.Companies.Add(company);
@@ -367,7 +367,7 @@ namespace HR.Web.Controllers
                         branchAddress.Address1 = addressVm.Address1;
                         branchAddress.Address2 = addressVm.Address2;
 
-                        branchAddress.AddressType = "Company";
+                        branchAddress.AddressType = "Branch";
                         branchAddress.CityName = addressVm.CityName;
                         branchAddress.Contact = addressVm.Contact;
                         branchAddress.CountryCode = addressVm.CountryCode;
@@ -398,59 +398,6 @@ namespace HR.Web.Controllers
             return RedirectToAction("AddBranch");
         }
 
-        [HttpGet]
-        public ActionResult Index()
-        {
-            List<AuthorViewModel> model = new List<AuthorViewModel>();
-
-            AuthorViewModel firstAuthor = new AuthorViewModel
-            {
-                Id = 1,
-                Name = "John",
-                BookViewModel = new List<BookViewModel>{
-                    new BookViewModel{
-                        Id=1,
-                        Title = "JQuery",
-                        IsWritten = false
-                    }, new BookViewModel{
-                        Id=1,
-                        Title = "JavaScript",
-                        IsWritten = false
-                    }
-                }
-            };
-
-            AuthorViewModel secondAuthor = new AuthorViewModel
-            {
-                Id = 2,
-                Name = "Deo",
-                BookViewModel = new List<BookViewModel>{
-                    new BookViewModel{
-                        Id=3,
-                        Title = "C#",
-                        IsWritten = false
-                    }, new BookViewModel{
-                        Id=4,
-                        Title = "Entity Framework",
-                        IsWritten = false
-                    }
-                }
-            };
-            model.Add(firstAuthor);
-            model.Add(secondAuthor);
-            return View("Index", model);
-        }
-        public class AuthorViewModel
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public List<BookViewModel> BookViewModel { get; set; }
-        }
-        public class BookViewModel
-        {
-            public int Id { get; set; }
-            public string Title { get; set; }
-            public bool IsWritten { get; set; }
-        }
+      
     }
 }

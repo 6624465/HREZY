@@ -4,21 +4,40 @@
     WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");    
 }
 <div class="page">
+    
     <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1" style="font-size:16px;font-weight:bold">Advanced Search</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Employee Name</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">Panel Footer</div>
+            </div>
+        </div>
         <div class="panel panel-default">
             <div class="box" id="grid">
                 <div class="box-header">
                     <h4>Employee List</h4>
                     <div class="box-tools">
-                        <button class="btn btn-info btn-raised waves-effect" type="button" onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")'"><i class="fa fa-plus"></i> Add</button>
+                        <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")'"><i class="fa fa-plus"></i> Add</button>
                     </div>
                 </div>
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
                             @grid.GetHtml(
-                                columns: grid.Columns(
-                                grid.Column("EmployeeNo", "Employee No", canSort: true),
+                                columns: grid.Columns(                                
                                 grid.Column("EmployeeName", "Employee Name", canSort: true),                                
                                 grid.Column("JobTitle", "Job Title", canSort: true),                                
                                 grid.Column("OfficialEmailId", "Official Email", canSort: true),                                
@@ -36,3 +55,12 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            
+            $('#li_Employee').addClass('open');
+            $('#li_empdir').addClass('active');
+        });
+    </script>
+}

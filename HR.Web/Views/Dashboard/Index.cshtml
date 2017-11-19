@@ -1,4 +1,405 @@
-﻿
-@{
-    Layout = null;
+﻿@section Styles {
+<style>
+    .highcharts-credits {
+        display: none;
+    }
+
+    .highcharts-data-label-connector {
+        display: none;
+    }
+
+    .spanboxNumber {
+        position: absolute;
+        right: 205px;
+        width: 3px;
+        border: 5px solid #337ef7;
+        padding: 3px;
+        border-radius: 50%;
+        background-color: #337ef7;
+    }
+
+    .spanboxNumber2 {
+        position: absolute;
+        right: 105px;
+        width: 3px;
+        border: 5px solid #ff66b3;
+        padding: 3px;
+        border-radius: 50%;
+        background-color: #ff66b3;
+    }
+
+    .spanClass {
+        position: absolute;
+        padding-left: 20px;
+        line-height: 2px;
+    }
+
+
+
+    .col-xs-1-5, .col-sm-1-5, .col-md-1-5, .col-lg-1-5 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .col-xs-1-5 {
+        width: 20%;
+        float: left;
+    }
+
+    @@media (min-width: 768px) {
+        .col-sm-1-5 {
+            width: 20%;
+            float: left;
+        }
+    }
+
+    @@media (min-width: 992px) {
+        .col-md-1-5 {
+            width: 20%;
+            float: left;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        .col-lg-1-5 {
+            width: 20%;
+            float: left;
+        }
+    }
+
+    .col-xs-1-5, .col-sm-1-5, .col-md-1-5, .col-lg-1-5,
+    .col-xs-2-5, .col-sm-2-5, .col-md-2-5, .col-lg-2-5,
+    .col-xs-3-5, .col-sm-3-5, .col-md-3-5, .col-lg-3-5,
+    .col-xs-4-5, .col-sm-4-5, .col-md-4-5, .col-lg-4-5 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .col-xs-1-5 {
+        width: 20%;
+        float: left;
+    }
+
+    .col-xs-2-5 {
+        width: 40%;
+        float: left;
+    }
+
+    .col-xs-3-5 {
+        width: 60%;
+        float: left;
+    }
+
+    .col-xs-4-5 {
+        width: 80%;
+        float: left;
+    }
+
+    @@media (min-width: 768px) {
+        .col-sm-1-5 {
+            width: 20%;
+            float: left;
+        }
+
+        col-sm-2-5 {
+            width: 40%;
+            float: left;
+        }
+
+        col-sm-3-5 {
+            width: 60%;
+            float: left;
+        }
+
+        col-sm-4-5 {
+            width: 80%;
+            float: left;
+        }
+    }
+
+    @@media (min-width: 992px) {
+        .col-md-1-5 {
+            width: 20%;
+            float: left;
+        }
+
+        .col-md-2-5 {
+            width: 40%;
+            float: left;
+        }
+
+        .col-md-3-5 {
+            width: 60%;
+            float: left;
+        }
+
+        .col-md-4-5 {
+            width: 80%;
+            float: left;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        .col-lg-1-5 {
+            width: 20%;
+            float: left;
+        }
+
+        .col-lg-2-5 {
+            width: 40%;
+            float: left;
+        }
+
+        .col-lg-3-5 {
+            width: 60%;
+            float: left;
+        }
+
+        .col-lg-4-5 {
+            width: 80%;
+            float: left;
+        }
+    }
+</style>
+}
+<div class="page">
+    <div class="">
+        <div class="panel panel-default panel-hovered panel-stacked mb10">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div id="country" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div id="gender" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            <div id="PAKISTAN" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            <div id="MAYANMAR" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            <div id="HONGKONG" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+@section scripts
+    {
+    <script src="@Url.Content("~/Scripts/highcharts.js")"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#li_Dashboard').addClass('open');
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Content("~/Dashboard/GetData")',
+                success: function (data) {
+                    debugger;
+                   GetBarGraphDashboard('country', 'Country', data.regionWiseEmployees);
+                    
+                  GetBarGraphDashboard('gender', 'Gender', data.genderWiseEmployees);
+                   // GetPieGraphDashboard(data.indiawiseGenders, 'INDIA', 'INDIA');
+                    //GetPieGraphDashboard(data.bangladeshwiseGenders, 'BANGLADESH', "BANGLADESH")
+                   // GetPieGraphDashboard(data.cambodiawiseGenders, 'CAMBODIA', "CAMBODIA");
+                   // GetPieGraphDashboard(data.srilankawiseGenders, 'SRILANKA', "SRILANKA");
+                    GetPieGraphDashboard(data.pakistanwiseGenders, 'PAKISTAN', "PAKISTAN");
+                    GetPieGraphDashboard(data.mayanmarwiseGenders, 'MAYANMAR', "MAYANMAR");
+                    GetPieGraphDashboard(data.hongkongwiseGenders, 'HONGKONG', "HONGKONG");
+                    //GetPieGraphDashboard(data.singaporewiseGenders, 'SINGAPORE', "SINGAPORE");
+                },
+                error: function (err) {
+                    debugger;
+                }
+            });
+        });
+
+        function GetPieGraphDashboard(CountryWiseGenders, type, id) {
+            var c1 = '#337ef7', c2 = type == 'SINGAPORE' ? '#ff66b3' : '#f458f4'
+            Highcharts.chart(id, {
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: type
+                },
+                tooltip: {
+                    //headerFormat: '<span style="font-size:11px">{series.name}</span><br />',
+                    pointFormat: '<b>{point.percentage:.0f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 50,
+                        dataLabels: {
+                            enabled: true,
+                            format: '',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        },
+                        size: 250
+                    }
+                },
+
+                series: [{
+                    name: 'Countries',
+                    colorByPoint: true,
+                    data: CountryWiseGenders,
+                    colors: [c1, c2],
+                }]
+            });
+        }
+
+        function GetBarGraphDashboard(id, type, result) {
+
+            Highcharts.chart(id, {
+                chart: {
+                    type: 'column',
+                    options3d: {
+                        enabled: true,
+                        alpha: 15,
+                        beta: 15,
+                        depth: 50,
+                        viewDistance: 25
+                    }
+                },
+                //chart: {
+                //    type: 'column'
+                //},
+                title: {
+                    text: "Total Employees Based on " + type + ""
+                },
+
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        //text: 'Total percent market share'
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            //format: '{point.y}'
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br />'
+                },
+
+                series: [{
+                    name: type,
+                    colorByPoint: true,
+                    data: result,
+                    colors: ['#0000FF', '#8A2BE2', '#1E90FF', '#DC143C', '#B8860B',
+                   '#FF0000', '#00FF7F'],
+                }],
+            });
+
+        }
+        function genderWiseGraph() {
+
+            var html = '';
+
+            angular.forEach($scope.genderWiseEmployees, function (item) {
+                html += ' <tr><td>' + item.name + '</td><td>' + item.male + '</td><td>' + item.female + '</td></tr>';
+            });
+            $('#tableID').html(html);
+            Highcharts.setOptions({
+                colors: ['#337ef7', '#f458f4']
+            });
+            Highcharts.chart('genderWiseEmployees', {
+
+                data: {
+                    table: 'datatable'
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: "Total Employees Based on gender"
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'Values'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br />' +
+                            this.point.y + ' ' + this.point.name.toLowerCase();
+                    }
+                }
+            });
+        }
+    </script>
 }

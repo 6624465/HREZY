@@ -21,20 +21,32 @@
     <link href="@Url.Content("~/Css/sitecss.css")" rel="stylesheet" />
     <script src="@Url.Content("~/Scripts/jquery-2.2.3.min.js")"></script>
     <style type="text/css">
-        .icheckbox_flat {            
+        /*.icheckbox_flat {            
             margin-top: 10px;
-        }
+        }*/
     </style>
     @RenderSection("Styles", false)
 </head>
-<body id="app" class="app off-canvas nav-expand">
+@*@{ 
+    if (Request.Cookies["NavBarCookie"] == null)
+    {
+        Response.Cookies["NavBarCookie"].Value = "open";
+    }
 
+    var isOpen = Request.Cookies["NavBarCookie"].Value == "open" ? true : false;
+    var navBarCss = string.Empty;
+    if (isOpen)
+    {
+        navBarCss = "nav-expand";
+    }
+}*@
+<body id="app" class="app off-canvas nav-expand">
     <!-- header -->
     <header class="site-head" id="site-head">
         <ul class="list-unstyled left-elems">
             <!-- nav trigger/collapse -->
             <li>
-                <a href="javascript:;" class="nav-trigger ion ion-drag"></a>
+                <a href="javascript:;" class="nav-trigger ion ion-drag"></a><!--onclick="onNavBarClick();"-->
             </li>
             <!-- #end nav-trigger -->
             <!-- Search box -->
@@ -312,189 +324,100 @@
         <aside class="nav-wrap" id="site-nav" data-perfect-scrollbar>
             <div class="nav-head">
                 <!-- site logo -->
-                <a href="index.html" class="site-logo text-uppercase">
+                <a href="#" class="site-logo text-uppercase">
                     <i class="ion ion-disc"></i>
-                    <span class="text">Materia</span>
+                    <span class="text">HR-EZY</span>
                 </a>
             </div>
 
             <!-- Site nav (vertical) -->
 
             <nav class="site-nav clearfix" role="navigation">
-                <div class="profile clearfix mb15">
-                    <img src="@Url.Content("~/images/admin.jpg")" alt="admin">
-                    <div class="group">
-                        <h5 class="name">Robert Smith</h5>
-                        <small class="desig text-uppercase">UX Designer</small>
-                    </div>
-                </div>
+                @*<div class="profile clearfix mb15">*@
+                    @*<img src="@Url.Content("~/images/admin.jpg")" alt="admin">*@
+                    @*<div class="group">*@
+                        @*<h5 class="name">Robert Smith</h5>
+                        <small class="desig text-uppercase">UX Designer</small>*@
+                    @*</div>
+                </div>*@
 
                 <!-- navigation -->
                 <ul class="list-unstyled clearfix nav-list mb15">
-                    <li class="active">
-                        <a href="index.html">
+                    <li id="li_Dashboard">
+                        <a href="@Url.Content("~/Dashboard/Index")">
                             <i class="ion ion-monitor"></i>
                             <span class="text">Dashboard</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="li_Master">
                         <a href="javascript:;">
                             <i class="ion ion-android-options"></i>
                             <span class="text">Master</span>
                             <i class="arrow ion-chevron-left"></i>
                         </a>
                         <ul class="inner-drop list-unstyled">
-                            <li><a href="@Url.Content("~/Config/EmployeeDesignationList")">Employee Designation</a></li>
-                            <li><a href="@Url.Content("~/Config/EmployeeTypeList")">Employee Type</a></li>
-                            <li><a href="@Url.Content("~/Config/EmployeeDepartmentList")">Employee Department</a></li>
-                            <li><a href="@Url.Content("~/Config/EmployeeStatusList")">Employee Status</a></li>
-                            <li><a href="@Url.Content("~/Config/MaritalStatusList")">Marital Status</a></li>
-                            <li><a href="@Url.Content("~/Config/LeaveList")">Leave</a></li>
-                            <li><a href="@Url.Content("~/Config/PaymentTypeList")">Payment Type</a></li>
+                            <li id="li_empdesignation"><a href="@Url.Content("~/Config/EmployeeDesignationList")">Employee Designation</a></li>
+                            <li id="li_emptype"><a href="@Url.Content("~/Config/EmployeeTypeList")">Employee Type</a></li>
+                            <li id="li_empdepartment"><a href="@Url.Content("~/Config/EmployeeDepartmentList")">Employee Department</a></li>
+                            <li id="li_empstatus"><a href="@Url.Content("~/Config/EmployeeStatusList")">Employee Status</a></li>
+                            <li id="li_maritalstatus"><a href="@Url.Content("~/Config/MaritalStatusList")">Marital Status</a></li>
+                            <li id="li_leave"><a href="@Url.Content("~/Config/LeaveList")">Leave</a></li>
+                            <li id="li_paymenttype"><a href="@Url.Content("~/Config/PaymentTypeList")">Payment Type</a></li>
                         </ul>
                     </li>
 
-                    <li>
+                    <li id="li_Employee">
                         <a href="javascript:;">
-                            <i class="ion ion-calendar"></i>
+                            <i class="ion ion-man"></i>
                             <span class="text">Employee</span>
                             <i class="arrow ion-chevron-left"></i>
                         </a>
                         <ul class="inner-drop list-unstyled">
-                            <li><a href="@Url.Content("~/employee/employeedirectory")">Directory</a></li>
-                            <li><a href="@Url.Content("~/Employee/Add")">Info</a></li>                            
+                            <li id="li_empdir"><a href="@Url.Content("~/employee/employeedirectory")">Directory</a></li>
+                            <li id="li_empadd"><a href="@Url.Content("~/Employee/Add")">Info</a></li>                            
                         </ul>
                     </li>
 
-                    <li>
+                    <li id="li_Payroll">
                         <a href="javascript:;">
                             <i class="ion ion-calendar"></i>
                             <span class="text">PayRoll</span>
                             <i class="arrow ion-chevron-left"></i>
                         </a>
                         <ul class="inner-drop list-unstyled">
-                            <li><a href="@Url.Content("~/PayRoll/PayRollInfo")">Salary</a></li>
+                            <li id="li_payrollinfo"><a href="@Url.Content("~/PayRoll/PayRollInfo")">Salary</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="li_Leave">
                         <a href="javascript:;">
-                            <i class="ion ion-calendar"></i>
+                            <i class="ion ion-ionic"></i>
                             <span class="text">Leave</span>
                             <i class="arrow ion-chevron-left"></i>
                         </a>
                         <ul class="inner-drop list-unstyled">
-                            <li><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
-                            <li><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
-                            <li><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Employee Leave Request</a></li>
-                            <li><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+                            <li id="li_holidaylist"><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
+                            <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+                            <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Employee Leave Request</a></li>
+                            <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="li_Admin">
                         <a href="javascript:;">
-                            <i class="ion ion-calendar"></i>
+                            <i class="ion ion-monitor"></i>
                             <span class="text">Administration</span>
                             <i class="arrow ion-chevron-left"></i>
                         </a>
                         <ul class="inner-drop list-unstyled">
-                            <li><a href="@Url.Content("~/Administration/Company")">Company</a></li>
+                            <li id="li_company"><a href="@Url.Content("~/Administration/Company")">Company</a></li>
                             
                         </ul>
-                    </li>
-                    <li>
-                        <a href="material.html">
-                            <i class="ion ion-icecream"></i>
-                            <span class="text">Material</span>
-                            <span class="badge badge-xs badge-success">new</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="javascript:;">
-                            <i class="ion ion-android-options"></i>
-                            <span class="text">UI Kit</span>
-                            <i class="arrow ion-chevron-left"></i>
-                            <span class="badge badge-xs badge-info">10</span>
-                        </a>
-                        <ul class="inner-drop list-unstyled">
-                            <li><a href="ui.buttons.html">Buttons</a></li>
-                            <li><a href="ui.typography.html">Typography</a></li>
-                            <li><a href="ui.grids.html">Grids</a></li>
-                            <li><a href="ui.panels.html">Panels</a></li>
-                            <li><a href="ui.notifications.html">Notifications</a></li>
-                            <li><a href="ui.tabs.html">Tabs &amp; Accordion</a></li>
-                            <li><a href="ui.progress-bars.html">Progress Bars</a></li>
-                            <li><a href="ui.extras.html">Extras</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript:;">
-                            <i class="ion ion-asterisk"></i>
-                            <span class="text">Icons</span>
-                            <i class="arrow ion-chevron-left"></i>
-                            <span class="badge badge-xs badge-primary">2</span>
-                        </a>
-                        <ul class="inner-drop nested list-unstyled">
-                            <li><a href="icons.html">Font Awesome</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript:;">
-                            <i class="ion ion-stats-bars"></i>
-                            <span class="text">Charts</span>
-                            <i class="arrow ion-chevron-left"></i>
-                        </a>
-                        <ul class="inner-drop list-unstyled">
-                            <li><a href="charts.c3.html">C3</a></li>
-                            <li><a href="charts.sparklines.html">Sparklines</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <i class="ion ion-document-text"></i>
-                            <span class="text">Forms</span>
-                            <i class="arrow ion-chevron-left"></i>
-                        </a>
-                        <ul class="inner-drop list-unstyled">
-                            <li><a href="forms.elements.html">Elements</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="gmap.html">
-                            <i class="ion ion-map"></i>
-                            <span class="text">Maps</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="tables.html">
-                            <i class="ion ion-clipboard"></i>
-                            <span class="text">Tables</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <i class="ion ion-printer"></i>
-                            <span class="text">Pages</span>
-                            <i class="arrow ion-chevron-left"></i>
-                        </a>
-                        <ul class="inner-drop list-unstyled">
-                            <li><a href="pages.signin.html">Sign In</a></li>
-                            <li><a href="pages.signup.html">Sign Up</a></li>
-                            <li><a href="pages.forget-pass.html">Forget Pass</a></li>
-                            <li><a href="pages.404.html">404</a></li>
-                            <li><a href="pages.lockscreen.html">Lock Screen</a></li>
-                            <li><a href="pages.timeline.html">Timeline</a></li>
-                            <li><a href="pages.search.html">Search</a></li>
-                            <li><a href="pages.invoice.html">Invoice</a></li>
-                        </ul>
-                    </li>
-                </ul> <!-- #end navigation -->
+                    </li>                    
+                </ul> 
             </nav>
 
             <!-- nav-foot -->
             <footer class="nav-foot">
-                <p>2015 &copy; <span>MATERIA</span></p>
+                <p>2015 &copy; <span>HR-EZY</span></p>
             </footer>
 
         </aside>

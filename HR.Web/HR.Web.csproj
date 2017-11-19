@@ -1688,6 +1688,7 @@
     <Content Include="Scripts\Core\sitescript.js" />
     <Content Include="Scripts\Core\ui-bootstrap-tpls-2.4.0.min.js" />
     <Content Include="Scripts\Core\vendors.js" />
+    <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\icheck.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1898,14 +1899,13 @@
     <Content Include="Views\Administration\Company.cshtml" />
     <Content Include="Views\Administration\AddBranch.cshtml" />
     <Content Include="Views\Shared\_Address.cshtml" />
-    <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Employee\employeedirectory.cshtml" />
     <Content Include="Views\PayRoll\PayRollInfo.cshtml" />
-    <Content Include="Views\Leave\HolidayList.cshtml" />
-    <Content Include="Views\Leave\GetHolidayList.cshtml" />
     <Content Include="Views\Shared\_TreeView.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Shared\_GrantLeaveList.cshtml" />
+    <Content Include="Views\Leave\HolidayList.cshtml" />
+    <Content Include="Views\Leave\GetHolidayList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

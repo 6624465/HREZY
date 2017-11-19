@@ -50,7 +50,7 @@
                             </label>
                             <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.EmployeeId,
-             SelectListItemHelper.EmployeeType(),
+             SelectListItemHelper.EmployeeList(),
              "Select Employee",
              new { @class = "form-control" })
                             </div>
@@ -59,9 +59,9 @@
                             </label>
                             <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.LeaveTypeId,
-             SelectListItemHelper.ConfigData(UTILITY.CONFIG_EMPLOYEELEAVETYPE),
-             "Select Leave Type",
-             new { @class = "form-control" })
+                                 SelectListItemHelper.EmployeeLeaveType(),
+                                 "Select Leave Type",
+                                 new { @class = "form-control" })
                             </div>
                            
                         </div>                        
@@ -86,8 +86,8 @@
                             <div class="col-md-9"></div>
                                 <div class="form-group">
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn btn-info" onclick="SaveEmployeeLeaveForm()">Save</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>
+                                        <button type="submit" class="btn btn-info btn-sm" onclick="SaveEmployeeLeaveForm()">Save</button>
+                                        <button type="button" class="btn btn-default btn-sm" data-dismiss="">&nbsp;&nbsp;Cancel</button>
                                     </div>
                                 </div>
                                
@@ -102,7 +102,10 @@
 @section Scripts{
     
     <script type="text/javascript">     
-
+        $(function () {
+            $('#li_Leave').addClass('open');
+            $('#li_emprequestleave').addClass('active');
+        });
         $('.dtCss').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',
@@ -123,6 +126,7 @@
             $('#Days').val(days);
         });
 
+       
         $('#frmLeave').validate({
             rules: {
                 'FromDate': {
@@ -131,9 +135,9 @@
                 'ToDate': {
                     required: true
                 },
-                //'Days': {
-                //    required: true
-                //},
+                'Days': {
+                    required: true
+                },
                 'EmployeeId': {
                     required: true
                 },
@@ -148,7 +152,7 @@
                 }
             }
         });
-
+       
         function clearrec() {
             $('#FromDate').val('');
             $('#ToDate').val('');
@@ -156,14 +160,16 @@
             $('#EmployeeId').val('');
             $('#LeaveTypeId').val('');
             $('#Reason').val('');
-            $('#Remarks').val('')
+            $('#Remarks').val('');
+
         }
-        clearrec()
+        clearrec();
+
         function SaveEmployeeLeaveForm() {
             if ($('#frmLeave').valid()) {
                 $('#frmLeave').submit();
-               
             }
+
         }
 </script>
 }

@@ -243,3 +243,5 @@ ModelManifest.xml
 /HR.Web/Views/Config/Index.cshtml
 /HR.Web/Css/bootstrap-timepicker.css
 /HR.Web/Uploads/1005
+/HR.Web/Views/Leave/GetHolidayList.cshtml
+/HR.Web/Views/Leave/HolidayList.cshtml

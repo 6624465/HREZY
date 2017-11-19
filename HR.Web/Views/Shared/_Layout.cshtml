@@ -27,14 +27,26 @@
     </style>
     @RenderSection("Styles", false)
 </head>
-<body id="app" class="app off-canvas nav-expand">
+@*@{ 
+    if (Request.Cookies["NavBarCookie"] == null)
+    {
+        Response.Cookies["NavBarCookie"].Value = "open";
+    }
 
+    var isOpen = Request.Cookies["NavBarCookie"].Value == "open" ? true : false;
+    var navBarCss = string.Empty;
+    if (isOpen)
+    {
+        navBarCss = "nav-expand";
+    }
+}*@
+<body id="app" class="app off-canvas nav-expand">
     <!-- header -->
     <header class="site-head" id="site-head">
         <ul class="list-unstyled left-elems">
             <!-- nav trigger/collapse -->
             <li>
-                <a href="javascript:;" class="nav-trigger ion ion-drag"></a>
+                <a href="javascript:;" class="nav-trigger ion ion-drag"></a><!--onclick="onNavBarClick();"-->
             </li>
             <!-- #end nav-trigger -->
             <!-- Search box -->

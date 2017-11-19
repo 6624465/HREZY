@@ -325,6 +325,7 @@ namespace HR.Web.Controllers
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
                     _lookupObj.ModifiedBy = USERID;
+                    _lookupObj.IsActive = lookup.IsActive;
                     _lookupObj.ModifiedOn = DateTime.Now;
 
                     dbCntx.SaveChanges();
@@ -339,7 +340,7 @@ namespace HR.Web.Controllers
                         LookUpCode = lookup.LookUpCode,
                         LookUpDescription = lookup.LookUpDescription,
                         LookUpCategory = UTILITY.CONFIG_EMPLOYEEMARITALSTATUS,
-                        IsActive = true,
+                        IsActive = lookup.IsActive,
                         CreatedOn = DateTime.Now,
                         CreatedBy = USERID,
                         ModifiedOn = DateTime.Now,

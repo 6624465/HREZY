@@ -13,6 +13,39 @@ using System.Linq.Expressions;
 
 namespace HR.Web.Controllers
 {
+    public static class LinqFuncs
+    {
+        public static Func<EmployeeWorkDetail, DateTime?, int?, bool> FuncEmpWorkDetailWhere = delegate (EmployeeWorkDetail empWorkDetail, DateTime? DOJ, int? Designation)
+        {
+            var dtResult = true;
+            if (DOJ.HasValue)
+            {
+                dtResult = (DbFunctions.TruncateTime(empWorkDetail.JoiningDate) == DbFunctions.TruncateTime(DOJ.Value));
+            }
+
+            var desigResult = true;
+            if (Designation != null)
+                desigResult = (empWorkDetail.DesignationId == Designation);
+
+            return dtResult && desigResult;
+        };
+
+        public static Func<EmployeeHeader, string, int?, bool> FuncEmpHeaderWhere = delegate (EmployeeHeader empHeader, string EmployeeName, int? EmployeeType)
+        {
+            var nameResult = true;
+            if (!string.IsNullOrWhiteSpace(EmployeeName))
+            {
+                nameResult = (empHeader.FirstName == EmployeeName || empHeader.LastName == EmployeeName || empHeader.MiddleName == EmployeeName);
+            }
+
+            var empTypeResult = true;
+            if (EmployeeType != null)
+                empTypeResult = (empHeader.IDType == EmployeeType);
+
+            return nameResult && empTypeResult;
+        };
+    }
+
     [Authorize]
     public class EmployeeController : BaseController
     {
@@ -56,49 +89,51 @@ namespace HR.Web.Controllers
         }
 
 
-         Func<EmployeeWorkDetail, DateTime?, int?, bool> FuncEmpWorkDetailWhere = delegate (EmployeeWorkDetail empWorkDetail, DateTime? DOJ, int? Designation)
-        {
-            var dtResult = true;
-            if (DOJ.HasValue)
-            {
-                dtResult = (DbFunctions.TruncateTime(empWorkDetail.JoiningDate) == DbFunctions.TruncateTime(DOJ.Value));
-            }            
-
-            var desigResult = true;
-            if (Designation != null)
-                desigResult = (empWorkDetail.DesignationId == Designation);
-
-            return dtResult && desigResult;
-        };
-
-        Func<EmployeeHeader, string, int?, bool> FuncEmpHeaderWhere = delegate (EmployeeHeader empHeader, string EmployeeName, int? EmployeeType)
-        {
-            var nameResult = true;
-            if (!string.IsNullOrWhiteSpace(EmployeeName))
-            {
-                nameResult = (empHeader.FirstName == EmployeeName || empHeader.LastName == EmployeeName || empHeader.MiddleName == EmployeeName);
-            }
-
-            var empTypeResult = true;
-            if (EmployeeType != null)
-                empTypeResult = (empHeader.IDType == EmployeeType);
-
-            return nameResult && empTypeResult;
-        };
+         
 
         [HttpPost]
         public ViewResult empsearch(EmpSearch empSearch)
         {
 
+            Func<EmployeeWorkDetail, bool> FuncEmpWorkDetailWhere = delegate (EmployeeWorkDetail empWorkDetail)
+            {
+                var dtResult = true;
+                if (empSearch.DOJ.HasValue)
+                {
+                    dtResult = (empWorkDetail.JoiningDate.Date == empSearch.DOJ.Value.Date);
+                }
+
+                var desigResult = true;
+                if (empSearch.Designation != null)
+                    desigResult = (empWorkDetail.DesignationId == empSearch.Designation);
+
+                return dtResult && desigResult;
+            };
+
+            Func<EmployeeHeader, bool> FuncEmpHeaderWhere = delegate (EmployeeHeader empHeader)
+            {
+                var nameResult = true;
+                if (!string.IsNullOrWhiteSpace(empSearch.EmployeeName))
+                {
+                    nameResult = (empHeader.FirstName == empSearch.EmployeeName || empHeader.LastName == empSearch.EmployeeName || empHeader.MiddleName == empSearch.EmployeeName);
+                }
+
+                var empTypeResult = true;
+                if (empSearch.EmployeeType != null)
+                    empTypeResult = (empHeader.IDType == empSearch.EmployeeType);
+
+                return nameResult && empTypeResult;
+            };
+
             using (var dbCntx = new HrDataContext())
             {
                 
 
-                var list = dbCntx.EmployeeHeaders.Where(x => FuncEmpHeaderWhere.Invoke(x, empSearch.EmployeeName, empSearch.EmployeeType))
+                var list = dbCntx.EmployeeHeaders.Where(FuncEmpHeaderWhere)
                             .Join(dbCntx.EmployeePersonalDetails,
                             a => a.EmployeeId, b => b.EmployeeId,
                             (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails.Where(x => FuncEmpWorkDetailWhere(x, empSearch.DOJ, empSearch.Designation)),
+                            .Join(dbCntx.EmployeeWorkDetails.Where(FuncEmpWorkDetailWhere),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
                             .Join(dbCntx.EmployeeAddresses,

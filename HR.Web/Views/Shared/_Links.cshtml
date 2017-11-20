@@ -1,0 +1,112 @@
+﻿@model HR.Web.Controllers.LayoutController.LayOutVM
+
+@if (Model.RoleCode == "Employee")
+{
+    <ul class="list-unstyled clearfix nav-list mb15">
+        <li id="li_EmpProfile">
+            <a href="@Url.Content("~/Dashboard/Index")">
+                <i class="ion ion-monitor"></i>
+                <span class="text">Employee Profile</span>
+            </a>
+        </li>
+        <li id="li_Master">
+            <a href="javascript:;">
+                <i class="ion ion-android-options"></i>
+                <span class="text">Holiday</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_empdesignation"><a href="@Url.Content("~/Config/EmployeeDesignationList")">Holiday List</a></li>
+                
+            </ul>
+        </li>
+
+        <li id="li_Employee">
+            <a href="javascript:;">
+                <i class="ion ion-man"></i>
+                <span class="text">Employee Leaves</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_empdir"><a href="@Url.Content("~/employee/employeedirectory")">Salary Slips</a></li>
+                <li id="li_empadd"><a href="@Url.Content("~/Employee/Add")">Apply Leaves</a></li>
+                <li id="li_empadd"><a href="@Url.Content("~/Employee/Add")">View Leaves</a></li>
+                <li id="li_empadd"><a href="@Url.Content("~/Employee/Add")">Approve/Reject Leaves</a></li>
+            </ul>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="list-unstyled clearfix nav-list mb15">
+        <li id="li_Dashboard">
+            <a href="@Url.Content("~/Dashboard/Index")">
+                <i class="ion ion-monitor"></i>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+        <li id="li_Master">
+            <a href="javascript:;">
+                <i class="ion ion-android-options"></i>
+                <span class="text">Master</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_empdesignation"><a href="@Url.Content("~/Config/EmployeeDesignationList")">Employee Designation</a></li>
+                <li id="li_emptype"><a href="@Url.Content("~/Config/EmployeeTypeList")">Employee Type</a></li>
+                <li id="li_empdepartment"><a href="@Url.Content("~/Config/EmployeeDepartmentList")">Employee Department</a></li>
+                <li id="li_empstatus"><a href="@Url.Content("~/Config/EmployeeStatusList")">Employee Status</a></li>
+                <li id="li_maritalstatus"><a href="@Url.Content("~/Config/MaritalStatusList")">Marital Status</a></li>
+                <li id="li_leave"><a href="@Url.Content("~/Config/LeaveList")">Leave</a></li>
+                <li id="li_paymenttype"><a href="@Url.Content("~/Config/PaymentTypeList")">Payment Type</a></li>
+            </ul>
+        </li>
+
+        <li id="li_Employee">
+            <a href="javascript:;">
+                <i class="ion ion-man"></i>
+                <span class="text">Employee</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_empdir"><a href="@Url.Content("~/employee/employeedirectory")">Directory</a></li>
+                <li id="li_empadd"><a href="@Url.Content("~/Employee/Add")">Info</a></li>
+            </ul>
+        </li>
+
+        <li id="li_Payroll">
+            <a href="javascript:;">
+                <i class="ion ion-calendar"></i>
+                <span class="text">PayRoll</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_payrollinfo"><a href="@Url.Content("~/PayRoll/PayRollInfo")">Salary</a></li>
+            </ul>
+        </li>
+        <li id="li_Leave">
+            <a href="javascript:;">
+                <i class="ion ion-ionic"></i>
+                <span class="text">Leave</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_holidaylist"><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
+                <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+                <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Employee Leave Request</a></li>
+                <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+            </ul>
+        </li>
+        <li id="li_Admin">
+            <a href="javascript:;">
+                <i class="ion ion-monitor"></i>
+                <span class="text">Administration</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_company"><a href="@Url.Content("~/Administration/Company")">Company</a></li>
+
+            </ul>
+        </li>
+    </ul>
+}

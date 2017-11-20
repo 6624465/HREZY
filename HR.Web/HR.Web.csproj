@@ -1717,9 +1717,11 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\PayRollController.cs" />
+    <Compile Include="Controllers\RoleRightsController.cs" />
     <Compile Include="Core\UTILITY.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1781,6 +1783,9 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LookUp.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -1906,6 +1911,9 @@
     <Content Include="Views\Shared\_GrantLeaveList.cshtml" />
     <Content Include="Views\Leave\HolidayList.cshtml" />
     <Content Include="Views\Leave\GetHolidayList.cshtml" />
+    <Content Include="Views\RoleRights\AddRole.cshtml" />
+    <Content Include="Views\RoleRights\_NewRole.cshtml" />
+    <Content Include="Views\Shared\_Links.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1916,6 +1924,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Layout\" />
     <Folder Include="Views\Master\" />
   </ItemGroup>
   <ItemGroup>

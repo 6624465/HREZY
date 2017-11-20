@@ -329,6 +329,7 @@ namespace HR.Web.Controllers
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
                     _lookupObj.IsActive = lookup.IsActive;
                     _lookupObj.ModifiedBy = USERID;
+                    _lookupObj.IsActive = lookup.IsActive;
                     _lookupObj.ModifiedOn = DateTime.Now;
 
                     dbCntx.SaveChanges();

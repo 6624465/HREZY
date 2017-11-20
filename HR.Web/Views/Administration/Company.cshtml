@@ -36,8 +36,10 @@
                                         <label class="col-md-2 control-label">
                                             <span class="pull-right">IsActive</span>
                                         </label>
-                                        <div class="col-md-4">
-                                            @Html.CheckBoxFor(x => x.company.IsActive, new { @class = "form-control" })
+                                        <div class="col-md-4">                                            
+                                            <div style="margin-top:20px;">
+                                                @Html.CheckBoxFor(x => x.company.IsActive)
+                                            </div>
                                         </div>
                                         @*<div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
                                             <label class="ui-toggle-inline">

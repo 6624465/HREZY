@@ -138,6 +138,7 @@
     <Content Include="Css\bootstrap-timepicker.css" />
     <Content Include="Css\bootstrap.min.css" />
     <Content Include="Css\c3.css" />
+    <Content Include="Css\Calendar.css" />
     <Content Include="Css\css.css" />
     <Content Include="Css\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Css\font-awesome-4.7.0\css\font-awesome.min.css" />
@@ -1676,6 +1677,7 @@
     <Content Include="fonts\proximanovalight.woff" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Calender.js" />
     <Content Include="Scripts\Core\app.js" />
     <Content Include="Scripts\Core\bootstrap-rating.min.js" />
     <Content Include="Scripts\Core\c3.min.js" />

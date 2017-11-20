@@ -1,4 +1,6 @@
-﻿
+﻿@section Styles{    
+    <link href = "http://bootstrap-calendar.eivissapp.com/css/calendar.css" rel = "stylesheet" />
+}
 <div class="page">
     <div class="row">
         <div class="col-md-12">
@@ -9,41 +11,46 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="pull-right">
-                                <button class="btn btn-primary btn-sm" type="button" onclick="AddHoliday(-1)">Add Holiday</button>
-                            </div>
+                            <div id="calendar"></div>
                         </div>
-
-                    </div>
-                    </div>
-                </div>
+                    </div> 
+                </div>                
             </div>
         </div>
     </div>
-                   
+</div>
     
-    @using (Html.BeginForm("SaveHoliday", "Leave", FormMethod.Post, new { id = "holidayfrm", name = "holidayfrm" }))
-    {
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Holiday</h4>
-                    </div>
-                    <div class="modal-body" id="modalContent">
 
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btnsave" type="button" onclick="SaveChanges()" class="btn btn-info btn-raised">Save</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-                    </div>
+
+@using (Html.BeginForm("SaveHoliday", "Leave", FormMethod.Post, new { id = "holidayfrm", name = "holidayfrm" }))
+{
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Holiday</h4>
                 </div>
+                <div class="modal-body" id="modalContent">
 
+                </div>
+                <div class="modal-footer">
+                    <button id="btnsave" type="button" onclick="SaveChanges()" class="btn btn-info btn-raised">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
             </div>
+
         </div>
-    }
+    </div>
+}
+
 @section Scripts{
+    
+    <script src="http://localhost:1234/components/underscore/underscore-min.js"></script>
+    <script src="http://localhost:1234/components/jstimezonedetect/jstz.min.js"></script>
+    <script src="http://bootstrap-calendar.eivissapp.com/js/calendar.js"></script>
+    <script src="http://bootstrap-calendar.eivissapp.com/js/app.js"></script>
     <script type="text/javascript">
         $(function () {
             $('#li_Leave').addClass('open');
@@ -77,16 +84,12 @@
                 },
                 Description: {
                     required: true,
-                    maxlength:20
+                    maxlength: 20
                 },
                 CountryId: {
-                    required:true
+                    required: true
                 }
             }
         });
-
-      
-
-
     </script>
-  }  
+}

@@ -1776,6 +1776,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HrEntity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Leave.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LeaveDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1914,6 +1917,7 @@
     <Content Include="Views\RoleRights\AddRole.cshtml" />
     <Content Include="Views\RoleRights\_NewRole.cshtml" />
     <Content Include="Views\Shared\_Links.cshtml" />
+    <Content Include="Views\Leave\Leave.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Profile</div>
+                    <div class="panel-heading">@Model.empHeader.FirstName&nbsp;@Model.empHeader.LastName&nbsp;Profile</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="form-group">
@@ -40,14 +40,14 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.FirstName,
-         new { @class = "form-control" })
+                                       new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Last Name</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.LastName,
-         new { @class = "form-control" })
+                                         new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
-         new { @class = "form-control" })
+                                     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.address.MobileNo,
-         new { @class = "form-control" })
+                                     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -112,8 +112,8 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
-             new { @class = "form-control" })
-                                </div>
+                                      new { @class = "form-control" })
+                                 </div>
                             </div>
                         </div>
                         <div class="row css5">
@@ -123,16 +123,16 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empHeader.Nationality,
-             SelectListItemHelper.CountryList(), "Select Country",
-             new { @class = "form-control" })
+                                         SelectListItemHelper.CountryList(), "Select Country",
+                                          new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Marital Status</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
-             SelectListItemHelper.MaritalStatus(), "Select Marital Status",
-             new { @class = "form-control" })
+                                       SelectListItemHelper.MaritalStatus(), "Select Marital Status",
+                                       new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -143,21 +143,20 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
-             new { @class = "form-control" })
+                                    new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Emg. Contact No</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-         new { @class = "form-control" })
+                                    new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -171,7 +170,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextAreaFor(x => x.address.Address1,
-         new { @class = "form-control" })
+                                    new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -182,7 +181,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextAreaFor(x => x.address.Address2,
-         new { @class = "form-control" })
+                                     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -193,7 +192,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.CityName,
-         new { @class = "form-control" })
+                                    new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -224,7 +223,7 @@
             </div>
             <div class="col-md-6">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Employee Position</div>
+                    <div class="panel-heading">Position</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="form-group">
@@ -315,7 +314,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Employee Login Info</div>
+                    <div class="panel-heading">Login Info</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="form-group">
@@ -349,7 +348,9 @@
                                     <span class="pull-right">Status</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value)                                    
+                                    <div style="margin-top:10px">
+                                        @Html.CheckBoxFor(x => x.empHeader.IsActive.Value)
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +361,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Employee Documents</div>
+                    <div class="panel-heading">Documents</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -416,11 +417,12 @@
             </div>
         </div>
     </div>
-}
+                        }
 
 @section Scripts{
     <script type="text/javascript">
         $(function () {
+            //$('.form-control').addClass('input-sm');
             $('#li_Employee').addClass('open');
             $('#li_empadd').addClass('active');
 
@@ -432,9 +434,9 @@
                     down: 'fa fa-arrow-down'
                 },
                 format: 'DD/MM/YYYY'
-            }); 
+            });
 
-            
+
         });
 
         $('#frmEmp').validate({
@@ -486,7 +488,7 @@
                 }
             }
         });
-        
+
 
         function SaveEmployee() {
             if ($('#frmEmp').valid()) {

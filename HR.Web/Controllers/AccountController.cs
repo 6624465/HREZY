@@ -29,6 +29,7 @@ namespace HR.Web.Controllers
                     FormsAuthentication.SetAuthCookie(userObj.UserName, false);
                     USERID = user.UserName;
                     BRANCHID = userObj.BranchId.Value;
+                    ROLECODE = userObj.RoleCode;
                     return RedirectToAction("Index", "Home");
                 }
             }

@@ -76,6 +76,25 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="CountryId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="LeaveId" />
+          </Key>
+          <Property Name="LeaveId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CountryCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="PaidLeavesPerYear" Type="int" />
+          <Property Name="LeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsPaidLeaveCarryForward" Type="bit" />
+          <Property Name="CarryForwardPerYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="SickLeavesPerYear" Type="int" />
+          <Property Name="SickLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsSickLeaveCarryForward" Type="bit" />
+          <Property Name="CarryForwardLeaves" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CasualLeavesPerYear" Type="int" />
+          <Property Name="CasualLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsCasualLeaveCarryForward" Type="bit" />
+        </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
@@ -268,6 +287,21 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Createdby" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -291,6 +325,7 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="Master" store:Type="Tables" />
           <EntitySet Name="HolidayList" EntityType="Self.HolidayList" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="Leave" EntityType="Self.Leave" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeAddress" EntityType="Self.EmployeeAddress" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeDocumentDetail" EntityType="Self.EmployeeDocumentDetail" Schema="Operation" store:Type="Tables" />
@@ -301,6 +336,18 @@
           <EntitySet Name="LeaveDetail" EntityType="Self.LeaveDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveHeader" EntityType="Self.LeaveHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
+            <DefiningQuery>SELECT 
+    [Role].[RoleId] AS [RoleId], 
+    [Role].[RoleCode] AS [RoleCode], 
+    [Role].[RoleDescription] AS [RoleDescription], 
+    [Role].[IsActive] AS [IsActive], 
+    [Role].[Createdby] AS [Createdby], 
+    [Role].[CreatedOn] AS [CreatedOn], 
+    [Role].[ModifiedBy] AS [ModifiedBy], 
+    [Role].[ModifiedOn] AS [ModifiedOn]
+    FROM [Security].[Role] AS [Role]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -377,6 +424,8 @@
             <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
             <End Role="EmployeeDocumentDetail" EntitySet="EmployeeDocumentDetails" />
           </AssociationSet>
+          <EntitySet Name="Roles" EntityType="DB_9F30C5_HRDBModel.Role" />
+          <EntitySet Name="Leaves" EntityType="DB_9F30C5_HRDBModel.Leave" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -723,6 +772,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Createdby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="LeaveId" />
+          </Key>
+          <Property Name="LeaveId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PaidLeavesPerYear" Type="Int32" />
+          <Property Name="LeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsPaidLeaveCarryForward" Type="Boolean" />
+          <Property Name="CarryForwardPerYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SickLeavesPerYear" Type="Int32" />
+          <Property Name="SickLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsSickLeaveCarryForward" Type="Boolean" />
+          <Property Name="CarryForwardLeaves" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CasualLeavesPerYear" Type="Int32" />
+          <Property Name="CasualLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsCasualLeaveCarryForward" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1015,6 +1096,40 @@
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="DocumentDetailID" ColumnName="DocumentDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Createdby" ColumnName="Createdby" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leaves">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Leave">
+              <MappingFragment StoreEntitySet="Leave">
+                <ScalarProperty Name="IsCasualLeaveCarryForward" ColumnName="IsCasualLeaveCarryForward" />
+                <ScalarProperty Name="CasualLeavesPerMonth" ColumnName="CasualLeavesPerMonth" />
+                <ScalarProperty Name="CasualLeavesPerYear" ColumnName="CasualLeavesPerYear" />
+                <ScalarProperty Name="CarryForwardLeaves" ColumnName="CarryForwardLeaves" />
+                <ScalarProperty Name="IsSickLeaveCarryForward" ColumnName="IsSickLeaveCarryForward" />
+                <ScalarProperty Name="SickLeavesPerMonth" ColumnName="SickLeavesPerMonth" />
+                <ScalarProperty Name="SickLeavesPerYear" ColumnName="SickLeavesPerYear" />
+                <ScalarProperty Name="CarryForwardPerYear" ColumnName="CarryForwardPerYear" />
+                <ScalarProperty Name="IsPaidLeaveCarryForward" ColumnName="IsPaidLeaveCarryForward" />
+                <ScalarProperty Name="LeavesPerMonth" ColumnName="LeavesPerMonth" />
+                <ScalarProperty Name="PaidLeavesPerYear" ColumnName="PaidLeavesPerYear" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="LeaveId" ColumnName="LeaveId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

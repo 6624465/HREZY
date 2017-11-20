@@ -1,0 +1,56 @@
+﻿
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box" id="grid">
+                <div class="box-header">
+                    <h4>Employee Designation</h4>
+                    <div class="box-tools">
+                        <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="EditRole(-1);"><i class="fa fa-plus"></i> Add Role</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("AddRole", "RoleRights", FormMethod.Post, new { id = "frmRole", name = "frmRole" }))
+{
+    <div id="myRoleModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Role</h4>
+                </div>
+                <div class="modal-body" id="roleContent">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info" onclick="SaveRole()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+@section scripts{
+    <script type="text/javascript">
+        function EditRole(roleId) {
+            $.ajax({
+                url: '@Url.Content("~/RoleRights/NewRole?roleId=")' + roleId,
+                contentType: 'text/html',
+                method: 'GET',
+                success: function (data) {
+                    debugger;
+                    $('#myRoleModal').modal('show');
+                    $('#roleContent').html('');
+                    $('#roleContent').html(data);
+                },
+                error: function (err) {
+                    debugger;
+                }
+            });
+        }
+    </script>
+}
+

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Profile</div>
+                    <div class="panel-heading">@Model.empHeader.FirstName&nbsp;@Model.empHeader.LastName&nbsp;Profile</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="form-group">
@@ -224,7 +224,7 @@
             </div>
             <div class="col-md-6">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Employee Position</div>
+                    <div class="panel-heading">Position</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="form-group">
@@ -315,7 +315,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Employee Login Info</div>
+                    <div class="panel-heading">Login Info</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="form-group">
@@ -349,7 +349,9 @@
                                     <span class="pull-right">Status</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value)                                    
+                                    <div style="margin-top:10px">
+                                        @Html.CheckBoxFor(x => x.empHeader.IsActive.Value)
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +362,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Employee Documents</div>
+                    <div class="panel-heading">Documents</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -416,11 +418,12 @@
             </div>
         </div>
     </div>
-}
+                        }
 
 @section Scripts{
     <script type="text/javascript">
         $(function () {
+            //$('.form-control').addClass('input-sm');
             $('#li_Employee').addClass('open');
             $('#li_empadd').addClass('active');
 
@@ -432,9 +435,9 @@
                     down: 'fa fa-arrow-down'
                 },
                 format: 'DD/MM/YYYY'
-            }); 
+            });
 
-            
+
         });
 
         $('#frmEmp').validate({
@@ -486,7 +489,7 @@
                 }
             }
         });
-        
+
 
         function SaveEmployee() {
             if ($('#frmEmp').valid()) {

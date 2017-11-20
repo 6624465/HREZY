@@ -19,7 +19,13 @@ namespace HR.Web.ViewModels
         public HttpPostedFileBase EducationDocument { get; set; }
         public HttpPostedFileBase ExperienceLetters { get; set; }
         public HttpPostedFileBase ProjectDocuments { get; set; }
-        public HttpPostedFileBase OtherDocuments { get; set; }
+        public HttpPostedFileBase OtherDocuments { get; set; }        
+    }
+
+    public class EmpDirectoryVm
+    {
+        public IEnumerable<EmployeeListVm> employeeVm { get; set; }
+        public EmpSearch empSearch { get; set; }
     }
 
     public class EmployeeDocumentVm
@@ -34,8 +40,7 @@ namespace HR.Web.ViewModels
         public string EmployeeName { get; set; }
         public DateTime? DOJ { get; set; }
         public string EmployeeNumber { get; set; }
-        public string Country { get; set; }
-        public int Designation { get; set; }
-        public int EmployeeType { get; set; }
+        public int? Designation { get; set; }
+        public int? EmployeeType { get; set; }
     }
 }

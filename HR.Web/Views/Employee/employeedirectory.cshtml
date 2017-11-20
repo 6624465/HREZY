@@ -1,7 +1,8 @@
-﻿@model IEnumerable<HR.Web.ViewModels.EmployeeListVm>
+﻿@model HR.Web.ViewModels.EmpDirectoryVm
 
 @{
-    WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");    
+    WebGrid grid = new WebGrid(Model.employeeVm, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
+
 }
 <div class="page">
     
@@ -14,13 +15,62 @@
             </div>
             <div id="collapse1" class="panel-collapse collapse">
                 <div class="panel-body">
+                    @using (Html.BeginForm("empsearch", "Employee", FormMethod.Post, new { id = "frmSearch", name = "frmSearch" }))
+                    {
                     <div class="row">
                         <div class="form-group">
                             <label class="col-md-1 control-label">
-                                <span class="pull-right">Employee Name</span>
+                                <span class="pull-right">Name</span>
                             </label>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.empSearch.EmployeeName, new { @class = "form-control", placeholder = "fname/lname/mname" })
+                            </div>
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">DOJ</span>
+                            </label>
+                            <div class="col-md-3">
+                                <div class="input-group input-sm date" id="DOJDt">
+                                    @Html.TextBoxFor(x => x.empSearch.DOJ, new { @class = "form-control dtCss" })
+                                    <span class="input-group-addon">
+                                        <i class="ion ion-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Emp No</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.empSearch.EmployeeNumber, new { @class = "form-control" })
+                            </div>
+                            
                         </div>
                     </div>
+                    <div class="row css10">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Designation</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(x => x.empSearch.Designation,
+                             SelectListItemHelper.Designation(),
+                             "Select Designation",
+                             new { @class = "form-control" })
+                            </div>
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Type</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(x => x.empSearch.Designation,
+                             SelectListItemHelper.EmployeeType(),
+                             "Select Type",
+                             new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-info btn-raised waves-effect btn-sm">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    }
                 </div>
                 <div class="panel-footer">Panel Footer</div>
             </div>
@@ -61,6 +111,16 @@
             
             $('#li_Employee').addClass('open');
             $('#li_empdir').addClass('active');
+
+            $('.dtCss').datetimepicker({
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down'
+                },
+                format: 'DD/MM/YYYY'
+            });
         });
     </script>
 }

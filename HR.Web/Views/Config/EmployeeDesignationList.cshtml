@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<HR.Web.Models.LookUp>
-
-
-
 @{
     WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
     grid.Pager(WebGridPagerModes.All);
+}
+@section Styles {
+    
 }
 <div class="page">
     <div class="page-wrap">

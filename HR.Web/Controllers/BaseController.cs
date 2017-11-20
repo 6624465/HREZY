@@ -32,5 +32,17 @@ namespace HR.Web.Controllers
                 Session[UTILITY.SSN_BRANCHID] = value;
             }
         }
+
+        public string ROLECODE
+        {
+            get
+            {
+                return (string)System.Web.HttpContext.Current.Session[UTILITY.CONFIG_ROLECODE];
+            }
+            set
+            {
+                Session[UTILITY.CONFIG_ROLECODE] = value;
+            }
+        }
     }
 }

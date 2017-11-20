@@ -45,12 +45,12 @@
                     <div class="form-container">
                         @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "frmLogin", name = "frmLogin" }))
                         {
-                            <div class="md-input-container md-float-label">
+                            <div class="md-input-container">
                                 @Html.TextBoxFor(x => x.UserName, new { @class = "md-input" })
                                 <label>Email Id</label>
                             </div>
 
-                            <div class="md-input-container md-float-label">
+                            <div class="md-input-container">
                                 @Html.PasswordFor(x => x.Password, new { @class = "md-input" })
                                 <label>Password</label>
                             </div>

@@ -1,0 +1,42 @@
+﻿@model HR.Web.Models.Role
+<div class="row">
+    @Html.HiddenFor(x => x.RoleId)
+    @Html.HiddenFor(x => x.IsActive)
+    <div class="form-group">
+        <label class="col-md-4 control-label">
+            <span class="pull-right">Designation</span>
+        </label>
+        <div class="col-md-8">
+            @Html.TextBoxFor(x => x.RoleCode,
+            new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row css10">
+    <div class="form-group">
+        <label class="col-md-4 control-label">
+            <span class="pull-right">Description</span>
+        </label>
+        <div class="col-md-8">
+            @Html.TextAreaFor(x => x.RoleDescription,
+            new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <label class="col-md-4 control-label">
+        <span class="pull-right">IsActive</span>
+    </label>
+    <div class="col-md-4">
+      @Html.CheckBox("IsActive",new { id= "IsActive" })
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_flat',
+            radioClass: 'iradio_flat',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>

@@ -196,8 +196,8 @@
                             <h3 class="box-title"></h3>
                         </div>
                         <div class="box-body">
-                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
-                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            @*<div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>*@
                             <div id="PAKISTAN" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
                         </div>
                     </div>
@@ -208,8 +208,8 @@
                             <h3 class="box-title"></h3>
                         </div>
                         <div class="box-body">
-                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
-                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            @*<div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>*@
                             <div id="MAYANMAR" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
                         </div>
                     </div>
@@ -220,8 +220,8 @@
                             <h3 class="box-title"></h3>
                         </div>
                         <div class="box-body">
-                            <div class="spanboxNumber"><span class="spanClass">Male</span></div>
-                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>
+                            @*<div class="spanboxNumber"><span class="spanClass">Male</span></div>
+                            <div class="spanboxNumber2"><span class="spanClass">Female</span></div>*@
                             <div id="HONGKONG" style="min-width: 310px; height: 400px; max-width: 600px; padding-top:50px;"></div>
                         </div>
                     </div>
@@ -293,7 +293,8 @@
                                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                             }
                         },
-                        size: 250
+                        size: 250,
+                        showInLegend: true
                     }
                 },
 
@@ -301,7 +302,7 @@
                     name: 'Countries',
                     colorByPoint: true,
                     data: CountryWiseGenders,
-                    colors: [c1, c2],
+                    //colors: [c1, c2],
                 }]
             });
         }

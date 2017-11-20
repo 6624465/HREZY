@@ -76,6 +76,25 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="CountryId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="LeaveId" />
+          </Key>
+          <Property Name="LeaveId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CountryCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="PaidLeavesPerYear" Type="int" />
+          <Property Name="PaidLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsPaidLeaveCarryForward" Type="bit" />
+          <Property Name="CarryForwardPerYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="SickLeavesPerYear" Type="int" />
+          <Property Name="SickLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsSickLeaveCarryForward" Type="bit" />
+          <Property Name="CarryForwardSickLeaves" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CasualLeavesPerYear" Type="int" />
+          <Property Name="CasualLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsCasualLeaveCarryForward" Type="bit" />
+        </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
@@ -306,6 +325,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="Company" EntityType="Self.Company" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="Master" store:Type="Tables" />
           <EntitySet Name="HolidayList" EntityType="Self.HolidayList" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="Leave" EntityType="Self.Leave" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeAddress" EntityType="Self.EmployeeAddress" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeDocumentDetail" EntityType="Self.EmployeeDocumentDetail" Schema="Operation" store:Type="Tables" />
@@ -405,6 +425,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <End Role="EmployeeDocumentDetail" EntitySet="EmployeeDocumentDetails" />
           </AssociationSet>
           <EntitySet Name="Roles" EntityType="DB_9F30C5_HRDBModel.Role" />
+          <EntitySet Name="Leaves" EntityType="DB_9F30C5_HRDBModel.Leave" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -764,6 +785,25 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="LeaveId" />
+          </Key>
+          <Property Name="LeaveId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PaidLeavesPerYear" Type="Int32" />
+          <Property Name="PaidLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsPaidLeaveCarryForward" Type="Boolean" />
+          <Property Name="CarryForwardPerYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SickLeavesPerYear" Type="Int32" />
+          <Property Name="SickLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsSickLeaveCarryForward" Type="Boolean" />
+          <Property Name="CarryForwardSickLeaves" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CasualLeavesPerYear" Type="Int32" />
+          <Property Name="CasualLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsCasualLeaveCarryForward" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1070,6 +1110,26 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
                 <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leaves">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Leave">
+              <MappingFragment StoreEntitySet="Leave">
+                <ScalarProperty Name="IsCasualLeaveCarryForward" ColumnName="IsCasualLeaveCarryForward" />
+                <ScalarProperty Name="CasualLeavesPerMonth" ColumnName="CasualLeavesPerMonth" />
+                <ScalarProperty Name="CasualLeavesPerYear" ColumnName="CasualLeavesPerYear" />
+                <ScalarProperty Name="CarryForwardSickLeaves" ColumnName="CarryForwardSickLeaves" />
+                <ScalarProperty Name="IsSickLeaveCarryForward" ColumnName="IsSickLeaveCarryForward" />
+                <ScalarProperty Name="SickLeavesPerMonth" ColumnName="SickLeavesPerMonth" />
+                <ScalarProperty Name="SickLeavesPerYear" ColumnName="SickLeavesPerYear" />
+                <ScalarProperty Name="CarryForwardPerYear" ColumnName="CarryForwardPerYear" />
+                <ScalarProperty Name="IsPaidLeaveCarryForward" ColumnName="IsPaidLeaveCarryForward" />
+                <ScalarProperty Name="PaidLeavesPerMonth" ColumnName="PaidLeavesPerMonth" />
+                <ScalarProperty Name="PaidLeavesPerYear" ColumnName="PaidLeavesPerYear" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="LeaveId" ColumnName="LeaveId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

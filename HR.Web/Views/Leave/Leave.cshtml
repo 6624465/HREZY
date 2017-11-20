@@ -1,0 +1,172 @@
+﻿@model HR.Web.Models.Leave
+
+@using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
+{
+    <div class="page">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Paid Leaves
+                    </div>
+                    <div class="panel-body">
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Country</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.CountryCode,
+                                    SelectListItemHelper.CountryList(),
+                                    "Select Type",
+                                    new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Leaves PerYear</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.PaidLeavesPerYear, new { @class = "form-control", required = "required" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">PerMonth</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.PaidLeavesPerMonth,
+                                    new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Leave Carry Forward</span>
+                                </label>
+                                <div class="col-md-4" style="margin-top:10px">
+                                    @Html.CheckBoxFor(x => x.IsPaidLeaveCarryForward.Value, new { @class = "form-control " })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Carry Forward</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.CarryForwardPerYear,
+                                    new { @class = "form-control" })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Sick Leaves
+                    </div>
+                    <div class="panel-body">
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Leaves PerYear</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.SickLeavesPerYear, new { @class = "form-control " })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Leaves PerMonth</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.SickLeavesPerMonth,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Carry Forward</span>
+                                </label>
+                                <div class="col-md-4" style="margin-top:10px">
+                                    @Html.CheckBoxFor(x => x.IsSickLeaveCarryForward.Value, new { @class = "form-control " })
+                                </div>
+
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Carry Forward Leaves</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.CarryForwardSickLeaves,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Casual Leaves
+                    </div>
+                    <div class="panel-body">
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Leaves PerYear</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.CasualLeavesPerYear, new { @class = "form-control " })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Leaves PerMonth</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.CasualLeavesPerMonth,
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Carry Forward</span>
+                                </label>
+                                <div class="col-md-4" style="margin-top:10px">
+                                    @Html.CheckBoxFor(x => x.IsCasualLeaveCarryForward.Value, new { @class = "form-control " })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()">Save</button>
+    </div>
+</div>
+    </div>
+
+}
+
+
+@section Scripts{
+    <script type="text/javascript">
+        function SaveLeave() {
+            $('#frmLeave').submit();
+        }
+    </script>
+}

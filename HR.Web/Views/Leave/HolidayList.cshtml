@@ -15,15 +15,38 @@
                         </div>
 
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-                   
-    
-    @using (Html.BeginForm("SaveHoliday", "Leave", FormMethod.Post, new { id = "holidayfrm", name = "holidayfrm" }))
-    {
+</div>
+@*<div class="page-header">
+    <div class="pull-left form-inline">
+        <div class="btn-group">
+            <div>
+                <button class="btn btn-primary" data-calendar-nav="prev"><<</button>
+                <button class="btn btn-default" data-calendar-nav="today">Today</button>
+                <button class="btn btn-primary" data-calendar-nav="next">>></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pull-right form-inline">
+        <div class="btn-group">
+            <button class="btn btn-warning" data-calendar-view="year">Year</button>
+            <button class="btn btn-warning active" data-calendar-view="month">Month</button>
+            <button class="btn btn-warning" data-calendar-view="week">Week</button>
+            <button class="btn btn-warning" data-calendar-view="day">Day</button>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-8 text-center">
+    <h2 class="calender-title">November 2017</h2>
+</div>*@
+
+@using (Html.BeginForm("SaveHoliday", "Leave", FormMethod.Post, new { id = "holidayfrm", name = "holidayfrm" }))
+        {
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -42,51 +65,51 @@
 
             </div>
         </div>
-    }
-@section Scripts{
-    <script type="text/javascript">
-        $(function () {
-            $('#li_Leave').addClass('open');
-            $('#li_holidaylist').addClass('active');
-        });
+        }
+        @section Scripts{
+        <script type="text/javascript">
+            $(function () {
+                $('#li_Leave').addClass('open');
+                $('#li_holidaylist').addClass('active');
+            });
 
-        function AddHoliday(holidayId) {
-            $.ajax({
-                url: '@Url.Content("~/Leave/GetHolidayList?holidayId=")' + holidayId,
-                contentType: 'text/html',
-                method: 'GET',
-                success: function (data) {
-                    debugger
-                    $('#myModal').modal('show');
-                    $('#modalContent').html('');
-                    $('#modalContent').html(data);
+            function AddHoliday(holidayId) {
+                $.ajax({
+                    url: '@Url.Content("~/Leave/GetHolidayList?holidayId=")' + holidayId,
+                    contentType: 'text/html',
+                    method: 'GET',
+                    success: function (data) {
+                        debugger
+                        $('#myModal').modal('show');
+                        $('#modalContent').html('');
+                        $('#modalContent').html(data);
+                    }
+                });
+            }
+            function SaveChanges() {
+                if ($('#holidayfrm').valid()) {
+                    var dt = $('#Dt').find('input').val();
+                    $('#Date').val(dt);
+                    $('#holidayfrm').submit();
+                }
+            }
+            $('#holidayfrm').validate({
+                rules: {
+                    Date: {
+                        required: true,
+                    },
+                    Description: {
+                        required: true,
+                        maxlength: 20
+                    },
+                    CountryId: {
+                        required: true
+                    }
                 }
             });
+
+
+
+
+        </script>
         }
-        function SaveChanges() {
-            if ($('#holidayfrm').valid()) {
-                var dt = $('#Dt').find('input').val();
-                $('#Date').val(dt);
-                $('#holidayfrm').submit();
-            }
-        }
-        $('#holidayfrm').validate({
-            rules: {
-                Date: {
-                    required: true,
-                },
-                Description: {
-                    required: true,
-                    maxlength:20
-                },
-                CountryId: {
-                    required:true
-                }
-            }
-        });
-
-      
-
-
-    </script>
-  }  

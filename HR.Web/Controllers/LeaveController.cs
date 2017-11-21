@@ -119,7 +119,7 @@ namespace HR.Web.Controllers
                     return true;
                 };
 
-                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
+                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.Where(FuncWhere),
                         a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })                        
                         .Select(x => new AppliedLeaveListVm
                         {
@@ -132,8 +132,17 @@ namespace HR.Web.Controllers
                                 ToDate = y.ToDate
                             })
                         }).ToList();
-
-                return View("AppliedLeaveList", empLeaveList);
+                if (ROLECODE == "SuperAdmin")
+                {
+                    return View("AppliedLeaveList", empLeaveList);
+                }
+                else if (ROLECODE == "Admin")
+                {
+                    return View("AppliedLeaveListAdmin", empLeaveList);
+                }
+                else {
+                    return View("EmployeeLeaveList", empLeaveList);
+                }
 
             }
         }

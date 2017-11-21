@@ -278,7 +278,7 @@ namespace HR.Web.Controllers
                         {
                             BranchId = BRANCHID,
                             JoiningDate = empVm.empWorkDetail.JoiningDate,
-                            ConfirmationDate = empVm.empWorkDetail.ConfirmationDate,
+                            ConfirmationDate =empVm.empWorkDetail.ConfirmationDate,
                             ProbationPeriod = empVm.empWorkDetail.ProbationPeriod,
                             NoticePeriod = empVm.empWorkDetail.NoticePeriod,
                             DesignationId = empVm.empWorkDetail.DesignationId,
@@ -339,7 +339,21 @@ namespace HR.Web.Controllers
 
                             }
                         }
+                        User user = new User()
+                        {
+                            BranchId = BRANCHID,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            Email = empHdr.UserEmailId,
+                            EmployeeId = empHdr.EmployeeId,
+                            IsActive = true,
+                            MobileNumber = empAddress.MobileNo,
+                            UserName = empHdr.UserEmailId,
+                            Password = empHdr.Password,
+                            RoleCode = "Employee"
+                        };
 
+                        dbCntx.Users.Add(user);
                         dbCntx.SaveChanges();
 
                         return RedirectToAction("employeedirectory");
@@ -393,7 +407,7 @@ namespace HR.Web.Controllers
 
 
                         empWorkDetail.JoiningDate = empVm.empWorkDetail.JoiningDate;
-                        empWorkDetail.ConfirmationDate = empVm.empWorkDetail.ConfirmationDate;
+                        empWorkDetail.ConfirmationDate =empVm.empWorkDetail.ConfirmationDate;
                         empWorkDetail.ProbationPeriod = empVm.empWorkDetail.ProbationPeriod;
                         empWorkDetail.NoticePeriod = empVm.empWorkDetail.NoticePeriod;
                         empWorkDetail.DesignationId = empVm.empWorkDetail.DesignationId;
@@ -437,19 +451,18 @@ namespace HR.Web.Controllers
                                 uidDocument.FileName = item.Document.FileName;
                                 uidDocument.CreatedBy = USERID;
                                 uidDocument.CreatedOn = UTILITY.SINGAPORETIME;
-                           
 
 
-                            string path = Server.MapPath("~/Uploads/" + empHeader.EmployeeId + "/");
-                            if (!Directory.Exists(path))
-                            {
-                                Directory.CreateDirectory(path);
-                            }
 
-                            item.Document.SaveAs(path + item.Document.FileName);
+                                string path = Server.MapPath("~/Uploads/" + empHeader.EmployeeId + "/");
+                                if (!Directory.Exists(path))
+                                {
+                                    Directory.CreateDirectory(path);
+                                }
+
+                                item.Document.SaveAs(path + item.Document.FileName);
                             }
                         }
-
 
                         dbCntx.SaveChanges();
 

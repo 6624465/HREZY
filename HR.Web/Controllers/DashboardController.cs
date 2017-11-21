@@ -17,7 +17,7 @@ namespace HR.Web.Controllers
 
         public JsonResult GetData()
         {
-            JsonResult result = null;
+            //JsonResult result = null;
 
             using (HrDataContext dbContext = new HrDataContext())
             {

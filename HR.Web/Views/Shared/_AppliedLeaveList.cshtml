@@ -1,0 +1,53 @@
+﻿@model IEnumerable<HR.Web.ViewModels.AppliedLeaveListVm>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="panel-group" id="accordionDemo">
+                @for (var i = 0; i < Model.Count(); i++)
+                {
+                    <div class="panel panel-default ng-isolate-scope">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="#collapse@(i)" data-toggle="collapse" class="accordion-toggle" data-parent="#accordionDemo">@Model.ElementAt(i).BranchName</a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse in" id="collapse@(i)">
+                            <div class="panel-body">
+                                <div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>EmployeeId</th>
+                                                <th>From Date</th>
+                                                <th>To Date</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
+                                            {
+                                                <tr>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeId</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

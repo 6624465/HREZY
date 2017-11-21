@@ -1799,6 +1799,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />
+    <Compile Include="ViewModels\AppliedLeaveVm.cs" />
     <Compile Include="ViewModels\BranchVm.cs" />
     <Compile Include="ViewModels\CompanyVm.cs" />
     <Compile Include="ViewModels\EmployeeListVm.cs" />
@@ -1903,7 +1904,6 @@
     <Content Include="Views\Config\GetLeaveType.cshtml" />
     <Content Include="Views\Config\PaymentTypeList.cshtml" />
     <Content Include="Views\Config\GetPaymentType.cshtml" />
-    <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
     <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
     <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
     <Content Include="Views\Administration\Company.cshtml" />
@@ -1920,6 +1920,9 @@
     <Content Include="Views\RoleRights\_NewRole.cshtml" />
     <Content Include="Views\Shared\_Links.cshtml" />
     <Content Include="Views\Leave\Leave.cshtml" />
+    <Content Include="Views\Shared\_AppliedLeaveList.cshtml" />
+    <Content Include="Views\Shared\_AppliedLeaveListAdmin.cshtml" />
+    <Content Include="Views\Shared\_EmployeeLeaveList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -82,9 +82,94 @@ namespace HR.Web.Controllers
         }
 
 
-        public ActionResult AppliedLeaveList()
+        public ViewResult AppliedLeaveList()
         {
-            return View();
+            string viewName = string.Empty;
+            using (var dbCntx = new HrDataContext())
+            {
+                Func<EmployeeLeaveList, bool> FuncWhere = delegate (EmployeeLeaveList empleaveList)
+                {
+                    if (ROLECODE == "SuperAdmin")
+                    {
+                        viewName = "_AppliedLeaveList";
+                        return true;
+                    }
+                    else if (ROLECODE == "Admin")
+                    {
+                        viewName = "_AppliedLeaveListAdmin";
+                        return empleaveList.BranchId == BRANCHID;
+                    }
+                    else if (ROLECODE == "Employee")
+                    {
+                        viewName = "_EmployeeLeaveList";
+                        return empleaveList.BranchId == BRANCHID && empleaveList.EmployeeId == EMPLOYEEID;
+                    }
+
+                    return true;
+                };
+
+                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.Where(FuncWhere),
+                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })                        
+                        .Select(x => new AppliedLeaveListVm
+                        {
+                            BranchID = x.A.BranchID,
+                            BranchName = x.A.BranchName,
+                            employeeLeaveList = x.B.Select(y => new EmpLeaveListVm
+                            {
+                                EmployeeId = y.EmployeeId,
+                                FromDate = y.FromDate,
+                                ToDate = y.ToDate
+                            })
+                        }).ToList();
+
+                return View("_AppliedLeaveList", empLeaveList);
+
+                //var empLeaveList = dbCntx.EmployeeLeaveLists.Where(FuncWhere).ToList().AsEnumerable();
+                //   //.GroupBy(x=>x.BranchId);
+                //if (ROLECODE == "SuperAdmin")
+                //{
+                //    var list = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
+                //        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b }).Select(x => new {
+                //            Branchid=x.A.BranchID,
+                //            BranchName=x.A.BranchName,
+                //            LeaveList=x.B
+                //        }).ToList();
+                        
+                //    //var list = empLeaveList.Select(x => new {
+                //    //    BranchId=x.BranchId,
+                //    //    FromDate = x.FromDate,
+                //    //    ToDate=x.ToDate,
+                //    //    Days=x.Days,
+                //    //    Reason=x.Reason
+                //    //}).ToList();
+                //    return PartialView("_AppliedLeaveList", list);
+                //}
+                //else if (ROLECODE == "Admin")
+                //{
+                //    var list = empLeaveList.Where(m => m.BranchId == BRANCHID).Select(x => new EmployeeLeaveList
+                //    {
+                //        BranchId = x.BranchId,
+                //        FromDate = x.FromDate,
+                //        ToDate = x.ToDate,
+                //        Days = x.Days,
+                //        Reason = x.Reason
+                //    }).ToList().AsEnumerable();
+                //    return PartialView("_AppliedLeaveListAdmin", list);
+                //}
+                //else { 
+                //    var list = empLeaveList.Where(m=>m.BranchId==BRANCHID && m.EmployeeId==EMPLOYEEID).Select(x => new {
+                //        BranchId = x.BranchId,
+                //        FromDate = x.FromDate,
+                //        ToDate = x.ToDate,
+                //        Days = x.Days,
+                //        Reason = x.Reason
+                //    }).ToList();
+                
+                //    return PartialView("_EmployeeLeaveList", empLeaveList);
+                //}
+
+                  //  return null;
+            }
         }
         public ActionResult EmployeeRequestFrom()
         {

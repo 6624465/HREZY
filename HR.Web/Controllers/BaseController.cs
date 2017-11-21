@@ -21,6 +21,18 @@ namespace HR.Web.Controllers
             }
         }
 
+        public int EMPLOYEEID
+        {
+            get
+            {
+                return (int)System.Web.HttpContext.Current.Session[UTILITY.SSN_EMPLOYEEID];
+            }
+            set
+            {
+                Session[UTILITY.SSN_EMPLOYEEID] = value;
+            }
+        }
+
         public int BRANCHID
         {
             get

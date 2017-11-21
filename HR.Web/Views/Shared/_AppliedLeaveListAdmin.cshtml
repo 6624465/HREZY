@@ -1,0 +1,46 @@
+﻿@model IEnumerable<HR.Web.Models.EmployeeLeaveList>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12" style="margin-top:65px;">
+
+    <div class="panel-group" id="accordionDemo">
+        <div class="panel panel-default ng-isolate-scope">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="#collapseOne" data-toggle="collapse" class="accordion-toggle" data-parent="#accordionDemo">Singapore</a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapseOne">
+                <div class="panel-body">
+                    <div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>EmployeeId</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>@item.EmployeeId</td>
+                                        <td>@item.FromDate</td>
+                                        <td>@item.ToDate</td>
+                                    </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

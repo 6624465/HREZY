@@ -132,8 +132,17 @@ namespace HR.Web.Controllers
                                 ToDate = y.ToDate
                             })
                         }).ToList();
-
-                return View("AppliedLeaveList", empLeaveList);
+                if (ROLECODE == "SuperAdmin")
+                {
+                    return View("AppliedLeaveList", empLeaveList);
+                }
+                else if (ROLECODE == "Admin")
+                {
+                    return View("AppliedLeaveListAdmin", empLeaveList);
+                }
+                else {
+                    return View("EmployeeLeaveList", empLeaveList);
+                }
 
             }
         }

@@ -6,12 +6,26 @@ using System.Web;
 
 namespace HR.Web.ViewModels
 {
+
+    public class AppliedLeaveListVm
+    {
+        public string BranchName { get; set; }
+        public int BranchID { get; set; }
+        public IEnumerable<EmpLeaveListVm> employeeLeaveList { get; set; }
+    }
     public class LeaveVm
     {
         public LookUp lookup { get; set; }        
         public LeaveHeader leaveHeader { get; set; }
         public IEnumerable<LeaveHeaderVm> lvmList { get; set; }
 
+    }
+
+    public class EmpLeaveListVm
+    {
+        public int EmployeeId { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
     }
     public class LeaveHeaderVm
     {

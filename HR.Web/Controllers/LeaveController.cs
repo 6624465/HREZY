@@ -93,9 +93,94 @@ namespace HR.Web.Controllers
         #endregion
 
 
-        public ActionResult AppliedLeaveList()
+        public ViewResult AppliedLeaveList()
         {
-            return View();
+            string viewName = string.Empty;
+            using (var dbCntx = new HrDataContext())
+            {
+                Func<EmployeeLeaveList, bool> FuncWhere = delegate (EmployeeLeaveList empleaveList)
+                {
+                    if (ROLECODE == "SuperAdmin")
+                    {
+                        viewName = "AppliedLeaveList";
+                        return true;
+                    }
+                    else if (ROLECODE == "Admin")
+                    {
+                        viewName = "AppliedLeaveListAdmin";
+                        return empleaveList.BranchId == BRANCHID;
+                    }
+                    else if (ROLECODE == "Employee")
+                    {
+                        viewName = "EmployeeLeaveList";
+                        return empleaveList.BranchId == BRANCHID && empleaveList.EmployeeId == EMPLOYEEID;
+                    }
+
+                    return true;
+                };
+
+                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
+                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })                        
+                        .Select(x => new AppliedLeaveListVm
+                        {
+                            BranchID = x.A.BranchID,
+                            BranchName = x.A.BranchName,
+                            employeeLeaveList = x.B.Select(y => new EmpLeaveListVm
+                            {
+                                EmployeeId = y.EmployeeId,
+                                FromDate = y.FromDate,
+                                ToDate = y.ToDate
+                            })
+                        }).ToList();
+
+                return View("AppliedLeaveList", empLeaveList);
+
+                //var empLeaveList = dbCntx.EmployeeLeaveLists.Where(FuncWhere).ToList().AsEnumerable();
+                //   //.GroupBy(x=>x.BranchId);
+                //if (ROLECODE == "SuperAdmin")
+                //{
+                //    var list = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
+                //        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b }).Select(x => new {
+                //            Branchid=x.A.BranchID,
+                //            BranchName=x.A.BranchName,
+                //            LeaveList=x.B
+                //        }).ToList();
+                        
+                //    //var list = empLeaveList.Select(x => new {
+                //    //    BranchId=x.BranchId,
+                //    //    FromDate = x.FromDate,
+                //    //    ToDate=x.ToDate,
+                //    //    Days=x.Days,
+                //    //    Reason=x.Reason
+                //    //}).ToList();
+                //    return PartialView("_AppliedLeaveList", list);
+                //}
+                //else if (ROLECODE == "Admin")
+                //{
+                //    var list = empLeaveList.Where(m => m.BranchId == BRANCHID).Select(x => new EmployeeLeaveList
+                //    {
+                //        BranchId = x.BranchId,
+                //        FromDate = x.FromDate,
+                //        ToDate = x.ToDate,
+                //        Days = x.Days,
+                //        Reason = x.Reason
+                //    }).ToList().AsEnumerable();
+                //    return PartialView("_AppliedLeaveListAdmin", list);
+                //}
+                //else { 
+                //    var list = empLeaveList.Where(m=>m.BranchId==BRANCHID && m.EmployeeId==EMPLOYEEID).Select(x => new {
+                //        BranchId = x.BranchId,
+                //        FromDate = x.FromDate,
+                //        ToDate = x.ToDate,
+                //        Days = x.Days,
+                //        Reason = x.Reason
+                //    }).ToList();
+                
+                //    return PartialView("_EmployeeLeaveList", empLeaveList);
+                //}
+
+                  //  return null;
+            }
         }
         public ActionResult EmployeeRequestFrom()
         {
@@ -190,19 +275,73 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Leave()
+        public ActionResult LeaveList()
         {
-            return View();
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                List<Leave> leaves = dbContext.Leaves.ToList();
+                leaves.ForEach(x => x.CountryName = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
+                return View(leaves);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Leave(int leaveId = 0)
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                ViewBag.RoleCode = ROLECODE;
+
+                Leave leave = null;
+                if (leaveId != 0)
+                    leave = dbContext.Leaves.
+                        Where(x => x.LeaveId == leaveId && x.BranchId == BRANCHID).FirstOrDefault();
+                else
+                    leave = dbContext.Leaves.
+                    Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                return View(leave);
+            }
         }
         [HttpPost]
         public ActionResult Leave(Leave leave)
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                dbContext.Leaves.Add(leave);
+                if (leave.LeaveId == 0)
+                {
+                    leave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward == null ? false : leave.IsCasualLeaveCarryForward;
+                    leave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward == null ? false : leave.IsPaidLeaveCarryForward;
+                    leave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward == null ? false : leave.IsSickLeaveCarryForward;
+                    leave.BranchId = BRANCHID;
+                    dbContext.Leaves.Add(leave);
+                }
+                else
+                {
+                    Leave updateLeave = dbContext.Leaves.
+                     Where(x => x.LeaveId == leave.LeaveId && x.BranchId == leave.BranchId).FirstOrDefault();
+                    updateLeave.CarryForwardPerYear = leave.CarryForwardPerYear;
+                    updateLeave.CarryForwardSickLeaves = leave.CarryForwardSickLeaves;
+                    updateLeave.CasualLeavesPerMonth = leave.CasualLeavesPerMonth;
+                    updateLeave.CasualLeavesPerYear = leave.CasualLeavesPerYear;
+                    updateLeave.CountryCode = leave.CountryCode;
+                    updateLeave.CountryName = leave.CountryName;
+                    updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward == null ? false : leave.IsCasualLeaveCarryForward;
+                    updateLeave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward == null ? false : leave.IsPaidLeaveCarryForward;
+                    updateLeave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward == null ? false : leave.IsSickLeaveCarryForward;
+                    updateLeave.PaidLeavesPerMonth = leave.PaidLeavesPerMonth;
+                    updateLeave.PaidLeavesPerYear = leave.PaidLeavesPerYear;
+                    updateLeave.SickLeavesPerMonth = leave.SickLeavesPerMonth;
+                    updateLeave.SickLeavesPerYear = leave.SickLeavesPerYear;
+                }
                 dbContext.SaveChanges();
             }
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult events()
+        {
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
     }

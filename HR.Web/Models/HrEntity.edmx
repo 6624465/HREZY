@@ -94,6 +94,7 @@
           <Property Name="CasualLeavesPerYear" Type="int" />
           <Property Name="CasualLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsCasualLeaveCarryForward" Type="bit" />
+          <Property Name="BranchId" Type="bigint" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -317,7 +318,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
-          <Property Name="BranchId" Type="int" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DB_9F30C5_HRDBModelStoreContainer">
           <EntitySet Name="LookUp" EntityType="Self.LookUp" Schema="Config" store:Type="Tables" />
@@ -426,6 +428,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           </AssociationSet>
           <EntitySet Name="Roles" EntityType="DB_9F30C5_HRDBModel.Role" />
           <EntitySet Name="Leaves" EntityType="DB_9F30C5_HRDBModel.Leave" />
+          <AssociationSet Name="EmployeeHeaderUser" Association="DB_9F30C5_HRDBModel.EmployeeHeaderUser">
+            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -442,7 +448,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="BranchId" Type="Int32" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeHeader">
           <Key>
@@ -803,7 +810,22 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CasualLeavesPerYear" Type="Int32" />
           <Property Name="CasualLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsCasualLeaveCarryForward" Type="Boolean" />
+          <Property Name="BranchId" Type="Int64" />
         </EntityType>
+        <Association Name="EmployeeHeaderUser">
+          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeHeader">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -841,6 +863,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1116,6 +1139,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="Leaves">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Leave">
               <MappingFragment StoreEntitySet="Leave">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="IsCasualLeaveCarryForward" ColumnName="IsCasualLeaveCarryForward" />
                 <ScalarProperty Name="CasualLeavesPerMonth" ColumnName="CasualLeavesPerMonth" />
                 <ScalarProperty Name="CasualLeavesPerYear" ColumnName="CasualLeavesPerYear" />

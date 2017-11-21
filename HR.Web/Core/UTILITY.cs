@@ -26,6 +26,7 @@ namespace HR.Web
     public static class UTILITY
     {
         public static string SSN_USERID = "SSN_USERID";
+        public static string SSN_EMPLOYEEID = "SSN_EMPLOYEEID";
         public static string SSN_BRANCHID = "SSN_BRANCHID";
 
 

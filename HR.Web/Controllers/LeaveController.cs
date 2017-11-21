@@ -85,9 +85,9 @@ namespace HR.Web.Controllers
             return RedirectToAction("HolidayList");
 
         }
-      
-        
-        
+
+
+
 
 
         #endregion
@@ -120,7 +120,7 @@ namespace HR.Web.Controllers
                 };
 
                 var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
-                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })                        
+                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })
                         .Select(x => new AppliedLeaveListVm
                         {
                             BranchID = x.A.BranchID,
@@ -145,7 +145,7 @@ namespace HR.Web.Controllers
                 //            BranchName=x.A.BranchName,
                 //            LeaveList=x.B
                 //        }).ToList();
-                        
+
                 //    //var list = empLeaveList.Select(x => new {
                 //    //    BranchId=x.BranchId,
                 //    //    FromDate = x.FromDate,
@@ -175,11 +175,11 @@ namespace HR.Web.Controllers
                 //        Days = x.Days,
                 //        Reason = x.Reason
                 //    }).ToList();
-                
+
                 //    return PartialView("_EmployeeLeaveList", empLeaveList);
                 //}
 
-                  //  return null;
+                //  return null;
             }
         }
         public ActionResult EmployeeRequestFrom()
@@ -293,12 +293,19 @@ namespace HR.Web.Controllers
                 ViewBag.RoleCode = ROLECODE;
 
                 Leave leave = null;
+            
                 if (leaveId != 0)
                     leave = dbContext.Leaves.
                         Where(x => x.LeaveId == leaveId && x.BranchId == BRANCHID).FirstOrDefault();
                 else
                     leave = dbContext.Leaves.
                     Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                if (leave == null) {
+                    leave = new Models.Leave();
+                    leave.IsCasualLeaveCarryForward = true;
+                    leave.IsPaidLeaveCarryForward = true;
+                    leave.IsSickLeaveCarryForward = true;
+                }
                 return View(leave);
             }
         }

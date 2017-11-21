@@ -12,6 +12,7 @@ namespace HR.Web.Controllers
     public class LeaveController : BaseController
     {
         // GET: Leave
+        #region HolidayList
         public ActionResult HolidayList()
         {
             return View();
@@ -40,46 +41,56 @@ namespace HR.Web.Controllers
 
         public ActionResult SaveHoliday(HolidayList holidaylist)
         {
-            if (holidaylist.HolidayId != -1)
+            var dt = DbDateHelper.ToNullIfTooEarlyForDb(holidaylist.Date);
+            if (dt != null)
             {
-                using (var dbnctx = new HrDataContext())
+                if (holidaylist.HolidayId != -1)
                 {
-                    var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
-
-                    _holidaylistObj.HolidayId = holidaylist.HolidayId;
-                    _holidaylistObj.Date = holidaylist.Date;
-                    _holidaylistObj.Description = holidaylist.Description;
-                    _holidaylistObj.CountryId = holidaylist.CountryId;
-                    _holidaylistObj.ModifiedBy = USERID;
-                    _holidaylistObj.ModifiedOn = UTILITY.SINGAPORETIME;
-
-                    dbnctx.SaveChanges();
-                }
-            }
-            else
-            {
-
-                using (var dbntcx = new HrDataContext())
-                {
-                    var holidaylistobj = new HolidayList
+                    using (var dbnctx = new HrDataContext())
                     {
-                        BranchID = BRANCHID,
-                        HolidayId = holidaylist.HolidayId,
-                        Date = holidaylist.Date,
-                        Description = holidaylist.Description,
-                        CountryId = holidaylist.CountryId,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        CreatedBy = USERID,
-                        ModifiedOn = UTILITY.SINGAPORETIME,
-                        ModifiedBy = USERID
-                    };
-                    dbntcx.HolidayLists.Add(holidaylistobj);
-                    dbntcx.SaveChanges();
+                        var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
+
+                        _holidaylistObj.HolidayId = holidaylist.HolidayId;
+                        _holidaylistObj.Date = holidaylist.Date;
+                        _holidaylistObj.Description = holidaylist.Description;
+                        _holidaylistObj.CountryId = holidaylist.CountryId;
+                        _holidaylistObj.ModifiedBy = USERID;
+                        _holidaylistObj.ModifiedOn = UTILITY.SINGAPORETIME;
+
+                        dbnctx.SaveChanges();
+                    }
+                }
+                else
+                {
+
+                    using (var dbntcx = new HrDataContext())
+                    {
+                        var holidaylistobj = new HolidayList
+                        {
+                            BranchID = BRANCHID,
+                            HolidayId = holidaylist.HolidayId,
+                            Date = holidaylist.Date,
+                            Description = holidaylist.Description,
+                            CountryId = holidaylist.CountryId,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            CreatedBy = USERID,
+                            ModifiedOn = UTILITY.SINGAPORETIME,
+                            ModifiedBy = USERID
+                        };
+                        dbntcx.HolidayLists.Add(holidaylistobj);
+                        dbntcx.SaveChanges();
+                    }
                 }
             }
             return RedirectToAction("HolidayList");
 
         }
+      
+        
+        
+
+
+        #endregion
 
 
         public ActionResult AppliedLeaveList()

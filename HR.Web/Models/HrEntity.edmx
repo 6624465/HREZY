@@ -94,6 +94,7 @@
           <Property Name="CasualLeavesPerYear" Type="int" />
           <Property Name="CasualLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsCasualLeaveCarryForward" Type="bit" />
+          <Property Name="BranchId" Type="bigint" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -803,6 +804,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CasualLeavesPerYear" Type="Int32" />
           <Property Name="CasualLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsCasualLeaveCarryForward" Type="Boolean" />
+          <Property Name="BranchId" Type="Int64" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1116,6 +1118,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="Leaves">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Leave">
               <MappingFragment StoreEntitySet="Leave">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="IsCasualLeaveCarryForward" ColumnName="IsCasualLeaveCarryForward" />
                 <ScalarProperty Name="CasualLeavesPerMonth" ColumnName="CasualLeavesPerMonth" />
                 <ScalarProperty Name="CasualLeavesPerYear" ColumnName="CasualLeavesPerYear" />

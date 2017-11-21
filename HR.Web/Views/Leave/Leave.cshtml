@@ -2,6 +2,8 @@
 
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
+    @Html.HiddenFor(x => x.LeaveId)
+    @Html.HiddenFor(x => x.BranchId)
     <div class="page">
         <div class="row">
             <div class="col-md-12">
@@ -12,15 +14,18 @@
                     <div class="panel-body">
                         <div class="row css5">
                             <div class="form-group">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">Country</span>
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.DropDownListFor(x => x.CountryCode,
-                                    SelectListItemHelper.CountryList(),
+                                @if (ViewBag.RoleCode == "SuperAdmin")
+                                {
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">Branch</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(x => x.BranchId,
+                                    SelectListItemHelper.Branches(),
                                     "Select Type",
                                     new { @class = "form-control" })
-                                </div>
+                                    </div>
+                                }
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Leaves PerYear</span>
                                 </label>
@@ -154,10 +159,10 @@
             </div>
         </div>
         <div class="row">
-    <div class="col-md-12">
-        <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()">Save</button>
-    </div>
-</div>
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()">Save</button>
+            </div>
+        </div>
     </div>
 
 }
@@ -166,7 +171,40 @@
 @section Scripts{
     <script type="text/javascript">
         function SaveLeave() {
-            $('#frmLeave').submit();
+            if ($('#frmLeave').valid())
+                $('#frmLeave').submit();
         }
+        $('#frmLeave').validate({
+            rules: {
+                CountryCode: {
+                    required: true
+                },
+                PaidLeavesPerYear: {
+                    required: true
+                },
+                PaidLeavesPerMonth: {
+                    required: true
+                },
+                CarryForwardPerYear: {
+                    required: true
+                },
+                SickLeavesPerYear: {
+                    required: true
+                },
+                SickLeavesPerMonth: {
+                    required: true
+                },
+                CarryForwardSickLeaves: {
+                    required: true
+                },
+                CasualLeavesPerYear: {
+                    required: true
+                },
+                CasualLeavesPerMonth: {
+                    required: true
+                }
+            }
+        });
+
     </script>
 }

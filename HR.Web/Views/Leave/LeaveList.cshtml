@@ -1,0 +1,60 @@
+﻿@model IEnumerable<HR.Web.Models.Leave>
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
+    grid.Pager(WebGridPagerModes.All);
+}
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box" id="grid">
+                <div class="box-header">
+                    <h4>Leaves</h4>
+                    <div class="box-tools">
+                        <button class="btn btn-info btn-raised waves-effect btn-sm"
+                                type="button" onclick="location.href='@Url.Content("~/Leave/Leave")'">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+
+                        @grid.GetHtml(
+                columns: grid.Columns(
+                    grid.Column("CountryName", "Branch", canSort: true),
+                     grid.Column("PaidLeavesPerYear", "Paid Leaves PerYear", canSort: true),
+                     grid.Column("PaidLeavesPerMonth", "Paid Leaves PerMonth", canSort: true),
+                     grid.Column("IsPaidLeaveCarryForward", "Paid Leave CarryForward", canSort: true),
+
+                      grid.Column("CarryForwardPerYear", "Carry Forward PerYear", canSort: true),
+                     grid.Column("SickLeavesPerYear", "Sick Leaves PerYear", canSort: true),
+                     grid.Column("SickLeavesPerMonth", "SickLeavesPerMonth", canSort: true),
+
+                     grid.Column("IsSickLeaveCarryForward", "Sick Leave Carry Forward", canSort: true),
+                     grid.Column("CarryForwardSickLeaves", "Carry Forward Sick Leaves", canSort: true),
+                     grid.Column("CasualLeavesPerYear", "Casual Leaves PerYear", canSort: true),
+                     grid.Column("CasualLeavesPerMonth", "Casual Leaves PerMonth", canSort: true),
+                     grid.Column("IsCasualLeaveCarryForward", "Casual Leave Carry Forward", canSort: true),
+                     grid.Column("", "#Action",
+                     canSort: false, format:
+                    @<text>
+                        <button class="btn btn-xs btn-raised waves-effect"
+                         style="padding-left: 5px;margin-left: 6px;"
+                         onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")@item.LeaveId'">
+                            <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                        </button>
+                    </text>)
+                    ),
+                 tableStyle: "table table-condensed")
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

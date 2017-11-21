@@ -15,11 +15,13 @@ namespace HR.Web.ViewModels
         //public IEnumerable<EmployeeDocumentVm> empDocumentDetail { get; set; }
         public EmployeeAddress address { get; set; }
 
-        public HttpPostedFileBase UIDCard { get; set; }
-        public HttpPostedFileBase EducationDocument { get; set; }
-        public HttpPostedFileBase ExperienceLetters { get; set; }
-        public HttpPostedFileBase ProjectDocuments { get; set; }
-        public HttpPostedFileBase OtherDocuments { get; set; }        
+        public List<EmployeeDocumentVm> empDocument { get; set; }
+
+        //public HttpPostedFileBase UIDCard { get; set; }
+        //public HttpPostedFileBase EducationDocument { get; set; }
+        //public HttpPostedFileBase ExperienceLetters { get; set; }
+        //public HttpPostedFileBase ProjectDocuments { get; set; }
+        //public HttpPostedFileBase OtherDocuments { get; set; }        
     }
 
     public class EmpDirectoryVm
@@ -29,7 +31,8 @@ namespace HR.Web.ViewModels
     }
 
     public class EmployeeDocumentVm
-    {                
+    {
+        public int DocumentDetailId { get; set; }
         public int DocumentType { get; set; } 
         public string DocumentDescription { get; set; }
         public HttpPostedFileBase Document { get; set; }

@@ -113,7 +113,7 @@
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
                                       new { @class = "form-control" })
-                                 </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row css5">
@@ -373,36 +373,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>UID Card</td>
-                                            <td>
-                                                @Html.TextBoxFor(x => x.UIDCard, new { type = "file" })
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Education Document</td>
-                                            <td>
-                                                @Html.TextBoxFor(x => x.EducationDocument, new { type = "file" })
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Experience Letters</td>
-                                            <td>
-                                                @Html.TextBoxFor(x => x.ExperienceLetters, new { type = "file" })
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Project Documents</td>
-                                            <td>
-                                                @Html.TextBoxFor(x => x.ProjectDocuments, new { type = "file" })
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Other Documents</td>
-                                            <td>
-                                                @Html.TextBoxFor(x => x.OtherDocuments, new { type = "file" })
-                                            </td>
-                                        </tr>
+                                        @for (int i = 0; i < Model.empDocument.Count(); i++)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(x=>x.empDocument[i].DocumentDescription)</td>
+                                                @Html.HiddenFor(x => x.empDocument[i].DocumentType)
+                                                <td>
+                                                    @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file" })
+                                                </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -417,7 +397,7 @@
             </div>
         </div>
     </div>
-                        }
+}
 
 @section Scripts{
     <script type="text/javascript">

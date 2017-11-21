@@ -119,7 +119,7 @@ namespace HR.Web.Controllers
                     return true;
                 };
 
-                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.Where(FuncWhere),
+                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
                         a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })                        
                         .Select(x => new AppliedLeaveListVm
                         {

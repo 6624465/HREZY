@@ -124,51 +124,6 @@ namespace HR.Web.Controllers
 
                 return View("AppliedLeaveList", empLeaveList);
 
-                //var empLeaveList = dbCntx.EmployeeLeaveLists.Where(FuncWhere).ToList().AsEnumerable();
-                //   //.GroupBy(x=>x.BranchId);
-                //if (ROLECODE == "SuperAdmin")
-                //{
-                //    var list = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
-                //        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b }).Select(x => new {
-                //            Branchid=x.A.BranchID,
-                //            BranchName=x.A.BranchName,
-                //            LeaveList=x.B
-                //        }).ToList();
-                        
-                //    //var list = empLeaveList.Select(x => new {
-                //    //    BranchId=x.BranchId,
-                //    //    FromDate = x.FromDate,
-                //    //    ToDate=x.ToDate,
-                //    //    Days=x.Days,
-                //    //    Reason=x.Reason
-                //    //}).ToList();
-                //    return PartialView("_AppliedLeaveList", list);
-                //}
-                //else if (ROLECODE == "Admin")
-                //{
-                //    var list = empLeaveList.Where(m => m.BranchId == BRANCHID).Select(x => new EmployeeLeaveList
-                //    {
-                //        BranchId = x.BranchId,
-                //        FromDate = x.FromDate,
-                //        ToDate = x.ToDate,
-                //        Days = x.Days,
-                //        Reason = x.Reason
-                //    }).ToList().AsEnumerable();
-                //    return PartialView("_AppliedLeaveListAdmin", list);
-                //}
-                //else { 
-                //    var list = empLeaveList.Where(m=>m.BranchId==BRANCHID && m.EmployeeId==EMPLOYEEID).Select(x => new {
-                //        BranchId = x.BranchId,
-                //        FromDate = x.FromDate,
-                //        ToDate = x.ToDate,
-                //        Days = x.Days,
-                //        Reason = x.Reason
-                //    }).ToList();
-                
-                //    return PartialView("_EmployeeLeaveList", empLeaveList);
-                //}
-
-                  //  return null;
             }
         }
         public ActionResult EmployeeRequestFrom()

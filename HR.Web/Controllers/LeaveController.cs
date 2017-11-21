@@ -194,5 +194,11 @@ namespace HR.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public JsonResult events()
+        {
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

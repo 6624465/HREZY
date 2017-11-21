@@ -1774,6 +1774,15 @@
     <Content Include="Scripts\treeview\bootstrap.css" />
     <Content Include="Scripts\treeview\jquery.js" />
     <Content Include="Scripts\ui-bootstrap.js" />
+    <Content Include="Views\Leave\tmpls\day.html" />
+    <Content Include="Views\Leave\tmpls\events-list.html" />
+    <Content Include="Views\Leave\tmpls\modal.html" />
+    <Content Include="Views\Leave\tmpls\month-day.html" />
+    <Content Include="Views\Leave\tmpls\month.html" />
+    <Content Include="Views\Leave\tmpls\week-days.html" />
+    <Content Include="Views\Leave\tmpls\week.html" />
+    <Content Include="Views\Leave\tmpls\year-month.html" />
+    <Content Include="Views\Leave\tmpls\year.html" />
     <Content Include="Web.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

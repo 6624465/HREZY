@@ -1999,6 +1999,9 @@
     <Content Include="Views\RoleRights\_NewRole.cshtml" />
     <Content Include="Views\Shared\_Links.cshtml" />
     <Content Include="Views\Leave\Leave.cshtml" />
+    <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
+    <Content Include="Views\Leave\AppliedLeaveListAdmin.cshtml" />
+    <Content Include="Views\Leave\EmployeeLeaveList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

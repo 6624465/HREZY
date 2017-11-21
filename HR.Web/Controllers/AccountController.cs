@@ -28,7 +28,7 @@ namespace HR.Web.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(userObj.UserName, false);
                     USERID = user.UserName;
-                    BRANCHID = userObj.BranchId.Value;
+                    BRANCHID = userObj.BranchId;
                     ROLECODE = userObj.RoleCode;
                     EMPLOYEEID = 1000;
                     return RedirectToAction("Index", "Home");

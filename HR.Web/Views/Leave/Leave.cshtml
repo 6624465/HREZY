@@ -37,11 +37,11 @@
                                     <span class="pull-right">PerMonth</span>
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.LeavesPerMonth,
+                                    @Html.TextBoxFor(x => x.PaidLeavesPerMonth,
                                     new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
-                                    <span class="pull-right">PaidLeave Carry Forward</span>
+                                    <span class="pull-right">Leave Carry Forward</span>
                                 </label>
                                 <div class="col-md-4" style="margin-top:10px">
                                     @Html.CheckBoxFor(x => x.IsPaidLeaveCarryForward.Value, new { @class = "form-control " })
@@ -104,7 +104,7 @@
                                     <span class="pull-right">Carry Forward Leaves</span>
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.CarryForwardLeaves,
+                                    @Html.TextBoxFor(x => x.CarryForwardSickLeaves,
                                     new { @class = "form-control" })
                                 </div>
                             </div>

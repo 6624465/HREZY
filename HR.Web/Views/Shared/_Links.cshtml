@@ -26,6 +26,23 @@
         </li>
     </ul>
 }
+else if (Model.RoleCode == "SuperAdmin")
+{
+    <ul class="list-unstyled clearfix nav-list mb15">
+        
+        <li id="li_Leave">
+            <a href="javascript:;">
+                <i class="ion ion-ionic"></i>
+                <span class="text">Leave</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_empdir">
+                <a href="@Url.Content("~/Leave/Leave")">Leave</a></li>
+                 </ul>
+        </li>
+    </ul>
+}
 else
 {
     <ul class="list-unstyled clearfix nav-list mb15">

@@ -18,13 +18,13 @@ namespace HR.Web.Models
         public string CountryName { get; set; }
         public string CountryCode { get; set; }
         public Nullable<int> PaidLeavesPerYear { get; set; }
-        public Nullable<decimal> LeavesPerMonth { get; set; }
+        public Nullable<decimal> PaidLeavesPerMonth { get; set; }
         public Nullable<bool> IsPaidLeaveCarryForward { get; set; }
         public string CarryForwardPerYear { get; set; }
         public Nullable<int> SickLeavesPerYear { get; set; }
         public Nullable<decimal> SickLeavesPerMonth { get; set; }
         public Nullable<bool> IsSickLeaveCarryForward { get; set; }
-        public Nullable<decimal> CarryForwardLeaves { get; set; }
+        public Nullable<decimal> CarryForwardSickLeaves { get; set; }
         public Nullable<int> CasualLeavesPerYear { get; set; }
         public Nullable<decimal> CasualLeavesPerMonth { get; set; }
         public Nullable<bool> IsCasualLeaveCarryForward { get; set; }

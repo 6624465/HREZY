@@ -84,13 +84,13 @@
           <Property Name="CountryName" Type="nvarchar" MaxLength="100" />
           <Property Name="CountryCode" Type="nvarchar" MaxLength="10" />
           <Property Name="PaidLeavesPerYear" Type="int" />
-          <Property Name="LeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PaidLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsPaidLeaveCarryForward" Type="bit" />
           <Property Name="CarryForwardPerYear" Type="nvarchar" MaxLength="50" />
           <Property Name="SickLeavesPerYear" Type="int" />
           <Property Name="SickLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsSickLeaveCarryForward" Type="bit" />
-          <Property Name="CarryForwardLeaves" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CarryForwardSickLeaves" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CasualLeavesPerYear" Type="int" />
           <Property Name="CasualLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsCasualLeaveCarryForward" Type="bit" />
@@ -793,13 +793,13 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="PaidLeavesPerYear" Type="Int32" />
-          <Property Name="LeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PaidLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsPaidLeaveCarryForward" Type="Boolean" />
           <Property Name="CarryForwardPerYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SickLeavesPerYear" Type="Int32" />
           <Property Name="SickLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsSickLeaveCarryForward" Type="Boolean" />
-          <Property Name="CarryForwardLeaves" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CarryForwardSickLeaves" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CasualLeavesPerYear" Type="Int32" />
           <Property Name="CasualLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsCasualLeaveCarryForward" Type="Boolean" />
@@ -1119,13 +1119,13 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="IsCasualLeaveCarryForward" ColumnName="IsCasualLeaveCarryForward" />
                 <ScalarProperty Name="CasualLeavesPerMonth" ColumnName="CasualLeavesPerMonth" />
                 <ScalarProperty Name="CasualLeavesPerYear" ColumnName="CasualLeavesPerYear" />
-                <ScalarProperty Name="CarryForwardLeaves" ColumnName="CarryForwardLeaves" />
+                <ScalarProperty Name="CarryForwardSickLeaves" ColumnName="CarryForwardSickLeaves" />
                 <ScalarProperty Name="IsSickLeaveCarryForward" ColumnName="IsSickLeaveCarryForward" />
                 <ScalarProperty Name="SickLeavesPerMonth" ColumnName="SickLeavesPerMonth" />
                 <ScalarProperty Name="SickLeavesPerYear" ColumnName="SickLeavesPerYear" />
                 <ScalarProperty Name="CarryForwardPerYear" ColumnName="CarryForwardPerYear" />
                 <ScalarProperty Name="IsPaidLeaveCarryForward" ColumnName="IsPaidLeaveCarryForward" />
-                <ScalarProperty Name="LeavesPerMonth" ColumnName="LeavesPerMonth" />
+                <ScalarProperty Name="PaidLeavesPerMonth" ColumnName="PaidLeavesPerMonth" />
                 <ScalarProperty Name="PaidLeavesPerYear" ColumnName="PaidLeavesPerYear" />
                 <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
                 <ScalarProperty Name="CountryName" ColumnName="CountryName" />

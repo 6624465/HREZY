@@ -25,6 +25,7 @@ namespace HR.Web.Models
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public Nullable<int> BranchId { get; set; }
+        public int BranchId { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using HR.Web.Controllers;
 using HR.Web.Models;
+using System.Web.Mvc;
 
 namespace HR.Web.Helpers
 {
@@ -15,10 +16,11 @@ namespace HR.Web.Helpers
             {
                 return dbCntx.LookUps
                                 .Where(x => x.LookUpCategory == key)
-                                .Select(x => new System.Web.Mvc.SelectListItem {
+                                .Select(x => new System.Web.Mvc.SelectListItem
+                                {
                                     Text = x.LookUpDescription,
                                     Value = x.LookUpCode,
-                                    
+
                                 })
                                 .OrderBy(x => x.Text)
                                 .ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
@@ -132,7 +134,7 @@ namespace HR.Web.Helpers
                                     Value = x.CountryCode
                                 }).ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
             }
-        }   
+        }
         public static IEnumerable<System.Web.Mvc.SelectListItem> PeriodicityTypeList()
         {
             using (var dbCntx = new HrDataContext())
@@ -193,43 +195,56 @@ namespace HR.Web.Helpers
                                 .ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
             }
         }
-        public static IEnumerable<System.Web.Mvc.SelectListItem> EmployeeLeaveType()
+        public static IEnumerable<SelectListItem> EmployeeLeaveType()
         {
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
                                 .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE)
-                                .Select(x => new System.Web.Mvc.SelectListItem
+                                .Select(x => new SelectListItem
                                 {
                                     Text = x.LookUpDescription,
                                     Value = x.LookUpID.ToString()
                                 })
                                 .OrderBy(x => x.Text)
-                                .ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
+                                .ToList().AsEnumerable();
             }
         }
-        
-        public static IEnumerable<System.Web.Mvc.SelectListItem> EmployeeList()
+
+        public static IEnumerable<SelectListItem> EmployeeList()
         {
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.EmployeeHeaders
-                        .Select(x => new System.Web.Mvc.SelectListItem {
+                        .Select(x => new SelectListItem
+                        {
                             Text = x.FirstName + " " + x.LastName,
                             Value = x.EmployeeId.ToString()
                         }).ToList();
             }
-        }     
-        public static IEnumerable<System.Web.Mvc.SelectListItem> CountryListById()
+        }
+        public static IEnumerable<SelectListItem> CountryListById()
         {
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.Countries
-                                .Select(x => new System.Web.Mvc.SelectListItem
+                                .Select(x => new SelectListItem
                                 {
                                     Text = x.CountryName,
                                     Value = x.CountryId.ToString()
-                                }).ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
+                                }).ToList().AsEnumerable();
+            }
+        }
+
+        public static IEnumerable<SelectListItem> Branches()
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                return dbCntx.Branches.Select(x => new SelectListItem
+                {
+                    Value = x.BranchID.ToString(),
+                    Text = x.BranchName
+                }).ToList().AsEnumerable();
             }
         }
     }

@@ -64,7 +64,8 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeeAddresses,
                             e => e.C.A.EmployeeId, f => f.EmployeeId,
                             (e, f) => new { E = e, F = f })
-                            .Select(x => new EmployeeListVm {
+                            .Select(x => new EmployeeListVm
+                            {
                                 EmployeeId = x.E.C.A.EmployeeId,
                                 EmployeeNo = x.E.C.A.IDNumber,
                                 EmployeeName = x.E.C.A.FirstName + " " + x.E.C.A.LastName + " " + x.E.C.A.MiddleName,
@@ -79,7 +80,8 @@ namespace HR.Web.Controllers
                             }).ToList().AsEnumerable();
 
 
-                var empDirectoryVm = new EmpDirectoryVm {
+                var empDirectoryVm = new EmpDirectoryVm
+                {
                     employeeVm = list,
                     empSearch = new EmpSearch { }
                 };
@@ -89,7 +91,7 @@ namespace HR.Web.Controllers
         }
 
 
-         
+
 
         [HttpPost]
         public ViewResult empsearch(EmpSearch empSearch)
@@ -127,7 +129,7 @@ namespace HR.Web.Controllers
 
             using (var dbCntx = new HrDataContext())
             {
-                
+
 
                 var list = dbCntx.EmployeeHeaders.Where(FuncEmpHeaderWhere)
                             .Join(dbCntx.EmployeePersonalDetails,
@@ -197,14 +199,14 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    //var documentTypes = dbCntx.LookUps
-                    //                        .Where(x => x.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
-                    //                        .Select(x => new EmployeeDocumentVm
-                    //                        {
-                    //                            DocumentType = x.LookUpID,
-                    //                            DocumentDescription = x.LookUpDescription
-                    //                        }).ToList();
-                    return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true }});
+                    var documentTypes = dbCntx.LookUps
+                                            .Where(x => x.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+                                            .Select(x => new EmployeeDocumentVm
+                                            {
+                                                DocumentType = x.LookUpID,
+                                                DocumentDescription = x.LookUpDescription
+                                            }).ToList();
+                    return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true }, empDocument = documentTypes });
                 }
             }
         }
@@ -299,106 +301,128 @@ namespace HR.Web.Controllers
                         //ModifiedOn = UTILITY.SINGAPORETIME
                     };
                     dbCntx.EmployeeAddresses.Add(empAddress);
-                    
-
-                    if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    dbCntx.SaveChanges();
+                    foreach (var item in empVm.empDocument)
                     {
-                        var uidDocument = new EmployeeDocumentDetail
+                        if (item.Document != null && item.Document.ContentLength > 0)
                         {
-                            EmployeeId = empHdr.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(uidDocument);
+                            var uidDocument = new EmployeeDocumentDetail
+                            {
+                                EmployeeId = empHdr.EmployeeId,
+                                BranchId = BRANCHID,
+                                DocumentType = 1082,
+                                FileName = item.Document.FileName,
+                                CreatedBy = USERID,
+                                CreatedOn = UTILITY.SINGAPORETIME
+                            };
+
+                            dbCntx.EmployeeDocumentDetails.Add(uidDocument);
+
+                            string path = Server.MapPath("~/Uploads/" + empHdr.EmployeeId + "/");
+                            if (!Directory.Exists(path))
+                            {
+                                Directory.CreateDirectory(path);
+                            }
+
+                            item.Document.SaveAs(path + item.Document.FileName);
+
+                        }
                     }
 
-                    if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
-                    {
-                        var educationDocument = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHdr.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(educationDocument);
-                    }
+                    //if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    //{
+                    //    var uidDocument = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHdr.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(uidDocument);
+                    //}
 
-                    if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
-                    {
-                        var experienceLetters = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHdr.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(experienceLetters);
-                    }
+                    //if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
+                    //{
+                    //    var educationDocument = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHdr.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(educationDocument);
+                    //}
 
-                    if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
-                    {
-                        var projectDocuments = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHdr.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(projectDocuments);
-                    }
+                    //if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
+                    //{
+                    //    var experienceLetters = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHdr.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(experienceLetters);
+                    //}
 
-                    if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
-                    {
-                        var otherDocuments = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHdr.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(otherDocuments);
-                    }
+                    //if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
+                    //{
+                    //    var projectDocuments = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHdr.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(projectDocuments);
+                    //}
+
+                    //if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
+                    //{
+                    //    var otherDocuments = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHdr.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(otherDocuments);
+                    //}
 
                     dbCntx.SaveChanges();
 
-                    string path = Server.MapPath("~/Uploads/" + empHdr.EmployeeId + "/");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
 
-                    if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
-                    {
-                        empVm.UIDCard.SaveAs(path + empVm.UIDCard.FileName);
-                    }
-                    if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
-                    {
-                        empVm.EducationDocument.SaveAs(path + empVm.EducationDocument.FileName);
-                    }
-                    if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
-                    {
-                        empVm.ExperienceLetters.SaveAs(path + empVm.ExperienceLetters.FileName);
-                    }
-                    if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
-                    {
-                        empVm.ProjectDocuments.SaveAs(path + empVm.ProjectDocuments.FileName);
-                    }
-                    if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
-                    {
-                        empVm.OtherDocuments.SaveAs(path + empVm.OtherDocuments.FileName);
-                    }
+
+                    //if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    //{
+                    //    empVm.UIDCard.SaveAs(path + empVm.UIDCard.FileName);
+                    //}
+                    //if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
+                    //{
+                    //    empVm.EducationDocument.SaveAs(path + empVm.EducationDocument.FileName);
+                    //}
+                    //if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
+                    //{
+                    //    empVm.ExperienceLetters.SaveAs(path + empVm.ExperienceLetters.FileName);
+                    //}
+                    //if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
+                    //{
+                    //    empVm.ProjectDocuments.SaveAs(path + empVm.ProjectDocuments.FileName);
+                    //}
+                    //if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
+                    //{
+                    //    empVm.OtherDocuments.SaveAs(path + empVm.OtherDocuments.FileName);
+                    //}
                     return RedirectToAction("employeedirectory");
                 }
             }
@@ -407,7 +431,7 @@ namespace HR.Web.Controllers
                 using (var dbCntx = new HrDataContext())
                 {
                     var empHeader = dbCntx.EmployeeHeaders
-                                        .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && 
+                                        .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId &&
                                                     x.BranchId == empVm.empHeader.BranchId)
                                         .FirstOrDefault();
 
@@ -428,7 +452,7 @@ namespace HR.Web.Controllers
                                         .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
                                         .FirstOrDefault();
 
-                    
+
                     empPerDetail.DOB = empVm.empPersonalDetail.DOB;
                     empPerDetail.Gender = empVm.empPersonalDetail.Gender; //
                     empPerDetail.BirthCountry = empVm.empPersonalDetail.BirthCountry; //
@@ -461,7 +485,7 @@ namespace HR.Web.Controllers
                     var empAddress = dbCntx.EmployeeAddresses
                                         .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
                                         .FirstOrDefault();
-                    
+
                     empAddress.Address1 = empVm.address.Address1;
                     empAddress.Address2 = empVm.address.Address2;
                     empAddress.SeqNo = 0; //
@@ -475,106 +499,106 @@ namespace HR.Web.Controllers
                     empAddress.Email = empHeader.UserEmailId;
                     empAddress.IsActive = true;
                     empAddress.ModifiedBy = USERID;
-                    empAddress.ModifiedOn = UTILITY.SINGAPORETIME;                    
+                    empAddress.ModifiedOn = UTILITY.SINGAPORETIME;
 
-                    if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
-                    {
-                        var uidDocument = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHeader.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(uidDocument);
-                    }
+                    //if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    //{
+                    //    var uidDocument = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHeader.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(uidDocument);
+                    //}
 
-                    if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
-                    {
-                        var educationDocument = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHeader.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(educationDocument);
-                    }
+                    //if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
+                    //{
+                    //    var educationDocument = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHeader.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(educationDocument);
+                    //}
 
-                    if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
-                    {
-                        var experienceLetters = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHeader.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(experienceLetters);
-                    }
+                    //if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
+                    //{
+                    //    var experienceLetters = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHeader.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(experienceLetters);
+                    //}
 
-                    if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
-                    {
-                        var projectDocuments = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHeader.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(projectDocuments);
-                    }
+                    //if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
+                    //{
+                    //    var projectDocuments = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHeader.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(projectDocuments);
+                    //}
 
-                    if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
-                    {
-                        var otherDocuments = new EmployeeDocumentDetail
-                        {
-                            EmployeeId = empHeader.EmployeeId,
-                            BranchId = BRANCHID,
-                            DocumentType = 1082,
-                            FileName = empVm.UIDCard.FileName,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.EmployeeDocumentDetails.Add(otherDocuments);
-                    }
+                    //if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
+                    //{
+                    //    var otherDocuments = new EmployeeDocumentDetail
+                    //    {
+                    //        EmployeeId = empHeader.EmployeeId,
+                    //        BranchId = BRANCHID,
+                    //        DocumentType = 1082,
+                    //        FileName = empVm.UIDCard.FileName,
+                    //        CreatedBy = USERID,
+                    //        CreatedOn = UTILITY.SINGAPORETIME
+                    //    };
+                    //    dbCntx.EmployeeDocumentDetails.Add(otherDocuments);
+                    //}
 
-                    dbCntx.SaveChanges();
+                    //dbCntx.SaveChanges();
 
-                    string path = Server.MapPath("~/Uploads/" + empHeader.EmployeeId + "/");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
+                    //string path = Server.MapPath("~/Uploads/" + empHeader.EmployeeId + "/");
+                    //if (!Directory.Exists(path))
+                    //{
+                    //    Directory.CreateDirectory(path);
+                    //}
 
-                    if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
-                    {
-                        empVm.UIDCard.SaveAs(path + empVm.UIDCard.FileName);
-                    }
-                    if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
-                    {
-                        empVm.EducationDocument.SaveAs(path + empVm.EducationDocument.FileName);
-                    }
-                    if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
-                    {
-                        empVm.ExperienceLetters.SaveAs(path + empVm.ExperienceLetters.FileName);
-                    }
-                    if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
-                    {
-                        empVm.ProjectDocuments.SaveAs(path + empVm.ProjectDocuments.FileName);
-                    }
-                    if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
-                    {
-                        empVm.OtherDocuments.SaveAs(path + empVm.OtherDocuments.FileName);
-                    }
+                    //if (empVm.UIDCard != null && empVm.UIDCard.ContentLength > 0)
+                    //{
+                    //    empVm.UIDCard.SaveAs(path + empVm.UIDCard.FileName);
+                    //}
+                    //if (empVm.EducationDocument != null && empVm.EducationDocument.ContentLength > 0)
+                    //{
+                    //    empVm.EducationDocument.SaveAs(path + empVm.EducationDocument.FileName);
+                    //}
+                    //if (empVm.ExperienceLetters != null && empVm.ExperienceLetters.ContentLength > 0)
+                    //{
+                    //    empVm.ExperienceLetters.SaveAs(path + empVm.ExperienceLetters.FileName);
+                    //}
+                    //if (empVm.ProjectDocuments != null && empVm.ProjectDocuments.ContentLength > 0)
+                    //{
+                    //    empVm.ProjectDocuments.SaveAs(path + empVm.ProjectDocuments.FileName);
+                    //}
+                    //if (empVm.OtherDocuments != null && empVm.OtherDocuments.ContentLength > 0)
+                    //{
+                    //    empVm.OtherDocuments.SaveAs(path + empVm.OtherDocuments.FileName);
+                    //}
 
                     return RedirectToAction("employeedirectory");
                 }

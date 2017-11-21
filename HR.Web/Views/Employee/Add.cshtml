@@ -428,10 +428,21 @@
                     required: true
                 },
                 'empHeader.FirstName': {
-                    required: true
+                    required: true,
+                    maxlength:30
+                },
+                'empHeader.MiddleName':{
+                    maxlength:30
                 },
                 'empHeader.LastName': {
-                    required: true
+                    required: true,
+                    maxlength:30
+                },
+                'empPersonalDetail.FatherName':{
+                    maxlength:30
+                },
+                'empPersonalDetail.EmergencyContactName':{
+                    maxlength:200
                 },
                 'empPersonalDetail.DOB': {
                     required: true
@@ -453,14 +464,15 @@
                     required: true
                 },
                 'address.Address1': {
-                    required: true
+                    required: true,
                 },
                 'empHeader.UserEmailId': {
                     required: true,
                     email: true
                 },
                 'empHeader.Password': {
-                    required: true
+                    required: true,
+                    maxlength:30
                 },
                 'empHeader.ConfirmPassword': {
                     required: true,

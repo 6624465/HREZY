@@ -1,0 +1,33 @@
+﻿@model IEnumerable<HR.Web.Models.EmployeeLeaveList>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box">
+                <div class="box-header">Employee Leave List</div>
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <thead><tr>
+                            <th>EmployeeId</th>
+                            <th>FromDate</th>
+                                   <th>ToDate</th>
+                            </tr></thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@item.EmployeeId</td>
+                                <td>@item.FromDate</td>
+                                <td>@item.ToDate</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

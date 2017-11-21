@@ -41,9 +41,7 @@ namespace HR.Web.Controllers
 
         public ActionResult SaveHoliday(HolidayList holidaylist)
         {
-            var dt = DbDateHelper.ToNullIfTooEarlyForDb(holidaylist.Date);
-            if (dt != null)
-            {
+         
                 if (holidaylist.HolidayId != -1)
                 {
                     using (var dbnctx = new HrDataContext())
@@ -81,7 +79,7 @@ namespace HR.Web.Controllers
                         dbntcx.SaveChanges();
                     }
                 }
-            }
+            
             return RedirectToAction("HolidayList");
 
         }

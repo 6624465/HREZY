@@ -179,16 +179,64 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Leave()
+        public ActionResult LeaveList()
         {
-            return View();
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                List<Leave> leaves = dbContext.Leaves.ToList();
+                leaves.ForEach(x => x.CountryName = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
+                return View(leaves);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Leave(int leaveId = 0)
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                ViewBag.RoleCode = ROLECODE;
+
+                Leave leave = null;
+                if (leaveId != 0)
+                    leave = dbContext.Leaves.
+                        Where(x => x.LeaveId == leaveId && x.BranchId == BRANCHID).FirstOrDefault();
+                else
+                    leave = dbContext.Leaves.
+                    Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                return View(leave);
+            }
         }
         [HttpPost]
         public ActionResult Leave(Leave leave)
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                dbContext.Leaves.Add(leave);
+                if (leave.LeaveId == 0)
+                {
+                    leave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward == null ? false : leave.IsCasualLeaveCarryForward;
+                    leave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward == null ? false : leave.IsPaidLeaveCarryForward;
+                    leave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward == null ? false : leave.IsSickLeaveCarryForward;
+                    leave.BranchId = BRANCHID;
+                    dbContext.Leaves.Add(leave);
+                }
+                else
+                {
+                    Leave updateLeave = dbContext.Leaves.
+                     Where(x => x.LeaveId == leave.LeaveId && x.BranchId == leave.BranchId).FirstOrDefault();
+                    updateLeave.CarryForwardPerYear = leave.CarryForwardPerYear;
+                    updateLeave.CarryForwardSickLeaves = leave.CarryForwardSickLeaves;
+                    updateLeave.CasualLeavesPerMonth = leave.CasualLeavesPerMonth;
+                    updateLeave.CasualLeavesPerYear = leave.CasualLeavesPerYear;
+                    updateLeave.CountryCode = leave.CountryCode;
+                    updateLeave.CountryName = leave.CountryName;
+                    updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward == null ? false : leave.IsCasualLeaveCarryForward;
+                    updateLeave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward == null ? false : leave.IsPaidLeaveCarryForward;
+                    updateLeave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward == null ? false : leave.IsSickLeaveCarryForward;
+                    updateLeave.PaidLeavesPerMonth = leave.PaidLeavesPerMonth;
+                    updateLeave.PaidLeavesPerYear = leave.PaidLeavesPerYear;
+                    updateLeave.SickLeavesPerMonth = leave.SickLeavesPerMonth;
+                    updateLeave.SickLeavesPerYear = leave.SickLeavesPerYear;
+                }
                 dbContext.SaveChanges();
             }
             return View();

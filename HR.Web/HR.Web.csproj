@@ -1881,6 +1881,7 @@
     <Compile Include="ViewModels\CompanyVm.cs" />
     <Compile Include="ViewModels\EmployeeListVm.cs" />
     <Compile Include="ViewModels\EmployeeVm.cs" />
+    <Compile Include="ViewModels\LeaveAdminVM.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1998,6 +1999,7 @@
     <Content Include="Views\RoleRights\_NewRole.cshtml" />
     <Content Include="Views\Shared\_Links.cshtml" />
     <Content Include="Views\Leave\Leave.cshtml" />
+    <Content Include="Views\Leave\LeaveList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

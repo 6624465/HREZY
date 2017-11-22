@@ -160,7 +160,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()">Save</button>
+                <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
             </div>
         </div>
     </div>
@@ -170,6 +170,17 @@
 
 @section Scripts{
     <script type="text/javascript">
+
+        //$(function () {
+        //    debugger;
+        //    $('#li_Master').addClass('open');
+        //    $('#li_leave_leave').addClass('active');
+        //});
+        $(function () {
+            debugger;
+            $('#li_Leave').addClass('open');
+            $('#li_empdir').addClass('active');
+        });
         function SaveLeave() {
             if ($('#frmLeave').valid())
                 $('#frmLeave').submit();

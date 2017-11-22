@@ -43,18 +43,28 @@
                                         </thead>
                                         <tbody>
                                             @for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
-                                        {
-                                        <tr>
-                                            <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeId</td>
-                                            <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate</td>
-                                            <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate</td>
-                                        </tr>
-                                        }
+                                            {
+                                                <tr>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeId</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate</td>
+                                                </tr>
+                                            }
+                                                @*@for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
+                                                {
+                                                        WebGrid grid = new WebGrid(Model.ElementAt(i).employeeLeaveList);
+                                                        grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm");
+                                                @grid.GetHtml(
+                                                              columns: grid.Columns(
+                                                              grid.Column("EmployeeId", "EmployeeId", canSort: true),
+                                                              grid.Column("FromDate", "From Date", canSort: true),
+                                                              grid.Column("ToDate", "To Date", canSort: true)),
+                                                              tableStyle: "table table-condensed")
+                                                    }*@
+                                                
                                         </tbody>
-
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -63,3 +73,12 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            debugger
+            $('#li_Leave').addClass('open');
+            $('#li_appliedleavelist').addClass('active');
+        })
+    </script>
+    }

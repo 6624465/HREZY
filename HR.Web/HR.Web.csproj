@@ -144,6 +144,7 @@
     <Content Include="Css\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Css\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Css\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Css\fullcalendar.css" />
     <Content Include="Css\ionicons-2.0.1\builder\cheatsheet\icon-row.html" />
     <Content Include="Css\ionicons-2.0.1\builder\cheatsheet\template.html" />
     <Content Include="Css\ionicons-2.0.1\cheatsheet.html" />
@@ -1800,11 +1801,15 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\usp_EmployeeDateOfJoiningDate_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />
     <Compile Include="ViewModels\AppliedLeaveVm.cs" />
     <Compile Include="ViewModels\BranchVm.cs" />
+    <Compile Include="ViewModels\calendarVM.cs" />
     <Compile Include="ViewModels\CompanyVm.cs" />
     <Compile Include="ViewModels\DashBoardVm.cs" />
     <Compile Include="ViewModels\EmployeeListVm.cs" />

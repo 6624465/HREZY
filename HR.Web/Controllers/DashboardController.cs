@@ -11,7 +11,8 @@ namespace HR.Web.Controllers
     public class DashboardController : BaseController
     {
         // GET: Dashboard
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
@@ -26,6 +27,9 @@ namespace HR.Web.Controllers
                                         .Where(x => x.BranchId == BRANCHID)
                                         .Count();
 
+                    obj.lineChartData = dbCntx.usp_EmployeeDateOfJoiningDate(UTILITY.SINGAPORETIME)
+                                            .ToList()
+                                            .AsEnumerable();
                     //var lineChartData = dbCntx.EmployeeHeaders
                     //                        .Join(dbCntx.EmployeeWorkDetails,
                     //                        a => new { a.BranchId, a.EmployeeId }, 

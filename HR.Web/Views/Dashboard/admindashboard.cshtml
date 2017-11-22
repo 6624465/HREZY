@@ -1,7 +1,9 @@
-﻿@model HR.Web.ViewModels.DashBoardVm
+﻿@using Newtonsoft.Json;
+@model HR.Web.ViewModels.DashBoardVm
 @{
     ViewBag.Title = "admindashboard";
 }
+
 @section Styles{
     <style type="text/css">
         .page-dashboard .mini-box .icon {
@@ -34,8 +36,65 @@
                 </div>
             </div>
         </div>
-        
+        <div class="row css10">
+            <div class="col-md-12">
+                <div id="container"></div>
+            </div>
+        </div>
     </div>
 </div>
+@section Scripts{
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script type= "text/javascript">
+            var dataArray = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.lineChartData))');
+            var xAxisData = new Array();
+            var yAxisData = new Array();
+
+            for (var i = 0; i < dataArray.length; i++) {
+                xAxisData.push(dataArray[i].Month);
+                yAxisData.push(dataArray[i].Count);
+            }
+
+
+            Highcharts.chart('container', {
+                title: {
+                    text: 'Employees Data'
+                },                
+                xAxis: {
+                    categories: xAxisData
+                },
+                yAxis: {
+                    title: {
+                        text: 'Number of Employees'
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },                
+                series: [{
+                    name: 'Employees',
+                    data: yAxisData
+                }],
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+            });
+</script>
+}
 
 

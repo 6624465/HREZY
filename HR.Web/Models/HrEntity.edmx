@@ -322,6 +322,9 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="BranchId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
         </EntityType>
+        <Function Name="usp_EmployeeDateOfJoiningDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Operation">
+          <Parameter Name="CurrentDt" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_9F30C5_HRDBModelStoreContainer">
           <EntitySet Name="LookUp" EntityType="Self.LookUp" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Branches" EntityType="Self.Branches" Schema="Master" store:Type="Tables" />
@@ -437,6 +440,9 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
             <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
+          <FunctionImport Name="usp_EmployeeDateOfJoiningDate" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDateOfJoiningDate_Result)">
+            <Parameter Name="CurrentDt" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -846,6 +852,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="usp_EmployeeDateOfJoiningDate_Result">
+          <Property Type="Int32" Name="Count" Nullable="true" />
+          <Property Type="String" Name="Month" Nullable="true" MaxLength="30" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1178,6 +1188,14 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_EmployeeDateOfJoiningDate" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDateOfJoiningDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeeDateOfJoiningDate_Result">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

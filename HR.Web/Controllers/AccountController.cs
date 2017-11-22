@@ -30,7 +30,7 @@ namespace HR.Web.Controllers
                     USERID = user.UserName;
                     BRANCHID = userObj.BranchId;
                     ROLECODE = userObj.RoleCode;
-                    EMPLOYEEID = 1000;
+                    EMPLOYEEID = userObj.EmployeeId;
                     return RedirectToAction("Index", "Home");
                 }
             }

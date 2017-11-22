@@ -41,9 +41,7 @@ namespace HR.Web.Controllers
 
         public ActionResult SaveHoliday(HolidayList holidaylist)
         {
-            var dt = DbDateHelper.ToNullIfTooEarlyForDb(holidaylist.Date);
-            if (dt != null)
-            {
+         
                 if (holidaylist.HolidayId != -1)
                 {
                     using (var dbnctx = new HrDataContext())
@@ -81,7 +79,7 @@ namespace HR.Web.Controllers
                         dbntcx.SaveChanges();
                     }
                 }
-            }
+            
             return RedirectToAction("HolidayList");
 
         }
@@ -98,28 +96,7 @@ namespace HR.Web.Controllers
             string viewName = string.Empty;
             using (var dbCntx = new HrDataContext())
             {
-                Func<EmployeeLeaveList, bool> FuncWhere = delegate (EmployeeLeaveList empleaveList)
-                {
-                    if (ROLECODE == "SuperAdmin")
-                    {
-                        viewName = "AppliedLeaveList";
-                        return true;
-                    }
-                    else if (ROLECODE == "Admin")
-                    {
-                        viewName = "AppliedLeaveListAdmin";
-                        return empleaveList.BranchId == BRANCHID;
-                    }
-                    else if (ROLECODE == "Employee")
-                    {
-                        viewName = "EmployeeLeaveList";
-                        return empleaveList.BranchId == BRANCHID && empleaveList.EmployeeId == EMPLOYEEID;
-                    }
-
-                    return true;
-                };
-
-                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
+                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.empLeaveListWhere(ROLECODE, BRANCHID, EMPLOYEEID, ref viewName),
                         a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })                        
                         .Select(x => new AppliedLeaveListVm
                         {
@@ -132,18 +109,8 @@ namespace HR.Web.Controllers
                                 ToDate = y.ToDate
                             })
                         }).ToList();
-                if (ROLECODE == "SuperAdmin")
-                {
-                    return View("AppliedLeaveList", empLeaveList);
-                }
-                else if (ROLECODE == "Admin")
-                {
-                    return View("AppliedLeaveListAdmin", empLeaveList);
-                }
-                else {
-                    return View("EmployeeLeaveList", empLeaveList);
-                }
 
+                return View(viewName, empLeaveList);
             }
         }
         public ActionResult EmployeeRequestFrom()

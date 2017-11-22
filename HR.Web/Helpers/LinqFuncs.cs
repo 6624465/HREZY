@@ -38,23 +38,33 @@ namespace HR.Web
 
         public static IQueryable<EmployeeLeaveList> empLeaveListWhere(this IQueryable<EmployeeLeaveList> empLeaveList, string RoleCode, int BranchID, int EmployeeID, ref string viewName)
         {
-            if (RoleCode == "SuperAdmin")
+            if (RoleCode == UTILITY.ROLE_SUPERADMIN)
             {
                 viewName = "AppliedLeaveList";
                 return empLeaveList;
             }
-            else if (RoleCode == "Admin")
+            else if (RoleCode == UTILITY.ROLE_ADMIN)
             {
                 viewName = "AppliedLeaveListAdmin";
                 return empLeaveList.Where(x => x.BranchId == BranchID);
             }
-            else if (RoleCode == "Employee")
+            else if (RoleCode == UTILITY.ROLE_EMPLOYEE)
             {
                 viewName = "EmployeeLeaveList";
                 return empLeaveList.Where(x => x.BranchId == BranchID && x.EmployeeId == EmployeeID);
             }
 
             return empLeaveList;
+        }
+
+        public static IQueryable<Leave> leaveWhere(this IQueryable<Leave> leaves, int BranchID, string RoleCode)
+        {
+            if (RoleCode == UTILITY.ROLE_SUPERADMIN)
+                return leaves;
+            else if (RoleCode == UTILITY.ROLE_ADMIN)
+                return leaves.Where(x => x.BranchId == BranchID);
+
+            return leaves;
         }
 
 

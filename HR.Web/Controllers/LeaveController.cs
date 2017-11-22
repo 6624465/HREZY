@@ -12,7 +12,7 @@ namespace HR.Web.Controllers
     [Authorize]
     public class LeaveController : BaseController
     {
-
+        
 
         // GET: Leave
         #region HolidayList
@@ -150,7 +150,7 @@ namespace HR.Web.Controllers
 
 
         public ViewResult AppliedLeaveList()
-        {
+        {            
             string viewName = string.Empty;
             using (var dbCntx = new HrDataContext())
             {

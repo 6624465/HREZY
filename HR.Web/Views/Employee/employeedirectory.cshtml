@@ -65,14 +65,15 @@
                              "Select Type",
                              new { @class = "form-control" })
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 col-md-offset-1">
                                 <button type="submit" class="btn btn-info btn-raised waves-effect btn-sm">Search</button>
+                                <button type="button" id="refresh_button" class="btn btn-info btn-raised waves-effect btn-sm">Refresh</button>
                             </div>
                         </div>
                     </div>
                     }
                 </div>
-                <div class="panel-footer">Panel Footer</div>
+               
             </div>
         </div>
         <div class="panel panel-default">
@@ -123,6 +124,10 @@
                 },
                 format: 'DD/MM/YYYY'
             });
+        });
+        $('#refresh_button').click(function() {
+            debugger
+            location.reload();
         });
     </script>
 }

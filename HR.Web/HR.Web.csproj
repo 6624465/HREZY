@@ -1936,6 +1936,7 @@
     <Content Include="Views\Leave\EmployeeLeaveList.cshtml" />
     <Content Include="Views\Leave\LeaveList.cshtml" />
     <Content Include="Views\Dashboard\admindashboard.cshtml" />
+    <Content Include="Views\Leave\ViewLeavesList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

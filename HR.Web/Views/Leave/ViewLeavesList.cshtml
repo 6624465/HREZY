@@ -1,0 +1,39 @@
+﻿@model IEnumerable<HR.Web.Models.EmployeeLeaveList>
+
+@{ 
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+}
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box">
+                <div class="box-header">
+                    <h4>View Leaves</h4>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @grid.GetHtml(
+                columns: grid.Columns(
+                grid.Column("FromDate", "From Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
+                grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.ToDate))),
+                tableStyle: "table table-condensed")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        $(function () {
+            $('#li_Leave').addClass('open');
+            $('#li_empadd').addClass('active');
+        });
+    </script>

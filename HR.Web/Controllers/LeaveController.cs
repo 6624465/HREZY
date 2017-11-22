@@ -217,7 +217,7 @@ namespace HR.Web.Controllers
                 else
                 {
                     ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
-                    return View("EmployeeRequestFrom", EmployeeLeaveList);
+                    return View("EmployeeRequestFrom");
                 }
                 
             }
@@ -348,6 +348,16 @@ namespace HR.Web.Controllers
                 dbContext.SaveChanges();
             }
             return View();
+        }
+
+        public ActionResult ViewLeavesList()
+        {
+            using(var dbcntx=new HrDataContext())
+            {
+                var viewleavelist = dbcntx.EmployeeLeaveLists.Where(x => x.EmployeeId == EMPLOYEEID).ToList().AsEnumerable();
+                return View(viewleavelist);
+            }
+           
         }
 
 

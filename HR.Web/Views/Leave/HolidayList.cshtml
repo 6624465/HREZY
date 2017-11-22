@@ -1,67 +1,16 @@
-﻿@section Styles{    
+﻿@using Newtonsoft.Json;
 
-<link href="~/Css/waves.css" rel="stylesheet" />
-<link href="~/Css/perfect-scrollbar.css" rel="stylesheet" />
-<link href="~/Css/Calendar.css" rel="stylesheet" />
-<link href="~/Css/bootstrap.min.css" rel="stylesheet" />
-<link href="~/Css/main.min.css" rel="stylesheet" />
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
+@model HR.Web.ViewModels.holidayVm
 
+@section Styles{
+
+    <link href="@Url.Content("~/Css/fullcalendar.css")" rel="stylesheet" />
+    <style>
+        .fc-time {
+        display:none;
+        }
+    </style>
 }
-
-
-<div class="content-container" id="content">
-    <!-- Calendar page -->
-    <div class="page page-app-calendar">
-
-        <ol class="breadcrumb breadcrumb-small">
-            <li>Apps</li>
-            <li class="active"><a href="calendar.html">Calendar</a></li>
-        </ol>
-
-
-        <div class="page-wrap">
-
-            <!-- row -->
-            <div class="row">
-                <div class="col-sm-9">
-                    <!-- calendar toolbar, this will replaced default toolbar -->
-                    <div class="calendar-toolbar mb20 text-center">
-                        <div class="btn-group btn-group-sm left">
-                            <button type="button" class="btn btn-default ion ion-arrow-left-c prev-btn"></button>
-                            <button type="button" class="btn btn-default ion ion-arrow-right-c next-btn"></button>
-                        </div>
-                        <button type="button" class="btn btn-default btn-sm ml15 left today-btn">today</button>
-                        <strong class="text-uppercase current-date"></strong>
-                        <div class="btn-group btn-group-sm right">
-                            <button type="button" class="btn btn-default view-month">Month</button>
-                            <button type="button" class="btn btn-default view-week">Week</button>
-                            <button type="button" class="btn btn-default view-day">Day</button>
-                        </div>
-                    </div>
-                    <!-- calendar -->
-                    <div id="fullCalendar"></div>
-                </div>
-
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-pink btn-icon-inline btn-sm mb15 addEventBtn">
-                        <i class="ion ion-plus"></i>
-                        Add Event
-                    </button>
-                    <ul class="calevents list-unstyled" id="calevents">
-                        <!-- <li>
-                            <input class="event-name">
-                            <div class="event-date">{{event.humanDate}}</div>
-                            <div class="event-remove-icon ion ion-trash-a"></div>
-                        </li> -->
-                    </ul>
-                </div>
-            </div> <!-- #end row -->
-
-        </div> <!-- #end page-wrap -->
-    </div>
-    <!-- #end calendar page -->
-</div>
 
 
 
@@ -83,15 +32,44 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div id="calendar"></div>
+                            <!-- Calendar page -->
+                            <div class="page page-app-calendar">
+
+                                <div class="page-wrap">
+
+                                    <!-- row -->
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <!-- calendar toolbar, this will replaced default toolbar -->
+                                            <div class="calendar-toolbar mb20 text-center">
+                                                <div class="btn-group btn-group-sm left">
+                                                    <button type="button" class="btn btn-default ion ion-arrow-left-c prev-btn"></button>
+                                                    <button type="button" class="btn btn-default ion ion-arrow-right-c next-btn"></button>
+                                                </div>
+                                                <button type="button" class="btn btn-default btn-sm ml15 left today-btn">today</button>
+                                                <strong class="text-uppercase current-date"></strong>
+                                                <div class="btn-group btn-group-sm right">
+                                                    <button type="button" class="btn btn-default view-month">Month</button>
+                                                    <button type="button" class="btn btn-default view-week">Week</button>
+                                                    <button type="button" class="btn btn-default view-day">Day</button>
+                                                </div>
+                                            </div>
+                                            <!-- calendar -->
+                                            <div id="fullCalendar" style="z-index:9;"></div>
+                                        </div>
+                                    </div> <!-- #end row -->
+
+                                </div> <!-- #end page-wrap -->
+                            </div>
+                            <!-- #end calendar page -->
                         </div>
-                    </div> 
-                </div>                
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-    
+
 
 
 
@@ -104,7 +82,9 @@
                     <h4 class="modal-title">Add Holiday</h4>
                 </div>
                 <div class="modal-body" id="modalContent">
-
+                    @{
+                        Html.RenderPartial("GetHolidayList", Model.HolidayList);
+                    }
                 </div>
                 <div class="modal-footer">
                     <button id="btnsave" type="button" onclick="SaveChanges()" class="btn btn-info btn-raised">Save</button>
@@ -115,24 +95,28 @@
 
         </div>
     </div>
-}
+                        }
 
 @section Scripts{
-    
-   
-<script src="~/Scripts/Core/fullcalendar.min.js"></script>
-<script src="~/Scripts/Core/waves.min.js"></script>
-<script src="~/Scripts/Core/app.js"></script>
-<script src="~/Scripts/Core/calendar.init.js"></script>
+    <script src="@Url.Content("~/Scripts/Core/fullcalendar.min.js")"></script>
+
+
     <script type="text/javascript">
-    
+        var obj = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.calendarVM))');
         $(function () {
+
             $('#li_Leave').addClass('open');
             $('#li_holidaylist').addClass('active');
+
+            @if (Model.HolidayList!=null && Model.HolidayList.HolidayId != 0) {
+                <text>
+            $('#myModal').modal('show');
+            </text>
+            }
         });
 
         function AddHoliday(holidayId) {
-           
+
             $.ajax({
                 url: '@Url.Content("~/Leave/GetHolidayList?holidayId=")' + holidayId,
                 contentType: 'text/html',
@@ -167,6 +151,8 @@
             }
         });
 
-        
+
     </script>
+
+    <script src="~/Scripts/Core/calendar.init.js"></script>
 }

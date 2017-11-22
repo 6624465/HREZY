@@ -5,17 +5,75 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace HR.Web.Controllers
 {
     [Authorize]
     public class LeaveController : BaseController
     {
+
+
         // GET: Leave
         #region HolidayList
         public ActionResult HolidayList()
         {
-            return View();
+
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                var obj = dbContext.HolidayLists.ToList();
+                List<calendarVM> holidayList = new List<calendarVM>();
+                foreach (HolidayList item in obj)
+                {
+                    calendarVM list = new calendarVM();
+                    list.title = item.Description;
+                    list.date = item.Date;
+
+                    var strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+
+                    var context = new HttpContextWrapper(System.Web.HttpContext.Current);
+                    string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
+                    list.url = hrefUrl;
+                    holidayList.Add(list);
+                }
+                holidayVm holidayVm = new holidayVm()
+                {
+                    calendarVM = holidayList,
+                    HolidayList = new HolidayList()
+                };
+                return View("HolidayList", holidayVm);
+            }
+
+        }
+
+        public ActionResult AddHoliday(int HolidayId)
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                var obj = dbContext.HolidayLists.ToList();
+                holidayVm holidayVm = new holidayVm();
+                List<calendarVM> holidayList = new List<calendarVM>();
+                foreach (HolidayList item in obj)
+                {
+                    calendarVM list = new calendarVM();
+                    list.title = item.Description;
+                    list.date = item.Date;
+
+                    var strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+
+                    var context = new HttpContextWrapper(System.Web.HttpContext.Current);
+                    string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
+                    list.url = hrefUrl;
+                    holidayList.Add(list);
+
+                    
+
+                    holidayVm.calendarVM = holidayList;
+                    holidayVm.HolidayList = dbContext.HolidayLists.Where(x => x.HolidayId == HolidayId).FirstOrDefault();
+                }
+                return View("HolidayList", holidayVm);
+            }
+            
         }
 
         public PartialViewResult GetHolidayList(int holidayId)
@@ -270,9 +328,14 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult events()
+        public JsonResult Events()
         {
-            return Json(new { }, JsonRequestBehavior.AllowGet);
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                List<HolidayList> holidayList = dbContext.HolidayLists.ToList();
+
+                return Json(holidayList, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }

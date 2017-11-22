@@ -34,8 +34,8 @@
 
                                                 <tr>
                                                     <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeName</td>
-                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate</td>
-                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate.ToString("MM/dd/yyyy")</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate.ToString("MM/dd/yyyy")</td>
                                                     <td>Pending</td>
                                                 </tr>
                                             }

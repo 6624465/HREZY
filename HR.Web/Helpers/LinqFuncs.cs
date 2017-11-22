@@ -67,12 +67,5 @@ namespace HR.Web
             return leaves;
         }
 
-        public static string leaveWhereBy(this DateTime dateTime, DateTime DateTime)
-        {
-
-            return "";
-        }
-
-
-    }
+           }
 }

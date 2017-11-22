@@ -67,9 +67,16 @@ namespace HR.Web
             return leaves;
         }
 
-        public static IQueryable<Leave> leaveWhereBy(this IQueryable<Leave> leaves, int BranchID, string RoleCode) {
+        public static string leaveWhereBy(this DateTime dateTime, DateTime DateTime)
+        {
 
-            return leaves;
+            return "";
+        }
+
+        public static IQueryable<EmployeeLeaveList> Between(this IQueryable<EmployeeLeaveList> empLeaveLists, DateTime FromDt, DateTime ToDt)
+        {
+            return empLeaveLists.Where(x => (DbFunctions.TruncateTime(x.FromDate) <= FromDt.Date && DbFunctions.TruncateTime(x.ToDate) >= FromDt.Date) || 
+                                            (DbFunctions.TruncateTime(x.FromDate) >= ToDt.Date && DbFunctions.TruncateTime(x.ToDate) <= ToDt.Date));
         }
 
 

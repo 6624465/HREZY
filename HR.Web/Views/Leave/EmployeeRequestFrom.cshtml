@@ -1,4 +1,7 @@
 ﻿@model HR.Web.Models.EmployeeLeaveList
+@{ 
+    var message = (string)ViewData["Message"] ?? "";    
+}
 @using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
 <div class="page">
@@ -7,14 +10,27 @@
             <div class="panel panel-default panel-hovered panel-stacked mb10">
                 <div class="panel-heading">Employee Leave Form</div>
                 <div class="panel-body">
+                    @if (!string.IsNullOrWhiteSpace(message))
+                    {
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <div>@message</div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    <div class="row css10">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="form-group">
                                     <label class="col-md-1 control-label">
                                         <span class="pull-right">From Date</span>
                                     </label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="input-group date" id="FromDt">
                                             @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCss", required = "required" })
                                             <span class="input-group-addon">
@@ -25,7 +41,7 @@
                                     <label class="col-md-1 control-label">
                                         <span class="pull-right">To Date</span>
                                     </label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="input-group date" id="ToDt">
                                             @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCss", required = "required" })
                                             <span class="input-group-addon">
@@ -43,7 +59,7 @@
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">Days</span>
                             </label>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 @Html.TextBoxFor(x => x.Days, new { @class = "form-control", required = "required", @readonly = "readonly" })
                             </div>
                             @*<label class="col-md-1 control-label">
@@ -58,7 +74,7 @@
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">LeaveType</span>
                             </label>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 @Html.DropDownListFor(x => x.LeaveTypeId,
                                 SelectListItemHelper.EmployeeLeaveType(),
                                 "Select Leave Type",
@@ -82,18 +98,22 @@
                                 @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control", maxlength = "500" })
                             </div>
                         </div>
-                     </div>
-                    <br /><br /><br />
+                     </div>                    
                     <div class="row css10">
                             <div class="col-md-9"></div>
                             <div class="form-group">
                                 <div class="col-md-3">
-                                    <button type="submit" class="btn btn-primary btn-sm" onclick="SaveEmployeeLeaveForm()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                                    <span class="pull-right">
+                                        <button type="submit" class="btn btn-primary btn-sm" onclick="SaveEmployeeLeaveForm()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                                    </span>                                    
                                     @*<button type="button" class="btn btn-default btn-sm" data-dismiss=""><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>*@
                                 </div>
                             </div>
                         </div>
                     </div>
+                <br />
+                <br />
+                <br />
              </div>
         </div>
     </div>

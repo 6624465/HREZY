@@ -289,7 +289,10 @@ namespace HR.Web.Controllers
                                 .FirstOrDefault();                    
                 }
                 else
-                    leave = new Leave { IsPaidLeaveCarryForward = false, IsCasualLeaveCarryForward = false, IsSickLeaveCarryForward = false };
+                    leave = dbContext.Leaves
+                                .Where(x=>x.BranchId== BRANCHID)
+                                .FirstOrDefault();
+                //new Leave { IsPaidLeaveCarryForward = false, IsCasualLeaveCarryForward = false, IsSickLeaveCarryForward = false };
                 return View(leave);
             }
         }
@@ -331,16 +334,6 @@ namespace HR.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public JsonResult Events()
-        {
-            using (HrDataContext dbContext = new HrDataContext())
-            {
-                List<HolidayList> holidayList = dbContext.HolidayLists.ToList();
-
-                return Json(holidayList, JsonRequestBehavior.AllowGet);
-            }
-        }
-
+       
     }
 }

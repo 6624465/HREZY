@@ -1,0 +1,41 @@
+﻿@model HR.Web.ViewModels.DashBoardVm
+@{
+    ViewBag.Title = "admindashboard";
+}
+@section Styles{
+    <style type="text/css">
+        .page-dashboard .mini-box .icon {
+            margin-top: -15px;
+            font-size: 43.2px;
+        }
+    </style>
+}
+
+<div class="page page-dashboard">
+    <div class="page-wrap">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default mb20 mini-box panel-hovered">
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            <div class="info left">
+                                <h3 class="mt0 text-primary text-bold">@Model.EmployeeCount</h3>
+                                <h3 class="text-light mb0">Total Employees</h3>
+                            </div>
+                            <div class="right ion ion-ios-people-outline icon"></div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                        <p class="mt0 mb0 left">
+                            <a style="color:white;" href="@Url.Content("~/Employee/employeedirectory")">Employees</a>
+                        </p>
+                        @*<span class="sparkline right" data-type="bar" data-barcolor="#fff" data-width="1.15em" data-height="1.15em"><canvas style="display: inline-block; width: 34px; height: 14px; vertical-align: top;" width="34" height="14"></canvas></span>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+

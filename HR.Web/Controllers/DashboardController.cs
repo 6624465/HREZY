@@ -27,15 +27,9 @@ namespace HR.Web.Controllers
                                         .Where(x => x.BranchId == BRANCHID)
                                         .Count();
 
-                    obj.lineChartData = dbCntx.usp_EmployeeDateOfJoiningDate(UTILITY.SINGAPORETIME)
+                    obj.lineChartData = dbCntx.usp_EmployeeDateOfJoiningDate(UTILITY.SINGAPORETIME, BRANCHID)
                                             .ToList()
                                             .AsEnumerable();
-                    //var lineChartData = dbCntx.EmployeeHeaders
-                    //                        .Join(dbCntx.EmployeeWorkDetails,
-                    //                        a => new { a.BranchId, a.EmployeeId }, 
-                    //                        b => new { b.BranchId, b.EmployeeId }, 
-                    //                        (a, b) => new { A = a, B = b });
-
                     return View("admindashboard", obj);
                 }
             }

@@ -45,13 +45,17 @@ namespace HR.Web.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Leave> Leaves { get; set; }
     
-        public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt)
+        public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)
         {
             var currentDtParameter = currentDt.HasValue ?
                 new ObjectParameter("CurrentDt", currentDt) :
                 new ObjectParameter("CurrentDt", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDateOfJoiningDate_Result>("usp_EmployeeDateOfJoiningDate", currentDtParameter);
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDateOfJoiningDate_Result>("usp_EmployeeDateOfJoiningDate", currentDtParameter, branchIdParameter);
         }
     }
 }

@@ -324,6 +324,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
         </EntityType>
         <Function Name="usp_EmployeeDateOfJoiningDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Operation">
           <Parameter Name="CurrentDt" Type="datetime" Mode="In" />
+          <Parameter Name="BranchId" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="DB_9F30C5_HRDBModelStoreContainer">
           <EntitySet Name="LookUp" EntityType="Self.LookUp" Schema="Config" store:Type="Tables" />
@@ -441,7 +442,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
           <FunctionImport Name="usp_EmployeeDateOfJoiningDate" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDateOfJoiningDate_Result)">
-            <Parameter Name="CurrentDt" Mode="In" Type="DateTime" />
+          <Parameter Name="CurrentDt" Mode="In" Type="DateTime" />
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="User">

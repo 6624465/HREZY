@@ -1,6 +1,7 @@
-﻿@model IEnumerable<HR.Web.ViewModels.AppliedLeaveListVm>
+﻿@model IEnumerable<HR.Web.Models.EmployeeLeaveList>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <div class="page">
@@ -10,23 +11,29 @@
                     <div class="panel panel-default ng-isolate-scope">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a href="#collapse" data-toggle="collapse" class="accordion-toggle" data-parent="#accordionDemo"><b></b></a>
+                                <a href="#collapse" data-toggle="collapse" class="accordion-toggle" data-parent="#accordionDemo"><b>Singapore</b></a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse in" id="collapse">
                             <div class="panel-body">
-                                <div>
-                                    <table class="table table-bordered">
+                                <div class="col-md-12">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>EmployeeId</th>
-                                                <th>From Date</th>
-                                                <th>To Date</th>
-
+                                                <th>FromDate</th>
+                                                <th>ToDate</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-  
+                                            @for (var i = 0; i < Model.Count(); i++)
+                                            {
+                                            <tr>
+                                                <td>@Model.ElementAt(i).EmployeeId</td>
+                                                <td>@Model.ElementAt(i).FromDate</td>
+                                                <td>@Model.ElementAt(i).ToDate</td>
+                                            </tr>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>

@@ -3,8 +3,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
@@ -38,16 +36,26 @@
                                                     <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate</td>
                                                 </tr>
                                             }
-                                        </tbody>
-
-                                    </table>
+                                                @*@for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
+                                                {
+                                                        WebGrid grid = new WebGrid(Model.ElementAt(i).employeeLeaveList);
+                                                        grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm");
+                                                @grid.GetHtml(
+                                                              columns: grid.Columns(
+                                                              grid.Column("EmployeeId", "EmployeeId", canSort: true),
+                                                              grid.Column("FromDate", "From Date", canSort: true),
+                                                              grid.Column("ToDate", "To Date", canSort: true)),
+                                                              tableStyle: "table table-condensed")
+                                                    }*@
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>

@@ -2,6 +2,8 @@
 using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -154,17 +156,21 @@ namespace HR.Web.Controllers
             string viewName = string.Empty;
             using (var dbCntx = new HrDataContext())
             {
-                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.empLeaveListWhere(ROLECODE, BRANCHID, EMPLOYEEID, ref viewName),
+                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.
+                    empLeaveListWhere(ROLECODE, BRANCHID, EMPLOYEEID, ref viewName),
                         a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })
+
                         .Select(x => new AppliedLeaveListVm
                         {
                             BranchID = x.A.BranchID,
                             BranchName = x.A.BranchName,
                             employeeLeaveList = x.B.Select(y => new EmpLeaveListVm
                             {
+                                EmployeeName = dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).FirstOrDefault().FirstName
+                               + " " + dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).FirstOrDefault().LastName,
                                 EmployeeId = y.EmployeeId,
                                 FromDate = y.FromDate,
-                                ToDate = y.ToDate
+                                ToDate =y.ToDate
                             })
                         }).ToList();
 
@@ -306,7 +312,6 @@ namespace HR.Web.Controllers
                     leave = dbContext.Leaves
                                 .Where(x => x.BranchId == BRANCHID)
                                 .FirstOrDefault();
-                //new Leave { IsPaidLeaveCarryForward = false, IsCasualLeaveCarryForward = false, IsSickLeaveCarryForward = false };
                 return View(leave);
             }
         }
@@ -332,9 +337,9 @@ namespace HR.Web.Controllers
                     updateLeave.CasualLeavesPerYear = leave.CasualLeavesPerYear;
                     updateLeave.CountryCode = leave.CountryCode;
                     updateLeave.CountryName = leave.CountryName;
-                    updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward == null ? false : leave.IsCasualLeaveCarryForward;
-                    updateLeave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward == null ? false : leave.IsPaidLeaveCarryForward;
-                    updateLeave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward == null ? false : leave.IsSickLeaveCarryForward;
+                    updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward;
+                    updateLeave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward;
+                    updateLeave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward;
                     updateLeave.PaidLeavesPerMonth = leave.PaidLeavesPerMonth;
                     updateLeave.PaidLeavesPerYear = leave.PaidLeavesPerYear;
                     updateLeave.SickLeavesPerMonth = leave.SickLeavesPerMonth;

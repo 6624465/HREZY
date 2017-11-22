@@ -217,7 +217,7 @@ namespace HR.Web.Controllers
                 else
                 {
                     ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
-                    return View("EmployeeRequestFrom", EmployeeLeaveList);
+                    return View("EmployeeRequestFrom");
                 }
                 
             }

@@ -7,10 +7,11 @@
     <div class="page-wrap">
         <div class="panel panel-default">
             <div class="panel-group" id="accordionDemo">
+
                 <div class="panel panel-default ng-isolate-scope">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a href="#collapse" data-toggle="collapse" class="accordion-toggle" data-parent="#accordionDemo"><b></b></a>
+                            <a href="#collapse" data-toggle="collapse" class="accordion-toggle" data-parent="#accordionDemo"><b>BranchName</b></a>
                         </h4>
                     </div>
                     <div class="panel-collapse collapse in" id="collapse">
@@ -25,7 +26,20 @@
 
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                       @for (var i = 0; i < Model.Count(); i++)
+                                       {
+                                            for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
+                                            {
+
+                                                <tr>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeId</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate</td>
+                                                </tr>
+                                            }
+                                       }
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

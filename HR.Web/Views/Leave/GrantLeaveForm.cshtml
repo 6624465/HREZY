@@ -28,14 +28,14 @@
                                 <div>
                                     @Html.DropDownListFor(x => x.leaveHeader.PeriodicityType,
                                     SelectListItemHelper.PeriodicityTypeList(),
-                                    "Select Period",
+                                    "Select Periodicity",
                                     new { @class = "form-control" })
                                 </div>
-                                <label>Period:</label>Periodicity
+                                <label>PeriodType:</label>
                                 <div>
                                     @Html.DropDownListFor(x =>x.leaveHeader.PeriodType,
                                     SelectListItemHelper.PeriodTypeList(),
-                                    "Select Periodicity",
+                                    "Select Period",
                                     new { @class = "form-control" })
                                 </div>
 
@@ -59,8 +59,11 @@
                 <div class="box" id="grid">
                     <div class="box-header">
                         <h4>Granted List</h4>
-                        <div class="col-md-12">
-                            @grid.GetHtml(
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                    @grid.GetHtml(
                          columns: grid.Columns(
 
                          grid.Column("LeaveYearDescription", "Leave Granter", canSort: true),
@@ -68,11 +71,17 @@
                          grid.Column("PeriodTypeDescription", "Period", canSort: true),
                          grid.Column("LeaveSchemeTypeDescription", "Leave Scheme", canSort: true)
                         ), tableStyle: "table table-condensed")
+                                </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                            </div>
+                        </div>
+                        </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
 
     </div>

@@ -66,13 +66,11 @@
             $('#li_empdesignation').addClass('active');
         });
         function editEmpDesignation(lookupID) {
-            debugger;
             $.ajax({
                 url: '@Url.Content("~/Config/GetEmployeeDesignation?lookupID=")' + lookupID,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    debugger;
                     $('#myDesignationModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);

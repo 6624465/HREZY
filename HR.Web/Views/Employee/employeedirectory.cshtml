@@ -1,9 +1,13 @@
 ﻿@model HR.Web.ViewModels.EmpDirectoryVm
 
-@{
-    WebGrid grid = new WebGrid(Model.employeeVm, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
 
-}
+    <div id="ajaxgrid">
+        @{ 
+            WebGrid grid = new WebGrid(Model.employeeVm, rowsPerPage: 10, ajaxUpdateContainerId: "ajaxgrid");
+        }
+    </div>
+
+
 <div class="page">
     
     <div class="page-wrap">
@@ -67,7 +71,7 @@
                             </div>
                             <div class="col-md-2 col-md-offset-1">
                                 <button type="submit" class="btn btn-info btn-raised waves-effect btn-sm">Search</button>
-                                <button type="button" id="refresh_button" class="btn btn-info btn-raised waves-effect btn-sm">Refresh</button>
+                                @*<button type="button" id="refresh_button" class="btn btn-info btn-raised waves-effect btn-sm">Refresh</button>*@
                             </div>
                         </div>
                     </div>
@@ -77,7 +81,7 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div class="box" id="grid">
+            <div class="box" id="ajaxgrid">
                 <div class="box-header">
                     <h4>Employee List</h4>
                     <div class="box-tools">

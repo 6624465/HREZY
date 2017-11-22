@@ -141,8 +141,8 @@
         $("#ToDt").on("dp.change", function (e) {
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
-            var from = moment(fromDate, 'DD/MM/YYYY');
-            var to = moment(toDate, 'DD/MM/YYYY');
+            var from = moment(fromDate, 'MM/DD/YYYY');
+            var to = moment(toDate, 'MM/DD/YYYY');
             var days = moment.duration(to.diff(from)).asDays();
             $('#Days').val(days);
         });

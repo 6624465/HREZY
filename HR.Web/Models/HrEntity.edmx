@@ -85,15 +85,15 @@
           <Property Name="CountryCode" Type="nvarchar" MaxLength="10" />
           <Property Name="PaidLeavesPerYear" Type="int" />
           <Property Name="PaidLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="IsPaidLeaveCarryForward" Type="bit" />
+          <Property Name="IsPaidLeaveCarryForward" Type="bit" Nullable="false" />
           <Property Name="CarryForwardPerYear" Type="nvarchar" MaxLength="50" />
           <Property Name="SickLeavesPerYear" Type="int" />
           <Property Name="SickLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="IsSickLeaveCarryForward" Type="bit" />
+          <Property Name="IsSickLeaveCarryForward" Type="bit" Nullable="false" />
           <Property Name="CarryForwardSickLeaves" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CasualLeavesPerYear" Type="int" />
           <Property Name="CasualLeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="IsCasualLeaveCarryForward" Type="bit" />
+          <Property Name="IsCasualLeaveCarryForward" Type="bit" Nullable="false" />
           <Property Name="BranchId" Type="bigint" />
         </EntityType>
         <EntityType Name="Address">
@@ -815,15 +815,15 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="PaidLeavesPerYear" Type="Int32" />
           <Property Name="PaidLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsPaidLeaveCarryForward" Type="Boolean" />
+          <Property Name="IsPaidLeaveCarryForward" Type="Boolean" Nullable="false" />
           <Property Name="CarryForwardPerYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SickLeavesPerYear" Type="Int32" />
           <Property Name="SickLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsSickLeaveCarryForward" Type="Boolean" />
+          <Property Name="IsSickLeaveCarryForward" Type="Boolean" Nullable="false" />
           <Property Name="CarryForwardSickLeaves" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CasualLeavesPerYear" Type="Int32" />
           <Property Name="CasualLeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsCasualLeaveCarryForward" Type="Boolean" />
+          <Property Name="IsCasualLeaveCarryForward" Type="Boolean" Nullable="false" />
           <Property Name="BranchId" Type="Int64" />
         </EntityType>
         <Association Name="EmployeeHeaderUser">

@@ -66,14 +66,14 @@ namespace HR.Web.Controllers
                     list.url = hrefUrl;
                     holidayList.Add(list);
 
-                    
+
 
                     holidayVm.calendarVM = holidayList;
                     holidayVm.HolidayList = dbContext.HolidayLists.Where(x => x.HolidayId == HolidayId).FirstOrDefault();
                 }
                 return View("HolidayList", holidayVm);
             }
-            
+
         }
 
         public PartialViewResult GetHolidayList(int holidayId)
@@ -286,10 +286,13 @@ namespace HR.Web.Controllers
                 {
                     leave = dbContext.Leaves
                                 .leaveWhere(BRANCHID, ROLECODE)
-                                .FirstOrDefault();                    
+                                .FirstOrDefault();
                 }
                 else
-                    leave = new Leave { IsPaidLeaveCarryForward = false, IsCasualLeaveCarryForward = false, IsSickLeaveCarryForward = false };
+                    leave = dbContext.Leaves
+                                .Where(x => x.BranchId == BRANCHID)
+                                .FirstOrDefault();
+                //new Leave { IsPaidLeaveCarryForward = false, IsCasualLeaveCarryForward = false, IsSickLeaveCarryForward = false };
                 return View(leave);
             }
         }
@@ -300,9 +303,6 @@ namespace HR.Web.Controllers
             {
                 if (leave.LeaveId == 0)
                 {
-                    leave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward == null ? false : leave.IsCasualLeaveCarryForward;
-                    leave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward == null ? false : leave.IsPaidLeaveCarryForward;
-                    leave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward == null ? false : leave.IsSickLeaveCarryForward;
                     leave.BranchId = BRANCHID;
                     dbContext.Leaves.Add(leave);
                 }
@@ -331,16 +331,6 @@ namespace HR.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public JsonResult Events()
-        {
-            using (HrDataContext dbContext = new HrDataContext())
-            {
-                List<HolidayList> holidayList = dbContext.HolidayLists.ToList();
-
-                return Json(holidayList, JsonRequestBehavior.AllowGet);
-            }
-        }
 
     }
 }

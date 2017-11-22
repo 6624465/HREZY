@@ -67,6 +67,11 @@ namespace HR.Web
             return leaves;
         }
 
+        public static IQueryable<Leave> leaveWhereBy(this IQueryable<Leave> leaves, int BranchID, string RoleCode) {
+
+            return leaves;
+        }
+
 
     }
 }

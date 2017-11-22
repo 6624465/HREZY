@@ -12,6 +12,8 @@ namespace HR.Web.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class HrDataContext : DbContext
     {
@@ -42,5 +44,14 @@ namespace HR.Web.Models
         public virtual DbSet<EmployeeDocumentDetail> EmployeeDocumentDetails { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Leave> Leaves { get; set; }
+    
+        public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt)
+        {
+            var currentDtParameter = currentDt.HasValue ?
+                new ObjectParameter("CurrentDt", currentDt) :
+                new ObjectParameter("CurrentDt", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDateOfJoiningDate_Result>("usp_EmployeeDateOfJoiningDate", currentDtParameter);
+        }
     }
 }

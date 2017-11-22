@@ -191,7 +191,7 @@ namespace HR.Web.Controllers
                 obj.FromDate = EmployeeLeaveList.FromDate;
                 obj.ToDate = EmployeeLeaveList.ToDate;
                 obj.Days = EmployeeLeaveList.Days;
-                obj.EmployeeId = EmployeeLeaveList.EmployeeId;
+                obj.EmployeeId = EMPLOYEEID;
                 obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
                 obj.Remarks = EmployeeLeaveList.Remarks;
                 obj.Reason = EmployeeLeaveList.Reason;

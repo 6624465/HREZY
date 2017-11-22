@@ -35,19 +35,20 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>EmployeeId</th>
+                                                <th>EmployeeName</th>
                                                 <th>From Date</th>
                                                 <th>To Date</th>
-
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
                                             {
                                                 <tr>
-                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeId</td>
-                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate</td>
-                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeName</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate.Date.ToString("MM/dd/yyyy")</td>
+                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate.ToString("MM/dd/yyyy")</td>
+                                                    <td>Pending</td>
                                                 </tr>
                                             }
                                                 @*@for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)

@@ -30,6 +30,7 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Role" Width="1.5" PointX="5.375" PointY="12.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Leave" Width="1.5" PointX="14.375" PointY="0.75" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderUser" />
+        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

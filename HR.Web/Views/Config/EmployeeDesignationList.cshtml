@@ -23,7 +23,7 @@
                 grid.Column("LookUpCode", "Employee Designation Name", canSort: true),
                 grid.Column("LookUpDescription", "Employee Designation Description", canSort: true),
                 //grid.Column("IsActive", "Status"),
-                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
+                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table table-condensed")
                     </div>
                     <div class="row">
@@ -48,8 +48,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info" onclick="SaveDesignation()">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="SaveDesignation()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                 </div>
             </div>
 

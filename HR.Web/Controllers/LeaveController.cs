@@ -41,51 +41,51 @@ namespace HR.Web.Controllers
 
         public ActionResult SaveHoliday(HolidayList holidaylist)
         {
-         
-                if (holidaylist.HolidayId != -1)
+
+            if (holidaylist.HolidayId != -1)
+            {
+                using (var dbnctx = new HrDataContext())
                 {
-                    using (var dbnctx = new HrDataContext())
-                    {
-                        var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
+                    var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
 
-                        _holidaylistObj.HolidayId = holidaylist.HolidayId;
-                        _holidaylistObj.Date = holidaylist.Date;
-                        _holidaylistObj.Description = holidaylist.Description;
-                        _holidaylistObj.CountryId = holidaylist.CountryId;
-                        _holidaylistObj.ModifiedBy = USERID;
-                        _holidaylistObj.ModifiedOn = UTILITY.SINGAPORETIME;
+                    _holidaylistObj.HolidayId = holidaylist.HolidayId;
+                    _holidaylistObj.Date = holidaylist.Date;
+                    _holidaylistObj.Description = holidaylist.Description;
+                    _holidaylistObj.CountryId = holidaylist.CountryId;
+                    _holidaylistObj.ModifiedBy = USERID;
+                    _holidaylistObj.ModifiedOn = UTILITY.SINGAPORETIME;
 
-                        dbnctx.SaveChanges();
-                    }
+                    dbnctx.SaveChanges();
                 }
-                else
+            }
+            else
+            {
+
+                using (var dbntcx = new HrDataContext())
                 {
-
-                    using (var dbntcx = new HrDataContext())
+                    var holidaylistobj = new HolidayList
                     {
-                        var holidaylistobj = new HolidayList
-                        {
-                            BranchID = BRANCHID,
-                            HolidayId = holidaylist.HolidayId,
-                            Date = holidaylist.Date,
-                            Description = holidaylist.Description,
-                            CountryId = holidaylist.CountryId,
-                            CreatedOn = UTILITY.SINGAPORETIME,
-                            CreatedBy = USERID,
-                            ModifiedOn = UTILITY.SINGAPORETIME,
-                            ModifiedBy = USERID
-                        };
-                        dbntcx.HolidayLists.Add(holidaylistobj);
-                        dbntcx.SaveChanges();
-                    }
+                        BranchID = BRANCHID,
+                        HolidayId = holidaylist.HolidayId,
+                        Date = holidaylist.Date,
+                        Description = holidaylist.Description,
+                        CountryId = holidaylist.CountryId,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        CreatedBy = USERID,
+                        ModifiedOn = UTILITY.SINGAPORETIME,
+                        ModifiedBy = USERID
+                    };
+                    dbntcx.HolidayLists.Add(holidaylistobj);
+                    dbntcx.SaveChanges();
                 }
-            
+            }
+
             return RedirectToAction("HolidayList");
 
         }
-      
-        
-        
+
+
+
 
 
         #endregion
@@ -97,7 +97,7 @@ namespace HR.Web.Controllers
             using (var dbCntx = new HrDataContext())
             {
                 var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.empLeaveListWhere(ROLECODE, BRANCHID, EMPLOYEEID, ref viewName),
-                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })                        
+                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })
                         .Select(x => new AppliedLeaveListVm
                         {
                             BranchID = x.A.BranchID,

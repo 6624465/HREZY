@@ -41,13 +41,11 @@
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    debugger;
                     $('#myRoleModal').modal('show');
                     $('#roleContent').html('');
                     $('#roleContent').html(data);
                 },
                 error: function (err) {
-                    debugger;
                 }
             });
         }

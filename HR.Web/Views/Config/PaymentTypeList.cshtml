@@ -61,13 +61,11 @@
             $('#li_paymenttype').addClass('active');
         });
         function editPaymentType(lookupID) {
-            debugger;
             $.ajax({
                 url: '@Url.Content("~/Config/GetPaymentType?lookupID=")' + lookupID,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    debugger;
                     $('#myStatusModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);

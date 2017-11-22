@@ -109,8 +109,8 @@
     });
 
     $('input').iCheck({
-        checkboxClass: 'icheckbox_flat',
-        radioClass: 'iradio_flat',
+        checkboxClass: 'icheckbox_flat-blue',
+        radioClass: 'iradio_flat-blue',
         increaseArea: '20%' // optional
     });
 

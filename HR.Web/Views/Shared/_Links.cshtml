@@ -17,7 +17,7 @@
             </a>
             <ul class="inner-drop list-unstyled">
                 <li id="li_holidaylist"><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
-                <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+                @*<li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>*@
                 <li id="li_empadd"><a href="#">View Leaves</a></li>
                 <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
                 <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
@@ -25,33 +25,7 @@
         </li>
     </ul>
 }
-else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
-{
-    <ul class="list-unstyled clearfix nav-list mb15">
-        <li id="li_Dashboard">
-            <a href="@Url.Content("~/Dashboard/Index")">
-                <i class="ion ion-monitor"></i>
-                <span class="text">Dashboard</span>
-            </a>
-        </li>
-        <li id="li_Leave">
-            <a href="javascript:;">
-                <i class="ion ion-ionic"></i>
-                <span class="text">Leave</span>
-                <i class="arrow ion-chevron-left"></i>
-            </a>
-            <ul class="inner-drop list-unstyled">
-                <li id="li_empdir"><a href="@Url.Content("~/Leave/LeaveList")">Leave</a></li>
-                <li id="li_holidaylist"><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
-                <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
-                <li id="li_empadd"><a href="#">View Leaves</a></li>
-                <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
-                <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
-                 </ul>
-        </li>
-    </ul>
-}
-else
+else if(Model.RoleCode == UTILITY.ROLE_ADMIN)
 {
     <ul class="list-unstyled clearfix nav-list mb15">
         <li id="li_Dashboard">
@@ -111,7 +85,8 @@ else
                 <li id="li_empdir"><a href="@Url.Content("~/Leave/Leave")">Leave</a></li>
                 <li id="li_holidaylist"><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
                 <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
-                <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Employee Leave Request</a></li>
+                <li id="li_empadd"><a href="#">View Leaves</a></li>
+                <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
                 <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
             </ul>
         </li>
@@ -127,4 +102,30 @@ else
             </ul>
         </li>
     </ul>
+}
+else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
+{
+<ul class="list-unstyled clearfix nav-list mb15">
+    <li id="li_Dashboard">
+        <a href="@Url.Content("~/Dashboard/Index")">
+            <i class="ion ion-monitor"></i>
+            <span class="text">Dashboard</span>
+        </a>
+    </li>
+    <li id="li_Leave">
+        <a href="javascript:;">
+            <i class="ion ion-ionic"></i>
+            <span class="text">Leave</span>
+            <i class="arrow ion-chevron-left"></i>
+        </a>
+        <ul class="inner-drop list-unstyled">
+            <li id="li_empdir"><a href="@Url.Content("~/Leave/LeaveList")">Leave Policy</a></li>
+            <li id="li_holidaylist"><a href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
+            <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+            <li id="li_empadd"><a href="#">View Leaves</a></li>
+            <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
+            <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+        </ul>
+    </li>
+</ul>
 }

@@ -14,7 +14,7 @@ namespace HR.Web.Controllers
     [Authorize]
     public class LeaveController : BaseController
     {
-
+        
 
         // GET: Leave
         #region HolidayList
@@ -152,7 +152,7 @@ namespace HR.Web.Controllers
 
 
         public ViewResult AppliedLeaveList()
-        {
+        {            
             string viewName = string.Empty;
             using (var dbCntx = new HrDataContext())
             {
@@ -197,7 +197,7 @@ namespace HR.Web.Controllers
                 obj.FromDate = EmployeeLeaveList.FromDate;
                 obj.ToDate = EmployeeLeaveList.ToDate;
                 obj.Days = EmployeeLeaveList.Days;
-                obj.EmployeeId = EmployeeLeaveList.EmployeeId;
+                obj.EmployeeId = EMPLOYEEID;
                 obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
                 obj.Remarks = EmployeeLeaveList.Remarks;
                 obj.Reason = EmployeeLeaveList.Reason;

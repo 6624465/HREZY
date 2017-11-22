@@ -152,10 +152,12 @@
             $('#frmCompany').validate({
                 rules: {
                     'company.CompanyCode': {
-                        required: true
+                        required: true,
+                        maxlength:20
                     },
                     'company.CompanyName': {
-                        required: true
+                        required: true,
+                        maxlength:200
                     },
                     'company.RegNo': {
                         required: true
@@ -164,7 +166,8 @@
                     //    required: true
                     //},
                     'Address1': {
-                        required: true
+                        required: true,
+                        maxlength:200
                     },
                     'CityName': {
                         required: true

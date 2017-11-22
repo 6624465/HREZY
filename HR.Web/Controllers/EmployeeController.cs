@@ -12,7 +12,7 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 
 namespace HR.Web.Controllers
-{   
+{
 
     [Authorize]
     public class EmployeeController : BaseController
@@ -29,8 +29,8 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeeWorkDetails,
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
-                            .Join(dbCntx.EmployeeAddresses,
-                            e => e.C.A.EmployeeId, f => f.EmployeeId,
+                            .Join(dbCntx.Addresses,
+                            e => e.C.A.EmployeeId, f => f.LinkID,
                             (e, f) => new { E = e, F = f })
                             .Select(x => new EmployeeListVm
                             {
@@ -73,8 +73,8 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
-                            .Join(dbCntx.EmployeeAddresses,
-                            e => e.C.A.EmployeeId, f => f.EmployeeId,
+                            .Join(dbCntx.Addresses,
+                            e => e.C.A.EmployeeId, f => f.LinkID,
                             (e, f) => new { E = e, F = f })
                             .Select(x => new EmployeeListVm
                             {
@@ -115,8 +115,8 @@ namespace HR.Web.Controllers
                                 .Join(dbCntx.EmployeeWorkDetails,
                                 c => c.A.EmployeeId, d => d.EmployeeId,
                                 (c, d) => new { C = c, D = d })
-                                .Join(dbCntx.EmployeeAddresses,
-                                e => e.C.A.EmployeeId, f => f.EmployeeId,
+                                .Join(dbCntx.Addresses,
+                                e => e.C.A.EmployeeId, f => f.LinkID,
                                 (e, f) => new { E = e, F = f })
 
                                 .Where(x => x.E.C.A.EmployeeId == EmployeeId)
@@ -213,7 +213,7 @@ namespace HR.Web.Controllers
                         {
                             BranchId = BRANCHID,
                             JoiningDate = empVm.empWorkDetail.JoiningDate,
-                            ConfirmationDate =empVm.empWorkDetail.ConfirmationDate,
+                            ConfirmationDate = empVm.empWorkDetail.ConfirmationDate,
                             ProbationPeriod = empVm.empWorkDetail.ProbationPeriod,
                             NoticePeriod = empVm.empWorkDetail.NoticePeriod,
                             DesignationId = empVm.empWorkDetail.DesignationId,
@@ -225,9 +225,9 @@ namespace HR.Web.Controllers
                             ModifiedOn = UTILITY.SINGAPORETIME
                         };
                         dbCntx.EmployeeWorkDetails.Add(empWorkDetail);
-                        var empAddress = new EmployeeAddress
+                        var empAddress = new Address
                         {
-                            EmployeeId = empHdr.EmployeeId,
+                            LinkID = empHdr.EmployeeId,
                             BranchId = BRANCHID,
                             Address1 = empVm.address.Address1,
                             Address2 = empVm.address.Address2,
@@ -246,7 +246,7 @@ namespace HR.Web.Controllers
                             ModifiedBy = USERID,
                             ModifiedOn = UTILITY.SINGAPORETIME
                         };
-                        dbCntx.EmployeeAddresses.Add(empAddress);
+                        dbCntx.Addresses.Add(empAddress);
                         dbCntx.SaveChanges();
                         foreach (var item in empVm.empDocument)
                         {
@@ -342,7 +342,7 @@ namespace HR.Web.Controllers
 
 
                         empWorkDetail.JoiningDate = empVm.empWorkDetail.JoiningDate;
-                        empWorkDetail.ConfirmationDate =empVm.empWorkDetail.ConfirmationDate;
+                        empWorkDetail.ConfirmationDate = empVm.empWorkDetail.ConfirmationDate;
                         empWorkDetail.ProbationPeriod = empVm.empWorkDetail.ProbationPeriod;
                         empWorkDetail.NoticePeriod = empVm.empWorkDetail.NoticePeriod;
                         empWorkDetail.DesignationId = empVm.empWorkDetail.DesignationId;
@@ -351,8 +351,9 @@ namespace HR.Web.Controllers
                         empWorkDetail.ModifiedBy = USERID;
                         empWorkDetail.ModifiedOn = UTILITY.SINGAPORETIME;
 
-                        var empAddress = dbCntx.EmployeeAddresses
-                                            .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
+                        var empAddress = dbCntx.Addresses
+                                            .Where(x => x.LinkID
+                                            == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
                                             .FirstOrDefault();
 
                         empAddress.Address1 = empVm.address.Address1;

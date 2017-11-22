@@ -1681,7 +1681,9 @@
     <Content Include="Scripts\Core\app.js" />
     <Content Include="Scripts\Core\bootstrap-rating.min.js" />
     <Content Include="Scripts\Core\c3.min.js" />
+    <Content Include="Scripts\Core\calendar.init.js" />
     <Content Include="Scripts\Core\d3.min.js" />
+    <Content Include="Scripts\Core\fullcalendar.min.js" />
     <Content Include="Scripts\Core\index.init.js" />
     <Content Include="Scripts\Core\jquery.easypiechart.min.js" />
     <Content Include="Scripts\Core\jquery.sparkline.min.js" />
@@ -1690,6 +1692,7 @@
     <Content Include="Scripts\Core\sitescript.js" />
     <Content Include="Scripts\Core\ui-bootstrap-tpls-2.4.0.min.js" />
     <Content Include="Scripts\Core\vendors.js" />
+    <Content Include="Scripts\Core\waves.min.js" />
     <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\icheck.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

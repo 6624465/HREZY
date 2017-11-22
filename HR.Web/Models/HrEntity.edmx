@@ -123,6 +123,7 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeAddress">
           <Key>
@@ -432,6 +433,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="EmployeeHeaderAddress" Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress">
+            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -602,6 +607,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="CompanyAddress">
           <End Type="DB_9F30C5_HRDBModel.Company" Role="Company" Multiplicity="1" />
@@ -826,6 +832,20 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="EmployeeHeaderAddress">
+          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeHeader">
+              <PropertyRef Name="EmployeeId" />
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="LinkID" />
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -982,6 +1002,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Address">
               <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />

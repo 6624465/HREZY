@@ -27,7 +27,7 @@
                 grid.Column("LookUpDescription", "Leave Type Description", canSort: true),
                 //grid.Column("IsActive", "Status", canSort: false),
                 @*grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
-                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
+                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table table-condensed")
                 </div>
             </div>
@@ -53,8 +53,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" onclick="SaveChanges()" class="btn btn-info btn-raised">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" onclick="SaveChanges()" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                     
                 </div>
             </div>
@@ -62,21 +62,19 @@
         </div>
     </div>
 }
+
 @section Scripts{
     <script type="text/javascript">
         $(function () {
-            
             $('#li_Master').addClass('open');
-            $('#li_leave').addClass('active');
+            $('#li_leave1').addClass('active');
         });
         function editLeaveType(lookupID) {
-            debugger
             $.ajax({
                 url: '@Url.Content("~/Config/GetLeaveType?lookupID=")' + lookupID,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    debugger
                     $('#myModal').modal('show');
                     $('#modalContent').html('');
                     $('#modalContent').html(data);

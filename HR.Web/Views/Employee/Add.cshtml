@@ -393,13 +393,14 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-primary btn-sm" type="button" onclick="SaveEmployee()">Save</button>
+                <button class="btn btn-primary btn-sm" type="button" onclick="SaveEmployee()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
             </div>
         </div>
     </div>
 }
 
 @section Scripts{
+<link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript">
         $(function () {
             //$('.form-control').addClass('input-sm');
@@ -411,9 +412,11 @@
                     time: 'fa fa-clock-o',
                     date: 'fa fa-calendar',
                     up: 'fa fa-arrow-up',
-                    down: 'fa fa-arrow-down'
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-arrow-left',
+                    next: 'fa fa-arrow-right'
                 },
-                format: 'DD/MM/YYYY'
+                format: 'MM/DD/YYYY'
             });
 
 

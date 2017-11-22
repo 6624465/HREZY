@@ -13,7 +13,7 @@ namespace HR.Web.ViewModels
         public EmployeePersonalDetail empPersonalDetail { get; set; }
         public EmployeeWorkDetail empWorkDetail { get; set; }
         //public IEnumerable<EmployeeDocumentVm> empDocumentDetail { get; set; }
-        public EmployeeAddress address { get; set; }
+        public Address address { get; set; }
 
         public List<EmployeeDocumentVm> empDocument { get; set; }
 

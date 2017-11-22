@@ -119,7 +119,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div>
-                    <button class="btn btn-primary btn-sm" type="button" onclick="SaveCompany()">Save</button>
+                    <button class="btn btn-primary btn-sm" type="button" onclick="SaveCompany()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                 </div>
             </div>
         </div>
@@ -142,7 +142,9 @@
                     time: 'fa fa-clock-o',
                     date: 'fa fa-calendar',
                     up: 'fa fa-arrow-up',
-                    down: 'fa fa-arrow-down'
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-arrow-left',
+                    next: 'fa fa-arrow-right'
                 },
                 format: 'DD/MM/YYYY'
             });
@@ -150,10 +152,12 @@
             $('#frmCompany').validate({
                 rules: {
                     'company.CompanyCode': {
-                        required: true
+                        required: true,
+                        maxlength:20
                     },
                     'company.CompanyName': {
-                        required: true
+                        required: true,
+                        maxlength:200
                     },
                     'company.RegNo': {
                         required: true
@@ -162,7 +166,8 @@
                     //    required: true
                     //},
                     'Address1': {
-                        required: true
+                        required: true,
+                        maxlength:200
                     },
                     'CityName': {
                         required: true

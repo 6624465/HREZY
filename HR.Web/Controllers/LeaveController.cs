@@ -188,18 +188,32 @@ namespace HR.Web.Controllers
             {
                 EmployeeLeaveList obj = new EmployeeLeaveList();
 
-                obj.FromDate = EmployeeLeaveList.FromDate;
-                obj.ToDate = EmployeeLeaveList.ToDate;
-                obj.Days = EmployeeLeaveList.Days;
-                obj.EmployeeId = EMPLOYEEID;
-                obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
-                obj.Remarks = EmployeeLeaveList.Remarks;
-                obj.Reason = EmployeeLeaveList.Reason;
-                obj.CreatedBy = USERID;
-                obj.CreatedOn = UTILITY.SINGAPORETIME;
-                dbCntx.EmployeeLeaveLists.Add(obj);
-                dbCntx.SaveChanges();
-                return View("EmployeeRequestFrom");
+                var isValid = dbCntx.EmployeeLeaveLists
+                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
+                                .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
+                                .Count();
+                if (isValid == 0)
+                {
+                    obj.FromDate = EmployeeLeaveList.FromDate;
+                    obj.ToDate = EmployeeLeaveList.ToDate;
+                    obj.Days = EmployeeLeaveList.Days;
+                    obj.EmployeeId = EMPLOYEEID;
+                    obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
+                    obj.Remarks = EmployeeLeaveList.Remarks;
+                    obj.Reason = EmployeeLeaveList.Reason;
+                    obj.CreatedBy = USERID;
+                    obj.CreatedOn = UTILITY.SINGAPORETIME;
+                    dbCntx.EmployeeLeaveLists.Add(obj);
+                    dbCntx.SaveChanges();
+
+                    return View("EmployeeRequestFrom");
+                }
+                else
+                {
+                    ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
+                    return View("EmployeeRequestFrom", EmployeeLeaveList);
+                }
+                
             }
         }
         public ActionResult GrantLeaveForm()

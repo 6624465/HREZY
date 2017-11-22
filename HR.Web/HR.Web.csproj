@@ -1928,6 +1928,7 @@
     <Content Include="Views\Leave\AppliedLeaveList.cshtml" />
     <Content Include="Views\Leave\AppliedLeaveListAdmin.cshtml" />
     <Content Include="Views\Leave\EmployeeLeaveList.cshtml" />
+    <Content Include="Views\Leave\LeaveList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

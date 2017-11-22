@@ -29,6 +29,10 @@ namespace HR.Web
         public static string SSN_EMPLOYEEID = "SSN_EMPLOYEEID";
         public static string SSN_BRANCHID = "SSN_BRANCHID";
 
+        public static string ROLE_SUPERADMIN = "SuperAdmin";
+        public static string ROLE_ADMIN = "Admin";
+        public static string ROLE_EMPLOYEE = "Employee";
+
 
         /* Config Keys Start */
         public static string CONFIG_EMPLOYEETYPE = "EmployeeType";

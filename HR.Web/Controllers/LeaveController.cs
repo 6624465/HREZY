@@ -331,6 +331,16 @@ namespace HR.Web.Controllers
             return View();
         }
 
+        public ActionResult ViewLeavesList()
+        {
+            using(var dbcntx=new HrDataContext())
+            {
+                var viewleavelist = dbcntx.EmployeeLeaveLists.Where(x => x.EmployeeId == EMPLOYEEID).ToList().AsEnumerable();
+                return View(viewleavelist);
+            }
+           
+        }
+
 
     }
 }

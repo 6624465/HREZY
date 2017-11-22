@@ -31,7 +31,11 @@ namespace HR.Web.Controllers
                     BRANCHID = userObj.BranchId;
                     ROLECODE = userObj.RoleCode;
                     EMPLOYEEID = userObj.EmployeeId;
-                    return RedirectToAction("Index", "Home");
+
+                    if (ROLECODE == UTILITY.ROLE_ADMIN || ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                        return RedirectToAction("Index", "Dashboard");
+                    else if(ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                        return RedirectToAction("Index", "Home");
                 }
             }
             return View();

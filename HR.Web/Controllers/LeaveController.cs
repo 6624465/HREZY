@@ -41,53 +41,51 @@ namespace HR.Web.Controllers
 
         public ActionResult SaveHoliday(HolidayList holidaylist)
         {
-            var dt = DbDateHelper.ToNullIfTooEarlyForDb(holidaylist.Date);
-            if (dt != null)
+
+            if (holidaylist.HolidayId != -1)
             {
-                if (holidaylist.HolidayId != -1)
+                using (var dbnctx = new HrDataContext())
                 {
-                    using (var dbnctx = new HrDataContext())
-                    {
-                        var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
+                    var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
 
-                        _holidaylistObj.HolidayId = holidaylist.HolidayId;
-                        _holidaylistObj.Date = holidaylist.Date;
-                        _holidaylistObj.Description = holidaylist.Description;
-                        _holidaylistObj.CountryId = holidaylist.CountryId;
-                        _holidaylistObj.ModifiedBy = USERID;
-                        _holidaylistObj.ModifiedOn = UTILITY.SINGAPORETIME;
+                    _holidaylistObj.HolidayId = holidaylist.HolidayId;
+                    _holidaylistObj.Date = holidaylist.Date;
+                    _holidaylistObj.Description = holidaylist.Description;
+                    _holidaylistObj.CountryId = holidaylist.CountryId;
+                    _holidaylistObj.ModifiedBy = USERID;
+                    _holidaylistObj.ModifiedOn = UTILITY.SINGAPORETIME;
 
-                        dbnctx.SaveChanges();
-                    }
-                }
-                else
-                {
-
-                    using (var dbntcx = new HrDataContext())
-                    {
-                        var holidaylistobj = new HolidayList
-                        {
-                            BranchID = BRANCHID,
-                            HolidayId = holidaylist.HolidayId,
-                            Date = holidaylist.Date,
-                            Description = holidaylist.Description,
-                            CountryId = holidaylist.CountryId,
-                            CreatedOn = UTILITY.SINGAPORETIME,
-                            CreatedBy = USERID,
-                            ModifiedOn = UTILITY.SINGAPORETIME,
-                            ModifiedBy = USERID
-                        };
-                        dbntcx.HolidayLists.Add(holidaylistobj);
-                        dbntcx.SaveChanges();
-                    }
+                    dbnctx.SaveChanges();
                 }
             }
+            else
+            {
+
+                using (var dbntcx = new HrDataContext())
+                {
+                    var holidaylistobj = new HolidayList
+                    {
+                        BranchID = BRANCHID,
+                        HolidayId = holidaylist.HolidayId,
+                        Date = holidaylist.Date,
+                        Description = holidaylist.Description,
+                        CountryId = holidaylist.CountryId,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        CreatedBy = USERID,
+                        ModifiedOn = UTILITY.SINGAPORETIME,
+                        ModifiedBy = USERID
+                    };
+                    dbntcx.HolidayLists.Add(holidaylistobj);
+                    dbntcx.SaveChanges();
+                }
+            }
+
             return RedirectToAction("HolidayList");
 
         }
-      
-        
-        
+
+
+
 
 
         #endregion
@@ -98,29 +96,8 @@ namespace HR.Web.Controllers
             string viewName = string.Empty;
             using (var dbCntx = new HrDataContext())
             {
-                Func<EmployeeLeaveList, bool> FuncWhere = delegate (EmployeeLeaveList empleaveList)
-                {
-                    if (ROLECODE == "SuperAdmin")
-                    {
-                        viewName = "AppliedLeaveList";
-                        return true;
-                    }
-                    else if (ROLECODE == "Admin")
-                    {
-                        viewName = "AppliedLeaveListAdmin";
-                        return empleaveList.BranchId == BRANCHID;
-                    }
-                    else if (ROLECODE == "Employee")
-                    {
-                        viewName = "EmployeeLeaveList";
-                        return empleaveList.BranchId == BRANCHID && empleaveList.EmployeeId == EMPLOYEEID;
-                    }
-
-                    return true;
-                };
-
-                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
-                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })                        
+                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.empLeaveListWhere(ROLECODE, BRANCHID, EMPLOYEEID, ref viewName),
+                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })
                         .Select(x => new AppliedLeaveListVm
                         {
                             BranchID = x.A.BranchID,
@@ -133,53 +110,7 @@ namespace HR.Web.Controllers
                             })
                         }).ToList();
 
-                return View("AppliedLeaveList", empLeaveList);
-
-                //var empLeaveList = dbCntx.EmployeeLeaveLists.Where(FuncWhere).ToList().AsEnumerable();
-                //   //.GroupBy(x=>x.BranchId);
-                //if (ROLECODE == "SuperAdmin")
-                //{
-                //    var list = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists,
-                //        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b }).Select(x => new {
-                //            Branchid=x.A.BranchID,
-                //            BranchName=x.A.BranchName,
-                //            LeaveList=x.B
-                //        }).ToList();
-                        
-                //    //var list = empLeaveList.Select(x => new {
-                //    //    BranchId=x.BranchId,
-                //    //    FromDate = x.FromDate,
-                //    //    ToDate=x.ToDate,
-                //    //    Days=x.Days,
-                //    //    Reason=x.Reason
-                //    //}).ToList();
-                //    return PartialView("_AppliedLeaveList", list);
-                //}
-                //else if (ROLECODE == "Admin")
-                //{
-                //    var list = empLeaveList.Where(m => m.BranchId == BRANCHID).Select(x => new EmployeeLeaveList
-                //    {
-                //        BranchId = x.BranchId,
-                //        FromDate = x.FromDate,
-                //        ToDate = x.ToDate,
-                //        Days = x.Days,
-                //        Reason = x.Reason
-                //    }).ToList().AsEnumerable();
-                //    return PartialView("_AppliedLeaveListAdmin", list);
-                //}
-                //else { 
-                //    var list = empLeaveList.Where(m=>m.BranchId==BRANCHID && m.EmployeeId==EMPLOYEEID).Select(x => new {
-                //        BranchId = x.BranchId,
-                //        FromDate = x.FromDate,
-                //        ToDate = x.ToDate,
-                //        Days = x.Days,
-                //        Reason = x.Reason
-                //    }).ToList();
-                
-                //    return PartialView("_EmployeeLeaveList", empLeaveList);
-                //}
-
-                  //  return null;
+                return View(viewName, empLeaveList);
             }
         }
         public ActionResult EmployeeRequestFrom()
@@ -294,11 +225,13 @@ namespace HR.Web.Controllers
 
                 Leave leave = null;
                 if (leaveId != 0)
-                    leave = dbContext.Leaves.
-                        Where(x => x.LeaveId == leaveId && x.BranchId == BRANCHID).FirstOrDefault();
+                {
+                    leave = dbContext.Leaves
+                                .leaveWhere(BRANCHID, ROLECODE)
+                                .FirstOrDefault();                    
+                }
                 else
-                    leave = dbContext.Leaves.
-                    Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                    leave = new Leave { IsPaidLeaveCarryForward = false, IsCasualLeaveCarryForward = false, IsSickLeaveCarryForward = false };
                 return View(leave);
             }
         }
@@ -317,8 +250,10 @@ namespace HR.Web.Controllers
                 }
                 else
                 {
-                    Leave updateLeave = dbContext.Leaves.
-                     Where(x => x.LeaveId == leave.LeaveId && x.BranchId == leave.BranchId).FirstOrDefault();
+                    Leave updateLeave = dbContext.Leaves
+                                           .leaveWhere(BRANCHID, ROLECODE)
+                                           .FirstOrDefault();
+
                     updateLeave.CarryForwardPerYear = leave.CarryForwardPerYear;
                     updateLeave.CarryForwardSickLeaves = leave.CarryForwardSickLeaves;
                     updateLeave.CasualLeavesPerMonth = leave.CasualLeavesPerMonth;

@@ -13,38 +13,6 @@ using System.Linq.Expressions;
 
 namespace HR.Web.Controllers
 {
-    public static class LinqFuncs
-    {
-        public static Func<EmployeeWorkDetail, DateTime?, int?, bool> FuncEmpWorkDetailWhere = delegate (EmployeeWorkDetail empWorkDetail, DateTime? DOJ, int? Designation)
-        {
-            var dtResult = true;
-            if (DOJ.HasValue)
-            {
-                dtResult = (DbFunctions.TruncateTime(empWorkDetail.JoiningDate) == DbFunctions.TruncateTime(DOJ.Value));
-            }
-
-            var desigResult = true;
-            if (Designation != null)
-                desigResult = (empWorkDetail.DesignationId == Designation);
-
-            return dtResult && desigResult;
-        };
-
-        public static Func<EmployeeHeader, string, int?, bool> FuncEmpHeaderWhere = delegate (EmployeeHeader empHeader, string EmployeeName, int? EmployeeType)
-        {
-            var nameResult = true;
-            if (!string.IsNullOrWhiteSpace(EmployeeName))
-            {
-                nameResult = (empHeader.FirstName == EmployeeName || empHeader.LastName == EmployeeName || empHeader.MiddleName == EmployeeName);
-            }
-
-            var empTypeResult = true;
-            if (EmployeeType != null)
-                empTypeResult = (empHeader.IDType == EmployeeType);
-
-            return nameResult && empTypeResult;
-        };
-    }
 
     [Authorize]
     public class EmployeeController : BaseController
@@ -61,8 +29,8 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeeWorkDetails,
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
-                            .Join(dbCntx.EmployeeAddresses,
-                            e => e.C.A.EmployeeId, f => f.EmployeeId,
+                            .Join(dbCntx.Addresses,
+                            e => e.C.A.EmployeeId, f => f.LinkID,
                             (e, f) => new { E = e, F = f })
                             .Select(x => new EmployeeListVm
                             {
@@ -96,50 +64,17 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ViewResult empsearch(EmpSearch empSearch)
         {
-
-            Func<EmployeeWorkDetail, bool> FuncEmpWorkDetailWhere = delegate (EmployeeWorkDetail empWorkDetail)
-            {
-                var dtResult = true;
-                if (empSearch.DOJ.HasValue)
-                {
-                    dtResult = (empWorkDetail.JoiningDate.Date == empSearch.DOJ.Value.Date);
-                }
-
-                var desigResult = true;
-                if (empSearch.Designation != null)
-                    desigResult = (empWorkDetail.DesignationId == empSearch.Designation);
-
-                return dtResult && desigResult;
-            };
-
-            Func<EmployeeHeader, bool> FuncEmpHeaderWhere = delegate (EmployeeHeader empHeader)
-            {
-                var nameResult = true;
-                if (!string.IsNullOrWhiteSpace(empSearch.EmployeeName))
-                {
-                    nameResult = (empHeader.FirstName == empSearch.EmployeeName || empHeader.LastName == empSearch.EmployeeName || empHeader.MiddleName == empSearch.EmployeeName);
-                }
-
-                var empTypeResult = true;
-                if (empSearch.EmployeeType != null)
-                    empTypeResult = (empHeader.IDType == empSearch.EmployeeType);
-
-                return nameResult && empTypeResult;
-            };
-
             using (var dbCntx = new HrDataContext())
             {
-
-
-                var list = dbCntx.EmployeeHeaders.Where(FuncEmpHeaderWhere)
+                var list = dbCntx.EmployeeHeaders.AdvSearchEmpHeaderWhere(empSearch.EmployeeName, empSearch.EmployeeType)
                             .Join(dbCntx.EmployeePersonalDetails,
                             a => a.EmployeeId, b => b.EmployeeId,
                             (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails.Where(FuncEmpWorkDetailWhere),
+                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
-                            .Join(dbCntx.EmployeeAddresses,
-                            e => e.C.A.EmployeeId, f => f.EmployeeId,
+                            .Join(dbCntx.Addresses,
+                            e => e.C.A.EmployeeId, f => f.LinkID,
                             (e, f) => new { E = e, F = f })
                             .Select(x => new EmployeeListVm
                             {
@@ -180,8 +115,8 @@ namespace HR.Web.Controllers
                                 .Join(dbCntx.EmployeeWorkDetails,
                                 c => c.A.EmployeeId, d => d.EmployeeId,
                                 (c, d) => new { C = c, D = d })
-                                .Join(dbCntx.EmployeeAddresses,
-                                e => e.C.A.EmployeeId, f => f.EmployeeId,
+                                .Join(dbCntx.Addresses,
+                                e => e.C.A.EmployeeId, f => f.LinkID,
                                 (e, f) => new { E = e, F = f })
 
                                 .Where(x => x.E.C.A.EmployeeId == EmployeeId)
@@ -290,9 +225,9 @@ namespace HR.Web.Controllers
                             ModifiedOn = UTILITY.SINGAPORETIME
                         };
                         dbCntx.EmployeeWorkDetails.Add(empWorkDetail);
-                        var empAddress = new EmployeeAddress
+                        var empAddress = new Address
                         {
-                            EmployeeId = empHdr.EmployeeId,
+                            LinkID = empHdr.EmployeeId,
                             BranchId = BRANCHID,
                             Address1 = empVm.address.Address1,
                             Address2 = empVm.address.Address2,
@@ -311,7 +246,7 @@ namespace HR.Web.Controllers
                             ModifiedBy = USERID,
                             ModifiedOn = UTILITY.SINGAPORETIME
                         };
-                        dbCntx.EmployeeAddresses.Add(empAddress);
+                        dbCntx.Addresses.Add(empAddress);
                         dbCntx.SaveChanges();
                         foreach (var item in empVm.empDocument)
                         {
@@ -339,7 +274,21 @@ namespace HR.Web.Controllers
 
                             }
                         }
+                        User user = new User()
+                        {
+                            BranchId = BRANCHID,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            Email = empHdr.UserEmailId,
+                            EmployeeId = empHdr.EmployeeId,
+                            IsActive = true,
+                            MobileNumber = empAddress.MobileNo,
+                            UserName = empHdr.UserEmailId,
+                            Password = empHdr.Password,
+                            RoleCode = "Employee"
+                        };
 
+                        dbCntx.Users.Add(user);
                         dbCntx.SaveChanges();
 
                         return RedirectToAction("employeedirectory");
@@ -402,8 +351,9 @@ namespace HR.Web.Controllers
                         empWorkDetail.ModifiedBy = USERID;
                         empWorkDetail.ModifiedOn = UTILITY.SINGAPORETIME;
 
-                        var empAddress = dbCntx.EmployeeAddresses
-                                            .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
+                        var empAddress = dbCntx.Addresses
+                                            .Where(x => x.LinkID
+                                            == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
                                             .FirstOrDefault();
 
                         empAddress.Address1 = empVm.address.Address1;
@@ -437,19 +387,18 @@ namespace HR.Web.Controllers
                                 uidDocument.FileName = item.Document.FileName;
                                 uidDocument.CreatedBy = USERID;
                                 uidDocument.CreatedOn = UTILITY.SINGAPORETIME;
-                           
 
 
-                            string path = Server.MapPath("~/Uploads/" + empHeader.EmployeeId + "/");
-                            if (!Directory.Exists(path))
-                            {
-                                Directory.CreateDirectory(path);
-                            }
 
-                            item.Document.SaveAs(path + item.Document.FileName);
+                                string path = Server.MapPath("~/Uploads/" + empHeader.EmployeeId + "/");
+                                if (!Directory.Exists(path))
+                                {
+                                    Directory.CreateDirectory(path);
+                                }
+
+                                item.Document.SaveAs(path + item.Document.FileName);
                             }
                         }
-
 
                         dbCntx.SaveChanges();
 

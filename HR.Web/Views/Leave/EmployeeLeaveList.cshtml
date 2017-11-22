@@ -23,6 +23,7 @@
                                                 <th>EmployeeId</th>
                                                 <th>FromDate</th>
                                                 <th>ToDate</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -32,9 +33,10 @@
                                             foreach( var item in Model.ElementAt(i).employeeLeaveList)
                                             {
                                                 <tr>
-                                                    <td>item.EmployeeId</td>
-                                                    <td>item.FromDate</td>
-                                                    <td>item.ToDate</td>
+                                                    <td>@item.EmployeeId</td>
+                                                    <td>@item.FromDate.ToString("MM/dd/yyyy")</td>
+                                                    <td>@item.ToDate.ToString("MM/dd/yyyy")</td>
+                                                    <td>Pending</td>
                                                 </tr>
                                             }
                                         }

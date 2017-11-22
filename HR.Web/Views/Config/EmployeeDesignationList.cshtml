@@ -31,7 +31,9 @@
                             <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
                         </div>
                     </div>    
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -59,17 +61,16 @@
 @section Scripts{
     <script type="text/javascript">
         $(function () {
+
             $('#li_Master').addClass('open');
             $('#li_empdesignation').addClass('active');
         });
         function editEmpDesignation(lookupID) {
-            debugger;
             $.ajax({
                 url: '@Url.Content("~/Config/GetEmployeeDesignation?lookupID=")' + lookupID,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    debugger;
                     $('#myDesignationModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);

@@ -8,10 +8,34 @@ using System.Web.Mvc;
 
 namespace HR.Web.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController : BaseController
     {
         // GET: Dashboard
         public ActionResult Index() {
+            
+            if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+            {
+                return View("index");
+            }
+            else if (ROLECODE == UTILITY.ROLE_ADMIN)
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    DashBoardVm obj = new DashBoardVm();
+                    obj.EmployeeCount = dbCntx.EmployeeHeaders
+                                        .Where(x => x.BranchId == BRANCHID)
+                                        .Count();
+
+                    //var lineChartData = dbCntx.EmployeeHeaders
+                    //                        .Join(dbCntx.EmployeeWorkDetails,
+                    //                        a => new { a.BranchId, a.EmployeeId }, 
+                    //                        b => new { b.BranchId, b.EmployeeId }, 
+                    //                        (a, b) => new { A = a, B = b });
+
+                    return View("admindashboard", obj);
+                }
+            }
+
             return View();
         }
 

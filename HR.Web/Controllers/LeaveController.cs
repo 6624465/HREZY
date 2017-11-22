@@ -283,11 +283,13 @@ namespace HR.Web.Controllers
 
                 Leave leave = null;
                 if (leaveId != 0)
-                    leave = dbContext.Leaves.
-                        Where(x => x.LeaveId == leaveId && x.BranchId == BRANCHID).FirstOrDefault();
+                {
+                    leave = dbContext.Leaves
+                                .leaveWhere(BRANCHID, ROLECODE)
+                                .FirstOrDefault();                    
+                }
                 else
-                    leave = dbContext.Leaves.
-                    Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                    leave = new Leave { IsPaidLeaveCarryForward = false, IsCasualLeaveCarryForward = false, IsSickLeaveCarryForward = false };
                 return View(leave);
             }
         }
@@ -306,8 +308,10 @@ namespace HR.Web.Controllers
                 }
                 else
                 {
-                    Leave updateLeave = dbContext.Leaves.
-                     Where(x => x.LeaveId == leave.LeaveId && x.BranchId == leave.BranchId).FirstOrDefault();
+                    Leave updateLeave = dbContext.Leaves
+                                           .leaveWhere(BRANCHID, ROLECODE)
+                                           .FirstOrDefault();
+
                     updateLeave.CarryForwardPerYear = leave.CarryForwardPerYear;
                     updateLeave.CarryForwardSickLeaves = leave.CarryForwardSickLeaves;
                     updateLeave.CasualLeavesPerMonth = leave.CasualLeavesPerMonth;

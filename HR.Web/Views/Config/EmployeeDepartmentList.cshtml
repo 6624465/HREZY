@@ -65,13 +65,11 @@
             $('#li_empdepartment').addClass('active');
         });
         function editEmpDepartment(lookupID) {
-            debugger;
             $.ajax({
                 url: '@Url.Content("~/Config/GetEmployeeDepartment?lookupID=")' + lookupID,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    debugger;
                     $('#myDepartmentModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);

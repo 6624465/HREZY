@@ -1,17 +1,17 @@
-﻿@model IEnumerable<HR.Web.Models.EmployeeLeaveList>
+﻿@model IEnumerable<HR.Web.ViewModels.AppliedLeaveListVm >
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
-<div class="page">
+<<div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
             <div class="panel-group" id="accordionDemo">
-                    <div class="panel panel-default ng-isolate-scope">
+                 <div class="panel panel-default ng-isolate-scope">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a href="#collapse" data-toggle="collapse" class="accordion-toggle" data-parent="#accordionDemo"><b>Singapore</b></a>
+                                <a href="#collapse" data-toggle="collapse" class="accordion-toggle" data-parent="#accordionDemo"><b>Leave List</b></a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse in" id="collapse">
@@ -26,14 +26,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @for (var i = 0; i < Model.Count(); i++)
+                                        @for (var i = 0; i < Model.Count(); i++)
+                                        {
+
+                                            foreach( var item in Model.ElementAt(i).employeeLeaveList)
                                             {
-                                            <tr>
-                                                <td>@Model.ElementAt(i).EmployeeId</td>
-                                                <td>@Model.ElementAt(i).FromDate</td>
-                                                <td>@Model.ElementAt(i).ToDate</td>
-                                            </tr>
+                                                <tr>
+                                                    <td>item.EmployeeId</td>
+                                                    <td>item.FromDate</td>
+                                                    <td>item.ToDate</td>
+                                                </tr>
                                             }
+                                        }
                                         </tbody>
                                     </table>
                                 </div>
@@ -44,6 +48,18 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+
+            $('#li_Leave').addClass('open');
+            $('#li_appliedleavelist').addClass('active');
+        });
+    </script>
+}
+
+
+
 
 
 

@@ -25,7 +25,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     <div class="input-group date" id="JoiningDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCss", required = "required" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss", required = "required" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -68,7 +68,7 @@
                             </label>
                             <div class="col-md-4">
                                 <div class="input-group date" id="DOB">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control dtCss" })
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -304,7 +304,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group date" id="ConfirmationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control dtCss" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -319,7 +319,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group date" id="ResignationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control dtCss" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -423,7 +423,7 @@
     <link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript">
         $(function () {
-            $('#isReportingTo').hide();
+            //$('#isReportingTo').hide();
             //$('.form-control').addClass('input-sm');
             $('#li_Employee').addClass('open');
             $('#li_empadd').addClass('active');
@@ -506,14 +506,14 @@
         });
 
 
-        $("#empHeader_IsReportingAuthority").on("ifChanged", function () {
-            debugger;
-            if ($('#empHeader_IsReportingAuthority').prop('checked')) {
-                $('#isReportingTo').show();
-            } else {
-                $('#isReportingTo').hide();
-            }
-        });
+        //$("#empHeader_IsReportingAuthority").on("ifChanged", function () {
+        //    debugger;
+        //    if ($('#empHeader_IsReportingAuthority').prop('checked')) {
+        //        $('#isReportingTo').show();
+        //    } else {
+        //        $('#isReportingTo').hide();
+        //    }
+        //});
 
         function SaveEmployee() {
             if ($('#frmEmp').valid()) {

@@ -191,6 +191,7 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="ManagerId" Type="int" />
+          <Property Name="IsReportingAuthority" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeLeaveList">
           <Key>
@@ -442,7 +443,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
           <FunctionImport Name="usp_EmployeeDateOfJoiningDate" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDateOfJoiningDate_Result)">
-          <Parameter Name="CurrentDt" Mode="In" Type="DateTime" />
+            <Parameter Name="CurrentDt" Mode="In" Type="DateTime" />
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -487,6 +488,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="ManagerId" Type="Int32" />
+          <Property Name="IsReportingAuthority" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeePersonalDetail">
           <Key>
@@ -914,6 +916,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="EmployeeHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeHeader">
               <MappingFragment StoreEntitySet="EmployeeHeader">
+                <ScalarProperty Name="IsReportingAuthority" ColumnName="IsReportingAuthority" />
                 <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

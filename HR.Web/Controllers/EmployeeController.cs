@@ -183,7 +183,8 @@ namespace HR.Web.Controllers
                             CreatedOn = UTILITY.SINGAPORETIME,
                             ModifiedBy = USERID,
                             ModifiedOn = UTILITY.SINGAPORETIME,
-                            //ManagerId = 0,
+                            ManagerId = empVm.empHeader.ManagerId,
+                            IsReportingAuthority = empVm.empHeader.IsReportingAuthority,
                             //UserId = 0
 
                         };
@@ -316,7 +317,8 @@ namespace HR.Web.Controllers
                         empHeader.IsActive = true;
                         empHeader.ModifiedBy = USERID;
                         empHeader.ModifiedOn = UTILITY.SINGAPORETIME;
-
+                        empHeader.ManagerId = empVm.empHeader.ManagerId;
+                        empHeader.IsReportingAuthority = empVm.empHeader.IsReportingAuthority;
                         var empPerDetail = dbCntx.EmployeePersonalDetails
                                             .Where(x => x.EmployeeId == empVm.empHeader.EmployeeId && x.BranchId == empVm.empHeader.BranchId)
                                             .FirstOrDefault();

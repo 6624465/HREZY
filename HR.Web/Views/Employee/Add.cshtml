@@ -154,6 +154,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row css5">
+                            <div class="form-group" style="white-space:nowrap">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Reporting Authority</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
+
+                                </div>
+                                <div id="isReportingTo">
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">Reporting To</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList(true), "Select",
+                                    new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -376,7 +396,7 @@
                                         @for (int i = 0; i < Model.empDocument.Count(); i++)
                                         {
                                             <tr>
-                                                <td>@Html.DisplayFor(x=>x.empDocument[i].DocumentDescription)</td>
+                                                <td>@Html.DisplayFor(x => x.empDocument[i].DocumentDescription)</td>
                                                 @Html.HiddenFor(x => x.empDocument[i].DocumentType)
                                                 <td>
                                                     @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file" })
@@ -400,9 +420,10 @@
 }
 
 @section Scripts{
-<link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript">
         $(function () {
+            $('#isReportingTo').hide();
             //$('.form-control').addClass('input-sm');
             $('#li_Employee').addClass('open');
             $('#li_empadd').addClass('active');
@@ -432,20 +453,20 @@
                 },
                 'empHeader.FirstName': {
                     required: true,
-                    maxlength:30
+                    maxlength: 30
                 },
-                'empHeader.MiddleName':{
-                    maxlength:30
+                'empHeader.MiddleName': {
+                    maxlength: 30
                 },
                 'empHeader.LastName': {
                     required: true,
-                    maxlength:30
+                    maxlength: 30
                 },
-                'empPersonalDetail.FatherName':{
-                    maxlength:30
+                'empPersonalDetail.FatherName': {
+                    maxlength: 30
                 },
-                'empPersonalDetail.EmergencyContactName':{
-                    maxlength:200
+                'empPersonalDetail.EmergencyContactName': {
+                    maxlength: 200
                 },
                 'empPersonalDetail.DOB': {
                     required: true
@@ -475,7 +496,7 @@
                 },
                 'empHeader.Password': {
                     required: true,
-                    maxlength:30
+                    maxlength: 30
                 },
                 'empHeader.ConfirmPassword': {
                     required: true,
@@ -484,6 +505,15 @@
             }
         });
 
+
+        $("#empHeader_IsReportingAuthority").on("ifChanged", function () {
+            debugger;
+            if ($('#empHeader_IsReportingAuthority').prop('checked')) {
+                $('#isReportingTo').show();
+            } else {
+                $('#isReportingTo').hide();
+            }
+        });
 
         function SaveEmployee() {
             if ($('#frmEmp').valid()) {

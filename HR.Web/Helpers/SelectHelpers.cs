@@ -211,18 +211,30 @@ namespace HR.Web.Helpers
             }
         }
 
-        public static IEnumerable<SelectListItem> EmployeeList()
+        public static IEnumerable<SelectListItem> EmployeeList(bool isReportAuth = false)
         {
             using (var dbCntx = new HrDataContext())
             {
-                return dbCntx.EmployeeHeaders
+                if (isReportAuth)
+                {
+                    return dbCntx.EmployeeHeaders.Where(x => x.IsReportingAuthority == isReportAuth)
                         .Select(x => new SelectListItem
                         {
                             Text = x.FirstName + " " + x.LastName,
                             Value = x.EmployeeId.ToString()
                         }).ToList();
+                }
+                else
+                    return dbCntx.EmployeeHeaders
+                            .Select(x => new SelectListItem
+                            {
+                                Text = x.FirstName + " " + x.LastName,
+                                Value = x.EmployeeId.ToString()
+                            }).ToList();
             }
         }
+
+
         public static IEnumerable<SelectListItem> CountryListById()
         {
             using (var dbCntx = new HrDataContext())

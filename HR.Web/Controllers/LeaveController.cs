@@ -90,6 +90,7 @@ namespace HR.Web.Controllers
             }
             else
             {
+                var dt = DateTime.Now;
                 return PartialView(new HolidayList
                 {
                     Date = DateTime.Now,
@@ -108,7 +109,7 @@ namespace HR.Web.Controllers
                 {
                     var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
 
-                    _holidaylistObj.HolidayId = holidaylist.HolidayId;
+                    //_holidaylistObj.HolidayId = holidaylist.HolidayId;
                     _holidaylistObj.Date = holidaylist.Date;
                     _holidaylistObj.Description = holidaylist.Description;
                     _holidaylistObj.CountryId = holidaylist.CountryId;

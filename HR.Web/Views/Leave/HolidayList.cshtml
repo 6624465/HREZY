@@ -116,11 +116,11 @@
 
         function AddHoliday(holidayId) {
             debugger;
-            $('#Description').val('');
-            $('#Date').val('');
-            $('#CountryId').val('');
-            $('#myModal').modal('show');
-            @*$.ajax({
+            //$('#Description').val('');
+            //$('#Date').val('');
+            //$('#CountryId').val('');
+            //$('#myModal').modal('show');
+            $.ajax({
                 url: '@Url.Content("~/Leave/GetHolidayList?holidayId=")' + holidayId,
                 contentType: 'text/html',
                 method: 'GET',
@@ -129,7 +129,7 @@
                     $('#modalContent').html('');
                     $('#modalContent').html(data);
                 }
-            });*@
+            });
         }
         function SaveChanges() {
             if ($('#holidayfrm').valid()) {

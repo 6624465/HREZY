@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace HR.Web.Controllers
 {
+    [Authorize]
     public class LayoutController : BaseController
     {
         // GET: Layout

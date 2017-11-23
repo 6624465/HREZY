@@ -1,0 +1,46 @@
+﻿@model IEnumerable<HR.Web.Models.EmployeeLeaveList>
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.All);
+}
+@{
+    ViewBag.Title = "ViewLeaveList";
+}
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box" id="grid">
+                <div class="box-header">
+                    <h4>Leaves List</h4>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12 width:100%;margin-top:50px">
+                                @grid.GetHtml(columns: grid.Columns(                                    
+                                     grid.Column("FromDate", "From Date", canSort: true),
+                                     grid.Column("ToDate", "To Date", canSort: true),
+                                     grid.Column("Reason", "Reason", canSort: false, format:@<a data-trigger="hover" data-toggle="popover" data-title="Reason" data-content="@item.Reason"><button class="btn btn-xs waves-effect"><i class="fa fa-eye"></i></button></a>)),
+                                     tableStyle: "table table-condensed")
+                                </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger
+            $('[data-toggle="popover"]').popover();      
+    });
+</script>
+    }
+

@@ -32,19 +32,23 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.Addresses,
                             e => e.C.A.EmployeeId, f => f.LinkID,
                             (e, f) => new { E = e, F = f })
+                            .Join(dbCntx.EmployeeDocumentDetails,
+                            g=>g.E.C.A.EmployeeId,h=>h.EmployeeId,
+                            (g, h) => new { G= g, H = h })
                             .Select(x => new EmployeeListVm
                             {
-                                EmployeeId = x.E.C.A.EmployeeId,
-                                EmployeeNo = x.E.C.A.IDNumber,
-                                EmployeeName = x.E.C.A.FirstName + " " + x.E.C.A.LastName + " " + x.E.C.A.MiddleName,
-                                JoiningDate = x.E.D.JoiningDate,
+                                EmployeeId = x.G.E.C.A.EmployeeId,
+                                EmployeeNo = x.G.E.C.A.IDNumber,
+                                EmployeeName = x.G.E.C.A.FirstName + " " + x.G.E.C.A.LastName + " " + x.G.E.C.A.MiddleName,
+                                JoiningDate = x.G.E.D.JoiningDate,
                                 JobTitle = dbCntx.LookUps
-                                            .Where(y => y.LookUpID == x.E.D.DesignationId)
+                                            .Where(y => y.LookUpID == x.G.E.D.DesignationId)
                                             .FirstOrDefault().LookUpDescription,
-                                ContactNo = x.F.Contact,
-                                PersonalEmailId = x.F.Email,
-                                OfficialEmailId = x.F.Email,
-                                DateOfBirth = x.E.C.B.DOB
+                                ContactNo = x.G.F.Contact,
+                                PersonalEmailId = x.G.F.Email,
+                                OfficialEmailId = x.G.F.Email,
+                                DateOfBirth = x.G.E.C.B.DOB,
+                                ProfilePic = x.H.FileName
                             }).ToList().AsEnumerable();
 
 

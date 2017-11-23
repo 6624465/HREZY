@@ -17,9 +17,10 @@
                             @grid.GetHtml(
                 columns: grid.Columns(
                 grid.Column("FromDate", "From Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
-                grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.ToDate))),
+                grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.ToDate)),
+                grid.Column("", "Remarks", format:@<a style="color:#000000" id="popover" data-trigger="hover" data-toggle="popover" data-title="Remarks" data-content="@item.Remarks"><button class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" ><i class="fa fa-eye" style="padding-left: 5px;"></i></button></a>)),
                 tableStyle: "table table-condensed")
-                        </div>
+                    </div> 
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
@@ -36,4 +37,10 @@
             $('#li_Leave').addClass('open');
             $('#li_empadd').addClass('active');
         });
-    </script>
+  
+    $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+    });
+        @*$("#popover").popover({ trigger: "@item.Remarks" });*@
+</script>
+   

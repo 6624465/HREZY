@@ -90,6 +90,7 @@ namespace HR.Web.Controllers
             }
             else
             {
+                var dt = DateTime.Now;
                 return PartialView(new HolidayList
                 {
                     Date = DateTime.Now,
@@ -108,7 +109,7 @@ namespace HR.Web.Controllers
                 {
                     var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
 
-                    _holidaylistObj.HolidayId = holidaylist.HolidayId;
+                    //_holidaylistObj.HolidayId = holidaylist.HolidayId;
                     _holidaylistObj.Date = holidaylist.Date;
                     _holidaylistObj.Description = holidaylist.Description;
                     _holidaylistObj.CountryId = holidaylist.CountryId;
@@ -224,33 +225,52 @@ namespace HR.Web.Controllers
         }
         public ActionResult GrantLeaveForm()
         {
-            using (HrDataContext dbContext = new HrDataContext())
-            {
-                LeaveVm leavevm = new LeaveVm();
-                leavevm.lookup = new LookUp();
-                leavevm.leaveHeader = new LeaveHeader();
-                var lookups = dbContext.LookUps;
-                var lvmList = dbContext.LeaveHeaders
-                                 .Select(x => new LeaveHeaderVm
-                                 {
-                                     LeaveHeaderID = x.LeaveHeaderID,
-                                     BranchID = x.BranchID,
-                                     LeaveSchemeType = x.LeaveSchemeType,
-                                     LeaveSchemeTypeDescription = lookups.Where(y => y.LookUpID == x.LeaveSchemeType).FirstOrDefault().LookUpDescription,
-                                     LeaveYear = x.LeaveYear,
-                                     LeaveYearDescription = lookups.Where(y => y.LookUpID == x.LeaveYear).FirstOrDefault().LookUpDescription,
-                                     PeriodicityType = x.PeriodicityType,
-                                     PeriodicityTypeDescription = lookups.Where(y => y.LookUpID == x.PeriodicityType).FirstOrDefault().LookUpDescription,
-                                     PeriodType = x.PeriodType,
-                                     PeriodTypeDescription = lookups.Where(y => y.LookUpID == x.PeriodType).FirstOrDefault().LookUpDescription
-                                 }).ToList().AsEnumerable();
-                leavevm.lvmList = lvmList;
+            //using (HrDataContext dbContext = new HrDataContext())
+            //{
+            //    LeaveVm leavevm = new LeaveVm();
+            //    leavevm.lookup = new LookUp();
+            //    leavevm.leaveHeader = new LeaveHeader();
+            //    var lookups = dbContext.LookUps;
+            //    var lvmList = dbContext.LeaveHeaders
+            //                     .Select(x => new LeaveHeaderVm
+            //                     {
+            //                         LeaveHeaderID = x.LeaveHeaderID,
+            //                         BranchID = x.BranchID,
+            //                         LeaveSchemeType = x.LeaveSchemeType,
+            //                         LeaveSchemeTypeDescription = lookups.Where(y => y.LookUpID == x.LeaveSchemeType).FirstOrDefault().LookUpDescription,
+            //                         LeaveYear = x.LeaveYear,
+            //                         LeaveYearDescription = lookups.Where(y => y.LookUpID == x.LeaveYear).FirstOrDefault().LookUpDescription,
+            //                         PeriodicityType = x.PeriodicityType,
+            //                         PeriodicityTypeDescription = lookups.Where(y => y.LookUpID == x.PeriodicityType).FirstOrDefault().LookUpDescription,
+            //                         PeriodType = x.PeriodType,
+            //                         PeriodTypeDescription = lookups.Where(y => y.LookUpID == x.PeriodType).FirstOrDefault().LookUpDescription
+            //                     }).ToList().AsEnumerable();
+            //    leavevm.lvmList = lvmList;
 
 
-                ViewData["LeaveTypeList"] = lookups.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE).ToList();
-                return View(leavevm);
-            }
+            //    ViewData["LeaveTypeList"] = lookups.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE).ToList();
+            //    return View(leavevm);
+            //}
             // return View(new LeaveHeader());
+            using(var dbcntx=new HrDataContext())
+            {
+                var grantleaveform = dbcntx.EmployeeHeaders.
+                     Join(dbcntx.EmployeeLeaveLists,
+                     a => a.EmployeeId, b => b.EmployeeId,
+                     (a, b) => new { A = a, B = b })
+                     .Where(x => x.A.ManagerId == EMPLOYEEID)
+                     .Select(x => new GrantLeaveListVm
+                     {
+                         ToDate = x.B.ToDate,
+                         FromDate = x.B.FromDate,
+                         Name = x.A.FirstName + " " + x.A.LastName,
+                         EmployeeId = x.A.EmployeeId
+                     })
+                     .ToList()
+                     .AsEnumerable();
+                
+                return View(grantleaveform);
+            }
         }
         [HttpPost]
         public ActionResult SaveGrantLeave(LeaveVm lvm)

@@ -1,135 +1,41 @@
-﻿@model HR.Web.ViewModels.LeaveVm
+﻿@model  IEnumerable<HR.Web.ViewModels.GrantLeaveListVm>
 
-@{
-    WebGrid grid = new WebGrid(Model.lvmList);
-    var leaveTypeList = (List<HR.Web.Models.LookUp>)ViewData["LeaveTypeList"];
-
+@{ 
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
 }
-@using (Html.BeginForm("SaveGrantLeave", "Leave", FormMethod.Post, new { id = "frmGrant", name = "frmGrant" }))
-{
-    <div class="page">
-    <div class="row">
-        <div class="col-md-12 col-md-4">
-            <div class="panel panel-default panel-hovered panel-stacked mb10">
-                <div class="panel-heading">Leave Granter</div>
-                <div class="panel-body">
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box">
+                <div class="box-header">
+                    <h4>Grant Leave Form</h4>
+                </div>
+                <div class="box-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Leave Granter:</label>
-                                <div>
-                                    @Html.DropDownListFor(x => x.leaveHeader.LeaveYear,
-                                    SelectListItemHelper.LeaveYearList(),
-                                    "Select Leave Granter",
-                                    new { @class = "form-control" })
-                                </div>
-                                
-                                <label>Periodicity:</label>
-                                <div>
-                                    @Html.DropDownListFor(x => x.leaveHeader.PeriodicityType,
-                                    SelectListItemHelper.PeriodicityTypeList(),
-                                    "Select Periodicity",
-                                    new { @class = "form-control" })
-                                </div>
-                                <label>PeriodType:</label>
-                                <div>
-                                    @Html.DropDownListFor(x =>x.leaveHeader.PeriodType,
-                                    SelectListItemHelper.PeriodTypeList(),
-                                    "Select Period",
-                                    new { @class = "form-control" })
-                                </div>
-
-                                <label>Leave Scheme:</label>
-                                <div>
-                                    @Html.DropDownListFor(x =>x.leaveHeader.LeaveSchemeType,
-                                    SelectListItemHelper.grantSchemeType(),
-                                    "Select Scheme",
-                                    new { @class = "form-control" })
-                                </div>
-
-                            </div>
+                        <div class="col-md-12">
+                            @grid.GetHtml(
+                columns: grid.Columns(
+                grid.Column("EmployeeId", "Employee Id"),
+                 grid.Column("Name", "Employee Name"),
+                grid.Column("FromDate", "from Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
+                grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/mm/yyyy }", item.ToDate))),
+                tableStyle: "table table-condensed")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @*<grid txt></grid>*@
-        <div class="col-md-12 col-md-8">
-            <div class="panel panel-default">
-                <div class="box" id="grid">
-                    <div class="box-header">
-                        <h4>Granted List</h4>
-                    </div>
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                    @grid.GetHtml(
-                         columns: grid.Columns(
-
-                         grid.Column("LeaveYearDescription", "Leave Granter", canSort: true),
-                         grid.Column("PeriodicityTypeDescription", "Periodicity", canSort: true),
-                         grid.Column("PeriodTypeDescription", "Period", canSort: true),
-                         grid.Column("LeaveSchemeTypeDescription", "Leave Scheme", canSort: true)
-                        ), tableStyle: "table table-condensed")
-                                </div>
-                            </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
-                            </div>
-                        </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-
-
     </div>
 </div>
-<div class="col-md-12 col-md-4">
-    <div class="panel panel-default panel-hovered panel-stacked mb10">
-        <div class="checkbox m-b-15"></div>
-        <div class="panel-heading">Leave Type</div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @for (var i = 0; i < leaveTypeList.Count; i++)
-                        {
-                            <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Privilege Leave</label><br />
-                        }
-                    </div>
-                </div>
-                @*<div class="col-md-6">
-                    <div class="form-group">
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Privilege Leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Casual Leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Sick Leave or Medical Leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Maternity Leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Half Pay Leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Study Leave or Sabbatical Leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Paternity Leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Compensatory leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Earned Leave</label><br />
-                        <input value="" aria-label="Priority" type="checkbox"><label>&nbsp;Restricted Holiday</label>
-                    </div>
-                </div>*@
-            </div>
-        </div>
-    </div>
-</div>
-    <div class="col-md-12 col-md-12">
-     <button type="submit" class="btn btn-primary btn-sm">Grant</button>
-     @*<button type="button" class="btn btn-default" data-dismiss="">&nbsp;&nbsp;Cancel</button>*@
-    </div>
-
-}
-
-@section Scripts {
-    <script type="text/javascript">
+<script type="text/javascript">
         $(function () {
             $('#li_Leave').addClass('open');
             $('#li_grantleaveform').addClass('active');
         });
-    </script>
-}
+
+</script>

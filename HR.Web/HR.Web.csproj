@@ -1735,6 +1735,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LinqFuncs.cs" />
+    <Compile Include="Helpers\MyDateTimeModelBinder.cs" />
     <Compile Include="Helpers\SelectHelpers.cs" />
     <Compile Include="Helpers\WebGridExtensions.cs" />
     <Compile Include="Models\Address.cs">

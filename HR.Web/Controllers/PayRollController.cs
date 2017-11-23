@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace HR.Web.Controllers
 {
+    [Authorize]
     public class PayRollController : Controller
     {
         // GET: PayRoll

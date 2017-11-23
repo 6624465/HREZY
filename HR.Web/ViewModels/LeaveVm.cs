@@ -18,6 +18,7 @@ namespace HR.Web.ViewModels
         public LookUp lookup { get; set; }        
         public LeaveHeader leaveHeader { get; set; }
         public IEnumerable<LeaveHeaderVm> lvmList { get; set; }
+       
 
     }
 
@@ -50,5 +51,19 @@ namespace HR.Web.ViewModels
         public Nullable<System.DateTime> ModifiedOn { get; set; }
 
     }
-   
+    
+    public class GrantLeaveListVm
+    {
+        public DateTime ToDate { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public string Name { get; set; }
+
+        public int EmployeeId { get; set; }
+
+    }
+    
+
+
 }

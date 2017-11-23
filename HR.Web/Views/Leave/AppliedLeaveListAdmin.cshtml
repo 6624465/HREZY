@@ -17,23 +17,22 @@
                     <div class="panel-collapse collapse" id="collapse">
                         <div class="panel-body">
                             <div>
-                                @for (var i = 0; i < Model.Count(); i++)
-                                {
-                                    if (Model.ElementAt(i) != null && Model.ElementAt(i).employeeLeaveList.Count() > 0)
-                                    {
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>EmployeeName</th>
-                                                    <th>From Date</th>
-                                                    <th>To Date</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
 
-                                                @for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
-                                                {
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>EmployeeName</th>
+                                            <th>From Date</th>
+                                            <th>To Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (var i = 0; i < Model.Count(); i++)
+                                        {
+                                            for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
+                                            {
 
                                                 <tr>
                                                     <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeName</td>
@@ -42,15 +41,12 @@
                                                     <td>Pending</td>
                                                 </tr>
 
-                                                }
-                                            </tbody>
-                                        </table>
-                                    }
-                                    else
-                                    {
-                                        <div><p>No records found..</p></div>
-                                    }
-                                }
+                                            }}
+                                    </tbody>
+                                </table>
+
+
+
 
                             </div>
                         </div>

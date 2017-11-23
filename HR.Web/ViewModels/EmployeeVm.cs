@@ -28,6 +28,9 @@ namespace HR.Web.ViewModels
     {
         public IEnumerable<EmployeeListVm> employeeVm { get; set; }
         public EmpSearch empSearch { get; set; }
+        public int count { get; set; }
+
+        public decimal PagerLength { get; set; }
     }
 
     public class EmployeeDocumentVm

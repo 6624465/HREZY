@@ -1686,8 +1686,10 @@
     <Content Include="Scripts\Core\d3.min.js" />
     <Content Include="Scripts\Core\fullcalendar.min.js" />
     <Content Include="Scripts\Core\index.init.js" />
+    <Content Include="Scripts\Core\jquery.bootpag.min.js" />
     <Content Include="Scripts\Core\jquery.easypiechart.min.js" />
     <Content Include="Scripts\Core\jquery.sparkline.min.js" />
+    <Content Include="Scripts\Core\jquery.tmpl.min.js" />
     <Content Include="Scripts\Core\perfect-scrollbar.min.js" />
     <Content Include="Scripts\Core\screenfull.js" />
     <Content Include="Scripts\Core\sitescript.js" />

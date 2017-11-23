@@ -22,39 +22,40 @@ namespace HR.Web.Controllers
         {
             using (var dbCntx = new HrDataContext())
             {
-                var list = dbCntx.EmployeeHeaders
-                            .Join(dbCntx.EmployeePersonalDetails,
-                            a => a.EmployeeId, b => b.EmployeeId,
-                            (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails,
-                            c => c.A.EmployeeId, d => d.EmployeeId,
-                            (c, d) => new { C = c, D = d })
-                            .Join(dbCntx.Addresses,
-                            e => e.C.A.EmployeeId, f => f.LinkID,
-                            (e, f) => new { E = e, F = f })
-                            .Join(dbCntx.EmployeeDocumentDetails,
-                            g=>g.E.C.A.EmployeeId,h=>h.EmployeeId,
-                            (g, h) => new { G= g, H = h })
-                            .Select(x => new EmployeeListVm
-                            {
-                                EmployeeId = x.G.E.C.A.EmployeeId,
-                                EmployeeNo = x.G.E.C.A.IDNumber,
-                                EmployeeName = x.G.E.C.A.FirstName + " " + x.G.E.C.A.LastName + " " + x.G.E.C.A.MiddleName,
-                                JoiningDate = x.G.E.D.JoiningDate,
-                                JobTitle = dbCntx.LookUps
-                                            .Where(y => y.LookUpID == x.G.E.D.DesignationId)
-                                            .FirstOrDefault().LookUpDescription,
-                                ContactNo = x.G.F.Contact,
-                                PersonalEmailId = x.G.F.Email,
-                                OfficialEmailId = x.G.F.Email,
-                                DateOfBirth = x.G.E.C.B.DOB,
-                                ProfilePic = x.H.FileName
-                            }).ToList().AsEnumerable();
+                //var list = dbCntx.EmployeeHeaders
+                //            .Join(dbCntx.EmployeePersonalDetails,
+                //            a => a.EmployeeId, b => b.EmployeeId,
+                //            (a, b) => new { A = a, B = b })
+                //            .Join(dbCntx.EmployeeWorkDetails,
+                //            c => c.A.EmployeeId, d => d.EmployeeId,
+                //            (c, d) => new { C = c, D = d })
+                //            .Join(dbCntx.Addresses,
+                //            e => e.C.A.EmployeeId, f => f.LinkID,
+                //            (e, f) => new { E = e, F = f })
+                //            .Join(dbCntx.EmployeeDocumentDetails,
+                //            g => g.E.C.A.EmployeeId, h => h.EmployeeId,
+                //            (g, h) => new { G = g, H = h })
+                //            .Select(x => new EmployeeListVm
+                //            {
+                //                EmployeeId = x.G.E.C.A.EmployeeId,
+                //                EmployeeNo = x.G.E.C.A.IDNumber,
+                //                EmployeeName = x.G.E.C.A.FirstName + " " + x.G.E.C.A.LastName + " " + x.G.E.C.A.MiddleName,
+                //                JoiningDate = x.G.E.D.JoiningDate,
+                //                JobTitle = dbCntx.LookUps
+                //                            .Where(y => y.LookUpID == x.G.E.D.DesignationId)
+                //                            .FirstOrDefault().LookUpDescription,
+                //                ContactNo = x.G.F.Contact,
+                //                PersonalEmailId = x.G.F.Email,
+                //                OfficialEmailId = x.G.F.Email,
+                //                DateOfBirth = x.G.E.C.B.DOB,
+                //                ProfilePic = x.H.FileName
+                //            }).ToList().AsEnumerable();
 
 
                 var empDirectoryVm = new EmpDirectoryVm
                 {
-                    employeeVm = list,
+                    //employeeVm = list,
+
                     empSearch = new EmpSearch { }
                 };
 
@@ -62,7 +63,64 @@ namespace HR.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult GetGridTileEmployees(int pageNumber)
+        {
+            int offSet = 3;
+            int skipRows = (pageNumber - 1) * offSet;
+           
+            using (var dbCntx = new HrDataContext())
+            {
+                var context = new HttpContextWrapper(System.Web.HttpContext.Current);
 
+                var query = dbCntx.EmployeeHeaders
+                             .Join(dbCntx.EmployeePersonalDetails,
+                             a => a.EmployeeId, b => b.EmployeeId,
+                             (a, b) => new { A = a, B = b })
+                             .Join(dbCntx.EmployeeWorkDetails,
+                             c => c.A.EmployeeId, d => d.EmployeeId,
+                             (c, d) => new { C = c, D = d })
+                             .Join(dbCntx.Addresses,
+                             e => e.C.A.EmployeeId, f => f.LinkID,
+                             (e, f) => new { E = e, F = f })
+                             .Join(dbCntx.EmployeeDocumentDetails,
+                             g => g.E.C.A.EmployeeId, h => h.EmployeeId,
+                             (g, h) => new { G = g, H = h })
+                             .Select(x => new EmployeeListVm
+                             {
+                                 EmployeeId = x.G.E.C.A.EmployeeId,
+                                 EmployeeNo = x.G.E.C.A.IDNumber,
+                                 EmployeeName = x.G.E.C.A.FirstName + " " + x.G.E.C.A.LastName + " " + x.G.E.C.A.MiddleName,
+                                 JoiningDate = x.G.E.D.JoiningDate,
+                                 JobTitle = dbCntx.LookUps
+                                             .Where(y => y.LookUpID == x.G.E.D.DesignationId)
+                                             .FirstOrDefault().LookUpDescription,
+                                 ContactNo = x.G.F.Contact,
+                                 PersonalEmailId = x.G.F.Email,
+                                 OfficialEmailId = x.G.F.Email,
+                                 DateOfBirth = x.G.E.C.B.DOB,
+                                 ProfilePic = x.H.FileName
+                             });
+
+                var list = query.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(3).ToList().AsEnumerable();
+
+                var totalCount = query.Count();
+
+                decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalCount), Convert.ToDecimal(offSet));
+                decimal w = Math.Ceiling(Convert.ToDecimal(pagerLength));
+
+                var empDirectoryVm = new EmpDirectoryVm
+                {
+                    employeeVm = list,
+                    empSearch = new EmpSearch { },
+                    count = totalCount,
+                    PagerLength= w
+                };
+
+
+                return Json(empDirectoryVm, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 
         [HttpPost]

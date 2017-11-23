@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace HR.Web.Controllers
 {
 
-    [SessionFilter]
+    [Authorize]
     public class ConfigController : BaseController
     {
 

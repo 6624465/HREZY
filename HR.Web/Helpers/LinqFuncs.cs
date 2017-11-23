@@ -27,7 +27,7 @@ namespace HR.Web
         {
             if (DOJ.HasValue)
             {
-                empWorkDetail = empWorkDetail.Where(x => x.JoiningDate.Date == DOJ.Value.Date);
+                empWorkDetail = empWorkDetail.Where(x => DbFunctions.TruncateTime(x.JoiningDate) == DbFunctions.TruncateTime(DOJ.Value));
             }
 
             if (Designation != null)

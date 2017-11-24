@@ -66,7 +66,7 @@ namespace HR.Web.Controllers
         [HttpGet]
         public JsonResult GetGridTileEmployees(int pageNumber)
         {
-            int offSet = 3;
+            int offSet = 10;
             int skipRows = (pageNumber - 1) * offSet;
            
             using (var dbCntx = new HrDataContext())
@@ -107,14 +107,14 @@ namespace HR.Web.Controllers
                 var totalCount = query.Count();
 
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalCount), Convert.ToDecimal(offSet));
-                decimal w = Math.Ceiling(Convert.ToDecimal(pagerLength));
+                decimal pagnationRound = Math.Ceiling(Convert.ToDecimal(pagerLength));
 
                 var empDirectoryVm = new EmpDirectoryVm
                 {
                     employeeVm = list,
                     empSearch = new EmpSearch { },
                     count = totalCount,
-                    PagerLength= w
+                    PagerLength= pagnationRound
                 };
 
 

@@ -134,8 +134,8 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-12 pull-right">
-                        <div id="pagination"></div>
+                    <div class="col-md-12">
+                        <div class="pull-right" id="pagination"></div>
                     </div>
                 </div>
             </div>
@@ -171,14 +171,14 @@
                         <div class="right">
                             <img height="60" width="60"
                                  src="${imgPath + EmployeeId + '/' + ProfilePic}"
-                             
+                                 class="img-circle"
                                  alt="user"
                                  onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'"
                                  style="cursor:pointer">
 
                         </div>
                         <div class="left-side">
-                            
+
                             <h3 class="text-light mt0">${EmployeeName}</h3>
                             <p><strong>Designation:&nbsp;</strong>${JobTitle}</p>
                             <p><strong>Email:&nbsp;</strong>${PersonalEmailId}</p>
@@ -198,23 +198,24 @@
         var imgPath = '@Url.Content("~/Uploads/")';
         var Arr;
         function getDataCallBack(data) {
-            debugger; Arr = new Array();
+            Arr = new Array();
             Arr = data;
+
             $("#tBody").html('');
-           
-            
+
             $("#tableTemplate").tmpl(data.employeeVm).appendTo("#tBody");
             //$("#tileTmplate").tmpl(data.employeeVm).appendTo("#tiles");
-            if($('#btnTile').hasClass('active'))
-            showTile();
+
+            if ($('#btnTile').hasClass('active'))
+                showTile();
         };
 
         function callBack(event, num) {
             var promise = getDataPromise(num);
             $.when(promise).done(function (data) {
-              
+
                 getDataCallBack(data);
-               
+
             });
         };
 
@@ -224,8 +225,8 @@
                 url: '@Url.Content("~/Employee/GetGridTileEmployees?pageNumber=")' + number,
                 type: 'GET',
                 contentType: 'application/json',
-                success: function (data) {                   
-                    deffered.resolve(data);                   
+                success: function (data) {
+                    deffered.resolve(data);
                 },
                 error: function (err) {
                     deffered.reject(err);
@@ -239,12 +240,12 @@
 
             $('#tableGrid').show();
             $('#tiles').hide();
-            
+
 
             var promise = getDataPromise(1);
- 
+
             $.when(promise).done(function (data) {
-               
+
                 getDataCallBack(data);
                 $('#pagination').bootpag({
                     total: data.PagerLength,
@@ -252,7 +253,8 @@
                     maxVisible: 6,
                     leaps: false,
                     next: 'next',
-                    prev: 'prev'
+                    prev: 'prev',
+                    wrapClass: 'pagination pagination-sm'
                 }).on('page', callBack);
             });
 
@@ -283,7 +285,7 @@
             $('#btnGrid').removeClass('active');
             $('#tableGrid').hide();
             $('#tiles').show();
-           
+
         }
         function showGrid() {
             $('#btnTile').removeClass('active');
@@ -291,7 +293,7 @@
             $('#btnGrid').addClass('active');
             $('#tableGrid').show();
             $('#tiles').hide();
-           
+
         }
     </script>
 }

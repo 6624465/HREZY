@@ -11,7 +11,7 @@ using System.Web.Routing;
 
 namespace HR.Web.Controllers
 {
-    [Authorize]
+    [SessionFilter]
     public class LeaveController : BaseController
     {
         

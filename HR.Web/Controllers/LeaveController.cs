@@ -167,8 +167,9 @@ namespace HR.Web.Controllers
                             BranchName = x.A.BranchName,
                             employeeLeaveList = x.B.Select(y => new EmpLeaveListVm
                             {
-                                EmployeeName = dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).FirstOrDefault().FirstName
-                               + " " + dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).FirstOrDefault().LastName,
+                                EmployeeName = dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).Select(z => new {
+                                    EmployeeFullName = z.FirstName + " " + z.LastName
+                                }).FirstOrDefault().EmployeeFullName,
                                 EmployeeId = y.EmployeeId,
                                 FromDate = y.FromDate,
                                 ToDate =y.ToDate
@@ -178,6 +179,38 @@ namespace HR.Web.Controllers
                 return View(viewName, empLeaveList);
             }
         }
+
+        public JsonResult GetBranchLeaveData(int branchId, int pageNo)
+        {
+            
+            int offSet = 10;
+            int skipRows = (pageNo - 1) * offSet;
+            using (var dbCntx = new HrDataContext())
+            {
+                var Query = dbCntx.EmployeeHeaders
+                                        .Join(dbCntx.EmployeeLeaveLists,
+                                        a => a.BranchId, b => b.BranchId, (a, b) => new { A = a, B = b })
+                                        .Where(x => x.A.BranchId == branchId);
+
+                var empLeaveList = Query
+                                        .OrderBy(x => x.A.EmployeeId)
+                                        .Skip(skipRows)
+                                        .Take(offSet)
+                                        .Select(x => new EmpLeaveListVm
+                                        {
+                                            EmployeeName = x.A.FirstName + " " + x.A.LastName,
+                                            EmployeeId = x.B.EmployeeId,
+                                            FromDate = x.B.FromDate,
+                                            ToDate = x.B.ToDate
+                                        }).ToList();
+
+                return Json(new {
+                    empLeaveList = empLeaveList,
+                    pagerLength = Query.Count()
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult EmployeeRequestFrom()
         {
             return View(new EmployeeLeaveList

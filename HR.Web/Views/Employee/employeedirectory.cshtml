@@ -123,6 +123,7 @@
                                     <th>Desigation</th>
                                     <th>Manager</th>
                                     <th>ContactNo</th>
+                                    <th>#Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tBody"></tbody>
@@ -158,12 +159,13 @@
             <td>${Desigation}</td>
             <td>${Manager}</td>
             <td>${ContactNo}</td>
-
+            <td><button class="btn btn-xs btn-raised waves-effect btn-sm waves-effect"
+                   style="padding-left: 5px;margin-left: 6px;"onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></td>
         </tr>
     </script>
     <script id="tileTmplate" type="text/html">
 
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-4 col-sm-6" onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'">
             <div class="panel panel-default mb20 panel-hovered profile-widget">
                 <div class="panel-body">
                     <div class="clearfix mb15 top-info">
@@ -173,7 +175,7 @@
                                  src="${imgPath + EmployeeId + '/' + ProfilePic}"
                                  class="img-circle"
                                  alt="user"
-                                 onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'"
+                                 
                                  style="cursor:pointer">
 
                         </div>

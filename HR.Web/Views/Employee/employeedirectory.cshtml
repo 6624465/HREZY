@@ -196,18 +196,23 @@
 
     <script type="text/javascript">
         var imgPath = '@Url.Content("~/Uploads/")';
+        var Arr;
         function getDataCallBack(data) {
+            debugger; Arr = new Array();
+            Arr = data;
             $("#tBody").html('');
-            $("#tiles").html('');
+           
             
             $("#tableTemplate").tmpl(data.employeeVm).appendTo("#tBody");
-            $("#tileTmplate").tmpl(data.employeeVm).appendTo("#tiles");
-
+            //$("#tileTmplate").tmpl(data.employeeVm).appendTo("#tiles");
+            if($('#btnTile').hasClass('active'))
+            showTile();
         };
 
         function callBack(event, num) {
             var promise = getDataPromise(num);
             $.when(promise).done(function (data) {
+              
                 getDataCallBack(data);
                
             });
@@ -238,7 +243,8 @@
 
             var promise = getDataPromise(1);
  
-            $.when(promise).done(function (data) {                
+            $.when(promise).done(function (data) {
+               
                 getDataCallBack(data);
                 $('#pagination').bootpag({
                     total: data.PagerLength,
@@ -267,10 +273,11 @@
             });
         });
         $('#refresh_button').click(function () {
-            debugger
             location.reload();
         });
         function showTile() {
+            $("#tiles").html('');
+            $("#tileTmplate").tmpl(Arr.employeeVm).appendTo("#tiles");
             $('#btnTile').addClass('active');
 
             $('#btnGrid').removeClass('active');

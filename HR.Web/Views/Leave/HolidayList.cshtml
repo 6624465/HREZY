@@ -7,7 +7,7 @@
     <link href="@Url.Content("~/Css/fullcalendar.css")" rel="stylesheet" />
     <style>
         .fc-time {
-        display:none;
+            display: none;
         }
     </style>
 }
@@ -36,30 +36,24 @@
                             <div class="page page-app-calendar">
 
                                 <div class="page-wrap">
-
-                                    <!-- row -->
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <!-- calendar toolbar, this will replaced default toolbar -->
-                                            <div class="calendar-toolbar mb20 text-center">
-                                                <div class="btn-group btn-group-sm left">
-                                                    <button type="button" class="btn btn-default ion ion-arrow-left-c prev-btn"></button>
-                                                    <button type="button" class="btn btn-default ion ion-arrow-right-c next-btn"></button>
-                                                </div>
-                                                <button type="button" class="btn btn-default btn-sm ml15 left today-btn">Today</button>
-                                                <strong class="text-uppercase current-date"></strong>
-                                                <div class="btn-group btn-group-sm right">
-                                                    <button type="button" class="btn btn-default view-month">Month</button>
-                                                    <button type="button" class="btn btn-default view-week">Week</button>
-                                                    <button type="button" class="btn btn-default view-day">Day</button>
-                                                </div>
-                                            </div>
-                                            <!-- calendar -->
-                                            <div id="fullCalendar" style="z-index:9;"></div>
+                                    <div class="calendar-toolbar mb20 text-center">
+                                        <div class="btn-group btn-group-sm left">
+                                            <button type="button" class="btn btn-default ion ion-arrow-left-c prev-btn"></button>
+                                            <button type="button" class="btn btn-default ion ion-arrow-right-c next-btn"></button>
                                         </div>
-                                    </div> <!-- #end row -->
+                                        <button type="button" class="btn btn-default btn-sm ml15 left today-btn">Today</button>
+                                        <strong class="text-uppercase current-date"></strong>
+                                        @*<div class="btn-group btn-group-sm right">
+                                                <button type="button" class="btn btn-default view-month">Month</button>
+                                                <button type="button" class="btn btn-default view-week">Week</button>
+                                                <button type="button" class="btn btn-default view-day">Day</button>
+                                            </div>*@
+                                    </div>
+                                    <!-- calendar -->
+                                    <div id="fullCalendar" style="z-index:9;"></div>
 
-                                </div> <!-- #end page-wrap -->
+
+                                </div><!-- #end page-wrap -->
                             </div>
                             <!-- #end calendar page -->
                         </div>

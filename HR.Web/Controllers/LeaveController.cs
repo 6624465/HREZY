@@ -273,7 +273,8 @@ namespace HR.Web.Controllers
                          FromDate = x.B.FromDate,
                          Name = x.A.FirstName + " " + x.A.LastName,
                          EmployeeId = x.A.EmployeeId,
-                         EmployeeLeaveID = x.B.EmployeeLeaveID
+                         EmployeeLeaveID = x.B.EmployeeLeaveID,
+                         Status = x.B.Status
                      })
                      .ToList()
                      .AsEnumerable();

@@ -62,8 +62,8 @@
                         <div class="row css10">
                             <div class="col-md-3"></div>
                             <div class="col-md-9">
-                                <button class="btn btn-primary btn-sm">Approve</button>
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="popover" title="Remarks">Reject</button>
+                                <button class="btn btn-primary btn-sm"><i class="fa fa-check"></i>Approve</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="popover" title="Remarks"><i class="fa fa-times"></i>Reject</button>
                             </div>                        
                         </div>
                     }
@@ -118,8 +118,8 @@
         <div class="form-group">
             <div class="col-md-3"></div>
             <div class="col-md-9">
-                <button type="button" class="btn btn-primary btn-sm" onclick="RejectLeave()">Save</button>
-                <button type="button" class="btn btn-default btn-sm" data-dissmiss="close">Close</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="RejectLeave()"><i class="fa fa-floppy-o"></i>Save</button>
+                <button type="button" class="btn btn-default btn-sm" data-dissmiss=""><i class="fa fa-times"></i>Close</button>
             </div>                
         </div>
     </div>
@@ -133,7 +133,6 @@
         $('[data-toggle="popover"]').popover({
             placement: 'right',
             html: true,
-
             content: function () {
                 var anchorText = $(this).text();
                 $('#popover').find('input[id=txtContent]').attr('value', anchorText);

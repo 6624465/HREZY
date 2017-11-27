@@ -466,3 +466,7 @@ input[type=text].error, input[type=password].error, textarea.error, select.error
 .bootstrap-datetimepicker-widget table td.active.today:before {
     border-bottom-color: #fff;
 }
+
+.popover {
+    font-family: proximanovalight;
+}

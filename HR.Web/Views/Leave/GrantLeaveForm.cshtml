@@ -19,13 +19,17 @@
                 grid.Column("FromDate", "from Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
                 grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy }", item.ToDate)),
                 grid.Column("Status","Status",format:@<text>
-                            @if (item.Status == "Approved")
+                            @if (item.Status == UTILITY.LEAVEAPPROVED)
                             {
                                 <span class="label label-success"  style="font-weight:bold;font-size:14px;">@item.Status</span>
                             }
-                            else if(item.Status == "Rejected")
+                            else if(item.Status == UTILITY.LEAVEREJECTED)
                             {
                                 <span class="label label-danger" style="font-weight:bold;font-size:14px;">@item.Status</span>
+                            }
+                            else if (string.IsNullOrWhiteSpace(item.Status))
+                            {
+                                <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
                             }
 
                             </text>),

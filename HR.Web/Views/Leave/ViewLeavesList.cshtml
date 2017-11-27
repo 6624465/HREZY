@@ -3,7 +3,14 @@
 @{
     WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
 }
-
+@section Styles {
+    <style type="text/css">
+        .popover {
+            max-width: 100%;
+            width: 500px;
+        }
+    </style>
+}
 
 <div class="page">
     <div class="page-wrap">
@@ -19,18 +26,36 @@
                 columns: grid.Columns(
                 grid.Column("FromDate", "From Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
                 grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.ToDate)),
-                grid.Column("Status", "Status"),
+                grid.Column("Status", "Status",format:@<text>
+                            @if (item.Status == UTILITY.LEAVEAPPROVED)
+                            {
+                                <span class="label label-success" style="font-weight:bold;font-size:14px;">@item.Status</span>
+                            }
+                            else if (item.Status == UTILITY.LEAVEREJECTED)
+                            {
+                                <span class="label label-danger" style="font-weight:bold;font-size:14px;">@item.Status</span>
+                            }
+                            else if (string.IsNullOrWhiteSpace(item.Status))
+                            {
+                                <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
+                            }
+
+                            </text>),
                 grid.Column("", "Reason", format:
                 @<text>
                     <button class="btn btn-xs waves-effect" type="button" style="padding-left: 5px;margin-left: 6px;" id="popover" data-trigger="hover" data-toggle="popover" data-title="Reason" data-content="@item.Reason"><i class="fa fa-eye" style="padding-left: 5px;"></i></button>
-                    @if (item.FromDate > UTILITY.SINGAPORETIME && (item.Status == UTILITY.LEAVEAPPROVED || item.Status == null) && item.Status!= UTILITY.LEAVEREJECTED)
-                    {
-                        <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" data-toggle="popoverCancel" title="Remarks" data-value="@item.EmployeeLeaveID" onclick="cancelRequest(@item.EmployeeLeaveID)"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
-                    }
-                    else
-                    {
-                        <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" disabled="disabled"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
-                    } </text>)),
+                    </text>),
+                    grid.Column("", "Cancel", format:
+                    @<text>
+                        
+                        @if (item.FromDate > UTILITY.SINGAPORETIME && (item.Status == UTILITY.LEAVEAPPROVED || item.Status == null) && item.Status != UTILITY.LEAVEREJECTED)
+                        {
+                            <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" data-toggle="popoverCancel" title="Remarks" data-value="@item.EmployeeLeaveID" onclick="cancelRequest(@item.EmployeeLeaveID)"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" disabled="disabled"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
+                        } </text>)),
                 tableStyle: "table table-condensed")
                         </div>
                     </div>

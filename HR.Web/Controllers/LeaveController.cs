@@ -14,7 +14,7 @@ namespace HR.Web.Controllers
     [SessionFilter]
     public class LeaveController : BaseController
     {
-        
+
 
         // GET: Leave
         #region HolidayList
@@ -153,7 +153,7 @@ namespace HR.Web.Controllers
 
 
         public ViewResult AppliedLeaveList()
-        {            
+        {
             string viewName = string.Empty;
             using (var dbCntx = new HrDataContext())
             {
@@ -167,12 +167,13 @@ namespace HR.Web.Controllers
                             BranchName = x.A.BranchName,
                             employeeLeaveList = x.B.Select(y => new EmpLeaveListVm
                             {
-                                EmployeeName = dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).Select(z => new {
+                                EmployeeName = dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).Select(z => new
+                                {
                                     EmployeeFullName = z.FirstName + " " + z.LastName
                                 }).FirstOrDefault().EmployeeFullName,
                                 EmployeeId = y.EmployeeId,
                                 FromDate = y.FromDate,
-                                ToDate =y.ToDate
+                                ToDate = y.ToDate
                             })
                         }).ToList();
 
@@ -182,7 +183,7 @@ namespace HR.Web.Controllers
 
         public JsonResult GetBranchLeaveData(int branchId, int pageNo)
         {
-            
+
             int offSet = 10;
             int skipRows = (pageNo - 1) * offSet;
             using (var dbCntx = new HrDataContext())
@@ -204,7 +205,8 @@ namespace HR.Web.Controllers
                                             ToDate = x.B.ToDate
                                         }).ToList();
 
-                return Json(new {
+                return Json(new
+                {
                     empLeaveList = empLeaveList,
                     pagerLength = Query.Count()
                 }, JsonRequestBehavior.AllowGet);
@@ -213,6 +215,8 @@ namespace HR.Web.Controllers
 
         public ActionResult EmployeeRequestFrom()
         {
+
+
             return View(new EmployeeLeaveList
             {
                 FromDate = DateTime.Now,
@@ -232,8 +236,11 @@ namespace HR.Web.Controllers
                                 .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
                                 .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
                                 .Count();
+
+
                 if (isValid == 0)
                 {
+                    obj.BranchId = BRANCHID;
                     obj.FromDate = EmployeeLeaveList.FromDate;
                     obj.ToDate = EmployeeLeaveList.ToDate;
                     obj.Days = EmployeeLeaveList.Days;
@@ -244,6 +251,46 @@ namespace HR.Web.Controllers
                     obj.CreatedBy = USERID;
                     obj.CreatedOn = UTILITY.SINGAPORETIME;
                     dbCntx.EmployeeLeaveLists.Add(obj);
+
+
+                    LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
+                         .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn).FirstOrDefault();
+                    LeaveListCalc leaveListCalc = null;
+                    if (leavetransaction != null)
+                    {
+
+
+                        leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
+                            leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
+                            );
+                        CalculateLeaves.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc);
+                    }
+                    else
+                    {
+                        Leave leave = dbCntx.Leaves
+                             .Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                        leaveListCalc = new LeaveListCalc(leave.CasualLeavesPerYear.Value, leave.SickLeavesPerYear.Value, leave.PaidLeavesPerYear.Value, leave.CasualLeavesPerYear.Value, leave.SickLeavesPerYear.Value, leave.PaidLeavesPerYear.Value);
+                        CalculateLeaves.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+
+
+                    }
+                    LeaveTransaction leaveTransaction = new LeaveTransaction()
+                    {
+                        BranchId = BRANCHID,
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
+                        CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
+                        CurrentSickLeaves = leaveListCalc.currentSickLeaves,
+                        EmployeeId = EMPLOYEEID,
+                        FromDt = obj.FromDate,
+                        ToDt = obj.ToDate,
+                        PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
+                        PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
+                        PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+                    };
+                    dbCntx.LeaveTransactions.Add(leaveTransaction);
+
                     dbCntx.SaveChanges();
 
                     return View("EmployeeRequestFrom");
@@ -253,7 +300,7 @@ namespace HR.Web.Controllers
                     ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
                     return View("EmployeeRequestFrom");
                 }
-                
+
             }
         }
         public ActionResult GrantLeaveForm()
@@ -285,7 +332,7 @@ namespace HR.Web.Controllers
             //    return View(leavevm);
             //}
             // return View(new LeaveHeader());
-            using(var dbcntx=new HrDataContext())
+            using (var dbcntx = new HrDataContext())
             {
                 var grantleaveform = dbcntx.EmployeeHeaders.
                      Join(dbcntx.EmployeeLeaveLists,
@@ -301,7 +348,7 @@ namespace HR.Web.Controllers
                      })
                      .ToList()
                      .AsEnumerable();
-                
+
                 return View(grantleaveform);
             }
         }
@@ -388,7 +435,7 @@ namespace HR.Web.Controllers
                     updateLeave.CarryForwardSickLeaves = leave.CarryForwardSickLeaves;
                     updateLeave.CasualLeavesPerMonth = leave.CasualLeavesPerMonth;
                     updateLeave.CasualLeavesPerYear = leave.CasualLeavesPerYear;
-                                       updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward;
+                    updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward;
                     updateLeave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward;
                     updateLeave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward;
                     updateLeave.PaidLeavesPerMonth = leave.PaidLeavesPerMonth;
@@ -403,14 +450,60 @@ namespace HR.Web.Controllers
 
         public ActionResult ViewLeavesList()
         {
-            using(var dbcntx=new HrDataContext())
+            using (var dbcntx = new HrDataContext())
             {
                 var viewleavelist = dbcntx.EmployeeLeaveLists.Where(x => x.EmployeeId == EMPLOYEEID).ToList().AsEnumerable();
                 return View(viewleavelist);
             }
-           
+
         }
 
+
+    }
+
+    public class LeaveListCalc
+    {
+        public decimal currentCasualLeaves = 0;
+        public decimal currentPaidLeaves = 0;
+        public decimal currentSickLeaves = 0;
+        public decimal previousCasualLeaves = 0;
+        public decimal previousPaidLeaves = 0;
+        public decimal previousSickLeaves = 0;
+        public LeaveListCalc(decimal _currentCasualLeaves, decimal _currentPaidLeaves, decimal _currentSickLeaves,
+            decimal _previousCasualLeaves, decimal _previousPaidLeaves, decimal _previousSickLeaves)
+        {
+            currentCasualLeaves = _currentCasualLeaves;
+            currentPaidLeaves = _currentPaidLeaves;
+            currentSickLeaves = _currentSickLeaves;
+            previousCasualLeaves = _previousCasualLeaves;
+            previousPaidLeaves = _previousPaidLeaves;
+            previousSickLeaves = _previousSickLeaves;
+        }
+
+    }
+    public static class CalculateLeaves
+    {
+        public static void CalculateLeaveFromTransaction(LeaveTransaction LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc)
+        {
+            if (obj.LeaveTypeId == 1030)
+            {
+                leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
+                leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days;
+            }
+            else if (obj.LeaveTypeId == 1031)
+            {
+                leaveListCalc.previousSickLeaves = leaveListCalc.currentSickLeaves;
+                leaveListCalc.currentSickLeaves = leaveListCalc.currentSickLeaves - obj.Days;
+            }
+
+        }
+        public static void CalculateLeave(Leave LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc)
+        {
+            if (obj.LeaveTypeId == 1030)
+                leaveListCalc.currentCasualLeaves = LeaveTransaction.CasualLeavesPerYear.Value - obj.Days;
+            else if (obj.LeaveTypeId == 1031)
+                leaveListCalc.currentSickLeaves = LeaveTransaction.SickLeavesPerYear.Value - obj.Days;
+        }
 
     }
 }

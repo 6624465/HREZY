@@ -31,6 +31,7 @@
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderUser" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Leave" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveTransaction" Width="1.5" PointX="15.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -288,6 +288,26 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="LeaveTransaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="FromDt" Type="datetime" Nullable="false" />
+          <Property Name="ToDt" Type="datetime" Nullable="false" />
+          <Property Name="PreviousPaidLeaves" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CurrentPaidLeaves" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PreviousSickLeaves" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CurrentSickLeaves" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PreviousCasualLeaves" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CurrentCasualLeaves" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Role">
@@ -341,6 +361,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="EmployeeWorkDetail" EntityType="Self.EmployeeWorkDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveDetail" EntityType="Self.LeaveDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveHeader" EntityType="Self.LeaveHeader" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="LeaveTransaction" EntityType="Self.LeaveTransaction" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
             <DefiningQuery>SELECT 
@@ -444,6 +465,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Leaves" EntityType="DB_9F30C5_HRDBModel.Leave" />
+          <EntitySet Name="LeaveTransactions" EntityType="DB_9F30C5_HRDBModel.LeaveTransaction" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -856,6 +878,26 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="IsCasualLeaveCarryForward" Type="Boolean" Nullable="false" />
           <Property Name="BranchId" Type="Int64" />
         </EntityType>
+        <EntityType Name="LeaveTransaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="FromDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ToDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PreviousPaidLeaves" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="CurrentPaidLeaves" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="PreviousSickLeaves" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="CurrentSickLeaves" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="PreviousCasualLeaves" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="CurrentCasualLeaves" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1192,6 +1234,27 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="PaidLeavesPerMonth" ColumnName="PaidLeavesPerMonth" />
                 <ScalarProperty Name="PaidLeavesPerYear" ColumnName="PaidLeavesPerYear" />
                 <ScalarProperty Name="LeaveId" ColumnName="LeaveId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveTransactions">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.LeaveTransaction">
+              <MappingFragment StoreEntitySet="LeaveTransaction">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CurrentCasualLeaves" ColumnName="CurrentCasualLeaves" />
+                <ScalarProperty Name="PreviousCasualLeaves" ColumnName="PreviousCasualLeaves" />
+                <ScalarProperty Name="CurrentSickLeaves" ColumnName="CurrentSickLeaves" />
+                <ScalarProperty Name="PreviousSickLeaves" ColumnName="PreviousSickLeaves" />
+                <ScalarProperty Name="CurrentPaidLeaves" ColumnName="CurrentPaidLeaves" />
+                <ScalarProperty Name="PreviousPaidLeaves" ColumnName="PreviousPaidLeaves" />
+                <ScalarProperty Name="ToDt" ColumnName="ToDt" />
+                <ScalarProperty Name="FromDt" ColumnName="FromDt" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

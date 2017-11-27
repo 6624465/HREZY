@@ -15,12 +15,10 @@ namespace HR.Web.Models
     public partial class Leave
     {
         public int LeaveId { get; set; }
-        public string CountryName { get; set; }
-        public string CountryCode { get; set; }
         public Nullable<int> PaidLeavesPerYear { get; set; }
         public Nullable<decimal> PaidLeavesPerMonth { get; set; }
         public bool IsPaidLeaveCarryForward { get; set; }
-        public string CarryForwardPerYear { get; set; }
+        public Nullable<decimal> CarryForwardPerYear { get; set; }
         public Nullable<int> SickLeavesPerYear { get; set; }
         public Nullable<decimal> SickLeavesPerMonth { get; set; }
         public bool IsSickLeaveCarryForward { get; set; }

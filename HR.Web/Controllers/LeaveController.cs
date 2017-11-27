@@ -342,7 +342,7 @@ namespace HR.Web.Controllers
             using (HrDataContext dbContext = new HrDataContext())
             {
                 List<Leave> leaves = dbContext.Leaves.ToList();
-                leaves.ForEach(x => x.CountryName = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
+                //leaves.ForEach(x => x.BranchId = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
                 return View(leaves);
             }
         }
@@ -388,9 +388,7 @@ namespace HR.Web.Controllers
                     updateLeave.CarryForwardSickLeaves = leave.CarryForwardSickLeaves;
                     updateLeave.CasualLeavesPerMonth = leave.CasualLeavesPerMonth;
                     updateLeave.CasualLeavesPerYear = leave.CasualLeavesPerYear;
-                    updateLeave.CountryCode = leave.CountryCode;
-                    updateLeave.CountryName = leave.CountryName;
-                    updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward;
+                                       updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward;
                     updateLeave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward;
                     updateLeave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward;
                     updateLeave.PaidLeavesPerMonth = leave.PaidLeavesPerMonth;
@@ -400,7 +398,7 @@ namespace HR.Web.Controllers
                 }
                 dbContext.SaveChanges();
             }
-            return View();
+            return RedirectToAction("Leave");
         }
 
         public ActionResult ViewLeavesList()

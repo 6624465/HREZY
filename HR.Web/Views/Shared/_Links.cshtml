@@ -20,7 +20,7 @@
                 @*<li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>*@
                 <li id="li_empadd"><a href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>
                 <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
-                <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+                <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>
             </ul>
         </li>
     </ul>
@@ -87,7 +87,7 @@ else if(Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
                 <li id="li_empadd"><a href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>
                 <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
-                <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+                <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>
             </ul>
         </li>
         <li id="li_Admin">
@@ -124,7 +124,7 @@ else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
             <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
             <li id="li_empadd"><a href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>
             <li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
-            <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveForm")">Grant Leave Form</a></li>
+            <li id="li_grantleaveform"><a href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>
         </ul>
     </li>
 </ul>

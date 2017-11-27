@@ -61,6 +61,10 @@ namespace HR.Web.ViewModels
         public string Name { get; set; }
 
         public int EmployeeId { get; set; }
+        public string Remarks { get; set; }
+        public string Reason { get; set; }
+
+        public int EmployeeLeaveID { get; set; }
 
     }
     

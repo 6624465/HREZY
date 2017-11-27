@@ -1,0 +1,127 @@
+﻿@model HR.Web.ViewModels.GrantLeaveListVm
+
+@section Styles {
+    <style type="text/css">
+        .popover{
+            max-width: 100%; 
+            width: 500px;
+        }
+    </style>
+}
+
+@using (Html.BeginForm("ApproveLeave", "Leave", FormMethod.Post, new { id = "frmLeaveStatus", name = "frmLeaveStatus" }))
+{
+    <div class="page">
+        <div class="panel panel-default panel-hovered panel-stacked mb10">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.HiddenFor(x => x.EmployeeId)
+                            @Html.HiddenFor(x => x.EmployeeLeaveID)
+                            <div class="col-md-3">
+                                <label class="control-label pull-right">Employee Name:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label pull-left">@Model.Name</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row css10">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label pull-right">From Date:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label pull-left">@Model.FromDate.ToString("MM/dd/yyyy")</label>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="row css10">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label pull-right">To Date:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label pull-left">@Model.ToDate.ToString("MM/dd/yyyy")</label>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="row css10">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label pull-right">Reason:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label pull-left">@Model.Reason</label>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="row css10">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9">
+                            <button class="btn btn-primary btn-sm">Approve</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="popover" title="Remarks">Reject</button>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+}
+
+
+<div id="popover" class="hide">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">Remarks:</div>
+            <div class="col-md-9">                    
+                @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row css10">
+        <div class="form-group">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                <button type="button" class="btn btn-primary btn-sm" onclick="RejectLeave()">Save</button>
+                <button type="button" class="btn btn-default btn-sm" data-dissmiss="close">Close</button>
+            </div>                
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({
+            placement: 'right',
+            html: true,
+
+            content: function () {
+                var anchorText = $(this).text();
+                $('#popover').find('input[id=txtContent]').attr('value', anchorText);
+                return $('#popover').html();
+            }
+
+            //}).blur(function () {
+            //    $(this).popover('hide');
+            //});
+        })
+    });
+    function RejectLeave() {
+        debugger;
+        $('#frmLeaveStatus').attr('action', '@Url.Content("~/Leave/RejectLeave")')
+
+        $('#frmLeaveStatus').submit();
+
+    }
+</script>
+}

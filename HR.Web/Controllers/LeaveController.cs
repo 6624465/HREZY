@@ -227,7 +227,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
-
+            string ishalfday = Request.Form["chkhalfday"];
             using (var dbCntx = new HrDataContext())
             {
                 EmployeeLeaveList obj = new EmployeeLeaveList();

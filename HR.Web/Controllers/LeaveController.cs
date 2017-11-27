@@ -303,36 +303,11 @@ namespace HR.Web.Controllers
 
             }
         }
-        public ActionResult GrantLeaveForm()
+
+        [HttpGet]
+        public ActionResult GrantLeaveFormList()
         {
-            //using (HrDataContext dbContext = new HrDataContext())
-            //{
-            //    LeaveVm leavevm = new LeaveVm();
-            //    leavevm.lookup = new LookUp();
-            //    leavevm.leaveHeader = new LeaveHeader();
-            //    var lookups = dbContext.LookUps;
-            //    var lvmList = dbContext.LeaveHeaders
-            //                     .Select(x => new LeaveHeaderVm
-            //                     {
-            //                         LeaveHeaderID = x.LeaveHeaderID,
-            //                         BranchID = x.BranchID,
-            //                         LeaveSchemeType = x.LeaveSchemeType,
-            //                         LeaveSchemeTypeDescription = lookups.Where(y => y.LookUpID == x.LeaveSchemeType).FirstOrDefault().LookUpDescription,
-            //                         LeaveYear = x.LeaveYear,
-            //                         LeaveYearDescription = lookups.Where(y => y.LookUpID == x.LeaveYear).FirstOrDefault().LookUpDescription,
-            //                         PeriodicityType = x.PeriodicityType,
-            //                         PeriodicityTypeDescription = lookups.Where(y => y.LookUpID == x.PeriodicityType).FirstOrDefault().LookUpDescription,
-            //                         PeriodType = x.PeriodType,
-            //                         PeriodTypeDescription = lookups.Where(y => y.LookUpID == x.PeriodType).FirstOrDefault().LookUpDescription
-            //                     }).ToList().AsEnumerable();
-            //    leavevm.lvmList = lvmList;
-
-
-            //    ViewData["LeaveTypeList"] = lookups.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE).ToList();
-            //    return View(leavevm);
-            //}
-            // return View(new LeaveHeader());
-            using (var dbcntx = new HrDataContext())
+            using (var dbcntx=new HrDataContext())
             {
                 var grantleaveform = dbcntx.EmployeeHeaders.
                      Join(dbcntx.EmployeeLeaveLists,
@@ -344,14 +319,86 @@ namespace HR.Web.Controllers
                          ToDate = x.B.ToDate,
                          FromDate = x.B.FromDate,
                          Name = x.A.FirstName + " " + x.A.LastName,
-                         EmployeeId = x.A.EmployeeId
+                         EmployeeId = x.A.EmployeeId,
+                         EmployeeLeaveID = x.B.EmployeeLeaveID,
+                         Status = x.B.Status
                      })
                      .ToList()
                      .AsEnumerable();
-
-                return View(grantleaveform);
+                
+                return View("GrantLeaveForm", grantleaveform);
             }
         }
+
+        [HttpGet]
+        public ActionResult AppliedGrantLeaveStatus(int? EmployeeLeaveID)
+        {
+            if (EmployeeLeaveID != null)
+            {
+                using (var dbcntx = new HrDataContext())
+                {
+                    var Leavestatus = dbcntx.EmployeeHeaders.Join(dbcntx.EmployeeLeaveLists,
+                        a => a.EmployeeId, b => b.EmployeeId,
+                        (a, b) => new { A = a, B = b })
+                        .Where(x => x.A.ManagerId == EMPLOYEEID && x.B.EmployeeLeaveID == EmployeeLeaveID)
+                     .Select(x => new GrantLeaveListVm
+                     {
+                         ToDate = x.B.ToDate,
+                         FromDate = x.B.FromDate,
+                         Name = x.A.FirstName + " " + x.A.LastName,
+                         EmployeeId = x.A.EmployeeId,
+                         Remarks = x.B.Remarks,
+                         Reason = x.B.Reason,
+                         EmployeeLeaveID = x.B.EmployeeLeaveID,
+                         Status = x.B.Status
+                     }).FirstOrDefault();
+
+                    return View(Leavestatus);
+
+                }
+            }
+            else
+            {
+                return RedirectToAction("GrantLeaveForm");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ApproveLeave(GrantLeaveListVm grantLeaveVm)
+        {
+            using (var dbcntx = new HrDataContext())
+            {
+                var empLeaveObj = dbcntx.EmployeeLeaveLists
+                                    .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID)
+                                    .FirstOrDefault();
+
+
+                empLeaveObj.Status = "Approved";
+                empLeaveObj.Remarks = "";
+                dbcntx.SaveChanges();
+
+                return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult RejectLeave(GrantLeaveListVm grantLeaveVm)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var empLeaveObj = dbCntx.EmployeeLeaveLists
+                                    .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID)
+                                    .FirstOrDefault();
+
+                empLeaveObj.Status = "Rejected";
+                empLeaveObj.Remarks = grantLeaveVm.Remarks;
+
+                dbCntx.SaveChanges();
+
+                return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
+            }
+        }
+
         [HttpPost]
         public ActionResult SaveGrantLeave(LeaveVm lvm)
         {

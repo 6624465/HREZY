@@ -15,10 +15,21 @@
                         <div class="col-md-12">
                             @grid.GetHtml(
                 columns: grid.Columns(
-                grid.Column("EmployeeId", "Employee Id"),
                  grid.Column("Name", "Employee Name"),
                 grid.Column("FromDate", "from Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
-                grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/mm/yyyy }", item.ToDate))),
+                grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy }", item.ToDate)),
+                grid.Column("Status","Status",format:@<text>
+                            @if (item.Status == "Approved")
+                            {
+                                <span class="label label-success"  style="font-weight:bold;font-size:14px;">@item.Status</span>
+                            }
+                            else if(item.Status == "Rejected")
+                            {
+                                <span class="label label-danger" style="font-weight:bold;font-size:14px;">@item.Status</span>
+                            }
+
+                            </text>),
+                grid.Column("", "View", format: @<text><button class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" type="button" onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @item.EmployeeLeaveID"><i class="fa fa-eye" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table table-condensed")
                         </div>
                     </div>
@@ -32,10 +43,26 @@
         </div>
     </div>
 </div>
+
+
 <script type="text/javascript">
         $(function () {
             $('#li_Leave').addClass('open');
             $('#li_grantleaveform').addClass('active');
         });
+    
+        @*function grantleavefrom(EmployeeId) {
+            debugger;
+            $.ajax({
+                url: '@Url.Content("~/Leave/AppliedLeaveStatsus?EmployeeId=")' + EmployeeId,
+                contentType: 'text/html',
+                method: 'GET',
+                success: function (data) {
+                    $('#frmgrantleave').frmgrantleave('show');
+                    $('#modalContent').html('');
+                    $('#modalContent').html(data);
+                }
+            });
+        }*@
 
 </script>

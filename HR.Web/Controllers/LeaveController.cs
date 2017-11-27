@@ -263,7 +263,7 @@ namespace HR.Web.Controllers
                         leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
                             leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
                             );
-                        CalculateLeaves.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc);
+                        CalculateLeaves.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
                     }
                     else
                     {
@@ -307,7 +307,7 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult GrantLeaveFormList()
         {
-            using (var dbcntx=new HrDataContext())
+            using (var dbcntx = new HrDataContext())
             {
                 var grantleaveform = dbcntx.EmployeeHeaders.
                      Join(dbcntx.EmployeeLeaveLists,
@@ -325,7 +325,7 @@ namespace HR.Web.Controllers
                      })
                      .ToList()
                      .AsEnumerable();
-                
+
                 return View("GrantLeaveForm", grantleaveform);
             }
         }
@@ -504,8 +504,65 @@ namespace HR.Web.Controllers
             }
 
         }
+        [HttpPost]
+        public ActionResult CancelLeave(FormCollection collection)
+        {
+            int employeeLeaveID = Convert.ToInt32(collection["employeeLeaveID"]);
+            string remarks = collection["employeeRemarks"];
+
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                try
+                {
+
+                    EmployeeLeaveList empLeaveObj = dbContext.EmployeeLeaveLists.Where(x => x.BranchId == BRANCHID && x.EmployeeLeaveID == employeeLeaveID).FirstOrDefault();
+                    empLeaveObj.Status = "Cancelled";
+                    empLeaveObj.Remarks = remarks;
+
+                    LeaveTransaction leavetransaction = dbContext.LeaveTransactions
+                             .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn).FirstOrDefault();
+                    LeaveListCalc leaveListCalc = null;
+                    if (leavetransaction != null)
+                    {
 
 
+                        leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
+                            leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
+                            );
+                        CalculateLeaves.CalculateLeaveFromTransaction(leavetransaction, empLeaveObj, leaveListCalc, false);
+                    }
+
+                    LeaveTransaction leaveTransaction = new LeaveTransaction()
+                    {
+                        BranchId = BRANCHID,
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
+                        CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
+                        CurrentSickLeaves = leaveListCalc.currentSickLeaves,
+                        EmployeeId = EMPLOYEEID,
+                        FromDt = empLeaveObj.FromDate,
+                        ToDt = empLeaveObj.ToDate,
+                        PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
+                        PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
+                        PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+                    };
+                    dbContext.LeaveTransactions.Add(leaveTransaction);
+
+
+                    dbContext.SaveChanges();
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            }
+
+
+            return RedirectToAction("ViewLeavesList");
+        }
     }
 
     public class LeaveListCalc
@@ -530,17 +587,35 @@ namespace HR.Web.Controllers
     }
     public static class CalculateLeaves
     {
-        public static void CalculateLeaveFromTransaction(LeaveTransaction LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc)
+        public static void CalculateLeaveFromTransaction(LeaveTransaction LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc, bool flag)
         {
             if (obj.LeaveTypeId == 1030)
             {
-                leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
-                leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days;
+                if (flag)
+                {
+                    leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
+                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days;
+                }
+                else
+                {
+                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves + obj.Days;
+                    leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
+
+                }
             }
             else if (obj.LeaveTypeId == 1031)
             {
-                leaveListCalc.previousSickLeaves = leaveListCalc.currentSickLeaves;
-                leaveListCalc.currentSickLeaves = leaveListCalc.currentSickLeaves - obj.Days;
+                if (flag)
+                {
+                    leaveListCalc.previousSickLeaves = leaveListCalc.currentSickLeaves;
+                    leaveListCalc.currentSickLeaves = leaveListCalc.currentSickLeaves - obj.Days;
+                }
+                else
+                {
+                    leaveListCalc.currentSickLeaves = leaveListCalc.currentSickLeaves + obj.Days;
+                    leaveListCalc.previousSickLeaves = leaveListCalc.currentSickLeaves;
+
+                }
             }
 
         }

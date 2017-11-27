@@ -1,8 +1,9 @@
-﻿@model IEnumerable<HR.Web.Models.EmployeeLeaveList>
+﻿@model List<HR.Web.Models.EmployeeLeaveList>
 
-@{ 
+@{
     WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
 }
+
 
 <div class="page">
     <div class="page-wrap">
@@ -18,9 +19,20 @@
                 columns: grid.Columns(
                 grid.Column("FromDate", "From Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
                 grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.ToDate)),
-                grid.Column("", "Remarks", format:@<text><button class="btn btn-xs waves-effect" type="button" style="padding-left: 5px;margin-left: 6px;" id="popover" data-trigger="hover" data-toggle="popover" data-title="Remarks" data-content="@item.Remarks"><i class="fa fa-eye" style="padding-left: 5px;"></i></button></text>)),
+                grid.Column("Status", "Status"),
+                grid.Column("", "Reason", format:
+                @<text>
+                    <button class="btn btn-xs waves-effect" type="button" style="padding-left: 5px;margin-left: 6px;" id="popover" data-trigger="hover" data-toggle="popover" data-title="Reason" data-content="@item.Reason"><i class="fa fa-eye" style="padding-left: 5px;"></i></button>
+                    @if (item.FromDate > UTILITY.SINGAPORETIME && (item.Status == UTILITY.LEAVEAPPROVED || item.Status == null) && item.Status!= UTILITY.LEAVEREJECTED)
+                    {
+                        <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" data-toggle="popoverCancel" title="Remarks" data-value="@item.EmployeeLeaveID" onclick="cancelRequest(@item.EmployeeLeaveID)"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" disabled="disabled"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
+                    } </text>)),
                 tableStyle: "table table-condensed")
-                    </div> 
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
@@ -32,15 +44,66 @@
         </div>
     </div>
 </div>
+@using (Html.BeginForm("CancelLeave", "Leave", FormMethod.Post, new { id = "frmCancelLeave", name = "frmCancelLeave" }))
+{
+    <input type="hidden" id="employeeLeaveID" name="employeeLeaveID" />
+    <input type="hidden" id="employeeRemarks" name="employeeRemarks" />
+    <div id="popoverCancel" class="hide">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">Remarks:</div>
+                <div class="col-md-9">
+
+                    <textarea id="txtRemarks" name="txtRemarks" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row css10">
+            <div class="form-group">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="CancelLeave()"><i class="fa fa-floppy-o"></i>Save</button>
+                    <button type="button" class="btn btn-default btn-sm" onclick="ClosePopUp()"><i class="fa fa-times"></i>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <script type="text/javascript">
-        $(function () {
-            $('#li_Leave').addClass('open');
-            $('#li_empadd').addClass('active');
-        });
-  
-    $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
+    $(function () {
+        $('#li_Leave').addClass('open');
+        $('#li_empadd').addClass('active');
+
+        $('[data-toggle="popoverCancel"]').popover({
+            placement: 'top',
+            html: true,
+            content: function () {
+
+                return $('#popoverCancel').html();
+            }
+
+        })
     });
-        @*$("#popover").popover({ trigger: "@item.Remarks" });*@
+
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+
+    });
+    function cancelRequest(id) {
+        $('#employeeLeaveID').val(id);
+    }
+
+    function CancelLeave() {
+        debugger;
+        var remarks = $('#txtRemarks').val();
+        $('#employeeRemarks').val(remarks);
+        $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
+        $('#frmCancelLeave').submit();
+
+    }
+    function ClosePopUp() {
+        $('[data-toggle="popoverCancel"]').popover('hide');
+    }
+
 </script>
-   

@@ -66,6 +66,8 @@ namespace HR.Web.ViewModels
 
         public int EmployeeLeaveID { get; set; }
 
+        public string Status { get; set; }
+
     }
     
 

@@ -301,7 +301,8 @@ namespace HR.Web.Controllers
                          EmployeeId = x.A.EmployeeId,
                          Remarks = x.B.Remarks,
                          Reason = x.B.Reason,
-                         EmployeeLeaveID = x.B.EmployeeLeaveID
+                         EmployeeLeaveID = x.B.EmployeeLeaveID,
+                         Status = x.B.Status
                      }).FirstOrDefault();
 
                     return View(Leavestatus);
@@ -319,9 +320,8 @@ namespace HR.Web.Controllers
         {
             using (var dbcntx = new HrDataContext())
             {
-
                 var empLeaveObj = dbcntx.EmployeeLeaveLists
-                                    .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID && x.BranchId == BRANCHID)
+                                    .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID)
                                     .FirstOrDefault();
 
 
@@ -329,7 +329,7 @@ namespace HR.Web.Controllers
                 empLeaveObj.Remarks = "";
                 dbcntx.SaveChanges();
 
-                return View("AppliedGrantLeaveStatus", new { EmployeeId = grantLeaveVm.EmployeeLeaveID });
+                return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
             }
         }
 
@@ -339,7 +339,7 @@ namespace HR.Web.Controllers
             using (var dbCntx = new HrDataContext())
             {
                 var empLeaveObj = dbCntx.EmployeeLeaveLists
-                                    .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID && x.BranchId == BRANCHID)
+                                    .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID)
                                     .FirstOrDefault();
 
                 empLeaveObj.Status = "Rejected";
@@ -347,7 +347,7 @@ namespace HR.Web.Controllers
 
                 dbCntx.SaveChanges();
 
-                return View("AppliedGrantLeaveStatus", new { EmployeeId = grantLeaveVm.EmployeeId });
+                return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
             }
         }
 

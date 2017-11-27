@@ -119,7 +119,7 @@
             <div class="col-md-3"></div>
             <div class="col-md-9">
                 <button type="button" class="btn btn-primary btn-sm" onclick="RejectLeave()"><i class="fa fa-floppy-o"></i>Save</button>
-                <button type="button" class="btn btn-default btn-sm" data-dissmiss=""><i class="fa fa-times"></i>Close</button>
+                <button type="button" class="btn btn-default btn-sm" onclick="Close()"><i class="fa fa-times"></i>Close</button>
             </div>                
         </div>
     </div>
@@ -137,13 +137,19 @@
                 var anchorText = $(this).text();
                 $('#popover').find('input[id=txtContent]').attr('value', anchorText);
                 return $('#popover').html();
-            }
-
+            },
+           
+            
+        
+        });
+       
+    });
+   
             //}).blur(function () {
             //    $(this).popover('hide');
             //});
-        })
-    });
+        
+   
     function RejectLeave() {
         debugger;
         $('#frmLeaveStatus').attr('action', '@Url.Content("~/Leave/RejectLeave")')
@@ -151,5 +157,9 @@
         $('#frmLeaveStatus').submit();
 
     }
+    function Close() {
+    $('[data-toggle="popover"]').popover('hide')
+        }
+   
 </script>
 }

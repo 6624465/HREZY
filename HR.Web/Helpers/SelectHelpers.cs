@@ -15,7 +15,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == key)
+                                .Where(x => x.LookUpCategory == key && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -32,7 +32,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEETYPE)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEETYPE && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -48,7 +48,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEMARITALSTATUS)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEMARITALSTATUS && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -64,7 +64,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -80,7 +80,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDEPARTMENT)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDEPARTMENT && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -96,7 +96,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_NOTICEPERIOD)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_NOTICEPERIOD && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -112,7 +112,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_PROHIBATIONPERIOD)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_PROHIBATIONPERIOD && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -140,7 +140,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_GRANTLEAVEPERIODICITY)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_GRANTLEAVEPERIODICITY && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -155,7 +155,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_GRANTLEAVEYEAR)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_GRANTLEAVEYEAR && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -170,7 +170,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_GRANTLEAVEPERIODTYPE)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_GRANTLEAVEPERIODTYPE && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -185,7 +185,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_GRANTLEAVESCHEMETYPE)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_GRANTLEAVESCHEMETYPE && x.IsActive == true)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -200,7 +200,7 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE && x.IsActive == true)
                                 .Select(x => new SelectListItem
                                 {
                                     Text = x.LookUpDescription,
@@ -217,7 +217,7 @@ namespace HR.Web.Helpers
             {
                 if (isReportAuth)
                 {
-                    return dbCntx.EmployeeHeaders.Where(x => x.IsReportingAuthority == isReportAuth)
+                    return dbCntx.EmployeeHeaders.Where(x => x.IsReportingAuthority == isReportAuth && x.IsActive == true)
                         .Select(x => new SelectListItem
                         {
                             Text = x.FirstName + " " + x.LastName,

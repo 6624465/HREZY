@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace HR.Web.Controllers
 {
 
-    [Authorize]
+    [SessionFilter]
     public class ConfigController : BaseController
     {
 
@@ -19,7 +19,7 @@ namespace HR.Web.Controllers
         {
             using (var dbContext = new HrDataContext())
             {
-                var EmployeeData = dbContext.LookUps.Where(x => x.LookUpCategory == "EmployeeDesignation").ToList().AsEnumerable();
+                var EmployeeData = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION && x.IsActive == true).ToList().AsEnumerable();
                 return View(EmployeeData);
             }
         }
@@ -30,7 +30,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var employeeDesign = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    var employeeDesign = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
                     return PartialView("GetEmployeeDesignation",employeeDesign);
                 }
 
@@ -46,7 +46,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
@@ -91,7 +91,7 @@ namespace HR.Web.Controllers
         {
             using (var dbCntx = new HrDataContext())
             {
-                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeType").ToList().AsEnumerable();
+                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEETYPE && x.IsActive == true).ToList().AsEnumerable();
                 return View(list);
             }
         }
@@ -104,7 +104,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var employeeType = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    var employeeType = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
                     return PartialView(employeeType);
                 }
              
@@ -120,7 +120,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
@@ -161,7 +161,7 @@ namespace HR.Web.Controllers
         {
             using (var dbCntx = new HrDataContext())
             {
-                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeDepartment").ToList().AsEnumerable();
+                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDEPARTMENT && x.IsActive == true).ToList().AsEnumerable();
                 return View(list);
             }
                 
@@ -173,7 +173,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var employeeDepartment = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    var employeeDepartment = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
                     return PartialView(employeeDepartment);
                 }
 
@@ -188,7 +188,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
@@ -228,7 +228,7 @@ namespace HR.Web.Controllers
         {
             using (var dbCntx = new HrDataContext())
             {
-                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == "EmployeeStatus").ToList().AsEnumerable();
+                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEESTATUS && x.IsActive == true).ToList().AsEnumerable();
                 return View(list);
             }
 
@@ -240,7 +240,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var employeeStatus = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    var employeeStatus = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
                     return PartialView(employeeStatus);
                 }
 
@@ -255,7 +255,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
@@ -296,7 +296,7 @@ namespace HR.Web.Controllers
         {
             using (var dbContext = new HrDataContext())
             {
-                var marital_status = dbContext.LookUps.Where(x => x.LookUpCategory == "MartialSatus").ToList().AsEnumerable();
+                var marital_status = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEMARITALSTATUS && x.IsActive == true).ToList().AsEnumerable();
                 return View(marital_status);
             }
             
@@ -308,7 +308,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var marital_status_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    var marital_status_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
                     return PartialView(marital_status_data);
                 }
 
@@ -323,7 +323,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
@@ -364,7 +364,7 @@ namespace HR.Web.Controllers
         {
             using (var dbContext = new HrDataContext())
             {
-                var leaveType = dbContext.LookUps.Where(x => x.LookUpCategory == "LeaveType").ToList().AsEnumerable();
+                var leaveType = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE && x.IsActive == true).ToList().AsEnumerable();
                 return View(leaveType);
             }
 
@@ -376,7 +376,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var leave_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    var leave_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
                     return PartialView(leave_data);
                 }
 
@@ -391,7 +391,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;
@@ -431,7 +431,7 @@ namespace HR.Web.Controllers
         {
             using (var dbContext = new HrDataContext())
             {
-                var paymentType = dbContext.LookUps.Where(x => x.LookUpCategory == "PaymentType").ToList().AsEnumerable();
+                var paymentType = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEPAYMENTTYPE && x.IsActive == true).ToList().AsEnumerable();
                 return View(paymentType);
             }
 
@@ -443,7 +443,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var payment_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID).FirstOrDefault();
+                    var payment_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
                     return PartialView(payment_data);
                 }
 
@@ -458,7 +458,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID).FirstOrDefault();
+                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
 
                     _lookupObj.LookUpCode = lookup.LookUpCode;
                     _lookupObj.LookUpDescription = lookup.LookUpDescription;

@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 namespace HR.Web.Controllers
 {
 
-    [Authorize]
+    [SessionFilter]
     public class EmployeeController : BaseController
     {
         [HttpGet]

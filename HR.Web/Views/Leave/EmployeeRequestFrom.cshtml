@@ -153,6 +153,11 @@
                 var from = moment(fromDate, 'MM/DD/YYYY');
                 var to = moment(toDate, 'MM/DD/YYYY');
                 var days = moment.duration(to.diff(from)).asDays();
+                if (days < 0) {
+                    $('#FromDt').find('input').val('');
+                    $('#ToDt').find('input').val('');
+                    $('#Days').val('');
+                }else
                 $('#Days').val(days);
             }
         });
@@ -164,6 +169,11 @@
                 var from = moment(fromDate, 'MM/DD/YYYY');
                 var to = moment(toDate, 'MM/DD/YYYY');
                 var days = moment.duration(to.diff(from)).asDays();
+                if (days < 0) {
+                    $('#FromDt').find('input').val('');
+                    $('#ToDt').find('input').val('');
+                    $('#Days').val('');
+                }else
                 $('#Days').val(days);
             }
         });

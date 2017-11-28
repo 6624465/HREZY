@@ -68,6 +68,8 @@ namespace HR.Web.ViewModels
 
         public string Status { get; set; }
 
+        public DateTime ApplyDate { get; set; }
+
     }
 
     public class ViewLeaveVm

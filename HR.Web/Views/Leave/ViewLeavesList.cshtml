@@ -36,21 +36,25 @@
                                     <div class="col-md-6">
                                         @if (@Model[i].Status == UTILITY.LEAVEAPPROVED)
                                         {
-                                            <label class="control-label pull-right">Status: <span class="label label-success " style="font-weight:bold;font-size:14px;">@Model[i].Status</span></label>
+                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-success" style="font-weight:bold;font-size:14px;">@Model[i].Status</span></label>
                                         }
                                         else if (@Model[i].Status == UTILITY.LEAVEREJECTED)
                                         {
-                                            <label class="control-label pull-right">Status:</label><span class="label label-danger " style="font-weight:bold;font-size:14px;">@Model[i].Status</span>
+                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model[i].Status</span></label>
                                         }
                                         else if (string.IsNullOrWhiteSpace(@Model[i].Status))
                                         {
-                                            <label class="control-label pull-right">Status:&nbsp;<span class="label label-info " style="font-weight:bold;font-size:14px;">Pending</span></label>
+                                            <label class="control-label pull-right">Status:&nbsp;<span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
                                         }
                                     </div>
                                 </div>
                                 <blockquote>
                                     <p>@Model[i].Reason</p>
-                                    <small>@Model[i].Remarks <cite title="Source Title">@Model[i].ManagerName</cite></small>
+                                    @if(!string.IsNullOrWhiteSpace(Model[i].Remarks))
+                                    {
+                                        <p>@Model[i].Remarks</p>
+                                    }
+                                    <small><cite title="Source Title">@Model[i].ManagerName</cite></small>
                                 </blockquote>
                             </div>
                         </div>

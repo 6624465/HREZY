@@ -298,7 +298,7 @@ namespace HR.Web.Controllers
 
                     dbCntx.SaveChanges();
 
-                    return View("EmployeeRequestFrom");
+                    return RedirectToAction("ViewLeavesList");
                 }
                 else
                 {
@@ -310,8 +310,10 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GrantLeaveFormList()
+        public ActionResult GrantLeaveFormList(int? page = 0)
         {
+            var offset = 2;
+            var skip = page * offset;
             using (var dbcntx = new HrDataContext())
             {
                 var grantleaveform = dbcntx.EmployeeHeaders.
@@ -326,8 +328,12 @@ namespace HR.Web.Controllers
                          Name = x.A.FirstName + " " + x.A.LastName,
                          EmployeeId = x.A.EmployeeId,
                          EmployeeLeaveID = x.B.EmployeeLeaveID,
-                         Status = x.B.Status
+                         Status = x.B.Status,
+                         ApplyDate = x.B.ApplyDate
                      })
+                     .OrderByDescending(x => x.ApplyDate)
+                     .Skip(skip.Value)
+                     .Take(offset)
                      .ToList()
                      .AsEnumerable();
 
@@ -500,10 +506,13 @@ namespace HR.Web.Controllers
             return RedirectToAction("Leave");
         }
 
-        public ActionResult ViewLeavesList()
+        public ActionResult ViewLeavesList(int? page = 0)
         {
+
             using (var dbcntx = new HrDataContext())
             {
+                var offset = 2;
+                var skip = page * offset;
                 var viewleavelist = dbcntx.EmployeeLeaveLists
                                         .Join(dbcntx.EmployeeHeaders,
                                         a => a.ManagerId, b => b.EmployeeId,
@@ -528,6 +537,9 @@ namespace HR.Web.Controllers
                                             ManagerId = x.A.ManagerId,
                                             ManagerName = x.B.FirstName + " " + x.B.LastName
                                         })
+                                        .OrderByDescending(x => x.EmployeeLeaveID)
+                                        .Skip(skip.Value)
+                                        .Take(offset)
                                         .ToList()
                                         .AsEnumerable();
                 return View(viewleavelist);

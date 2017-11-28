@@ -285,7 +285,7 @@ namespace HR.Web.Controllers
                                                                 leavetransaction.PreviousPaidLeaves,
                                                                 leavetransaction.PreviousSickLeaves
                                 );
-                            CalculateLeaves.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
+                            CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
                         }
                         else
                         {
@@ -297,7 +297,7 @@ namespace HR.Web.Controllers
                                                                 leave.CasualLeavesPerYear.Value,
                                                                 leave.PaidLeavesPerYear.Value,
                                                                 leave.SickLeavesPerYear.Value);
-                            CalculateLeaves.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+                            CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
 
 
                         }

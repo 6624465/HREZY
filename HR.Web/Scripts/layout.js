@@ -31,6 +31,15 @@
     //});
 
     $(document).on('keypress', '.dtCss', function (evt) {
+        debugger;
+        var keyCode = evt.charCode || evt.keyCode;
+        if (keyCode === 8) {
+            if (evt.preventDefault) {
+                evt.preventDefault();
+            } else {
+                evt.returnValue = false;
+            }
+        }
         return false;
     });
 

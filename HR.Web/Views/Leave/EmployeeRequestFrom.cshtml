@@ -43,7 +43,7 @@
                                         </label>
                                         <div class="col-md-3">
                                             <div class="input-group date" id="ToDt">
-                                                @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCss", required = "required"})
+                                                @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCss", required = "required" })
                                                 <span class="input-group-addon">
                                                     <i class="ion ion-calendar"></i>
                                                 </span>
@@ -138,24 +138,37 @@
                 down: 'fa fa-arrow-down',
                 previous: 'fa fa-arrow-left',
                 next: 'fa fa-arrow-right',
-              
+
             },
             format: 'MM/DD/YYYY',
             minDate: date
-          
+
         });
-        
-       
-        $("#ToDt").on("dp.change", function (e) {
+
+        $("#FromDt").on("dp.change", function (e) {
+            debugger;
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
-            var from = moment(fromDate, 'MM/DD/YYYY');
-            var to = moment(toDate, 'MM/DD/YYYY');
-            var days = moment.duration(to.diff(from)).asDays();
-            $('#Days').val(days);
+            if (toDate != undefined && toDate != "") {
+                var from = moment(fromDate, 'MM/DD/YYYY');
+                var to = moment(toDate, 'MM/DD/YYYY');
+                var days = moment.duration(to.diff(from)).asDays();
+                $('#Days').val(days);
+            }
         });
-        
-       
+
+        $("#ToDt").on("dp.change", function (e) {
+            var fromDate = $('#FromDt').find('input').val();
+            if (fromDate != undefined && fromDate != "") {
+                var toDate = $('#ToDt').find('input').val();
+                var from = moment(fromDate, 'MM/DD/YYYY');
+                var to = moment(toDate, 'MM/DD/YYYY');
+                var days = moment.duration(to.diff(from)).asDays();
+                $('#Days').val(days);
+            }
+        });
+
+
         $('#frmLeave').validate({
             rules: {
                 'FromDate': {

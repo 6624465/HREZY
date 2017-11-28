@@ -267,6 +267,8 @@ namespace HR.Web.Controllers
                         obj.Reason = EmployeeLeaveList.Reason;
                         obj.CreatedBy = USERID;
                         obj.CreatedOn = UTILITY.SINGAPORETIME;
+                        obj.ModifiedBy = USERID;
+                        obj.ModifiedOn = UTILITY.SINGAPORETIME;
                         dbCntx.EmployeeLeaveLists.Add(obj);
 
 
@@ -313,7 +315,9 @@ namespace HR.Web.Controllers
                             PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
                             PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
                             PreviousSickLeaves = leaveListCalc.previousSickLeaves,
-                            LeaveType = EmployeeLeaveList.LeaveTypeId
+                            LeaveType = EmployeeLeaveList.LeaveTypeId,
+                            ModifiedBy = USERID,
+                            ModifiedOn = UTILITY.SINGAPORETIME
                         };
                         dbCntx.LeaveTransactions.Add(leaveTransaction);
 
@@ -507,7 +511,7 @@ namespace HR.Web.Controllers
             {
                 if (leave.LeaveId == 0)
                 {
-                    leave.BranchId = BRANCHID;                    
+                    leave.BranchId = BRANCHID;
                     dbContext.Leaves.Add(leave);
                 }
                 else

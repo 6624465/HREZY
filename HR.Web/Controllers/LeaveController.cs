@@ -538,7 +538,7 @@ namespace HR.Web.Controllers
 
             using (var dbcntx = new HrDataContext())
             {
-                var offset = 2;
+                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appViewLeaveListOffSet"]);
                 var skip = (page - 1) * offset;
 
                 var Query = dbcntx.EmployeeLeaveLists

@@ -615,7 +615,7 @@ namespace HR.Web.Controllers
                         leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
                             leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
                             );
-                        CalculateLeaves.CalculateLeaveFromTransaction(leavetransaction, empLeaveObj, leaveListCalc, false);
+                        CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, empLeaveObj, leaveListCalc, false);
                     }
 
                     LeaveTransaction leaveTransaction = new LeaveTransaction()

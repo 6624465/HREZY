@@ -203,7 +203,7 @@
           <Property Name="BranchId" Type="int" Nullable="false" />
           <Property Name="FromDate" Type="date" Nullable="false" />
           <Property Name="ToDate" Type="date" Nullable="false" />
-          <Property Name="Days" Type="int" Nullable="false" />
+          <Property Name="Days" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Reason" Type="nvarchar" MaxLength="500" />
           <Property Name="Remarks" Type="nvarchar(max)" />
           <Property Name="Status" Type="nvarchar" MaxLength="20" />
@@ -445,7 +445,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <End Role="LeaveHeader" EntitySet="LeaveHeaders" />
             <End Role="LeaveDetail" EntitySet="LeaveDetails" />
           </AssociationSet>
-          <EntitySet Name="EmployeeLeaveLists" EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" />
           <EntitySet Name="HolidayLists" EntityType="DB_9F30C5_HRDBModel.HolidayList" />
           <EntitySet Name="EmployeeDocumentDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" />
           <AssociationSet Name="EmployeeHeaderEmployeeDocumentDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail">
@@ -467,6 +466,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           </FunctionImport>
           <EntitySet Name="Leaves" EntityType="DB_9F30C5_HRDBModel.Leave" />
           <EntitySet Name="LeaveTransactions" EntityType="DB_9F30C5_HRDBModel.LeaveTransaction" />
+          <EntitySet Name="EmployeeLeaveLists" EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -751,29 +751,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="EmployeeLeaveList">
-          <Key>
-            <PropertyRef Name="EmployeeLeaveID" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="BranchId" />
-          </Key>
-          <Property Name="EmployeeLeaveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="LeaveTypeId" Type="Int32" />
-          <Property Name="BranchId" Type="Int32" Nullable="false" />
-          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Days" Type="Int32" Nullable="false" />
-          <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ApplyDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
-          <Property Name="ManagerId" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="HolidayList">
           <Key>
             <PropertyRef Name="HolidayId" />
@@ -899,6 +876,29 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="LeaveType" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EmployeeLeaveList">
+          <Key>
+            <PropertyRef Name="EmployeeLeaveID" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="EmployeeLeaveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="LeaveTypeId" Type="Int32" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Days" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ApplyDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+          <Property Name="ManagerId" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1146,28 +1146,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeLeaveLists">
-            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeLeaveList">
-              <MappingFragment StoreEntitySet="EmployeeLeaveList">
-                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="Days" ColumnName="Days" />
-                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="EmployeeLeaveID" ColumnName="EmployeeLeaveID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HolidayLists">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.HolidayList">
               <MappingFragment StoreEntitySet="HolidayList">
@@ -1258,6 +1236,28 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeLeaveLists">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeLeaveList">
+              <MappingFragment StoreEntitySet="EmployeeLeaveList">
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeLeaveID" ColumnName="EmployeeLeaveID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

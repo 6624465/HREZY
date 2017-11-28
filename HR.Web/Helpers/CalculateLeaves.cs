@@ -15,25 +15,25 @@ namespace HR.Web.Helpers
                 if (flag)
                 {
                     leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
-                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days;
+                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days.Value;
                 }
                 else
                 {
-                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves + obj.Days;
+                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves + obj.Days.Value;
                     leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
 
                 }
             }
-            else if (obj.LeaveTypeId == 1031)
+            else if (obj.LeaveTypeId == 1049)
             {
                 if (flag)
                 {
                     leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
-                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days;
+                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days.Value;
                 }
                 else
                 {
-                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentSickLeaves + obj.Days;
+                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentSickLeaves + obj.Days.Value;
                     leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
 
                 }
@@ -43,9 +43,9 @@ namespace HR.Web.Helpers
         public static void CalculateLeave(Leave LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc)
         {
             if (obj.LeaveTypeId == 1030)
-                leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days;
+                leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days.Value;
             else if (obj.LeaveTypeId == 1049)
-                leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days;
+                leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days.Value;
         }
 
 

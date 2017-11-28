@@ -39,12 +39,12 @@ namespace HR.Web.Models
         public virtual DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
         public virtual DbSet<LeaveDetail> LeaveDetails { get; set; }
         public virtual DbSet<LeaveHeader> LeaveHeaders { get; set; }
-        public virtual DbSet<EmployeeLeaveList> EmployeeLeaveLists { get; set; }
         public virtual DbSet<HolidayList> HolidayLists { get; set; }
         public virtual DbSet<EmployeeDocumentDetail> EmployeeDocumentDetails { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Leave> Leaves { get; set; }
         public virtual DbSet<LeaveTransaction> LeaveTransactions { get; set; }
+        public virtual DbSet<EmployeeLeaveList> EmployeeLeaveLists { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)
         {

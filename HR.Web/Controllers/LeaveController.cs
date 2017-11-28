@@ -232,7 +232,7 @@ namespace HR.Web.Controllers
             if (Request.Form["chkhalfday"] != null && Request.Form["chkhalfday"] != "")
             {
                 ishalfday = Request.Form["chkhalfday"] == "on";
-               // EmployeeLeaveList.Days = 0.5;
+                EmployeeLeaveList.Days = 0.5m;
             }
             using (var dbCntx = new HrDataContext())
             {
@@ -260,7 +260,7 @@ namespace HR.Web.Controllers
                 }
                 if (eligibleLeaves != 0)
                 {
-                    if (isValid == 0 && eligibleLeaves == EmployeeLeaveList.Days)
+                    if (isValid == 0 && eligibleLeaves == EmployeeLeaveList.Days || ishalfday)
                     {
                         obj.BranchId = BRANCHID;
                         obj.FromDate = EmployeeLeaveList.FromDate;

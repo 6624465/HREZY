@@ -20,7 +20,7 @@ namespace HR.Web.Models
         public int BranchId { get; set; }
         public System.DateTime FromDate { get; set; }
         public System.DateTime ToDate { get; set; }
-        public int Days { get; set; }
+        public Nullable<decimal> Days { get; set; }
         public string Reason { get; set; }
         public string Remarks { get; set; }
         public string Status { get; set; }

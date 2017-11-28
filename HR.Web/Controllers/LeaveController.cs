@@ -250,6 +250,11 @@ namespace HR.Web.Controllers
                     obj.Reason = EmployeeLeaveList.Reason;
                     obj.CreatedBy = USERID;
                     obj.CreatedOn = UTILITY.SINGAPORETIME;
+                    obj.ManagerId = dbCntx.EmployeeHeaders
+                                        .Where(x => x.EmployeeId == EMPLOYEEID)
+                                        .FirstOrDefault().ManagerId.Value;
+
+                    obj.ApplyDate = UTILITY.SINGAPORETIME;
                     dbCntx.EmployeeLeaveLists.Add(obj);
 
 
@@ -313,7 +318,7 @@ namespace HR.Web.Controllers
                      Join(dbcntx.EmployeeLeaveLists,
                      a => a.EmployeeId, b => b.EmployeeId,
                      (a, b) => new { A = a, B = b })
-                     .Where(x => x.A.ManagerId == EMPLOYEEID)
+                     .Where(x => x.B.ManagerId == EMPLOYEEID)
                      .Select(x => new GrantLeaveListVm
                      {
                          ToDate = x.B.ToDate,
@@ -469,7 +474,7 @@ namespace HR.Web.Controllers
             {
                 if (leave.LeaveId == 0)
                 {
-                    leave.BranchId = BRANCHID;
+                    leave.BranchId = BRANCHID;                    
                     dbContext.Leaves.Add(leave);
                 }
                 else
@@ -499,7 +504,32 @@ namespace HR.Web.Controllers
         {
             using (var dbcntx = new HrDataContext())
             {
-                var viewleavelist = dbcntx.EmployeeLeaveLists.Where(x => x.EmployeeId == EMPLOYEEID).ToList().AsEnumerable();
+                var viewleavelist = dbcntx.EmployeeLeaveLists
+                                        .Join(dbcntx.EmployeeHeaders,
+                                        a => a.ManagerId, b => b.EmployeeId,
+                                        (a, b) => new { A = a, B = b })
+                                        .Where(x => x.A.EmployeeId == EMPLOYEEID)
+                                        .Select(x => new ViewLeaveVm {
+                                            EmployeeLeaveID = x.A.EmployeeLeaveID,
+                                            EmployeeId = x.A.EmployeeId,
+                                            LeaveTypeId = x.A.LeaveTypeId,
+                                            LeaveTypeDesc = dbcntx.LookUps
+                                                                .Where(y => y.LookUpID == x.A.LeaveTypeId)
+                                                                .Select(y => y.LookUpDescription)
+                                                                .FirstOrDefault(),
+                                            BranchId = x.A.BranchId,
+                                            FromDate = x.A.FromDate,
+                                            ToDate = x.A.ToDate,
+                                            Days = x.A.Days,
+                                            Reason = x.A.Reason,
+                                            Remarks = x.A.Remarks,
+                                            Status = x.A.Status,
+                                            ApplyDate = x.A.ApplyDate,
+                                            ManagerId = x.A.ManagerId,
+                                            ManagerName = x.B.FirstName + " " + x.B.LastName
+                                        })
+                                        .ToList()
+                                        .AsEnumerable();
                 return View(viewleavelist);
             }
 

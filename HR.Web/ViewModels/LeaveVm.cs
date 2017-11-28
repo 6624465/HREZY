@@ -69,6 +69,24 @@ namespace HR.Web.ViewModels
         public string Status { get; set; }
 
     }
+
+    public class ViewLeaveVm
+    {
+        public int EmployeeLeaveID { get; set; }
+        public int EmployeeId { get; set; }
+        public Nullable<int> LeaveTypeId { get; set; }
+        public string LeaveTypeDesc { get; set; }
+        public int BranchId { get; set; }
+        public System.DateTime FromDate { get; set; }
+        public System.DateTime ToDate { get; set; }
+        public int Days { get; set; }
+        public string Reason { get; set; }
+        public string Remarks { get; set; }
+        public string Status { get; set; }
+        public System.DateTime ApplyDate { get; set; }
+        public int ManagerId { get; set; }
+        public string ManagerName { get; set; }
+    }
     
 
 

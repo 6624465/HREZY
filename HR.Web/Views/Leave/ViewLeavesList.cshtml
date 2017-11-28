@@ -1,8 +1,6 @@
-﻿@model List<HR.Web.Models.EmployeeLeaveList>
+﻿@model List<HR.Web.ViewModels.ViewLeaveVm>
 
-@{
-    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
-}
+
 @section Styles {
     <style type="text/css">
         .popover {
@@ -12,63 +10,89 @@
     </style>
 }
 
+
+
 <div class="page">
     <div class="page-wrap">
-        <div class="panel panel-default">
-            <div class="box">
-                <div class="box-header">
-                    <h4>View Leaves</h4>
-                </div>
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            @grid.GetHtml(
-                columns: grid.Columns(
-                grid.Column("FromDate", "From Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
-                grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.ToDate)),
-                grid.Column("Status", "Status",format:@<text>
-                            @if (item.Status == UTILITY.LEAVEAPPROVED)
-                            {
-                                <span class="label label-success" style="font-weight:bold;font-size:14px;">@item.Status</span>
-                            }
-                            else if (item.Status == UTILITY.LEAVEREJECTED)
-                            {
-                                <span class="label label-danger" style="font-weight:bold;font-size:14px;">@item.Status</span>
-                            }
-                            else if (string.IsNullOrWhiteSpace(item.Status))
-                            {
-                                <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
-                            }
-
-                            </text>),
-                grid.Column("", "Reason", format:
-                @<text>
-                    <button class="btn btn-xs waves-effect" type="button" style="padding-left: 5px;margin-left: 6px;" id="popover" data-trigger="hover" data-toggle="popover" data-title="Reason" data-content="@item.Reason"><i class="fa fa-eye" style="padding-left: 5px;"></i></button>
-                    </text>),
-                    grid.Column("", "Cancel", format:
-                    @<text>
-                        
-                        @if (item.FromDate > UTILITY.SINGAPORETIME && (item.Status == UTILITY.LEAVEAPPROVED || item.Status == null) && item.Status != UTILITY.LEAVEREJECTED)
-                        {
-                            <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" data-toggle="popoverCancel" title="Remarks" data-value="@item.EmployeeLeaveID" onclick="cancelRequest(@item.EmployeeLeaveID)"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" disabled="disabled"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
-                        } </text>)),
-                tableStyle: "table table-condensed")
+        <div class="row">
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <div class="col-md-6">
+                    <div class="panel panel-default panel-hovered panel-stacked mb10">
+                        <div class="box">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-left">From Date: <b>@Model[i].FromDate.ToLongDateString()</b></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-right">To Date: <b>@Model[i].ToDate.ToLongDateString()</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-left">Apply Date: <b>@Model[i].ApplyDate.ToLongDateString()</b></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if (@Model[i].Status == UTILITY.LEAVEAPPROVED)
+                                        {
+                                            <label class="control-label pull-right">Status: <span class="label label-success " style="font-weight:bold;font-size:14px;">@Model[i].Status</span></label>
+                                        }
+                                        else if (@Model[i].Status == UTILITY.LEAVEREJECTED)
+                                        {
+                                            <label class="control-label pull-right">Status:</label><span class="label label-danger " style="font-weight:bold;font-size:14px;">@Model[i].Status</span>
+                                        }
+                                        else if (string.IsNullOrWhiteSpace(@Model[i].Status))
+                                        {
+                                            <label class="control-label pull-right">Status:&nbsp;<span class="label label-info " style="font-weight:bold;font-size:14px;">Pending</span></label>
+                                        }
+                                    </div>
+                                </div>
+                                <blockquote>
+                                    <p>@Model[i].Reason</p>
+                                    <small>@Model[i].Remarks <cite title="Source Title">@Model[i].ManagerName</cite></small>
+                                </blockquote>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@*<div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="box">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-text-width"></i>
+                                        <h3 class="box-title">Block Quotes</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="control-label">From Date: @Model[i].FromDate.ToLongDateString()</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="control-label">To Date: @Model[i].ToDate.ToLongDateString()</label>
+                                            </div>
+                                        </div>
+                                        <blockquote>
+                                            <p>@Model[i].Reason</p>
+                                            <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
+
 @using (Html.BeginForm("CancelLeave", "Leave", FormMethod.Post, new { id = "frmCancelLeave", name = "frmCancelLeave" }))
 {
     <input type="hidden" id="employeeLeaveID" name="employeeLeaveID" />
@@ -95,6 +119,7 @@
         </div>
     </div>
 }
+
 <script type="text/javascript">
     $(function () {
         $('#li_Leave').addClass('open');
@@ -131,3 +156,52 @@
     }
 
 </script>
+@*
+        @{
+        WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+    }
+        <div class="row">
+            <div class="col-md-12">
+                @grid.GetHtml(
+                        columns: grid.Columns(
+                        grid.Column("FromDate", "From Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
+                        grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.ToDate)),
+                        grid.Column("Status", "Status", format:@<text>
+                            @if (item.Status == UTILITY.LEAVEAPPROVED)
+                            {
+                                <span class="label label-success" style="font-weight:bold;font-size:14px;">@item.Status</span>
+                            }
+                            else if (item.Status == UTILITY.LEAVEREJECTED)
+                            {
+                                <span class="label label-danger" style="font-weight:bold;font-size:14px;">@item.Status</span>
+                            }
+                            else if (string.IsNullOrWhiteSpace(item.Status))
+                            {
+                                <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
+                            }
+
+                        </text>),
+                        grid.Column("", "Reason", format:
+                        @<text>
+                            <button class="btn btn-xs waves-effect" type="button" style="padding-left: 5px;margin-left: 6px;" id="popover" data-trigger="hover" data-toggle="popover" data-title="Reason" data-content="@item.Reason"><i class="fa fa-eye" style="padding-left: 5px;"></i></button>
+                        </text>),
+                            grid.Column("", "Cancel", format:
+                            @<text>
+
+                                @if (item.FromDate > UTILITY.SINGAPORETIME && (item.Status == UTILITY.LEAVEAPPROVED || item.Status == null) && item.Status != UTILITY.LEAVEREJECTED)
+                                {
+                                    <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" data-toggle="popoverCancel" title="Remarks" data-value="@item.EmployeeLeaveID" onclick="cancelRequest(@item.EmployeeLeaveID)"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" disabled="disabled"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
+                                } </text>)),
+                        tableStyle: "table table-condensed")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+            </div>
+        </div>
+*@

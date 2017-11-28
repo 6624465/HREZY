@@ -506,19 +506,21 @@ namespace HR.Web.Controllers
             return RedirectToAction("Leave");
         }
 
-        public ActionResult ViewLeavesList(int? page = 0)
+        public ActionResult ViewLeavesList(int? page = 1)
         {
 
             using (var dbcntx = new HrDataContext())
             {
                 var offset = 2;
-                var skip = page * offset;
-                var viewleavelist = dbcntx.EmployeeLeaveLists
+                var skip = (page - 1) * offset;
+
+                var Query = dbcntx.EmployeeLeaveLists
                                         .Join(dbcntx.EmployeeHeaders,
                                         a => a.ManagerId, b => b.EmployeeId,
                                         (a, b) => new { A = a, B = b })
                                         .Where(x => x.A.EmployeeId == EMPLOYEEID)
-                                        .Select(x => new ViewLeaveVm {
+                                        .Select(x => new ViewLeaveVm
+                                        {
                                             EmployeeLeaveID = x.A.EmployeeLeaveID,
                                             EmployeeId = x.A.EmployeeId,
                                             LeaveTypeId = x.A.LeaveTypeId,
@@ -536,13 +538,24 @@ namespace HR.Web.Controllers
                                             ApplyDate = x.A.ApplyDate,
                                             ManagerId = x.A.ManagerId,
                                             ManagerName = x.B.FirstName + " " + x.B.LastName
-                                        })
+                                        });
+
+                var viewleavelist = Query
                                         .OrderByDescending(x => x.EmployeeLeaveID)
                                         .Skip(skip.Value)
                                         .Take(offset)
-                                        .ToList()
-                                        .AsEnumerable();
-                return View(viewleavelist);
+                                        .ToList();
+
+                var totalRows = Query.Count();
+
+                decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalRows), Convert.ToDecimal(offset));
+
+                HtmlTblVm<ViewLeaveVm> HtmlTblVm = new HtmlTblVm<ViewLeaveVm>();
+                HtmlTblVm.TableData = viewleavelist;
+                HtmlTblVm.TotalRows = totalRows;
+                HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+
+                return View(HtmlTblVm);
             }
 
         }

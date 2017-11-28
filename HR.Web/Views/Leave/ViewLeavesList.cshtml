@@ -1,4 +1,4 @@
-﻿@model List<HR.Web.ViewModels.ViewLeaveVm>
+﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.ViewModels.ViewLeaveVm>
 
 
 @section Styles {
@@ -15,7 +15,7 @@
 <div class="page">
     <div class="page-wrap">
         <div class="row">
-            @for (var i = 0; i < Model.Count; i++)
+            @for (var i = 0; i < Model.TableData.Count; i++)
             {
                 <div class="col-md-6">
                     <div class="panel panel-default panel-hovered panel-stacked mb10">
@@ -23,44 +23,49 @@
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="control-label pull-left">From Date: <b>@Model[i].FromDate.ToLongDateString()</b></label>
+                                        <label class="control-label pull-left">From Date: <b>@Model.TableData[i].FromDate.ToLongDateString()</b></label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="control-label pull-right">To Date: <b>@Model[i].ToDate.ToLongDateString()</b></label>
+                                        <label class="control-label pull-right">To Date: <b>@Model.TableData[i].ToDate.ToLongDateString()</b></label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="control-label pull-left">Apply Date: <b>@Model[i].ApplyDate.ToLongDateString()</b></label>
+                                        <label class="control-label pull-left">Apply Date: <b>@Model.TableData[i].ApplyDate.ToLongDateString()</b></label>
                                     </div>
                                     <div class="col-md-6">
-                                        @if (@Model[i].Status == UTILITY.LEAVEAPPROVED)
+                                        @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
                                         {
-                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-success" style="font-weight:bold;font-size:14px;">@Model[i].Status</span></label>
+                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
                                         }
-                                        else if (@Model[i].Status == UTILITY.LEAVEREJECTED)
+                                        else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
                                         {
-                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model[i].Status</span></label>
+                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
                                         }
-                                        else if (string.IsNullOrWhiteSpace(@Model[i].Status))
+                                        else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
                                         {
                                             <label class="control-label pull-right">Status:&nbsp;<span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
                                         }
                                     </div>
                                 </div>
                                 <blockquote>
-                                    <p>@Model[i].Reason</p>
-                                    @if(!string.IsNullOrWhiteSpace(Model[i].Remarks))
+                                    <p>@Model.TableData[i].Reason</p>
+                                    @if(!string.IsNullOrWhiteSpace(Model.TableData[i].Remarks))
                                     {
-                                        <p>@Model[i].Remarks</p>
+                                        <p>@Model.TableData[i].Remarks</p>
                                     }
-                                    <small><cite title="Source Title">@Model[i].ManagerName</cite></small>
+                                    <small><cite title="Source Title">@Model.TableData[i].ManagerName</cite></small>
                                 </blockquote>
                             </div>
                         </div>
                     </div>
                 </div>
             }
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="pagination" class="pull-right"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -123,7 +128,8 @@
         </div>
     </div>
 }
-
+@section Scripts{
+<script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
 <script type="text/javascript">
     $(function () {
         $('#li_Leave').addClass('open');
@@ -136,8 +142,20 @@
 
                 return $('#popoverCancel').html();
             }
-
         })
+
+        $('#pagination').bootpag({
+            total: @Model.PageLength,
+            page: @Request.QueryString["page"],
+            maxVisible: 6,
+            href: '@Url.Content("~/Leave/ViewLeavesList?page="){{number}}', //"#pro-page-{{number}}",
+            leaps: false,
+            next: 'next',
+            prev: 'prev',
+            wrapClass: 'pagination pagination-sm'
+        }).on('page', function (event, num) {
+            $(".content3").html("Page " + num); // or some ajax content loading...
+        });
     });
 
     $(document).ready(function () {
@@ -160,6 +178,7 @@
     }
 
 </script>
+    }
 @*
         @{
         WebGrid grid = new WebGrid(Model, rowsPerPage: 10);

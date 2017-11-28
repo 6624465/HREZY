@@ -146,12 +146,12 @@
 
         $('#pagination').bootpag({
             total: @Model.PageLength,
-            page: @Request.QueryString["page"],
+            page: @Model.CurrentPage,
             maxVisible: 6,
             href: '@Url.Content("~/Leave/ViewLeavesList?page="){{number}}', //"#pro-page-{{number}}",
             leaps: false,
-            next: 'next',
-            prev: 'prev',
+            next: 'Next',
+            prev: 'Prev',
             wrapClass: 'pagination pagination-sm'
         }).on('page', function (event, num) {
             $(".content3").html("Page " + num); // or some ajax content loading...

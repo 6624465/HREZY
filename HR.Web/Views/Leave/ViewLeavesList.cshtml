@@ -42,20 +42,33 @@
                                         {
                                             <label class="control-label pull-right">Status: &nbsp;<span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
                                         }
+                                        else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
+                                        {
+                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                        }
                                         else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
                                         {
                                             <label class="control-label pull-right">Status:&nbsp;<span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
                                         }
                                     </div>
                                 </div>
-                                <blockquote>
-                                    <p>@Model.TableData[i].Reason</p>
-                                    @if(!string.IsNullOrWhiteSpace(Model.TableData[i].Remarks))
-                                    {
-                                        <p>@Model.TableData[i].Remarks</p>
-                                    }
-                                    <small><cite title="Source Title">@Model.TableData[i].ManagerName</cite></small>
-                                </blockquote>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <blockquote>
+                                            <p>@Model.TableData[i].Reason</p>
+                                            @if (!string.IsNullOrWhiteSpace(Model.TableData[i].Remarks))
+                                            {
+                                                <p>@Model.TableData[i].Remarks</p>
+                                            }
+                                            <small><cite title="Source Title">@Model.TableData[i].ManagerName</cite></small>
+                                            @if ((Model.TableData[i].Status != UTILITY.LEAVECANCELLED && Model.TableData[i].Status != UTILITY.LEAVEREJECTED) && (Model.TableData[i].FromDate > UTILITY.SINGAPORETIME))
+                                            {
+                                                <span class="pull-right"><button class="btn btn-default btn-sm" data-toggle="popoverCancel" type="button" onclick="OpenCancelPopover(@Model.TableData[i].EmployeeLeaveID);" title="Remarks">Cancel</button></span>
+                                            }
+                                        </blockquote>
+                                    </div>
+                                        
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -69,38 +82,7 @@
         </div>
     </div>
 </div>
-@*<div class="panel panel-default panel-hovered panel-stacked mb10">
-                <div class="box">
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="box box-solid">
-                                    <div class="box-header with-border">
-                                        <i class="fa fa-text-width"></i>
-                                        <h3 class="box-title">Block Quotes</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label class="control-label">From Date: @Model[i].FromDate.ToLongDateString()</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="control-label">To Date: @Model[i].ToDate.ToLongDateString()</label>
-                                            </div>
-                                        </div>
-                                        <blockquote>
-                                            <p>@Model[i].Reason</p>
-                                            <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                                        </blockquote>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
+
 
 @using (Html.BeginForm("CancelLeave", "Leave", FormMethod.Post, new { id = "frmCancelLeave", name = "frmCancelLeave" }))
 {
@@ -131,18 +113,34 @@
 @section Scripts{
 <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
 <script type="text/javascript">
+    function OpenCancelPopover(empLeaveId){
+        debugger;
+        
+        $('#popoverCancel').popover('show');
+        //$('[data-toggle="popoverCancel"]').popover('show');
+        $('#employeeLeaveID').val(empLeaveId);
+    }
+
     $(function () {
         $('#li_Leave').addClass('open');
         $('#li_empadd').addClass('active');
 
         $('[data-toggle="popoverCancel"]').popover({
-            placement: 'top',
+            placement: 'left',
             html: true,
-            content: function () {
-
+            content: function () {                  
                 return $('#popoverCancel').html();
             }
-        })
+        });
+
+        //$('[data-toggle="popoverCancel"]').popover({
+        //    placement: 'top',
+        //    html: true,
+        //    content: function () {
+
+        //        return $('#popoverCancel').html();
+        //    }
+        //})
 
         $('#pagination').bootpag({
             total: @Model.PageLength,
@@ -157,11 +155,7 @@
             $(".content3").html("Page " + num); // or some ajax content loading...
         });
     });
-
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
-
-    });
+    
     function cancelRequest(id) {
         $('#employeeLeaveID').val(id);
     }

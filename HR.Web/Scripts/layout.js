@@ -30,16 +30,11 @@
     //    return true;
     //});
 
-    $(document).on('keypress', '.dtCss', function (evt) {
-        debugger;
-        var keyCode = evt.charCode || evt.keyCode;
-        if (keyCode === 8) {
-            if (evt.preventDefault) {
-                evt.preventDefault();
-            } else {
-                evt.returnValue = false;
-            }
-        }
+    $(document).on('keypress', '.dtCss', function (evt) {        
+        return false;
+    });
+
+    $(document).on('keydown', '.dtCss', function (evt) {        
         return false;
     });
 

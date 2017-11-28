@@ -6,7 +6,7 @@ using System.Web;
 
 namespace HR.Web.Helpers
 {
-    public static class CalculateLeaves
+    public static class CalculateLeavesTransaction
     {
         public static void CalculateLeaveFromTransaction(LeaveTransaction LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc, bool flag)
         {

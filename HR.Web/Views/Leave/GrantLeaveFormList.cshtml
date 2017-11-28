@@ -1,0 +1,179 @@
+﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.ViewModels.GrantLeaveListVm>
+
+@section Styles {
+    <style type="text/css">
+        .popover {
+            max-width: 100%;
+            width: 500px;
+        }
+    </style>
+}
+
+
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="row">
+           
+            @for (var i = 0; i < Model.TableData.Count; i++)
+            {
+                <div class="col-md-6">
+                    <div class="panel panel-default panel-hovered panel-stacked mb10">
+                        <div class="box">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-left">From Date: <b>@Model.TableData[i].FromDate.ToLongDateString()</b></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-right">To Date: <b>@Model.TableData[i].ToDate.ToLongDateString()</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-left">Apply Date: <b>@Model.TableData[i].ApplyDate.ToLongDateString()</b></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
+                                        {
+                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                        }
+                                        else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
+                                        {
+                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                        }
+                                        else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
+                                        {
+                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                        }
+                                        else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
+                                        {
+                                            <label class="control-label pull-right">Status:&nbsp;<span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @*<blockquote>
+                                            <p>@Model.TableData[i].Reason</p>
+                                            @if (!string.IsNullOrWhiteSpace(Model.TableData[i].Remarks))
+                                            {
+                                                <p>@Model.TableData[i].Remarks</p>
+                                            }
+                                            @*<small><cite title="Source Title">@Model.TableData[i].ManagerName</cite></small>*@
+                                          
+                                               @*span class="pull-right"><button class="btn btn-default btn-sm" data-toggle="popoverCancel" type <="button"  title="Remarks">Cancel</button></span>*@
+                                            
+                                        @*</blockquote>**@
+
+                                        <span class="pull-right"><button class="btn btn-default btn-sm"  type="button" 
+                                                                         onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @Model.TableData[i].EmployeeLeaveID">View</button></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="pagination" class="pull-right"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@using (Html.BeginForm("GrantLeaveFormList", "Leave", FormMethod.Post, new { id = "frmgrantleaveform", name = "frmgrantleaveform" }))
+{
+    <input type="hidden" id="employeeLeaveID" name="employeeLeaveID" />
+    <input type="hidden" id="employeeRemarks" name="employeeRemarks" />
+    <div id="popoverCancel" class="hide">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">Remarks:</div>
+                <div class="col-md-9">
+
+                    <textarea id="txtRemarks" name="txtRemarks" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row css10">
+            <div class="form-group">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="CancelLeave()"><i class="fa fa-floppy-o"></i>Save</button>
+                    <button type="button" class="btn btn-default btn-sm" onclick="ClosePopUp()"><i class="fa fa-times"></i>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}*@
+@section Scripts{
+    <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
+    <script type="text/javascript">
+    //function OpenCancelPopover(empLeaveId){
+    //    debugger;
+
+    //    $('#popoverCancel').popover('show');
+    //    //$('[data-toggle="popoverCancel"]').popover('show');
+    //    $('#employeeLeaveID').val(empLeaveId);
+    //}
+
+    $(function () {
+        $('#li_Leave').addClass('open');
+        $('#li_grantleaveform').addClass('active');
+
+        //$('[data-toggle="popoverCancel"]').popover({
+        //    placement: 'left',
+        //    html: true,
+        //    content: function () {
+        //        return $('#popoverCancel').html();
+        //    }
+        //});
+
+        //$('[data-toggle="popoverCancel"]').popover({
+        //    placement: 'top',
+        //    html: true,
+        //    content: function () {
+
+        //        return $('#popoverCancel').html();
+        //    }
+        //})
+
+        $('#pagination').bootpag({
+            total: @Model.PageLength,
+            page: @Model.CurrentPage,
+            maxVisible: 6,
+            href: '@Url.Content("~/Leave/GrantLeaveFormList?page="){{number}}', //"#pro-page-{{number}}",
+            leaps: false,
+            next: 'Next',
+            prev: 'Prev',
+            wrapClass: 'pagination pagination-sm'
+        }).on('page', function (event, num) {
+            $(".content3").html("Page " + num); // or some ajax content loading...
+        });
+    });
+
+    //function cancelRequest(id) {
+    //    $('#employeeLeaveID').val(id);
+    //}
+
+    //function CancelLeave() {
+    //    var remarks = $('#txtRemarks').val();
+    //    $('#employeeRemarks').val(remarks);
+    //    $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
+    //    $('#frmCancelLeave').submit();
+
+    //}
+    //function ClosePopUp() {
+    //    $('[data-toggle="popoverCancel"]').popover('hide');
+    //}
+
+    </script>
+}
+
+

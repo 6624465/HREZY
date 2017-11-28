@@ -341,36 +341,48 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GrantLeaveFormList(int? page = 0)
+        public ActionResult GrantLeaveFormList(int? page = 1)
         {
-            var offset = 2;
-            var skip = page * offset;
-            using (var dbcntx = new HrDataContext())
+           
+            using (var dbcntx=new HrDataContext())
             {
+                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appViewLeaveListOffSet"]);
+                var skip = (page - 1) * offset;
+
                 var grantleaveform = dbcntx.EmployeeHeaders.
-                     Join(dbcntx.EmployeeLeaveLists,
-                     a => a.EmployeeId, b => b.EmployeeId,
-                     (a, b) => new { A = a, B = b })
-                     .Where(x => x.B.ManagerId == EMPLOYEEID)
-                     .Select(x => new GrantLeaveListVm
-                     {
-                         ToDate = x.B.ToDate,
-                         FromDate = x.B.FromDate,
-                         Name = x.A.FirstName + " " + x.A.LastName,
-                         EmployeeId = x.A.EmployeeId,
-                         EmployeeLeaveID = x.B.EmployeeLeaveID,
-                         Status = x.B.Status,
-                         ApplyDate = x.B.ApplyDate
-                     })
-                     .OrderByDescending(x => x.ApplyDate)
+                    Join(dbcntx.EmployeeLeaveLists,
+                    a => a.EmployeeId, b => b.EmployeeId,
+                    (a, b) => new { A = a, B = b })
+                    .Where(x => x.B.ManagerId == EMPLOYEEID)
+                    .Select(x => new GrantLeaveListVm
+                    {
+                        ToDate = x.B.ToDate,
+                        FromDate = x.B.FromDate,
+                        Name = x.A.FirstName + " " + x.A.LastName,
+                        EmployeeId = x.A.EmployeeId,
+                        EmployeeLeaveID = x.B.EmployeeLeaveID,
+                        Status = x.B.Status,
+                        ApplyDate = x.B.ApplyDate
+                    });
+                var grantleaveformlist = grantleaveform.OrderByDescending(x => x.ApplyDate)
                      .Skip(skip.Value)
                      .Take(offset)
-                     .ToList()
-                     .AsEnumerable();
+                     .ToList();
+                     
+                var count = grantleaveformlist.Count();
+                decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
 
-                return View("GrantLeaveForm", grantleaveform);
+                HtmlTblVm<GrantLeaveListVm> HtmlTblVm = new HtmlTblVm<GrantLeaveListVm>();
+                HtmlTblVm.TableData =  grantleaveformlist;
+                HtmlTblVm.TotalRows = count;
+                HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+                HtmlTblVm.CurrentPage = page.Value;
+                return View(HtmlTblVm);
             }
-        }
+
+          
+            }
+        
 
         [HttpGet]
         public ActionResult AppliedGrantLeaveStatus(int? EmployeeLeaveID)
@@ -401,7 +413,7 @@ namespace HR.Web.Controllers
             }
             else
             {
-                return RedirectToAction("GrantLeaveForm");
+                return RedirectToAction("GrantLeaveFormList");
             }
         }
 

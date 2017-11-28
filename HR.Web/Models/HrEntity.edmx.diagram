@@ -23,7 +23,6 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveDetail" Width="1.5" PointX="12.375" PointY="0.875" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveHeader" Width="1.5" PointX="9.375" PointY="0.5" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.LeaveHeaderLeaveDetail" />
-        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" Width="1.5" PointX="12.375" PointY="4.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.HolidayList" Width="1.5" PointX="7.375" PointY="5.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Width="1.5" PointX="3.375" PointY="12.75" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail" />
@@ -32,6 +31,7 @@
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Leave" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveTransaction" Width="1.5" PointX="15.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" Width="1.5" PointX="7.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

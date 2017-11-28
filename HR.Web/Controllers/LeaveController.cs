@@ -228,7 +228,12 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
-            string ishalfday = Request.Form["chkhalfday"];
+            bool ishalfday = false;
+            if (Request.Form["chkhalfday"] != null && Request.Form["chkhalfday"] != "")
+            {
+                ishalfday = Request.Form["chkhalfday"] == "on";
+                EmployeeLeaveList.Days = 0.5m;
+            }
             using (var dbCntx = new HrDataContext())
             {
                 EmployeeLeaveList obj = new EmployeeLeaveList();
@@ -255,7 +260,7 @@ namespace HR.Web.Controllers
                 }
                 if (eligibleLeaves != 0)
                 {
-                    if (isValid == 0 && eligibleLeaves == EmployeeLeaveList.Days)
+                    if (isValid == 0 && eligibleLeaves == EmployeeLeaveList.Days || ishalfday)
                     {
                         obj.BranchId = BRANCHID;
                         obj.FromDate = EmployeeLeaveList.FromDate;

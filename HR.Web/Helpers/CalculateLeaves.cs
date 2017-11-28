@@ -28,13 +28,13 @@ namespace HR.Web.Helpers
             {
                 if (flag)
                 {
-                    leaveListCalc.previousSickLeaves = leaveListCalc.currentSickLeaves;
-                    leaveListCalc.currentSickLeaves = leaveListCalc.currentSickLeaves - obj.Days;
+                    leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
+                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days;
                 }
                 else
                 {
-                    leaveListCalc.currentSickLeaves = leaveListCalc.currentSickLeaves + obj.Days;
-                    leaveListCalc.previousSickLeaves = leaveListCalc.currentSickLeaves;
+                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentSickLeaves + obj.Days;
+                    leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
 
                 }
             }
@@ -43,10 +43,12 @@ namespace HR.Web.Helpers
         public static void CalculateLeave(Leave LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc)
         {
             if (obj.LeaveTypeId == 1030)
-                leaveListCalc.currentCasualLeaves = LeaveTransaction.CasualLeavesPerYear.Value - obj.Days;
-            else if (obj.LeaveTypeId == 1031)
-                leaveListCalc.currentSickLeaves = LeaveTransaction.SickLeavesPerYear.Value - obj.Days;
+                leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days;
+            else if (obj.LeaveTypeId == 1049)
+                leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days;
         }
+
+
 
     }
 }

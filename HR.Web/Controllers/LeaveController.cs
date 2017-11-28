@@ -238,67 +238,98 @@ namespace HR.Web.Controllers
                                 .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
                                 .Count();
 
+                LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
+                            .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn)
+                            .FirstOrDefault();
 
-                if (isValid == 0)
+                decimal eligibleLeaves = 0;
+                if (leavetransaction == null)
                 {
-                    obj.BranchId = BRANCHID;
-                    obj.FromDate = EmployeeLeaveList.FromDate;
-                    obj.ToDate = EmployeeLeaveList.ToDate;
-                    obj.Days = EmployeeLeaveList.Days;
-                    obj.EmployeeId = EMPLOYEEID;
-                    obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
-                    obj.Remarks = EmployeeLeaveList.Remarks;
-                    obj.Reason = EmployeeLeaveList.Reason;
-                    obj.CreatedBy = USERID;
-                    obj.CreatedOn = UTILITY.SINGAPORETIME;
-                    dbCntx.EmployeeLeaveLists.Add(obj);
-
-
-                    LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
-                         .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn).FirstOrDefault();
-                    LeaveListCalc leaveListCalc = null;
-                    if (leavetransaction != null)
-                    {
-
-
-                        leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
-                            leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
-                            );
-                        CalculateLeaves.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
-                    }
-                    else
-                    {
-                        Leave leave = dbCntx.Leaves
-                             .Where(x => x.BranchId == BRANCHID).FirstOrDefault();
-                        leaveListCalc = new LeaveListCalc(leave.CasualLeavesPerYear.Value, leave.SickLeavesPerYear.Value, leave.PaidLeavesPerYear.Value, leave.CasualLeavesPerYear.Value, leave.SickLeavesPerYear.Value, leave.PaidLeavesPerYear.Value);
-                        CalculateLeaves.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
-
-
-                    }
-                    LeaveTransaction leaveTransaction = new LeaveTransaction()
-                    {
-                        BranchId = BRANCHID,
-                        CreatedBy = USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
-                        CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
-                        CurrentSickLeaves = leaveListCalc.currentSickLeaves,
-                        EmployeeId = EMPLOYEEID,
-                        FromDt = obj.FromDate,
-                        ToDt = obj.ToDate,
-                        PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
-                        PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
-                        PreviousSickLeaves = leaveListCalc.previousSickLeaves,
-                    };
-                    dbCntx.LeaveTransactions.Add(leaveTransaction);
-
-                    dbCntx.SaveChanges();
-
-                    return View("EmployeeRequestFrom");
+                    eligibleLeaves = 1;
                 }
                 else
                 {
-                    ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
+                    LeaveCalculator leaveCal = new LeaveCalculator();
+                    eligibleLeaves = leaveCal.GetLeavesCount(BRANCHID, EMPLOYEEID, EmployeeLeaveList.LeaveTypeId.Value,
+                                                EmployeeLeaveList.FromDate);
+                }
+                if (eligibleLeaves != 0)
+                {
+                    if (isValid == 0 && eligibleLeaves == EmployeeLeaveList.Days)
+                    {
+                        obj.BranchId = BRANCHID;
+                        obj.FromDate = EmployeeLeaveList.FromDate;
+                        obj.ToDate = EmployeeLeaveList.ToDate;
+                        obj.Days = EmployeeLeaveList.Days;
+                        obj.EmployeeId = EMPLOYEEID;
+                        obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
+                        obj.Remarks = EmployeeLeaveList.Remarks;
+                        obj.Reason = EmployeeLeaveList.Reason;
+                        obj.CreatedBy = USERID;
+                        obj.CreatedOn = UTILITY.SINGAPORETIME;
+                        dbCntx.EmployeeLeaveLists.Add(obj);
+
+
+
+                        LeaveListCalc leaveListCalc = null;
+                        if (leavetransaction != null)
+                        {
+
+
+                            leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves,
+                                                                leavetransaction.CurrentPaidLeaves,
+                                                                leavetransaction.CurrentSickLeaves,
+                                                                leavetransaction.PreviousCasualLeaves,
+                                                                leavetransaction.PreviousPaidLeaves,
+                                                                leavetransaction.PreviousSickLeaves
+                                );
+                            CalculateLeaves.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
+                        }
+                        else
+                        {
+                            Leave leave = dbCntx.Leaves
+                                 .Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                            leaveListCalc = new LeaveListCalc(leave.CasualLeavesPerYear.Value,
+                                                                leave.PaidLeavesPerYear.Value,
+                                                                leave.SickLeavesPerYear.Value,
+                                                                leave.CasualLeavesPerYear.Value,
+                                                                leave.PaidLeavesPerYear.Value,
+                                                                leave.SickLeavesPerYear.Value);
+                            CalculateLeaves.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+
+
+                        }
+                        LeaveTransaction leaveTransaction = new LeaveTransaction()
+                        {
+                            BranchId = BRANCHID,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
+                            CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
+                            CurrentSickLeaves = leaveListCalc.currentSickLeaves,
+                            EmployeeId = EMPLOYEEID,
+                            FromDt = obj.FromDate,
+                            ToDt = obj.ToDate,
+                            PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
+                            PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
+                            PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+                            LeaveType = EmployeeLeaveList.LeaveTypeId
+                        };
+                        dbCntx.LeaveTransactions.Add(leaveTransaction);
+
+                        dbCntx.SaveChanges();
+
+                        return View("EmployeeRequestFrom");
+                    }
+                    else
+                    {
+                        ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
+                        return View("EmployeeRequestFrom");
+                    }
+                }
+                else
+                {
+                    ViewData["Message"] = "You dont have leaves.";
                     return View("EmployeeRequestFrom");
                 }
 
@@ -547,6 +578,7 @@ namespace HR.Web.Controllers
                         PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
                         PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
                         PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+                        LeaveType = empLeaveObj.LeaveTypeId
                     };
                     dbContext.LeaveTransactions.Add(leaveTransaction);
 

@@ -1735,6 +1735,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CalculateLeaves.cs" />
+    <Compile Include="Helpers\LeaveCalculator.cs" />
     <Compile Include="Helpers\LinqFuncs.cs" />
     <Compile Include="Helpers\MyDateTimeModelBinder.cs" />
     <Compile Include="Helpers\SelectHelpers.cs" />

@@ -337,15 +337,17 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GrantLeaveFormList()
+        public ActionResult GrantLeaveFormList(int? page = 0)
         {
+            var offset = 2;
+            var skip = page * offset;
             using (var dbcntx = new HrDataContext())
             {
                 var grantleaveform = dbcntx.EmployeeHeaders.
                      Join(dbcntx.EmployeeLeaveLists,
                      a => a.EmployeeId, b => b.EmployeeId,
                      (a, b) => new { A = a, B = b })
-                     .Where(x => x.A.ManagerId == EMPLOYEEID)
+                     .Where(x => x.B.ManagerId == EMPLOYEEID)
                      .Select(x => new GrantLeaveListVm
                      {
                          ToDate = x.B.ToDate,
@@ -353,8 +355,12 @@ namespace HR.Web.Controllers
                          Name = x.A.FirstName + " " + x.A.LastName,
                          EmployeeId = x.A.EmployeeId,
                          EmployeeLeaveID = x.B.EmployeeLeaveID,
-                         Status = x.B.Status
+                         Status = x.B.Status,
+                         ApplyDate = x.B.ApplyDate
                      })
+                     .OrderByDescending(x => x.ApplyDate)
+                     .Skip(skip.Value)
+                     .Take(offset)
                      .ToList()
                      .AsEnumerable();
 
@@ -501,7 +507,7 @@ namespace HR.Web.Controllers
             {
                 if (leave.LeaveId == 0)
                 {
-                    leave.BranchId = BRANCHID;
+                    leave.BranchId = BRANCHID;                    
                     dbContext.Leaves.Add(leave);
                 }
                 else
@@ -527,12 +533,56 @@ namespace HR.Web.Controllers
             return RedirectToAction("Leave");
         }
 
-        public ActionResult ViewLeavesList()
+        public ActionResult ViewLeavesList(int? page = 1)
         {
+
             using (var dbcntx = new HrDataContext())
             {
-                var viewleavelist = dbcntx.EmployeeLeaveLists.Where(x => x.EmployeeId == EMPLOYEEID).ToList().AsEnumerable();
-                return View(viewleavelist);
+                var offset = 2;
+                var skip = (page - 1) * offset;
+
+                var Query = dbcntx.EmployeeLeaveLists
+                                        .Join(dbcntx.EmployeeHeaders,
+                                        a => a.ManagerId, b => b.EmployeeId,
+                                        (a, b) => new { A = a, B = b })
+                                        .Where(x => x.A.EmployeeId == EMPLOYEEID)
+                                        .Select(x => new ViewLeaveVm
+                                        {
+                                            EmployeeLeaveID = x.A.EmployeeLeaveID,
+                                            EmployeeId = x.A.EmployeeId,
+                                            LeaveTypeId = x.A.LeaveTypeId,
+                                            LeaveTypeDesc = dbcntx.LookUps
+                                                                .Where(y => y.LookUpID == x.A.LeaveTypeId)
+                                                                .Select(y => y.LookUpDescription)
+                                                                .FirstOrDefault(),
+                                            BranchId = x.A.BranchId,
+                                            FromDate = x.A.FromDate,
+                                            ToDate = x.A.ToDate,
+                                            Days = x.A.Days,
+                                            Reason = x.A.Reason,
+                                            Remarks = x.A.Remarks,
+                                            Status = x.A.Status,
+                                            ApplyDate = x.A.ApplyDate,
+                                            ManagerId = x.A.ManagerId,
+                                            ManagerName = x.B.FirstName + " " + x.B.LastName
+                                        });
+
+                var viewleavelist = Query
+                                        .OrderByDescending(x => x.EmployeeLeaveID)
+                                        .Skip(skip.Value)
+                                        .Take(offset)
+                                        .ToList();
+
+                var totalRows = Query.Count();
+
+                decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalRows), Convert.ToDecimal(offset));
+
+                HtmlTblVm<ViewLeaveVm> HtmlTblVm = new HtmlTblVm<ViewLeaveVm>();
+                HtmlTblVm.TableData = viewleavelist;
+                HtmlTblVm.TotalRows = totalRows;
+                HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+
+                return View(HtmlTblVm);
             }
 
         }

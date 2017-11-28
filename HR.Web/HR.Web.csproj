@@ -1822,6 +1822,7 @@
     <Compile Include="ViewModels\DashBoardVm.cs" />
     <Compile Include="ViewModels\EmployeeListVm.cs" />
     <Compile Include="ViewModels\EmployeeVm.cs" />
+    <Compile Include="ViewModels\HtmlTblVm.cs" />
     <Compile Include="ViewModels\LeaveAdminVM.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
   </ItemGroup>

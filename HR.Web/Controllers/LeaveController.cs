@@ -554,7 +554,7 @@ namespace HR.Web.Controllers
                 HtmlTblVm.TableData = viewleavelist;
                 HtmlTblVm.TotalRows = totalRows;
                 HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
-
+                HtmlTblVm.CurrentPage = page.Value;
                 return View(HtmlTblVm);
             }
 

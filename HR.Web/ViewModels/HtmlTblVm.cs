@@ -12,5 +12,7 @@ namespace HR.Web.ViewModels
         public decimal PageLength { get; set; }
 
         public int TotalRows { get; set; }
+
+        public int CurrentPage { get; set; }
     }
 }

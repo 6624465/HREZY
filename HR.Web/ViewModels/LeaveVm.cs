@@ -70,6 +70,10 @@ namespace HR.Web.ViewModels
 
         public DateTime ApplyDate { get; set; }
 
+        public string LeaveTypeDesc { get; set; }
+
+        public decimal? TotalDays { get; set; }
+
     }
 
     public class ViewLeaveVm

@@ -53,6 +53,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-left">Leave Type: <b>@Model.TableData[i].LeaveTypeDesc</b></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-right">Total Days: <b>@Model.TableData[i].Days.Value.ToString("#.#")</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
                                         <blockquote>
                                             <p>@Model.TableData[i].Reason</p>
@@ -60,11 +68,14 @@
                                             {
                                                 <p>@Model.TableData[i].Remarks</p>
                                             }
-                                            <small><cite title="Source Title">@Model.TableData[i].ManagerName</cite></small>
-                                            @if ((Model.TableData[i].Status != UTILITY.LEAVECANCELLED && Model.TableData[i].Status != UTILITY.LEAVEREJECTED) && (Model.TableData[i].FromDate > UTILITY.SINGAPORETIME))
-                                            {
-                                                <span class="pull-right"><button class="btn btn-default btn-sm" data-toggle="popoverCancel" type="button" onclick="OpenCancelPopover(@Model.TableData[i].EmployeeLeaveID);" title="Remarks">Cancel</button></span>
-                                            }
+                                            <small>
+                                                <cite title="Source Title">@Model.TableData[i].ManagerName</cite>
+                                                @if ((Model.TableData[i].Status != UTILITY.LEAVECANCELLED && Model.TableData[i].Status != UTILITY.LEAVEREJECTED) && (Model.TableData[i].FromDate > UTILITY.SINGAPORETIME))
+                                                {
+                                                    <span class="pull-right"><button class="btn btn-danger btn-sm" data-toggle="popoverCancel" type="button" onclick="OpenCancelPopover(@Model.TableData[i].EmployeeLeaveID);" title="Remarks"><i class="fa fa-trash"></i>&nbsp;Cancel</button></span>
+                                                }
+                                            </small>
+                                            
                                         </blockquote>
                                     </div>
                                         

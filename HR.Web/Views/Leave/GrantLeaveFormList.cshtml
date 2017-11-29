@@ -53,24 +53,31 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-left">Leave Type: <b>@Model.TableData[i].LeaveTypeDesc</b></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label pull-right">Total Days: <b>@Model.TableData[i].TotalDays.Value.ToString("#.#")</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
-                                        @*<blockquote>
+                                        <blockquote>
                                             <p>@Model.TableData[i].Reason</p>
                                             @if (!string.IsNullOrWhiteSpace(Model.TableData[i].Remarks))
                                             {
                                                 <p>@Model.TableData[i].Remarks</p>
                                             }
-                                            @*<small><cite title="Source Title">@Model.TableData[i].ManagerName</cite></small>*@
-                                          
-                                               @*span class="pull-right"><button class="btn btn-default btn-sm" data-toggle="popoverCancel" type <="button"  title="Remarks">Cancel</button></span>*@
-                                            
-                                        @*</blockquote>**@
-
-                                        <span class="pull-right"><button class="btn btn-default btn-sm"  type="button" 
-                                                                         onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @Model.TableData[i].EmployeeLeaveID">View</button></span>
+                                            <div class="pull-right">
+                                                <button class="btn btn-primary btn-sm"
+                                                        type="button"
+                                                        onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @Model.TableData[i].EmployeeLeaveID">
+                                                    <i class="fa fa-eye"></i>&nbsp;View
+                                                </button>
+                                            </div>
+                                        </blockquote>
                                     </div>
-
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>

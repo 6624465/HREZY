@@ -382,7 +382,14 @@ namespace HR.Web.Controllers
                         EmployeeId = x.A.EmployeeId,
                         EmployeeLeaveID = x.B.EmployeeLeaveID,
                         Status = x.B.Status,
-                        ApplyDate = x.B.ApplyDate
+                        ApplyDate = x.B.ApplyDate,
+                        Reason = x.B.Reason,
+                        Remarks = x.B.Remarks,
+                        LeaveTypeDesc = dbcntx.LookUps
+                                            .Where(y => y.LookUpID == x.B.LeaveTypeId)
+                                            .FirstOrDefault()
+                                            .LookUpDescription,
+                        TotalDays = x.B.Days
                     });
                 var grantleaveformlist = grantleaveform.OrderByDescending(x => x.ApplyDate)
                      .Skip(skip.Value)

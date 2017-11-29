@@ -56,6 +56,7 @@ namespace HR.Web.Controllers
 
         public ActionResult AddHoliday(int HolidayId)
         {
+            ViewData["RoleCode"] = ROLECODE;
             using (HrDataContext dbContext = new HrDataContext())
             {
                 var obj = dbContext.HolidayLists.ToList();

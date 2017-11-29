@@ -24,6 +24,16 @@ namespace HR.Web.ViewModels
         //public HttpPostedFileBase OtherDocuments { get; set; }        
     }
 
+
+    public class EmpDirectoryResultVm
+    {
+        public IEnumerable<usp_EmployeeDetail_Result> employeeVm { get; set; }
+        public EmpSearch empSearch { get; set; }
+        public int count { get; set; }
+
+        public decimal PagerLength { get; set; }
+    }
+
     public class EmpDirectoryVm
     {
         public IEnumerable<EmployeeListVm> employeeVm { get; set; }

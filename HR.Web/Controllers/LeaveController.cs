@@ -232,16 +232,17 @@ namespace HR.Web.Controllers
             if (Request.Form["isChecked"] != null && Request.Form["isChecked"] != "")
             {
                 ishalfday = Request.Form["isChecked"] == "on";
-                EmployeeLeaveList.Days = 0.5m;
+                if(ishalfday)
+                    EmployeeLeaveList.Days = 0.5m;
             }
             using (var dbCntx = new HrDataContext())
             {
                 EmployeeLeaveList obj = new EmployeeLeaveList();
 
-                var isValid = dbCntx.EmployeeLeaveLists
-                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
-                                .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
-                                .Count();
+                var isPreviousLeaveExists = dbCntx.EmployeeLeaveLists
+                                            .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
+                                            .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
+                                            .Count() > 0;
 
                 LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
                             .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn)
@@ -260,8 +261,12 @@ namespace HR.Web.Controllers
                 }
                 if (eligibleLeaves != 0)
                 {
-                    if (isValid == 0 && eligibleLeaves == EmployeeLeaveList.Days || ishalfday)
+                    //if (isValid ==0 && eligibleLeaves == EmployeeLeaveList.Days || ishalfday)
+                    //{
+                    if (!isPreviousLeaveExists || eligibleLeaves >= EmployeeLeaveList.Days)
                     {
+                        //eligibleLeaves >= EmployeeLeaveList.Days -- need to check this condition
+                        //|| ishalfday 
                         obj.BranchId = BRANCHID;
                         obj.FromDate = EmployeeLeaveList.FromDate;
                         obj.ToDate = EmployeeLeaveList.ToDate;
@@ -274,6 +279,12 @@ namespace HR.Web.Controllers
                         obj.CreatedOn = UTILITY.SINGAPORETIME;
                         obj.ModifiedBy = USERID;
                         obj.ModifiedOn = UTILITY.SINGAPORETIME;
+                        obj.ApplyDate = UTILITY.SINGAPORETIME;
+                        obj.ManagerId = dbCntx.EmployeeHeaders
+                                            .Where(x => x.EmployeeId == EMPLOYEEID)
+                                            .FirstOrDefault()
+                                            .ManagerId.Value;
+
                         dbCntx.EmployeeLeaveLists.Add(obj);
 
 
@@ -332,7 +343,11 @@ namespace HR.Web.Controllers
                     }
                     else
                     {
-                        ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
+                        if(isPreviousLeaveExists)
+                            ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
+                        if(eligibleLeaves >= EmployeeLeaveList.Days)
+                            ViewData["Message"] = "You are not eligible for applied number of leaves";
+
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
                 }

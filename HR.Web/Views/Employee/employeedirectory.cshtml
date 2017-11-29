@@ -119,9 +119,9 @@
                                     <th>EmployeeName</th>
                                     <th>JobTitle</th>
                                     <th>email</th>
-                                    <th>Department</th>
+                                    @*<th>Department</th>
                                     <th>Desigation</th>
-                                    <th>Manager</th>
+                                    <th>Manager</th>*@
                                     <th>ContactNo</th>
                                     <th>#Action</th>
                                 </tr>
@@ -155,9 +155,9 @@
             <td>${EmployeeName}</td>
             <td>${JobTitle}</td>
             <td>${PersonalEmailId}</td>
-            <td>${Department}</td>
+            @*<td>${Department}</td>
             <td>${Desigation}</td>
-            <td>${Manager}</td>
+            <td>${Manager}</td>*@
             <td>${ContactNo}</td>
             <td><button class="btn btn-xs btn-raised waves-effect btn-sm waves-effect"
                    style="padding-left: 5px;margin-left: 6px;"onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></td>

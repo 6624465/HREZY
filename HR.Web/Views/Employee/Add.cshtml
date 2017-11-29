@@ -16,9 +16,9 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empHeader.IDType,
-                                    SelectListItemHelper.EmployeeType(),
-                                    "Select Type",
-                                    new { @class = "form-control" })
+     SelectListItemHelper.EmployeeType(),
+     "Select Type",
+     new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">DOJ</span>
@@ -40,14 +40,14 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.FirstName,
-                                       new { @class = "form-control" })
+        new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Last Name</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.LastName,
-                                         new { @class = "form-control" })
+          new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
-                                     new { @class = "form-control" })
+      new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -94,14 +94,14 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-                                    new { @class = "form-control" })
+     new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Mobile</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.address.MobileNo,
-                                     new { @class = "form-control" })
+      new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
-                                      new { @class = "form-control" })
+       new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -123,16 +123,16 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empHeader.Nationality,
-                                         SelectListItemHelper.CountryList(), "Select Country",
-                                          new { @class = "form-control" })
+          SelectListItemHelper.CountryList(), "Select Country",
+           new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Marital Status</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
-                                       SelectListItemHelper.MaritalStatus(), "Select Marital Status",
-                                       new { @class = "form-control" })
+        SelectListItemHelper.MaritalStatus(), "Select Marital Status",
+        new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -143,14 +143,14 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
-                                    new { @class = "form-control" })
+     new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Emg. Contact No</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-                                    new { @class = "form-control" })
+     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -167,8 +167,8 @@
                                     <label class="col-md-2 control-label">
                                         <span class="pull-right">Reporting To</span>
                                     </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList(true), "Select",
+                                    <div class="col-md-4">                                        
+                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
                                     new { @class = "form-control" })
                                     </div>
                                 </div>

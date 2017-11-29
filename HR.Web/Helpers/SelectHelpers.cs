@@ -211,13 +211,14 @@ namespace HR.Web.Helpers
             }
         }
 
-        public static IEnumerable<SelectListItem> EmployeeList(bool isReportAuth = false)
+        public static IEnumerable<SelectListItem> EmployeeList(int branchId, bool isReportAuth = false)
         {
             using (var dbCntx = new HrDataContext())
             {
                 if (isReportAuth)
                 {
-                    return dbCntx.EmployeeHeaders.Where(x => x.IsReportingAuthority == isReportAuth && x.IsActive == true)
+                    return dbCntx.EmployeeHeaders.Where(x => x.IsReportingAuthority == isReportAuth &&
+                                    x.IsActive == true && x.BranchId == branchId)
                         .Select(x => new SelectListItem
                         {
                             Text = x.FirstName + " " + x.LastName,
@@ -225,7 +226,7 @@ namespace HR.Web.Helpers
                         }).ToList();
                 }
                 else
-                    return dbCntx.EmployeeHeaders
+                    return dbCntx.EmployeeHeaders.Where(x => x.BranchId == branchId)
                             .Select(x => new SelectListItem
                             {
                                 Text = x.FirstName + " " + x.LastName,
@@ -239,12 +240,11 @@ namespace HR.Web.Helpers
         {
             using (var dbCntx = new HrDataContext())
             {
-                return dbCntx.Countries
-                                .Select(x => new SelectListItem
-                                {
-                                    Text = x.CountryName,
-                                    Value = x.CountryId.ToString()
-                                }).ToList().AsEnumerable();
+                return dbCntx.Branches.Select(x => new SelectListItem
+                {
+                    Value = x.BranchID.ToString(),
+                    Text = x.BranchName
+                }).ToList().AsEnumerable();
             }
         }
 

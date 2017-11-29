@@ -171,6 +171,7 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult add(int? EmployeeId)
         {
+            ViewData["BranchId"] = BRANCHID;
             if (EmployeeId != null)
             {
                 using (var dbCntx = new HrDataContext())

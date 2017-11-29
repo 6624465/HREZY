@@ -1,4 +1,4 @@
-﻿@using System.Data.SqlTypes;
+﻿
 @model HR.Web.Models.EmployeeLeaveList
 @{
     var message = (string)ViewData["Message"] ?? "";
@@ -136,7 +136,8 @@
             {
                 <text>
                     var from = moment('@Model.FromDate', 'DD/MM/YYYY').format('MM/DD/YYYY');            
-                    $('#FromDt').find('input').val(from);
+                    //$('#FromDt').find('input').val(from);
+                    $('#FromDate').data("DateTimePicker").date(from);
                 </text>
             }
 
@@ -144,7 +145,8 @@
              {
                  <text>
                     var to = moment('@Model.ToDate', 'DD/MM/YYYY').format('MM/DD/YYYY'); 
-                    $('#ToDt').find('input').val(to);
+                    //$('#ToDt').find('input').val(to);
+                    $('#ToDate').data("DateTimePicker").date(to);
                  </text>
              }
 

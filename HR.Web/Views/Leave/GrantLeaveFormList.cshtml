@@ -23,15 +23,15 @@
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="control-label pull-left">From Date: <b>@Model.TableData[i].FromDate.ToLongDateString()</b></label>
+                                        <label class="control-label pull-left">From Date: <b>@Model.TableData[i].FromDate.ToShortDateString()</b></label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="control-label pull-right">To Date: <b>@Model.TableData[i].ToDate.ToLongDateString()</b></label>
+                                        <label class="control-label pull-right">To Date: <b>@Model.TableData[i].ToDate.ToShortDateString()</b></label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="control-label pull-left">Apply Date: <b>@Model.TableData[i].ApplyDate.ToLongDateString()</b></label>
+                                        <label class="control-label pull-left">Apply Date: <b>@Model.TableData[i].ApplyDate.ToShortDateString()</b></label>
                                     </div>
                                     <div class="col-md-6">
                                         @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)

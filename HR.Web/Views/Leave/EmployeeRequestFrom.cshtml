@@ -235,6 +235,11 @@
             var to = moment(toDate, 'MM/DD/YYYY');
             var days = moment.duration(to.diff(from)).asDays() + 1;
 
+            if (days > 1) {
+                $('#chkhalfday').attr('disabled', 'disabled');
+            }
+            else
+                $('#chkhalfday').removeAttr('disabled');
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
                 $('#Days').val(days);
                 if (days == 0) {
@@ -272,7 +277,7 @@
             var days = moment.duration(to.diff(from)).asDays() + 1;
 
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
-                if (days < 1) {
+                if (days == 1) {
                 if ($('#chkhalfday').prop('checked')) {
                     $('#Days').val(0.5);
                     $('#isChecked').val('on');

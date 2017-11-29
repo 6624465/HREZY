@@ -1,6 +1,8 @@
-﻿@model HR.Web.Models.EmployeeLeaveList
+﻿@using System.Data.SqlTypes;
+@model HR.Web.Models.EmployeeLeaveList
 @{
     var message = (string)ViewData["Message"] ?? "";
+    var temp = Model;
 }
 @using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
@@ -121,6 +123,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="isChecked" id="isChecked" />
 }
 @section Scripts{
 
@@ -128,6 +131,31 @@
         $(function () {
             $('#li_Leave').addClass('open');
             $('#li_emprequestleave').addClass('active');
+
+            @if(Model.FromDate != DateTime.MinValue)
+            {
+                <text>
+                    var from = moment('@Model.FromDate', 'DD/MM/YYYY').format('MM/DD/YYYY');            
+                    $('#FromDt').find('input').val(from);
+                </text>
+            }
+
+             @if(Model.ToDate != DateTime.MinValue)
+             {
+                 <text>
+                    var to = moment('@Model.ToDate', 'DD/MM/YYYY').format('MM/DD/YYYY'); 
+                    $('#ToDt').find('input').val(to);
+                 </text>
+             }
+
+            @if(Model.Days == 0.5M)
+            {
+                <text>
+                    $('#chkhalfday').attr('checked', 'checked');
+                    $('#isChecked').val('on');
+                    $('.icheckbox_flat-blue').addClass('checked');
+                </text>
+            }
         });
         var date = new Date();
         $('.dtCss').datetimepicker({
@@ -142,13 +170,12 @@
             },
             format: 'MM/DD/YYYY',
             minDate: date
-
         });
 
         $("#FromDt").on("dp.change", function (e) {
-
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
+
             if (toDate != undefined && toDate != "") {
                 var from = moment(fromDate, 'MM/DD/YYYY');
                 var to = moment(toDate, 'MM/DD/YYYY');
@@ -157,17 +184,19 @@
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
                     $('#Days').val('');
-                } else
+                } else {
                     $('#Days').val(days);
+                }
             }
             if (fromDate != toDate) {
 
                 $('#chkhalfday').removeAttr('checked');
                 $('.icheckbox_flat-blue').removeClass('checked');
             }
+            checkDates();
         });
 
-        $("#ToDt").on("dp.change", function (e) {
+        $("#ToDate").on("change", function (e) {
             var fromDate = $('#FromDt').find('input').val();
             if (fromDate != undefined && fromDate != "") {
                 var toDate = $('#ToDt').find('input').val();
@@ -178,31 +207,85 @@
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
                     $('#Days').val('');
-                } else
+                } else {
                     $('#Days').val(days);
+                }
             }
             if (fromDate != toDate) {
 
                 $('#chkhalfday').removeAttr('checked');
                 $('.icheckbox_flat-blue').removeClass('checked');
             }
+            checkDates();
         });
+
+        $("#ToDate").on("blur", function (e) {
+            checkDates();
+        });
+        $("#FromDate").on("blur", function (e) {
+            checkDates();
+        });
+
+        function checkDates() {
+            var fromDate = $('#FromDt').find('input').val();
+            var toDate = $('#ToDt').find('input').val();
+            var from = moment(fromDate, 'MM/DD/YYYY');
+            var to = moment(toDate, 'MM/DD/YYYY');
+            var days = moment.duration(to.diff(from)).asDays();
+
+            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
+                $('#Days').val(days);
+                if (days == 0) {
+                    if (!confirm('You are applying for halfday')) {
+                        $('#chkhalfday').removeAttr('checked');
+                        $('.icheckbox_flat-blue').removeClass('checked');
+                        $('#FromDt').find('input').val('');
+                        $('#ToDt').find('input').val('');
+                        $('#Days').val('');
+
+                    }
+                    else {
+
+                        $('#chkhalfday').attr('checked', 'checked');
+                        $('#isChecked').val('on');
+                        $('.icheckbox_flat-blue').addClass('checked');
+                    }
+                }
+                else {
+                    $('#chkhalfday').removeAttr('checked');
+                    $('#chkhalfday').removeAttr('value');
+                    $('.icheckbox_flat-blue').removeClass('checked');
+                    $('#isChecked').val('off');
+                }
+            }
+        }
+
 
         $('#chkhalfday').on("ifChanged", function () {
             debugger;
+            var fromDate = $('#FromDt').find('input').val();
+            var toDate = $('#ToDt').find('input').val();
+            var from = moment(fromDate, 'MM/DD/YYYY');
+            var to = moment(toDate, 'MM/DD/YYYY');
+            var days = moment.duration(to.diff(from)).asDays();
+
             if ($('#chkhalfday').prop('checked')) {
-                var fromDate = $('#FromDt').find('input').val();
-                var toDate = $('#ToDt').find('input').val();
-                var from = moment(fromDate, 'MM/DD/YYYY');
-                var to = moment(toDate, 'MM/DD/YYYY');
+
                 if (fromDate != toDate) {
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
                     $('#Days').val('');
                     $('#chkhalfday').removeAttr('checked');
                     $('.icheckbox_flat-blue').removeClass('checked');
+                    $('#isChecked').val('on');
                 }
 
+            }
+            else if (days == 0) {
+                $('#FromDt').find('input').val('');
+                $('#ToDt').find('input').val('');
+                $('#Days').val('');
+                $('#isChecked').val('off');
             }
         });
 
@@ -245,7 +328,7 @@
             $('#Remarks').val('');
 
         }
-        clearrec();
+        //clearrec();
 
         function SaveEmployeeLeaveForm() {
             if ($('#frmLeave').valid()) {

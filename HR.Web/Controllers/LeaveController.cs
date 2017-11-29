@@ -220,8 +220,8 @@ namespace HR.Web.Controllers
 
             return View(new EmployeeLeaveList
             {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now
+               // FromDate = DateTime.Now,
+              //  ToDate = DateTime.Now
             });
         }
 
@@ -229,9 +229,9 @@ namespace HR.Web.Controllers
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
             bool ishalfday = false;
-            if (Request.Form["chkhalfday"] != null && Request.Form["chkhalfday"] != "")
+            if (Request.Form["isChecked"] != null && Request.Form["isChecked"] != "")
             {
-                ishalfday = Request.Form["chkhalfday"] == "on";
+                ishalfday = Request.Form["isChecked"] == "on";
                 EmployeeLeaveList.Days = 0.5m;
             }
             using (var dbCntx = new HrDataContext())
@@ -328,18 +328,18 @@ namespace HR.Web.Controllers
 
                         dbCntx.SaveChanges();
 
-                        return View("EmployeeRequestFrom");
+                        return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
                     else
                     {
                         ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
-                        return View("EmployeeRequestFrom");
+                        return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
                 }
                 else
                 {
                     ViewData["Message"] = "You dont have leaves.";
-                    return View("EmployeeRequestFrom");
+                    return View("EmployeeRequestFrom", EmployeeLeaveList);
                 }
 
             }

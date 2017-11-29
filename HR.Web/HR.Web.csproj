@@ -1925,7 +1925,6 @@
     <Content Include="Views\Config\PaymentTypeList.cshtml" />
     <Content Include="Views\Config\GetPaymentType.cshtml" />
     <Content Include="Views\Leave\EmployeeRequestFrom.cshtml" />
-    <Content Include="Views\Leave\GrantLeaveForm.cshtml" />
     <Content Include="Views\Administration\Company.cshtml" />
     <Content Include="Views\Administration\AddBranch.cshtml" />
     <Content Include="Views\Shared\_Address.cshtml" />
@@ -1947,6 +1946,7 @@
     <Content Include="Views\Dashboard\admindashboard.cshtml" />
     <Content Include="Views\Leave\ViewLeavesList.cshtml" />
     <Content Include="Views\Leave\AppliedGrantLeaveStatus.cshtml" />
+    <Content Include="Views\Leave\GrantLeaveFormList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

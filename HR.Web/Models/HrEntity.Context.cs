@@ -20,6 +20,7 @@ namespace HR.Web.Models
         public HrDataContext()
             : base("name=HrDataContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -57,6 +58,19 @@ namespace HR.Web.Models
                 new ObjectParameter("BranchId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDateOfJoiningDate_Result>("usp_EmployeeDateOfJoiningDate", currentDtParameter, branchIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_EmployeeDetail_Result> usp_EmployeeDetail(Nullable<int> branchId, string role)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("branchId", branchId) :
+                new ObjectParameter("branchId", typeof(int));
+    
+            var roleParameter = role != null ?
+                new ObjectParameter("role", role) :
+                new ObjectParameter("role", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDetail_Result>("usp_EmployeeDetail", branchIdParameter, roleParameter);
         }
     }
 }

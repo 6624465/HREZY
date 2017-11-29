@@ -346,6 +346,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Parameter Name="CurrentDt" Type="datetime" Mode="In" />
           <Parameter Name="BranchId" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_EmployeeDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Operation">
+          <Parameter Name="branchId" Type="int" Mode="In" />
+          <Parameter Name="role" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_9F30C5_HRDBModelStoreContainer">
           <EntitySet Name="LookUp" EntityType="Self.LookUp" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Branches" EntityType="Self.Branches" Schema="Master" store:Type="Tables" />
@@ -467,6 +471,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="Leaves" EntityType="DB_9F30C5_HRDBModel.Leave" />
           <EntitySet Name="LeaveTransactions" EntityType="DB_9F30C5_HRDBModel.LeaveTransaction" />
           <EntitySet Name="EmployeeLeaveLists" EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" />
+          <FunctionImport Name="usp_EmployeeDetail" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDetail_Result)">
+            <Parameter Name="branchId" Mode="In" Type="Int32" />
+            <Parameter Name="role" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -900,6 +908,18 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
           <Property Name="ManagerId" Type="Int32" Nullable="false" />
         </EntityType>
+        <ComplexType Name="usp_EmployeeDetail_Result">
+          <Property Type="Int32" Name="EmployeeId" Nullable="false" />
+          <Property Type="String" Name="EmployeeNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="101" />
+          <Property Type="DateTime" Name="JoiningDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="JobTitle" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PersonalEmailId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OfficialEmailId" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ProfilePic" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1261,6 +1281,22 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_EmployeeDetail" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeeDetail_Result">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="PersonalEmailId" ColumnName="PersonalEmailId" />
+                <ScalarProperty Name="OfficialEmailId" ColumnName="OfficialEmailId" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

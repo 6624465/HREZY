@@ -24,9 +24,11 @@ namespace HR.Web.Controllers
                 using (var dbCntx = new HrDataContext())
                 {
                     DashBoardVm obj = new DashBoardVm();
+                    /*
                     obj.EmployeeCount = dbCntx.EmployeeHeaders
                                         .Where(x => x.BranchId == BRANCHID)
-                                        .Count();
+                                        .Count();*/
+                    obj.EmployeeCount = dbCntx.usp_EmployeeDetail(BRANCHID, ROLECODE).Count();
 
                     obj.lineChartData = dbCntx.usp_EmployeeDateOfJoiningDate(UTILITY.SINGAPORETIME, BRANCHID)
                                             .ToList()

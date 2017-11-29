@@ -33,7 +33,7 @@ namespace HR.Web.Helpers
                 }
                 else
                 {
-                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentSickLeaves + obj.Days.Value;
+                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves + obj.Days.Value;
                     leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
 
                 }

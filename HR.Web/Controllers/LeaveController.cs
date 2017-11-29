@@ -373,7 +373,7 @@ namespace HR.Web.Controllers
                     Join(dbcntx.EmployeeLeaveLists,
                     a => a.EmployeeId, b => b.EmployeeId,
                     (a, b) => new { A = a, B = b })
-                    .Where(x => x.B.ManagerId == EMPLOYEEID)
+                    .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status!=UTILITY.LEAVECANCELLED)
                     .Select(x => new GrantLeaveListVm
                     {
                         ToDate = x.B.ToDate,

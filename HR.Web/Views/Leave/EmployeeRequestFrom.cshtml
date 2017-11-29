@@ -135,28 +135,28 @@
             @if(Model.FromDate != DateTime.MinValue)
             {
                 <text>
-                    var from = moment('@Model.FromDate', 'DD/MM/YYYY').format('MM/DD/YYYY');            
-                    //$('#FromDt').find('input').val(from);
-                    $('#FromDate').data("DateTimePicker").date(from);
-                </text>
+            var from = moment('@Model.FromDate', 'DD/MM/YYYY').format('MM/DD/YYYY');
+            //$('#FromDt').find('input').val(from);
+            $('#FromDate').data("DateTimePicker").date(from);
+            </text>
             }
 
-             @if(Model.ToDate != DateTime.MinValue)
+            @if(Model.ToDate != DateTime.MinValue)
              {
                  <text>
-                    var to = moment('@Model.ToDate', 'DD/MM/YYYY').format('MM/DD/YYYY'); 
-                    //$('#ToDt').find('input').val(to);
-                    $('#ToDate').data("DateTimePicker").date(to);
-                 </text>
+            var to = moment('@Model.ToDate', 'DD/MM/YYYY').format('MM/DD/YYYY');
+            //$('#ToDt').find('input').val(to);
+            $('#ToDate').data("DateTimePicker").date(to);
+            </text>
              }
 
             @if(Model.Days == 0.5M)
             {
                 <text>
-                    $('#chkhalfday').attr('checked', 'checked');
-                    $('#isChecked').val('on');
-                    $('.icheckbox_flat-blue').addClass('checked');
-                </text>
+            $('#chkhalfday').attr('checked', 'checked');
+            $('#isChecked').val('on');
+            $('.icheckbox_flat-blue').addClass('checked');
+            </text>
             }
         });
         var date = new Date();
@@ -181,7 +181,7 @@
             if (toDate != undefined && toDate != "") {
                 var from = moment(fromDate, 'MM/DD/YYYY');
                 var to = moment(toDate, 'MM/DD/YYYY');
-                var days = moment.duration(to.diff(from)).asDays();
+                var days = moment.duration(to.diff(from)).asDays() + 1;
                 if (days < 0) {
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
@@ -204,7 +204,7 @@
                 var toDate = $('#ToDt').find('input').val();
                 var from = moment(fromDate, 'MM/DD/YYYY');
                 var to = moment(toDate, 'MM/DD/YYYY');
-                var days = moment.duration(to.diff(from)).asDays();
+                var days = moment.duration(to.diff(from)).asDays() + 1;
                 if (days < 0) {
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
@@ -233,7 +233,7 @@
             var toDate = $('#ToDt').find('input').val();
             var from = moment(fromDate, 'MM/DD/YYYY');
             var to = moment(toDate, 'MM/DD/YYYY');
-            var days = moment.duration(to.diff(from)).asDays();
+            var days = moment.duration(to.diff(from)).asDays() + 1;
 
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
                 $('#Days').val(days);
@@ -269,26 +269,23 @@
             var toDate = $('#ToDt').find('input').val();
             var from = moment(fromDate, 'MM/DD/YYYY');
             var to = moment(toDate, 'MM/DD/YYYY');
-            var days = moment.duration(to.diff(from)).asDays();
+            var days = moment.duration(to.diff(from)).asDays() + 1;
 
-            if ($('#chkhalfday').prop('checked')) {
-
-                if (fromDate != toDate) {
-                    $('#FromDt').find('input').val('');
-                    $('#ToDt').find('input').val('');
-                    $('#Days').val('');
-                    $('#chkhalfday').removeAttr('checked');
-                    $('.icheckbox_flat-blue').removeClass('checked');
+            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
+                if (days < 1) {
+                if ($('#chkhalfday').prop('checked')) {
+                    $('#Days').val(0.5);
                     $('#isChecked').val('on');
+
+
+                } else {
+
+                    $('#Days').val(days);
                 }
 
+                }
             }
-            else if (days == 0) {
-                $('#FromDt').find('input').val('');
-                $('#ToDt').find('input').val('');
-                $('#Days').val('');
-                $('#isChecked').val('off');
-            }
+
         });
 
 

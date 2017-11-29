@@ -23,13 +23,16 @@
                     Holiday List
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="pull-right">
-                                <button type="button" onclick="AddHoliday(-1)" class="btn btn-info btn-raised waves-effect btn-sm"><i class="fa fa-plus"></i>Add</button>
+                    @if (ViewData["RoleCode"].ToString() != UTILITY.ROLE_EMPLOYEE)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" onclick="AddHoliday(-1)" class="btn btn-info btn-raised waves-effect btn-sm"><i class="fa fa-plus"></i>Add</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                     <div class="row">
                         <div class="col-md-12">
                             <!-- Calendar page -->

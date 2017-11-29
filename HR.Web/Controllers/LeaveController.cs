@@ -21,7 +21,7 @@ namespace HR.Web.Controllers
         #region HolidayList
         public ActionResult HolidayList()
         {
-
+            ViewData["RoleCode"] = ROLECODE;
             using (HrDataContext dbContext = new HrDataContext())
             {
                 var obj = dbContext.HolidayLists.ToList();
@@ -31,8 +31,13 @@ namespace HR.Web.Controllers
                     calendarVM list = new calendarVM();
                     list.title = item.Description;
                     list.date = item.Date;
-
-                    var strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+                    var strHref = "";
+                    if (ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                    {
+                        strHref = "#";
+                    }
+                    else
+                        strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
 
                     var context = new HttpContextWrapper(System.Web.HttpContext.Current);
                     string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
@@ -220,8 +225,8 @@ namespace HR.Web.Controllers
 
             return View(new EmployeeLeaveList
             {
-               // FromDate = DateTime.Now,
-              //  ToDate = DateTime.Now
+                // FromDate = DateTime.Now,
+                //  ToDate = DateTime.Now
             });
         }
 
@@ -232,7 +237,7 @@ namespace HR.Web.Controllers
             if (Request.Form["isChecked"] != null && Request.Form["isChecked"] != "")
             {
                 ishalfday = Request.Form["isChecked"] == "on";
-                if(ishalfday)
+                if (ishalfday)
                     EmployeeLeaveList.Days = 0.5m;
             }
             using (var dbCntx = new HrDataContext())
@@ -343,9 +348,9 @@ namespace HR.Web.Controllers
                     }
                     else
                     {
-                        if(isPreviousLeaveExists)
+                        if (isPreviousLeaveExists)
                             ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
-                        if(eligibleLeaves >= EmployeeLeaveList.Days)
+                        if (eligibleLeaves >= EmployeeLeaveList.Days)
                             ViewData["Message"] = "You are not eligible for applied number of leaves";
 
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
@@ -363,8 +368,8 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult GrantLeaveFormList(int? page = 1)
         {
-           
-            using (var dbcntx=new HrDataContext())
+
+            using (var dbcntx = new HrDataContext())
             {
                 var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appViewLeaveListOffSet"]);
                 var skip = (page - 1) * offset;
@@ -395,21 +400,21 @@ namespace HR.Web.Controllers
                      .Skip(skip.Value)
                      .Take(offset)
                      .ToList();
-                     
+
                 var count = grantleaveformlist.Count();
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
 
                 HtmlTblVm<GrantLeaveListVm> HtmlTblVm = new HtmlTblVm<GrantLeaveListVm>();
-                HtmlTblVm.TableData =  grantleaveformlist;
+                HtmlTblVm.TableData = grantleaveformlist;
                 HtmlTblVm.TotalRows = count;
                 HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
                 HtmlTblVm.CurrentPage = page.Value;
                 return View(HtmlTblVm);
             }
 
-          
-            }
-        
+
+        }
+
 
         [HttpGet]
         public ActionResult AppliedGrantLeaveStatus(int? EmployeeLeaveID)

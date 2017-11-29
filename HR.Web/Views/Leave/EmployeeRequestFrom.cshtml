@@ -160,6 +160,11 @@
                 } else
                     $('#Days').val(days);
             }
+            if (fromDate != toDate) {
+
+                $('#chkhalfday').removeAttr('checked');
+                $('.icheckbox_flat-blue').removeClass('checked');
+            }
         });
 
         $("#ToDt").on("dp.change", function (e) {
@@ -177,7 +182,7 @@
                     $('#Days').val(days);
             }
             if (fromDate != toDate) {
-                
+
                 $('#chkhalfday').removeAttr('checked');
                 $('.icheckbox_flat-blue').removeClass('checked');
             }
@@ -197,7 +202,7 @@
                     $('#chkhalfday').removeAttr('checked');
                     $('.icheckbox_flat-blue').removeClass('checked');
                 }
-                
+
             }
         });
 

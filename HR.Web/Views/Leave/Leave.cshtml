@@ -2,8 +2,7 @@
 
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
-    @Html.HiddenFor(x => x.LeaveId)
-    @Html.HiddenFor(x => x.BranchId)
+    @Html.HiddenFor(x => x.LeaveId)    
     <div class="page">
         <div class="row">
             <div class="col-md-12">
@@ -21,9 +20,13 @@
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.BranchId,
                                     SelectListItemHelper.Branches(),
-                                    "Select Type",
+                                    "Select Branch",
                                     new { @class = "form-control" })
                                 </div>
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(x => x.BranchId)
                             }
                         </div>
                         <div class="row css5">

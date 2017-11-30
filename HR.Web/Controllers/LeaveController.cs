@@ -576,8 +576,7 @@ namespace HR.Web.Controllers
             using (HrDataContext dbContext = new HrDataContext())
             {
                 if (leave.LeaveId == 0)
-                {
-                    leave.BranchId = BRANCHID;
+                {                    
                     dbContext.Leaves.Add(leave);
                 }
                 else

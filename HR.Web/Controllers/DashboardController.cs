@@ -63,7 +63,7 @@ namespace HR.Web.Controllers
                                                 .FirstOrDefault();
 
                     
-                    DateTime startDayOfYear = new DateTime(01, 01, UTILITY.SINGAPORETIME.Year);
+                    DateTime startDayOfYear = new DateTime(UTILITY.SINGAPORETIME.Year, 01, 01);
                     var leaveStartTransactions = dbCntx.LeaveTransactions
                                                 .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
                                                 .OrderBy(x => x.TransactionId)

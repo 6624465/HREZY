@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace HR.Web.Controllers
-{
+{    
+    [SessionFilter]
     public class BaseController : Controller
     {
 
@@ -55,6 +56,26 @@ namespace HR.Web.Controllers
             {
                 Session[UTILITY.CONFIG_ROLECODE] = value;
             }
+        }
+
+        public string GetRoleIcon()
+        {
+            var cssCls = string.Empty;
+            var roleCode = System.Web.HttpContext.Current.Session[UTILITY.CONFIG_ROLECODE].ToString();
+            if (roleCode == UTILITY.ROLE_EMPLOYEE)
+            {
+                cssCls = "fa fa-user-o";
+            }
+            else if (roleCode == UTILITY.ROLE_ADMIN)
+            {
+                cssCls = "fa fa-users";
+            }
+            else if (roleCode == UTILITY.ROLE_SUPERADMIN)
+            {
+                cssCls = "fa fa-sitemap";
+            }
+
+            return cssCls;
         }
     }
 }

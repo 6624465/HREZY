@@ -33,7 +33,7 @@
 <div class="page page-dashboard">
     <div class="page-wrap">
         <div class="row">
-            <div class="col-md-4">
+            @*<div class="col-md-4">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="panel-body">
                         <div class="clearfix">
@@ -50,17 +50,17 @@
                         </p>                        
                     </div>
                 </div>
-            </div>            
+            </div>*@            
             <div class="col-md-4">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="piedemo clearfix">
                         <div class="chart">
-                            <div class="percentage easyPieChart" data-percent="@Model.plPercent" style="width: 120px; height: 120px; line-height: 110px;"><span>40</span>%<canvas width="110" height="110"></canvas></div>
-                            <div class="label">PL %</div>
+                            <div class="percentage easyPieChart" data-percent="@Model.plPercent" style="width: 120px; height: 120px; line-height: 125px;"><span>@Model.plPercent.ToString("0.00")</span>%<canvas width="110" height="110"></canvas></div>
+                            <div class="label" style="margin-left:35px;">PL %</div>
                         </div> 
                         <div class="chart">
-                            <div class="percentage easyPieChart" data-percent="@Model.clPercent" style="width: 120px; height: 120px; line-height: 110px;"><span>12</span>%<canvas width="110" height="110"></canvas></div>
-                            <div class="label">CL %</div>
+                            <div class="percentage easyPieChart" data-percent="@Model.clPercent" style="width: 120px; height: 120px; line-height: 125px;"><span>@Model.clPercent.ToString("0.00")</span>%<canvas width="110" height="110"></canvas></div>
+                            <div class="label" style="margin-left:35px;">CL %</div>
                         </div>
                     </div>
                 </div>
@@ -132,10 +132,17 @@
     <script type="text/javascript">
         $(function () {
             $('.percentage').easyPieChart({
-                barColor: '#3f51b5',
-                trackColor: '#9e9e9e',
-                scaleColor: '#9e9e9e',
-                lineCap: 'round'
+                barColor: '#CDDC39',
+                trackColor: '#3f51b5',
+                scaleColor: '#3f51b5',
+                lineCap: 'round',
+                scaleLength: 8,
+                size: 120,
+                lineWidth: 4,
+                animate: {
+                    duration: 1000,
+                    enabled: true
+                },
             });
             //initCharts();
             

@@ -66,48 +66,19 @@ namespace HR.Web.Controllers
         [HttpGet]
         public JsonResult GetGridTileEmployees(int pageNumber)
         {
-            int offSet = 10;
+            int offSet = 3;
             int skipRows = (pageNumber - 1) * offSet;
-           
+
             using (var dbCntx = new HrDataContext())
             {
                 var context = new HttpContextWrapper(System.Web.HttpContext.Current);
                 var query = dbCntx.usp_EmployeeDetail(BRANCHID, ROLECODE);
-                
-                //var query = dbCntx.EmployeeHeaders
-                //             .Join(dbCntx.EmployeePersonalDetails,
-                //             a => a.EmployeeId, b => b.EmployeeId,
-                //             (a, b) => new { A = a, B = b })
-                //             .Join(dbCntx.EmployeeWorkDetails,
-                //             c => c.A.EmployeeId, d => d.EmployeeId,
-                //             (c, d) => new { C = c, D = d })
-                //             .Join(dbCntx.Addresses,
-                //             e => e.C.A.EmployeeId, f => f.LinkID,
-                //             (e, f) => new { E = e, F = f })
-                //             .Join(dbCntx.EmployeeDocumentDetails,
-                //             g => g.E.C.A.EmployeeId, h => h.EmployeeId,
-                //             (g, h) => new { G = g, H = h })
-                //             .Select(x => new EmployeeListVm
-                //             {
-                //                 EmployeeId = x.G.E.C.A.EmployeeId,
-                //                 EmployeeNo = x.G.E.C.A.IDNumber,
-                //                 EmployeeName = x.G.E.C.A.FirstName + " " + x.G.E.C.A.LastName + " " + x.G.E.C.A.MiddleName,
-                //                 JoiningDate = x.G.E.D.JoiningDate,
-                //                 JobTitle = dbCntx.LookUps
-                //                             .Where(y => y.LookUpID == x.G.E.D.DesignationId)
-                //                             .FirstOrDefault().LookUpDescription,
-                //                 ContactNo = x.G.F.Contact,
-                //                 PersonalEmailId = x.G.F.Email,
-                //                 OfficialEmailId = x.G.F.Email,
-                //                 DateOfBirth = x.G.E.C.B.DOB,
-                //                 ProfilePic = x.H.FileName
-                //             });
-                
+
                 var list = query.OrderByDescending(x => x.EmployeeId)
-                            .Skip(skipRows)
-                            .Take(offSet)
-                            .ToList()
-                            .AsEnumerable();
+            .Skip(skipRows)
+            .Take(offSet)
+            .ToList()
+            .AsEnumerable();
 
                 var totalCount = dbCntx.usp_EmployeeDetail(BRANCHID, ROLECODE).Count();
 
@@ -119,7 +90,7 @@ namespace HR.Web.Controllers
                     employeeVm = list,
                     empSearch = new EmpSearch { },
                     count = totalCount,
-                    PagerLength= pagnationRound
+                    PagerLength = pagnationRound
                 };
 
 
@@ -127,9 +98,62 @@ namespace HR.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult empsearchajax(EmpSearch empSearch)
+        {
+            int offSet = 3;
+            int skipRows = (empSearch.pageNumber - 1) * offSet;
+            using (var dbCntx = new HrDataContext())
+            {
+                var list = dbCntx.EmployeeHeaders.AdvSearchEmpHeaderWhere(empSearch.EmployeeName, empSearch.EmployeeType)
+                            .Join(dbCntx.EmployeePersonalDetails,
+                            a => a.EmployeeId, b => b.EmployeeId,
+                            (a, b) => new { A = a, B = b })
+                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation, BRANCHID, ROLECODE),
+                            c => c.A.EmployeeId, d => d.EmployeeId,
+                            (c, d) => new { C = c, D = d })
+                            .Join(dbCntx.Addresses,
+                            e => e.C.A.EmployeeId, f => f.LinkID,
+                            (e, f) => new { E = e, F = f })
+                            .Select(x => new EmployeeListVm
+                            {
+                                EmployeeId = x.E.C.A.EmployeeId,
+                                EmployeeNo = x.E.C.A.IDNumber,
+                                EmployeeName = x.E.C.A.FirstName + " " + x.E.C.A.LastName + " " + x.E.C.A.MiddleName,
+                                JoiningDate = x.E.D.JoiningDate,
+                                JobTitle = dbCntx.LookUps
+                                            .Where(y => y.LookUpID == x.E.D.DesignationId)
+                                            .FirstOrDefault().LookUpDescription,
+                                ContactNo = x.F.Contact,
+                                PersonalEmailId = x.F.Email,
+                                OfficialEmailId = x.F.Email,
+                                DateOfBirth = x.E.C.B.DOB
+                            });
+                var query = list.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(offSet).ToList().AsEnumerable();
+
+
+                var totalCount = list.Count();
+
+                decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalCount), Convert.ToDecimal(offSet));
+                decimal pagnationRound = Math.Ceiling(Convert.ToDecimal(pagerLength));
+
+
+                var empDirectoryVm = new EmpDirectoryVm
+                {
+                    employeeVm = query,
+                    empSearch = empSearch,
+                    count = totalCount,
+                    PagerLength = pagnationRound
+                };
+
+
+                return Json(empDirectoryVm, JsonRequestBehavior.AllowGet);
+
+            }
+        }
 
         [HttpPost]
-        public ViewResult empsearch(EmpSearch empSearch)
+        public ActionResult empsearch(EmpSearch empSearch)
         {
             using (var dbCntx = new HrDataContext())
             {
@@ -137,7 +161,7 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeePersonalDetails,
                             a => a.EmployeeId, b => b.EmployeeId,
                             (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation),
+                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation, BRANCHID, ROLECODE),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
                             .Join(dbCntx.Addresses,
@@ -165,6 +189,7 @@ namespace HR.Web.Controllers
                 };
 
                 return View("employeedirectory", empDirectoryVm);
+                //return Json(empDirectoryVm, JsonRequestBehavior.AllowGet);
             }
         }
 

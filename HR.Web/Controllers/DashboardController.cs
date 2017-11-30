@@ -36,6 +36,60 @@ namespace HR.Web.Controllers
                     return View("admindashboard", obj);
                 }
             }
+            else if(ROLECODE == UTILITY.ROLE_EMPLOYEE)
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var empLeaveDetails = dbCntx.EmployeeLeaveLists
+                                            .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
+                                            .OrderByDescending(x => x.EmployeeLeaveID)
+                                            .ThenByDescending(x => x.ApplyDate)
+                                            .Take(5)
+                                            .Select(x => new EmpLeaveDashBoard
+                                            {
+                                                FromDate = x.FromDate,
+                                                ToDate = x.ToDate,
+                                                ApplyDate = x.ApplyDate,
+                                                LeaveTypeDesc = dbCntx.LookUps.Where(y => y.LookUpID == x.LeaveTypeId).FirstOrDefault().LookUpDescription,
+                                                Status = x.Status,
+                                                Days = x.Days.Value
+                                            })
+                                            .ToList()
+                                            .AsEnumerable();
+
+                    var leaveCurrentTransactions = dbCntx.LeaveTransactions
+                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
+                                                .OrderByDescending(x => x.TransactionId)
+                                                .FirstOrDefault();
+
+                    
+                    DateTime startDayOfYear = new DateTime(UTILITY.SINGAPORETIME.Year, 01, 01);
+                    var leaveStartTransactions = dbCntx.LeaveTransactions
+                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
+                                                .OrderBy(x => x.TransactionId)
+                                                .FirstOrDefault();
+
+
+
+                    var totalPaidLeaves = leaveStartTransactions.PreviousPaidLeaves;
+                    var currentPaidLeaves = leaveCurrentTransactions.CurrentPaidLeaves;
+
+                    var remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
+
+                    var totalCasualLeaves = leaveStartTransactions.PreviousCasualLeaves;
+                    var currentCasualLeaves = leaveCurrentTransactions.CurrentCasualLeaves;
+
+                    var remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
+
+                    EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
+                    obj.empLeaveDashBoard = empLeaveDetails;
+                    obj.clPercent = remainingCasualLeavesPercent;
+                    obj.plPercent = remainingPaidLeavesPercent;
+
+                    return View("employeedashboard", obj);
+                }
+                    
+            }
 
             return View();
         }

@@ -58,5 +58,7 @@ namespace HR.Web.ViewModels
         public string EmployeeNumber { get; set; }
         public int? Designation { get; set; }
         public int? EmployeeType { get; set; }
+
+        public int pageNumber { get; set; }
     }
 }

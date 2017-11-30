@@ -12,4 +12,22 @@ namespace HR.Web.ViewModels
         public int EmployeeCount { get; set; }
         public IEnumerable<usp_EmployeeDateOfJoiningDate_Result> lineChartData { get; set; }
     }
+
+    public class EmployeeDashBoardVm
+    {
+        public IEnumerable<EmpLeaveDashBoard> empLeaveDashBoard { get; set; }
+
+        public decimal clPercent { get; set; }
+        public decimal plPercent { get; set; }
+    }
+
+    public class EmpLeaveDashBoard
+    {
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+        public DateTime ApplyDate { get; set; }
+        public string LeaveTypeDesc { get; set; }
+        public string Status { get; set; }
+        public decimal Days { get; set; }
+    }
 }

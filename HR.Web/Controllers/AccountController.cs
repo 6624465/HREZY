@@ -31,11 +31,12 @@ namespace HR.Web.Controllers
                     BRANCHID = userObj.BranchId;
                     ROLECODE = userObj.RoleCode;
                     EMPLOYEEID = userObj.EmployeeId;
-
-                    if (ROLECODE == UTILITY.ROLE_ADMIN || ROLECODE == UTILITY.ROLE_SUPERADMIN)
-                        return RedirectToAction("Index", "Dashboard");
-                    else if(ROLECODE == UTILITY.ROLE_EMPLOYEE)
-                        return RedirectToAction("Index", "Home");
+                    ISMANAGER = dbContext.EmployeeHeaders.Where(x => x.ManagerId == userObj.EmployeeId).Count() > 0;
+                    //if (ROLECODE == UTILITY.ROLE_ADMIN || ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                    //    return RedirectToAction("Index", "Dashboard");
+                    //else if(ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                    //    return RedirectToAction("Index", "Dashboard");
+                    return RedirectToAction("Index", "Dashboard");
                 }
             }
             return View();

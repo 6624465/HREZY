@@ -350,6 +350,13 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Parameter Name="branchId" Type="int" Mode="In" />
           <Parameter Name="role" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="usp_EmployeeDetailSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Operation">
+          <Parameter Name="BranchId" Type="int" Mode="In" />
+          <Parameter Name="EmployeeName" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOJ" Type="datetime" Mode="In" />
+          <Parameter Name="Designation" Type="int" Mode="In" />
+          <Parameter Name="Type" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_9F30C5_HRDBModelStoreContainer">
           <EntitySet Name="LookUp" EntityType="Self.LookUp" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Branches" EntityType="Self.Branches" Schema="Master" store:Type="Tables" />
@@ -474,6 +481,13 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <FunctionImport Name="usp_EmployeeDetail" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDetail_Result)">
             <Parameter Name="branchId" Mode="In" Type="Int32" />
             <Parameter Name="role" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EmployeeDetailSearch">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeName" Mode="In" Type="String" />
+            <Parameter Name="DOJ" Mode="In" Type="DateTime" />
+            <Parameter Name="Designation" Mode="In" Type="Int32" />
+            <Parameter Name="Type" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="User">
@@ -1297,6 +1311,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_EmployeeDetailSearch" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDetailSearch" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

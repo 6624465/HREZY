@@ -1,0 +1,160 @@
+﻿@model HR.Web.ViewModels.EmployeeDashBoardVm
+@{
+    ViewBag.Title = "employeedashboard";
+}
+@section Styles{
+    @*<link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/styles.css" />
+    <link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/pygment_trac.css" />*@
+    <link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/jquery.easy-pie-chart.css" />
+
+    
+    <style type="text/css">
+        th {
+            background-color: #3f51b5;
+            color:white;
+        }
+
+        .easypiechart {
+            text-align: center;
+            position: relative;
+        }
+
+        .easypiechart > .data {
+            position: absolute;
+            -webkit-transform: translate(-50%, -49%);
+            -ms-transform: translate(-50%, -49%);
+            -o-transform: translate(-50%, -49%);
+            transform: translate(-50%, -49%);
+            top: 49%;
+            left: 50%;
+        }
+    </style>
+}
+<div class="page page-dashboard">
+    <div class="page-wrap">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default mb20 mini-box panel-hovered">
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            <div class="info left">
+                                <h3 class="mt0 text-primary text-bold">11</h3>
+                                <h3 class="text-light mb0">Total Employees</h3>
+                            </div>
+                            <div class="right ion ion-ios-people-outline icon"></div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                        <p class="mt0 mb0 left">
+                            <a style="color:white;" href="#">Employees</a>
+                        </p>                        
+                    </div>
+                </div>
+            </div>            
+            <div class="col-md-4">
+                <div class="panel panel-default mb20 mini-box panel-hovered">
+                    <div class="piedemo clearfix">
+                        <div class="chart">
+                            <div class="percentage easyPieChart" data-percent="55" style="width: 120px; height: 120px; line-height: 110px;"><span>40</span>%<canvas width="110" height="110"></canvas></div>
+                            <div class="label">New visitors</div>
+                        </div> 
+                        <div class="chart">
+                            <div class="percentage easyPieChart" data-percent="21" style="width: 120px; height: 120px; line-height: 110px;"><span>12</span>%<canvas width="110" height="110"></canvas></div>
+                            <div class="label">Bounce rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default mb20 mini-box panel-hovered">
+                    <div class="panel-heading">
+                        <h5>Employee Leave Info</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>From Dt</th>
+                                            <th>To Dt</th>
+                                            <th>Apply Dt</th>
+                                            <th>Leave Type</th>
+                                            <th>Days</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (var i = 0; i < Model.empLeaveDashBoard.Count(); i++)
+                                        {
+                                            <tr>
+                                                <td>@Model.empLeaveDashBoard.ElementAt(i).FromDate.ToShortDateString()</td>
+                                                <td>@Model.empLeaveDashBoard.ElementAt(i).ToDate.ToShortDateString()</td>
+                                                <td>@Model.empLeaveDashBoard.ElementAt(i).ApplyDate.ToShortDateString()</td>
+                                                <td>@Model.empLeaveDashBoard.ElementAt(i).LeaveTypeDesc</td>
+                                                <td>@Model.empLeaveDashBoard.ElementAt(i).Days.ToString("#.#")</td>
+                                                <td>
+                                                    @if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEAPPROVED)
+                                                    {
+                                                        <span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                    }
+                                                    else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEREJECTED)
+                                                    {
+                                                        <span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                    }
+                                                    else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVECANCELLED)
+                                                    {
+                                                        <span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                    }
+                                                    else if (string.IsNullOrWhiteSpace(Model.empLeaveDashBoard.ElementAt(i).Status))
+                                                    {
+                                                        <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+@section Scripts{
+    <script src="@Url.Content("~/Scripts/Core/jquery.easypiechart.min.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.percentage').easyPieChart({
+                barColor: '#3f51b5',
+                trackColor: '#9e9e9e',
+                scaleColor: '#9e9e9e',
+                lineCap: 'round'
+            });
+            //initCharts();
+            
+        });
+
+        var initCharts = function () {
+            var charts = $('.percentage');
+            charts.easyPieChart({
+                animate: 1000,
+                onStep: function (value) {
+                    this.$el.find('span').text(~~value);
+                }
+            });
+            $('.updatePieCharts').on('click', function (e) {
+                e.preventDefault();
+                charts.each(function () {
+                    $(this).data('easyPieChart').update(Math.floor(100 * Math.random()));
+                });
+            });
+        }
+    </script>
+}

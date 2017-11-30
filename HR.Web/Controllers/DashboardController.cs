@@ -62,8 +62,9 @@ namespace HR.Web.Controllers
                                                 .OrderByDescending(x => x.TransactionId)
                                                 .FirstOrDefault();
 
+                    //DateTime startDayOfYear = 
                     var leaveStartTransactions = dbCntx.LeaveTransactions
-                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
+                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= )
                                                 .OrderByDescending(x => x.TransactionId)
                                                 .FirstOrDefault();
 

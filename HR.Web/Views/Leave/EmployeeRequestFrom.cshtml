@@ -233,37 +233,22 @@
             var toDate = $('#ToDt').find('input').val();
             var from = moment(fromDate, 'MM/DD/YYYY');
             var to = moment(toDate, 'MM/DD/YYYY');
+            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
             var days = moment.duration(to.diff(from)).asDays() + 1;
-
+            debugger;
             if (days > 1) {
+                $('#Days').val(days);
                 $('#chkhalfday').attr('disabled', 'disabled');
             }
-            else
+            else if (days < 0) {
                 $('#chkhalfday').removeAttr('disabled');
-            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
+                $('#FromDt').find('input').val('');
+                $('#ToDt').find('input').val('');
+                $('#Days').val('');
+            }
+            else
                 $('#Days').val(days);
-                //if (days == 0) {
-                //    if (!confirm('You are applying for halfday')) {
-                //        $('#chkhalfday').removeAttr('checked');
-                //        $('.icheckbox_flat-blue').removeClass('checked');
-                //        $('#FromDt').find('input').val('');
-                //        $('#ToDt').find('input').val('');
-                //        $('#Days').val('');
 
-                //    }
-                //    else {
-
-                //        $('#chkhalfday').attr('checked', 'checked');
-                //        $('#isChecked').val('on');
-                //        $('.icheckbox_flat-blue').addClass('checked');
-                //    }
-                //}
-                //else {
-                //    $('#chkhalfday').removeAttr('checked');
-                //    $('#chkhalfday').removeAttr('value');
-                //    $('.icheckbox_flat-blue').removeClass('checked');
-                //    $('#isChecked').val('off');
-                //}
             }
         }
 
@@ -278,15 +263,15 @@
 
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
                 if (days == 1) {
-                if ($('#chkhalfday').prop('checked')) {
-                    $('#Days').val(0.5);
-                    $('#isChecked').val('on');
+                    if ($('#chkhalfday').prop('checked')) {
+                        $('#Days').val(0.5);
+                        $('#isChecked').val('on');
 
 
-                } else {
+                    } else {
 
-                    $('#Days').val(days);
-                }
+                        $('#Days').val(days);
+                    }
 
                 }
             }

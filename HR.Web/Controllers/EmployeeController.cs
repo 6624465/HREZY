@@ -66,7 +66,7 @@ namespace HR.Web.Controllers
         [HttpGet]
         public JsonResult GetGridTileEmployees(int pageNumber)
         {
-            int offSet = 2;
+            int offSet = 3;
             int skipRows = (pageNumber - 1) * offSet;
 
             using (var dbCntx = new HrDataContext())
@@ -101,15 +101,15 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult empsearchajax(EmpSearch empSearch)
         {
-            int offSet = 2;
-                        int skipRows = (empSearch.pageNumber - 1) * offSet;
+            int offSet = 3;
+            int skipRows = (empSearch.pageNumber - 1) * offSet;
             using (var dbCntx = new HrDataContext())
             {
                 var list = dbCntx.EmployeeHeaders.AdvSearchEmpHeaderWhere(empSearch.EmployeeName, empSearch.EmployeeType)
                             .Join(dbCntx.EmployeePersonalDetails,
                             a => a.EmployeeId, b => b.EmployeeId,
                             (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation,BRANCHID,ROLECODE),
+                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation, BRANCHID, ROLECODE),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
                             .Join(dbCntx.Addresses,
@@ -137,7 +137,7 @@ namespace HR.Web.Controllers
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalCount), Convert.ToDecimal(offSet));
                 decimal pagnationRound = Math.Ceiling(Convert.ToDecimal(pagerLength));
 
-                
+
                 var empDirectoryVm = new EmpDirectoryVm
                 {
                     employeeVm = query,
@@ -161,7 +161,7 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeePersonalDetails,
                             a => a.EmployeeId, b => b.EmployeeId,
                             (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation,BRANCHID,ROLECODE),
+                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation, BRANCHID, ROLECODE),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
                             .Join(dbCntx.Addresses,

@@ -345,7 +345,7 @@ namespace HR.Web.Controllers
 
                         dbCntx.SaveChanges();
 
-                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                        return RedirectToAction("ViewLeavesList");
                     }
                     else
                     {

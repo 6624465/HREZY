@@ -1,4 +1,7 @@
-﻿﻿<!DOCTYPE html>
+﻿@{
+    var baseObj = new BaseController();
+}﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -137,7 +140,7 @@
                     <li class="divider"></li>
                     <li><a href="javascript:;"><span class="ion ion-lock-combination">&nbsp;&nbsp;</span>Lock Screen</a></li>*@
                     
-                    <li><span class="ion ion-person">&nbsp;&nbsp;</span>@Session[UTILITY.CONFIG_ROLECODE]</li>
+                    <li><a href="#"><i class="fa fa-user-circle-o"></i>&nbsp;@baseObj.USERID</a></li>
                     <li class="divider"></li>
                     <li><a href="@Url.Content("~/Account/LogOut")"><span class="ion ion-power">&nbsp;&nbsp;</span>LogOut</a></li>
                 </ul>
@@ -152,7 +155,7 @@
             <div class="nav-head">
                 <!-- site logo -->
                 <a href="#" class="site-logo text-uppercase">
-                    <i class="ion ion-disc"></i>
+                    <i class="@baseObj.GetRoleIcon()"></i>
                     <span class="text">EZY-HR</span>
                 </a>
             </div>

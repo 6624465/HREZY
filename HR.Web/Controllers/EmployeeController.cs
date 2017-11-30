@@ -109,7 +109,7 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeePersonalDetails,
                             a => a.EmployeeId, b => b.EmployeeId,
                             (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation,BRANCHID),
+                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation,BRANCHID,ROLECODE),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
                             .Join(dbCntx.Addresses,
@@ -161,7 +161,7 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeePersonalDetails,
                             a => a.EmployeeId, b => b.EmployeeId,
                             (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation,BRANCHID),
+                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation,BRANCHID,ROLECODE),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
                             .Join(dbCntx.Addresses,

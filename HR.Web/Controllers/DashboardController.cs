@@ -76,7 +76,7 @@ namespace HR.Web.Controllers
 
                     var remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 
-                    var totalCasualLeaves = leaveStartTransactions.PreviousPaidLeaves;
+                    var totalCasualLeaves = leaveStartTransactions.PreviousCasualLeaves;
                     var currentCasualLeaves = leaveCurrentTransactions.CurrentCasualLeaves;
 
                     var remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;

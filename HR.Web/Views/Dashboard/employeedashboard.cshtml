@@ -33,7 +33,7 @@
 <div class="page page-dashboard">
     <div class="page-wrap">
         <div class="row">
-            <div class="col-md-4">
+            @*<div class="col-md-4">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="panel-body">
                         <div class="clearfix">
@@ -50,7 +50,7 @@
                         </p>                        
                     </div>
                 </div>
-            </div>            
+            </div>*@            
             <div class="col-md-4">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="piedemo clearfix">
@@ -132,12 +132,17 @@
     <script type="text/javascript">
         $(function () {
             $('.percentage').easyPieChart({
-                barColor: '#3f51b5',
-                trackColor: '#CDDC39',
-                scaleColor: '#CDDC39',
+                barColor: '#CDDC39',
+                trackColor: '#3f51b5',
+                scaleColor: '#3f51b5',
                 lineCap: 'round',
+                scaleLength: 8,
                 size: 120,
-                lineWidth: 4
+                lineWidth: 4,
+                animate: {
+                    duration: 1000,
+                    enabled: true
+                },
             });
             //initCharts();
             

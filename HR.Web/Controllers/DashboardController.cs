@@ -69,17 +69,21 @@ namespace HR.Web.Controllers
                                                 .OrderBy(x => x.TransactionId)
                                                 .FirstOrDefault();
 
+                    decimal remainingPaidLeavesPercent = 0.0M;
+                    decimal remainingCasualLeavesPercent = 0.0M;
+                    if (leaveStartTransactions != null)
+                    {
 
+                        var totalPaidLeaves = leaveStartTransactions.PreviousPaidLeaves;
+                        var currentPaidLeaves = leaveCurrentTransactions.CurrentPaidLeaves;
 
-                    var totalPaidLeaves = leaveStartTransactions.PreviousPaidLeaves;
-                    var currentPaidLeaves = leaveCurrentTransactions.CurrentPaidLeaves;
+                        remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 
-                    var remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
+                        var totalCasualLeaves = leaveStartTransactions.PreviousCasualLeaves;
+                        var currentCasualLeaves = leaveCurrentTransactions.CurrentCasualLeaves;
 
-                    var totalCasualLeaves = leaveStartTransactions.PreviousCasualLeaves;
-                    var currentCasualLeaves = leaveCurrentTransactions.CurrentCasualLeaves;
-
-                    var remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
+                        remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
+                    }
 
                     EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
                     obj.empLeaveDashBoard = empLeaveDetails;

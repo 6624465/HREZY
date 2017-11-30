@@ -179,28 +179,32 @@
             $('#li_empdir').addClass('active');
 
             $.validator.addMethod("ValidatePaidLeave", function () {
-                if (parseInt($('#PaidLeavesPerMonth').val()) < parseInt($('#PaidLeavesPerYear').val())) {
+                if ((parseInt($('#PaidLeavesPerMonth').val()) == 0 && parseInt($('#PaidLeavesPerYear').val()) == 0) ||
+                    parseInt($('#PaidLeavesPerMonth').val()) < parseInt($('#PaidLeavesPerYear').val())) {
                     return true;
                 } else
                     return false;
             }, "Please Paid Leaves Per Month should be less than Paid Leaves Per Year ");
 
             $.validator.addMethod("ValidateSickLeave", function () {
-                if (parseInt($('#SickLeavesPerMonth').val()) < parseInt($('#SickLeavesPerYear').val())) {
+                if ((parseInt($('#SickLeavesPerMonth').val()) == 0 && parseInt($('#SickLeavesPerYear').val()) == 0)
+                    || parseInt($('#SickLeavesPerMonth').val()) < parseInt($('#SickLeavesPerYear').val())) {
                     return true;
                 } else
                     return false;
             }, "Please Sick Leaves Per Month should be less than Sick Leaves Per Year ");
 
             $.validator.addMethod("ValidateCasualLeave", function () {
-                if (parseInt($('#CasualLeavesPerMonth').val()) < parseInt($('#CasualLeavesPerYear').val())) {
+                if ((parseInt($('#CasualLeavesPerMonth').val()) == 0 && parseInt($('#CasualLeavesPerYear').val()) == 0)
+                    || parseInt($('#CasualLeavesPerMonth').val()) < parseInt($('#CasualLeavesPerYear').val())) {
                     return true;
                 } else
                     return false;
             }, "Please Casual Leaves Per Month should be less than Casual Leaves Per Year ");
 
             $.validator.addMethod("CarryForwardPaidLeave", function () {
-                if (parseInt($('#CarryForwardPerYear').val()) < parseInt($('#PaidLeavesPerYear').val())) {
+                if ((parseInt($('#CarryForwardPerYear').val()) == 0 && parseInt($('#PaidLeavesPerYear').val()) == 0)
+                    || parseInt($('#CarryForwardPerYear').val()) < parseInt($('#PaidLeavesPerYear').val())) {
                     return true;
                 } else
                     return false;
@@ -208,7 +212,8 @@
 
 
             $.validator.addMethod("CarryForwardSickLeave", function () {
-                if (parseInt($('#CarryForwardSickLeaves').val()) < parseInt($('#SickLeavesPerYear').val())) {
+                if ((parseInt($('#CarryForwardSickLeaves').val()) == 0 && parseInt($('#SickLeavesPerYear').val()) == 0)
+                    || parseInt($('#CarryForwardSickLeaves').val()) < parseInt($('#SickLeavesPerYear').val())) {
                     return true;
                 } else
                     return false;
@@ -242,7 +247,7 @@
                 },
                 CarryForwardPerYear: {
                     required: true,
-                    CarryForwardPaidLeave:true
+                    CarryForwardPaidLeave: true
                 },
                 SickLeavesPerYear: {
                     required: true,
@@ -254,7 +259,7 @@
                 },
                 CarryForwardSickLeaves: {
                     required: true,
-                    CarryForwardSickLeave:true
+                    CarryForwardSickLeave: true
                 },
                 CasualLeavesPerYear: {
                     required: true,

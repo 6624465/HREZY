@@ -1,27 +1,19 @@
-﻿@model IEnumerable<HR.Web.Models.Leave>
+﻿
+@model List<HR.Web.ViewModels.LeavepolicyVm>
 
-@{
-    WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
-    grid.Pager(WebGridPagerModes.All);
-}
-
-@functions {
-    public System.Web.Mvc.MvcHtmlString GetCheckBoxAttr(bool flag)
-    {
-        if (flag)
-        {
-            return System.Web.Mvc.MvcHtmlString.Create("checked='checked'");
-        }
-        return System.Web.Mvc.MvcHtmlString.Create("");
-    }
-}
 
 @section Styles {
     <style type="text/css">
-       
+        .popover {
+            max-width: 1000%;
+            width: 500px;
+            height:500%
+        }
     </style>
 }
-<div class="page">
+
+
+<div class="page" style="min-height:1000px;">
     <div class="page-wrap">
         <div class="panel panel-default">
             <div class="box" id="grid">
@@ -35,41 +27,29 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-12" style="overflow-x:scroll;width:100%">
-                            @grid.GetHtml(
-                                columns: grid.Columns(                                 
-                                     grid.Column("PaidLeavesPerYear", "Paid Leaves PerYear", canSort: true),
-                                     grid.Column("PaidLeavesPerMonth", "Paid Leaves PerMonth", canSort: true),
-                                     grid.Column("IsPaidLeaveCarryForward", "Paid Leave CarryForward", canSort: true, format:
-                                        @<text>
-                                            <input type="checkbox" disabled="disabled" @GetCheckBoxAttr(item.IsPaidLeaveCarryForward) />
-                                        </text>),
-                                     grid.Column("CarryForwardPerYear", "Carry Forward PerYear", canSort: true),
-                                     grid.Column("SickLeavesPerYear", "Sick Leaves PerYear", canSort: true),
-                                     grid.Column("SickLeavesPerMonth", "SickLeavesPerMonth", canSort: true),
-                                     grid.Column("IsSickLeaveCarryForward", "Sick Leave Carry Forward", canSort: true),
-                                     grid.Column("CarryForwardSickLeaves", "Carry Forward Sick Leaves", canSort: true),
-                                     grid.Column("CasualLeavesPerYear", "Casual Leaves PerYear", canSort: true),
-                                     grid.Column("CasualLeavesPerMonth", "Casual Leaves PerMonth", canSort: true),
-                                     grid.Column("IsCasualLeaveCarryForward", "Casual Leave Carry Forward", canSort: true, format:
-                                         @<text>
-                                            <input type="checkbox" disabled="disabled" @GetCheckBoxAttr(item.IsCasualLeaveCarryForward) />
-                                         </text>),
-                                     grid.Column("", "#Action", canSort: false, format:
-                                        @<text>
-                                            <button class="btn btn-xs btn-raised waves-effect"
-                                                    style="padding-left: 5px;margin-left: 6px;"
-                                                    onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")@item.LeaveId'">
-                                                <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                            </button>
-                                        </text>)), tableStyle: "table table-condensed")
-                        </div>
-                        
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                    <div class="row" id="tableGrid">
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>BranchName</th>
+                                        <th>Information</th>
+                                        <th>#Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var i = 0; i < Model.Count(); i++)
+                                    {
+                                        <tr>
+                                            <td>@Model.ElementAt(i).BranchName</td>
+                                            <td><button class="btn btn-primary btn-sm" type="button" data-toggle="popover_@(i)" title="Leave Policy" >info</button></td>
+                                            <td><button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")+ @Model.ElementAt(i).LeaveId'">Edit</button></td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -77,3 +57,48 @@
         </div>
     </div>
 </div>
+@for (var i = 0; i < Model.Count(); i++)
+{
+     <div id="popover_@i" class="hide">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">                    
+                    <ul class="list-group" style="font-weight:Bold;">
+                        <li class="list-group-item">PL Per Year: @Model.ElementAt(i).PaidLeavesPerYear</li>
+                        <li class="list-group-item">PL Per Month:@Model.ElementAt(i).PaidLeavesPerMonth</li>
+                        <li class="list-group-item">IsPaidLeaveCarryFarward:@Html.CheckBoxFor(x =>x.ElementAt(i).IsPaidLeaveCarryForward)</li>
+                        <li class="list-group-item">CarryFarwardPerYear:@Model.ElementAt(i).CarryFarwardPerYear</li>
+                        <li class="list-group-item">SickLeavesPerYear:@Model.ElementAt(i).SickLeavesPerYear</li>
+                        <li class="list-group-item">SickLeavesPerMonth:@Model.ElementAt(i).SickLeavesPerMonth</li>
+                        <li class="list-group-item">IsSickLeaveCarryFarward:@Html.CheckBoxFor(x => x.ElementAt(i).IsSickLeaveCarryFarward)</li>
+                        <li class="list-group-item">CarryFarwardSickLeaves:@Model.ElementAt(i).CarryFarwardSickLeaves</li>
+                        <li class="list-group-item">CasualLeavesPerYear:@Model.ElementAt(i).CasualLeavesPerYear</li>
+                        <li class="list-group-item">CasualLeavesPerMonth:@Model.ElementAt(i).CasualLeavesPerMonth</li>
+                        <li class="list-group-item">IsCasualLeaveCarryFarward:@Html.CheckBoxFor(x => x.ElementAt(i).IsCasualLeaveCarryFarward)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="popover_@i"]').popover({
+                placement: 'bottom',
+                html: true,
+                content: function () {
+                    return $('#popover_@i').html();
+                }
+            });
+        });       
+        
+    </script>
+}
+@section Scripts{
+<script type="text/javascript">
+    $(function () {
+        $('#li_Leave').addClass('open');
+        $('#li_empdir').addClass('active');
+
+    });
+</script>
+}

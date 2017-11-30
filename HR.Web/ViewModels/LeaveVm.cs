@@ -93,6 +93,26 @@ namespace HR.Web.ViewModels
         public int ManagerId { get; set; }
         public string ManagerName { get; set; }
     }
+    public class LeavepolicyVm
+    {
+        public int LeaveId { get; set; }
+        public int? PaidLeavesPerYear { get; set; }
+        public decimal? PaidLeavesPerMonth { get; set; }
+        public bool IsPaidLeaveCarryForward { get; set; }
+        public decimal? CarryFarwardPerYear { get; set; }
+        public int? SickLeavesPerYear { get; set; }
+        public decimal? SickLeavesPerMonth { get; set; }
+        public bool IsSickLeaveCarryFarward { get; set; }
+        public decimal? CarryFarwardSickLeaves { get; set; }
+        public int? CasualLeavesPerYear { get; set; }
+        public decimal? CasualLeavesPerMonth { get; set; }
+        public bool IsCasualLeaveCarryFarward { get; set; }
+        public Int64? BranchId { get; set; }
+        public string BranchName { get; set; }
+
+
+
+    }
     
 
 

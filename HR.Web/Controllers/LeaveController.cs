@@ -520,14 +520,37 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult LeaveList()
         {
+            
             using (HrDataContext dbContext = new HrDataContext())
             {
-                List<Leave> leaves = dbContext.Leaves.ToList();
-                //leaves.ForEach(x => x.BranchId = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
+                var leaves = dbContext.Leaves.Join(dbContext.Branches,
+                    a => a.BranchId, b => b.BranchID,
+                    (a, b) => new { A = a, B = b }).Select(x=>new LeavepolicyVm
+                    {
+                        LeaveId = x.A.LeaveId,
+                        PaidLeavesPerYear = x.A.PaidLeavesPerYear,
+                        PaidLeavesPerMonth = x.A.PaidLeavesPerMonth,
+                        IsPaidLeaveCarryForward = x.A.IsPaidLeaveCarryForward,
+                        CarryFarwardPerYear = x.A.CarryForwardPerYear,
+                        SickLeavesPerYear = x.A.SickLeavesPerYear,
+                        SickLeavesPerMonth = x.A.SickLeavesPerMonth,
+                        IsSickLeaveCarryFarward = x.A.IsSickLeaveCarryForward,
+                        CarryFarwardSickLeaves = x.A.CarryForwardSickLeaves,
+                        CasualLeavesPerYear = x.A.CasualLeavesPerYear,
+                        CasualLeavesPerMonth = x.A.CasualLeavesPerMonth,
+                        IsCasualLeaveCarryFarward = x.A.IsCasualLeaveCarryForward,
+                        BranchId = x.A.BranchId,
+                        BranchName = x.B.BranchName
+                    }).ToList();
                 return View(leaves);
-            }
-        }
+                }
 
+                //List<Leave> leaves = dbContext.Leaves.ToList();
+                ////leaves.ForEach(x => x.BranchId = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
+                //return View(leaves);
+            }
+        
+       
         [HttpGet]
         public ActionResult Leave(int leaveId = 0)
         {
@@ -543,9 +566,7 @@ namespace HR.Web.Controllers
                                 .FirstOrDefault();
                 }
                 else
-                    leave = dbContext.Leaves
-                                .Where(x => x.BranchId == BRANCHID)
-                                .FirstOrDefault();
+                    leave = new Leave();
                 return View(leave);
             }
         }

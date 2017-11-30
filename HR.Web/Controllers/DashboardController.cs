@@ -62,21 +62,29 @@ namespace HR.Web.Controllers
                                                 .OrderByDescending(x => x.TransactionId)
                                                 .FirstOrDefault();
 
-                    //DateTime startDayOfYear = 
+                    
+                    DateTime startDayOfYear = new DateTime(01, 01, UTILITY.SINGAPORETIME.Year);
                     var leaveStartTransactions = dbCntx.LeaveTransactions
-                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= )
-                                                .OrderByDescending(x => x.TransactionId)
+                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
+                                                .OrderBy(x => x.TransactionId)
                                                 .FirstOrDefault();
 
 
 
-                    //var totalPaidLeaves = leavePolicy.PaidLeavesPerYear;
-                    //if()
+                    var totalPaidLeaves = leaveStartTransactions.CurrentPaidLeaves;
+                    var currentPaidLeaves = leaveCurrentTransactions.CurrentPaidLeaves;
 
-                    //var remainingPaidLeavesPercent = (leaveTransactions.)
+                    var remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
+
+                    var totalCasualLeaves = leaveStartTransactions.CurrentCasualLeaves;
+                    var currentCasualLeaves = leaveCurrentTransactions.CurrentCasualLeaves;
+
+                    var remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
 
                     EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
                     obj.empLeaveDashBoard = empLeaveDetails;
+                    obj.clPercent = remainingCasualLeavesPercent;
+                    obj.plPercent = remainingPaidLeavesPercent;
 
                     return View("employeedashboard", obj);
                 }

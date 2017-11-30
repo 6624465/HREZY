@@ -55,12 +55,12 @@
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="piedemo clearfix">
                         <div class="chart">
-                            <div class="percentage easyPieChart" data-percent="@Model.plPercent" style="width: 120px; height: 120px; line-height: 110px;"><span>40</span>%<canvas width="110" height="110"></canvas></div>
-                            <div class="label">PL %</div>
+                            <div class="percentage easyPieChart" data-percent="@Model.plPercent" style="width: 120px; height: 120px; line-height: 125px;"><span>@Model.plPercent.ToString("0.00")</span>%<canvas width="110" height="110"></canvas></div>
+                            <div class="label" style="margin-left:35px;">PL %</div>
                         </div> 
                         <div class="chart">
-                            <div class="percentage easyPieChart" data-percent="@Model.clPercent" style="width: 120px; height: 120px; line-height: 110px;"><span>12</span>%<canvas width="110" height="110"></canvas></div>
-                            <div class="label">CL %</div>
+                            <div class="percentage easyPieChart" data-percent="@Model.clPercent" style="width: 120px; height: 120px; line-height: 125px;"><span>@Model.clPercent.ToString("0.00")</span>%<canvas width="110" height="110"></canvas></div>
+                            <div class="label" style="margin-left:35px;">CL %</div>
                         </div>
                     </div>
                 </div>
@@ -133,9 +133,11 @@
         $(function () {
             $('.percentage').easyPieChart({
                 barColor: '#3f51b5',
-                trackColor: '#9e9e9e',
-                scaleColor: '#9e9e9e',
-                lineCap: 'round'
+                trackColor: '#CDDC39',
+                scaleColor: '#CDDC39',
+                lineCap: 'round',
+                size: 120,
+                lineWidth: 4
             });
             //initCharts();
             

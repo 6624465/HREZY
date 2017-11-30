@@ -57,6 +57,17 @@ namespace HR.Web.Controllers
                 Session[UTILITY.CONFIG_ROLECODE] = value;
             }
         }
+        public bool ISMANAGER
+        {
+            get
+            {
+                return (bool)System.Web.HttpContext.Current.Session[UTILITY.CONFIG_MANAGER];
+            }
+            set
+            {
+                Session[UTILITY.CONFIG_MANAGER] = value;
+            }
+        }
 
         public string GetRoleIcon()
         {

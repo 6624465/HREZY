@@ -14,7 +14,8 @@ namespace HR.Web.Controllers
         {
             LayOutVM layoutVm = new LayOutVM()
             {
-                RoleCode = ROLECODE
+                RoleCode = ROLECODE,
+                IsManager=ISMANAGER
             };
             return PartialView("_Links", layoutVm);
         }
@@ -22,6 +23,7 @@ namespace HR.Web.Controllers
         public class LayOutVM
         {
             public string RoleCode { get; set; }
+            public bool IsManager { get; set; }
         }
     }
 }

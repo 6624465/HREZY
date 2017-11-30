@@ -242,28 +242,28 @@
                 $('#chkhalfday').removeAttr('disabled');
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
                 $('#Days').val(days);
-                if (days == 0) {
-                    if (!confirm('You are applying for halfday')) {
-                        $('#chkhalfday').removeAttr('checked');
-                        $('.icheckbox_flat-blue').removeClass('checked');
-                        $('#FromDt').find('input').val('');
-                        $('#ToDt').find('input').val('');
-                        $('#Days').val('');
+                //if (days == 0) {
+                //    if (!confirm('You are applying for halfday')) {
+                //        $('#chkhalfday').removeAttr('checked');
+                //        $('.icheckbox_flat-blue').removeClass('checked');
+                //        $('#FromDt').find('input').val('');
+                //        $('#ToDt').find('input').val('');
+                //        $('#Days').val('');
 
-                    }
-                    else {
+                //    }
+                //    else {
 
-                        $('#chkhalfday').attr('checked', 'checked');
-                        $('#isChecked').val('on');
-                        $('.icheckbox_flat-blue').addClass('checked');
-                    }
-                }
-                else {
-                    $('#chkhalfday').removeAttr('checked');
-                    $('#chkhalfday').removeAttr('value');
-                    $('.icheckbox_flat-blue').removeClass('checked');
-                    $('#isChecked').val('off');
-                }
+                //        $('#chkhalfday').attr('checked', 'checked');
+                //        $('#isChecked').val('on');
+                //        $('.icheckbox_flat-blue').addClass('checked');
+                //    }
+                //}
+                //else {
+                //    $('#chkhalfday').removeAttr('checked');
+                //    $('#chkhalfday').removeAttr('value');
+                //    $('.icheckbox_flat-blue').removeClass('checked');
+                //    $('#isChecked').val('off');
+                //}
             }
         }
 

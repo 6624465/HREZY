@@ -20,7 +20,6 @@ namespace HR.Web.Models
         public HrDataContext()
             : base("name=HrDataContext")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -71,6 +70,31 @@ namespace HR.Web.Models
                 new ObjectParameter("role", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDetail_Result>("usp_EmployeeDetail", branchIdParameter, roleParameter);
+        }
+    
+        public virtual int usp_EmployeeDetailSearch(Nullable<int> branchId, string employeeName, Nullable<System.DateTime> dOJ, Nullable<int> designation, Nullable<int> type)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var employeeNameParameter = employeeName != null ?
+                new ObjectParameter("EmployeeName", employeeName) :
+                new ObjectParameter("EmployeeName", typeof(string));
+    
+            var dOJParameter = dOJ.HasValue ?
+                new ObjectParameter("DOJ", dOJ) :
+                new ObjectParameter("DOJ", typeof(System.DateTime));
+    
+            var designationParameter = designation.HasValue ?
+                new ObjectParameter("Designation", designation) :
+                new ObjectParameter("Designation", typeof(int));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_EmployeeDetailSearch", branchIdParameter, employeeNameParameter, dOJParameter, designationParameter, typeParameter);
         }
     }
 }

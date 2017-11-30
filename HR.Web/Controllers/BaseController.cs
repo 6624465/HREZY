@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace HR.Web.Controllers
 {    
-    [SessionFilter]
+    
     public class BaseController : Controller
     {
 

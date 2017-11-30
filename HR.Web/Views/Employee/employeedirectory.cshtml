@@ -78,7 +78,7 @@
                              new { @class = "form-control" })
                                 </div>
                                 <div class="col-md-2 col-md-offset-1">
-                                    <button type="submit" class="btn btn-info btn-raised waves-effect btn-sm">Search</button>
+                                    <button type="button" class="btn btn-info btn-raised waves-effect btn-sm" onclick="SearchEmployee()">Search</button>
                                     @*<button type="button" id="refresh_button" class="btn btn-info btn-raised waves-effect btn-sm">Refresh</button>*@
                                 </div>
                             </div>
@@ -120,8 +120,8 @@
                                     <th>JobTitle</th>
                                     <th>email</th>
                                     @*<th>Department</th>
-                                    <th>Desigation</th>
-                                    <th>Manager</th>*@
+                                        <th>Desigation</th>
+                                        <th>Manager</th>*@
                                     <th>ContactNo</th>
                                     <th>#Action</th>
                                 </tr>
@@ -156,11 +156,15 @@
             <td>${JobTitle}</td>
             <td>${PersonalEmailId}</td>
             @*<td>${Department}</td>
-            <td>${Desigation}</td>
-            <td>${Manager}</td>*@
+                <td>${Desigation}</td>
+                <td>${Manager}</td>*@
             <td>${ContactNo}</td>
-            <td><button class="btn btn-xs btn-raised waves-effect btn-sm waves-effect"
-                   style="padding-left: 5px;margin-left: 6px;"onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></td>
+            <td>
+                <button class="btn btn-xs btn-raised waves-effect btn-sm waves-effect"
+                        style="padding-left: 5px;margin-left: 6px;" onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'">
+                    <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                </button>
+            </td>
         </tr>
     </script>
     <script id="tileTmplate" type="text/html">
@@ -175,7 +179,6 @@
                                  src="${imgPath + EmployeeId + '/' + ProfilePic}"
                                  class="img-circle"
                                  alt="user"
-                                 
                                  style="cursor:pointer">
 
                         </div>
@@ -198,8 +201,20 @@
 
     <script type="text/javascript">
         var imgPath = '@Url.Content("~/Uploads/")';
+
+        var empObj = {
+            EmployeeName: $('#empSearch_EmployeeName').val(),
+            DOJ: $('#empSearch_DOJ').val(),
+            EmployeeNumber: $('#empSearch_EmployeeNumber').val(),
+            Designation: $('#empSearch_Designation').val(),
+            EmployeeType: $('#empSearch_EmployeeType').val(),
+            isSerach: false,
+            pageNumber: 1
+        }
+
         var Arr;
         function getDataCallBack(data) {
+            debugger
             Arr = new Array();
             Arr = data;
 
@@ -213,15 +228,28 @@
         };
 
         function callBack(event, num) {
-            var promise = getDataPromise(num);
-            $.when(promise).done(function (data) {
+            debugger;
+            if (!empObj.isSerach) {
+                var promise = getDataPromise(num);
+                $.when(promise).done(function (data) {
 
-                getDataCallBack(data);
+                    getDataCallBack(data);
 
-            });
+                });
+            } else {
+                empObj.pageNumber = num;
+                var promise1 = SearchEmployee();
+                $.when(promise1).done(function (data) {
+
+                    getDataCallBack(data);
+
+                });
+
+            }
         };
 
         function getDataPromise(number) {
+            debugger;
             var deffered = $.Deferred();
             $.ajax({
                 url: '@Url.Content("~/Employee/GetGridTileEmployees?pageNumber=")' + number,
@@ -244,11 +272,17 @@
             $('#tiles').hide();
 
 
-            var promise = getDataPromise(1);
-
+            var promise;
+            if (!empObj.isSerach) {
+                promise = getDataPromise(1);
+            }
+            else
+                promise = SearchEmployee();
+            //var promise1 = SearchEmployee();
             $.when(promise).done(function (data) {
 
                 getDataCallBack(data);
+
                 $('#pagination').bootpag({
                     total: data.PagerLength,
                     page: 1,
@@ -297,5 +331,34 @@
             $('#tiles').hide();
 
         }
+
+        function SearchEmployee() {
+            debugger;
+            empObj.EmployeeName = $('#empSearch_EmployeeName').val();
+            empObj.DOJ = $('#empSearch_DOJ').val();
+            empObj.EmployeeNumber = $('#empSearch_EmployeeNumber').val();
+            empObj.Designation = $('#empSearch_Designation').val();
+            empObj.EmployeeType = $('#empSearch_EmployeeType').val();
+            empObj.isSerach = true;
+            var deffered = $.Deferred();
+            $.ajax({
+                url: '@Url.Content("~/Employee/empsearchajax")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(empObj),
+                success: function (obj) {
+                    debugger;
+                    deffered.resolve(obj);
+                },
+                error: function (err) {
+                    deffered.reject(err);
+                }
+            });
+
+            return deffered.promise();
+
+        }
+
+
     </script>
 }

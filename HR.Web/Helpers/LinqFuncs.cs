@@ -23,15 +23,18 @@ namespace HR.Web
             return empHeader;
         }
 
-        public static IQueryable<EmployeeWorkDetail> AdvSearchEmpWorkDetailWhere(this IQueryable<EmployeeWorkDetail> empWorkDetail, DateTime? DOJ, int? Designation)
+        public static IQueryable<EmployeeWorkDetail> AdvSearchEmpWorkDetailWhere(this IQueryable<EmployeeWorkDetail> empWorkDetail, DateTime? DOJ, int? Designation, int BranchId, string RoleCode)
         {
             if (DOJ.HasValue)
             {
                 empWorkDetail = empWorkDetail.Where(x => DbFunctions.TruncateTime(x.JoiningDate) == DbFunctions.TruncateTime(DOJ.Value));
             }
-
-            if (Designation != null)
+            if (RoleCode == UTILITY.ROLE_SUPERADMIN)
+            {
                 empWorkDetail = empWorkDetail.Where(x => x.DesignationId == Designation);
+            }
+            if (Designation != null)
+                empWorkDetail = empWorkDetail.Where(x => x.DesignationId == Designation && x.BranchId == BranchId);
 
             return empWorkDetail;
         }
@@ -75,7 +78,7 @@ namespace HR.Web
 
         public static IQueryable<EmployeeLeaveList> Between(this IQueryable<EmployeeLeaveList> empLeaveLists, DateTime FromDt, DateTime ToDt)
         {
-            return empLeaveLists.Where(x => (DbFunctions.TruncateTime(x.FromDate) <= FromDt.Date && DbFunctions.TruncateTime(x.ToDate) >= FromDt.Date) || 
+            return empLeaveLists.Where(x => (DbFunctions.TruncateTime(x.FromDate) <= FromDt.Date && DbFunctions.TruncateTime(x.ToDate) >= FromDt.Date) ||
                                             (DbFunctions.TruncateTime(x.FromDate) >= ToDt.Date && DbFunctions.TruncateTime(x.ToDate) <= ToDt.Date));
         }
 

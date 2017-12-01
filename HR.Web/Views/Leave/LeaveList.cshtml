@@ -4,11 +4,11 @@
 
 @section Styles {
     <style type="text/css">
-        .popover {
-            /*max-width: 1000%;
-            width: 500px;
-            height:500%*/
+        .popover-content{
+                  height:300px;
+              overflow-y:scroll;
         }
+       
     </style>
 }
 
@@ -42,7 +42,7 @@
                                     {
                                         <tr>
                                             <td>@Model.ElementAt(i).BranchName</td>
-                                            <td><button class="btn btn-primary btn-sm" type="button" data-toggle="popover_@(i)" title="Leave Policy" >info</button></td>
+                                            <td><button class="btn btn-primary btn-sm" type="button" data-toggle="popover_@(i)" data-trigger="focus" title="Leave Policy" >info</button></td>
                                             <td><button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")+ @Model.ElementAt(i).LeaveId'">Edit</button></td>
                                         </tr>
                                     }
@@ -63,18 +63,18 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">                    
-                    <ul class="list-group" style="font-weight:Bold;">
+                    <ul class="list-group" style="font-weight:Bold; font-size:15px;">
                         <li class="list-group-item">PL Per Year: @Model.ElementAt(i).PaidLeavesPerYear</li>
-                        <li class="list-group-item">PL Per Month:@Model.ElementAt(i).PaidLeavesPerMonth</li>
-                        <li class="list-group-item">IsPaidLeaveCarryFarward:@Html.CheckBoxFor(x =>x.ElementAt(i).IsPaidLeaveCarryForward)</li>
-                        <li class="list-group-item">CarryFarwardPerYear:@Model.ElementAt(i).CarryFarwardPerYear</li>
-                        <li class="list-group-item">SickLeavesPerYear:@Model.ElementAt(i).SickLeavesPerYear</li>
-                        <li class="list-group-item">SickLeavesPerMonth:@Model.ElementAt(i).SickLeavesPerMonth</li>
-                        <li class="list-group-item">IsSickLeaveCarryFarward:@Html.CheckBoxFor(x => x.ElementAt(i).IsSickLeaveCarryFarward)</li>
-                        <li class="list-group-item">CarryFarwardSickLeaves:@Model.ElementAt(i).CarryFarwardSickLeaves</li>
-                        <li class="list-group-item">CasualLeavesPerYear:@Model.ElementAt(i).CasualLeavesPerYear</li>
-                        <li class="list-group-item">CasualLeavesPerMonth:@Model.ElementAt(i).CasualLeavesPerMonth</li>
-                        <li class="list-group-item">IsCasualLeaveCarryFarward:@Html.CheckBoxFor(x => x.ElementAt(i).IsCasualLeaveCarryFarward)</li>
+                        <li class="list-group-item">PL Per Month: @Model.ElementAt(i).PaidLeavesPerMonth</li>
+                        <li class="list-group-item">IsPLCarryFarward: @Html.CheckBoxFor(x =>x.ElementAt(i).IsPaidLeaveCarryForward)</li>
+                        <li class="list-group-item">CarryFarwardPerYear: @Model.ElementAt(i).CarryFarwardPerYear</li>
+                        <li class="list-group-item">SL Per Year: @Model.ElementAt(i).SickLeavesPerYear</li>
+                        <li class="list-group-item">SL Per Month: @Model.ElementAt(i).SickLeavesPerMonth</li>
+                        <li class="list-group-item">IsSLCarryFarward: @Html.CheckBoxFor(x => x.ElementAt(i).IsSickLeaveCarryFarward)</li>
+                        <li class="list-group-item">CarryFarwardSLs: @Model.ElementAt(i).CarryFarwardSickLeaves</li>
+                        <li class="list-group-item">CL Per Year: @Model.ElementAt(i).CasualLeavesPerYear</li>
+                        <li class="list-group-item">CL Per Month: @Model.ElementAt(i).CasualLeavesPerMonth</li>
+                        <li class="list-group-item">IsCLCarryFarward: @Html.CheckBoxFor(x => x.ElementAt(i).IsCasualLeaveCarryFarward)</li>
                     </ul>
                 </div>
             </div>
@@ -83,8 +83,9 @@
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="popover_@i"]').popover({
-                placement: 'bottom',
+                placement: 'right',
                 html: true,
+              
                 content: function () {
                     return $('#popover_@i').html();
                 }

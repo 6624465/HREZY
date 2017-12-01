@@ -27,5 +27,6 @@ namespace HR.Web.Models
         public Nullable<decimal> CasualLeavesPerMonth { get; set; }
         public bool IsCasualLeaveCarryForward { get; set; }
         public Nullable<long> BranchId { get; set; }
+        public Nullable<decimal> CarryForwardCasualLeave { get; set; }
     }
 }

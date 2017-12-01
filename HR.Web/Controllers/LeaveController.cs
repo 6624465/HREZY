@@ -596,6 +596,7 @@ namespace HR.Web.Controllers
                     updateLeave.PaidLeavesPerYear = leave.PaidLeavesPerYear;
                     updateLeave.SickLeavesPerMonth = leave.SickLeavesPerMonth;
                     updateLeave.SickLeavesPerYear = leave.SickLeavesPerYear;
+                    updateLeave.CarryForwardCasualLeave = leave.CarryForwardCasualLeave;
                 }
                 dbContext.SaveChanges();
             }

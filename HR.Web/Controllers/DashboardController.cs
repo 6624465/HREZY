@@ -14,7 +14,7 @@ namespace HR.Web.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            
+
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
                 return View("index");
@@ -36,7 +36,7 @@ namespace HR.Web.Controllers
                     return View("admindashboard", obj);
                 }
             }
-            else if(ROLECODE == UTILITY.ROLE_EMPLOYEE)
+            else if (ROLECODE == UTILITY.ROLE_EMPLOYEE)
             {
                 using (var dbCntx = new HrDataContext())
                 {
@@ -62,7 +62,7 @@ namespace HR.Web.Controllers
                                                 .OrderByDescending(x => x.TransactionId)
                                                 .FirstOrDefault();
 
-                    
+
                     DateTime startDayOfYear = new DateTime(UTILITY.SINGAPORETIME.Year, 01, 01);
                     var leaveStartTransactions = dbCntx.LeaveTransactions
                                                 .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
@@ -76,13 +76,13 @@ namespace HR.Web.Controllers
 
                         var totalPaidLeaves = leaveStartTransactions.PreviousPaidLeaves;
                         var currentPaidLeaves = leaveCurrentTransactions.CurrentPaidLeaves;
-
-                        remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
+                        if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
+                            remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 
                         var totalCasualLeaves = leaveStartTransactions.PreviousCasualLeaves;
                         var currentCasualLeaves = leaveCurrentTransactions.CurrentCasualLeaves;
-
-                        remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
+                        if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
+                            remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
                     }
 
                     EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
@@ -92,7 +92,7 @@ namespace HR.Web.Controllers
 
                     return View("employeedashboard", obj);
                 }
-                    
+
             }
 
             return View();

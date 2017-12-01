@@ -252,10 +252,37 @@ namespace HR.Web.Controllers
                                             .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
                                             .Count() > 0;
 
+                if (isPreviousLeaveExists)
+                {
+                    ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
+                    ViewData["IsLop"] = false;
+                    return View("EmployeeRequestFrom", EmployeeLeaveList);
+                }
                 LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
-                            .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn)
-                            .FirstOrDefault();
+                        .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn)
+                        .FirstOrDefault();
+                if (!isPreviousLeaveExists)
+                {
+                    if (EmployeeLeaveList.LeaveTypeId == 1030 && leavetransaction.CurrentCasualLeaves == 0)
+                    {
+                        ViewData["Message"] = "You do not have enough casual leaves,other leaves will be LOP";
+                        ViewData["IsLop"] = true;
+                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                    }
+                    else if (EmployeeLeaveList.LeaveTypeId == 1031 && leavetransaction.CurrentPaidLeaves == 0)
+                    {
 
+                        ViewData["Message"] = "You do not have enough paid leaves,other leaves will be LOP";
+                        ViewData["IsLop"] = true;
+                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                    }
+                    else if (EmployeeLeaveList.LeaveTypeId == 1049 && leavetransaction.CurrentSickLeaves == 0)
+                    {
+                        ViewData["Message"] = "You do not have enough paid leaves,other leaves will be LOP";
+                        ViewData["IsLop"] = true;
+                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                    }
+                }
                 decimal eligibleLeaves = 0;
                 if (leavetransaction == null)
                 {
@@ -267,105 +294,195 @@ namespace HR.Web.Controllers
                     eligibleLeaves = leaveCal.GetLeavesCount(BRANCHID, EMPLOYEEID, EmployeeLeaveList.LeaveTypeId.Value,
                                                 EmployeeLeaveList.FromDate);
                 }
-                if (eligibleLeaves != 0)
+
+                //if (isValid ==0 && eligibleLeaves == EmployeeLeaveList.Days || ishalfday)
+                //{
+                if (!isPreviousLeaveExists || eligibleLeaves >= EmployeeLeaveList.Days)
                 {
-                    //if (isValid ==0 && eligibleLeaves == EmployeeLeaveList.Days || ishalfday)
-                    //{
-                    if (!isPreviousLeaveExists || eligibleLeaves >= EmployeeLeaveList.Days)
+                    //eligibleLeaves >= EmployeeLeaveList.Days -- need to check this condition
+                    //|| ishalfday 
+                    obj.BranchId = BRANCHID;
+                    obj.FromDate = EmployeeLeaveList.FromDate;
+                    obj.ToDate = EmployeeLeaveList.ToDate;
+                    obj.Days = EmployeeLeaveList.Days;
+                    obj.EmployeeId = EMPLOYEEID;
+                    obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
+                    obj.Remarks = EmployeeLeaveList.Remarks;
+                    obj.Reason = EmployeeLeaveList.Reason;
+                    obj.CreatedBy = USERID;
+                    obj.CreatedOn = UTILITY.SINGAPORETIME;
+                    obj.ModifiedBy = USERID;
+                    obj.ModifiedOn = UTILITY.SINGAPORETIME;
+                    obj.ApplyDate = UTILITY.SINGAPORETIME;
+                    obj.ManagerId = dbCntx.EmployeeHeaders
+                                        .Where(x => x.EmployeeId == EMPLOYEEID)
+                                        .FirstOrDefault()
+                                        .ManagerId.Value;
+                    obj.Status = UTILITY.LEAVEPENDING;
+
+                    dbCntx.EmployeeLeaveLists.Add(obj);
+
+
+
+                    LeaveListCalc leaveListCalc = null;
+                    if (leavetransaction != null)
                     {
-                        //eligibleLeaves >= EmployeeLeaveList.Days -- need to check this condition
-                        //|| ishalfday 
-                        obj.BranchId = BRANCHID;
-                        obj.FromDate = EmployeeLeaveList.FromDate;
-                        obj.ToDate = EmployeeLeaveList.ToDate;
-                        obj.Days = EmployeeLeaveList.Days;
-                        obj.EmployeeId = EMPLOYEEID;
-                        obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
-                        obj.Remarks = EmployeeLeaveList.Remarks;
-                        obj.Reason = EmployeeLeaveList.Reason;
-                        obj.CreatedBy = USERID;
-                        obj.CreatedOn = UTILITY.SINGAPORETIME;
-                        obj.ModifiedBy = USERID;
-                        obj.ModifiedOn = UTILITY.SINGAPORETIME;
-                        obj.ApplyDate = UTILITY.SINGAPORETIME;
-                        obj.ManagerId = dbCntx.EmployeeHeaders
-                                            .Where(x => x.EmployeeId == EMPLOYEEID)
-                                            .FirstOrDefault()
-                                            .ManagerId.Value;
-                        obj.Status = UTILITY.LEAVEPENDING;
-
-                        dbCntx.EmployeeLeaveLists.Add(obj);
 
 
-
-                        LeaveListCalc leaveListCalc = null;
-                        if (leavetransaction != null)
-                        {
-
-
-                            leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves,
-                                                                leavetransaction.CurrentPaidLeaves,
-                                                                leavetransaction.CurrentSickLeaves,
-                                                                leavetransaction.PreviousCasualLeaves,
-                                                                leavetransaction.PreviousPaidLeaves,
-                                                                leavetransaction.PreviousSickLeaves
-                                );
-                            CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
-                        }
-                        else
-                        {
-                            Leave leave = dbCntx.Leaves
-                                 .Where(x => x.BranchId == BRANCHID).FirstOrDefault();
-                            leaveListCalc = new LeaveListCalc(leave.CasualLeavesPerYear.Value,
-                                                                leave.PaidLeavesPerYear.Value,
-                                                                leave.SickLeavesPerYear.Value,
-                                                                leave.CasualLeavesPerYear.Value,
-                                                                leave.PaidLeavesPerYear.Value,
-                                                                leave.SickLeavesPerYear.Value);
-                            CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
-
-
-                        }
-                        LeaveTransaction leaveTransaction = new LeaveTransaction()
-                        {
-                            BranchId = BRANCHID,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME,
-                            CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
-                            CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
-                            CurrentSickLeaves = leaveListCalc.currentSickLeaves,
-                            EmployeeId = EMPLOYEEID,
-                            FromDt = obj.FromDate,
-                            ToDt = obj.ToDate,
-                            PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
-                            PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
-                            PreviousSickLeaves = leaveListCalc.previousSickLeaves,
-                            LeaveType = EmployeeLeaveList.LeaveTypeId,
-                            ModifiedBy = USERID,
-                            ModifiedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.LeaveTransactions.Add(leaveTransaction);
-
-                        dbCntx.SaveChanges();
-
-                        return RedirectToAction("ViewLeavesList");
+                        leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves,
+                                                            leavetransaction.CurrentPaidLeaves,
+                                                            leavetransaction.CurrentSickLeaves,
+                                                            leavetransaction.PreviousCasualLeaves,
+                                                            leavetransaction.PreviousPaidLeaves,
+                                                            leavetransaction.PreviousSickLeaves
+                            );
+                        CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
                     }
                     else
                     {
-                        if (isPreviousLeaveExists)
-                            ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
-                        if (eligibleLeaves >= EmployeeLeaveList.Days)
-                            ViewData["Message"] = "You are not eligible for applied number of leaves";
+                        Leave leave = dbCntx.Leaves
+                             .Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                        leaveListCalc = new LeaveListCalc(leave.CasualLeavesPerYear.Value,
+                                                            leave.PaidLeavesPerYear.Value,
+                                                            leave.SickLeavesPerYear.Value,
+                                                            leave.CasualLeavesPerYear.Value,
+                                                            leave.PaidLeavesPerYear.Value,
+                                                            leave.SickLeavesPerYear.Value);
+                        CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
 
-                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+
                     }
+                    LeaveTransaction leaveTransaction = new LeaveTransaction()
+                    {
+                        BranchId = BRANCHID,
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
+                        CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
+                        CurrentSickLeaves = leaveListCalc.currentSickLeaves,
+                        EmployeeId = EMPLOYEEID,
+                        FromDt = obj.FromDate,
+                        ToDt = obj.ToDate,
+                        PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
+                        PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
+                        PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+                        LeaveType = EmployeeLeaveList.LeaveTypeId,
+                        ModifiedBy = USERID,
+                        ModifiedOn = UTILITY.SINGAPORETIME
+                    };
+                    dbCntx.LeaveTransactions.Add(leaveTransaction);
+
+                    dbCntx.SaveChanges();
+
+                    return RedirectToAction("ViewLeavesList");
                 }
                 else
                 {
-                    ViewData["Message"] = "You dont have leaves.";
+                    if (isPreviousLeaveExists)
+                        ViewData["Message"] = "You have already applied a leave within this date range. Please check.";
+                    if (eligibleLeaves >= EmployeeLeaveList.Days)
+                        ViewData["Message"] = "You are not eligible for applied number of leaves";
+
                     return View("EmployeeRequestFrom", EmployeeLeaveList);
                 }
+            }
+        }
 
+
+        [HttpPost]
+        public ActionResult SaveLOP(EmployeeLeaveList EmployeeLeaveList)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var val = Request["isLOP"];
+
+                EmployeeLeaveList obj = new EmployeeLeaveList();
+
+                var isPreviousLeaveExists = dbCntx.EmployeeLeaveLists
+                                            .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
+                                            .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
+                                            .Count() > 0;
+
+                LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
+                            .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn)
+                            .FirstOrDefault();
+                obj.IsLossOfPay = true;
+                obj.LossOfPayDays = EmployeeLeaveList.Days - leavetransaction.CurrentCasualLeaves;
+
+                obj.BranchId = BRANCHID;
+                obj.FromDate = EmployeeLeaveList.FromDate;
+                obj.ToDate = EmployeeLeaveList.ToDate;
+                obj.Days = EmployeeLeaveList.Days;
+                obj.EmployeeId = EMPLOYEEID;
+                obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
+                obj.Remarks = EmployeeLeaveList.Remarks;
+                obj.Reason = EmployeeLeaveList.Reason;
+                obj.CreatedBy = USERID;
+                obj.CreatedOn = UTILITY.SINGAPORETIME;
+                obj.ModifiedBy = USERID;
+                obj.ModifiedOn = UTILITY.SINGAPORETIME;
+                obj.ApplyDate = UTILITY.SINGAPORETIME;
+                obj.ManagerId = dbCntx.EmployeeHeaders
+                                    .Where(x => x.EmployeeId == EMPLOYEEID)
+                                    .FirstOrDefault()
+                                    .ManagerId.Value;
+                obj.Status = UTILITY.LEAVEPENDING;
+
+                dbCntx.EmployeeLeaveLists.Add(obj);
+
+
+
+                LeaveListCalc leaveListCalc = null;
+                if (leavetransaction != null)
+                {
+
+
+                    leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves,
+                                                        leavetransaction.CurrentPaidLeaves,
+                                                        leavetransaction.CurrentSickLeaves,
+                                                        leavetransaction.PreviousCasualLeaves,
+                                                        leavetransaction.PreviousPaidLeaves,
+                                                        leavetransaction.PreviousSickLeaves
+                        );
+                    CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
+                }
+                else
+                {
+                    Leave leave = dbCntx.Leaves
+                         .Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+                    leaveListCalc = new LeaveListCalc(leave.CasualLeavesPerYear.Value,
+                                                        leave.PaidLeavesPerYear.Value,
+                                                        leave.SickLeavesPerYear.Value,
+                                                        leave.CasualLeavesPerYear.Value,
+                                                        leave.PaidLeavesPerYear.Value,
+                                                        leave.SickLeavesPerYear.Value);
+                    CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+
+
+                }
+                LeaveTransaction leaveTransaction = new LeaveTransaction()
+                {
+                    BranchId = BRANCHID,
+                    CreatedBy = USERID,
+                    CreatedOn = UTILITY.SINGAPORETIME,
+                    CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
+                    CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
+                    CurrentSickLeaves = leaveListCalc.currentSickLeaves,
+                    EmployeeId = EMPLOYEEID,
+                    FromDt = obj.FromDate,
+                    ToDt = obj.ToDate,
+                    PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
+                    PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
+                    PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+                    LeaveType = EmployeeLeaveList.LeaveTypeId,
+                    ModifiedBy = USERID,
+                    ModifiedOn = UTILITY.SINGAPORETIME
+                };
+                dbCntx.LeaveTransactions.Add(leaveTransaction);
+
+                dbCntx.SaveChanges();
+
+                return RedirectToAction("ViewLeavesList");
             }
         }
 
@@ -382,7 +499,7 @@ namespace HR.Web.Controllers
                     Join(dbcntx.EmployeeLeaveLists,
                     a => a.EmployeeId, b => b.EmployeeId,
                     (a, b) => new { A = a, B = b })
-                    .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status!=UTILITY.LEAVECANCELLED)
+                    .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
                     .Select(x => new GrantLeaveListVm
                     {
                         ToDate = x.B.ToDate,
@@ -523,12 +640,12 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult LeaveList()
         {
-            
+
             using (HrDataContext dbContext = new HrDataContext())
             {
                 var leaves = dbContext.Leaves.Join(dbContext.Branches,
                     a => a.BranchId, b => b.BranchID,
-                    (a, b) => new { A = a, B = b }).Select(x=>new LeavepolicyVm
+                    (a, b) => new { A = a, B = b }).Select(x => new LeavepolicyVm
                     {
                         LeaveId = x.A.LeaveId,
                         PaidLeavesPerYear = x.A.PaidLeavesPerYear,
@@ -546,14 +663,14 @@ namespace HR.Web.Controllers
                         BranchName = x.B.BranchName
                     }).ToList();
                 return View(leaves);
-                }
-
-                //List<Leave> leaves = dbContext.Leaves.ToList();
-                ////leaves.ForEach(x => x.BranchId = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
-                //return View(leaves);
             }
-        
-       
+
+            //List<Leave> leaves = dbContext.Leaves.ToList();
+            ////leaves.ForEach(x => x.BranchId = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
+            //return View(leaves);
+        }
+
+
         [HttpGet]
         public ActionResult Leave(int leaveId = 0)
         {
@@ -579,7 +696,7 @@ namespace HR.Web.Controllers
             using (HrDataContext dbContext = new HrDataContext())
             {
                 if (leave.LeaveId == 0)
-                {                    
+                {
                     dbContext.Leaves.Add(leave);
                 }
                 else

@@ -282,10 +282,7 @@
         
 
         function GetBranchData(el) {
-            debugger;
-            @*$('#frmLeave').attr('action','@Url.Content("~/Leave/GetLeaves")');
-            $('#frmLeave').submit();*@
-            //location.href = 'Url.Content("~/Leave/Leave?leaveId=")' + el.value;
+           
             $('#hdnBranchId').val(el.value);
             $('#frmGetLeaves').submit();
         }

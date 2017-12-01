@@ -15,7 +15,8 @@ namespace HR.Web.Helpers
                 if (flag)
                 {
                     leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
-                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days.Value;
+
+                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves != 0 ? leaveListCalc.currentCasualLeaves - obj.Days.Value : leaveListCalc.currentCasualLeaves;
                 }
                 else
                 {
@@ -29,7 +30,7 @@ namespace HR.Web.Helpers
                 if (flag)
                 {
                     leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
-                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days.Value;
+                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves!=0 ? leaveListCalc.currentPaidLeaves - obj.Days.Value : leaveListCalc.currentPaidLeaves;
                 }
                 else
                 {

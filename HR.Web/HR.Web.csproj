@@ -1619,6 +1619,7 @@
     <Content Include="Css\skins\square\yellow.css" />
     <Content Include="Css\skins\square\yellow.png" />
     <Content Include="Css\skins\square\_all.css" />
+    <Content Include="Css\sweetalert.css" />
     <Content Include="Css\waves.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1693,6 +1694,7 @@
     <Content Include="Scripts\Core\perfect-scrollbar.min.js" />
     <Content Include="Scripts\Core\screenfull.js" />
     <Content Include="Scripts\Core\sitescript.js" />
+    <Content Include="Scripts\Core\sweetalert.js" />
     <Content Include="Scripts\Core\ui-bootstrap-tpls-2.4.0.min.js" />
     <Content Include="Scripts\Core\vendors.js" />
     <Content Include="Scripts\Core\waves.min.js" />

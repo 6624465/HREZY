@@ -2,6 +2,7 @@
 @model HR.Web.Models.EmployeeLeaveList
 @{
     var message = (string)ViewData["Message"] ?? "";
+    var IsLop = ViewData["IsLop"] == null ? false : (bool)ViewData["IsLop"];
     var temp = Model;
 }
 @using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
@@ -12,19 +13,21 @@
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">Employee Leave Form</div>
                     <div class="panel-body ">
-                        @if (!string.IsNullOrWhiteSpace(message))
-                        {
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="alert alert-danger">
-                                        <button type="button" class="close" data-dismiss="alert">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                        <div>@message</div>
+                        @*@if (!string.IsNullOrWhiteSpace(message))
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <div>@message</div>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
+                            }*@
                         <div class="row css10">
                             <div class="col-md-12">
                                 <div class="row">
@@ -89,9 +92,9 @@
                             </label>
                             <div class="col-md-5">
                                 @Html.DropDownListFor(x => x.LeaveTypeId,
-                                SelectListItemHelper.EmployeeLeaveType(),
-                                "Select Leave Type",
-                                new { @class = "form-control" })
+         SelectListItemHelper.EmployeeLeaveType(),
+         "Select Leave Type",
+         new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="row css10">
@@ -124,11 +127,53 @@
         </div>
     </div>
     <input type="hidden" name="isChecked" id="isChecked" />
+    <input type="hidden" name="isLOP" id="isLOP" />
 }
+<link href="~/Css/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/Core/sweetalert.js"></script>
 @section Scripts{
 
     <script type="text/javascript">
         $(function () {
+
+            @if (!string.IsNullOrWhiteSpace(message))
+            {
+                if (IsLop)
+                {
+                    <text>
+                        swal({
+                            title: "Are you sure?",
+                            text: "@message",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-danger",
+                            confirmButtonText: "Yes, I agree it!",
+                            cancelButtonText: "No, Cancel!",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                        function (isConfirm) {                            
+                            if (isConfirm) {                                
+                                swal("Applied!", "You have successfully applied the leave.", "success");
+                                $('#frmLeave').attr('action', '@Url.Content("~/Leave/SaveLOP")');
+                                $('#frmLeave').submit();
+                            } else {
+                                swal("Cancelled", "Your leave has been cancelled:)", "error");
+                            }
+                        });
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        swal({
+                            title: "Alert!",
+                            text: "@message"
+                        });
+                    </text>
+                }
+            }
+
             $('#li_Leave').addClass('open');
             $('#li_emprequestleave').addClass('active');
 
@@ -173,7 +218,7 @@
             format: 'MM/DD/YYYY',
             minDate: date
         });
-        
+
         $("#FromDt").on("dp.change", function (e) {
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
@@ -234,20 +279,20 @@
             var from = moment(fromDate, 'MM/DD/YYYY');
             var to = moment(toDate, 'MM/DD/YYYY');
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
-            var days = moment.duration(to.diff(from)).asDays() + 1;
-            debugger;
-            if (days > 1) {
-                $('#Days').val(days);
-                $('#chkhalfday').attr('disabled', 'disabled');
-            }
-            else if (days < 0) {
-                $('#chkhalfday').removeAttr('disabled');
-                $('#FromDt').find('input').val('');
-                $('#ToDt').find('input').val('');
-                $('#Days').val('');
-            }
-            else
-                $('#Days').val(days);
+                var days = moment.duration(to.diff(from)).asDays() + 1;
+                debugger;
+                if (days > 1) {
+                    $('#Days').val(days);
+                    $('#chkhalfday').attr('disabled', 'disabled');
+                }
+                else if (days < 0) {
+                    $('#chkhalfday').removeAttr('disabled');
+                    $('#FromDt').find('input').val('');
+                    $('#ToDt').find('input').val('');
+                    $('#Days').val('');
+                }
+                else
+                    $('#Days').val(days);
 
             }
         }

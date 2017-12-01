@@ -46,7 +46,7 @@
                                         {
                                             <label class="control-label pull-right">Status: &nbsp;<span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
                                         }
-                                        else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
+                                        else if (!string.IsNullOrWhiteSpace(Model.TableData[i].Status))
                                         {
                                             <label class="control-label pull-right">Status:&nbsp;<span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
                                         }

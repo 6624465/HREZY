@@ -176,11 +176,13 @@ namespace HR.Web.Controllers
                             {
                                 EmployeeName = dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).Select(z => new
                                 {
-                                    EmployeeFullName = z.FirstName + " " + z.LastName
+                                    EmployeeFullName = z.FirstName + " " + z.LastName,
+                                    
                                 }).FirstOrDefault().EmployeeFullName,
                                 EmployeeId = y.EmployeeId,
                                 FromDate = y.FromDate,
-                                ToDate = y.ToDate
+                                ToDate = y.ToDate,
+                                Status=y.Status
                             })
                         }).ToList();
 

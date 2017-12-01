@@ -112,6 +112,10 @@
                                                     {
                                                         <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
                                                     }
+                                                    else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEPENDING)
+                                                    {
+                                                        <span class="label label-info" style="font-weight:bold;font-size:14px;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                    }
                                                 </td>
                                             </tr>
                                         }

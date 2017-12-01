@@ -75,10 +75,10 @@
                                                     <span class="pull-right"><button class="btn btn-danger btn-sm" data-toggle="popoverCancel" type="button" onclick="OpenCancelPopover(@Model.TableData[i].EmployeeLeaveID);" title="Remarks"><i class="fa fa-trash"></i>&nbsp;Cancel</button></span>
                                                 }
                                             </small>
-                                            
+
                                         </blockquote>
                                     </div>
-                                        
+
                                 </div>
                             </div>
                         </div>
@@ -122,68 +122,68 @@
     </div>
 }
 @section Scripts{
-<script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
-<script type="text/javascript">
-    function OpenCancelPopover(empLeaveId){
-        debugger;
-        
-        $('#popoverCancel').popover('show');
-        //$('[data-toggle="popoverCancel"]').popover('show');
-        $('#employeeLeaveID').val(empLeaveId);
-    }
+    <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
+    <script type="text/javascript">
+        function OpenCancelPopover(empLeaveId){
+            debugger;
+           
+            $('#popoverCancel').popover('show');
+            //$('[data-toggle="popoverCancel"]').popover('show');
+            $('#employeeLeaveID').val(empLeaveId);
+        }
 
-    $(function () {
-        $('#li_Leave').addClass('open');
-        $('#li_empadd').addClass('active');
+        $(function () {
+            $('#li_Leave').addClass('open');
+            $('#li_empadd').addClass('active');
 
-        $('[data-toggle="popoverCancel"]').popover({
-            placement: 'left',
-            html: true,
-            content: function () {                  
-                return $('#popoverCancel').html();
-            }
+            $('[data-toggle="popoverCancel"]').popover({
+                placement: 'left',
+                html: true,
+                content: function () {
+                    return $('#popoverCancel').html();
+                }
+            });
+
+            //$('[data-toggle="popoverCancel"]').popover({
+            //    placement: 'top',
+            //    html: true,
+            //    content: function () {
+
+            //        return $('#popoverCancel').html();
+            //    }
+            //})
+
+            $('#pagination').bootpag({
+                total: @Model.PageLength,
+                page: @Model.CurrentPage,
+                maxVisible: 6,
+                href: '@Url.Content("~/Leave/ViewLeavesList?page="){{number}}', //"#pro-page-{{number}}",
+                leaps: false,
+                next: 'Next',
+                prev: 'Prev',
+                wrapClass: 'pagination pagination-sm'
+            }).on('page', function (event, num) {
+                $(".content3").html("Page " + num); // or some ajax content loading...
+            });
         });
 
-        //$('[data-toggle="popoverCancel"]').popover({
-        //    placement: 'top',
-        //    html: true,
-        //    content: function () {
+        function cancelRequest(id) {
+            $('#employeeLeaveID').val(id);
+        }
 
-        //        return $('#popoverCancel').html();
-        //    }
-        //})
+        function CancelLeave() {
+            var remarks = $('#txtRemarks').val();
+            $('#employeeRemarks').val(remarks);
+            $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
+            $('#frmCancelLeave').submit();
 
-        $('#pagination').bootpag({
-            total: @Model.PageLength,
-            page: @Model.CurrentPage,
-            maxVisible: 6,
-            href: '@Url.Content("~/Leave/ViewLeavesList?page="){{number}}', //"#pro-page-{{number}}",
-            leaps: false,
-            next: 'Next',
-            prev: 'Prev',
-            wrapClass: 'pagination pagination-sm'
-        }).on('page', function (event, num) {
-            $(".content3").html("Page " + num); // or some ajax content loading...
-        });
-    });
-    
-    function cancelRequest(id) {
-        $('#employeeLeaveID').val(id);
-    }
+        }
+        function ClosePopUp() {
+            $('[data-toggle="popoverCancel"]').popover('hide');
+        }
 
-    function CancelLeave() {
-        var remarks = $('#txtRemarks').val();
-        $('#employeeRemarks').val(remarks);
-        $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
-        $('#frmCancelLeave').submit();
-
-    }
-    function ClosePopUp() {
-        $('[data-toggle="popoverCancel"]').popover('hide');
-    }
-
-</script>
-    }
+    </script>
+}
 @*
         @{
         WebGrid grid = new WebGrid(Model, rowsPerPage: 10);

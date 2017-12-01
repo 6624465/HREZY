@@ -2,7 +2,7 @@
 
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
-    @Html.HiddenFor(x => x.LeaveId)    
+    @Html.HiddenFor(x => x.LeaveId)
     <div class="page">
         <div class="row">
             <div class="col-md-12">
@@ -21,7 +21,7 @@
                                     @Html.DropDownListFor(x => x.BranchId,
                                     SelectListItemHelper.Branches(),
                                     "Select Branch",
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control", onchange = "GetBranchData(this)" })
                                 </div>
                             }
                             else
@@ -171,6 +171,11 @@
 
 }
 
+@using (Html.BeginForm("GetLeaves", "Leave", FormMethod.Post, new { id = "frmGetLeaves", name = "frmGetLeaves" }))
+{
+    <input type="hidden" id="hdnBranchId" name="leave.BranchId" />
+}
+
 
 @section Scripts{
     <script type="text/javascript">
@@ -232,48 +237,58 @@
 
         });
         function SaveLeave() {
+            $('#frmLeave').validate({
+                rules: {
+                    CountryCode: {
+                        required: true
+                    },
+                    PaidLeavesPerYear: {
+                        required: true,
+                        ValidatePaidLeave: true
+                    },
+                    PaidLeavesPerMonth: {
+                        required: true,
+                        ValidatePaidLeave: true
+                    },
+                    CarryForwardPerYear: {
+                        required: true,
+                        CarryForwardPaidLeave: true
+                    },
+                    SickLeavesPerYear: {
+                        required: true,
+                        ValidateSickLeave: true
+                    },
+                    SickLeavesPerMonth: {
+                        required: true,
+                        ValidateSickLeave: true
+                    },
+                    CarryForwardSickLeaves: {
+                        required: true,
+                        CarryForwardSickLeave: true
+                    },
+                    CasualLeavesPerYear: {
+                        required: true,
+                        ValidateCasualLeave: true
+                    },
+                    CasualLeavesPerMonth: {
+                        required: true,
+                        ValidateCasualLeave: true
+                    }
+                }
+            });
             if ($('#frmLeave').valid())
                 $('#frmLeave').submit();
         }
-        $('#frmLeave').validate({
-            rules: {
-                CountryCode: {
-                    required: true
-                },
-                PaidLeavesPerYear: {
-                    required: true,
-                    ValidatePaidLeave: true
-                },
-                PaidLeavesPerMonth: {
-                    required: true,
-                    ValidatePaidLeave: true
-                },
-                CarryForwardPerYear: {
-                    required: true,
-                    CarryForwardPaidLeave: true
-                },
-                SickLeavesPerYear: {
-                    required: true,
-                    ValidateSickLeave: true
-                },
-                SickLeavesPerMonth: {
-                    required: true,
-                    ValidateSickLeave: true
-                },
-                CarryForwardSickLeaves: {
-                    required: true,
-                    CarryForwardSickLeave: true
-                },
-                CasualLeavesPerYear: {
-                    required: true,
-                    ValidateCasualLeave: true
-                },
-                CasualLeavesPerMonth: {
-                    required: true,
-                    ValidateCasualLeave: true
-                }
-            }
-        });
+        
+
+        function GetBranchData(el) {
+            debugger;
+            @*$('#frmLeave').attr('action','@Url.Content("~/Leave/GetLeaves")');
+            $('#frmLeave').submit();*@
+            //location.href = 'Url.Content("~/Leave/Leave?leaveId=")' + el.value;
+            $('#hdnBranchId').val(el.value);
+            $('#frmGetLeaves').submit();
+        }
 
     </script>
 }

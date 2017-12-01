@@ -177,12 +177,12 @@ namespace HR.Web.Controllers
                                 EmployeeName = dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).Select(z => new
                                 {
                                     EmployeeFullName = z.FirstName + " " + z.LastName,
-                                    
+
                                 }).FirstOrDefault().EmployeeFullName,
                                 EmployeeId = y.EmployeeId,
                                 FromDate = y.FromDate,
                                 ToDate = y.ToDate,
-                                Status=y.Status
+                                Status = y.Status
                             })
                         }).ToList();
 
@@ -600,6 +600,38 @@ namespace HR.Web.Controllers
                 empLeaveObj.Status = "Rejected";
                 empLeaveObj.Remarks = grantLeaveVm.Remarks;
 
+
+                LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
+                            .Where(x => x.BranchId == BRANCHID && x.EmployeeId == grantLeaveVm.EmployeeId).OrderByDescending(x => x.CreatedOn).FirstOrDefault();
+                LeaveListCalc leaveListCalc = null;
+                if (leavetransaction != null)
+                {
+
+
+                    leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
+                        leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
+                        );
+                    CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, empLeaveObj, leaveListCalc, false);
+                }
+
+                LeaveTransaction leaveTransaction = new LeaveTransaction()
+                {
+                    BranchId = BRANCHID,
+                    CreatedBy = USERID,
+                    CreatedOn = UTILITY.SINGAPORETIME,
+                    CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
+                    CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
+                    CurrentSickLeaves = leaveListCalc.currentSickLeaves,
+                    EmployeeId = EMPLOYEEID,
+                    FromDt = empLeaveObj.FromDate,
+                    ToDt = empLeaveObj.ToDate,
+                    PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
+                    PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
+                    PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+                    LeaveType = empLeaveObj.LeaveTypeId
+                };
+                dbCntx.LeaveTransactions.Add(leaveTransaction);
+
                 dbCntx.SaveChanges();
 
                 return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
@@ -670,8 +702,22 @@ namespace HR.Web.Controllers
             //return View(leaves);
         }
 
+        [HttpPost]
+        public ActionResult GetLeaves(Leave leave)
+        {
+            ViewBag.RoleCode = ROLECODE;
+            Leave _leave = new Leave();
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                _leave = dbContext.Leaves
+                                .Where(x => x.BranchId == leave.BranchId)
+                                .FirstOrDefault();
+                return View("Leave", _leave ?? leave);
+            }
+           
+        }
 
-        [HttpGet]
+        [AcceptVerbs(HttpVerbs.Get|HttpVerbs.Post)]
         public ActionResult Leave(int leaveId = 0)
         {
             using (HrDataContext dbContext = new HrDataContext())

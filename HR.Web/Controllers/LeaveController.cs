@@ -248,7 +248,7 @@ namespace HR.Web.Controllers
                 EmployeeLeaveList obj = new EmployeeLeaveList();
 
                 var isPreviousLeaveExists = dbCntx.EmployeeLeaveLists
-                                            .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
+                                            .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.Status != UTILITY.LEAVECANCELLED)
                                             .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
                                             .Count() > 0;
 
@@ -833,21 +833,38 @@ namespace HR.Web.Controllers
                 try
                 {
 
-                    EmployeeLeaveList empLeaveObj = dbContext.EmployeeLeaveLists.Where(x => x.BranchId == BRANCHID && x.EmployeeLeaveID == employeeLeaveID).FirstOrDefault();
+                    EmployeeLeaveList empLeaveObj = dbContext.EmployeeLeaveLists
+                                                    .Where(x => x.BranchId == BRANCHID && 
+                                                                x.EmployeeLeaveID == employeeLeaveID)
+                                                    .FirstOrDefault();
+
                     empLeaveObj.Status = "Cancelled";
                     empLeaveObj.Remarks = remarks;
 
                     LeaveTransaction leavetransaction = dbContext.LeaveTransactions
-                             .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn).FirstOrDefault();
+                                                        .Where(x => x.BranchId == BRANCHID && 
+                                                                    x.EmployeeId == EMPLOYEEID)
+                                                        .OrderByDescending(x => x.CreatedOn)
+                                                        .FirstOrDefault();
+
                     LeaveListCalc leaveListCalc = null;
                     if (leavetransaction != null)
                     {
 
 
-                        leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
-                            leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
-                            );
-                        CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, empLeaveObj, leaveListCalc, false);
+                        leaveListCalc = new LeaveListCalc(
+                            leavetransaction.CurrentCasualLeaves, 
+                            leavetransaction.CurrentPaidLeaves, 
+                            leavetransaction.CurrentSickLeaves,
+                            leavetransaction.PreviousCasualLeaves, 
+                            leavetransaction.PreviousPaidLeaves, 
+                            leavetransaction.PreviousSickLeaves);
+
+                        CalculateLeavesTransaction.CalculateLeaveFromTransaction(
+                            leavetransaction, 
+                            empLeaveObj, 
+                            leaveListCalc, 
+                            false);
                     }
 
                     LeaveTransaction leaveTransaction = new LeaveTransaction()

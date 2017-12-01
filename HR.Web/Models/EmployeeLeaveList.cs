@@ -30,5 +30,7 @@ namespace HR.Web.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public int ManagerId { get; set; }
+        public Nullable<decimal> LossOfPayDays { get; set; }
+        public bool IsLossOfPay { get; set; }
     }
 }

@@ -214,6 +214,8 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="date" />
           <Property Name="ManagerId" Type="int" Nullable="false" />
+          <Property Name="LossOfPayDays" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsLossOfPay" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeePersonalDetail">
           <Key>
@@ -923,6 +925,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
           <Property Name="ManagerId" Type="Int32" Nullable="false" />
+          <Property Name="LossOfPayDays" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsLossOfPay" Type="Boolean" Nullable="false" />
         </EntityType>
         <ComplexType Name="usp_EmployeeDetail_Result">
           <Property Type="Int32" Name="EmployeeId" Nullable="false" />
@@ -1279,6 +1283,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="EmployeeLeaveLists">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeLeaveList">
               <MappingFragment StoreEntitySet="EmployeeLeaveList">
+                <ScalarProperty Name="IsLossOfPay" ColumnName="IsLossOfPay" />
+                <ScalarProperty Name="LossOfPayDays" ColumnName="LossOfPayDays" />
                 <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

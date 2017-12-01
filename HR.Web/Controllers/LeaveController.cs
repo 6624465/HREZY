@@ -290,6 +290,7 @@ namespace HR.Web.Controllers
                                             .Where(x => x.EmployeeId == EMPLOYEEID)
                                             .FirstOrDefault()
                                             .ManagerId.Value;
+                        obj.Status = UTILITY.LEAVEPENDING;
 
                         dbCntx.EmployeeLeaveLists.Add(obj);
 

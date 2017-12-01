@@ -382,6 +382,27 @@ namespace HR.Web.Controllers
                             RoleCode = "Employee"
                         };
 
+                        Leave leave = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+
+                        LeaveTransaction leavetrasaction = new LeaveTransaction()
+                        {
+                            BranchId = BRANCHID,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            CurrentCasualLeaves = leave.CasualLeavesPerMonth.Value,
+                            CurrentPaidLeaves = leave.PaidLeavesPerMonth.Value,
+                            CurrentSickLeaves = leave.SickLeavesPerMonth.Value,
+                            EmployeeId=empHdr.EmployeeId,
+                            FromDt = UTILITY.SINGAPORETIME,
+                            ToDt = UTILITY.SINGAPORETIME,
+                            PreviousCasualLeaves=leave.CasualLeavesPerMonth.Value,
+                            PreviousPaidLeaves = leave.PaidLeavesPerMonth.Value,
+                            PreviousSickLeaves = leave.SickLeavesPerMonth.Value,
+                            ModifiedBy = USERID,
+                            ModifiedOn = UTILITY.SINGAPORETIME,
+                        };
+
+                        dbCntx.LeaveTransactions.Add(leavetrasaction);
                         dbCntx.Users.Add(user);
                         dbCntx.SaveChanges();
 

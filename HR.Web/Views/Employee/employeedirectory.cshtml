@@ -212,9 +212,8 @@
             Arr = data;
 
             $("#tBody").html('');
-
-            $("#tableTemplate").tmpl(data.employeeVm).appendTo("#tBody");
-            //$("#tileTmplate").tmpl(data.employeeVm).appendTo("#tiles");
+            if (data.employeeVm.length > 0)
+                $("#tableTemplate").tmpl(data.employeeVm).appendTo("#tBody");
 
             if ($('#btnTile').hasClass('active'))
                 showTile();
@@ -225,7 +224,6 @@
             if (!empObj.isSerach) {
                 var promise = getDataPromise(num);
                 $.when(promise).done(function (data) {
-
                     getDataCallBack(data);
 
                 });
@@ -233,7 +231,7 @@
                 empObj.pageNumber = num;
                 var promise1 = SearchEmployee();
                 $.when(promise1).done(function (data) {
-
+                    debugger;
                     getDataCallBack(data);
 
                 });
@@ -242,7 +240,6 @@
         };
 
         function getDataPromise(number) {
-            debugger;
             var deffered = $.Deferred();
             $.ajax({
                 url: '@Url.Content("~/Employee/GetGridTileEmployees?pageNumber=")' + number,
@@ -264,7 +261,6 @@
             $('#tableGrid').show();
             $('#tiles').hide();
 
-            debugger;
             var promise;
             if (!empObj.isSerach) {
                 promise = getDataPromise(1);
@@ -275,7 +271,7 @@
             $.when(promise).done(function (data) {
 
                 getDataCallBack(data);
-
+                debugger;
                 $('#pagination').bootpag({
                     total: data.PagerLength,
                     page: 1,
@@ -341,8 +337,14 @@
                 data: JSON.stringify(empObj),
                 success: function (obj) {
                     debugger;
-                    if (empObj.pageNumber == 1)
-                        getDataCallBack(obj)
+                    if (obj.PagerLength == 1) {
+                        $('#pagination').hide();
+                        getDataCallBack(obj);
+                    }
+                    else {
+                        $('#pagination').show();
+                    }
+
                     deffered.resolve(obj);
                 },
                 error: function (err) {

@@ -112,7 +112,7 @@
                             <div class="form-group">
                                 <div class="col-md-3">
                                     <span class="pull-right">
-                                        <button type="submit" class="btn btn-primary btn-sm" onclick="SaveEmployeeLeaveForm()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                                        <button type="submit" class="btn btn-primary btn-sm" id="btnSave" onclick="SaveEmployeeLeaveForm()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                                     </span>
                                     @*<button type="button" class="btn btn-default btn-sm" data-dismiss=""><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>*@
                                 </div>
@@ -141,36 +141,38 @@
                 if (IsLop)
                 {
                     <text>
-                        swal({
-                            title: "Are you sure?",
-                            text: "@message",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonClass: "btn-danger",
-                            confirmButtonText: "Yes, I agree it!",
-                            cancelButtonText: "No, Cancel!",
-                            closeOnConfirm: false,
-                            closeOnCancel: false
-                        },
-                        function (isConfirm) {                            
-                            if (isConfirm) {                                
-                                swal("Applied!", "You have successfully applied the leave.", "success");
-                                $('#frmLeave').attr('action', '@Url.Content("~/Leave/SaveLOP")');
-                                $('#frmLeave').submit();
-                            } else {
-                                swal("Cancelled", "Your leave has been cancelled:)", "error");
-                            }
-                        });
-                    </text>
+            swal({
+                title: "Are you sure?",
+                text: "@message",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, I agree it!",
+                cancelButtonText: "No, Cancel!",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                timer: 2500
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    swal("Applied!", "You have successfully applied the leave.", "success");
+                    $('#frmLeave').attr('action', '@Url.Content("~/Leave/SaveLOP")');
+                    $('#frmLeave').submit();
+                } else {
+                    swal("Cancelled", "Your leave has been cancelled:)", "error");
+                }
+            });
+            </text>
                 }
                 else
                 {
                     <text>
-                        swal({
-                            title: "Alert!",
-                            text: "@message"
-                        });
-                    </text>
+            swal({
+                title: "Alert!",
+                text: "@message",
+                timer: 2500
+            });
+            </text>
                 }
             }
 
@@ -365,7 +367,9 @@
         //clearrec();
 
         function SaveEmployeeLeaveForm() {
+           
             if ($('#frmLeave').valid()) {
+                $('#btnSave').attr('disabled', 'disabled');
                 $('#frmLeave').submit();
             }
 

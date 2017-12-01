@@ -55,7 +55,7 @@ namespace HR.Web
         public static string LEAVEAPPROVED = "Approved";
         public static string LEAVEREJECTED = "Rejected";
         public static string LEAVECANCELLED = "Cancelled";
-
+        public static string LEAVEPENDING = "Pending";
 
         /* Config Keys End */
 

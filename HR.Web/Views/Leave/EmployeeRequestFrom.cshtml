@@ -283,7 +283,10 @@
                 debugger;
                 if (days > 1) {
                     $('#Days').val(days);
+                    $('#chkhalfday').removeAttr('checked');
+                    $('.icheckbox_flat-blue').removeClass('checked');
                     $('#chkhalfday').attr('disabled', 'disabled');
+                    $('#isChecked').val('off');
                 }
                 else if (days < 0) {
                     $('#chkhalfday').removeAttr('disabled');
@@ -291,6 +294,10 @@
                     $('#ToDt').find('input').val('');
                     $('#Days').val('');
                 }
+                else if (days == 1) {
+                    $('#chkhalfday').removeAttr('disabled');
+                    $('#Days').val(days);
+                                   }
                 else
                     $('#Days').val(days);
 
@@ -314,7 +321,7 @@
 
 
                     } else {
-
+                        $('#isChecked').val('off');
                         $('#Days').val(days);
                     }
 

@@ -1953,6 +1953,7 @@
     <Content Include="Views\Leave\AppliedGrantLeaveStatus.cshtml" />
     <Content Include="Views\Leave\GrantLeaveFormList.cshtml" />
     <Content Include="Views\Dashboard\employeedashboard.cshtml" />
+    <Content Include="Views\PayRoll\ContributionRegister.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

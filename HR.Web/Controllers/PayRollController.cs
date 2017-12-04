@@ -15,6 +15,10 @@ namespace HR.Web.Controllers
         {
             return View();
         }
+        public ViewResult ContributionRegister()
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult SalaryRulesList()

@@ -280,7 +280,6 @@
             var to = moment(toDate, 'MM/DD/YYYY');
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
                 var days = moment.duration(to.diff(from)).asDays() + 1;
-                debugger;
                 if (days > 1) {
                     $('#Days').val(days);
                     $('#chkhalfday').removeAttr('checked');
@@ -297,7 +296,7 @@
                 else if (days == 1) {
                     $('#chkhalfday').removeAttr('disabled');
                     $('#Days').val(days);
-                                   }
+                }
                 else
                     $('#Days').val(days);
 
@@ -372,7 +371,7 @@
         //clearrec();
 
         function SaveEmployeeLeaveForm() {
-           
+
             if ($('#frmLeave').valid()) {
                 $('#btnSave').attr('disabled', 'disabled');
                 $('#frmLeave').submit();

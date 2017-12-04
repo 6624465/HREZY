@@ -40,9 +40,10 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var empLeaveDetails = dbCntx.EmployeeLeaveLists
-                                            .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
-                                            .OrderByDescending(x => x.EmployeeLeaveID)
+                    EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
+                    var query = dbCntx.EmployeeLeaveLists
+                                            .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
+                    var empLeaveDetails = query.OrderByDescending(x => x.EmployeeLeaveID)
                                             .ThenByDescending(x => x.ApplyDate)
                                             .Take(5)
                                             .Select(x => new EmpLeaveDashBoard
@@ -76,16 +77,27 @@ namespace HR.Web.Controllers
 
                         var totalPaidLeaves = leaveStartTransactions.PreviousPaidLeaves;
                         var currentPaidLeaves = leaveCurrentTransactions.CurrentPaidLeaves;
+                        obj.totalPLs = currentPaidLeaves;
                         if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
                             remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 
                         var totalCasualLeaves = leaveStartTransactions.PreviousCasualLeaves;
                         var currentCasualLeaves = leaveCurrentTransactions.CurrentCasualLeaves;
+                        obj.totalCLs = currentCasualLeaves;
                         if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
                             remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
                     }
+                    DateTime now = DateTime.Now;
+                    var startDate = new DateTime(now.Year, now.Month, 1);
+                    var endDate = startDate.AddMonths(1).AddDays(-1);
 
-                    EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
+                    var SLPerMonth = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault().SickLeavesPerMonth;
+                    var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == 1031).ToList();
+                    foreach (var item in CurrentMonthSLs)
+                    {
+                        obj.totalSLs += item.Days.Value;
+                    }
+                    obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
                     obj.empLeaveDashBoard = empLeaveDetails;
                     obj.clPercent = remainingCasualLeavesPercent;
                     obj.plPercent = remainingPaidLeavesPercent;

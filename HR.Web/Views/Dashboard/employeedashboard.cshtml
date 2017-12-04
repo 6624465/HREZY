@@ -4,14 +4,14 @@
 }
 @section Styles{
     @*<link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/styles.css" />
-    <link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/pygment_trac.css" />*@
+        <link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/pygment_trac.css" />*@
     <link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/jquery.easy-pie-chart.css" />
 
-    
+
     <style type="text/css">
         th {
             background-color: #3f51b5;
-            color:white;
+            color: white;
         }
 
         .easypiechart {
@@ -19,53 +19,95 @@
             position: relative;
         }
 
-        .easypiechart > .data {
-            position: absolute;
-            -webkit-transform: translate(-50%, -49%);
-            -ms-transform: translate(-50%, -49%);
-            -o-transform: translate(-50%, -49%);
-            transform: translate(-50%, -49%);
-            top: 49%;
-            left: 50%;
-        }
+            .easypiechart > .data {
+                position: absolute;
+                -webkit-transform: translate(-50%, -49%);
+                -ms-transform: translate(-50%, -49%);
+                -o-transform: translate(-50%, -49%);
+                transform: translate(-50%, -49%);
+                top: 49%;
+                left: 50%;
+            }
     </style>
 }
 <div class="page page-dashboard">
     <div class="page-wrap">
         <div class="row">
             @*<div class="col-md-4">
-                <div class="panel panel-default mb20 mini-box panel-hovered">
-                    <div class="panel-body">
-                        <div class="clearfix">
-                            <div class="info left">
-                                <h3 class="mt0 text-primary text-bold">11</h3>
-                                <h3 class="text-light mb0">Total Employees</h3>
+                    <div class="panel panel-default mb20 mini-box panel-hovered">
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                <div class="info left">
+                                    <h3 class="mt0 text-primary text-bold">11</h3>
+                                    <h3 class="text-light mb0">Total Employees</h3>
+                                </div>
+                                <div class="right ion ion-ios-people-outline icon"></div>
                             </div>
-                            <div class="right ion ion-ios-people-outline icon"></div>
+                        </div>
+                        <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                            <p class="mt0 mb0 left">
+                                <a style="color:white;" href="#">Employees</a>
+                            </p>
                         </div>
                     </div>
-                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
-                        <p class="mt0 mb0 left">
-                            <a style="color:white;" href="#">Employees</a>
-                        </p>                        
-                    </div>
-                </div>
-            </div>*@            
+                </div>*@
             <div class="col-md-4">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="piedemo clearfix">
                         <div class="chart">
                             <div class="percentage easyPieChart" data-percent="@Model.plPercent" style="width: 120px; height: 120px; line-height: 125px;"><span>@Model.plPercent.ToString("0.00")</span>%<canvas width="110" height="110"></canvas></div>
                             <div class="label" style="margin-left:35px;">PL %</div>
-                        </div> 
+                        </div>
                         <div class="chart">
                             <div class="percentage easyPieChart" data-percent="@Model.clPercent" style="width: 120px; height: 120px; line-height: 125px;"><span>@Model.clPercent.ToString("0.00")</span>%<canvas width="110" height="110"></canvas></div>
                             <div class="label" style="margin-left:35px;">CL %</div>
                         </div>
                     </div>
                 </div>
-            </div>            
-        </div>        
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default mb20 mini-box panel-hovered">
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            <div class="info left">
+                                <h4 class="text-light mb0">Casual Leaves</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                        <p class="mt0 mb0 left">@Model.totalCLs<span>&nbsp;&nbsp;in this year</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default mb20 mini-box panel-hovered">
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            <div class="info left">
+                                <h4 class="text-light mb0">Paid Leaves</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                        <p class="mt0 mb0 left">@Model.totalPLs.ToString()<span>&nbsp;&nbsp;in this year</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default mb20 mini-box panel-hovered">
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            <div class="info left">
+                                <h4 class="text-light mb0">Sick Leaves</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                        <p class="mt0 mb0 left">@Model.totalSLs<span>&nbsp;&nbsp;in this month</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
@@ -98,23 +140,23 @@
                                                 <td>
                                                     @if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEAPPROVED)
                                                     {
-                                                        <span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                        <span class="label label-success" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
                                                     }
                                                     else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEREJECTED)
                                                     {
-                                                        <span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                        <span class="label label-danger" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
                                                     }
                                                     else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVECANCELLED)
                                                     {
-                                                        <span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                        <span class="label label-primary" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
                                                     }
                                                     else if (string.IsNullOrWhiteSpace(Model.empLeaveDashBoard.ElementAt(i).Status))
                                                     {
-                                                        <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
+                                                        <span class="label label-info" style="font-weight:bold;font-size:14px;color:white;">Pending</span>
                                                     }
                                                     else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEPENDING)
                                                     {
-                                                        <span class="label label-info" style="font-weight:bold;font-size:14px;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                        <span class="label label-info" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
                                                     }
                                                 </td>
                                             </tr>
@@ -127,12 +169,12 @@
                 </div>
             </div>
         </div>
-        
+
 
     </div>
 </div>
 @section Scripts{
-    
+
     <script type="text/javascript">
         $(function () {
             $('.percentage').easyPieChart({
@@ -149,7 +191,7 @@
                 },
             });
             //initCharts();
-            
+
         });
 
         var initCharts = function () {

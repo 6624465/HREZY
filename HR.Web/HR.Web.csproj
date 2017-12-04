@@ -1830,6 +1830,7 @@
     <Compile Include="ViewModels\HtmlTblVm.cs" />
     <Compile Include="ViewModels\LeaveAdminVM.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
+    <Compile Include="ViewModels\ContributionRegisterVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1954,6 +1955,7 @@
     <Content Include="Views\Leave\GrantLeaveFormList.cshtml" />
     <Content Include="Views\Dashboard\employeedashboard.cshtml" />
     <Content Include="Views\PayRoll\ContributionRegister.cshtml" />
+    <Content Include="Views\PayRoll\ContributionRegisterList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1966,6 +1968,7 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Layout\" />
     <Folder Include="Views\Master\" />
+    <Folder Include="Views\PayRollConfigContributionRegisterVm\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

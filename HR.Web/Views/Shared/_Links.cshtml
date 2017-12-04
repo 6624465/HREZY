@@ -79,7 +79,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <li><a href="#">Payslips Batches</a></li>
             </ul>
         </li>
-        <li>
+        <li id="li_PayRollConfig">
             <a href="javascript:;">
                 <i class="ion ion-calendar"></i>
                 <span class="text">Payroll Config</span>
@@ -90,7 +90,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <li><a href="#">Salary Structures Hierarchy</a></li>
                 <li><a href="#">Salary Rule Categories</a></li>
                 <li><a href="#">Salary Rules</a></li>
-                <li><a href="#">Contribution Registers</a></li>
+                <li id="li_ContributionRegisterList"><a href="@Url.Content("~/PayRoll/ContributionRegisterList")">Contribution Registers</a></li>
             </ul>
         </li>
         <li id="li_Leave">

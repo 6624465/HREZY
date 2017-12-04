@@ -1,21 +1,40 @@
-﻿<div class="page">
+﻿@model HR.Web.ViewModels.ContributionRegisterVm
+<div class="page">
     <div class="page-wrap">
             <div class="panel-group" >
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Contribution register
+                        Contribution registers
                     </div>
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label></label>
+                        <div  class="row">
+                            <label class="col-md-2 control-label">
+                               <span class="pull-right">Name</span> 
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
                             </div>
 
                         </div>
-
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Description</span>
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(x => x.Description,new { @class="form-control"})
+                            </div>
+                        </div>
+                        <div class="row css10">
+                            <div class="form-group ">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary btn-sm">Save</button>
+                                    <button class="btn btn-primary btn-sm">Discard</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
      </div>
   </div>
 </div>
-  

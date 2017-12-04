@@ -18,6 +18,9 @@ namespace HR.Web.Controllers
         {
             return View();
         }
-
+        public ViewResult ContributionRegisterList()
+        {
+            return View();
+        }
     }
 }

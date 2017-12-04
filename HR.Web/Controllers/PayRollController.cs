@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HR.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,5 +16,21 @@ namespace HR.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult SalaryRulesList()
+        {
+            List<SalaryRulesVm> salaryRules = new List<SalaryRulesVm>();
+            return View(salaryRules);
+        }
+        [HttpGet]
+        public ActionResult SalaryRules()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SalaryRules(SalaryRulesVm salaryRules)
+        {
+            return View();
+        }
     }
 }

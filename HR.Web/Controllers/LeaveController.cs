@@ -522,7 +522,7 @@ namespace HR.Web.Controllers
                      .Take(offset)
                      .ToList();
 
-                var count = grantleaveformlist.Count();
+                var count = grantleaveform.Count();
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
 
                 HtmlTblVm<GrantLeaveListVm> HtmlTblVm = new HtmlTblVm<GrantLeaveListVm>();
@@ -591,18 +591,37 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult RejectLeave(GrantLeaveListVm grantLeaveVm)
         {
-            using (var dbCntx = new HrDataContext())
+            try
             {
-                var empLeaveObj = dbCntx.EmployeeLeaveLists
-                                    .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID)
-                                    .FirstOrDefault();
+                using (var dbCntx = new HrDataContext())
+                {
+                    var empLeaveObj = dbCntx.EmployeeLeaveLists
+                                        .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID)
+                                        .FirstOrDefault();
 
-                empLeaveObj.Status = "Rejected";
-                empLeaveObj.Remarks = grantLeaveVm.Remarks;
+                    empLeaveObj.Status = "Rejected";
+                    empLeaveObj.Remarks = grantLeaveVm.Remarks;
+                    dbCntx.SaveChanges();
 
+                    Save(grantLeaveVm, empLeaveObj);
 
-                LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
-                            .Where(x => x.BranchId == BRANCHID && x.EmployeeId == grantLeaveVm.EmployeeId).OrderByDescending(x => x.CreatedOn).FirstOrDefault();
+                    return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public void Save(GrantLeaveListVm grantLeaveVm, EmployeeLeaveList empLeaveObj)
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                LeaveTransaction leavetransaction = dbContext.LeaveTransactions
+                                    .Where(x => x.BranchId == BRANCHID && x.EmployeeId == grantLeaveVm.EmployeeId)
+                                    .OrderByDescending(x => x.CreatedOn).FirstOrDefault();
                 LeaveListCalc leaveListCalc = null;
                 if (leavetransaction != null)
                 {
@@ -614,7 +633,7 @@ namespace HR.Web.Controllers
                     CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, empLeaveObj, leaveListCalc, false);
                 }
 
-                LeaveTransaction leaveTransaction = new LeaveTransaction()
+                LeaveTransaction _leaveTransaction = new LeaveTransaction()
                 {
                     BranchId = BRANCHID,
                     CreatedBy = USERID,
@@ -622,7 +641,7 @@ namespace HR.Web.Controllers
                     CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
                     CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
                     CurrentSickLeaves = leaveListCalc.currentSickLeaves,
-                    EmployeeId = EMPLOYEEID,
+                    EmployeeId = grantLeaveVm.EmployeeId,
                     FromDt = empLeaveObj.FromDate,
                     ToDt = empLeaveObj.ToDate,
                     PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
@@ -630,11 +649,9 @@ namespace HR.Web.Controllers
                     PreviousSickLeaves = leaveListCalc.previousSickLeaves,
                     LeaveType = empLeaveObj.LeaveTypeId
                 };
-                dbCntx.LeaveTransactions.Add(leaveTransaction);
+                dbContext.LeaveTransactions.Add(_leaveTransaction);
 
-                dbCntx.SaveChanges();
-
-                return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
+                dbContext.SaveChanges();
             }
         }
 
@@ -714,10 +731,10 @@ namespace HR.Web.Controllers
                                 .FirstOrDefault();
                 return View("Leave", _leave ?? leave);
             }
-           
+
         }
 
-        [AcceptVerbs(HttpVerbs.Get|HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult Leave(int leaveId = 0)
         {
             using (HrDataContext dbContext = new HrDataContext())
@@ -834,7 +851,7 @@ namespace HR.Web.Controllers
                 {
 
                     EmployeeLeaveList empLeaveObj = dbContext.EmployeeLeaveLists
-                                                    .Where(x => x.BranchId == BRANCHID && 
+                                                    .Where(x => x.BranchId == BRANCHID &&
                                                                 x.EmployeeLeaveID == employeeLeaveID)
                                                     .FirstOrDefault();
 
@@ -842,7 +859,7 @@ namespace HR.Web.Controllers
                     empLeaveObj.Remarks = remarks;
 
                     LeaveTransaction leavetransaction = dbContext.LeaveTransactions
-                                                        .Where(x => x.BranchId == BRANCHID && 
+                                                        .Where(x => x.BranchId == BRANCHID &&
                                                                     x.EmployeeId == EMPLOYEEID)
                                                         .OrderByDescending(x => x.CreatedOn)
                                                         .FirstOrDefault();
@@ -853,17 +870,17 @@ namespace HR.Web.Controllers
 
 
                         leaveListCalc = new LeaveListCalc(
-                            leavetransaction.CurrentCasualLeaves, 
-                            leavetransaction.CurrentPaidLeaves, 
+                            leavetransaction.CurrentCasualLeaves,
+                            leavetransaction.CurrentPaidLeaves,
                             leavetransaction.CurrentSickLeaves,
-                            leavetransaction.PreviousCasualLeaves, 
-                            leavetransaction.PreviousPaidLeaves, 
+                            leavetransaction.PreviousCasualLeaves,
+                            leavetransaction.PreviousPaidLeaves,
                             leavetransaction.PreviousSickLeaves);
 
                         CalculateLeavesTransaction.CalculateLeaveFromTransaction(
-                            leavetransaction, 
-                            empLeaveObj, 
-                            leaveListCalc, 
+                            leavetransaction,
+                            empLeaveObj,
+                            leaveListCalc,
                             false);
                     }
 

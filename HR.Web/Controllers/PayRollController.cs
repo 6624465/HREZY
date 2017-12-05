@@ -1,4 +1,5 @@
-﻿using HR.Web.ViewModels;
+﻿using HR.Web.Models;
+using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,40 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SalaryRules(SalaryRuleHeaderVm salaryRules)
         {
-            return View();
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                SalaryRuleHeader salaryRule = new SalaryRuleHeader()
+                {
+                    Category = salaryRules.Category,
+                    Code = salaryRules.Code,
+                    IsActive = salaryRules.IsActive,
+                    IsOnPayslip = salaryRules.IsOnPayslip,
+                    Name = salaryRules.Name,
+                    SequenceNo = salaryRules.SequenceNo
+                };
+                dbContext.SalaryRuleHeaders.Add(salaryRule);
+
+                SalaryRuleDetail salaryRuleDetail = new SalaryRuleDetail()
+                {
+                    AmountType = salaryRules.salaryRuleDetailVm.AmountType,
+                    ConditionBased = salaryRules.salaryRuleDetailVm.ConditionBased,
+                    ContributionRegister = salaryRules.salaryRuleDetailVm.ContributionRegister,
+                    PythonCode = salaryRules.salaryRuleDetailVm.PythonCode,
+                    RuleId = salaryRule.RuleId
+
+                };
+                dbContext.SalaryRuleDetails.Add(salaryRuleDetail);
+
+                SalaryRuleInput salaryRuleInput = new SalaryRuleInput()
+                {
+                    Category = salaryRules.Category,
+                    Code = salaryRules.Code,
+                    Name = salaryRules.Name,
+                    RuleId = salaryRule.RuleId
+                };
+                dbContext.SalaryRuleInputs.Add(salaryRuleInput);
+                return View();
+            }
         }
     }
 }

@@ -1811,6 +1811,15 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalaryRuleDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalaryRuleHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalaryRuleInput.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1834,7 +1843,7 @@
     <Compile Include="ViewModels\LeaveAdminVM.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
     <Compile Include="ViewModels\ContributionRegisterVm.cs" />
-    <Compile Include="ViewModels\SalaryRulesVm.cs" />
+    <Compile Include="ViewModels\SalaryRuleHeaderVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

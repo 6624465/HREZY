@@ -33,6 +33,11 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveTransaction" Width="1.5" PointX="15.375" PointY="5.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" Width="1.5" PointX="7.375" PointY="15.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Contribution" Width="1.5" PointX="12.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryRuleDetail" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryRuleHeader" Width="1.5" PointX="15.375" PointY="10.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryRuleInput" Width="1.5" PointX="11.375" PointY="15.75" />
+        <AssociationConnector Association="DB_9F30C5_HRDBModel.SalaryRuleHeaderSalaryRuleDetail" />
+        <AssociationConnector Association="DB_9F30C5_HRDBModel.SalaryRuleHeaderSalaryRuleInput" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

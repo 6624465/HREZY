@@ -47,6 +47,9 @@ namespace HR.Web.Models
         public virtual DbSet<LeaveTransaction> LeaveTransactions { get; set; }
         public virtual DbSet<EmployeeLeaveList> EmployeeLeaveLists { get; set; }
         public virtual DbSet<Contribution> Contributions { get; set; }
+        public virtual DbSet<SalaryRuleDetail> SalaryRuleDetails { get; set; }
+        public virtual DbSet<SalaryRuleHeader> SalaryRuleHeaders { get; set; }
+        public virtual DbSet<SalaryRuleInput> SalaryRuleInputs { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)
         {

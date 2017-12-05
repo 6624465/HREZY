@@ -1,6 +1,6 @@
-﻿@model HR.Web.ViewModels.SalaryRulesVm
+﻿@model HR.Web.ViewModels.SalaryRuleHeaderVm
 
-@using (Html.BeginForm("SalaryRules", "PayRoll", FormMethod.Post,new { id="frmSalary",name= "frmSalary" }))
+@using (Html.BeginForm("SalaryRules", "PayRoll", FormMethod.Post, new { id = "frmSalary", name = "frmSalary" }))
 {
     <div class="page">
         <div class="row">
@@ -12,6 +12,20 @@
                     <div class="panel-body">
                         <div class="row css5">
                             <label class="col-md-2 control-label">
+                                <span class="pull-right">Name</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                            </div>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Category</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.Category, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
                                 <span class="pull-right">Code</span>
                             </label>
                             <div class="col-md-4">
@@ -21,7 +35,7 @@
                                 <span class="pull-right">Sequence</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.Sequence, new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.SequenceNo, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="row css5">
@@ -29,13 +43,17 @@
                                 <span class="pull-right">Active</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.IsActive, new { @class = "form-control" })
+                                <div style="margin-top:10px;">
+                                    @Html.CheckBoxFor(x => x.IsActive.Value, new { @class = "form-control" })
+                                </div>
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Apeears On Payslip</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.IsOnPayslip, new { @class = "form-control" })
+                                <div style="margin-top:10px;">
+                                    @Html.CheckBoxFor(x => x.IsOnPayslip.Value, new { @class = "form-control" })
+                                </div>
                             </div>
                         </div>
                         <br />
@@ -57,12 +75,13 @@
                                             <span class="pull-right">Condition Based On</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @*@Html.CropDownListFor(x => x.ConditionBased)*@
-                                            <select id="ConditionBased" class="form-control">
-                                                <option></option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
+                                            @Html.DropDownListFor(x => x.salaryRuleDetailVm.ConditionBased, new List<SelectListItem>
+                                                                   {
+                                                                     new SelectListItem { Text = "1", Value = "1"},
+                                                                     new SelectListItem { Text = "2", Value = "2"},
+
+                                                                  }, "Select", new { @class = "form-control" })
+
                                         </div>
                                     </div>
                                     <div class="panel-heading">
@@ -73,20 +92,20 @@
                                             <span class="pull-right">Amount type</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @*@Html.DropDownListFor(x => x.AmountType)*@
-                                            <select id="ConditionBased" class="form-control">
-                                                <option></option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
+                                            @Html.DropDownListFor(x => x.salaryRuleDetailVm.AmountType,
+                                           new List<SelectListItem>() {
+                                              new SelectListItem { Text = "1", Value = "1"},
+                                                                     new SelectListItem { Text = "2", Value = "2"}
+                                           }, "Select", new { @class = "form-control" })
+
                                         </div>
                                     </div>
                                     <div class="row css5">
                                         <label class="col-md-2 control-label">
-                                            <span class="pull-right">Amount type</span>
+                                            <span class="pull-right">Python Code</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.PythonCode, new { @class = "form-control" })
+                                            @Html.TextBoxFor(x => x.salaryRuleDetailVm.PythonCode, new { @class = "form-control" })
 
                                         </div>
                                     </div>
@@ -95,12 +114,12 @@
                                             <span class="pull-right">Contribution Register</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @*@Html.DropDownListFor(x => x.ContributionRegister)*@
-                                            <select id="ConditionBased" class="form-control">
-                                                <option></option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
+                                            @Html.DropDownListFor(x => x.salaryRuleDetailVm.ContributionRegister,
+                                           new List<SelectListItem>() {
+                                               new SelectListItem() {  Text = "1", Value = "1"},
+                                                new SelectListItem() {  Text = "2", Value = "2"},
+                                           },"Select", new { @class = "form-control" })
+
                                         </div>
                                     </div>
                                 </div>
@@ -148,8 +167,36 @@
 
 @section Scripts{
     <script type="text/javascript">
+
+        $('#frmSalary').validate({
+            rules: {
+                Name: {
+                    required:true
+                },
+                Category: {
+                    required:true
+                },
+                Code: {
+                    required:true
+                },
+                'salaryRuleDetailVm.ConditionBased': {
+                    required:true
+                },
+                'salaryRuleDetailVm.AmountType': {
+                    required:true
+                },
+                'salaryRuleDetailVm.PythonCode': {
+                    required:true
+                },
+                'salaryRuleDetailVm.ContributionRegister': {
+                    required:true
+                }
+            }
+        });
+
         function Save() {
-            $('#frmSalary').submit();
+            if ($('#frmSalary').valid())
+                $('#frmSalary').submit();
         }
     </script>
 }

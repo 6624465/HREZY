@@ -14,7 +14,7 @@ namespace HR.Web.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-
+            DateTime startDayOfYear = new DateTime(UTILITY.SINGAPORETIME.Year, 01, 01);
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
                 return View("index");
@@ -33,6 +33,29 @@ namespace HR.Web.Controllers
                     obj.lineChartData = dbCntx.usp_EmployeeDateOfJoiningDate(UTILITY.SINGAPORETIME, BRANCHID)
                                             .ToList()
                                             .AsEnumerable();
+
+                    var query = dbCntx.EmployeeLeaveLists
+                                        .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
+                    var leaveStartTransactions = dbCntx.LeaveTransactions
+                                              .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
+                                              .OrderBy(x => x.TransactionId)
+                                              .FirstOrDefault();
+                    if (leaveStartTransactions != null)
+                    {
+                        obj.totalPLs = leaveStartTransactions.CurrentPaidLeaves;
+                        obj.totalCLs = leaveStartTransactions.CurrentCasualLeaves;
+                        DateTime now = DateTime.Now;
+                        var startDate = new DateTime(now.Year, now.Month, 1);
+                        var endDate = startDate.AddMonths(1).AddDays(-1);
+
+                        var SLPerMonth = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault().SickLeavesPerMonth;
+                        var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == 1031).ToList();
+                        foreach (var item in CurrentMonthSLs)
+                        {
+                            obj.totalSLs += item.Days.Value;
+                        }
+                        obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
+                    }
                     return View("admindashboard", obj);
                 }
             }
@@ -64,7 +87,6 @@ namespace HR.Web.Controllers
                                                 .FirstOrDefault();
 
 
-                    DateTime startDayOfYear = new DateTime(UTILITY.SINGAPORETIME.Year, 01, 01);
                     var leaveStartTransactions = dbCntx.LeaveTransactions
                                                 .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
                                                 .OrderBy(x => x.TransactionId)

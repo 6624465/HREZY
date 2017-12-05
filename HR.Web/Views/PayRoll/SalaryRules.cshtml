@@ -1,0 +1,155 @@
+﻿@model HR.Web.ViewModels.SalaryRulesVm
+
+@using (Html.BeginForm("SalaryRules", "PayRoll", FormMethod.Post,new { id="frmSalary",name= "frmSalary" }))
+{
+    <div class="page">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Basic
+                    </div>
+                    <div class="panel-body">
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Code</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.Code, new { @class = "form-control" })
+                            </div>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Sequence</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.Sequence, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Active</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.IsActive, new { @class = "form-control" })
+                            </div>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Apeears On Payslip</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.IsOnPayslip, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="clearfix">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab-home" data-toggle="tab" aria-expanded="true">General</a></li>
+                                <li class=""><a href="#tab-about" data-toggle="tab" aria-expanded="false">Child Rules</a></li>
+                                <li class=""><a href="#tab-portfolio" data-toggle="tab" aria-expanded="false">Inputs</a></li>
+                                <li class=""><a href="#tab-portfolio" data-toggle="tab" aria-expanded="false">Description</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab-home">
+                                    <div class="panel-heading">
+                                        Basic
+                                    </div>
+                                    <div class="row css5">
+                                        <label class="col-md-2 control-label">
+                                            <span class="pull-right">Condition Based On</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @*@Html.CropDownListFor(x => x.ConditionBased)*@
+                                            <select id="ConditionBased" class="form-control">
+                                                <option></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="panel-heading">
+                                        Computation
+                                    </div>
+                                    <div class="row css5">
+                                        <label class="col-md-2 control-label">
+                                            <span class="pull-right">Amount type</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @*@Html.DropDownListFor(x => x.AmountType)*@
+                                            <select id="ConditionBased" class="form-control">
+                                                <option></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row css5">
+                                        <label class="col-md-2 control-label">
+                                            <span class="pull-right">Amount type</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.PythonCode, new { @class = "form-control" })
+
+                                        </div>
+                                    </div>
+                                    <div class="row css5">
+                                        <label class="col-md-2 control-label">
+                                            <span class="pull-right">Contribution Register</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @*@Html.DropDownListFor(x => x.ContributionRegister)*@
+                                            <select id="ConditionBased" class="form-control">
+                                                <option></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-about">
+                                    <div>
+                                        <div>
+                                            <a href="#" class="btn btn-sm btn-primary">Add an item </a>
+                                        </div>
+                                        <table class="table table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Code</th>
+                                                    <th>Category</th>
+                                                    <th>Contribution Register</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Code</td>
+                                                    <td>Category</td>
+                                                    <td>Contribution Register</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-portfolio">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row pull-right">
+            <button type="button" class="btn btn-sm btn-primary" onclick="Save()">Save</button>
+        </div>
+    </div>
+}
+
+
+@section Scripts{
+    <script type="text/javascript">
+        function Save() {
+            $('#frmSalary').submit();
+        }
+    </script>
+}

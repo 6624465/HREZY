@@ -189,7 +189,8 @@ namespace HR.Web.Controllers
                         Category = salaryRules.Category,
                         Code = salaryRules.Code,
                         Name = salaryRules.Name,
-                        RuleId = salaryRule.RuleId
+                        RuleId = salaryRule.RuleId,
+                        ContributionRegister = salaryRuleDetail.ContributionRegister
                     };
                     dbContext.SalaryRuleInputs.Add(salaryRuleInput);
                 }
@@ -226,6 +227,7 @@ namespace HR.Web.Controllers
                         salaryRuleInput.Code = salaryRuleInput.Code;
                         salaryRuleInput.Name = salaryRuleInput.Name;
                         salaryRuleInput.RuleId = salaryRuleInput.RuleId;
+                        salaryRuleInput.ContributionRegister = salaryRuleInput.ContributionRegister;
                     }
                 }
                 dbContext.SaveChanges();

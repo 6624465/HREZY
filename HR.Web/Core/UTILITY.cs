@@ -57,6 +57,11 @@ namespace HR.Web
         public static string LEAVECANCELLED = "Cancelled";
         public static string LEAVEPENDING = "Pending";
 
+        public static string PAYROLLCONTRIBUTION = "PayRoll Contribution";
+        public static string PAYROLLAMOUNT = "PayRoll Amount";
+        public static string PAYROLLCONDITION = "PayRoll Condition";
+        public static string PAYROLLCATEGORY = "PayRoll Category";
+
         /* Config Keys End */
 
         public static DateTime SINGAPORETIME

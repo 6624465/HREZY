@@ -1971,6 +1971,7 @@
     <Content Include="Views\PayRoll\SalaryRulesList.cshtml" />
     <Content Include="Views\PayRoll\ContributionRegister.cshtml" />
     <Content Include="Views\PayRoll\ContributionRegisterList.cshtml" />
+    <Content Include="Views\PayRoll\SalaryStructure.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

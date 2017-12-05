@@ -5,7 +5,7 @@
         <label class="col-md-2 control-label">
             <span class="pull-right">Date</span>
         </label>
-        <div class="col-md-10" >
+        <div class="col-md-5" >
             <div class="input-group date " id="Dt">
                 @Html.TextBoxFor(x => x.Date, "{0:MM/dd/yyyy}", new {@class= "form-control dtCss",required="required", onblur = "dtOnBlur();" })
                 <span class="input-group-addon">
@@ -19,10 +19,10 @@
     <div class="form-group">
         <label class="col-md-2 control-label">
             <span class="pull-right">
-                Occasion
+                Ocassion
             </span>
         </label>
-        <div class="col-md-10">
+        <div class="col-md-6">
             @Html.TextBoxFor(x=>x.Description,new { @class="form-control"})
         </div>
     </div>
@@ -34,10 +34,10 @@
                 Location
             </span>
         </label>
-        <div class="col-md-10">
+        <div class="col-md-6">
         
             @Html.DropDownListFor(x => x.CountryId,
-                                     SelectListItemHelper.CountryListById(),
+                                     SelectListItemHelper.Branches(),
                                      "Select Location",
                                      new { @class = "form-control" })
         </div>

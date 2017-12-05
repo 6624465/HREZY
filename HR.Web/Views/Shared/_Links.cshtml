@@ -129,6 +129,31 @@ else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
                 <span class="text">Dashboard</span>
             </a>
         </li>
+        <li id="li_Payroll">
+            <a href="javascript:;">
+                <i class="ion ion-calendar"></i>
+                <span class="text">PayRoll</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li><a href="#">Employee Payslips</a></li>
+                <li><a href="#">Payslips Batches</a></li>
+            </ul>
+        </li>
+        <li id="li_PayRollConfig">
+            <a href="javascript:;">
+                <i class="ion ion-calendar"></i>
+                <span class="text">Payroll Setup</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li><a href='@Url.Content("~/PayRoll/SalaryStructure")'>Salary Structures</a></li>
+                <li><a href="#">Salary Structures Hierarchy</a></li>
+                <li><a href="#">Salary Rule Categories</a></li>
+                <li><a href='@Url.Content("~/PayRoll/SalaryRules")'>Salary Rules</a></li>
+                <li id="li_ContributionRegisterList"><a href="@Url.Content("~/PayRoll/ContributionRegisterList")">Contribution Registers</a></li>
+            </ul>
+        </li>
         <li id="li_Leave">
             <a href="javascript:;">
                 <i class="ion ion-ionic"></i>

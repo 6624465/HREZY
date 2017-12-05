@@ -1,13 +1,13 @@
 ﻿@model HR.Web.Models.HolidayList
-    @Html.HiddenFor(x => x.HolidayId)
+@Html.HiddenFor(x => x.HolidayId)
 <div class="row">
     <div class="form-group">
         <label class="col-md-2 control-label">
             <span class="pull-right">Date</span>
         </label>
-        <div class="col-md-5" >
+        <div class="col-md-10">
             <div class="input-group date " id="Dt">
-                @Html.TextBoxFor(x => x.Date, "{0:MM/dd/yyyy}", new {@class= "form-control dtCss",required="required", onblur = "dtOnBlur();" })
+                @Html.TextBoxFor(x => x.Date, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss", required = "required", onblur = "dtOnBlur();" })
                 <span class="input-group-addon">
                     <i class="ion ion-calendar"></i>
                 </span>
@@ -19,11 +19,11 @@
     <div class="form-group">
         <label class="col-md-2 control-label">
             <span class="pull-right">
-                Ocassion
+                Occasion
             </span>
         </label>
-        <div class="col-md-6">
-            @Html.TextBoxFor(x=>x.Description,new { @class="form-control"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
         </div>
     </div>
 </div>
@@ -34,40 +34,40 @@
                 Location
             </span>
         </label>
-        <div class="col-md-6">
-        
+        <div class="col-md-10">
+
             @Html.DropDownListFor(x => x.CountryId,
-                                     SelectListItemHelper.Branches(),
+                                     SelectListItemHelper.CountryListById(),
                                      "Select Location",
                                      new { @class = "form-control" })
         </div>
     </div>
 </div>
 <script type="text/javascript">
-        $(function () {
-                $('.dtCss').datetimepicker({
-                    icons: {
-                        time: 'fa fa-clock-o',
-                        date: 'fa fa-calendar',
-                        up: 'fa fa-arrow-up',
-                        down: 'fa fa-arrow-down',
-                        previous: 'fa fa-arrow-left',
-                        next: 'fa fa-arrow-right'
-                    },
-                    format: 'MM/DD/YYYY'
-                });
-
+    $(function () {
+        $('.dtCss').datetimepicker({
+            icons: {
+                time: 'fa fa-clock-o',
+                date: 'fa fa-calendar',
+                up: 'fa fa-arrow-up',
+                down: 'fa fa-arrow-down',
+                previous: 'fa fa-arrow-left',
+                next: 'fa fa-arrow-right'
+            },
+            format: 'MM/DD/YYYY'
         });
 
-        $("#Dt").on("dp.change", function (e) {
-            var dt = $('#Dt').find('input').val();
-            $('#Date').val(dt);
-            
-        });
+    });
 
-        function dtOnBlur() {
-            var dt = $('#Dt').find('input').val();
-            $('#Date').val(dt);
-        }
+    $("#Dt").on("dp.change", function (e) {
+        var dt = $('#Dt').find('input').val();
+        $('#Date').val(dt);
+
+    });
+
+    function dtOnBlur() {
+        var dt = $('#Dt').find('input').val();
+        $('#Date').val(dt);
+    }
 
 </script>

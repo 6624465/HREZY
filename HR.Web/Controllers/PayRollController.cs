@@ -44,10 +44,12 @@ namespace HR.Web.Controllers
         }
         public ActionResult ContributionSave(Contribution contribution)
         {
-            using (var dbcntx = new HrDataContext())
+            if (contribution.ContributionId == -1)
             {
-                var contributionregistersave = new Contribution
+                using (var dbcntx = new HrDataContext())
                 {
+                    var contributionregistersave = new Contribution
+                    {
                         ContributionId = contribution.ContributionId,
                         Name = contribution.Name,
                         Description = contribution.Description,
@@ -57,10 +59,29 @@ namespace HR.Web.Controllers
                         ModifiedBy = USERID,
                         ModifiedOn = UTILITY.SINGAPORETIME
                     };
-                dbcntx.Contributions.Add(contributionregistersave);
-                dbcntx.SaveChanges();
+                    dbcntx.Contributions.Add(contributionregistersave);
+                    dbcntx.SaveChanges();
+
+                }
+            }
+            else
+            {
+                using (var dbcntx = new HrDataContext())
+                {
+                    var contributionregister = dbcntx.Contributions.Where(x => x.ContributionId == contribution.ContributionId).FirstOrDefault();
+                    contributionregister.ContributionId = contribution.ContributionId;
+                    contributionregister.Name = contribution.Name;
+                    contributionregister.Description = contribution.Description;
+                    contributionregister.IsActive = contribution.IsActive;
+                    contributionregister.CreatedBy = USERID;
+                    contributionregister.CreatedOn = UTILITY.SINGAPORETIME;
+                    contributionregister.ModifiedBy = USERID;
+                    contributionregister.ModifiedOn = UTILITY.SINGAPORETIME;
+                    dbcntx.SaveChanges();
+                };
                
             }
+           
             return RedirectToAction("ContributionRegisterList");
         }
 

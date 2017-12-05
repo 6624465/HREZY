@@ -259,5 +259,60 @@ namespace HR.Web.Helpers
                 }).ToList().AsEnumerable();
             }
         }
+
+
+        public static IEnumerable<SelectListItem> PayRollCategory()
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.PAYROLLCATEGORY)
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.LookUpCode,
+                        Text = x.LookUpDescription
+                    }).ToList().AsEnumerable();
+            }
+        }
+
+        public static IEnumerable<SelectListItem> PayRollCondition()
+        {
+
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.PAYROLLCONDITION)
+                    .Select(x => new SelectListItem()
+                    {
+                        Value = x.LookUpCode,
+                        Text = x.LookUpDescription
+                    }).ToList().AsEnumerable();
+            }
+        }
+
+        public static IEnumerable<SelectListItem> PayRollAmount()
+        {
+
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.PAYROLLAMOUNT)
+                    .Select(x => new SelectListItem()
+                    {
+                        Value = x.LookUpCode,
+                        Text = x.LookUpDescription
+                    }).ToList().AsEnumerable();
+            }
+        }
+
+        public static IEnumerable<SelectListItem> PayRollContribution()
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.PAYROLLCONTRIBUTION)
+                    .Select(x => new SelectListItem()
+                    {
+                        Value = x.LookUpCode,
+                        Text = x.LookUpDescription
+                    }).ToList().AsEnumerable();
+            }
+        }
     }
 }

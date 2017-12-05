@@ -28,8 +28,17 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult SalaryRulesList()
         {
-            List<SalaryRuleHeaderVm> salaryRules = new List<SalaryRuleHeaderVm>();
-            return View(salaryRules);
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                List<SalaryRuleHeaderVm> salaryRules = dbContext.SalaryRuleHeaders
+                    .Select(x=>new SalaryRuleHeaderVm() {
+                        Category=x.Category,
+                        Code=x.Code,
+                        Name=x.Name,
+                        SequenceNo=x.SequenceNo
+                    }).ToList();
+                return View(salaryRules);
+            }
         }
         [HttpGet]
         public ActionResult SalaryRules()
@@ -71,8 +80,13 @@ namespace HR.Web.Controllers
                     RuleId = salaryRule.RuleId
                 };
                 dbContext.SalaryRuleInputs.Add(salaryRuleInput);
+                dbContext.SaveChanges();
                 return View();
             }
+        }
+
+        public ActionResult SalaryStructure() {
+            return View();
         }
     }
 }

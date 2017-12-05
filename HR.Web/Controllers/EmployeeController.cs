@@ -232,6 +232,7 @@ namespace HR.Web.Controllers
             }
             else
             {
+
                 using (var dbCntx = new HrDataContext())
                 {
                     var documentTypes = dbCntx.LookUps

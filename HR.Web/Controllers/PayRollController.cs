@@ -16,9 +16,46 @@ namespace HR.Web.Controllers
         {
             return View();
         }
-        public ActionResult ContributionRegister()
+        public ActionResult ContributionRegister(int ContributionId)
         {
-            return View();
+            if (ContributionId != -1)
+            {
+                using (var dbcntx = new HrDataContext())
+                {
+                    var contributionregisterobj = dbcntx.Contributions.Where(x => x.ContributionId == ContributionId).Select(x => new Contribution
+                    {
+                        ContributionId=x.ContributionId,
+                        Name=x.Name,
+                        Description=x.Description,
+                        IsActive=x.IsActive,
+                        CreatedBy=USERID,
+                        CreatedOn=UTILITY.SINGAPORETIME,
+                        ModifiedBy=USERID,
+                        ModifiedOn=UTILITY.SINGAPORETIME
+                    });
+                    return View(contributionregisterobj);
+
+                }
+            }
+            else
+            {
+                using (var dbcntx=new HrDataContext())
+                {
+                    var contributionregister = dbcntx.Contributions.Select(x=>new Contribution
+                    {
+                        ContributionId=x.ContributionId,
+                        Name=x.Name,
+                        Description=x.Description,
+                        IsActive=x.IsActive,
+                        CreatedBy=USERID,
+                        CreatedOn=UTILITY.SINGAPORETIME,
+                        ModifiedBy=USERID,
+                        ModifiedOn=UTILITY.SINGAPORETIME
+                    });
+                    return View(contributionregister);
+                }
+            }
+          
         }
         public ActionResult ContributionRegisterList()
         {
@@ -34,7 +71,7 @@ namespace HR.Web.Controllers
             using (var dbcntx = new HrDataContext())
             {
                 var contributionregistersave = new Contribution
-        {
+                {
                         ContributionId = contribution.ContributionId,
                         Name = contribution.Name,
                         Description = contribution.Description,

@@ -117,42 +117,48 @@ namespace HR.Web.Controllers
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                var salaryRule = dbContext.SalaryRuleHeaders
-                    .Join(dbContext.SalaryRuleDetails,
-                    a => a.RuleId, b => b.RuleId,
-                    (a, b) => new { A = a, B = b })
-                    .Join(dbContext.SalaryRuleInputs,
-                    c => c.A.RuleId, d => d.RuleId,
-                    (c, d) => new { C = c, D = d }).Where(x => x.C.A.RuleId == RuleId).FirstOrDefault();
-                //SalaryRuleHeaderVm salaryRule = dbContext.SalaryRuleHeaders.Where(x => x.RuleId == RuleId).FirstOrDefault();
-                SalaryRuleHeaderVm salaryRuleVm = new SalaryRuleHeaderVm()
+                if (RuleId != 0)
                 {
-                    Category = salaryRule.C.A.Category,
-                    Code = salaryRule.C.A.Code,
-                    IsActive = salaryRule.C.A.IsActive ?? false,
-                    IsOnPayslip = salaryRule.C.A.IsOnPayslip ?? false,
-                    Name = salaryRule.C.A.Name,
-                    RuleId = salaryRule.C.A.RuleId,
-                    SequenceNo = salaryRule.C.A.RuleId,
-                    salaryRuleDetailVm = new SalaryRuleDetailVm()
+                    var salaryRule = dbContext.SalaryRuleHeaders
+                        .Join(dbContext.SalaryRuleDetails,
+                        a => a.RuleId, b => b.RuleId,
+                        (a, b) => new { A = a, B = b })
+                        .Join(dbContext.SalaryRuleInputs,
+                        c => c.A.RuleId, d => d.RuleId,
+                        (c, d) => new { C = c, D = d }).Where(x => x.C.A.RuleId == RuleId).FirstOrDefault();
+                    //SalaryRuleHeaderVm salaryRule = dbContext.SalaryRuleHeaders.Where(x => x.RuleId == RuleId).FirstOrDefault();
+                    SalaryRuleHeaderVm salaryRuleVm = new SalaryRuleHeaderVm()
                     {
-                        AmountType = salaryRule.C.B.AmountType,
-                        ConditionBased = salaryRule.C.B.ConditionBased,
-                        ContributionRegister = salaryRule.C.B.ContributionRegister,
-                        PythonCode = salaryRule.C.B.PythonCode,
-                        RuleDetailId = salaryRule.C.B.RuleDetailId,
-                        RuleId = salaryRule.C.B.RuleId,
-                    },
-                    salaryRuleInputVm = new SalaryRuleInputVm()
-                    {
-                        Category = salaryRule.D.Category,
-                        Code = salaryRule.D.Code,
-                        Name = salaryRule.D.Name,
-                        RuleId = salaryRule.D.RuleId,
-                        RuleInputId = salaryRule.D.RuleInputId
-                    }
-                };
-                return View(salaryRuleVm);
+                        Category = salaryRule.C.A.Category,
+                        Code = salaryRule.C.A.Code,
+                        IsActive = salaryRule.C.A.IsActive ?? false,
+                        IsOnPayslip = salaryRule.C.A.IsOnPayslip ?? false,
+                        Name = salaryRule.C.A.Name,
+                        RuleId = salaryRule.C.A.RuleId,
+                        SequenceNo = salaryRule.C.A.RuleId,
+                        salaryRuleDetailVm = new SalaryRuleDetailVm()
+                        {
+                            AmountType = salaryRule.C.B.AmountType,
+                            ConditionBased = salaryRule.C.B.ConditionBased,
+                            ContributionRegister = salaryRule.C.B.ContributionRegister,
+                            PythonCode = salaryRule.C.B.PythonCode,
+                            RuleDetailId = salaryRule.C.B.RuleDetailId,
+                            RuleId = salaryRule.C.B.RuleId,
+                        },
+                        salaryRuleInputVm = new SalaryRuleInputVm()
+                        {
+                            Category = salaryRule.D.Category,
+                            Code = salaryRule.D.Code,
+                            Name = salaryRule.D.Name,
+                            RuleId = salaryRule.D.RuleId,
+                            RuleInputId = salaryRule.D.RuleInputId
+                        }
+                    };
+                    return View(salaryRuleVm);
+                }
+                else {
+                    return View(new SalaryRuleHeaderVm() { IsActive=false,IsOnPayslip=false});
+                }
             }
         }
         [HttpPost]
@@ -189,7 +195,8 @@ namespace HR.Web.Controllers
                         Category = salaryRules.Category,
                         Code = salaryRules.Code,
                         Name = salaryRules.Name,
-                        RuleId = salaryRule.RuleId
+                        RuleId = salaryRule.RuleId,
+                        ContributionRegister = salaryRuleDetail.ContributionRegister
                     };
                     dbContext.SalaryRuleInputs.Add(salaryRuleInput);
                 }
@@ -226,6 +233,7 @@ namespace HR.Web.Controllers
                         salaryRuleInput.Code = salaryRuleInput.Code;
                         salaryRuleInput.Name = salaryRuleInput.Name;
                         salaryRuleInput.RuleId = salaryRuleInput.RuleId;
+                        salaryRuleInput.ContributionRegister = salaryRuleInput.ContributionRegister;
                     }
                 }
                 dbContext.SaveChanges();

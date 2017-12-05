@@ -27,7 +27,7 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult SalaryRulesList()
         {
-            List<SalaryRulesVm> salaryRules = new List<SalaryRulesVm>();
+            List<SalaryRuleHeaderVm> salaryRules = new List<SalaryRuleHeaderVm>();
             return View(salaryRules);
         }
         [HttpGet]
@@ -36,7 +36,7 @@ namespace HR.Web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SalaryRules(SalaryRulesVm salaryRules)
+        public ActionResult SalaryRules(SalaryRuleHeaderVm salaryRules)
         {
             return View();
         }

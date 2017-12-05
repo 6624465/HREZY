@@ -1751,6 +1751,9 @@
     <Compile Include="Models\Company.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Contribution.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Country.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

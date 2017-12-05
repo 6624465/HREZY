@@ -312,6 +312,19 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="LeaveType" Type="int" />
         </EntityType>
+        <EntityType Name="Contribution">
+          <Key>
+            <PropertyRef Name="ContributionId" />
+          </Key>
+          <Property Name="ContributionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Role">
@@ -377,6 +390,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="LeaveDetail" EntityType="Self.LeaveDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveHeader" EntityType="Self.LeaveHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveTransaction" EntityType="Self.LeaveTransaction" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="Contribution" EntityType="Self.Contribution" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
             <DefiningQuery>SELECT 
@@ -492,6 +506,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <Parameter Name="Designation" Mode="In" Type="Int32" />
             <Parameter Name="Type" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Contributions" EntityType="DB_9F30C5_HRDBModel.Contribution" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -940,6 +955,19 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Type="DateTime" Name="DateOfBirth" Nullable="true" Precision="23" />
           <Property Type="String" Name="ProfilePic" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <EntityType Name="Contribution">
+          <Key>
+            <PropertyRef Name="ContributionId" />
+          </Key>
+          <Property Name="ContributionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1321,6 +1349,20 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_EmployeeDetailSearch" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDetailSearch" />
+          <EntitySetMapping Name="Contributions">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Contribution">
+              <MappingFragment StoreEntitySet="Contribution">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContributionId" ColumnName="ContributionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

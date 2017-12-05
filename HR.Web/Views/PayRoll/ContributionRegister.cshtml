@@ -1,4 +1,6 @@
-﻿@model HR.Web.ViewModels.ContributionRegisterVm
+﻿@model HR.Web.Models.Contribution
+@using (Html.BeginForm("ContributionSave","PayRoll",FormMethod.Post, new { id="contributionfrm",name= "contributionfrm" }))
+{
 <div class="page">
     <div class="page-wrap">
             <div class="panel-group" >
@@ -24,12 +26,20 @@
                                 @Html.TextAreaFor(x => x.Description,new { @class="form-control"})
                             </div>
                         </div>
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Status</span>
+                            </label>
+                             <div style="margin-top:10px">
+                                 @Html.CheckBoxFor(x => x.IsActive)
+                             </div>
+                        </div>
                         <div class="row css10">
                             <div class="form-group ">
                                 <div class="col-md-8"></div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary btn-sm">Save</button>
-                                    <button class="btn btn-primary btn-sm">Discard</button>
+                                    <button class="btn btn-primary btn-sm" onclick="ContributionSave()">Save</button>
+                                    <button class="btn btn-primary btn-sm" onclick="close()">Discard</button>
                                 </div>
                             </div>
                         </div>
@@ -38,3 +48,16 @@
      </div>
   </div>
 </div>
+}
+@section Scripts{
+    <script type="text/javascript">
+        function ContributionSave() {
+            if ($('#contributionfrm').valid()) {
+                $('#contributionfrm').submit();
+            }
+        }
+        function close() {
+            $('#contributionfrm').close();
+        }
+    </script>
+    }

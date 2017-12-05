@@ -1,27 +1,55 @@
 ﻿using HR.Web.ViewModels;
+using HR.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace HR.Web.Controllers
 {
     [SessionFilter]
-    public class PayRollController : Controller
+    public class PayRollController : BaseController
     {
         // GET: PayRoll
         public ActionResult PayRollInfo()
         {
             return View();
         }
-        public ViewResult ContributionRegister()
+        public ActionResult ContributionRegister()
         {
             return View();
         }
-        public ViewResult ContributionRegisterList()
+        public ActionResult ContributionRegisterList()
         {
-            return View();
+            using (var dbcntx=new HrDataContext())
+            {
+                var list = dbcntx.Contributions.ToList();
+                return View(list);
+            }
+           
+        }
+        public ActionResult ContributionSave(Contribution contribution)
+        {
+            using (var dbcntx = new HrDataContext())
+            {
+                var contributionregistersave = new Contribution
+                {
+                        ContributionId = contribution.ContributionId,
+                        Name = contribution.Name,
+                        Description = contribution.Description,
+                        IsActive = contribution.IsActive,
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        ModifiedBy = USERID,
+                        ModifiedOn = UTILITY.SINGAPORETIME
+                    };
+                dbcntx.Contributions.Add(contributionregistersave);
+                dbcntx.SaveChanges();
+               
+            }
+            return RedirectToAction("ContributionRegisterList");
         }
 
         [HttpGet]

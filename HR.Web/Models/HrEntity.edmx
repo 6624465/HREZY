@@ -325,6 +325,40 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="SalaryRuleDetail">
+          <Key>
+            <PropertyRef Name="RuleDetailId" />
+          </Key>
+          <Property Name="RuleDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConditionBased" Type="nvarchar" MaxLength="50" />
+          <Property Name="AmountType" Type="nvarchar" MaxLength="50" />
+          <Property Name="PythonCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContributionRegister" Type="nvarchar" MaxLength="50" />
+          <Property Name="RuleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalaryRuleHeader">
+          <Key>
+            <PropertyRef Name="RuleId" />
+          </Key>
+          <Property Name="RuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Category" Type="nvarchar" MaxLength="100" />
+          <Property Name="Code" Type="nvarchar" MaxLength="100" />
+          <Property Name="SequenceNo" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsOnPayslip" Type="bit" />
+        </EntityType>
+        <EntityType Name="SalaryRuleInput">
+          <Key>
+            <PropertyRef Name="RuleInputId" />
+          </Key>
+          <Property Name="RuleInputId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContributionRegister" Type="nvarchar" MaxLength="50" />
+          <Property Name="RuleId" Type="int" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Role">
@@ -391,6 +425,9 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="LeaveHeader" EntityType="Self.LeaveHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveTransaction" EntityType="Self.LeaveTransaction" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="Contribution" EntityType="Self.Contribution" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="SalaryRuleDetail" EntityType="Self.SalaryRuleDetail" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="SalaryRuleHeader" EntityType="Self.SalaryRuleHeader" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="SalaryRuleInput" EntityType="Self.SalaryRuleInput" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
             <DefiningQuery>SELECT 
@@ -507,6 +544,17 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <Parameter Name="Type" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Contributions" EntityType="DB_9F30C5_HRDBModel.Contribution" />
+          <EntitySet Name="SalaryRuleDetails" EntityType="DB_9F30C5_HRDBModel.SalaryRuleDetail" />
+          <EntitySet Name="SalaryRuleHeaders" EntityType="DB_9F30C5_HRDBModel.SalaryRuleHeader" />
+          <EntitySet Name="SalaryRuleInputs" EntityType="DB_9F30C5_HRDBModel.SalaryRuleInput" />
+          <AssociationSet Name="SalaryRuleHeaderSalaryRuleDetail" Association="DB_9F30C5_HRDBModel.SalaryRuleHeaderSalaryRuleDetail">
+            <End Role="SalaryRuleHeader" EntitySet="SalaryRuleHeaders" />
+            <End Role="SalaryRuleDetail" EntitySet="SalaryRuleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="SalaryRuleHeaderSalaryRuleInput" Association="DB_9F30C5_HRDBModel.SalaryRuleHeaderSalaryRuleInput">
+            <End Role="SalaryRuleHeader" EntitySet="SalaryRuleHeaders" />
+            <End Role="SalaryRuleInput" EntitySet="SalaryRuleInputs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -968,6 +1016,64 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="SalaryRuleDetail">
+          <Key>
+            <PropertyRef Name="RuleDetailId" />
+          </Key>
+          <Property Name="RuleDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConditionBased" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AmountType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PythonCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContributionRegister" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RuleId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalaryRuleHeader">
+          <Key>
+            <PropertyRef Name="RuleId" />
+          </Key>
+          <Property Name="RuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SequenceNo" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsOnPayslip" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="SalaryRuleInput">
+          <Key>
+            <PropertyRef Name="RuleInputId" />
+          </Key>
+          <Property Name="RuleInputId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContributionRegister" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RuleId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="SalaryRuleHeaderSalaryRuleDetail">
+          <End Type="DB_9F30C5_HRDBModel.SalaryRuleHeader" Role="SalaryRuleHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.SalaryRuleDetail" Role="SalaryRuleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalaryRuleHeader">
+              <PropertyRef Name="RuleId" />
+            </Principal>
+            <Dependent Role="SalaryRuleDetail">
+              <PropertyRef Name="RuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SalaryRuleHeaderSalaryRuleInput">
+          <End Type="DB_9F30C5_HRDBModel.SalaryRuleHeader" Role="SalaryRuleHeader" Multiplicity="1" />
+          <End Type="DB_9F30C5_HRDBModel.SalaryRuleInput" Role="SalaryRuleInput" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalaryRuleHeader">
+              <PropertyRef Name="RuleId" />
+            </Principal>
+            <Dependent Role="SalaryRuleInput">
+              <PropertyRef Name="RuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1360,6 +1466,43 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ContributionId" ColumnName="ContributionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaryRuleDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryRuleDetail">
+              <MappingFragment StoreEntitySet="SalaryRuleDetail">
+                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+                <ScalarProperty Name="ContributionRegister" ColumnName="ContributionRegister" />
+                <ScalarProperty Name="PythonCode" ColumnName="PythonCode" />
+                <ScalarProperty Name="AmountType" ColumnName="AmountType" />
+                <ScalarProperty Name="ConditionBased" ColumnName="ConditionBased" />
+                <ScalarProperty Name="RuleDetailId" ColumnName="RuleDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaryRuleHeaders">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryRuleHeader">
+              <MappingFragment StoreEntitySet="SalaryRuleHeader">
+                <ScalarProperty Name="IsOnPayslip" ColumnName="IsOnPayslip" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaryRuleInputs">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryRuleInput">
+              <MappingFragment StoreEntitySet="SalaryRuleInput">
+                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+                <ScalarProperty Name="ContributionRegister" ColumnName="ContributionRegister" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RuleInputId" ColumnName="RuleInputId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

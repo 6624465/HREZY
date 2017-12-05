@@ -1751,6 +1751,9 @@
     <Compile Include="Models\Company.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Contribution.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Country.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1971,7 +1974,6 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Layout\" />
     <Folder Include="Views\Master\" />
-    <Folder Include="Views\PayRollConfigContributionRegisterVm\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

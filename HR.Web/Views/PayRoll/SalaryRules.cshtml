@@ -2,6 +2,9 @@
 
 @using (Html.BeginForm("SalaryRules", "PayRoll", FormMethod.Post, new { id = "frmSalary", name = "frmSalary" }))
 {
+    @Html.HiddenFor(x => x.RuleId)
+    @Html.HiddenFor(x => x.salaryRuleDetailVm.RuleDetailId)
+    @Html.HiddenFor(x => x.salaryRuleInputVm.RuleInputId)
     <div class="page">
         <div class="row">
             <div class="col-md-12">
@@ -150,7 +153,7 @@
 
         </div>
         <div class="row pull-right">
-            @*<button type="button" class="btn btn-sm btn-primary" onclick="Save()">Save</button>*@
+            <button type="button" class="btn btn-sm btn-primary" onclick="Save()">Save</button>
         </div>
     </div>
 }

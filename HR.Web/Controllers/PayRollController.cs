@@ -22,38 +22,14 @@ namespace HR.Web.Controllers
             {
                 using (var dbcntx = new HrDataContext())
                 {
-                    var contributionregisterobj = dbcntx.Contributions.Where(x => x.ContributionId == ContributionId).Select(x => new Contribution
-                    {
-                        ContributionId=x.ContributionId,
-                        Name=x.Name,
-                        Description=x.Description,
-                        IsActive=x.IsActive,
-                        CreatedBy=USERID,
-                        CreatedOn=UTILITY.SINGAPORETIME,
-                        ModifiedBy=USERID,
-                        ModifiedOn=UTILITY.SINGAPORETIME
-                    });
+                    var contributionregisterobj = dbcntx.Contributions.Where(x => x.ContributionId == ContributionId).FirstOrDefault();
                     return View(contributionregisterobj);
 
                 }
             }
             else
             {
-                using (var dbcntx=new HrDataContext())
-                {
-                    var contributionregister = dbcntx.Contributions.Select(x=>new Contribution
-                    {
-                        ContributionId=x.ContributionId,
-                        Name=x.Name,
-                        Description=x.Description,
-                        IsActive=x.IsActive,
-                        CreatedBy=USERID,
-                        CreatedOn=UTILITY.SINGAPORETIME,
-                        ModifiedBy=USERID,
-                        ModifiedOn=UTILITY.SINGAPORETIME
-                    });
-                    return View(contributionregister);
-                }
+                return View(new Contribution());
             }
           
         }

@@ -1708,6 +1708,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\layout.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-weekday-calc.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\treeview\bootstrap-treeview.js" />
     <Content Include="Scripts\treeview\bootstrap.css" />

@@ -261,8 +261,33 @@ namespace HR.Web.Controllers
                 LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
                         .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn)
                         .FirstOrDefault();
+                if (leavetransaction == null) {
+                    Leave leave = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault();
+
+                    leavetransaction = new LeaveTransaction()
+                    {
+                        BranchId = BRANCHID,
+                        CreatedBy = USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        CurrentCasualLeaves = leave.CasualLeavesPerMonth.Value,
+                        CurrentPaidLeaves = leave.PaidLeavesPerMonth.Value,
+                        CurrentSickLeaves = leave.SickLeavesPerMonth.Value,
+                        EmployeeId = EMPLOYEEID,
+                        FromDt = UTILITY.SINGAPORETIME,
+                        ToDt = UTILITY.SINGAPORETIME,
+                        PreviousCasualLeaves = leave.CasualLeavesPerMonth.Value,
+                        PreviousPaidLeaves = leave.PaidLeavesPerMonth.Value,
+                        PreviousSickLeaves = leave.SickLeavesPerMonth.Value,
+                        ModifiedBy = USERID,
+                        ModifiedOn = UTILITY.SINGAPORETIME,
+                    };
+
+                    dbCntx.LeaveTransactions.Add(leavetransaction);
+                    dbCntx.SaveChanges();
+                }
                 if (!isPreviousLeaveExists)
                 {
+
                     if (EmployeeLeaveList.LeaveTypeId == 1030 && leavetransaction.CurrentCasualLeaves == 0)
                     {
                         ViewData["Message"] = "You do not have enough casual leaves,other leaves will be LOP";

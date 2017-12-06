@@ -27,11 +27,17 @@ namespace HR.Web.Controllers
                 if (userObj != null)
                 {
                     FormsAuthentication.SetAuthCookie(userObj.UserName, false);
-                    USERID = user.UserName;
-                    BRANCHID = userObj.BranchId;
-                    ROLECODE = userObj.RoleCode;
-                    EMPLOYEEID = userObj.EmployeeId;
-                    ISMANAGER = dbContext.EmployeeHeaders.Where(x => x.ManagerId == userObj.EmployeeId).Count() > 0;
+
+                    SessionObj sessionObj = new SessionObj()
+                    {
+                        USERID = user.UserName,
+                        BRANCHID = userObj.BranchId,
+                        ROLECODE = userObj.RoleCode,
+                        EMPLOYEEID = userObj.EmployeeId,
+                        ISMANAGER = dbContext.EmployeeHeaders.Where(x => x.ManagerId == userObj.EmployeeId).Count() > 0
+                    };
+                    SESSIONOBJ = sessionObj;
+
                     //if (ROLECODE == UTILITY.ROLE_ADMIN || ROLECODE == UTILITY.ROLE_SUPERADMIN)
                     //    return RedirectToAction("Index", "Dashboard");
                     //else if(ROLECODE == UTILITY.ROLE_EMPLOYEE)

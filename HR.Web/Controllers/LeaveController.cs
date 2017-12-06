@@ -1,4 +1,5 @@
-﻿using HR.Web.Helpers;
+﻿using HR.Web.BusinessObjects;
+using HR.Web.Helpers;
 using HR.Web.Models;
 using HR.Web.ViewModels;
 using System;
@@ -15,12 +16,18 @@ namespace HR.Web.Controllers
     [SessionFilter]
     public class LeaveController : BaseController
     {
-
+        WeekendPolicyBO weekendPolicy = null;
+        public LeaveController()
+        {
+            weekendPolicy = new WeekendPolicyBO(SESSIONOBJ);
+        }
 
         // GET: Leave
         #region HolidayList
         public ActionResult HolidayList()
         {
+
+
             ViewData["RoleCode"] = ROLECODE;
             using (HrDataContext dbContext = new HrDataContext())
             {

@@ -20,7 +20,6 @@ namespace HR.Web.Models
         public HrDataContext()
             : base("name=HrDataContext")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -50,6 +49,7 @@ namespace HR.Web.Models
         public virtual DbSet<SalaryRuleDetail> SalaryRuleDetails { get; set; }
         public virtual DbSet<SalaryRuleHeader> SalaryRuleHeaders { get; set; }
         public virtual DbSet<SalaryRuleInput> SalaryRuleInputs { get; set; }
+        public virtual DbSet<WeekendPolicy> WeekendPolicies { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)
         {

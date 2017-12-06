@@ -5,46 +5,56 @@
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Contribution registers List
+                    Salary Components
                 </div>
                 <div class="panel-body">
-                    <button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'">Create</button>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                                <th>
-                                    #Action
-                                </th>
-                        </tr>
-                    </thead>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'">Create</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            #Action
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                @for (var i = 0; i < Model.Count(); i++)
-                {
-                        <tbody>
-                            <tr>
-                                <td>
-                                    @Model.ElementAt(i).Name
-                                </td>
-                                <td>
-                                    @Model.ElementAt(i).Description
-                                </td>
-                                <td>
-                                    <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" 
-                                    onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.ElementAt(i).ContributionId)'">
-                                    <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                }
+                                @for (var i = 0; i < Model.Count(); i++)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @Model.ElementAt(i).Name
+                                            </td>
+                                            <td>
+                                                @Model.ElementAt(i).Description
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
+                                                        onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.ElementAt(i).ContributionId)'">
+                                                    <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                }
 
-                </table>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    
                
                    
 

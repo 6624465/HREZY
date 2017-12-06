@@ -37,7 +37,7 @@ namespace HR.Web.Controllers
         {
             using (var dbcntx = new HrDataContext())
             {
-                var list = dbcntx.Contributions.ToList();
+                var list = dbcntx.Contributions.Where(x => x.IsActive == true).ToList();
                 return View(list);
             }
 
@@ -91,7 +91,7 @@ namespace HR.Web.Controllers
             using (var dbcntx = new HrDataContext())
             {
                 var record = dbcntx.Contributions.Where(x => x.ContributionId == contributionid).FirstOrDefault();
-                dbcntx.Contributions.Remove(record);
+                record.IsActive = false;
                 dbcntx.SaveChanges();
             }
             return Json(new { message = "success" }, JsonRequestBehavior.AllowGet);

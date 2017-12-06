@@ -99,10 +99,10 @@
                         url: '@Url.Content("~/PayRoll/ContributionDelete?ContributionId=")' + gContributionId,
                         method: 'post',
                         success:function(data){
-                            swal("Deleted!","success");
+                            swal("Deleted!","","success");
                         },
                         error: function (data) {
-                             swal("cancelled!", "error")
+                             swal("cancelled!","", "error")
                         }
                     
                     })

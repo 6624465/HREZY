@@ -21,43 +21,44 @@
                     </div>
                     <div class="row">
                         <div>
-                            @Html.CheckBoxFor(x => x.Monday.Value)
+                            @Html.CheckBox(nameof(Model.Monday), Model.Monday ?? false)
                             <label class="control-label">Monday</label>
                         </div>
                     </div>
                     <div class="row">
                         <div>
-                            @Html.CheckBoxFor(x => x.Tuesday.Value)
+                            @Html.CheckBox(nameof(Model.Tuesday), Model.Tuesday ?? false)
                             <label class="control-label">Tuesday</label>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div>
-                            @Html.CheckBoxFor(x => x.Wednesday.Value)
+                            @Html.CheckBox(nameof(Model.Wednesday), Model.Wednesday ?? false)
                             <label class="control-label">Wednesday</label>
                         </div>
                     </div>
                     <div class="row">
                         <div>
-                            @Html.CheckBoxFor(x => x.Thursday.Value)
+                            @Html.CheckBox(nameof(Model.Thursday), Model.Thursday ?? false)
                             <label class="control-label">Thursday</label>
                         </div>
                     </div>
                     <div class="row">
                         <div>
-                            @Html.CheckBoxFor(x => x.Friday.Value)
+                            @Html.CheckBox(nameof(Model.Friday), Model.Friday ?? false)
                             <label class="control-label">Friday</label>
                         </div>
                     </div>
                     <div class="row">
                         <div>
-                            @Html.CheckBoxFor(x => x.Saturday.Value)
+                            @Html.CheckBox(nameof(Model.Saturday), Model.Saturday ?? false)
                             <label class="control-label">Saturday</label>
                         </div>
                     </div>
                     <div class="row">
                         <div>
-                            @Html.CheckBoxFor(x => x.Sunday.Value)
+                            @Html.CheckBox(nameof(Model.Sunday), Model.Sunday ?? false)
                             @*<input type="checkbox" value="@Model.Sunday" />*@
                             <label class="control-label">Sunday</label>
                         </div>
@@ -81,5 +82,17 @@
                 $('#weekendfrm').submit();
             }
         }
+
+        //$('input').on('ifChanged', function (event) {
+        //    var hdnId = event.currentTarget.id.replace('_', '.');
+        //    debugger;
+        //    if (event.currentTarget.checked)
+        //        $('input[name=' + hdnId +']').val('true');
+        //    else
+        //        $('input[name=' + hdnId + ']').val('false');
+
+        //    debugger;
+        //    $(event.target).trigger('change');
+        //});
     </script>
 }

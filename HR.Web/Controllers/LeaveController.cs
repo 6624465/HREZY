@@ -961,7 +961,7 @@ namespace HR.Web.Controllers
         public ViewResult WeekendPolicyList()
         {
             var list = weekendPolicy.GetAll();
-            return View(list);
+            return View("WeekendPolicyList", list);
         }
 
         [HttpGet]
@@ -992,7 +992,7 @@ namespace HR.Web.Controllers
         {
             weekendPolicy.Add(weekendpolicy);
 
-            return View();
+            return WeekendPolicyList();
         }
     }
 

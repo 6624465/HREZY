@@ -20,7 +20,7 @@ namespace HR.Web.Services.Operation
                 {
                     EmployeeHeader empHeader = dbContext.EmployeeHeaders
                         .Where(x => x.EmployeeId == entity.EmployeeId).FirstOrDefault();
-                    if (empHeader != null)
+                    if (empHeader == null)
                     {
                         dbContext.EmployeeHeaders.Add(entity);
                     }

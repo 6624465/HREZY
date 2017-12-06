@@ -10,25 +10,20 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.User" Width="1.5" PointX="6.625" PointY="0.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeHeader" Width="1.5" PointX="10.25" PointY="5.375" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeePersonalDetail" Width="1.5" PointX="12.625" PointY="10.375" />
-        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeWorkDetail" Width="1.5" PointX="9.625" PointY="10.375" />
-        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeePersonalDetail" />
-        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeWorkDetail" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeWorkDetail" Width="1.5" PointX="9.625" PointY="11.5" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LookUp" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Company" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Address" Width="1.5" PointX="5.375" PointY="5.75" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.CompanyAddress" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.BranchAddress" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeAddress" Width="1.5" PointX="0.75" PointY="9.75" />
-        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeAddress" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveDetail" Width="1.5" PointX="12.375" PointY="0.875" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveHeader" Width="1.5" PointX="9.375" PointY="0.5" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.LeaveHeaderLeaveDetail" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.HolidayList" Width="1.5" PointX="7.375" PointY="5.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Width="1.5" PointX="3.375" PointY="12.75" />
-        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Role" Width="1.5" PointX="5.375" PointY="12.75" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderUser" />
-        <AssociationConnector Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.Leave" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.LeaveTransaction" Width="1.5" PointX="15.375" PointY="5.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" Width="1.5" PointX="7.375" PointY="15.75" />

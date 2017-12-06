@@ -27,6 +27,20 @@ namespace HR.Web.Services.Operation
                     }
                     else
                     {
+                        empWorkDetail.WorkDetailID = entity.WorkDetailID;
+                        empWorkDetail.BranchId = entity.BranchId;
+                        empWorkDetail.ConfirmationDate = entity.ConfirmationDate;
+                        empWorkDetail.CreatedBy = entity.CreatedBy;
+                        empWorkDetail.CreatedOn = entity.CreatedOn;
+                        empWorkDetail.DepartmentId = entity.DepartmentId;
+                        empWorkDetail.DesignationId = entity.DesignationId;
+                        empWorkDetail.EmployeeId = entity.EmployeeId;
+                        empWorkDetail.JoiningDate = entity.JoiningDate;
+                        empWorkDetail.ModifiedBy = entity.ModifiedBy;
+                        empWorkDetail.ModifiedOn = entity.ModifiedOn;
+                        empWorkDetail.NoticePeriod = entity.NoticePeriod;
+                        empWorkDetail.ProbationPeriod = entity.NoticePeriod;
+                        empWorkDetail.ResignationDate = entity.ResignationDate;
 
                     }
                     dbContext.SaveChanges();

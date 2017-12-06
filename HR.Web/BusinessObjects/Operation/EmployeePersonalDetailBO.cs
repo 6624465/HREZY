@@ -8,21 +8,21 @@ using System.Web;
 
 namespace HR.Web.BusinessObjects.Operation
 {
-    public class EmployeeWorkDetailBO : BaseBO
-    {
-        EmployeeWorkDetailService employeeWorkDetailService = null;
 
-        public EmployeeWorkDetailBO(SessionObj _sessionObj)
+    public class EmployeePersonalDetailBO : BaseBO
+    {
+        EmployeePersonalDetailService empPersonalDetailService = null;
+        public EmployeePersonalDetailBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
-            employeeWorkDetailService = new EmployeeWorkDetailService();
+            empPersonalDetailService = new EmployeePersonalDetailService();
         }
 
-        public void Add(EmployeeWorkDetail entity)
+        public void Add(EmployeePersonalDetail entity)
         {
             try
             {
-                employeeWorkDetailService.Add(entity);
+                empPersonalDetailService.Add(entity);
             }
             catch (Exception ex)
             {
@@ -32,11 +32,11 @@ namespace HR.Web.BusinessObjects.Operation
 
         }
 
-        public void Delete(EmployeeWorkDetail entity)
+        public void Delete(EmployeePersonalDetail entity)
         {
             try
             {
-                employeeWorkDetailService.Delete(entity);
+                empPersonalDetailService.Delete(entity);
             }
             catch (Exception ex)
             {
@@ -45,11 +45,11 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
-        public EmployeeWorkDetail GetById(int id)
+        public EmployeePersonalDetail GetById(int id)
         {
             try
             {
-                return employeeWorkDetailService.GetById(id);
+                return empPersonalDetailService.GetById(id);
             }
             catch (Exception ex)
             {
@@ -58,11 +58,11 @@ namespace HR.Web.BusinessObjects.Operation
             }
         }
 
-        public IEnumerable<EmployeeWorkDetail> GetAll()
+        public IEnumerable<EmployeePersonalDetail> GetAll()
         {
             try
             {
-                return employeeWorkDetailService.GetAll();
+                return empPersonalDetailService.GetAll();
             }
             catch (Exception ex)
             {

@@ -8,21 +8,21 @@ using System.Web;
 
 namespace HR.Web.BusinessObjects.Operation
 {
-    public class EmployeeWorkDetailBO : BaseBO
+    public class AddressBO : BaseBO
     {
-        EmployeeWorkDetailService employeeWorkDetailService = null;
+        AddressService addressServices = null;
 
-        public EmployeeWorkDetailBO(SessionObj _sessionObj)
+        public AddressBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
-            employeeWorkDetailService = new EmployeeWorkDetailService();
+            addressServices = new AddressService();
         }
 
-        public void Add(EmployeeWorkDetail entity)
+        public void Add(Address entity)
         {
             try
             {
-                employeeWorkDetailService.Add(entity);
+                addressServices.Add(entity);
             }
             catch (Exception ex)
             {
@@ -32,11 +32,11 @@ namespace HR.Web.BusinessObjects.Operation
 
         }
 
-        public void Delete(EmployeeWorkDetail entity)
+        public void Delete(Address entity)
         {
             try
             {
-                employeeWorkDetailService.Delete(entity);
+                addressServices.Delete(entity);
             }
             catch (Exception ex)
             {
@@ -45,11 +45,11 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
-        public EmployeeWorkDetail GetById(int id)
+        public Address GetById(int id)
         {
             try
             {
-                return employeeWorkDetailService.GetById(id);
+                return addressServices.GetById(id);
             }
             catch (Exception ex)
             {
@@ -58,11 +58,11 @@ namespace HR.Web.BusinessObjects.Operation
             }
         }
 
-        public IEnumerable<EmployeeWorkDetail> GetAll()
+        public IEnumerable<Address> GetAll()
         {
             try
             {
-                return employeeWorkDetailService.GetAll();
+                return addressServices.GetAll();
             }
             catch (Exception ex)
             {

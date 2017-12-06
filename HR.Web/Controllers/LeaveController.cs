@@ -956,6 +956,46 @@ namespace HR.Web.Controllers
 
             return RedirectToAction("ViewLeavesList");
         }
+
+        [HttpGet]
+        public ViewResult WeekendPolicyList()
+        {
+            var list = weekendPolicy.GetAll();
+            return View(list);
+        }
+
+        [HttpGet]
+        public ViewResult WeekEndPolicy(int branchId)
+        {
+            if (branchId == -1)
+            {
+                return View(new WeekendPolicy {
+                    Monday = false,
+                    Tuesday = false,
+                    Wednesday = false,
+                    Thursday = false,
+                    Friday = false,
+                    Saturday = false,
+                    Sunday = false
+                });
+            }
+            else
+            {
+                var _weekendPolicy = weekendPolicy.GetById(branchId);
+                return View(_weekendPolicy);
+            }            
+           
+        }
+
+        [HttpPost]
+        public ViewResult SaveWeekendPolicy(WeekendPolicy weekendpolicy)
+        {
+            weekendPolicy.Add(weekendpolicy);
+
+            return View();
+        }
     }
+
+    
 
 }

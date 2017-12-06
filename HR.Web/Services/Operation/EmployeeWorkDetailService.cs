@@ -6,7 +6,7 @@ using System.Web;
 
 namespace HR.Web.Services.Operation
 {
-    public class EmployeeWorkDetailService  :IRepository<EmployeeWorkDetail>
+    public class EmployeeWorkDetailService : IRepository<EmployeeWorkDetail>
     {
         public EmployeeWorkDetailService()
         {
@@ -19,9 +19,16 @@ namespace HR.Web.Services.Operation
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
+                    EmployeeWorkDetail empWorkDetail = dbContext.EmployeeWorkDetails
+                        .Where(x => x.WorkDetailID == entity.WorkDetailID).FirstOrDefault();
+                    if (empWorkDetail == null)
+                    {
+                        dbContext.EmployeeWorkDetails.Add(entity);
+                    }
+                    else
+                    {
 
-
-                    dbContext.EmployeeWorkDetails.Add(entity);
+                    }
                     dbContext.SaveChanges();
                 }
             }

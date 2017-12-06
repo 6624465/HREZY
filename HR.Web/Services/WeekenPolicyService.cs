@@ -22,7 +22,7 @@ namespace HR.Web.Services
                 {
                     WeekendPolicy weekendPolicy = dbContext.WeekendPolicies
                                         .Where(x => x.BranchId == entity.BranchId).FirstOrDefault();
-                    if (weekendPolicy != null)
+                    if (weekendPolicy == null)
                         dbContext.WeekendPolicies.Add(entity);
                     else
                     {

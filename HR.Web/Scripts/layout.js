@@ -119,7 +119,8 @@
     });
 
     $('.modal .modal-dialog').attr('class', 'modal-dialog  bounceIn  animated');
-
+    //$('.form-control').addClass('input-sm');
+    //$('.control-label').css('margin-bottom','10px');
     //function testAnim(x) {
     //    $('.modal .modal-dialog').attr('class', 'modal-dialog  ' + x + '  animated');
     //};

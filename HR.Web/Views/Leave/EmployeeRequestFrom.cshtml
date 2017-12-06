@@ -115,10 +115,11 @@
     <input type="hidden" name="isChecked" id="isChecked" />
     <input type="hidden" name="isLOP" id="isLOP" />
 }
-<link href="~/Css/sweetalert.css" rel="stylesheet" />
-<script src="~/Scripts/Core/sweetalert.js"></script>
-@section Scripts{
 
+@section Scripts{
+<link href="@Url.Content("~/Css/sweetalert.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/Core/sweetalert.js")"></script>
+<script src="@Url.Content("~/Scripts/moment-weekday-calc.js")"></script>
     <script type="text/javascript">
         $(function () {
 
@@ -229,7 +230,7 @@
             checkDates();
         });
 
-        $("#ToDate").on("change", function (e) {
+        $("#ToDate").on("change", function (e) {            
             var fromDate = $('#FromDt').find('input').val();
             if (fromDate != undefined && fromDate != "") {
                 var toDate = $('#ToDt').find('input').val();
@@ -249,11 +250,31 @@
                 $('#chkhalfday').removeAttr('checked');
                 $('.icheckbox_flat-blue').removeClass('checked');
             }
-            checkDates();
+            checkDates();            
+            
         });
+
+        var holidaysArray = [moment('12/25/2017', 'MM/DD/YYYY')]
+        function isoWeekDayCalc() {
+            debugger;
+            var fromDate = $('#FromDt').find('input').val();
+            var toDate = $('#ToDt').find('input').val();
+
+            var from = moment(fromDate, 'MM/DD/YYYY');
+            var to = moment(toDate, 'MM/DD/YYYY');
+
+            var temp = moment().isoWeekdayCalc({
+                rangeStart: from,
+                rangeEnd: to,
+                weekdays: [1, 2, 3, 4, 5], //weekdays Mon to Fri
+                exclusions: holidaysArray  //public holidays
+            }) //returns 260 (260 workdays excluding two public holidays)
+            debugger;
+        }
 
         $("#ToDate").on("blur", function (e) {
             checkDates();
+            isoWeekDayCalc();
         });
         $("#FromDate").on("blur", function (e) {
             checkDates();

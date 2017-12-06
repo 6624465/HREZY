@@ -18,6 +18,31 @@ namespace HR.Web.BusinessObjects.Operation
             empPersonalDetailService = new EmployeePersonalDetailService();
         }
 
+        public void MapPersonalDetail(EmployeePersonalDetail empPerDetail)
+        {
+            empPerDetail = new EmployeePersonalDetail
+            {
+                EmployeeId = empPerDetail.EmployeeId,
+                BranchId = sessionObj.BRANCHID,
+                DOB = empPerDetail.DOB,
+                Gender = empPerDetail.Gender, //
+                BirthCountry = empPerDetail.BirthCountry, //
+                CitizenshipCountry = "", //
+                FatherName =empPerDetail.FatherName,
+                MaritalStatus = empPerDetail.MaritalStatus,
+                SpouseName = empPerDetail.SpouseName, //
+                EmergencyContactName = empPerDetail.EmergencyContactName,
+                EmergencyContactNumber = empPerDetail.EmergencyContactNumber,
+                MarriageDate = empPerDetail.MarriageDate, //
+                ResidentialStatus = empPerDetail.ResidentialStatus, //
+                CreatedBy = sessionObj.USERID,
+                CreatedOn = UTILITY.SINGAPORETIME,
+                ModifiedBy = sessionObj.USERID,
+                ModifiedOn = UTILITY.SINGAPORETIME
+            };
+
+        }
+
         public void Add(EmployeePersonalDetail entity)
         {
             try

@@ -18,6 +18,8 @@ namespace HR.Web.BusinessObjects.Operation
             empDocDetailService = new EmployeeDocumentDetailService();
         }
 
+
+
         public void Add(EmployeeDocumentDetail entity)
         {
             try

@@ -1722,6 +1722,8 @@
     <Compile Include="ActionFilters\SessionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BusinessObjects\BaseBO.cs" />
+    <Compile Include="BusinessObjects\Operation\EmployeeWorkDetailBO.cs" />
+    <Compile Include="BusinessObjects\Operation\EmployeeHeaderBO.cs" />
     <Compile Include="BusinessObjects\WeekendPolicyBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
@@ -1838,6 +1840,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IRepository.cs" />
+    <Compile Include="Services\Operation\EmployeeHeaderService.cs" />
+    <Compile Include="Services\Operation\EmployeeWorkDetailService.cs" />
     <Compile Include="Services\WeekenPolicyService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />
     <Compile Include="ViewModels\AppliedLeaveVm.cs" />

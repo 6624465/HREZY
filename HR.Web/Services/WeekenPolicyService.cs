@@ -1,4 +1,5 @@
-﻿using HR.Web.Models;
+﻿using HR.Web.Controllers;
+using HR.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,10 @@ namespace HR.Web.Services
 {
     public class WeekendPolicyService : IRepository<WeekendPolicy>
     {
-        public WeekendPolicyService()
+        SessionObj sessionobj;
+        public WeekendPolicyService(SessionObj _sessionobj)
         {
-
+            sessionobj = _sessionobj;
         }
         public void Add(WeekendPolicy entity)
         {
@@ -18,7 +20,24 @@ namespace HR.Web.Services
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    dbContext.WeekendPolicies.Add(entity);
+                    WeekendPolicy weekendPolicy = dbContext.WeekendPolicies
+                                        .Where(x => x.BranchId == entity.BranchId).FirstOrDefault();
+                    if (weekendPolicy != null)
+                        dbContext.WeekendPolicies.Add(entity);
+                    else
+                    {
+                        weekendPolicy.CreateBy = entity.CreateBy;
+                        weekendPolicy.CreatedOn = entity.CreatedOn;
+                        weekendPolicy.ModifiedBy = entity.ModifiedBy;
+                        weekendPolicy.ModifiedOn = entity.ModifiedOn;
+                        weekendPolicy.Monday = entity.Monday;
+                        weekendPolicy.Tuesday = entity.Tuesday;
+                        weekendPolicy.Wednesday = entity.Wednesday;
+                        weekendPolicy.Thursday = entity.Thursday;
+                        weekendPolicy.Friday = entity.Friday;
+                        weekendPolicy.Saturday = entity.Saturday;
+                        weekendPolicy.Sunday = entity.Sunday;
+                    }
                     dbContext.SaveChanges();
                 }
             }
@@ -86,6 +105,7 @@ namespace HR.Web.Services
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
+
                     dbContext.SaveChanges();
                 }
             }

@@ -11,7 +11,7 @@ namespace HR.Web
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var SSN_USERID = ((SessionObj)HttpContext.Current.Session[UTILITY.SSN_USERID]).USERID;
+            var SSN_USERID = ((SessionObj)HttpContext.Current.Session[UTILITY.SSN_OBJECT]).USERID;
             if (string.IsNullOrWhiteSpace(SSN_USERID))
             {
                 filterContext.Result = new RedirectResult("~/Account/Login");

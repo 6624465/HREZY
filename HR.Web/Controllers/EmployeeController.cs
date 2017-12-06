@@ -10,6 +10,7 @@ using System.IO;
 using System.Data.Entity.SqlServer;
 using System.Data.Entity;
 using System.Linq.Expressions;
+using HR.Web.BusinessObjects.Operation;
 
 namespace HR.Web.Controllers
 {
@@ -17,6 +18,20 @@ namespace HR.Web.Controllers
     [SessionFilter]
     public class EmployeeController : BaseController
     {
+        EmployeeHeaderBO empHeaderBO = null;
+        EmployeePersonalDetailBO empPersonalDetailBO = null;
+        EmployeeDocumentDetailBO empDocDetailBO = null;
+        EmployeeWorkDetailBO empWorkDetailBO = null;
+        AddressBO addressBO = null;
+        public EmployeeController()
+        {
+
+            empHeaderBO = new EmployeeHeaderBO(SESSIONOBJ);
+            empPersonalDetailBO = new EmployeePersonalDetailBO(SESSIONOBJ);
+            empDocDetailBO = new EmployeeDocumentDetailBO(SESSIONOBJ);
+            empWorkDetailBO = new EmployeeWorkDetailBO(SESSIONOBJ);
+            addressBO = new AddressBO(SESSIONOBJ);
+        }
         [HttpGet]
         public ViewResult employeedirectory()
         {
@@ -282,7 +297,8 @@ namespace HR.Web.Controllers
                             //UserId = 0
 
                         };
-                        dbCntx.EmployeeHeaders.Add(empHdr);
+                        empHeaderBO.Add(empHdr);
+                        //  dbCntx.EmployeeHeaders.Add(empHdr);
                         var empPerDetail = new EmployeePersonalDetail
                         {
                             EmployeeId = empHdr.EmployeeId,
@@ -303,7 +319,8 @@ namespace HR.Web.Controllers
                             ModifiedBy = USERID,
                             ModifiedOn = UTILITY.SINGAPORETIME
                         };
-                        dbCntx.EmployeePersonalDetails.Add(empPerDetail);
+                        empPersonalDetailBO.Add(empPerDetail);
+                        // dbCntx.EmployeePersonalDetails.Add(empPerDetail);
                         var empWorkDetail = new EmployeeWorkDetail
                         {
                             BranchId = BRANCHID,
@@ -319,7 +336,8 @@ namespace HR.Web.Controllers
                             ModifiedBy = USERID,
                             ModifiedOn = UTILITY.SINGAPORETIME
                         };
-                        dbCntx.EmployeeWorkDetails.Add(empWorkDetail);
+                        empWorkDetailBO.Add(empWorkDetail);
+                        //dbCntx.EmployeeWorkDetails.Add(empWorkDetail);
                         var empAddress = new Address
                         {
                             LinkID = empHdr.EmployeeId,
@@ -341,7 +359,8 @@ namespace HR.Web.Controllers
                             ModifiedBy = USERID,
                             ModifiedOn = UTILITY.SINGAPORETIME
                         };
-                        dbCntx.Addresses.Add(empAddress);
+                        addressBO.Add(empAddress);
+                        // dbCntx.Addresses.Add(empAddress);
                         dbCntx.SaveChanges();
                         foreach (var item in empVm.empDocument)
                         {
@@ -393,10 +412,10 @@ namespace HR.Web.Controllers
                             CurrentCasualLeaves = leave.CasualLeavesPerMonth.Value,
                             CurrentPaidLeaves = leave.PaidLeavesPerMonth.Value,
                             CurrentSickLeaves = leave.SickLeavesPerMonth.Value,
-                            EmployeeId=empHdr.EmployeeId,
+                            EmployeeId = empHdr.EmployeeId,
                             FromDt = UTILITY.SINGAPORETIME,
                             ToDt = UTILITY.SINGAPORETIME,
-                            PreviousCasualLeaves=leave.CasualLeavesPerMonth.Value,
+                            PreviousCasualLeaves = leave.CasualLeavesPerMonth.Value,
                             PreviousPaidLeaves = leave.PaidLeavesPerMonth.Value,
                             PreviousSickLeaves = leave.SickLeavesPerMonth.Value,
                             ModifiedBy = USERID,

@@ -14,7 +14,7 @@
     
     @*<link href="@Url.Content("~/Css/skins/flat/green.css")" rel="stylesheet" />*@
     <!-- Plugins -->    
-    
+    @RenderSection("TopStyles", false)
     <link rel="stylesheet" href="@Url.Content("~/Css/waves.css")">
     <link rel="stylesheet" href="@Url.Content("~/Css/perfect-scrollbar.css")">
     <!-- Css/Less Stylesheets -->
@@ -91,12 +91,12 @@
             background: rgba(255,0,0,0.4);
         }
 
-        tr th {
+        .table tr th {
             background-color: #3f51b5;
             color: white;
         }
 
-        tr th a {
+        .table tr th a {
             color: white;
         }
 

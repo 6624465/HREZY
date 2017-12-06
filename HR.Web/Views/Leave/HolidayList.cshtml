@@ -2,12 +2,19 @@
 
 @model HR.Web.ViewModels.holidayVm
 
-@section Styles{
+@section TopStyles{
 
     <link href="@Url.Content("~/Css/fullcalendar.css")" rel="stylesheet" />
     <style>
         .fc-time {
             display: none;
+        }
+
+        .main-container .content-container.fixedHeader .page {
+            margin-top: 0px;
+        }
+        page {
+            padding: 0px;
         }
     </style>
 }
@@ -16,55 +23,38 @@
 
 
 <div class="page">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default panel-hovered panel-stacked mb10">
-                <div class="panel-heading">
-                    Holiday List
-                </div>
-                <div class="panel-body">
+    <div class="page-wrap">
+        <div class="panel panel-default panel-hovered panel-stacked mb10">
+            <div class="box">
+                <div class="box-header">
+                    <h4>Holiday List</h4>
                     @if (ViewData["RoleCode"].ToString() != UTILITY.ROLE_EMPLOYEE)
                     {
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right">
-                                    <button type="button" onclick="AddHoliday(-1)" class="btn btn-info btn-raised waves-effect btn-sm"><i class="fa fa-plus"></i>Add</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="box-tools">
+                        <button type="button" onclick="AddHoliday(-1)" class="btn btn-info btn-raised waves-effect btn-sm"><i class="fa fa-plus"></i>Add</button>
+                    </div>
                     }
+                </div>
+                <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <!-- Calendar page -->
-                            <div class="page page-app-calendar">
-
-                                <div class="page-wrap">
-                                    <div class="calendar-toolbar mb20 text-center">
-                                        <div class="btn-group btn-group-sm left">
-                                            <button type="button" class="btn btn-default ion ion-arrow-left-c prev-btn"></button>
-                                            <button type="button" class="btn btn-default ion ion-arrow-right-c next-btn"></button>
-                                        </div>
-                                        <button type="button" class="btn btn-default btn-sm ml15 left today-btn">Today</button>
-                                        <strong class="text-uppercase current-date"></strong>
-                                        @*<div class="btn-group btn-group-sm right">
-                                                <button type="button" class="btn btn-default view-month">Month</button>
-                                                <button type="button" class="btn btn-default view-week">Week</button>
-                                                <button type="button" class="btn btn-default view-day">Day</button>
-                                            </div>*@
-                                    </div>
-                                    <!-- calendar -->
-                                    <div id="fullCalendar" style="z-index:9;"></div>
-
-
-                                </div><!-- #end page-wrap -->
+                            <div class="calendar-toolbar mb20 text-center">
+                                <div class="btn-group btn-group-sm left">
+                                    <button type="button" class="btn btn-default ion ion-arrow-left-c prev-btn"></button>
+                                    <button type="button" class="btn btn-default ion ion-arrow-right-c next-btn"></button>
+                                </div>
+                                <button type="button" class="btn btn-default btn-sm ml15 left today-btn">Today</button>
+                                <strong class="text-uppercase current-date"></strong>
                             </div>
-                            <!-- #end calendar page -->
+                            <div id="fullCalendar" style="z-index:9;"></div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
+
 </div>
 
 

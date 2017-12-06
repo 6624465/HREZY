@@ -498,14 +498,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="EmployeeHeaders" EntityType="DB_9F30C5_HRDBModel.EmployeeHeader" />
           <EntitySet Name="EmployeePersonalDetails" EntityType="DB_9F30C5_HRDBModel.EmployeePersonalDetail" />
           <EntitySet Name="EmployeeWorkDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeWorkDetail" />
-          <AssociationSet Name="EmployeeHeaderEmployeePersonalDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeePersonalDetail">
-            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
-            <End Role="EmployeePersonalDetail" EntitySet="EmployeePersonalDetails" />
-          </AssociationSet>
-          <AssociationSet Name="EmployeeHeaderEmployeeWorkDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeWorkDetail">
-            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
-            <End Role="EmployeeWorkDetail" EntitySet="EmployeeWorkDetails" />
-          </AssociationSet>
           <EntitySet Name="LookUps" EntityType="DB_9F30C5_HRDBModel.LookUp" />
           <EntitySet Name="Companies" EntityType="DB_9F30C5_HRDBModel.Company" />
           <EntitySet Name="Addresses" EntityType="DB_9F30C5_HRDBModel.Address" />
@@ -518,10 +510,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
             <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
           <EntitySet Name="EmployeeAddresses" EntityType="DB_9F30C5_HRDBModel.EmployeeAddress" />
-          <AssociationSet Name="EmployeeHeaderEmployeeAddress" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeAddress">
-            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
-            <End Role="EmployeeAddress" EntitySet="EmployeeAddresses" />
-          </AssociationSet>
           <EntitySet Name="LeaveDetails" EntityType="DB_9F30C5_HRDBModel.LeaveDetail" />
           <EntitySet Name="LeaveHeaders" EntityType="DB_9F30C5_HRDBModel.LeaveHeader" />
           <AssociationSet Name="LeaveHeaderLeaveDetail" Association="DB_9F30C5_HRDBModel.LeaveHeaderLeaveDetail">
@@ -530,18 +518,10 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           </AssociationSet>
           <EntitySet Name="HolidayLists" EntityType="DB_9F30C5_HRDBModel.HolidayList" />
           <EntitySet Name="EmployeeDocumentDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" />
-          <AssociationSet Name="EmployeeHeaderEmployeeDocumentDetail" Association="DB_9F30C5_HRDBModel.EmployeeHeaderEmployeeDocumentDetail">
-            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
-            <End Role="EmployeeDocumentDetail" EntitySet="EmployeeDocumentDetails" />
-          </AssociationSet>
           <EntitySet Name="Roles" EntityType="DB_9F30C5_HRDBModel.Role" />
           <AssociationSet Name="EmployeeHeaderUser" Association="DB_9F30C5_HRDBModel.EmployeeHeaderUser">
             <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
             <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="EmployeeHeaderAddress" Association="DB_9F30C5_HRDBModel.EmployeeHeaderAddress">
-            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
-            <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
           <FunctionImport Name="usp_EmployeeDateOfJoiningDate" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDateOfJoiningDate_Result)">
             <Parameter Name="CurrentDt" Mode="In" Type="DateTime" />
@@ -660,34 +640,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="EmployeeHeaderEmployeePersonalDetail">
-          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.EmployeePersonalDetail" Role="EmployeePersonalDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeHeader">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="EmployeePersonalDetail">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="EmployeeHeaderEmployeeWorkDetail">
-          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.EmployeeWorkDetail" Role="EmployeeWorkDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeHeader">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="EmployeeWorkDetail">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="LookUp">
           <Key>
             <PropertyRef Name="LookUpID" />
@@ -800,20 +752,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="EmployeeHeaderEmployeeAddress">
-          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.EmployeeAddress" Role="EmployeeAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeHeader">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="EmployeeAddress">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="LeaveDetail">
           <Key>
             <PropertyRef Name="LeaveDetailID" />
@@ -886,20 +824,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="EmployeeHeaderEmployeeDocumentDetail">
-          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" Role="EmployeeDocumentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeHeader">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="EmployeeDocumentDetail">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -923,20 +847,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="EmployeeHeaderAddress">
-          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.Address" Role="Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeHeader">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="LinkID" />
               <PropertyRef Name="BranchId" />
             </Dependent>
           </ReferentialConstraint>

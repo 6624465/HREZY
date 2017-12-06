@@ -1,27 +1,28 @@
 ﻿using HR.Web.Controllers;
 using HR.Web.Models;
-using HR.Web.Services;
+using HR.Web.Services.Operation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace HR.Web.BusinessObjects
+namespace HR.Web.BusinessObjects.Operation
 {
-    public class WeekendPolicyBO : BaseBO
+    public class EmployeeHeaderBO : BaseBO
     {
-        WeekendPolicyService weekenPolicyService = null;
-        public WeekendPolicyBO(SessionObj _sessionObj)
+        EmployeeHeaderService employeeHeaderService = null;
+
+        public EmployeeHeaderBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
-            weekenPolicyService = new WeekendPolicyService(sessionObj);
+            employeeHeaderService = new EmployeeHeaderService();
         }
 
-        public void Add(WeekendPolicy entity)
+        public void Add(EmployeeHeader entity)
         {
             try
             {
-                weekenPolicyService.Add(entity);
+                employeeHeaderService.Add(entity);
             }
             catch (Exception ex)
             {
@@ -31,11 +32,11 @@ namespace HR.Web.BusinessObjects
 
         }
 
-        public void Update(WeekendPolicy entity)
+        public void Update(EmployeeHeader entity)
         {
             try
             {
-                weekenPolicyService.Add(entity);
+                employeeHeaderService.Update(entity);
             }
             catch (Exception ex)
             {
@@ -45,11 +46,11 @@ namespace HR.Web.BusinessObjects
 
         }
 
-        public void Delete(WeekendPolicy entity)
+        public void Delete(EmployeeHeader entity)
         {
             try
             {
-                weekenPolicyService.Delete(entity);
+                employeeHeaderService.Delete(entity);
             }
             catch (Exception ex)
             {
@@ -58,11 +59,11 @@ namespace HR.Web.BusinessObjects
             }
 
         }
-        public WeekendPolicy GetById(int id)
+        public EmployeeHeader GetById(int id)
         {
             try
             {
-                return weekenPolicyService.GetById(id);
+                return employeeHeaderService.GetById(id);
             }
             catch (Exception ex)
             {
@@ -71,11 +72,11 @@ namespace HR.Web.BusinessObjects
             }
         }
 
-        public IEnumerable<WeekendPolicy> GetAll()
+        public IEnumerable<EmployeeHeader> GetAll()
         {
             try
             {
-                return weekenPolicyService.GetAll();
+                return employeeHeaderService.GetAll();
             }
             catch (Exception ex)
             {

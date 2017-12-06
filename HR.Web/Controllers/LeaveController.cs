@@ -965,18 +965,25 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ViewResult WeekEndPolicy()
+        public ViewResult WeekEndPolicy(int branchId)
         {
-            //if (branchId == -1)
-            //{
-            //    return View(new WeekendPolicy());
-            //}
-            //else
-            //{
-            //    var _weekendPolicy = weekendPolicy.GetById(branchId);
-            //    return View(_weekendPolicy);
-            //}
-            return View();
+            if (branchId == -1)
+            {
+                return View(new WeekendPolicy {
+                    Monday = false,
+                    Tuesday = false,
+                    Wednesday = false,
+                    Thursday = false,
+                    Friday = false,
+                    Saturday = false,
+                    Sunday = false
+                });
+            }
+            else
+            {
+                var _weekendPolicy = weekendPolicy.GetById(branchId);
+                return View(_weekendPolicy);
+            }            
            
         }
 
@@ -989,20 +996,6 @@ namespace HR.Web.Controllers
         }
     }
 
-    public class WeekendPolicyVm
-    {
-        public int BranchId { get; set; }
-        public bool Monday { get; set; }
-        public bool Tuesday { get; set; }
-        public bool Wednesday { get; set; }
-        public bool Thursday { get; set; }
-        public bool Friday { get; set; }
-        public bool Saturday { get; set; }
-        public bool Sunday { get; set; }
-        public string CreateBy { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public string ModifiedBy { get; set; }
-        public System.DateTime ModifiedOn { get; set; }
-    }
+    
 
 }

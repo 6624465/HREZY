@@ -70,12 +70,27 @@
                     <div class="panel-body">
                         <div class="clearfix">
                             <div class="info left">
-                                <h4 class="text-light mb0">Casual Leaves</h4>
+                                <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalSLs.ToString("##.#0")<span>&nbsp;&nbsp;in this month</span></b></h4>
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
-                        <p class="mt0 mb0 left">@Model.totalCLs<span>&nbsp;&nbsp;in this year</span></p>
+                        <p class="mt0 mb0 left"><span style="font-weight:bold;">Sick Leaves</span></p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default mb20 mini-box panel-hovered">
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            <div class="info left">
+                                <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalPLs.ToString("##.#0")<span>&nbsp;&nbsp;in this year</span></b></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                        <p class="mt0 mb0 left"><span style="font-weight:bold;">Paid Leaves</span></p>
                     </div>
                 </div>
             </div>
@@ -84,12 +99,12 @@
                     <div class="panel-body">
                         <div class="clearfix">
                             <div class="info left">
-                                <h4 class="text-light mb0">Paid Leaves</h4>
+                                <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalCLs.ToString("#0.#0")<span>&nbsp;&nbsp;in this year</span></b></h4>
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
-                        <p class="mt0 mb0 left">@Model.totalPLs.ToString()<span>&nbsp;&nbsp;in this year</span></p>
+                        <p class="mt0 mb0 left"><span style="font-weight:bold;">Casual Leaves</span></p>
                     </div>
                 </div>
             </div>
@@ -98,12 +113,15 @@
                     <div class="panel-body">
                         <div class="clearfix">
                             <div class="info left">
-                                <h4 class="text-light mb0">Sick Leaves</h4>
+                                @*<h4 class="mt0 text-pink text-bold">10K+</h4>*@
+                                <h4 class="text-light mb0"><b class="mt0 mb0 left"><a style="text-decoration:underline" target="_blank" href="@Url.Content("~/Uploads/Sample_PaySlip.pdf")">Download payslip</a></b></h4>
                             </div>
+                            @*<div class="right ion ion-ios-cloud-download-outline icon"></div>*@
                         </div>
                     </div>
-                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
-                        <p class="mt0 mb0 left">@Model.totalSLs<span>&nbsp;&nbsp;in this month</span></p>
+                    <div class="panel-footer clearfix panel-footer-sm panel-footer-pink">
+                        <p class="mt0 mb0 left"><span style="font-weight:bold;">Download previous payslips</span></p>
+                        @*<span class="sparkline right" data-type="bar" data-barcolor="#fff" data-width="1.15em" data-height="1.15em"><canvas style="display: inline-block; width: 29px; height: 14px; vertical-align: top;" width="29" height="14"></canvas></span>*@
                     </div>
                 </div>
             </div>

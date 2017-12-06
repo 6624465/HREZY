@@ -30,7 +30,7 @@ namespace HR.Web.Helpers
                 if (flag)
                 {
                     leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
-                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves!=0 ? leaveListCalc.currentPaidLeaves - obj.Days.Value : leaveListCalc.currentPaidLeaves;
+                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves != 0 ? leaveListCalc.currentPaidLeaves - obj.Days.Value : leaveListCalc.currentPaidLeaves;
                 }
                 else
                 {
@@ -49,7 +49,30 @@ namespace HR.Web.Helpers
                 leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days.Value;
         }
 
+        public static double GetBusinessDays(DateTime startDate, DateTime endDate)
+        {
+            DateTime[] holidaysList = new DateTime[] {
+                new DateTime(2017,12,25)
+            };
 
+            double? calCBusinessDays = 1 + ((endDate - startDate).TotalDays * 5 -
+                                     (startDate.DayOfWeek - endDate.DayOfWeek) * 2) / 7;
+
+            foreach (var holiday in holidaysList)
+            {
+                DateTime _holiday = holiday.Date;
+                if (startDate <= _holiday && _holiday <= endDate)
+                    calCBusinessDays--;
+            }
+            //if (startDate.DayOfWeek == DayOfWeek.Saturday)
+            //    calCBusinessDays--;
+            //if (endDate.DayOfWeek == DayOfWeek.Sunday)
+            //    calCBusinessDays--;
+
+            
+
+            return calCBusinessDays.Value;
+        }
 
     }
 }

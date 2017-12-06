@@ -236,6 +236,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
+            EmployeeLeaveList.Days = (decimal)CalculateLeavesTransaction.GetBusinessDays(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate);
             bool ishalfday = false;
             if (Request.Form["isChecked"] != null && Request.Form["isChecked"] != "")
             {
@@ -261,7 +262,8 @@ namespace HR.Web.Controllers
                 LeaveTransaction leavetransaction = dbCntx.LeaveTransactions
                         .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID).OrderByDescending(x => x.CreatedOn)
                         .FirstOrDefault();
-                if (leavetransaction == null) {
+                if (leavetransaction == null)
+                {
                     Leave leave = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault();
 
                     leavetransaction = new LeaveTransaction()

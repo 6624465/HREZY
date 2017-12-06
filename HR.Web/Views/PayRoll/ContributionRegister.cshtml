@@ -1,4 +1,5 @@
 ﻿@model HR.Web.Models.Contribution
+<link href="~/Css/sweetalert.css" rel="stylesheet" />
 @using (Html.BeginForm("ContributionSave","PayRoll",FormMethod.Post, new { id="contributionfrm",name= "contributionfrm" }))
 {
 <div class="page">
@@ -40,7 +41,7 @@
                                 <div class="col-md-8"></div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary btn-sm" onclick="ContributionSave()">Save</button>
-                                    <button class="btn btn-primary btn-sm" type="reset" onclick="close();">Discard</button>
+                                    <button class="btn btn-primary btn-sm" type="reset" onclick="return swal('Sure you want to discard it')">Discard</button>
                                 </div>
                             </div>
                         </div>
@@ -50,6 +51,8 @@
   </div>
 </div>
 }
+<link href="~/Css/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/Core/sweetalert.js"></script>
 @section Scripts{
     <script type="text/javascript">
         function ContributionSave() {
@@ -57,8 +60,6 @@
                 $('#contributionfrm').submit();
             }
         }
-        function close() {
-            Alert("Sure u want to discard the changes");
-        }
+        
     </script>
     }

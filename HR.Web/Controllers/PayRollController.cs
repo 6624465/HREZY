@@ -85,6 +85,18 @@ namespace HR.Web.Controllers
             return RedirectToAction("ContributionRegisterList");
         }
 
+        [HttpPost]
+        public JsonResult ContributionDelete(int contributionid)
+        {
+            using (var dbcntx = new HrDataContext())
+            {
+                var record = dbcntx.Contributions.Where(x => x.ContributionId == contributionid).FirstOrDefault();
+                dbcntx.Contributions.Remove(record);
+                dbcntx.SaveChanges();
+            }
+            return Json(new { message = "success" }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult SalaryRulesList()
         {

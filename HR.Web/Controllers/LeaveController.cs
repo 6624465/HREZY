@@ -775,14 +775,10 @@ namespace HR.Web.Controllers
             {
                 ViewBag.RoleCode = ROLECODE;
 
-                Leave leave = null;
-                if (leaveId != 0)
-                {
-                    leave = dbContext.Leaves
+                Leave leave = dbContext.Leaves
                                 .leaveWhere(BRANCHID, ROLECODE)
                                 .FirstOrDefault();
-                }
-                else
+                if (leave == null)
                     leave = new Leave();
                 return View(leave);
             }

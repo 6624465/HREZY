@@ -41,12 +41,12 @@
             </div>
     </text>),*@
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editEmpType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
-                tableStyle: "table table-condensed")
+                tableStyle: "table table-condensed table-bordered")
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                            <div>@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
                         </div>
                     </div>                    
                 </div>

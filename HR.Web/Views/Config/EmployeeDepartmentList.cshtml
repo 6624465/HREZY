@@ -24,12 +24,12 @@
                 grid.Column("LookUpDescription", "Employee Department Description", canSort: true),
                 @*grid.Column("IsActive", "Status",format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
                 grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDepartment(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
-                tableStyle: "table table-condensed")
+                tableStyle: "table table-condensed table-bordered")
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                            <div>@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
                         </div>
                     </div>
                 </div>

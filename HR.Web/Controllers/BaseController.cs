@@ -5,8 +5,17 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace HR.Web.Controllers
-{    
-    
+{
+    public class SessionObj
+    {
+        public string USERID { get; set; }
+        public int EMPLOYEEID { get; set; }
+        public int BRANCHID { get; set; }
+        public string ROLECODE { get; set; }
+        public bool ISMANAGER { get; set; }
+
+    }
+
     public class BaseController : Controller
     {
 
@@ -14,7 +23,7 @@ namespace HR.Web.Controllers
         {
             get
             {
-                return (string)System.Web.HttpContext.Current.Session[UTILITY.SSN_USERID];
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).USERID;
             }
             set
             {
@@ -26,7 +35,7 @@ namespace HR.Web.Controllers
         {
             get
             {
-                return (int)System.Web.HttpContext.Current.Session[UTILITY.SSN_EMPLOYEEID];
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).EMPLOYEEID;
             }
             set
             {
@@ -38,7 +47,7 @@ namespace HR.Web.Controllers
         {
             get
             {
-                return (int)System.Web.HttpContext.Current.Session[UTILITY.SSN_BRANCHID];
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).BRANCHID;
             }
             set
             {
@@ -50,7 +59,7 @@ namespace HR.Web.Controllers
         {
             get
             {
-                return (string)System.Web.HttpContext.Current.Session[UTILITY.CONFIG_ROLECODE];
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).ROLECODE;
             }
             set
             {
@@ -61,7 +70,7 @@ namespace HR.Web.Controllers
         {
             get
             {
-                return (bool)System.Web.HttpContext.Current.Session[UTILITY.CONFIG_MANAGER];
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).ISMANAGER;
             }
             set
             {
@@ -69,10 +78,22 @@ namespace HR.Web.Controllers
             }
         }
 
+        public SessionObj SESSIONOBJ
+        {
+            get
+            {
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]);
+            }
+            set
+            {
+                Session[UTILITY.SSN_OBJECT] = value;
+            }
+        }
+
         public string GetRoleIcon()
         {
             var cssCls = string.Empty;
-            var roleCode = System.Web.HttpContext.Current.Session[UTILITY.CONFIG_ROLECODE].ToString();
+            var roleCode = ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).ROLECODE;
             if (roleCode == UTILITY.ROLE_EMPLOYEE)
             {
                 cssCls = "fa fa-user-o";

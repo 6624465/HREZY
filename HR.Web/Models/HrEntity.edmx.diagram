@@ -38,6 +38,7 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryRuleInput" Width="1.5" PointX="11.375" PointY="15.75" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.SalaryRuleHeaderSalaryRuleDetail" />
         <AssociationConnector Association="DB_9F30C5_HRDBModel.SalaryRuleHeaderSalaryRuleInput" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.WeekendPolicy" Width="1.5" PointX="13.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

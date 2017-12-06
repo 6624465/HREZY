@@ -1721,6 +1721,8 @@
   <ItemGroup>
     <Compile Include="ActionFilters\SessionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BusinessObjects\BaseBO.cs" />
+    <Compile Include="BusinessObjects\WeekendPolicyBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -1830,8 +1832,13 @@
     <Compile Include="Models\usp_EmployeeDetail_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WeekendPolicy.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\IRepository.cs" />
+    <Compile Include="Services\WeekenPolicyService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />
     <Compile Include="ViewModels\AppliedLeaveVm.cs" />
     <Compile Include="ViewModels\BranchVm.cs" />

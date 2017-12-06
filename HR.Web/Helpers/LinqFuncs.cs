@@ -48,7 +48,7 @@ namespace HR.Web
             }
             else if (RoleCode == UTILITY.ROLE_ADMIN)
             {
-                viewName = "AppliedLeaveListAdmin";
+                viewName = "AppliedLeaveList";
                 return empLeaveList.Where(x => x.BranchId == BranchID);
             }
             else if (RoleCode == UTILITY.ROLE_EMPLOYEE)

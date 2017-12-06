@@ -19,7 +19,7 @@ namespace HR.Web.Services.Operation
                 using (HrDataContext dbContext = new HrDataContext())
                 {
                     Address address = dbContext.Addresses
-                        .Where(x => x.AddressId == entity.AddressId).FirstOrDefault();
+                        .Where(x => x.LinkID == entity.LinkID).FirstOrDefault();
                     if (address == null)
                     {
                        
@@ -27,7 +27,7 @@ namespace HR.Web.Services.Operation
                     }
                     else
                     {
-                        address.AddressId = entity.AddressId;
+                        //address.AddressId = entity.AddressId;
                         address.LinkID = entity.LinkID;
                         address.BranchId = entity.BranchId;
                         address.SeqNo = entity.SeqNo;

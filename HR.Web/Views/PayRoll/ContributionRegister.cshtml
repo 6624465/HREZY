@@ -61,26 +61,25 @@
             }
         }
         function discardchanges() {
+            debugger;
             swal({
-                title: "Are you sure?",
-                text: "You Want to discard the changes",
+                title: "Alert!",
+                text: "Do you want to discard the changes",
                 type: "warning",
-                showCancelButton: true,
+                showCancelButton: false,
                 closeOnConfirm: false,
                 confirmButtonText: "Discard",
                 confirmButtonClass: "btn-danger"
             },
-            function (isConfirm){
-            if(isConfirm){
-                    swal("Discarded!","you have discarded","success")
+            function(isConfirm){
+                if(isConfirm){
+                    swal("Discarded!","you have discarded the changes","success")
+                }
+                //else{
+                //    swal("Cancelled!","","error")
+                //}
             }
-            else
-            {
-                swal("Cancelled!","","error")
-              }
-            }
-          )  
-
+            )
         }
       
         

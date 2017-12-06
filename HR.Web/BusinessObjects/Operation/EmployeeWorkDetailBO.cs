@@ -36,7 +36,7 @@ namespace HR.Web.BusinessObjects.Operation
         {
             try
             {
-                employeeWorkDetailService.Update(entity);
+                employeeWorkDetailService.Add(entity);
             }
             catch (Exception ex)
             {

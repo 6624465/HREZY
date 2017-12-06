@@ -19,6 +19,8 @@ namespace HR.Web.Services.Operation
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
+
+
                     dbContext.EmployeeWorkDetails.Add(entity);
                     dbContext.SaveChanges();
                 }

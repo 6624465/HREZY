@@ -18,7 +18,34 @@ namespace HR.Web.Services.Operation
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    dbContext.EmployeeHeaders.Add(entity);
+                    EmployeeHeader empHeader = dbContext.EmployeeHeaders
+                        .Where(x => x.EmployeeId == entity.EmployeeId).FirstOrDefault();
+                    if (empHeader != null)
+                    {
+                        dbContext.EmployeeHeaders.Add(entity);
+                    }
+                    else
+                    {
+                        empHeader.BranchId = entity.BranchId;
+                        empHeader.ConfirmPassword = entity.ConfirmPassword;
+                        empHeader.CreatedBy = entity.CreatedBy;
+                        empHeader.CreatedOn = entity.CreatedOn;
+                        empHeader.EmployeeId = entity.EmployeeId;
+                        empHeader.FirstName = entity.FirstName;
+                        empHeader.IDNumber = entity.IDNumber;
+                        empHeader.IDType = entity.IDType;
+                        empHeader.IsActive = entity.IsActive;
+                        empHeader.IsReportingAuthority = entity.IsReportingAuthority;
+                        empHeader.LastName = entity.LastName;
+                        empHeader.ManagerId = entity.ManagerId;
+                        empHeader.MiddleName = entity.MiddleName;
+                        empHeader.ModifiedBy = entity.ModifiedBy;
+                        empHeader.ModifiedOn = entity.ModifiedOn;
+                        empHeader.Nationality = entity.Nationality;
+                        empHeader.Password = entity.Password;
+                        empHeader.UserEmailId = entity.UserEmailId;
+                        empHeader.UserId = entity.UserId;
+                    }
                     dbContext.SaveChanges();
                 }
             }

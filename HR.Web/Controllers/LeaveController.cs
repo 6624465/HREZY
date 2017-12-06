@@ -171,7 +171,17 @@ namespace HR.Web.Controllers
             string viewName = string.Empty;
             using (var dbCntx = new HrDataContext())
             {
-                var empLeaveList = dbCntx.Branches.GroupJoin(dbCntx.EmployeeLeaveLists.
+                IQueryable<Branch> branchList = null;
+                if(ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                {
+                    branchList = dbCntx.Branches;
+                }
+                else if(ROLECODE == UTILITY.ROLE_ADMIN)
+                {
+                    branchList = dbCntx.Branches.Where(x => x.BranchID == BRANCHID);
+                }
+
+                var empLeaveList = branchList.GroupJoin(dbCntx.EmployeeLeaveLists.
                     empLeaveListWhere(ROLECODE, BRANCHID, EMPLOYEEID, ref viewName),
                         a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })
 

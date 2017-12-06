@@ -5,56 +5,49 @@
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Salary Components
+                    Contribution registers List
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="pull-right">
-                                <button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'">Create</button>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Name
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th>
-                                            #Action
-                                        </th>
-                                    </tr>
-                                </thead>
+                    <button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'">Create</button>
+                    <table class="table table-bordered css10">
+                        <thead>
+                            <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                                <th>
+                                    #Action
+                                </th>
+                        </tr>
+                    </thead>
 
-                                @for (var i = 0; i < Model.Count(); i++)
-                                {
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                @Model.ElementAt(i).Name
-                                            </td>
-                                            <td>
-                                                @Model.ElementAt(i).Description
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
-                                                        onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.ElementAt(i).ContributionId)'">
-                                                    <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                }
+                @for (var i = 0; i < Model.Count(); i++)
+                {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Model.ElementAt(i).Name
+                                </td>
+                                <td>
+                                    @Model.ElementAt(i).Description
+                                </td>
+                                <td>
+                                    <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
+                                            onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.ElementAt(i).ContributionId)'">
+                                        <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                    </button>
+                                    <button  class="btn btn-xs btn-danger waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteRecord(@Model.ElementAt(i).ContributionId)">
+                                        <i class="fa fa-trash-o" style="padding-left: 5px;" aria-hidden="true"> </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                }
 
-                            </table>
-                        </div>
-                    </div>
-                    
-                    
+                </table>
                
                    
 
@@ -64,6 +57,9 @@
         </div>
     </div>
 </div>
+
+<link href="~/Css/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/Core/sweetalert.js"></script>
 @section Scripts{
   
     <script type="text/javascript">
@@ -71,7 +67,46 @@
             $('#li_PayRollConfig').addClass('open');
             $('#li_ContributionRegisterList').addClass('active');
 
+
         });
 
-    </script>
+        var gContributionId = -1;
+        function deleteRecord(ContributionId) {
+            gContributionId = ContributionId;
+            debugger;
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this Record?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Delete",
+                confirmButtonClass: "btn-danger"
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: '@Url.Content("~/PayRoll/ContributionDelete?ContributionId=")' + gContributionId,
+                        method: 'post',
+                        success:function(data){
+                            swal("Deleted!","success");
+                        },
+                        error: function (data) {
+                             swal("cancelled!", "error")
+                        }
+                    
+                    })
+                  
+                }
+               
+
+            }
+            )
+            
+           
+           }
+  
+
+   </script>
+
 }

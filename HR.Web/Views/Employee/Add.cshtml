@@ -238,6 +238,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Country</span>
+                                </label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(x => x.address.CountryCode, SelectListItemHelper.CountryList(), "Select",
+                                    new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -328,7 +339,7 @@
                             </div>
                         </div>
                         <div class="row css5">
-                            <div class="form-group">
+                            @*<div class="form-group">
                                 <label class="col-md-3 control-label">
                                     <span class="pull-right">Link</span>
                                 </label>
@@ -339,13 +350,13 @@
                                         <option value="OTHER">OTHER STRUCT</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
                                     <span class="pull-right"></span>
                                 </label>
                                 <div class="col-md-9">
-                                    <button type="button" onclick="location.href = '@Url.Content("~/PayRoll/SalaryStructure?fname=" + Model.empHeader.FirstName)'" class="btn btn-success btn-sm"><i class="fa-gears"></i>&nbsp;Link</button>
+                                    <div class="pull-right"><button type="button" onclick="location.href = '@Url.Content("~/PayRoll/SalaryStructure?fname=" + Model.empHeader.FirstName)'" class="btn btn-success btn-sm"><i class="fa fa-gears"></i>&nbsp;Apply Salary Structure</button></div>
                                 </div>
                             </div>
                         </div>

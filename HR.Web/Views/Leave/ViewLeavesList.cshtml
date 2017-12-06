@@ -1,6 +1,4 @@
 ﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.ViewModels.ViewLeaveVm>
-
-
 @section Styles {
     <style type="text/css">
         .popover {
@@ -14,222 +12,189 @@
 
 <div class="page">
     <div class="page-wrap">
-        <div class="row">
-            @for (var i = 0; i < Model.TableData.Count; i++)
+        <div class="panel-group">
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="panel-heading">
+                   Leave List For The Year(@DateTime.Now.Year)
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <button class="btn btn-primary btn-sm pull-right" onclick="location.href='@Url.Content("~/Leave/EmployeeRequestFrom")'">Apply Leave</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+                <div class="row">
+                    @for (var i = 0; i < Model.TableData.Count; i++)
             {
-                <div class="col-md-6">
-                    <div class="panel panel-default panel-hovered panel-stacked mb10">
-                        <div class="box">
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-left">From Date: <b>@Model.TableData[i].FromDate.ToShortDateString()</b></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-right">To Date: <b>@Model.TableData[i].ToDate.ToShortDateString()</b></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-left">Apply Date: <b>@Model.TableData[i].ApplyDate.ToShortDateString()</b></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
-                                        {
-                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
-                                        {
-                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
-                                        {
-                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (!string.IsNullOrWhiteSpace(Model.TableData[i].Status))
-                                        {
-                                            <label class="control-label pull-right">Status:&nbsp;<span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-left">Leave Type: <b>@Model.TableData[i].LeaveTypeDesc</b></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-right">Total Days: <b>@Model.TableData[i].Days.Value</b></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <blockquote>
-                                            <p>@Model.TableData[i].Reason</p>
-                                            @if (!string.IsNullOrWhiteSpace(Model.TableData[i].Remarks))
-                                            {
-                                                <p>@Model.TableData[i].Remarks</p>
-                                            }
-                                            <small>
-                                                <cite title="Source Title">@Model.TableData[i].ManagerName</cite>
-                                                @if ((Model.TableData[i].Status != UTILITY.LEAVECANCELLED && Model.TableData[i].Status != UTILITY.LEAVEREJECTED) && (Model.TableData[i].FromDate > UTILITY.SINGAPORETIME))
+                        <div class="col-md-6">
+                            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="control-label pull-left">From Date: <b>@Model.TableData[i].FromDate.ToShortDateString()</b></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="control-label pull-right">To Date: <b>@Model.TableData[i].ToDate.ToShortDateString()</b></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="control-label pull-left">Apply Date: <b>@Model.TableData[i].ApplyDate.ToShortDateString()</b></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
                                                 {
-                                                    <span class="pull-right"><button class="btn btn-danger btn-sm" data-toggle="popoverCancel" type="button" onclick="OpenCancelPopover(@Model.TableData[i].EmployeeLeaveID);" title="Remarks"><i class="fa fa-trash"></i>&nbsp;Cancel</button></span>
+                                                    <label class="control-label pull-right">Status: &nbsp;<span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
                                                 }
-                                            </small>
+                                                else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
+                                                {
+                                                    <label class="control-label pull-right">Status: &nbsp;<span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                }
+                                                else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
+                                                {
+                                                    <label class="control-label pull-right">Status: &nbsp;<span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                }
+                                                else if (!string.IsNullOrWhiteSpace(Model.TableData[i].Status))
+                                                {
+                                                    <label class="control-label pull-right">Status:&nbsp;<span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="control-label pull-left">Leave Type: <b>@Model.TableData[i].LeaveTypeDesc</b></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="control-label pull-right">Total Days: <b>@Model.TableData[i].Days.Value</b></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <blockquote>
+                                                    <p>@Model.TableData[i].Reason</p>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.TableData[i].Remarks))
+                                                    {
+                                                        <p>@Model.TableData[i].Remarks</p>
+                                                    }
+                                                    <small>
+                                                        <cite title="Source Title">@Model.TableData[i].ManagerName</cite>
+                                                        @if ((Model.TableData[i].Status != UTILITY.LEAVECANCELLED && Model.TableData[i].Status != UTILITY.LEAVEREJECTED) && (Model.TableData[i].FromDate > UTILITY.SINGAPORETIME))
+                                                        {
+                                                            <span class="pull-right"><button class="btn btn-danger btn-sm" data-toggle="popoverCancel" type="button" onclick="OpenCancelPopover(@Model.TableData[i].EmployeeLeaveID);" title="Remarks"><i class="fa fa-trash"></i>&nbsp;Cancel</button></span>
+                                                        }
+                                                    </small>
 
-                                        </blockquote>
+                                                </blockquote>
+                                            </div>
+
+                                        </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="pagination" class="pull-right"></div>
                     </div>
                 </div>
-            }
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="pagination" class="pull-right"></div>
             </div>
         </div>
-    </div>
-</div>
 
 
-@using (Html.BeginForm("CancelLeave", "Leave", FormMethod.Post, new { id = "frmCancelLeave", name = "frmCancelLeave" }))
-{
-    <input type="hidden" id="employeeLeaveID" name="employeeLeaveID" />
-    <input type="hidden" id="employeeRemarks" name="employeeRemarks" />
-    <div id="popoverCancel" class="hide">
-        <div class="row">
-            <div class="form-group">
-                <div class="col-md-3">Remarks:</div>
-                <div class="col-md-9">
+        @using (Html.BeginForm("CancelLeave", "Leave", FormMethod.Post, new { id = "frmCancelLeave", name = "frmCancelLeave" }))
+        {
+            <input type="hidden" id="employeeLeaveID" name="employeeLeaveID" />
+            <input type="hidden" id="employeeRemarks" name="employeeRemarks" />
+            <div id="popoverCancel" class="hide">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-3">Remarks:</div>
+                        <div class="col-md-9">
 
-                    <textarea id="txtRemarks" name="txtRemarks" class="form-control"></textarea>
+                            <textarea id="txtRemarks" name="txtRemarks" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row css10">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-9">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="CancelLeave()"><i class="fa fa-floppy-o"></i>Save</button>
+                            <button type="button" class="btn btn-default btn-sm" onclick="ClosePopUp()"><i class="fa fa-times"></i>Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row css10">
-            <div class="form-group">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-9">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="CancelLeave()"><i class="fa fa-floppy-o"></i>Save</button>
-                    <button type="button" class="btn btn-default btn-sm" onclick="ClosePopUp()"><i class="fa fa-times"></i>Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-@section Scripts{
-    <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
-    <script type="text/javascript">
-        function OpenCancelPopover(empLeaveId){
-            debugger;
-           
-            $('#popoverCancel').popover('show');
-            //$('[data-toggle="popoverCancel"]').popover('show');
-            $('#employeeLeaveID').val(empLeaveId);
         }
+        @section Scripts{
+            <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
+            <script type="text/javascript">
+                function OpenCancelPopover(empLeaveId){
+                    debugger;
 
-        $(function () {
-            $('#li_Leave').addClass('open');
-            $('#li_empadd').addClass('active');
-
-            $('[data-toggle="popoverCancel"]').popover({
-                placement: 'left',
-                html: true,
-                content: function () {
-                    return $('#popoverCancel').html();
+                    $('#popoverCancel').popover('show');
+                    //$('[data-toggle="popoverCancel"]').popover('show');
+                    $('#employeeLeaveID').val(empLeaveId);
                 }
-            });
+                function getyear(){
+                    var year=new Date().getFullYear;
+                }
+                
 
-            //$('[data-toggle="popoverCancel"]').popover({
-            //    placement: 'top',
-            //    html: true,
-            //    content: function () {
+                $(function () {
+                    $('#li_Leave').addClass('open');
+                    $('#li_empadd').addClass('active');
 
-            //        return $('#popoverCancel').html();
-            //    }
-            //})
+                    $('[data-toggle="popoverCancel"]').popover({
+                        placement: 'left',
+                        html: true,
+                        content: function () {
+                            return $('#popoverCancel').html();
+                        }
+                    });
 
-            $('#pagination').bootpag({
-                total: @Model.PageLength,
-                page: @Model.CurrentPage,
-                maxVisible: 6,
-                href: '@Url.Content("~/Leave/ViewLeavesList?page="){{number}}', //"#pro-page-{{number}}",
-                leaps: false,
-                next: 'Next',
-                prev: 'Prev',
-                wrapClass: 'pagination pagination-sm'
-            }).on('page', function (event, num) {
-                $(".content3").html("Page " + num); // or some ajax content loading...
-            });
-        });
+                    //$('[data-toggle="popoverCancel"]').popover({
+                    //    placement: 'top',
+                    //    html: true,
+                    //    content: function () {
 
-        function cancelRequest(id) {
-            $('#employeeLeaveID').val(id);
+                    //        return $('#popoverCancel').html();
+                    //    }
+                    //})
+
+                    $('#pagination').bootpag({
+                        total: @Model.PageLength,
+                        page: @Model.CurrentPage,
+                        maxVisible: 6,
+                        href: '@Url.Content("~/Leave/ViewLeavesList?page="){{number}}', //"#pro-page-{{number}}",
+                        leaps: false,
+                        next: 'Next',
+                        prev: 'Prev',
+                        wrapClass: 'pagination pagination-sm'
+                    }).on('page', function (event, num) {
+                        $(".content3").html("Page " + num); // or some ajax content loading...
+                    });
+                });
+
+                function cancelRequest(id) {
+                    $('#employeeLeaveID').val(id);
+                }
+
+                function CancelLeave() {
+                    var remarks = $('#txtRemarks').val();
+                    $('#employeeRemarks').val(remarks);
+                    $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
+                    $('#frmCancelLeave').submit();
+
+                }
+                function ClosePopUp() {
+                    $('[data-toggle="popoverCancel"]').popover('hide');
+                }
+
+            </script>
         }
-
-        function CancelLeave() {
-            var remarks = $('#txtRemarks').val();
-            $('#employeeRemarks').val(remarks);
-            $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
-            $('#frmCancelLeave').submit();
-
-        }
-        function ClosePopUp() {
-            $('[data-toggle="popoverCancel"]').popover('hide');
-        }
-
-    </script>
-}
-@*
-        @{
-        WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
-    }
-        <div class="row">
-            <div class="col-md-12">
-                @grid.GetHtml(
-                        columns: grid.Columns(
-                        grid.Column("FromDate", "From Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.FromDate)),
-                        grid.Column("ToDate", "To Date", format: (item) => string.Format("{0:dd/MM/yyyy}", item.ToDate)),
-                        grid.Column("Status", "Status", format:@<text>
-                            @if (item.Status == UTILITY.LEAVEAPPROVED)
-                            {
-                                <span class="label label-success" style="font-weight:bold;font-size:14px;">@item.Status</span>
-                            }
-                            else if (item.Status == UTILITY.LEAVEREJECTED)
-                            {
-                                <span class="label label-danger" style="font-weight:bold;font-size:14px;">@item.Status</span>
-                            }
-                            else if (string.IsNullOrWhiteSpace(item.Status))
-                            {
-                                <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
-                            }
-
-                        </text>),
-                        grid.Column("", "Reason", format:
-                        @<text>
-                            <button class="btn btn-xs waves-effect" type="button" style="padding-left: 5px;margin-left: 6px;" id="popover" data-trigger="hover" data-toggle="popover" data-title="Reason" data-content="@item.Reason"><i class="fa fa-eye" style="padding-left: 5px;"></i></button>
-                        </text>),
-                            grid.Column("", "Cancel", format:
-                            @<text>
-
-                                @if (item.FromDate > UTILITY.SINGAPORETIME && (item.Status == UTILITY.LEAVEAPPROVED || item.Status == null) && item.Status != UTILITY.LEAVEREJECTED)
-                                {
-                                    <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" data-toggle="popoverCancel" title="Remarks" data-value="@item.EmployeeLeaveID" onclick="cancelRequest(@item.EmployeeLeaveID)"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
-                                }
-                                else
-                                {
-                                    <button type="button" class="btn btn-xs waves-effect" style="padding-left: 5px;margin-left: 6px;" disabled="disabled"><i class="fa fa-times" style="padding-left: 5px;"></i></button>
-                                } </text>)),
-                        tableStyle: "table table-condensed")
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="pull-right">@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
-            </div>
-        </div>
-*@

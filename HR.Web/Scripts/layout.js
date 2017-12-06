@@ -112,11 +112,11 @@
         }
     });
 
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_flat-blue',
-        radioClass: 'iradio_flat-blue',
-        increaseArea: '20%' // optional
-    });
+    //$('input').iCheck({
+    //    checkboxClass: 'icheckbox_flat-blue',
+    //    radioClass: 'iradio_flat-blue',
+    //    increaseArea: '20%' // optional
+    //});
 
     $('.modal .modal-dialog').attr('class', 'modal-dialog  bounceIn  animated');
     //$('.form-control').addClass('input-sm');

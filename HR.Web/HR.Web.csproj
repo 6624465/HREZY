@@ -1980,6 +1980,8 @@
     <Content Include="Views\PayRoll\ContributionRegister.cshtml" />
     <Content Include="Views\PayRoll\ContributionRegisterList.cshtml" />
     <Content Include="Views\PayRoll\SalaryStructure.cshtml" />
+    <Content Include="Views\Leave\WeekendPolicyList.cshtml" />
+    <Content Include="Views\Leave\WeekEndPolicy.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

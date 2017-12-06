@@ -1,0 +1,85 @@
+﻿@model HR.Web.Controllers.WeekendPolicyVm
+@using (Html.BeginForm("SaveWeekendPolicy", "Leave", FormMethod.Post, new { id = "weekendfrm", name = "weekendfrm" }))
+{
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Weekend Policy
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2 ">
+                            <label class="control-label pull-left">
+                                BranchName
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            @Html.CheckBoxFor(x => x.Monday)
+                            <label class="control-label">Monday</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            @Html.CheckBoxFor(x => x.Tuesday)
+                            <label class="control-label">Tuesday</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            @Html.CheckBoxFor(x => x.Wednesday)
+                            <label class="control-label">Wednesday</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            @Html.CheckBoxFor(x => x.Thursday)
+                            <label class="control-label">Thursday</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            @Html.CheckBoxFor(x => x.Friday)
+                            <label class="control-label">Friday</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            @Html.CheckBoxFor(x => x.Saturday)
+                            <label class="control-label">Saturday</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            @Html.CheckBoxFor(x => x.Sunday)
+                            @*<input type="checkbox" value="@Model.Sunday" />*@
+                            <label class="control-label">Sunday</label>
+                        </div>
+                    </div>
+                  
+                    <button class="btn btn-primary btn-sm pull-right" onclick="SaveWeekendPolicy()">
+                        <i class="fa fa-floppy-o"></i>
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@section Scripts{
+    <script>
+        function SaveWeekendPolicy() {
+            debugger;
+            if ($('#weekendfrm').valid()) {
+                $('#weekendfrm').submit();
+            }
+        }
+    </script>
+}

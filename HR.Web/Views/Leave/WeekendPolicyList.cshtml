@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HR.Web.Models.WeekendPolicy>
+﻿@model List<HR.Web.ViewModels.WeekendPolicyVm>
  
     <div class="page">
         <div class="page-wrap">
@@ -7,84 +7,39 @@
                     <div class="panel-heading">
                         Weekend Policy List
                     </div>
-                   
-                    @*@for (var i = 0; i < Model.Count(); i++)
-                    {
-                        <div class="panel-body">
-                            
-                            <div class="row">
-                                <div>
-                                    BranchName:
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <label>Monday</label>
-                                @Html.CheckBoxFor(x => x.ElementAt(i).Monday.Value)
-                            </div>
-                            <div class="row">
-                                <label>Tuesday</label>
-                                @Html.CheckBoxFor(x => x.ElementAt(i).Tuesday.Value)
-                            </div>
-                            <div class="row">
-                                <label>Wednesday</label>
-                                @Html.CheckBoxFor(x => x.ElementAt(i).Wednesday.Value)
-                            </div>
-                            v
-                            <div class="row">
-                                <label>Thursday</label>
-                                @Html.CheckBoxFor(x => x.ElementAt(i).Thursday.Value)
-                            </div>
-                            <div class="row">
-                                <label>Friday</label>
-                                @Html.CheckBoxFor(x => x.ElementAt(i).Friday.Value)
-                            </div>
-                            <div class="row">
-                                <label>Saturday</label>
-                                @Html.CheckBoxFor(x => x.ElementAt(i).Saturday.Value)
-                            </div>
-                            <div class="row">
-                                <label>Sunday</label>
-                                @Html.CheckBoxFor(x => x.ElementAt(i).Sunday.Value)
-                            </div>
-                        </div>
-                    }*@
-              
-                    @*@for (var i = 0; i < Model.Count(); i++)
-                        {
-                            <div class="row">
-                                BranchName:@Html.DropDownListFor()
-                            </div>
-                        }*@
                         <div class="panel-body">
                             <button class="btn btn-primary btn-sm pull-right" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=-1")'">
-                                Add
+                                <i class="fa fa-plus-square"></i>Add
                             </button>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
+                                    <th>BranchName</th>
                                     <th>Monday</th>
                                     <th>Tuesday</th>
                                     <th>Wednesday</th>
                                     <th>Thursday</th>
                                     <th>Friday</th>
                                     <th>Saturday</th>
-                                       <th>Edit</th>
+                                    <th>Sunday</th>
+                                     <th>Edit</th>
                                     </tr>
                                 </thead>
-
-                               
+                             
                                    @for (var i = 0; i < Model.Count(); i++)
                                    {
                                     <tbody>
                                         <tr>
-                                            <td>@Model.ElementAt(i).Monday</td>
-                                            <td>@Model.ElementAt(i).Tuesday</td>
-                                            <td>@Model.ElementAt(i).Wednesday</td>
-                                            <td>@Model.ElementAt(i).Thursday</td>
-                                            <td>@Model.ElementAt(i).Friday</td>
-                                            <td>@Model.ElementAt(i).Saturday</td>
-                                            <td>@Model.ElementAt(i).Sunday</td>
+                                            <td>@Model.ElementAt(i).BranchName</td>
+                                            <td>@Html.CheckBoxFor(x => x.ElementAt(i).Monday.Value)</td>
+                                            <td>@Html.CheckBoxFor(x => x.ElementAt(i).Tuesday.Value)</td>
+                                            <td>@Html.CheckBoxFor(x => x.ElementAt(i).Wednesday.Value)</td>
+                                            <td>@Html.CheckBoxFor(x => x.ElementAt(i).Thursday.Value)</td>
+                                            <td>@Html.CheckBoxFor(x => x.ElementAt(i).Friday.Value)</td>
+                                            <td>@Html.CheckBoxFor(x => x.ElementAt(i).Saturday.Value)</td>
+                                            <td>@Html.CheckBoxFor(x => x.ElementAt(i).Sunday.Value)</td>
+                                            <td><button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=")'+ @Model.ElementAt(i).BranchId">
+                                                <i class="fa fa-pencil-square"></i>Edit</button></td>
                                         </tr>
                                     </tbody>
                                    }

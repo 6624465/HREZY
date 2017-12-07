@@ -1879,8 +1879,8 @@
     <Compile Include="ViewModels\HtmlTblVm.cs" />
     <Compile Include="ViewModels\LeaveAdminVM.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
-    <Compile Include="ViewModels\ContributionRegisterVm.cs" />
     <Compile Include="ViewModels\SalaryRuleHeaderVm.cs" />
+    <Compile Include="ViewModels\WeekendPolicyVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -2023,6 +2023,7 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Layout\" />
     <Folder Include="Views\Master\" />
+    <Folder Include="Views\WeekendPolicyVm\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

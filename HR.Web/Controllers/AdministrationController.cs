@@ -1,4 +1,5 @@
-﻿using HR.Web.Models;
+﻿using HR.Web.BusinessObjects.Operation;
+using HR.Web.Models;
 using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,13 @@ using System.Web.Mvc;
 namespace HR.Web.Controllers
 {
     [SessionFilter]
-    public class AdministrationController : Controller
+    public class AdministrationController : BaseController
     {
+        AddressBO addressBO = null;
+        public AdministrationController()
+        {
+            addressBO = new AddressBO(SESSIONOBJ);
+        }
         // GET: Administration
         [HttpGet]
         public ActionResult Company(int companyId = 0)

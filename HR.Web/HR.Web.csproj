@@ -1722,6 +1722,9 @@
     <Compile Include="ActionFilters\SessionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BusinessObjects\BaseBO.cs" />
+    <Compile Include="BusinessObjects\LeaveMaster\BranchBO.cs" />
+    <Compile Include="BusinessObjects\LeaveMaster\CompanyBO.cs" />
+    <Compile Include="BusinessObjects\LeaveMaster\HolidayListBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\LeaveBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeDocumentDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeLeaveListBO.cs" />
@@ -1849,6 +1852,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IRepository.cs" />
+    <Compile Include="Services\LeaveMaster\BranchRepository.cs" />
+    <Compile Include="Services\LeaveMaster\CompanyRepository.cs" />
+    <Compile Include="Services\LeaveMaster\CountryRepository.cs" />
+    <Compile Include="Services\LeaveMaster\HolidayListRepository.cs" />
     <Compile Include="Services\LeaveMaster\LeaveRepository.cs" />
     <Compile Include="Services\Operation\AddressService.cs" />
     <Compile Include="Services\Operation\EmployeeDocumentDetailService.cs" />

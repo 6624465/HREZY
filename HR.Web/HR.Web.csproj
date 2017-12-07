@@ -1735,6 +1735,10 @@
     <Compile Include="BusinessObjects\Operation\LeaveDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveHeaderBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveTrasactionBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\ContributionBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\SalaryRuleBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\SalaryRuleDetailBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\SalaryRuleInputBO.cs" />
     <Compile Include="BusinessObjects\Security\UserBO.cs" />
     <Compile Include="BusinessObjects\WeekendPolicyBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -1867,6 +1871,10 @@
     <Compile Include="Services\Operation\LeaveDetailRepository.cs" />
     <Compile Include="Services\Operation\LeaveHeaderRepository.cs" />
     <Compile Include="Services\Operation\LeaveTrasactionRepository.cs" />
+    <Compile Include="Services\Payroll\ContributionRepository.cs" />
+    <Compile Include="Services\Payroll\SalaryRuleDetailRepository.cs" />
+    <Compile Include="Services\Payroll\SalaryRuleHeaderRepository.cs" />
+    <Compile Include="Services\Payroll\SalaryRuleInputRepository.cs" />
     <Compile Include="Services\Security\UserRepository.cs" />
     <Compile Include="Services\WeekenPolicyService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />

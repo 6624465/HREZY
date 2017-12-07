@@ -11,6 +11,7 @@ using System.Data.Entity.SqlServer;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using HR.Web.BusinessObjects.Operation;
+using HR.Web.BusinessObjects.Security;
 
 namespace HR.Web.Controllers
 {
@@ -23,6 +24,8 @@ namespace HR.Web.Controllers
         EmployeeDocumentDetailBO empDocDetailBO = null;
         EmployeeWorkDetailBO empWorkDetailBO = null;
         AddressBO addressBO = null;
+        UserBO userBo = null;
+        LeaveTrasactionBO leaveTransactionBO = null;
         public EmployeeController()
         {
 
@@ -31,45 +34,16 @@ namespace HR.Web.Controllers
             empDocDetailBO = new EmployeeDocumentDetailBO(SESSIONOBJ);
             empWorkDetailBO = new EmployeeWorkDetailBO(SESSIONOBJ);
             addressBO = new AddressBO(SESSIONOBJ);
+            userBo = new UserBO(SESSIONOBJ);
+            leaveTransactionBO = new LeaveTrasactionBO(SESSIONOBJ);
         }
         [HttpGet]
         public ViewResult employeedirectory()
         {
             using (var dbCntx = new HrDataContext())
             {
-                //var list = dbCntx.EmployeeHeaders
-                //            .Join(dbCntx.EmployeePersonalDetails,
-                //            a => a.EmployeeId, b => b.EmployeeId,
-                //            (a, b) => new { A = a, B = b })
-                //            .Join(dbCntx.EmployeeWorkDetails,
-                //            c => c.A.EmployeeId, d => d.EmployeeId,
-                //            (c, d) => new { C = c, D = d })
-                //            .Join(dbCntx.Addresses,
-                //            e => e.C.A.EmployeeId, f => f.LinkID,
-                //            (e, f) => new { E = e, F = f })
-                //            .Join(dbCntx.EmployeeDocumentDetails,
-                //            g => g.E.C.A.EmployeeId, h => h.EmployeeId,
-                //            (g, h) => new { G = g, H = h })
-                //            .Select(x => new EmployeeListVm
-                //            {
-                //                EmployeeId = x.G.E.C.A.EmployeeId,
-                //                EmployeeNo = x.G.E.C.A.IDNumber,
-                //                EmployeeName = x.G.E.C.A.FirstName + " " + x.G.E.C.A.LastName + " " + x.G.E.C.A.MiddleName,
-                //                JoiningDate = x.G.E.D.JoiningDate,
-                //                JobTitle = dbCntx.LookUps
-                //                            .Where(y => y.LookUpID == x.G.E.D.DesignationId)
-                //                            .FirstOrDefault().LookUpDescription,
-                //                ContactNo = x.G.F.Contact,
-                //                PersonalEmailId = x.G.F.Email,
-                //                OfficialEmailId = x.G.F.Email,
-                //                DateOfBirth = x.G.E.C.B.DOB,
-                //                ProfilePic = x.H.FileName
-                //            }).ToList().AsEnumerable();
-
-
                 var empDirectoryVm = new EmpDirectoryVm
                 {
-                    //employeeVm = list,
 
                     empSearch = new EmpSearch { }
                 };
@@ -204,7 +178,7 @@ namespace HR.Web.Controllers
                 };
 
                 return View("employeedirectory", empDirectoryVm);
-                //return Json(empDirectoryVm, JsonRequestBehavior.AllowGet);
+
             }
         }
 
@@ -236,8 +210,6 @@ namespace HR.Web.Controllers
                                     address = x.F
                                 }).FirstOrDefault();
 
-                    //var empobj = new EmployeeVm();
-                    //empobj.empHeader= empHeaderBO.GetById(EmployeeId.Value);
 
                     empObj.empDocument = dbCntx.LookUps
                                             .Where(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
@@ -267,59 +239,18 @@ namespace HR.Web.Controllers
         }
 
 
-
         [HttpPost]
         public ActionResult saveemployee(EmployeeVm empVm)
         {
             try
             {
-
-
                 if (empVm.empHeader.EmployeeId == -1)
                 {
                     using (var dbCntx = new HrDataContext())
                     {
-
                         empHeaderBO.SaveEmployeeVm(empVm);
-
-                        User user = new User()
-                        {
-                            BranchId = BRANCHID,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME,
-                            Email = empVm.empHeader.UserEmailId,
-                            EmployeeId = empVm.empHeader.EmployeeId,
-                            IsActive = true,
-                            MobileNumber = empVm.address.MobileNo,
-                            UserName = empVm.empHeader.UserEmailId,
-                            Password = empVm.empHeader.Password,
-                            RoleCode = "Employee"
-                        };
-
-                        Leave leave = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault();
-
-                        LeaveTransaction leavetrasaction = new LeaveTransaction()
-                        {
-                            BranchId = BRANCHID,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME,
-                            CurrentCasualLeaves = leave.CasualLeavesPerMonth.Value,
-                            CurrentPaidLeaves = leave.PaidLeavesPerMonth.Value,
-                            CurrentSickLeaves = leave.SickLeavesPerMonth.Value,
-                            EmployeeId = empVm.empHeader.EmployeeId,
-                            FromDt = UTILITY.SINGAPORETIME,
-                            ToDt = UTILITY.SINGAPORETIME,
-                            PreviousCasualLeaves = leave.CasualLeavesPerMonth.Value,
-                            PreviousPaidLeaves = leave.PaidLeavesPerMonth.Value,
-                            PreviousSickLeaves = leave.SickLeavesPerMonth.Value,
-                            ModifiedBy = USERID,
-                            ModifiedOn = UTILITY.SINGAPORETIME,
-                        };
-
-                        dbCntx.LeaveTransactions.Add(leavetrasaction);
-                        dbCntx.Users.Add(user);
-                        dbCntx.SaveChanges();
-
+                        userBo.AddUserVm(empVm);
+                        leaveTransactionBO.AddLeave(empVm.empHeader.EmployeeId);
                         return RedirectToAction("employeedirectory");
                     }
 

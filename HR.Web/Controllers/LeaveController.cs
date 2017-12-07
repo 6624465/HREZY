@@ -960,8 +960,28 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ViewResult WeekendPolicyList()
         {
-            var list = weekendPolicy.GetAll();
-            return View("WeekendPolicyList", list);
+            //var list = weekendPolicy.GetAll();
+            using(var dbcntx=new HrDataContext())
+            {
+                var list = dbcntx.Branches
+                    .Join(dbcntx.WeekendPolicies,
+                    a => a.BranchID, b => b.BranchId,
+                    (a, b) => new { A = a, B = b })
+                    .Select(x=>new WeekendPolicyVm
+                    {
+                        BranchId=x.B.BranchId,
+                        BranchName=x.A.BranchName,
+                        Monday=x.B.Monday,
+                        Tuesday=x.B.Tuesday,
+                        Wednesday=x.B.Wednesday,
+                        Thursday=x.B.Thursday,
+                        Friday=x.B.Friday,
+                        Saturday=x.B.Saturday,
+                        Sunday=x.B.Sunday
+                    }).ToList();
+                return View("WeekendPolicyList", list);
+            }
+           
         }
 
         [HttpGet]
@@ -990,9 +1010,29 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ViewResult SaveWeekendPolicy(WeekendPolicy weekendpolicy)
         {
+            if (weekendpolicy.BranchId == -1)
+            { 
             weekendPolicy.Add(weekendpolicy);
 
             return WeekendPolicyList();
+            }
+            else
+            {
+                weekendPolicy.Update(weekendpolicy);
+                return WeekendPolicyList();
+            }
+           
+          
+        }
+        public ActionResult GetBranchPolicy(WeekendPolicy weekendpolicy)
+        {
+            WeekendPolicy WeekEndPolicy = new WeekendPolicy();
+            using(var dbcntx=new HrDataContext())
+            {
+                WeekEndPolicy = dbcntx.WeekendPolicies.Where(x => x.BranchId == weekendpolicy.BranchId).FirstOrDefault();
+                return View("WeekEndPolicy", WeekEndPolicy ?? weekendpolicy);
+            }
+            
         }
     }
 

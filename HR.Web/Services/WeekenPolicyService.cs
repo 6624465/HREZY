@@ -23,13 +23,16 @@ namespace HR.Web.Services
                     WeekendPolicy weekendPolicy = dbContext.WeekendPolicies
                                         .Where(x => x.BranchId == entity.BranchId).FirstOrDefault();
                     if (weekendPolicy == null)
+                    {
+                        entity.CreateBy = sessionobj.USERID;
+                        entity.CreatedOn = UTILITY.SINGAPORETIME;
                         dbContext.WeekendPolicies.Add(entity);
+                    }
                     else
                     {
-                        weekendPolicy.CreateBy = entity.CreateBy;
-                        weekendPolicy.CreatedOn = entity.CreatedOn;
-                        weekendPolicy.ModifiedBy = entity.ModifiedBy;
-                        weekendPolicy.ModifiedOn = entity.ModifiedOn;
+                       
+                        weekendPolicy.ModifiedBy = sessionobj.USERID;
+                        weekendPolicy.ModifiedOn = UTILITY.SINGAPORETIME;
                         weekendPolicy.Monday = entity.Monday;
                         weekendPolicy.Tuesday = entity.Tuesday;
                         weekendPolicy.Wednesday = entity.Wednesday;

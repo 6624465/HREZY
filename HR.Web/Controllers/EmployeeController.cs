@@ -246,29 +246,21 @@ namespace HR.Web.Controllers
             {
                 if (empVm.empHeader.EmployeeId == -1)
                 {
-                    using (var dbCntx = new HrDataContext())
-                    {
-                        empHeaderBO.SaveEmployeeVm(empVm);
-                        userBo.AddUserVm(empVm);
-                        leaveTransactionBO.AddLeave(empVm.empHeader.EmployeeId);
-                        return RedirectToAction("employeedirectory");
-                    }
-
+                    empHeaderBO.SaveEmployeeVm(empVm);
+                    userBo.AddUserVm(empVm);
+                    leaveTransactionBO.AddLeave(empVm.empHeader.EmployeeId);
+                    return RedirectToAction("employeedirectory");
                 }
                 else
                 {
-                    using (var dbCntx = new HrDataContext())
-                    {
-                        empHeaderBO.SaveEmployeeVm(empVm);
-                        return RedirectToAction("employeedirectory");
-                    }
-
+                    empHeaderBO.SaveEmployeeVm(empVm);
+                    return RedirectToAction("employeedirectory");
                 }
             }
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 

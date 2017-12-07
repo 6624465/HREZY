@@ -52,10 +52,12 @@ namespace HR.Web.BusinessObjects.Operation
                     IsReportingAuthority = empVm.empHeader.IsReportingAuthority,
 
                 };
+              
                 Add(empHeader);
+                empVm.empHeader.EmployeeId = empHeader.EmployeeId;
                 var empPersonalDetail = new EmployeePersonalDetail
                 {
-                    EmployeeId = empVm.empPersonalDetail.EmployeeId,
+                    EmployeeId = empVm.empHeader.EmployeeId,
                     BranchId = sessionObj.BRANCHID,
                     DOB = empVm.empPersonalDetail.DOB,
                     Gender = empVm.empPersonalDetail.Gender, //
@@ -197,15 +199,6 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
-
-
-
-        public void MapEmployee()
-        {
-
-
-        }
-
 
         public void Add(EmployeeHeader entity)
         {

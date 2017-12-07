@@ -18,10 +18,15 @@ namespace HR.Web.Services.Security
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    User user = dbContext.Users.Where(x => x.UserId == entity.UserId).FirstOrDefault();
+                    User user = null;
+                    if (entity.UserId != 0)
+                    {
+                        user = dbContext.Users.Where(x => x.UserId == entity.UserId).FirstOrDefault();
+                    }
                     if (user == null)
                     {
-                        dbContext.Users.Add(user);
+                       
+                        dbContext.Users.Add(entity);
                     }
                     else
                     {

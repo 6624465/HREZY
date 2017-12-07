@@ -93,7 +93,9 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedBy = sessionObj.USERID,
                     ModifiedOn = UTILITY.SINGAPORETIME,
                 };
+                Add(leavetrasaction);
             }
+
         }
     }
 }

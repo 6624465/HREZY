@@ -79,6 +79,8 @@ namespace HR.Web.BusinessObjects.Security
                 BranchId = sessionObj.BRANCHID,
                 CreatedBy = sessionObj.USERID,
                 CreatedOn = UTILITY.SINGAPORETIME,
+                ModifiedBy = sessionObj.USERID,
+                ModifiedOn = UTILITY.SINGAPORETIME,
                 Email = empVm.empHeader.UserEmailId,
                 EmployeeId = empVm.empHeader.EmployeeId,
                 IsActive = true,

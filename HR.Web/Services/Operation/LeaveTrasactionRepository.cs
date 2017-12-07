@@ -24,7 +24,7 @@ namespace HR.Web.Services.Operation
                         .Where(x => x.TransactionId == entity.TransactionId).FirstOrDefault();
                     if (leaveTransaction == null)
                     {
-                        dbContext.LeaveTransactions.Add(leaveTransaction);
+                        dbContext.LeaveTransactions.Add(entity);
                     }
                     else
                     {

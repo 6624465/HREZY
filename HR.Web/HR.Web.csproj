@@ -1857,6 +1857,7 @@
     <Compile Include="Services\LeaveMaster\CountryRepository.cs" />
     <Compile Include="Services\LeaveMaster\HolidayListRepository.cs" />
     <Compile Include="Services\LeaveMaster\LeaveRepository.cs" />
+    <Compile Include="Services\LeaveMaster\LookUpRepository.cs" />
     <Compile Include="Services\Operation\AddressService.cs" />
     <Compile Include="Services\Operation\EmployeeDocumentDetailService.cs" />
     <Compile Include="Services\Operation\EmployeeHeaderService.cs" />

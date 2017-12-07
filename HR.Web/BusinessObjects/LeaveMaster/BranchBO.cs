@@ -3,8 +3,6 @@ using HR.Web.Models;
 using HR.Web.Services.LeaveMaster;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace HR.Web.BusinessObjects.LeaveMaster
 {

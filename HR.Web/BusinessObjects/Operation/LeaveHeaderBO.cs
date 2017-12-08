@@ -1,6 +1,7 @@
 ﻿using HR.Web.Controllers;
 using HR.Web.Models;
 using HR.Web.Services.Operation;
+using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,24 @@ namespace HR.Web.BusinessObjects.Operation
         {
             sessionObj = _sessionObj;
             leaveHeaderRepository = new LeaveHeaderRepository();
+        }
+
+        internal void SaveLeave(LeaveVm LeaveVm)
+        {
+            var leaveheader = new LeaveHeader
+            {
+                BranchID = sessionObj.BRANCHID,
+                LeaveHeaderID = LeaveVm.leaveHeader.LeaveHeaderID,
+                LeaveYear = LeaveVm.leaveHeader.LeaveYear,
+                PeriodicityType = LeaveVm.leaveHeader.PeriodicityType,
+                PeriodType = LeaveVm.leaveHeader.PeriodType,
+                LeaveSchemeType = LeaveVm.leaveHeader.LeaveSchemeType,
+                CreatedBy = sessionObj.USERID,
+                ModifiedBy = sessionObj.USERID,
+                CreatedOn = UTILITY.SINGAPORETIME,
+                ModifiedOn = UTILITY.SINGAPORETIME,
+            };
+            leaveHeaderRepository.Add(leaveheader);
         }
 
         public void Add(LeaveHeader leaveHeader)

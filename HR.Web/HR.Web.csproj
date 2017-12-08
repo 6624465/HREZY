@@ -1722,6 +1722,9 @@
     <Compile Include="ActionFilters\SessionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BusinessObjects\BaseBO.cs" />
+    <Compile Include="BusinessObjects\LeaveMaster\BranchBO.cs" />
+    <Compile Include="BusinessObjects\LeaveMaster\CompanyBO.cs" />
+    <Compile Include="BusinessObjects\LeaveMaster\HolidayListBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\LeaveBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeDocumentDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeLeaveListBO.cs" />
@@ -1732,6 +1735,10 @@
     <Compile Include="BusinessObjects\Operation\LeaveDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveHeaderBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveTrasactionBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\ContributionBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\SalaryRuleBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\SalaryRuleDetailBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\SalaryRuleInputBO.cs" />
     <Compile Include="BusinessObjects\Security\UserBO.cs" />
     <Compile Include="BusinessObjects\WeekendPolicyBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -1849,7 +1856,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IRepository.cs" />
+    <Compile Include="Services\LeaveMaster\BranchRepository.cs" />
+    <Compile Include="Services\LeaveMaster\CompanyRepository.cs" />
+    <Compile Include="Services\LeaveMaster\CountryRepository.cs" />
+    <Compile Include="Services\LeaveMaster\HolidayListRepository.cs" />
     <Compile Include="Services\LeaveMaster\LeaveRepository.cs" />
+    <Compile Include="Services\LeaveMaster\LookUpRepository.cs" />
     <Compile Include="Services\Operation\AddressService.cs" />
     <Compile Include="Services\Operation\EmployeeDocumentDetailService.cs" />
     <Compile Include="Services\Operation\EmployeeHeaderService.cs" />
@@ -1859,6 +1871,10 @@
     <Compile Include="Services\Operation\LeaveDetailRepository.cs" />
     <Compile Include="Services\Operation\LeaveHeaderRepository.cs" />
     <Compile Include="Services\Operation\LeaveTrasactionRepository.cs" />
+    <Compile Include="Services\Payroll\ContributionRepository.cs" />
+    <Compile Include="Services\Payroll\SalaryRuleDetailRepository.cs" />
+    <Compile Include="Services\Payroll\SalaryRuleHeaderRepository.cs" />
+    <Compile Include="Services\Payroll\SalaryRuleInputRepository.cs" />
     <Compile Include="Services\Security\UserRepository.cs" />
     <Compile Include="Services\WeekenPolicyService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />

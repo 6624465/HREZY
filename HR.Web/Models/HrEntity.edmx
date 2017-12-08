@@ -512,10 +512,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="EmployeeAddresses" EntityType="DB_9F30C5_HRDBModel.EmployeeAddress" />
           <EntitySet Name="LeaveDetails" EntityType="DB_9F30C5_HRDBModel.LeaveDetail" />
           <EntitySet Name="LeaveHeaders" EntityType="DB_9F30C5_HRDBModel.LeaveHeader" />
-          <AssociationSet Name="LeaveHeaderLeaveDetail" Association="DB_9F30C5_HRDBModel.LeaveHeaderLeaveDetail">
-            <End Role="LeaveHeader" EntitySet="LeaveHeaders" />
-            <End Role="LeaveDetail" EntitySet="LeaveDetails" />
-          </AssociationSet>
           <EntitySet Name="HolidayLists" EntityType="DB_9F30C5_HRDBModel.HolidayList" />
           <EntitySet Name="EmployeeDocumentDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" />
           <EntitySet Name="Roles" EntityType="DB_9F30C5_HRDBModel.Role" />
@@ -784,18 +780,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="LeaveHeaderLeaveDetail">
-          <End Type="DB_9F30C5_HRDBModel.LeaveHeader" Role="LeaveHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LeaveHeader">
-              <PropertyRef Name="LeaveHeaderID" />
-            </Principal>
-            <Dependent Role="LeaveDetail">
-              <PropertyRef Name="LeaveHeaderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="HolidayList">
           <Key>
             <PropertyRef Name="HolidayId" />

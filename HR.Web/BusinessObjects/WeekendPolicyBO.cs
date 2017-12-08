@@ -11,10 +11,12 @@ namespace HR.Web.BusinessObjects
     public class WeekendPolicyBO : BaseBO
     {
         WeekendPolicyService weekenPolicyService = null;
+       
         public WeekendPolicyBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
             weekenPolicyService = new WeekendPolicyService(sessionObj);
+           
         }
 
         public void Add(WeekendPolicy entity)

@@ -22,6 +22,7 @@ namespace HR.Web.Services.LeaveMaster
                         .Where(x => x.HolidayId == entity.HolidayId).FirstOrDefault();
                     if (holidayList == null)
                     {
+                        
                         dbContext.HolidayLists.Add(entity);
                     }
                     else

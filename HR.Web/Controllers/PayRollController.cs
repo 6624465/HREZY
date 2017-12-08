@@ -1,4 +1,5 @@
-﻿using HR.Web.Models;
+﻿using HR.Web.BusinessObjects.Payroll;
+using HR.Web.Models;
 using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,17 @@ namespace HR.Web.Controllers
     [SessionFilter]
     public class PayRollController : BaseController
     {
+        SalaryRuleBO salaryRuleBO = null;
+        SalaryRuleInputBO salaryRuleInputBO = null;
+        SalaryRuleDetailBO salaryRuleDetailBO = null;
+        ContributionBO contributionBO = null;
+        public PayRollController()
+        {
+            salaryRuleBO = new SalaryRuleBO(SESSIONOBJ);
+            salaryRuleInputBO = new SalaryRuleInputBO(SESSIONOBJ);
+            salaryRuleDetailBO = new SalaryRuleDetailBO(SESSIONOBJ);
+            contributionBO = new ContributionBO(SESSIONOBJ);
+        }
         // GET: PayRoll
         public ActionResult PayRollInfo()
         {
@@ -20,12 +32,8 @@ namespace HR.Web.Controllers
         {
             if (ContributionId != -1)
             {
-                using (var dbcntx = new HrDataContext())
-                {
-                    var contributionregisterobj = dbcntx.Contributions.Where(x => x.ContributionId == ContributionId).FirstOrDefault();
-                    return View(contributionregisterobj);
-
-                }
+                var contributionregisterobj = contributionBO.GetById(ContributionId);
+                return View(contributionregisterobj);
             }
             else
             {
@@ -35,51 +43,19 @@ namespace HR.Web.Controllers
         }
         public ActionResult ContributionRegisterList()
         {
-            using (var dbcntx = new HrDataContext())
-            {
-                var list = dbcntx.Contributions.Where(x => x.IsActive == true).ToList();
-                return View(list);
-            }
 
+            var list = contributionBO.GetListByProperty(true);
+            return View(list);
         }
         public ActionResult ContributionSave(Contribution contribution)
         {
             if (contribution.ContributionId == -1)
             {
-                using (var dbcntx = new HrDataContext())
-                {
-                    var contributionregistersave = new Contribution
-                    {
-                        ContributionId = contribution.ContributionId,
-                        Name = contribution.Name,
-                        Description = contribution.Description,
-                        IsActive = contribution.IsActive,
-                        CreatedBy = USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        //ModifiedBy = USERID,
-                        //ModifiedOn = UTILITY.SINGAPORETIME
-                    };
-                    dbcntx.Contributions.Add(contributionregistersave);
-                    dbcntx.SaveChanges();
-
-                }
+                contributionBO.Add(contribution);
             }
             else
             {
-                using (var dbcntx = new HrDataContext())
-                {
-                    var contributionregister = dbcntx.Contributions.Where(x => x.ContributionId == contribution.ContributionId).FirstOrDefault();
-                    contributionregister.ContributionId = contribution.ContributionId;
-                    contributionregister.Name = contribution.Name;
-                    contributionregister.Description = contribution.Description;
-                    contributionregister.IsActive = contribution.IsActive;
-                    //contributionregister.CreatedBy = USERID;
-                    //contributionregister.CreatedOn = UTILITY.SINGAPORETIME;
-                    contributionregister.ModifiedBy = USERID;
-                    contributionregister.ModifiedOn = UTILITY.SINGAPORETIME;
-                    dbcntx.SaveChanges();
-                };
-
+                contributionBO.Add(contribution);
             }
 
             return RedirectToAction("ContributionRegisterList");
@@ -88,12 +64,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public JsonResult ContributionDelete(int contributionid)
         {
-            using (var dbcntx = new HrDataContext())
-            {
-                var record = dbcntx.Contributions.Where(x => x.ContributionId == contributionid).FirstOrDefault();
-                record.IsActive = false;
-                dbcntx.SaveChanges();
-            }
+            contributionBO.Delete(contributionid);
             return Json(new { message = "success" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -136,9 +107,9 @@ namespace HR.Web.Controllers
                         a => a.RuleId, b => b.RuleId,
                         (a, b) => new { A = a, B = b })
                         .Join(dbContext.Contributions,
-                        c => c.A.RuleId, d => d.RuleId,
+                        c => c.A.RuleId, d => d.ContributionId,
                         (c, d) => new { C = c, D = d }).Where(x => x.C.A.RuleId == RuleId).FirstOrDefault();
-                    //SalaryRuleHeaderVm salaryRule = dbContext.SalaryRuleHeaders.Where(x => x.RuleId == RuleId).FirstOrDefault();
+                    //SalaryRuleHeader salaryRule = dbContext.SalaryRuleHeaders.Where(x => x.RuleId == RuleId).FirstOrDefault();
                     SalaryRuleHeaderVm salaryRuleVm = new SalaryRuleHeaderVm()
                     {
                         Category = salaryRule.C.A.Category,
@@ -157,101 +128,27 @@ namespace HR.Web.Controllers
                             RuleDetailId = salaryRule.C.B.RuleDetailId,
                             RuleId = salaryRule.C.B.RuleId,
                         },
-                        ContributionVm = new ContributionVm()
+                        contributionVm = new ContributionVm()
                         {
-                            Category = salaryRule.D.Category,
-                            Code = salaryRule.D.Code,
+                            ContributionId = salaryRule.D.ContributionId,
+                            IsActive = salaryRule.D.IsActive,
                             Name = salaryRule.D.Name,
-                            RuleId = salaryRule.D.RuleId,
-                            RuleInputId = salaryRule.D.RuleInputId
+                            Description = salaryRule.D.Description
                         }
                     };
                     return View(salaryRuleVm);
                 }
-                else {
-                    return View(new SalaryRuleHeaderVm() { IsActive=false,IsOnPayslip=false});
+                else
+                {
+                    return View(new SalaryRuleHeaderVm() { IsActive = false, IsOnPayslip = false });
                 }
             }
         }
         [HttpPost]
         public ActionResult SalaryRules(SalaryRuleHeaderVm salaryRules)
         {
-            using (HrDataContext dbContext = new HrDataContext())
-            {
-                if (salaryRules.RuleId == 0)
-                {
-                    SalaryRuleHeader salaryRule = new SalaryRuleHeader()
-                    {
-                        Category = salaryRules.Category,
-                        Code = salaryRules.Code,
-                        IsActive = salaryRules.IsActive,
-                        IsOnPayslip = salaryRules.IsOnPayslip,
-                        Name = salaryRules.Name,
-                        SequenceNo = salaryRules.SequenceNo
-                    };
-                    dbContext.SalaryRuleHeaders.Add(salaryRule);
-
-                    SalaryRuleDetail salaryRuleDetail = new SalaryRuleDetail()
-                    {
-                        AmountType = salaryRules.salaryRuleDetailVm.AmountType,
-                        ConditionBased = salaryRules.salaryRuleDetailVm.ConditionBased,
-                        ContributionRegister = salaryRules.salaryRuleDetailVm.ContributionRegister,
-                        PythonCode = salaryRules.salaryRuleDetailVm.PythonCode,
-                        RuleId = salaryRule.RuleId
-
-                    };
-                    dbContext.SalaryRuleDetails.Add(salaryRuleDetail);
-
-                    Contribution Contribution = new Contribution()
-                    {
-                        Category = salaryRules.Category,
-                        Code = salaryRules.Code,
-                        Name = salaryRules.Name,
-                        RuleId = salaryRule.RuleId,
-                        ContributionRegister = salaryRuleDetail.ContributionRegister
-                        //
-                    };
-                    dbContext.Contributions.Add(Contribution);
-                }
-                else
-                {
-
-                    SalaryRuleHeader salaryRule = dbContext.SalaryRuleHeaders
-                        .Where(x => x.RuleId == salaryRules.RuleId).FirstOrDefault();
-
-                    salaryRule.RuleId = salaryRules.RuleId;
-                    salaryRule.Category = salaryRules.Category;
-                    salaryRule.Code = salaryRules.Code;
-                    salaryRule.IsActive = salaryRules.IsActive;
-                    salaryRule.IsOnPayslip = salaryRules.IsOnPayslip;
-                    salaryRule.Name = salaryRules.Name;
-                    salaryRule.SequenceNo = salaryRules.SequenceNo;
-
-                    SalaryRuleDetail salaryRuleDetail = dbContext.SalaryRuleDetails
-                        .Where(x => x.RuleDetailId == salaryRules.salaryRuleDetailVm.RuleDetailId).FirstOrDefault();
-
-                    salaryRuleDetail.RuleDetailId = salaryRules.salaryRuleDetailVm.RuleDetailId;
-                    salaryRuleDetail.AmountType = salaryRules.salaryRuleDetailVm.AmountType;
-                    salaryRuleDetail.ConditionBased = salaryRules.salaryRuleDetailVm.ConditionBased;
-                    salaryRuleDetail.ContributionRegister = salaryRules.salaryRuleDetailVm.ContributionRegister;
-                    salaryRuleDetail.PythonCode = salaryRules.salaryRuleDetailVm.PythonCode;
-                    salaryRuleDetail.RuleId = salaryRule.RuleId;
-
-                    Contribution Contribution = dbContext.Contributions
-                        .Where(x => x.RuleInputId == salaryRules.ContributionVm.RuleInputId).FirstOrDefault();
-                    if (Contribution != null)
-                    {
-                        Contribution.RuleInputId = Contribution.RuleInputId;
-                        Contribution.Category = Contribution.Category;
-                        Contribution.Code = Contribution.Code;
-                        Contribution.Name = Contribution.Name;
-                        Contribution.RuleId = Contribution.RuleId;
-                        Contribution.ContributionRegister = Contribution.ContributionRegister;
-                    }
-                }
-                dbContext.SaveChanges();
-                return RedirectToAction("SalaryRulesList");
-            }
+            salaryRuleBO.SavePayroll(salaryRules);
+            return RedirectToAction("SalaryRulesList");
         }
 
         public ActionResult SalaryStructure()

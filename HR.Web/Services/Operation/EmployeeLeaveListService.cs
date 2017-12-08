@@ -30,20 +30,20 @@ namespace HR.Web.Services.Operation
                         leaveList.FromDate = entity.FromDate;
                         leaveList.ToDate = entity.ToDate;
                         leaveList.Days = entity.Days;
-                        leaveList.EmployeeId = Convert.ToInt32(UTILITY.SSN_EMPLOYEEID);
+                        leaveList.EmployeeId = entity.EmployeeId; //Convert.ToInt32(UTILITY.SSN_EMPLOYEEID);
                         leaveList.LeaveTypeId = entity.LeaveTypeId;
                         leaveList.Remarks = entity.Remarks;
                         leaveList.Reason = entity.Reason;
-                        leaveList.CreatedBy = UTILITY.SSN_USERID;
+                        leaveList.CreatedBy =entity.CreatedBy;
                         leaveList.CreatedOn = UTILITY.SINGAPORETIME;
-                        leaveList.ModifiedBy = UTILITY.SSN_USERID;
+                        leaveList.ModifiedBy = entity.ModifiedBy;
                         leaveList.ModifiedOn = UTILITY.SINGAPORETIME;
                         leaveList.ApplyDate = UTILITY.SINGAPORETIME;
                         leaveList.ManagerId = dbContext.EmployeeHeaders
                                             .Where(x => x.EmployeeId == leaveList.EmployeeId)
                                             .FirstOrDefault()
                                             .ManagerId.Value;
-                        leaveList.Status = UTILITY.LEAVEPENDING;
+                        leaveList.Status =entity.Status;
                     }
                     dbContext.SaveChanges();
                 }

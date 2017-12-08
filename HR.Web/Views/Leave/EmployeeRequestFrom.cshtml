@@ -4,6 +4,7 @@
     var message = (string)ViewData["Message"] ?? "";
     var IsLop = ViewData["IsLop"] == null ? false : (bool)ViewData["IsLop"];
     var temp = Model;
+   
 }
 @using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
@@ -262,14 +263,15 @@
 
             var from = moment(fromDate, 'MM/DD/YYYY');
             var to = moment(toDate, 'MM/DD/YYYY');
+            debugger;
 
             var temp = moment().isoWeekdayCalc({
                 rangeStart: from,
                 rangeEnd: to,
-                weekdays: [1, 2, 3, 4, 5], //weekdays Mon to Fri
+                weekdays: @Html.Raw(Json.Encode(@ViewBag.weekend)),//[1,2,3,4,5], //weekdays Mon to Fri
                 exclusions: holidaysArray  //public holidays
             }) //returns 260 (260 workdays excluding two public holidays)
-            debugger;
+        
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
                 if (temp > 0)
                     $('#Days').val(temp);

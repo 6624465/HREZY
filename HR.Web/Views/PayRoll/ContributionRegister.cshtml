@@ -33,8 +33,8 @@
                                 <span class="pull-right">Status</span>
                             </label>
                              <div style="margin-top:10px">
-                                 @Html.CheckBoxFor(x => x.IsActive)
-                             </div>
+                                 @Html.CheckBox(nameof(Model.IsActive), Model.IsActive)
+                                                             </div>
                         </div>
                         <div class="row css10">
                             <div class="form-group ">

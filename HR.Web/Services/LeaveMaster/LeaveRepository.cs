@@ -90,7 +90,7 @@ namespace HR.Web.Services.LeaveMaster
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    return dbContext.Leaves.Where(x => x.LeaveId == id).FirstOrDefault();
+                    return dbContext.Leaves.Where(x => x.BranchId == id).FirstOrDefault();
                 }
             }
             catch (Exception)

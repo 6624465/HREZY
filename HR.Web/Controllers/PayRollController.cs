@@ -56,8 +56,8 @@ namespace HR.Web.Controllers
                         IsActive = contribution.IsActive,
                         CreatedBy = USERID,
                         CreatedOn = UTILITY.SINGAPORETIME,
-                        ModifiedBy = USERID,
-                        ModifiedOn = UTILITY.SINGAPORETIME
+                        //ModifiedBy = USERID,
+                        //ModifiedOn = UTILITY.SINGAPORETIME
                     };
                     dbcntx.Contributions.Add(contributionregistersave);
                     dbcntx.SaveChanges();
@@ -73,8 +73,8 @@ namespace HR.Web.Controllers
                     contributionregister.Name = contribution.Name;
                     contributionregister.Description = contribution.Description;
                     contributionregister.IsActive = contribution.IsActive;
-                    contributionregister.CreatedBy = USERID;
-                    contributionregister.CreatedOn = UTILITY.SINGAPORETIME;
+                    //contributionregister.CreatedBy = USERID;
+                    //contributionregister.CreatedOn = UTILITY.SINGAPORETIME;
                     contributionregister.ModifiedBy = USERID;
                     contributionregister.ModifiedOn = UTILITY.SINGAPORETIME;
                     dbcntx.SaveChanges();

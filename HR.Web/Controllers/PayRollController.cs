@@ -209,6 +209,7 @@ namespace HR.Web.Controllers
                         Name = salaryRules.Name,
                         RuleId = salaryRule.RuleId,
                         ContributionRegister = salaryRuleDetail.ContributionRegister
+                        //
                     };
                     dbContext.Contributions.Add(Contribution);
                 }

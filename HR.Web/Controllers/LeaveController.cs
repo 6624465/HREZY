@@ -167,35 +167,38 @@ namespace HR.Web.Controllers
             List<int> weekEnd = new List<int>();
 
             WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
-            if (!weekendPolicy.Monday.Value)
+            if (weekendPolicy != null)
             {
-                weekEnd.Add(1);
+                if (!weekendPolicy.Monday.Value)
+                {
+                    weekEnd.Add(1);
+                }
+                if (!weekendPolicy.Tuesday.Value)
+                {
+                    weekEnd.Add(2);
+                }
+                if (!weekendPolicy.Wednesday.Value)
+                {
+                    weekEnd.Add(3);
+                }
+                if (!weekendPolicy.Thursday.Value)
+                {
+                    weekEnd.Add(4);
+                }
+                if (!weekendPolicy.Friday.Value)
+                {
+                    weekEnd.Add(5);
+                }
+                if (!weekendPolicy.Saturday.Value)
+                {
+                    weekEnd.Add(6);
+                }
+                if (!weekendPolicy.Sunday.Value)
+                {
+                    weekEnd.Add(7);
+                }
+                ViewBag.weekend = weekEnd;
             }
-            if (!weekendPolicy.Tuesday.Value)
-            {
-                weekEnd.Add(2);
-            }
-            if (!weekendPolicy.Wednesday.Value)
-            {
-                weekEnd.Add(3);
-            }
-            if (!weekendPolicy.Thursday.Value)
-            {
-                weekEnd.Add(4);
-            }
-            if (!weekendPolicy.Friday.Value)
-            {
-                weekEnd.Add(5);
-            }
-            if (!weekendPolicy.Saturday.Value)
-            {
-                weekEnd.Add(6);
-            }
-            if (!weekendPolicy.Sunday.Value)
-            {
-                weekEnd.Add(7);
-            }
-            ViewBag.weekend = weekEnd;
             return View(new EmployeeLeaveList
             {
                 // FromDate = DateTime.Now,
@@ -579,7 +582,7 @@ namespace HR.Web.Controllers
         {
             try
             {
-                var empLeaveObj = employeeLeaveListBO.ApproveLeave(grantLeaveVm);
+                var empLeaveObj = employeeLeaveListBO.RejectLeave(grantLeaveVm);
                 Save(grantLeaveVm, empLeaveObj);
                 return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
 
@@ -593,7 +596,7 @@ namespace HR.Web.Controllers
 
         public void Save(GrantLeaveListVm grantLeaveVm, EmployeeLeaveList empLeaveObj)
         {
-            LeaveTransaction leavetransaction = leaveTransactionBO.GetByProperty(BRANCHID,EMPLOYEEID);
+            LeaveTransaction leavetransaction = leaveTransactionBO.GetByProperty(empLeaveObj.BranchId, empLeaveObj.EmployeeId);
             LeaveListCalc leaveListCalc = null;
             if (leavetransaction != null)
             {
@@ -717,6 +720,7 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
 
             using (var dbcntx = new HrDataContext())
             {
+                ViewData["RoleCode"] = ROLECODE;
                 var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appViewLeaveListOffSet"]);
                 var skip = (page - 1) * offset;
 

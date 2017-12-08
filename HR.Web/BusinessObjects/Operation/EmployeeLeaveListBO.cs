@@ -31,13 +31,14 @@ namespace HR.Web.BusinessObjects.Operation
             return empLeaveObj;
         }
 
-        public void RejectLeave(GrantLeaveListVm grantLeaveListVm)
+        public EmployeeLeaveList RejectLeave(GrantLeaveListVm grantLeaveListVm)
         {
 
             var empLeaveObj = GetById(grantLeaveListVm.EmployeeLeaveID);
-            empLeaveObj.Status = "Approved";
+            empLeaveObj.Status = "Rejected";
             empLeaveObj.Remarks = "";
             Add(empLeaveObj);
+            return empLeaveObj;
 
         }
         public void CancelLeave(int employeeLeaveID, string remarks)

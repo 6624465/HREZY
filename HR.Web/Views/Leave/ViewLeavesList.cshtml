@@ -16,11 +16,14 @@
             <div class="box">
                 <div class="box-header">
                     <h5>Leave List For The Year(@DateTime.Now.Year)</h5>
-                    <div class="box-tools">
-                        <button class="btn btn-primary btn-sm pull-right btn-box-tool" onclick="location.href='@Url.Content("~/Leave/EmployeeRequestFrom")'">Apply Leave</button>
-                    </div>
+                    @if (ViewData["RoleCode"].ToString() != UTILITY.ROLE_SUPERADMIN)
+                    {
+                        <div class="box-tools">
+                            <button class="btn btn-primary btn-sm pull-right btn-box-tool" onclick="location.href='@Url.Content("~/Leave/EmployeeRequestFrom")'">Apply Leave</button>
+                        </div>
+                    }
                 </div>
-            </div>            
+            </div>
         </div>
         <div>
             @for (var i = 0; i < Model.TableData.Count; i++)
@@ -108,93 +111,93 @@
 @using (Html.BeginForm("CancelLeave", "Leave", FormMethod.Post, new { id = "frmCancelLeave", name = "frmCancelLeave" }))
 {
     <input type="hidden" id="employeeLeaveID" name="employeeLeaveID" />
-            <input type="hidden" id="employeeRemarks" name="employeeRemarks" />
-            <div id="popoverCancel" class="hide">
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-3">Remarks:</div>
-                        <div class="col-md-9">
+    <input type="hidden" id="employeeRemarks" name="employeeRemarks" />
+    <div id="popoverCancel" class="hide">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">Remarks:</div>
+                <div class="col-md-9">
 
-                            <textarea id="txtRemarks" name="txtRemarks" class="form-control"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row css10">
-                    <div class="form-group">
-                        <div class="col-md-3">
-                        </div>
-                        <div class="col-md-9">
-                            <button type="button" class="btn btn-primary btn-sm" onclick="CancelLeave()"><i class="fa fa-floppy-o"></i>Save</button>
-                            <button type="button" class="btn btn-default btn-sm" onclick="ClosePopUp()"><i class="fa fa-times"></i>Close</button>
-                        </div>
-                    </div>
+                    <textarea id="txtRemarks" name="txtRemarks" class="form-control"></textarea>
                 </div>
             </div>
+        </div>
+        <div class="row css10">
+            <div class="form-group">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="CancelLeave()"><i class="fa fa-floppy-o"></i>Save</button>
+                    <button type="button" class="btn btn-default btn-sm" onclick="ClosePopUp()"><i class="fa fa-times"></i>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 @section Scripts{
     <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
-                function OpenCancelPopover(empLeaveId){
-                    debugger;
+        function OpenCancelPopover(empLeaveId){
+            debugger;
 
-                    $('#popoverCancel').popover('show');
-                    //$('[data-toggle="popoverCancel"]').popover('show');
-                    $('#employeeLeaveID').val(empLeaveId);
+            $('#popoverCancel').popover('show');
+            //$('[data-toggle="popoverCancel"]').popover('show');
+            $('#employeeLeaveID').val(empLeaveId);
+        }
+        function getyear(){
+            var year=new Date().getFullYear;
+        }
+
+
+        $(function () {
+            $('#li_Leave').addClass('open');
+            $('#li_empadd').addClass('active');
+
+            $('[data-toggle="popoverCancel"]').popover({
+                placement: 'left',
+                html: true,
+                content: function () {
+                    return $('#popoverCancel').html();
                 }
-                function getyear(){
-                    var year=new Date().getFullYear;
-                }
+            });
 
+            //$('[data-toggle="popoverCancel"]').popover({
+            //    placement: 'top',
+            //    html: true,
+            //    content: function () {
 
-                $(function () {
-                    $('#li_Leave').addClass('open');
-                    $('#li_empadd').addClass('active');
+            //        return $('#popoverCancel').html();
+            //    }
+            //})
 
-                    $('[data-toggle="popoverCancel"]').popover({
-                        placement: 'left',
-                        html: true,
-                        content: function () {
-                            return $('#popoverCancel').html();
-                        }
-                    });
+            $('#pagination').bootpag({
+                total: @Model.PageLength,
+                page: @Model.CurrentPage,
+                maxVisible: 6,
+                href: '@Url.Content("~/Leave/ViewLeavesList?page="){{number}}', //"#pro-page-{{number}}",
+                leaps: false,
+                next: 'Next',
+                prev: 'Prev',
+                wrapClass: 'pagination pagination-sm'
+            }).on('page', function (event, num) {
+                $(".content3").html("Page " + num); // or some ajax content loading...
+            });
+        });
 
-                    //$('[data-toggle="popoverCancel"]').popover({
-                    //    placement: 'top',
-                    //    html: true,
-                    //    content: function () {
+        function cancelRequest(id) {
+            $('#employeeLeaveID').val(id);
+        }
 
-                    //        return $('#popoverCancel').html();
-                    //    }
-                    //})
+        function CancelLeave() {
+            var remarks = $('#txtRemarks').val();
+            $('#employeeRemarks').val(remarks);
+            $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
+            $('#frmCancelLeave').submit();
 
-                    $('#pagination').bootpag({
-                        total: @Model.PageLength,
-                        page: @Model.CurrentPage,
-                        maxVisible: 6,
-                        href: '@Url.Content("~/Leave/ViewLeavesList?page="){{number}}', //"#pro-page-{{number}}",
-                        leaps: false,
-                        next: 'Next',
-                        prev: 'Prev',
-                        wrapClass: 'pagination pagination-sm'
-                    }).on('page', function (event, num) {
-                        $(".content3").html("Page " + num); // or some ajax content loading...
-                    });
-                });
-
-                function cancelRequest(id) {
-                    $('#employeeLeaveID').val(id);
-                }
-
-                function CancelLeave() {
-                    var remarks = $('#txtRemarks').val();
-                    $('#employeeRemarks').val(remarks);
-                    $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
-                    $('#frmCancelLeave').submit();
-
-                }
-                function ClosePopUp() {
-                    $('[data-toggle="popoverCancel"]').popover('hide');
-                }
+        }
+        function ClosePopUp() {
+            $('[data-toggle="popoverCancel"]').popover('hide');
+        }
 
     </script>
 }

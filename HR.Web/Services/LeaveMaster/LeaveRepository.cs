@@ -22,7 +22,7 @@ namespace HR.Web.Services.LeaveMaster
                         .Where(x => x.LeaveId == entity.LeaveId).FirstOrDefault();
                     if (leave == null)
                     {
-                        dbContext.Leaves.Add(leave);
+                        dbContext.Leaves.Add(entity);
                     }
                     else
                     {

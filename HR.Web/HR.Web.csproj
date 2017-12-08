@@ -1724,6 +1724,7 @@
     <Compile Include="BusinessObjects\BaseBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\BranchBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\CompanyBO.cs" />
+    <Compile Include="BusinessObjects\LeaveMaster\LookUpBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\HolidayListBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\LeaveBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeDocumentDetailBO.cs" />

@@ -18,7 +18,9 @@ namespace HR.Web.Services.LeaveMaster
                         .Where(x => x.LookUpID == entity.LookUpID).FirstOrDefault();
                     if (lookUp == null)
                     {
-                        dbContext.LookUps.Add(lookUp);
+                       
+                        entity.IsActive = true;
+                        dbContext.LookUps.Add(entity);
                     }
                     else
                     {
@@ -27,6 +29,7 @@ namespace HR.Web.Services.LeaveMaster
                         lookUp.LookUpCode = entity.LookUpCode;
                         lookUp.LookUpDescription = entity.LookUpDescription;
                     }
+                    dbContext.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -75,7 +78,40 @@ namespace HR.Web.Services.LeaveMaster
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    return dbContext.LookUps.Where(x=>x.LookUpID ==  id).FirstOrDefault();
+                    return dbContext.LookUps.Where(x => x.LookUpID == id).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public LookUp GetByProperty(Func<LookUp, bool> predicate)
+        {
+
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.LookUps.Where(predicate).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public IEnumerable<LookUp> GetListByProperty(Func<LookUp, bool> predicate)
+        {
+
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.LookUps.Where(predicate).ToList();
                 }
             }
             catch (Exception ex)

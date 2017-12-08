@@ -1,4 +1,5 @@
-﻿using HR.Web.Models;
+﻿using HR.Web.BusinessObjects.LookUpMaster;
+using HR.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,27 +13,26 @@ namespace HR.Web.Controllers
     [SessionFilter]
     public class ConfigController : BaseController
     {
-
+        LookUpBO lookUpBO = null;
+        public ConfigController()
+        {
+            lookUpBO = new LookUpBO(SESSIONOBJ);
+        }
 
         #region Designation
         public ActionResult EmployeeDesignationList()
         {
-            using (var dbContext = new HrDataContext())
-            {
-                var EmployeeData = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION && x.IsActive == true).ToList().AsEnumerable();
-                return View(EmployeeData);
-            }
+            var EmployeeData = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION && x.IsActive == true)
+       .ToList().AsEnumerable();
+            return View(EmployeeData);
         }
         [HttpGet]
         public PartialViewResult GetEmployeeDesignation(int lookupID)
         {
             if (lookupID != -1)
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var employeeDesign = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
-                    return PartialView("GetEmployeeDesignation",employeeDesign);
-                }
+                var employeeDesign = lookUpBO.GetByProperty(x => x.LookUpID == lookupID && x.IsActive == true);
+                return PartialView("GetEmployeeDesignation", employeeDesign);
 
             }
             else
@@ -44,56 +44,27 @@ namespace HR.Web.Controllers
         {
             if (lookup.LookUpID != -1)
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
-
-                    _lookupObj.LookUpCode = lookup.LookUpCode;
-                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
-                    _lookupObj.ModifiedBy = USERID;
-                    _lookupObj.IsActive = lookup.IsActive;
-                    _lookupObj.ModifiedOn = DateTime.Now;
-
-                    dbCntx.SaveChanges();
-                }
+                
+                var _lookupObj = lookUpBO.GetByProperty(x => x.LookUpID == lookup.LookUpID && x.IsActive == true);
+                lookUpBO.Add(_lookupObj);
             }
-            else
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var lookupObj = new LookUp
-                    {
-                        LookUpCode = lookup.LookUpCode,
-                        LookUpDescription = lookup.LookUpDescription,
-                        LookUpCategory = UTILITY.CONFIG_EMPLOYEEDESIGNATION,
-                        IsActive = lookup.IsActive,
-                        CreatedOn = DateTime.Now,
-                        CreatedBy = USERID,
-                        ModifiedOn = DateTime.Now,
-                        ModifiedBy = USERID
-                    };
-
-                    dbCntx.LookUps.Add(lookupObj);
-                    dbCntx.SaveChanges();
-                }
-
+            else { 
+                lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEDESIGNATION;
+            lookUpBO.Add(lookup);
             }
             return RedirectToAction("EmployeeDesignationList");
         }
 
         #endregion
 
-        
+
 
         #region EmployeeType
         [HttpGet]
         public ActionResult EmployeeTypeList()
         {
-            using (var dbCntx = new HrDataContext())
-            {
-                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEETYPE && x.IsActive == true).ToList().AsEnumerable();
-                return View(list);
-            }
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEETYPE && x.IsActive == true).ToList().AsEnumerable();
+             return View(list);
         }
 
         [HttpGet]
@@ -102,12 +73,9 @@ namespace HR.Web.Controllers
         {
             if (lookupID != -1)
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var employeeType = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
-                    return PartialView(employeeType);
-                }
-             
+                var employeeType = lookUpBO.GetByProperty(x => x.LookUpID == lookupID && x.IsActive == true);
+                return PartialView(employeeType);
+
             }
             else
                 return PartialView(new LookUp { LookUpID = -1 });
@@ -116,42 +84,8 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeType(LookUp lookup)
         {
-            if (lookup.LookUpID != -1)
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
-
-                    _lookupObj.LookUpCode = lookup.LookUpCode;
-                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
-                    _lookupObj.IsActive = lookup.IsActive;
-                    _lookupObj.ModifiedBy = USERID;
-                    _lookupObj.ModifiedOn = DateTime.Now;
-
-                    dbCntx.SaveChanges();
-                }
-            }
-            else
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var lookupObj = new LookUp
-                    {
-                        LookUpCode = lookup.LookUpCode,
-                        LookUpDescription = lookup.LookUpDescription,
-                        LookUpCategory = UTILITY.CONFIG_EMPLOYEETYPE,
-                        IsActive = lookup.IsActive,
-                        CreatedOn = DateTime.Now,
-                        CreatedBy = USERID,
-                        ModifiedOn = DateTime.Now,
-                        ModifiedBy = USERID
-                    };
-
-                    dbCntx.LookUps.Add(lookupObj);
-                    dbCntx.SaveChanges();
-                }
-
-            }
+            lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEETYPE;
+            lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeTypeList");
         }
 
@@ -159,91 +93,43 @@ namespace HR.Web.Controllers
         #region department
         public ActionResult EmployeeDepartmentList()
         {
-            using (var dbCntx = new HrDataContext())
-            {
-                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDEPARTMENT && x.IsActive == true).ToList().AsEnumerable();
-                return View(list);
-            }
-                
+            var list = lookUpBO.GetListByProperty
+            (x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDEPARTMENT && x.IsActive == true).ToList().AsEnumerable();
+            return View(list);
+
         }
         [HttpGet]
         public PartialViewResult GetEmployeeDepartment(int lookupID)
         {
             if (lookupID != -1)
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var employeeDepartment = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
-                    return PartialView(employeeDepartment);
-                }
-
+                var employeeDepartment = lookUpBO.GetByProperty(x => x.LookUpID == lookupID && x.IsActive == true);
+                return PartialView(employeeDepartment);
             }
             else
-                return PartialView( new LookUp { LookUpID = -1 });
+                return PartialView(new LookUp { LookUpID = -1 });
         }
         [HttpPost]
         public ActionResult SaveEmployeeDepartment(LookUp lookup)
         {
-            if (lookup.LookUpID != -1)
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
-
-                    _lookupObj.LookUpCode = lookup.LookUpCode;
-                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
-                    _lookupObj.IsActive = lookup.IsActive;
-                    _lookupObj.ModifiedBy = USERID;
-                    _lookupObj.ModifiedOn = DateTime.Now;
-
-                    dbCntx.SaveChanges();
-                }
-            }
-            else
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var lookupObj = new LookUp
-                    {
-                        LookUpCode = lookup.LookUpCode,
-                        LookUpDescription = lookup.LookUpDescription,
-                        LookUpCategory = UTILITY.CONFIG_EMPLOYEEDEPARTMENT,
-                        IsActive = lookup.IsActive,
-                        CreatedOn = DateTime.Now,
-                        CreatedBy = USERID,
-                        ModifiedOn = DateTime.Now,
-                        ModifiedBy = USERID
-                    };
-
-                    dbCntx.LookUps.Add(lookupObj);
-                    dbCntx.SaveChanges();
-                }
-
-            }
+            lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEDEPARTMENT;
+            lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeDepartmentList");
         }
         #endregion
         #region EmployeeStatus
         public ActionResult EmployeeStatusList()
         {
-            using (var dbCntx = new HrDataContext())
-            {
-                var list = dbCntx.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEESTATUS && x.IsActive == true).ToList().AsEnumerable();
-                return View(list);
-            }
-
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEESTATUS && x.IsActive == true).ToList().AsEnumerable();
+            return View(list);
         }
         [HttpGet]
         public PartialViewResult GetEmployeeStatus(int lookupID)
         {
             if (lookupID != -1)
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var employeeStatus = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
-                    return PartialView(employeeStatus);
-                }
-
+                var employeeStatus = lookUpBO.GetByProperty(x => x.LookUpID == lookupID && x.IsActive == true);
+                return PartialView(employeeStatus);
             }
             else
                 return PartialView(new LookUp { LookUpID = -1 });
@@ -251,42 +137,8 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeStatus(LookUp lookup)
         {
-            if (lookup.LookUpID != -1)
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
-
-                    _lookupObj.LookUpCode = lookup.LookUpCode;
-                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
-                    _lookupObj.IsActive = lookup.IsActive;
-                    _lookupObj.ModifiedBy = USERID;
-                    _lookupObj.ModifiedOn = DateTime.Now;
-
-                    dbCntx.SaveChanges();
-                }
-            }
-            else
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var lookupObj = new LookUp
-                    {
-                        LookUpCode = lookup.LookUpCode,
-                        LookUpDescription = lookup.LookUpDescription,
-                        LookUpCategory = UTILITY.CONFIG_EMPLOYEESTATUS,
-                        IsActive = lookup.IsActive,
-                        CreatedOn = DateTime.Now,
-                        CreatedBy = USERID,
-                        ModifiedOn = DateTime.Now,
-                        ModifiedBy = USERID
-                    };
-
-                    dbCntx.LookUps.Add(lookupObj);
-                    dbCntx.SaveChanges();
-                }
-
-            }
+            lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEESTATUS;
+            lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeStatusList");
         }
         #endregion
@@ -294,24 +146,17 @@ namespace HR.Web.Controllers
         #region Marital Status
         public ActionResult MaritalStatusList()
         {
-            using (var dbContext = new HrDataContext())
-            {
-                var marital_status = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEMARITALSTATUS && x.IsActive == true).ToList().AsEnumerable();
-                return View(marital_status);
-            }
-            
+            var marital_status = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEMARITALSTATUS && x.IsActive == true).ToList().AsEnumerable();
+            return View(marital_status);
+
         }
         [HttpGet]
         public PartialViewResult GetEmployeeMaritalStatus(int lookupID)
         {
             if (lookupID != -1)
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var marital_status_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
-                    return PartialView(marital_status_data);
-                }
-
+                var marital_status_data = lookUpBO.GetByProperty(x => x.LookUpID == lookupID && x.IsActive == true);
+                return PartialView(marital_status_data);
             }
             else
                 return PartialView(new LookUp { LookUpID = -1 });
@@ -319,67 +164,24 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeMaritalStatus(LookUp lookup)
         {
-            if (lookup.LookUpID != -1)
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
-
-                    _lookupObj.LookUpCode = lookup.LookUpCode;
-                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
-                    _lookupObj.IsActive = lookup.IsActive;
-                    _lookupObj.ModifiedBy = USERID;
-                    _lookupObj.IsActive = lookup.IsActive;
-                    _lookupObj.ModifiedOn = DateTime.Now;
-
-                    dbCntx.SaveChanges();
-                }
-            }
-            else
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var lookupObj = new LookUp
-                    {
-                        LookUpCode = lookup.LookUpCode,
-                        LookUpDescription = lookup.LookUpDescription,
-                        LookUpCategory = UTILITY.CONFIG_EMPLOYEEMARITALSTATUS,
-                        IsActive = lookup.IsActive,
-                        CreatedOn = DateTime.Now,
-                        CreatedBy = USERID,
-                        ModifiedOn = DateTime.Now,
-                        ModifiedBy = USERID
-                    };
-
-                    dbCntx.LookUps.Add(lookupObj);
-                    dbCntx.SaveChanges();
-                }
-
-            }
+            lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEMARITALSTATUS;
+            lookUpBO.Add(lookup);
             return RedirectToAction("MaritalStatusList");
         }
         #endregion
         #region LeaveList
         public ActionResult LeaveList()
         {
-            using (var dbContext = new HrDataContext())
-            {
-                var leaveType = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE && x.IsActive == true).ToList().AsEnumerable();
-                return View(leaveType);
-            }
-
+            var leaveType = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE && x.IsActive == true).ToList().AsEnumerable();
+            return View(leaveType);
         }
         [HttpGet]
         public PartialViewResult GetLeaveType(int lookupID)
         {
             if (lookupID != -1)
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var leave_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
-                    return PartialView(leave_data);
-                }
-
+                var leave_data = lookUpBO.GetByProperty(x => x.LookUpID == lookupID && x.IsActive == true);
+                return PartialView(leave_data);
             }
             else
                 return PartialView(new LookUp { LookUpID = -1 });
@@ -387,66 +189,24 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveLeaveType(LookUp lookup)
         {
-            if (lookup.LookUpID != -1)
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
-
-                    _lookupObj.LookUpCode = lookup.LookUpCode;
-                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
-                    _lookupObj.ModifiedBy = USERID;
-                    _lookupObj.IsActive = lookup.IsActive;
-                    _lookupObj.ModifiedOn = DateTime.Now;
-
-                    dbCntx.SaveChanges();
-                }
-            }
-            else
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var lookupObj = new LookUp
-                    {
-                        LookUpCode = lookup.LookUpCode,
-                        LookUpDescription = lookup.LookUpDescription,
-                        LookUpCategory = UTILITY.CONFIG_EMPLOYEELEAVETYPE,
-                        IsActive = lookup.IsActive,
-                        CreatedOn = DateTime.Now,
-                        CreatedBy = USERID,
-                        ModifiedOn = DateTime.Now,
-                        ModifiedBy = USERID
-                    };
-
-                    dbCntx.LookUps.Add(lookupObj);
-                    dbCntx.SaveChanges();
-                }
-
-            }
+            lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEELEAVETYPE;
+            lookUpBO.Add(lookup);
             return RedirectToAction("LeaveList");
         }
         #endregion
         #region PaymentType
         public ActionResult PaymentTypeList()
         {
-            using (var dbContext = new HrDataContext())
-            {
-                var paymentType = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEPAYMENTTYPE && x.IsActive == true).ToList().AsEnumerable();
-                return View(paymentType);
-            }
-
+            var paymentType = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEPAYMENTTYPE && x.IsActive == true).ToList().AsEnumerable();
+            return View(paymentType);
         }
         [HttpGet]
         public PartialViewResult GetPaymentType(int lookupID)
         {
             if (lookupID != -1)
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var payment_data = dbCntx.LookUps.Where(x => x.LookUpID == lookupID && x.IsActive == true).FirstOrDefault();
-                    return PartialView(payment_data);
-                }
-
+                var payment_data = lookUpBO.GetByProperty(x => x.LookUpID == lookupID && x.IsActive == true);
+                return PartialView(payment_data);
             }
             else
                 return PartialView(new LookUp { LookUpID = -1 });
@@ -454,42 +214,8 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SavePaymentType(LookUp lookup)
         {
-            if (lookup.LookUpID != -1)
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var _lookupObj = dbCntx.LookUps.Where(x => x.LookUpID == lookup.LookUpID && x.IsActive == true).FirstOrDefault();
-
-                    _lookupObj.LookUpCode = lookup.LookUpCode;
-                    _lookupObj.LookUpDescription = lookup.LookUpDescription;
-                    _lookupObj.ModifiedBy = USERID;
-                    _lookupObj.IsActive = lookup.IsActive;
-                    _lookupObj.ModifiedOn = DateTime.Now;
-
-                    dbCntx.SaveChanges();
-                }
-            }
-            else
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var lookupObj = new LookUp
-                    {
-                        LookUpCode = lookup.LookUpCode,
-                        LookUpDescription = lookup.LookUpDescription,
-                        LookUpCategory = UTILITY.CONFIG_EMPLOYEEPAYMENTTYPE,
-                        IsActive = lookup.IsActive,
-                        CreatedOn = DateTime.Now,
-                        CreatedBy = USERID,
-                        ModifiedOn = DateTime.Now,
-                        ModifiedBy = USERID
-                    };
-
-                    dbCntx.LookUps.Add(lookupObj);
-                    dbCntx.SaveChanges();
-                }
-
-            }
+            lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEPAYMENTTYPE;
+            lookUpBO.Add(lookup);
             return RedirectToAction("PaymentTypeList");
         }
         #endregion

@@ -1,4 +1,5 @@
 ﻿using HR.Web.BusinessObjects;
+using HR.Web.BusinessObjects.Operation;
 using HR.Web.Helpers;
 using HR.Web.Models;
 using HR.Web.ViewModels;
@@ -17,9 +18,11 @@ namespace HR.Web.Controllers
     public class LeaveController : BaseController
     {
         WeekendPolicyBO weekendPolicy = null;
+        LeaveHeaderBO leaveHeaderBO = null;
         public LeaveController()
         {
             weekendPolicy = new WeekendPolicyBO(SESSIONOBJ);
+            leaveHeaderBO = new LeaveHeaderBO(SESSIONOBJ);
         }
 
         // GET: Leave
@@ -704,24 +707,7 @@ namespace HR.Web.Controllers
         {
             try
             {
-                using (HrDataContext dbContext = new HrDataContext())
-                {
-                    var leaveheader = new LeaveHeader
-                    {
-                        BranchID = BRANCHID,
-                        LeaveHeaderID = lvm.leaveHeader.LeaveHeaderID,
-                        LeaveYear = lvm.leaveHeader.LeaveYear,
-                        PeriodicityType = lvm.leaveHeader.PeriodicityType,
-                        PeriodType = lvm.leaveHeader.PeriodType,
-                        LeaveSchemeType = lvm.leaveHeader.LeaveSchemeType,
-                        CreatedBy = USERID,
-                        ModifiedBy = USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        ModifiedOn = UTILITY.SINGAPORETIME,
-                    };
-                    dbContext.LeaveHeaders.Add(leaveheader);
-                    dbContext.SaveChanges();
-                }
+                leaveHeaderBO.SaveLeave(lvm);
             }
             catch (Exception ex)
             {

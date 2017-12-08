@@ -97,5 +97,19 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
+
+        public LeaveTransaction GetByProperty(int branchId, int employeeId)
+        {
+            try
+            {
+                return leaveTrasactionRepository.GetByProperty(x => x.EmployeeId == employeeId && x.BranchId == branchId);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

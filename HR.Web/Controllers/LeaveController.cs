@@ -1,4 +1,5 @@
 ﻿using HR.Web.BusinessObjects;
+using HR.Web.BusinessObjects.LeaveMaster;
 using HR.Web.BusinessObjects.Operation;
 using HR.Web.Helpers;
 using HR.Web.Models;
@@ -17,81 +18,41 @@ namespace HR.Web.Controllers
     [SessionFilter]
     public class LeaveController : BaseController
     {
-        WeekendPolicyBO weekendPolicy = null;
+        WeekendPolicyBO weekendPolicyBO = null;
         LeaveHeaderBO leaveHeaderBO = null;
+        LeaveBO leaveBO = null;
+        HolidayListBO holidayListBO = null;
+        EmployeeLeaveListBO employeeLeaveListBO = null;
+        LeaveTrasactionBO leaveTransactionBO = null;
         public LeaveController()
         {
-            weekendPolicy = new WeekendPolicyBO(SESSIONOBJ);
+            weekendPolicyBO = new WeekendPolicyBO(SESSIONOBJ);
             leaveHeaderBO = new LeaveHeaderBO(SESSIONOBJ);
+            leaveBO = new LeaveBO(SESSIONOBJ);
+            holidayListBO = new HolidayListBO(SESSIONOBJ);
+            employeeLeaveListBO = new EmployeeLeaveListBO(SESSIONOBJ);
+            leaveTransactionBO = new LeaveTrasactionBO(SESSIONOBJ);
         }
 
         // GET: Leave
         #region HolidayList
         public ActionResult HolidayList()
         {
-
-
             ViewData["RoleCode"] = ROLECODE;
-            using (HrDataContext dbContext = new HrDataContext())
+
+            holidayVm holidayVm = new holidayVm()
             {
-                var obj = dbContext.HolidayLists.ToList();
-                List<calendarVM> holidayList = new List<calendarVM>();
-                foreach (HolidayList item in obj)
-                {
-                    calendarVM list = new calendarVM();
-                    list.title = item.Description;
-                    list.date = item.Date;
-                    var strHref = "";
-                    if (ROLECODE == UTILITY.ROLE_EMPLOYEE)
-                    {
-                        strHref = "#";
-                    }
-                    else
-                        strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
-
-                    var context = new HttpContextWrapper(System.Web.HttpContext.Current);
-                    string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
-                    list.url = hrefUrl;
-                    holidayList.Add(list);
-                }
-                holidayVm holidayVm = new holidayVm()
-                {
-                    calendarVM = holidayList,
-                    HolidayList = new HolidayList()
-                };
-                return View("HolidayList", holidayVm);
-            }
-
+                calendarVM = holidayListBO.GetHolidayList(),
+                HolidayList = new HolidayList()
+            };
+            return View("HolidayList", holidayVm);
         }
 
         public ActionResult AddHoliday(int HolidayId)
         {
             ViewData["RoleCode"] = ROLECODE;
-            using (HrDataContext dbContext = new HrDataContext())
-            {
-                var obj = dbContext.HolidayLists.ToList();
-                holidayVm holidayVm = new holidayVm();
-                List<calendarVM> holidayList = new List<calendarVM>();
-                foreach (HolidayList item in obj)
-                {
-                    calendarVM list = new calendarVM();
-                    list.title = item.Description;
-                    list.date = item.Date;
+            return View("HolidayList", holidayListBO.SaveHolidayList(HolidayId));
 
-                    var strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
-
-                    var context = new HttpContextWrapper(System.Web.HttpContext.Current);
-                    string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
-                    list.url = hrefUrl;
-                    holidayList.Add(list);
-
-
-
-                    holidayVm.calendarVM = holidayList;
-                    holidayVm.HolidayList = dbContext.HolidayLists.Where(x => x.HolidayId == HolidayId).FirstOrDefault();
-                }
-                return View("HolidayList", holidayVm);
-            }
 
         }
 
@@ -101,7 +62,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbntx = new HrDataContext())
                 {
-                    var holidaylist = dbntx.HolidayLists.Where(x => x.HolidayId == holidayId).FirstOrDefault();
+                    var holidaylist = holidayListBO.GetById(holidayId);
                     return PartialView(holidaylist);
                 }
             }
@@ -120,66 +81,25 @@ namespace HR.Web.Controllers
         public ActionResult SaveHoliday(HolidayList holidaylist)
         {
 
-            if (holidaylist.HolidayId != -1)
-            {
-                using (var dbnctx = new HrDataContext())
-                {
-                    var _holidaylistObj = dbnctx.HolidayLists.Where(x => x.HolidayId == holidaylist.HolidayId).FirstOrDefault();
+            holidayListBO.Add(holidaylist);
 
-                    //_holidaylistObj.HolidayId = holidaylist.HolidayId;
-                    _holidaylistObj.Date = holidaylist.Date;
-                    _holidaylistObj.Description = holidaylist.Description;
-                    _holidaylistObj.CountryId = holidaylist.CountryId;
-                    _holidaylistObj.ModifiedBy = USERID;
-                    _holidaylistObj.ModifiedOn = UTILITY.SINGAPORETIME;
-
-                    dbnctx.SaveChanges();
-                }
-            }
-            else
-            {
-
-                using (var dbntcx = new HrDataContext())
-                {
-                    var holidaylistobj = new HolidayList
-                    {
-                        BranchID = BRANCHID,
-                        HolidayId = holidaylist.HolidayId,
-                        Date = holidaylist.Date,
-                        Description = holidaylist.Description,
-                        CountryId = holidaylist.CountryId,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        CreatedBy = USERID,
-                        ModifiedOn = UTILITY.SINGAPORETIME,
-                        ModifiedBy = USERID
-                    };
-                    dbntcx.HolidayLists.Add(holidaylistobj);
-                    dbntcx.SaveChanges();
-                }
-            }
 
             return RedirectToAction("HolidayList");
 
         }
 
-
-
-
-
         #endregion
-
-
         public ViewResult AppliedLeaveList()
         {
             string viewName = string.Empty;
             using (var dbCntx = new HrDataContext())
             {
                 IQueryable<Branch> branchList = null;
-                if(ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {
                     branchList = dbCntx.Branches;
                 }
-                else if(ROLECODE == UTILITY.ROLE_ADMIN)
+                else if (ROLECODE == UTILITY.ROLE_ADMIN)
                 {
                     branchList = dbCntx.Branches.Where(x => x.BranchID == BRANCHID);
                 }
@@ -244,8 +164,38 @@ namespace HR.Web.Controllers
 
         public ActionResult EmployeeRequestFrom()
         {
+            List<int> weekEnd = new List<int>();
 
-
+            WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
+            if (!weekendPolicy.Monday.Value)
+            {
+                weekEnd.Add(1);
+            }
+            if (!weekendPolicy.Tuesday.Value)
+            {
+                weekEnd.Add(2);
+            }
+            if (!weekendPolicy.Wednesday.Value)
+            {
+                weekEnd.Add(3);
+            }
+            if (!weekendPolicy.Thursday.Value)
+            {
+                weekEnd.Add(4);
+            }
+            if (!weekendPolicy.Friday.Value)
+            {
+                weekEnd.Add(5);
+            }
+            if (!weekendPolicy.Saturday.Value)
+            {
+                weekEnd.Add(6);
+            }
+            if (!weekendPolicy.Sunday.Value)
+            {
+                weekEnd.Add(7);
+            }
+            ViewBag.weekend = weekEnd;
             return View(new EmployeeLeaveList
             {
                 // FromDate = DateTime.Now,
@@ -620,19 +570,8 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult ApproveLeave(GrantLeaveListVm grantLeaveVm)
         {
-            using (var dbcntx = new HrDataContext())
-            {
-                var empLeaveObj = dbcntx.EmployeeLeaveLists
-                                    .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID)
-                                    .FirstOrDefault();
-
-
-                empLeaveObj.Status = "Approved";
-                empLeaveObj.Remarks = "";
-                dbcntx.SaveChanges();
-
-                return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
-            }
+            employeeLeaveListBO.ApproveLeave(grantLeaveVm);
+            return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
         }
 
         [HttpPost]
@@ -640,66 +579,47 @@ namespace HR.Web.Controllers
         {
             try
             {
-                using (var dbCntx = new HrDataContext())
-                {
-                    var empLeaveObj = dbCntx.EmployeeLeaveLists
-                                        .Where(x => x.EmployeeLeaveID == grantLeaveVm.EmployeeLeaveID)
-                                        .FirstOrDefault();
+                var empLeaveObj = employeeLeaveListBO.ApproveLeave(grantLeaveVm);
+                Save(grantLeaveVm, empLeaveObj);
+                return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
 
-                    empLeaveObj.Status = "Rejected";
-                    empLeaveObj.Remarks = grantLeaveVm.Remarks;
-                    dbCntx.SaveChanges();
-
-                    Save(grantLeaveVm, empLeaveObj);
-
-                    return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
-                }
             }
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
         public void Save(GrantLeaveListVm grantLeaveVm, EmployeeLeaveList empLeaveObj)
         {
-            using (HrDataContext dbContext = new HrDataContext())
+            LeaveTransaction leavetransaction = leaveTransactionBO.GetByProperty(BRANCHID,EMPLOYEEID);
+            LeaveListCalc leaveListCalc = null;
+            if (leavetransaction != null)
             {
-                LeaveTransaction leavetransaction = dbContext.LeaveTransactions
-                                    .Where(x => x.BranchId == BRANCHID && x.EmployeeId == grantLeaveVm.EmployeeId)
-                                    .OrderByDescending(x => x.CreatedOn).FirstOrDefault();
-                LeaveListCalc leaveListCalc = null;
-                if (leavetransaction != null)
-                {
-
-
-                    leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
-                        leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
-                        );
-                    CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, empLeaveObj, leaveListCalc, false);
-                }
-
-                LeaveTransaction _leaveTransaction = new LeaveTransaction()
-                {
-                    BranchId = BRANCHID,
-                    CreatedBy = USERID,
-                    CreatedOn = UTILITY.SINGAPORETIME,
-                    CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
-                    CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
-                    CurrentSickLeaves = leaveListCalc.currentSickLeaves,
-                    EmployeeId = grantLeaveVm.EmployeeId,
-                    FromDt = empLeaveObj.FromDate,
-                    ToDt = empLeaveObj.ToDate,
-                    PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
-                    PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
-                    PreviousSickLeaves = leaveListCalc.previousSickLeaves,
-                    LeaveType = empLeaveObj.LeaveTypeId
-                };
-                dbContext.LeaveTransactions.Add(_leaveTransaction);
-
-                dbContext.SaveChanges();
+                leaveListCalc = new LeaveListCalc(leavetransaction.CurrentCasualLeaves, leavetransaction.CurrentPaidLeaves, leavetransaction.CurrentSickLeaves,
+leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leavetransaction.PreviousSickLeaves
+);
+                CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, empLeaveObj, leaveListCalc, false);
             }
+
+            LeaveTransaction _leaveTransaction = new LeaveTransaction()
+            {
+                BranchId = BRANCHID,
+                CreatedBy = USERID,
+                CreatedOn = UTILITY.SINGAPORETIME,
+                CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
+                CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
+                CurrentSickLeaves = leaveListCalc.currentSickLeaves,
+                EmployeeId = grantLeaveVm.EmployeeId,
+                FromDt = empLeaveObj.FromDate,
+                ToDt = empLeaveObj.ToDate,
+                PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
+                PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
+                PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+                LeaveType = empLeaveObj.LeaveTypeId
+            };
+            leaveTransactionBO.Add(_leaveTransaction);
         }
 
         [HttpPost]
@@ -743,10 +663,6 @@ namespace HR.Web.Controllers
                     }).ToList();
                 return View(leaves);
             }
-
-            //List<Leave> leaves = dbContext.Leaves.ToList();
-            ////leaves.ForEach(x => x.BranchId = dbContext.Branches.Where(y => y.BranchID == x.BranchId).FirstOrDefault().BranchName);
-            //return View(leaves);
         }
 
         [HttpPost]
@@ -782,33 +698,16 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult Leave(Leave leave)
         {
-            using (HrDataContext dbContext = new HrDataContext())
-            {
-                if (leave.LeaveId == 0)
-                {
-                    dbContext.Leaves.Add(leave);
-                }
-                else
-                {
-                    Leave updateLeave = dbContext.Leaves
-                                           .leaveWhere(BRANCHID, ROLECODE)
-                                           .FirstOrDefault();
 
-                    updateLeave.CarryForwardPerYear = leave.CarryForwardPerYear;
-                    updateLeave.CarryForwardSickLeaves = leave.CarryForwardSickLeaves;
-                    updateLeave.CasualLeavesPerMonth = leave.CasualLeavesPerMonth;
-                    updateLeave.CasualLeavesPerYear = leave.CasualLeavesPerYear;
-                    updateLeave.IsCasualLeaveCarryForward = leave.IsCasualLeaveCarryForward;
-                    updateLeave.IsPaidLeaveCarryForward = leave.IsPaidLeaveCarryForward;
-                    updateLeave.IsSickLeaveCarryForward = leave.IsSickLeaveCarryForward;
-                    updateLeave.PaidLeavesPerMonth = leave.PaidLeavesPerMonth;
-                    updateLeave.PaidLeavesPerYear = leave.PaidLeavesPerYear;
-                    updateLeave.SickLeavesPerMonth = leave.SickLeavesPerMonth;
-                    updateLeave.SickLeavesPerYear = leave.SickLeavesPerYear;
-                    updateLeave.CarryForwardCasualLeave = leave.CarryForwardCasualLeave;
-                }
-                dbContext.SaveChanges();
+            if (leave.LeaveId == 0)
+            {
+                leaveBO.Add(leave);
             }
+            else
+            {
+                leaveBO.Add(leave);
+            }
+
             return RedirectToAction("Leave");
         }
 
@@ -871,75 +770,7 @@ namespace HR.Web.Controllers
             int employeeLeaveID = Convert.ToInt32(collection["employeeLeaveID"]);
             string remarks = collection["employeeRemarks"];
 
-            using (HrDataContext dbContext = new HrDataContext())
-            {
-                try
-                {
-
-                    EmployeeLeaveList empLeaveObj = dbContext.EmployeeLeaveLists
-                                                    .Where(x => x.BranchId == BRANCHID &&
-                                                                x.EmployeeLeaveID == employeeLeaveID)
-                                                    .FirstOrDefault();
-
-                    empLeaveObj.Status = "Cancelled";
-                    empLeaveObj.Remarks = remarks;
-
-                    LeaveTransaction leavetransaction = dbContext.LeaveTransactions
-                                                        .Where(x => x.BranchId == BRANCHID &&
-                                                                    x.EmployeeId == EMPLOYEEID)
-                                                        .OrderByDescending(x => x.CreatedOn)
-                                                        .FirstOrDefault();
-
-                    LeaveListCalc leaveListCalc = null;
-                    if (leavetransaction != null)
-                    {
-
-
-                        leaveListCalc = new LeaveListCalc(
-                            leavetransaction.CurrentCasualLeaves,
-                            leavetransaction.CurrentPaidLeaves,
-                            leavetransaction.CurrentSickLeaves,
-                            leavetransaction.PreviousCasualLeaves,
-                            leavetransaction.PreviousPaidLeaves,
-                            leavetransaction.PreviousSickLeaves);
-
-                        CalculateLeavesTransaction.CalculateLeaveFromTransaction(
-                            leavetransaction,
-                            empLeaveObj,
-                            leaveListCalc,
-                            false);
-                    }
-
-                    LeaveTransaction leaveTransaction = new LeaveTransaction()
-                    {
-                        BranchId = BRANCHID,
-                        CreatedBy = USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
-                        CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
-                        CurrentSickLeaves = leaveListCalc.currentSickLeaves,
-                        EmployeeId = EMPLOYEEID,
-                        FromDt = empLeaveObj.FromDate,
-                        ToDt = empLeaveObj.ToDate,
-                        PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
-                        PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
-                        PreviousSickLeaves = leaveListCalc.previousSickLeaves,
-                        LeaveType = empLeaveObj.LeaveTypeId
-                    };
-                    dbContext.LeaveTransactions.Add(leaveTransaction);
-
-
-                    dbContext.SaveChanges();
-
-                }
-                catch (Exception ex)
-                {
-
-                    throw ex;
-                }
-            }
-
-
+            employeeLeaveListBO.CancelLeave(employeeLeaveID, remarks);
             return RedirectToAction("ViewLeavesList");
         }
 
@@ -947,27 +778,27 @@ namespace HR.Web.Controllers
         public ViewResult WeekendPolicyList()
         {
             //var list = weekendPolicy.GetAll();
-            using(var dbcntx=new HrDataContext())
+            using (var dbcntx = new HrDataContext())
             {
                 var list = dbcntx.Branches
                     .Join(dbcntx.WeekendPolicies,
                     a => a.BranchID, b => b.BranchId,
                     (a, b) => new { A = a, B = b })
-                    .Select(x=>new WeekendPolicyVm
+                    .Select(x => new WeekendPolicyVm
                     {
-                        BranchId=x.B.BranchId,
-                        BranchName=x.A.BranchName,
-                        Monday=x.B.Monday,
-                        Tuesday=x.B.Tuesday,
-                        Wednesday=x.B.Wednesday,
-                        Thursday=x.B.Thursday,
-                        Friday=x.B.Friday,
-                        Saturday=x.B.Saturday,
-                        Sunday=x.B.Sunday
+                        BranchId = x.B.BranchId,
+                        BranchName = x.A.BranchName,
+                        Monday = x.B.Monday,
+                        Tuesday = x.B.Tuesday,
+                        Wednesday = x.B.Wednesday,
+                        Thursday = x.B.Thursday,
+                        Friday = x.B.Friday,
+                        Saturday = x.B.Saturday,
+                        Sunday = x.B.Sunday
                     }).ToList();
                 return View("WeekendPolicyList", list);
             }
-           
+
         }
 
         [HttpGet]
@@ -975,7 +806,8 @@ namespace HR.Web.Controllers
         {
             if (branchId == -1)
             {
-                return View(new WeekendPolicy {
+                return View(new WeekendPolicy
+                {
                     Monday = false,
                     Tuesday = false,
                     Wednesday = false,
@@ -987,41 +819,41 @@ namespace HR.Web.Controllers
             }
             else
             {
-                var _weekendPolicy = weekendPolicy.GetById(branchId);
+                var _weekendPolicy = weekendPolicyBO.GetById(branchId);
                 return View(_weekendPolicy);
-            }            
-           
+            }
+
         }
 
         [HttpPost]
         public ViewResult SaveWeekendPolicy(WeekendPolicy weekendpolicy)
         {
             if (weekendpolicy.BranchId == -1)
-            { 
-            weekendPolicy.Add(weekendpolicy);
+            {
+                weekendPolicyBO.Add(weekendpolicy);
 
-            return WeekendPolicyList();
+                return WeekendPolicyList();
             }
             else
             {
-                weekendPolicy.Update(weekendpolicy);
+                weekendPolicyBO.Update(weekendpolicy);
                 return WeekendPolicyList();
             }
-           
-          
+
+
         }
         public ActionResult GetBranchPolicy(WeekendPolicy weekendpolicy)
         {
             WeekendPolicy WeekEndPolicy = new WeekendPolicy();
-            using(var dbcntx=new HrDataContext())
+            using (var dbcntx = new HrDataContext())
             {
                 WeekEndPolicy = dbcntx.WeekendPolicies.Where(x => x.BranchId == weekendpolicy.BranchId).FirstOrDefault();
                 return View("WeekEndPolicy", WeekEndPolicy ?? weekendpolicy);
             }
-            
+
         }
     }
 
-    
+
 
 }

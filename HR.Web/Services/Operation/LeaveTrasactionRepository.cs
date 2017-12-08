@@ -105,5 +105,20 @@ namespace HR.Web.Services.Operation
                 throw ex;
             }
         }
+
+        public LeaveTransaction GetByProperty(Func<LeaveTransaction, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.LeaveTransactions.Where(predicate).OrderByDescending(x => x.CreatedOn).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

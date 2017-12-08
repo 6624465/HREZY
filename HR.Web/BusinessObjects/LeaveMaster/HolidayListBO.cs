@@ -1,10 +1,12 @@
 ﻿using HR.Web.Controllers;
 using HR.Web.Models;
 using HR.Web.Services.LeaveMaster;
+using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace HR.Web.BusinessObjects.LeaveMaster
 {
@@ -18,11 +20,78 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             holidayListRepository = new HolidayListRepository();
         }
 
+        internal List<calendarVM> GetHolidayList()
+        {
+
+            var obj = GetAll();
+            List<calendarVM> holidayList = new List<calendarVM>();
+            foreach (HolidayList item in obj)
+            {
+                calendarVM list = new calendarVM();
+                list.title = item.Description;
+                list.date = item.Date;
+                var strHref = "";
+                if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                {
+                    strHref = "#";
+                }
+                else
+                    strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+
+                var context = new HttpContextWrapper(System.Web.HttpContext.Current);
+                string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
+                list.url = hrefUrl;
+                holidayList.Add(list);
+            }
+            return holidayList;
+        }
+
+        internal holidayVm SaveHolidayList(int HolidayId)
+        {
+            var obj = GetAll();
+            holidayVm holidayVm = new holidayVm();
+            List<calendarVM> holidayList = new List<calendarVM>();
+            foreach (HolidayList item in obj)
+            {
+                calendarVM list = new calendarVM();
+                list.title = item.Description;
+                list.date = item.Date;
+
+                var strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+
+                var context = new HttpContextWrapper(System.Web.HttpContext.Current);
+                string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
+                list.url = hrefUrl;
+                holidayList.Add(list);
+
+
+
+                holidayVm.calendarVM = holidayList;
+                holidayVm.HolidayList = GetById(HolidayId);
+            }
+
+            return holidayVm;
+        }
+
         public void Add(HolidayList holidayList)
         {
             try
             {
-                holidayListRepository.Add(holidayList);
+                if (holidayList.HolidayId != -1)
+                {
+                    holidayList.CreatedBy = sessionObj.USERID;
+                    holidayList.CreatedOn = UTILITY.SINGAPORETIME;
+                   
+                    holidayListRepository.Add(holidayList);
+                }
+                else
+                {
+                    holidayList.ModifiedBy = sessionObj.USERID;
+                    holidayList.ModifiedOn = UTILITY.SINGAPORETIME;
+                    holidayListRepository.Add(holidayList);
+                }
+
+               
             }
             catch (Exception ex)
             {
@@ -52,7 +121,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             }
         }
 
-        public IEnumerable<HolidayList> GetAll(int id)
+        public IEnumerable<HolidayList> GetAll()
         {
             try
             {

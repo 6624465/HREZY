@@ -22,6 +22,8 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             try
             {
+                input.CreatedBy = sessionObj.USERID;
+                input.CreatedOn = UTILITY.SINGAPORETIME;
                 contributionRepository.Add(input);
             }
             catch (Exception ex)
@@ -31,11 +33,11 @@ namespace HR.Web.BusinessObjects.Payroll
             }
         }
 
-        public void Delete(Contribution input)
+        public void Delete(int id)
         {
             try
             {
-                contributionRepository.Delete(input);
+                contributionRepository.Delete(id);
             }
             catch (Exception ex)
             {
@@ -62,6 +64,31 @@ namespace HR.Web.BusinessObjects.Payroll
             try
             {
                 return contributionRepository.GetAll();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public Contribution GetByProperty(bool isActive)
+        {
+            try
+            {
+                return contributionRepository.GetByProperty(x=>x.IsActive == isActive);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public IEnumerable<Contribution> GetListByProperty(bool isActive)
+        {
+            try
+            {
+                return contributionRepository.GetListByProperty(x => x.IsActive == isActive);
             }
             catch (Exception ex)
             {

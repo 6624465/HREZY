@@ -18,7 +18,7 @@ namespace HR.Web.ViewModels
         public SalaryRuleDetailVm salaryRuleDetailVm { get; set; }
         public SalaryRuleInputVm salaryRuleInputVm { get; set; }
 
-
+        public ContributionVm contributionVm { get; set; }
     }
 
 
@@ -42,5 +42,12 @@ namespace HR.Web.ViewModels
         public int RuleId { get; set; }
     }
 
+    public class ContributionVm
+    {
+        public int ContributionId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
 
+    }
 }

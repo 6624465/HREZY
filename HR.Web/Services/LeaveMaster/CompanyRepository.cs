@@ -23,7 +23,7 @@ namespace HR.Web.Services.LeaveMaster
                         .Where(x => x.CompanyId == entity.CompanyId).FirstOrDefault();
                     if (company == null)
                     {
-                        dbContext.Companies.Add(company);
+                        dbContext.Companies.Add(entity);
                     }
                     else
                     {

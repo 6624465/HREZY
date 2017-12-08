@@ -680,7 +680,8 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
 
         }
 
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        //[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        [HttpGet]
         public ActionResult Leave(int leaveId = 0)
         {
             using (HrDataContext dbContext = new HrDataContext())

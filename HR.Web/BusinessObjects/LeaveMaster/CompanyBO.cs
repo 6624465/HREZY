@@ -5,16 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using HR.Web.ViewModels;
+using System.IO;
+using HR.Web.BusinessObjects.Operation;
 
 namespace HR.Web.BusinessObjects.LeaveMaster
 {
     public class CompanyBO : BaseBO
     {
         CompanyRepository companyRepository = null;
+        AddressBO addressBO = null;
         public CompanyBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
             companyRepository = new CompanyRepository();
+            addressBO = new AddressBO(sessionObj);
         }
 
         public void Add(Company company)
@@ -43,7 +48,8 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             }
         }
 
-        public Company GetById(int id) {
+        public Company GetById(int id)
+        {
             try
             {
                 return companyRepository.GetById(id);
@@ -66,6 +72,62 @@ namespace HR.Web.BusinessObjects.LeaveMaster
 
                 throw ex;
             }
+        }
+
+        internal void SaveCompany(CompanyVm companyVM, AddressVm addressVm)
+        {
+            Company company = new Company();
+            company.CompanyId = companyVM.company.CompanyId;
+            company.CompanyCode = companyVM.company.CompanyCode;
+            company.CompanyName = companyVM.company.CompanyName;
+            company.CreatedBy = sessionObj.USERID;
+            company.CreatedOn = UTILITY.SINGAPORETIME;
+            company.InCorporationDate = companyVM.company.InCorporationDate;
+            company.IsActive = true;
+
+            if (companyVM.company.Logo != null && companyVM.company.Logo.ContentLength > 0)
+            {
+                company.CompanyLogo = companyVM.company.Logo.FileName;
+                string path = HttpContext.Current.Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                companyVM.company.Logo.SaveAs(path + company.CompanyLogo);
+            }
+
+            company.RegNo = companyVM.company.RegNo;
+            company.ModifiedBy = sessionObj.USERID;
+            company.ModifiedOn = UTILITY.SINGAPORETIME;
+
+            Add(company);
+
+            Address companyAddress = new Address()
+            {
+                Address1 = addressVm.Address1,
+                Address2 = addressVm.Address2,
+
+                AddressType = "Company",
+                CityName = addressVm.CityName,
+                Contact = addressVm.Contact,
+                CountryCode = addressVm.CountryCode,
+                LinkID = company.CompanyId,
+                CreatedBy = sessionObj.USERID,
+                CreatedOn = UTILITY.SINGAPORETIME,
+                Email = addressVm.Email,
+                FaxNo = addressVm.FaxNo,
+                MobileNo = addressVm.MobileNo,
+                IsActive = true,
+                ModifiedBy = sessionObj.USERID,
+                ModifiedOn = UTILITY.SINGAPORETIME,
+                SeqNo = addressVm.SeqNo,
+                StateName = addressVm.StateName,
+                TelNo = addressVm.TelNo,
+                WebSite = addressVm.WebSite,
+                ZipCode = addressVm.ZipCode,
+            };
+
+            addressBO.Add(companyAddress);
         }
     }
 }

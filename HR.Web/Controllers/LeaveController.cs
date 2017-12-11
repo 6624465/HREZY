@@ -672,44 +672,107 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
         public ActionResult GetLeaves(Leave leave)
         {
             ViewBag.RoleCode = ROLECODE;
-            Leave _leave = new Leave();
-            using (HrDataContext dbContext = new HrDataContext())
+            BranchLeaveVm leaveVm = new BranchLeaveVm();
+            leaveVm.leave = new Leave();
+            if (leave.BranchId == -1)
             {
-                _leave = dbContext.Leaves
-                                .Where(x => x.BranchId == leave.BranchId)
-                                .FirstOrDefault();
-                return View("Leave", _leave ?? leave);
-            }
+                if (leaveVm.leave == null)
+                    leaveVm.leave = new Leave();
 
+                leaveVm.weekendPolicy = new WeekendPolicy
+                {
+                    Monday = false,
+                    Tuesday = false,
+                    Wednesday = false,
+                    Thursday = false,
+                    Friday = false,
+                    Saturday = false,
+                    Sunday = false
+                };
+            }
+            else
+            {
+                leaveVm.leave = leaveBO.GetById(Convert.ToInt32(leave.BranchId));
+                leaveVm.weekendPolicy = weekendPolicyBO.GetById(Convert.ToInt32(leave.BranchId));
+                if (leaveVm.weekendPolicy==null) {
+                    leaveVm.weekendPolicy = new WeekendPolicy
+                    {
+                        Monday = false,
+                        Tuesday = false,
+                        Wednesday = false,
+                        Thursday = false,
+                        Friday = false,
+                        Saturday = false,
+                        Sunday = false
+                    };
+                }
+                return View("Leave", leaveVm);
+            }
+            return View("Leave", leaveVm);
         }
 
         //[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         [HttpGet]
-        public ActionResult Leave(int leaveId = 0)
+        public ActionResult Leave(int leaveId = 0, int branchid = 0)
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
                 ViewBag.RoleCode = ROLECODE;
-
-                Leave leave = dbContext.Leaves
+                BranchLeaveVm leaveVm = new BranchLeaveVm();
+                leaveVm.leave = new Models.Leave();
+                if (ROLECODE !=UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
+                {
+                    leaveVm.leave = dbContext.Leaves
                                 .leaveWhere(BRANCHID, ROLECODE)
                                 .FirstOrDefault();
-                if (leave == null)
-                    leave = new Leave();
-                return View(leave);
+                    leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
+                }
+               
+                if (leaveId != 0 && branchid != 0)
+                {
+                    if (branchid != -1)
+                    {
+                        leaveVm.leave = dbContext.Leaves
+                                    .leaveWhere(BRANCHID, ROLECODE)
+                                    .FirstOrDefault();
+                    }
+                    
+                    if (branchid == -1)
+                    {
+                        leaveVm.weekendPolicy = new WeekendPolicy
+                        {
+                            Monday = false,
+                            Tuesday = false,
+                            Wednesday = false,
+                            Thursday = false,
+                            Friday = false,
+                            Saturday = false,
+                            Sunday = false
+                        };
+                    }
+                    else
+                    {
+                        leaveVm.weekendPolicy = weekendPolicyBO.GetById(branchid);
+                        return View(leaveVm);
+                    }
+
+                }
+                return View(leaveVm);
             }
         }
         [HttpPost]
-        public ActionResult Leave(Leave leave)
+        public ActionResult Leave(Leave leave, WeekendPolicy wekendPolicy)
         {
-
+            wekendPolicy.BranchId = Convert.ToInt32(leave.BranchId);
             if (leave.LeaveId == 0)
             {
                 leaveBO.Add(leave);
+                weekendPolicyBO.Add(wekendPolicy);
             }
             else
             {
                 leaveBO.Add(leave);
+                weekendPolicyBO.Add(wekendPolicy);
             }
 
             return RedirectToAction("Leave");

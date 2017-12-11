@@ -1880,6 +1880,7 @@
     <Compile Include="Services\WeekenPolicyService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />
     <Compile Include="ViewModels\AppliedLeaveVm.cs" />
+    <Compile Include="ViewModels\BranchLeaveVm.cs" />
     <Compile Include="ViewModels\BranchVm.cs" />
     <Compile Include="ViewModels\calendarVM.cs" />
     <Compile Include="ViewModels\CompanyVm.cs" />

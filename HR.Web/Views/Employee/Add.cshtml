@@ -60,6 +60,18 @@
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
       new { @class = "form-control" })
                                 </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 101, "Male")
+                                        <span>Male</span>
+                                    </label>
+                                    &nbsp;
+                                    <label>
+                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 102, "Female")
+                                        <span>Female</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="row css5">
@@ -74,17 +86,13 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <label>
-                                    @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 101, "Male")
-                                    <span>Male</span>
-                                </label>
-                                &nbsp;
-                                <label>
-                                    @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 102, "Female")
-                                    <span>Female</span>
-                                </label>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Marital Status</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
+        SelectListItemHelper.MaritalStatus(), "Select Marital Status",
+        new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="row css5">
@@ -97,22 +105,29 @@
      new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
-                                    <span class="pull-right">Mobile</span>
+                                    <span class="pull-right">Father's Name</span>
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.address.MobileNo,
-      new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
+       new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
                         <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
-                                    <span class="pull-right">Father's Name</span>
+                                    <span class="pull-right">Mobile</span>
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
-       new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.address.MobileNo,
+      new { @class = "form-control" })
+                                </div>
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Emg. Contact Name</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
+     new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -127,25 +142,6 @@
            new { @class = "form-control" })
                                 </div>
                                 <label class="col-md-2 control-label">
-                                    <span class="pull-right">Marital Status</span>
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
-        SelectListItemHelper.MaritalStatus(), "Select Marital Status",
-        new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="form-group" style="white-space:nowrap">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">Emg. Contact Name</span>
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
-     new { @class = "form-control" })
-                                </div>
-                                <label class="col-md-2 control-label">
                                     <span class="pull-right">Emg. Contact No</span>
                                 </label>
                                 <div class="col-md-4">
@@ -156,24 +152,12 @@
                         </div>
                         <div class="row css5">
                             <div class="form-group" style="white-space:nowrap">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">Reporting Authority</span>
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
-
-                                </div>
-                                <div id="isReportingTo">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Reporting To</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
-                                    new { @class = "form-control" })
+                                <div class="col-md-6">
                                     </div>
+                                    
                                 </div>
-                            </div>
                         </div>
+                       
                     </div>
                 </div>
             </div>
@@ -311,7 +295,7 @@
                         <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
-                                    <span class="pull-right">Confirmation Dt</span>
+                                    <span class="pull-right">Confirmation Date</span>
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group date" id="ConfirmationDate">
@@ -326,7 +310,7 @@
                         <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
-                                    <span class="pull-right">Resigned Dt</span>
+                                    <span class="pull-right">Resigned Date</span>
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group date" id="ResignationDate">
@@ -337,6 +321,26 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group" style="white-space:nowrap">
+                                <div class="col-md-2">
+                                    </div>
+                                    <label class="col-md-1 control-label">
+                                        <span class="pull-right">Reporting To</span>
+                                    </label>
+                                    <div class="col-md-1" style="margin-top:10px">
+                                        @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
+
+                                    </div>
+                                    <div id="isReportingTo">
+
+                                        <div class="col-md-8">
+                                            @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
+                                    new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                         <div class="row css5">
                             @*<div class="form-group">

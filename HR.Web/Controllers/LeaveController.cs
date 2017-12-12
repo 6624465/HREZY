@@ -162,11 +162,19 @@ namespace HR.Web.Controllers
             }
         }
 
-        public ActionResult EmployeeRequestFrom()
+public void GetHolidayWeekends()
         {
             List<int> weekEnd = new List<int>();
 
             WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
+            List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList();
+            string[] holidaysList = new string[holidayList.Count];
+            for (int i = 0; i < holidayList.Count; i++)
+            {
+                DateTime date = holidayList[i].Date;
+                holidaysList[i] = new DateTime(date.Year, date.Month, date.Day).ToString("MM/dd/yyyy");
+            }
+            ViewBag.HoliDayList = holidaysList;
             if (weekendPolicy != null)
             {
                 if (!weekendPolicy.Monday.Value)
@@ -199,6 +207,12 @@ namespace HR.Web.Controllers
                 }
                 ViewBag.weekend = weekEnd;
             }
+
+        }
+
+        public ActionResult EmployeeRequestFrom()
+        {
+            GetHolidayWeekends();
             return View(new EmployeeLeaveList
             {
                 // FromDate = DateTime.Now,
@@ -209,7 +223,12 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
-            EmployeeLeaveList.Days = (decimal)CalculateLeavesTransaction.GetBusinessDays(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate);
+
+            GetHolidayWeekends();
+            WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
+            List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList();
+            EmployeeLeaveList.Days = (decimal)CalculateLeavesTransaction
+                .GetBusinessDays(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate, weekendPolicy, holidayList);
             bool ishalfday = false;
             if (Request.Form["isChecked"] != null && Request.Form["isChecked"] != "")
             {
@@ -694,7 +713,8 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
             {
                 leaveVm.leave = leaveBO.GetById(Convert.ToInt32(leave.BranchId));
                 leaveVm.weekendPolicy = weekendPolicyBO.GetById(Convert.ToInt32(leave.BranchId));
-                if (leaveVm.weekendPolicy==null) {
+                if (leaveVm.weekendPolicy == null)
+                {
                     leaveVm.weekendPolicy = new WeekendPolicy
                     {
                         Monday = false,
@@ -720,14 +740,14 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                 ViewBag.RoleCode = ROLECODE;
                 BranchLeaveVm leaveVm = new BranchLeaveVm();
                 leaveVm.leave = new Models.Leave();
-                if (ROLECODE !=UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
+                if (ROLECODE != UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
                 {
                     leaveVm.leave = dbContext.Leaves
                                 .leaveWhere(BRANCHID, ROLECODE)
                                 .FirstOrDefault();
                     leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
                 }
-               
+
                 if (leaveId != 0 && branchid != 0)
                 {
                     if (branchid != -1)
@@ -736,7 +756,7 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                                     .leaveWhere(BRANCHID, ROLECODE)
                                     .FirstOrDefault();
                     }
-                    
+
                     if (branchid == -1)
                     {
                         leaveVm.weekendPolicy = new WeekendPolicy

@@ -132,5 +132,31 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 throw ex;
             }
         }
+
+        public HolidayList GetByProperty(Func<HolidayList,bool> predicate)
+        {
+
+            try
+            {
+                return holidayListRepository.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<HolidayList> GetListByProperty(Func<HolidayList, bool> predicate)
+        {
+
+            try
+            {
+                return holidayListRepository.GetListByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

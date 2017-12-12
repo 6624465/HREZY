@@ -91,5 +91,38 @@ namespace HR.Web.Services.LeaveMaster
                 throw;
             }
         }
+
+        public HolidayList GetByProperty(Func<HolidayList,bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.HolidayLists.Where(predicate).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public IEnumerable<HolidayList> GetListByProperty(Func<HolidayList, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.HolidayLists.Where(predicate).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        
     }
 }

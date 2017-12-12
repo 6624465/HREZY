@@ -1,10 +1,12 @@
-﻿
+﻿@using Newtonsoft.Json;
+
 @model HR.Web.Models.EmployeeLeaveList
+
 @{
     var message = (string)ViewData["Message"] ?? "";
     var IsLop = ViewData["IsLop"] == null ? false : (bool)ViewData["IsLop"];
     var temp = Model;
-   
+
 }
 @using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
@@ -203,7 +205,7 @@
                 next: 'fa fa-arrow-right',
 
             },
-            format: 'MM/DD/YYYY',
+            format: dateFormat,
             minDate: date
         });
 
@@ -212,8 +214,8 @@
             var toDate = $('#ToDt').find('input').val();
 
             if (toDate != undefined && toDate != "") {
-                var from = moment(fromDate, 'MM/DD/YYYY');
-                var to = moment(toDate, 'MM/DD/YYYY');
+                var from = moment(fromDate, dateFormat);
+                var to = moment(toDate, dateFormat);
                 var days = moment.duration(to.diff(from)).asDays() + 1;
                 if (days < 0) {
                     $('#FromDt').find('input').val('');
@@ -235,8 +237,8 @@
             var fromDate = $('#FromDt').find('input').val();
             if (fromDate != undefined && fromDate != "") {
                 var toDate = $('#ToDt').find('input').val();
-                var from = moment(fromDate, 'MM/DD/YYYY');
-                var to = moment(toDate, 'MM/DD/YYYY');
+                var from = moment(fromDate, dateFormat);
+                var to = moment(toDate,dateFormat);
                 var days = moment.duration(to.diff(from)).asDays() + 1;
                 if (days < 0) {
                     $('#FromDt').find('input').val('');
@@ -255,81 +257,109 @@
 
         });
 
-        var holidaysArray = [moment('12/25/2017', 'MM/DD/YYYY')]
-        function isoWeekDayCalc() {
-           
-            var fromDate = $('#FromDt').find('input').val();
-            var toDate = $('#ToDt').find('input').val();
-
-            var from = moment(fromDate, 'MM/DD/YYYY');
-            var to = moment(toDate, 'MM/DD/YYYY');
-            debugger;
-
-            var temp = moment().isoWeekdayCalc({
-                rangeStart: from,
-                rangeEnd: to,
-                weekdays: @Html.Raw(Json.Encode(@ViewBag.weekend)),//[1,2,3,4,5], //weekdays Mon to Fri
-                exclusions: holidaysArray  //public holidays
-            }) //returns 260 (260 workdays excluding two public holidays)
-        
-            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
-                if (temp > 0)
-                    $('#Days').val(temp);
-                else
-                    $('#Days').val('');
-            }
+        var holiDayList=@Html.Raw(JsonConvert.SerializeObject(ViewBag.HoliDayList));
+        debugger;
+        var holidaysArray = [];
+        for(var i=0;i<holiDayList.length;i++){
+            holidaysArray.push(moment(holiDayList[i], 'MM/DD/YYYY'));
         }
+        function isoWeekDayCalc() {
 
-        $("#ToDate").on("blur", function (e) {
-            checkDates();
-            isoWeekDayCalc();
-        });
-        $("#FromDate").on("blur", function (e) {
-            checkDates();
-            isoWeekDayCalc();
-        });
-
-        function checkDates() {
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
-            var from = moment(fromDate, 'MM/DD/YYYY');
-            var to = moment(toDate, 'MM/DD/YYYY');
-            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
-                var days = moment.duration(to.diff(from)).asDays() + 1;
-                if (days > 1) {
-                    $('#Days').val(days);
-                    $('#chkhalfday').removeAttr('checked');
-                    $('.icheckbox_flat-blue').removeClass('checked');
-                    $('#chkhalfday').attr('disabled', 'disabled');
-                    $('#isChecked').val('off');
+
+            var from = moment(fromDate, dateFormat);
+            var to = moment(toDate, dateFormat);
+
+            var days = moment.duration(to.diff(from)).asDays() + 1;
+            debugger;
+            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") 
+            {
+                if(days>=1){
+                    var temp = moment().isoWeekdayCalc({
+                        rangeStart: from,
+                        rangeEnd: to,
+                        weekdays: @Html.Raw(Json.Encode(ViewBag.weekend)),//[1,2,3,4,5], //weekdays Mon to Fri
+                        exclusions: holidaysArray  //public holidays
+                    }) //returns 260 (260 workdays excluding two public holidays)
+
+
+                    if (temp > 0)
+                        $('#Days').val(temp);
+                    else
+                        $('#Days').val('');
+
+                    var daysCount=$('#Days').val();
+                    if (daysCount > 1) {
+
+                        $('#chkhalfday').removeAttr('checked');
+                        $('.icheckbox_flat-blue').removeClass('checked');
+                        $('#chkhalfday').attr('disabled', 'disabled');
+                        $('#isChecked').val('off');
+                    }
                 }
-                else if (days < 0) {
-                    $('#chkhalfday').removeAttr('disabled');
+                else{
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
-                    $('#Days').val('');
                 }
-                else if (days == 1) {
-                    $('#chkhalfday').removeAttr('disabled');
-                    $('#Days').val(days);
-                }
-                else
-                    $('#Days').val(days);
-
             }
         }
 
+            $("#ToDate").on("blur", function (e) {
+                // checkDates();
+                isoWeekDayCalc();
+            });
+            $("#FromDate").on("blur", function (e) {
+                //checkDates();
+                isoWeekDayCalc();
+            });
 
-        $('#chkhalfday').on("ifChanged", function () {
-            debugger;
-            var fromDate = $('#FromDt').find('input').val();
-            var toDate = $('#ToDt').find('input').val();
-            var from = moment(fromDate, 'MM/DD/YYYY');
-            var to = moment(toDate, 'MM/DD/YYYY');
-            var days = moment.duration(to.diff(from)).asDays() + 1;
+            function checkDates() {
+                var fromDate = $('#FromDt').find('input').val();
+                var toDate = $('#ToDt').find('input').val();
+                var from = moment(fromDate,dateFormat);
+                var to = moment(toDate, dateFormat);
+                if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
+                    var days = moment.duration(to.diff(from)).asDays() + 1;
+                    $('#Days').val(days);
+                    var daysCount=$('#Days').val();
+                    debugger;
+                    if (daysCount > 1) {
+                        $('#Days').val(days);
+                        $('#chkhalfday').removeAttr('checked');
+                        $('.icheckbox_flat-blue').removeClass('checked');
+                        $('#chkhalfday').attr('disabled', 'disabled');
+                        $('#isChecked').val('off');
+                    }
+                    else if (daysCount < 0) {
+                        $('#chkhalfday').removeAttr('disabled');
+                        $('#FromDt').find('input').val('');
+                        $('#ToDt').find('input').val('');
+                        $('#Days').val('');
+                    }
+                    else if (daysCount == 1) {
+                        $('#chkhalfday').removeAttr('disabled');
+                        $('#Days').val(days);
+                    }
+                    //else
+                    //    $('#Days').val(days);
 
-            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
-                if (days == 1) {
+                }
+            }
+
+
+            $('#chkhalfday').on("ifChanged", function () {
+                debugger;
+                //var fromDate = $('#FromDt').find('input').val();
+                //var toDate = $('#ToDt').find('input').val();
+                //var from = moment(fromDate, dateFormat);
+                //var to = moment(toDate, dateFormat);
+                //var days = moment.duration(to.diff(from)).asDays() + 1;
+
+                isoWeekDayCalc();
+                var daysCount=$('#Days').val();
+
+                if (daysCount == 1) {
                     if ($('#chkhalfday').prop('checked')) {
                         $('#Days').val(0.5);
                         $('#isChecked').val('on');
@@ -337,62 +367,62 @@
 
                     } else {
                         $('#isChecked').val('off');
-                        $('#Days').val(days);
+                        //$('#Days').val(days);
                     }
 
                 }
-            }
-
-        });
 
 
-        $('#frmLeave').validate({
-            rules: {
-                'FromDate': {
-                    required: true
-                },
-                'ToDate': {
-                    required: true
-                },
-                'Days': {
-                    required: true
-                },
-                'EmployeeId': {
-                    required: true
-                },
-                'LeaveTypeId': {
-                    required: true
-                },
-                'Reason': {
-                    required: true
+            });
 
-                },
-                'Remarks': {
-                    required: true
 
+            $('#frmLeave').validate({
+                rules: {
+                    'FromDate': {
+                        required: true
+                    },
+                    'ToDate': {
+                        required: true
+                    },
+                    'Days': {
+                        required: true
+                    },
+                    'EmployeeId': {
+                        required: true
+                    },
+                    'LeaveTypeId': {
+                        required: true
+                    },
+                    'Reason': {
+                        required: true
+
+                    },
+                    'Remarks': {
+                        required: true
+
+                    }
                 }
+            });
+
+            function clearrec() {
+                $('#FromDate').val('');
+                $('#ToDate').val('');
+                $('#Days').val('');
+                $('#EmployeeId').val('');
+                $('#LeaveTypeId').val('');
+                $('#Reason').val('');
+                $('#Remarks').val('');
+
             }
-        });
+            //clearrec();
 
-        function clearrec() {
-            $('#FromDate').val('');
-            $('#ToDate').val('');
-            $('#Days').val('');
-            $('#EmployeeId').val('');
-            $('#LeaveTypeId').val('');
-            $('#Reason').val('');
-            $('#Remarks').val('');
+            function SaveEmployeeLeaveForm() {
 
-        }
-        //clearrec();
+                if ($('#frmLeave').valid()) {
+                    $('#btnSave').attr('disabled', 'disabled');
+                    $('#frmLeave').submit();
+                }
 
-        function SaveEmployeeLeaveForm() {
-
-            if ($('#frmLeave').valid()) {
-                $('#btnSave').attr('disabled', 'disabled');
-                $('#frmLeave').submit();
             }
-
-        }
     </script>
 }

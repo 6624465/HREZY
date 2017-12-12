@@ -501,24 +501,12 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="LookUps" EntityType="DB_9F30C5_HRDBModel.LookUp" />
           <EntitySet Name="Companies" EntityType="DB_9F30C5_HRDBModel.Company" />
           <EntitySet Name="Addresses" EntityType="DB_9F30C5_HRDBModel.Address" />
-          <AssociationSet Name="CompanyAddress" Association="DB_9F30C5_HRDBModel.CompanyAddress">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="Address" EntitySet="Addresses" />
-          </AssociationSet>
-          <AssociationSet Name="BranchAddress" Association="DB_9F30C5_HRDBModel.BranchAddress">
-            <End Role="Branch" EntitySet="Branches" />
-            <End Role="Address" EntitySet="Addresses" />
-          </AssociationSet>
           <EntitySet Name="EmployeeAddresses" EntityType="DB_9F30C5_HRDBModel.EmployeeAddress" />
           <EntitySet Name="LeaveDetails" EntityType="DB_9F30C5_HRDBModel.LeaveDetail" />
           <EntitySet Name="LeaveHeaders" EntityType="DB_9F30C5_HRDBModel.LeaveHeader" />
           <EntitySet Name="HolidayLists" EntityType="DB_9F30C5_HRDBModel.HolidayList" />
           <EntitySet Name="EmployeeDocumentDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeDocumentDetail" />
           <EntitySet Name="Roles" EntityType="DB_9F30C5_HRDBModel.Role" />
-          <AssociationSet Name="EmployeeHeaderUser" Association="DB_9F30C5_HRDBModel.EmployeeHeaderUser">
-            <End Role="EmployeeHeader" EntitySet="EmployeeHeaders" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
           <FunctionImport Name="usp_EmployeeDateOfJoiningDate" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDateOfJoiningDate_Result)">
             <Parameter Name="CurrentDt" Mode="In" Type="DateTime" />
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
@@ -541,14 +529,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="SalaryRuleDetails" EntityType="DB_9F30C5_HRDBModel.SalaryRuleDetail" />
           <EntitySet Name="SalaryRuleHeaders" EntityType="DB_9F30C5_HRDBModel.SalaryRuleHeader" />
           <EntitySet Name="SalaryRuleInputs" EntityType="DB_9F30C5_HRDBModel.SalaryRuleInput" />
-          <AssociationSet Name="SalaryRuleHeaderSalaryRuleDetail" Association="DB_9F30C5_HRDBModel.SalaryRuleHeaderSalaryRuleDetail">
-            <End Role="SalaryRuleHeader" EntitySet="SalaryRuleHeaders" />
-            <End Role="SalaryRuleDetail" EntitySet="SalaryRuleDetails" />
-          </AssociationSet>
-          <AssociationSet Name="SalaryRuleHeaderSalaryRuleInput" Association="DB_9F30C5_HRDBModel.SalaryRuleHeaderSalaryRuleInput">
-            <End Role="SalaryRuleHeader" EntitySet="SalaryRuleHeaders" />
-            <End Role="SalaryRuleInput" EntitySet="SalaryRuleInputs" />
-          </AssociationSet>
           <EntitySet Name="WeekendPolicies" EntityType="DB_9F30C5_HRDBModel.WeekendPolicy" />
         </EntityContainer>
         <EntityType Name="User">
@@ -695,30 +675,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="BranchId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="CompanyAddress">
-          <End Type="DB_9F30C5_HRDBModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.Address" Role="Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="CompanyId" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="LinkID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="BranchAddress">
-          <End Type="DB_9F30C5_HRDBModel.Branch" Role="Branch" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.Address" Role="Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Branch">
-              <PropertyRef Name="BranchID" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="LinkID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="EmployeeAddress">
           <Key>
             <PropertyRef Name="AddressId" />
@@ -821,20 +777,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="EmployeeHeaderUser">
-          <End Type="DB_9F30C5_HRDBModel.EmployeeHeader" Role="EmployeeHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeHeader">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="EmployeeId" />
-              <PropertyRef Name="BranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="usp_EmployeeDateOfJoiningDate_Result">
           <Property Type="Int32" Name="Count" Nullable="true" />
           <Property Type="String" Name="Month" Nullable="true" MaxLength="30" />
@@ -963,30 +905,6 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ContributionRegister" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RuleId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="SalaryRuleHeaderSalaryRuleDetail">
-          <End Type="DB_9F30C5_HRDBModel.SalaryRuleHeader" Role="SalaryRuleHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.SalaryRuleDetail" Role="SalaryRuleDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SalaryRuleHeader">
-              <PropertyRef Name="RuleId" />
-            </Principal>
-            <Dependent Role="SalaryRuleDetail">
-              <PropertyRef Name="RuleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SalaryRuleHeaderSalaryRuleInput">
-          <End Type="DB_9F30C5_HRDBModel.SalaryRuleHeader" Role="SalaryRuleHeader" Multiplicity="1" />
-          <End Type="DB_9F30C5_HRDBModel.SalaryRuleInput" Role="SalaryRuleInput" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SalaryRuleHeader">
-              <PropertyRef Name="RuleId" />
-            </Principal>
-            <Dependent Role="SalaryRuleInput">
-              <PropertyRef Name="RuleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="WeekendPolicy">
           <Key>
             <PropertyRef Name="BranchId" />

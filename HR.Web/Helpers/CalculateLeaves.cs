@@ -49,29 +49,56 @@ namespace HR.Web.Helpers
                 leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days.Value;
         }
 
-        public static double GetBusinessDays(DateTime startDate, DateTime endDate)
+        public static double GetBusinessDays(DateTime StartDate, DateTime EndDate, WeekendPolicy weekendPolicy, List<HolidayList> holidayList)
         {
-            DateTime[] holidaysList = new DateTime[] {
-                new DateTime(2017,12,25)
-            };
+            DateTime[] holidaysList = new DateTime[holidayList.Count];
+            for (int i = 0; i < holidayList.Count; i++)
+            {
+                DateTime date = holidayList[i].Date;
+                holidaysList[i] = new DateTime(date.Year, date.Month, date.Day);
+            }
 
-            double? calCBusinessDays = 1 + ((endDate - startDate).TotalDays * 5 -
-                                     (startDate.DayOfWeek - endDate.DayOfWeek) * 2) / 7;
 
+            double calCBusinessDays = calcWeekendDays(StartDate, EndDate, weekendPolicy);//1 + ((EndDate - StartDate).TotalDays);
             foreach (var holiday in holidaysList)
             {
                 DateTime _holiday = holiday.Date;
-                if (startDate <= _holiday && _holiday <= endDate)
+                if (StartDate <= _holiday && _holiday <= EndDate)
                     calCBusinessDays--;
             }
-            //if (startDate.DayOfWeek == DayOfWeek.Saturday)
-            //    calCBusinessDays--;
-            //if (endDate.DayOfWeek == DayOfWeek.Sunday)
-            //    calCBusinessDays--;
 
-            
+            return calCBusinessDays;
+        }
 
-            return calCBusinessDays.Value;
+        public static double calcWeekendDays(DateTime StartDate, DateTime EndDate, WeekendPolicy weekendPolicy)
+        {
+            double calCBusinessDays = 1 + ((EndDate - StartDate).TotalDays);
+            for (DateTime date = StartDate; date.Date <= EndDate.Date; date = date.AddDays(1))
+            {
+                if (date.DayOfWeek == DayOfWeek.Monday)
+                    if (weekendPolicy.Monday.Value)
+                        calCBusinessDays--;
+                if (date.DayOfWeek == DayOfWeek.Tuesday)
+                    if (weekendPolicy.Tuesday.Value)
+                        calCBusinessDays--;
+                if (date.DayOfWeek == DayOfWeek.Wednesday)
+                    if (weekendPolicy.Wednesday.Value)
+                        calCBusinessDays--;
+                if (date.DayOfWeek == DayOfWeek.Thursday)
+                    if (weekendPolicy.Thursday.Value)
+                        calCBusinessDays--;
+                if (date.DayOfWeek == DayOfWeek.Friday)
+                    if (weekendPolicy.Friday.Value)
+                        calCBusinessDays--;
+                if (date.DayOfWeek == DayOfWeek.Saturday)
+                    if (weekendPolicy.Saturday.Value)
+                        calCBusinessDays--;
+                if (date.DayOfWeek == DayOfWeek.Sunday)
+                    if (weekendPolicy.Sunday.Value)
+                        calCBusinessDays--;
+            }
+
+            return calCBusinessDays;
         }
 
     }

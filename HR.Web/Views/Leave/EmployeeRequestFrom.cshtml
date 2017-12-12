@@ -8,94 +8,152 @@
     var temp = Model;
 
 }
+<style type="text/css">
+    h1 {
+        margin: 0;
+        font-weight: normal;
+    }
+
+    time.icon {
+        font-size: 1em; /* change icon size */
+        display: block;
+        position: relative;
+        width: 10em;
+        height: 10em;
+        background-color: #fff;
+        margin: 2em auto;
+        border-radius: 0.6em;
+        box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+        overflow: hidden;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: rotate(0deg) skewY(0deg);
+        -webkit-transform-origin: 50% 10%;
+        transform-origin: 50% 10%;
+    }
+
+        time.icon * {
+            display: block;
+            width: 100%;
+            font-size: 1em;
+            font-weight: bold;
+            font-style: normal;
+            text-align: center;
+        }
+
+        time.icon strong {
+            position: absolute;
+            top: 0;
+            padding: 0.4em 0;
+            color: #fff;
+            background-color: #fd9f1b;
+            border-bottom: 1px dashed #f37302;
+            box-shadow: 0 2px 0 #fd9f1b;
+        }
+
+        time.icon em {
+            position: absolute;
+            bottom: 0.3em;
+            color: #fd9f1b;
+        }
+
+        time.icon span {
+            width: 100%;
+            font-size: 2.8em;
+            letter-spacing: -0.05em;
+            padding-top: 0.8em;
+            color: #2f2f2f;
+        }
+
+        time.icon:hover, time.icon:focus {
+        }
+</style>
 @using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
     <div class="page">
         <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Employee Leave Form</div>
-                    <div class="panel-body ">
 
-                        <div class="row css10">
-                            <div class="col-md-12">
+
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="panel-heading">Employee Leave Form</div>
+                <div class="panel-body ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
                                 <div class="row">
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">
-                                            <span class="pull-right">From Dt</span>
-                                        </label>
-                                        <div class="col-md-3">
-                                            <div class="input-group date" id="FromDt">
-                                                @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCss", required = "required" })
-                                                <span class="input-group-addon">
-                                                    <i class="ion ion-calendar"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <label class="col-md-1 control-label">
-                                            <span class="pull-right">To Dt</span>
-                                        </label>
-                                        <div class="col-md-3">
-                                            <div class="input-group date" id="ToDt">
-                                                @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCss", required = "required" })
-                                                <span class="input-group-addon">
-                                                    <i class="ion ion-calendar"></i>
-                                                </span>
-                                            </div>
-                                        </div>
 
+                                    <label class="col-md-3 control-label">
+                                        <span class="pull-right">From Date</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group date" id="FromDt">
+                                            @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCss", required = "required" })
+                                            <span class="input-group-addon">
+                                                <i class="ion ion-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row css10">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">
+                                        <span class="pull-right">To Date</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group date" id="ToDt">
+                                            @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCss", required = "required" })
+                                            <span class="input-group-addon">
+                                                <i class="ion ion-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3" style="margin-top:0 10px 0 5px;">
+                                        <label>
+                                            Half Day
+                                        </label>  <input type="checkbox" class="form-control" name="chkhalfday" id="chkhalfday" />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row css10">
-                            <div class="form-group">
-                                <label class="col-md-1 control-label">
-                                    <span class="pull-right">Days</span>
+                            @Html.HiddenFor(x => x.Days)
+                            <div class="row css10">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Leave Type</span>
                                 </label>
-                                <div class="col-md-3">
-                                    @Html.TextBoxFor(x => x.Days, new { @class = "form-control", required = "required", @readonly = "readonly" })
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(x => x.LeaveTypeId,
+                                                     SelectListItemHelper.EmployeeLeaveType(),
+                                                     "Select Leave Type",
+                                                     new { @class = "form-control" })
                                 </div>
-                                @*<label class="col-md-1 control-label">
-                                                       <span class="pull-right">Employee</span>
-                                                   </label>
-                                                   <div class="col-md-2">
-                                                       @Html.DropDownListFor(x => x.EmployeeId,
-                                    SelectListItemHelper.EmployeeList(),
-                                    "Select Employee",
-                                    new { @class = "form-control" })
-                                                   </div>*@
-                                <label class="col-md-1 control-label">
-                                    <span class="pull-right">Half Day</span>
+                                <div class="col-md-3">
+                                </div>
+                            </div>
+                            <div class="row css10">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Reason</span>
                                 </label>
-                                <div class="col-md-3">
-                                    <input type="checkbox" class="form-control" name="chkhalfday" id="chkhalfday" />
+                                <div class="col-md-6">
+                                    @Html.TextAreaFor(x => x.Reason, new { @class = "form-control", maxlength = "500" })
                                 </div>
-
-
+                                <div class="col-md-3">
+                                </div>
                             </div>
                         </div>
-                        <div class="row css10">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right">LeaveType</span>
-                            </label>
-                            <div class="col-md-5">
-                                @Html.DropDownListFor(x => x.LeaveTypeId,
-         SelectListItemHelper.EmployeeLeaveType(),
-         "Select Leave Type",
-         new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row css10">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right">Reason</span>
-                            </label>
-                            <div class="col-md-5">
-                                @Html.TextAreaFor(x => x.Reason, new { @class = "form-control", maxlength = "500" })
-                            </div>
+                        <div class="col-md-3" style="margin-top:-3%">
+                            <time class="icon pull-left">
+                                <em></em>
+                                <strong>Days</strong>
+                                <span>
+                                    <label id="noOfDays"> </label>
+                                </span>
+                            </time>
 
                         </div>
-
+                        <div class="col-md-3">  </div>
                         <div class="row css10">
                             <div class="col-md-9"></div>
                             <div class="form-group">
@@ -108,13 +166,14 @@
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <br />
-                    <br />
                 </div>
+                <br />
+                <br />
+                <br />
             </div>
         </div>
     </div>
+
     <input type="hidden" name="isChecked" id="isChecked" />
     <input type="hidden" name="isLOP" id="isLOP" />
 }
@@ -273,7 +332,7 @@
 
             var days = moment.duration(to.diff(from)).asDays() + 1;
             debugger;
-            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") 
+            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "")
             {
                 if(days>=1){
                     var temp = moment().isoWeekdayCalc({
@@ -284,8 +343,10 @@
                     }) //returns 260 (260 workdays excluding two public holidays)
 
 
-                    if (temp > 0)
+                    if (temp > 0){
                         $('#Days').val(temp);
+                        $('#noOfDays').text(temp);
+                    }
                     else
                         $('#Days').val('');
 
@@ -305,124 +366,125 @@
             }
         }
 
-            $("#ToDate").on("blur", function (e) {
-                // checkDates();
-                isoWeekDayCalc();
-            });
-            $("#FromDate").on("blur", function (e) {
-                //checkDates();
-                isoWeekDayCalc();
-            });
+        $("#ToDate").on("blur", function (e) {
+            // checkDates();
+            isoWeekDayCalc();
+        });
+        $("#FromDate").on("blur", function (e) {
+            //checkDates();
+            isoWeekDayCalc();
+        });
 
-            function checkDates() {
-                var fromDate = $('#FromDt').find('input').val();
-                var toDate = $('#ToDt').find('input').val();
-                var from = moment(fromDate,dateFormat);
-                var to = moment(toDate, dateFormat);
-                if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
-                    var days = moment.duration(to.diff(from)).asDays() + 1;
-                    $('#Days').val(days);
-                    var daysCount=$('#Days').val();
-                    debugger;
-                    if (daysCount > 1) {
-                        $('#Days').val(days);
-                        $('#chkhalfday').removeAttr('checked');
-                        $('.icheckbox_flat-blue').removeClass('checked');
-                        $('#chkhalfday').attr('disabled', 'disabled');
-                        $('#isChecked').val('off');
-                    }
-                    else if (daysCount < 0) {
-                        $('#chkhalfday').removeAttr('disabled');
-                        $('#FromDt').find('input').val('');
-                        $('#ToDt').find('input').val('');
-                        $('#Days').val('');
-                    }
-                    else if (daysCount == 1) {
-                        $('#chkhalfday').removeAttr('disabled');
-                        $('#Days').val(days);
-                    }
-                    //else
-                    //    $('#Days').val(days);
-
-                }
-            }
-
-
-            $('#chkhalfday').on("ifChanged", function () {
-                debugger;
-                //var fromDate = $('#FromDt').find('input').val();
-                //var toDate = $('#ToDt').find('input').val();
-                //var from = moment(fromDate, dateFormat);
-                //var to = moment(toDate, dateFormat);
-                //var days = moment.duration(to.diff(from)).asDays() + 1;
-
-                isoWeekDayCalc();
+        function checkDates() {
+            var fromDate = $('#FromDt').find('input').val();
+            var toDate = $('#ToDt').find('input').val();
+            var from = moment(fromDate,dateFormat);
+            var to = moment(toDate, dateFormat);
+            if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "") {
+                var days = moment.duration(to.diff(from)).asDays() + 1;
+                $('#Days').val(days);
                 var daysCount=$('#Days').val();
-
-                if (daysCount == 1) {
-                    if ($('#chkhalfday').prop('checked')) {
-                        $('#Days').val(0.5);
-                        $('#isChecked').val('on');
-
-
-                    } else {
-                        $('#isChecked').val('off');
-                        //$('#Days').val(days);
-                    }
-
+                debugger;
+                if (daysCount > 1) {
+                    $('#Days').val(days);
+                    $('#chkhalfday').removeAttr('checked');
+                    $('.icheckbox_flat-blue').removeClass('checked');
+                    $('#chkhalfday').attr('disabled', 'disabled');
+                    $('#isChecked').val('off');
                 }
-
-
-            });
-
-
-            $('#frmLeave').validate({
-                rules: {
-                    'FromDate': {
-                        required: true
-                    },
-                    'ToDate': {
-                        required: true
-                    },
-                    'Days': {
-                        required: true
-                    },
-                    'EmployeeId': {
-                        required: true
-                    },
-                    'LeaveTypeId': {
-                        required: true
-                    },
-                    'Reason': {
-                        required: true
-
-                    },
-                    'Remarks': {
-                        required: true
-
-                    }
+                else if (daysCount < 0) {
+                    $('#chkhalfday').removeAttr('disabled');
+                    $('#FromDt').find('input').val('');
+                    $('#ToDt').find('input').val('');
+                    $('#Days').val('');
                 }
-            });
-
-            function clearrec() {
-                $('#FromDate').val('');
-                $('#ToDate').val('');
-                $('#Days').val('');
-                $('#EmployeeId').val('');
-                $('#LeaveTypeId').val('');
-                $('#Reason').val('');
-                $('#Remarks').val('');
+                else if (daysCount == 1) {
+                    $('#chkhalfday').removeAttr('disabled');
+                    $('#Days').val(days);
+                }
+                //else
+                //    $('#Days').val(days);
 
             }
-            //clearrec();
+        }
 
-            function SaveEmployeeLeaveForm() {
 
-                if ($('#frmLeave').valid()) {
-                    $('#btnSave').attr('disabled', 'disabled');
-                    $('#frmLeave').submit();
+        $('#chkhalfday').on("ifChanged", function () {
+            debugger;
+            //var fromDate = $('#FromDt').find('input').val();
+            //var toDate = $('#ToDt').find('input').val();
+            //var from = moment(fromDate, dateFormat);
+            //var to = moment(toDate, dateFormat);
+            //var days = moment.duration(to.diff(from)).asDays() + 1;
+
+            isoWeekDayCalc();
+            var daysCount=$('#Days').val();
+
+            if (daysCount == 1) {
+                if ($('#chkhalfday').prop('checked')) {
+                    $('#Days').val(0.5);
+                    $('#noOfDays').text(0.5);
+                    $('#isChecked').val('on');
+
+
+                } else {
+                    $('#isChecked').val('off');
+                    //$('#Days').val(days);
                 }
 
             }
+
+
+        });
+
+
+        $('#frmLeave').validate({
+            rules: {
+                'FromDate': {
+                    required: true
+                },
+                'ToDate': {
+                    required: true
+                },
+                'Days': {
+                    required: true
+                },
+                'EmployeeId': {
+                    required: true
+                },
+                'LeaveTypeId': {
+                    required: true
+                },
+                'Reason': {
+                    required: true
+
+                },
+                'Remarks': {
+                    required: true
+
+                }
+            }
+        });
+
+        function clearrec() {
+            $('#FromDate').val('');
+            $('#ToDate').val('');
+            $('#Days').val('');
+            $('#EmployeeId').val('');
+            $('#LeaveTypeId').val('');
+            $('#Reason').val('');
+            $('#Remarks').val('');
+
+        }
+        //clearrec();
+
+        function SaveEmployeeLeaveForm() {
+
+            if ($('#frmLeave').valid()) {
+                $('#btnSave').attr('disabled', 'disabled');
+                $('#frmLeave').submit();
+            }
+
+        }
     </script>
 }

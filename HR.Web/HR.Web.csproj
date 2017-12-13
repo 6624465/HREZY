@@ -1740,6 +1740,8 @@
     <Compile Include="BusinessObjects\Payroll\SalaryRuleBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleDetailBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleInputBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\SalaryStructureDetailBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\SalaryStructureHeaderBO.cs" />
     <Compile Include="BusinessObjects\Security\UserBO.cs" />
     <Compile Include="BusinessObjects\WeekendPolicyBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -1842,6 +1844,12 @@
     <Compile Include="Models\SalaryRuleInput.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalaryStructureDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalaryStructureHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1876,6 +1884,8 @@
     <Compile Include="Services\Payroll\SalaryRuleDetailRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleHeaderRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleInputRepository.cs" />
+    <Compile Include="Services\Payroll\SalaryStructureDetailRepository.cs" />
+    <Compile Include="Services\Payroll\SalaryStructureHeaderRepository.cs" />
     <Compile Include="Services\Security\UserRepository.cs" />
     <Compile Include="Services\WeekenPolicyService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />

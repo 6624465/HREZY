@@ -28,6 +28,8 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryRuleHeader" Width="1.5" PointX="15.375" PointY="10.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryRuleInput" Width="1.5" PointX="11.375" PointY="15.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.WeekendPolicy" Width="1.5" PointX="13.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryStructureDetail" Width="1.5" PointX="15.375" PointY="14.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryStructureHeader" Width="1.5" PointX="16.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

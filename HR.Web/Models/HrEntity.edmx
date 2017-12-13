@@ -359,6 +359,35 @@
           <Property Name="ContributionRegister" Type="nvarchar" MaxLength="50" />
           <Property Name="RuleId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SalaryStructureDetail">
+          <Key>
+            <PropertyRef Name="StructureDetailID" />
+          </Key>
+          <Property Name="StructureDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="RegisterCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ComputationCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SalaryStructureHeader">
+          <Key>
+            <PropertyRef Name="StructureID" />
+          </Key>
+          <Property Name="StructureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="EffectiveDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
             <PropertyRef Name="BranchId" />
@@ -445,6 +474,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="SalaryRuleDetail" EntityType="Self.SalaryRuleDetail" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryRuleHeader" EntityType="Self.SalaryRuleHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryRuleInput" EntityType="Self.SalaryRuleInput" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="SalaryStructureDetail" EntityType="Self.SalaryStructureDetail" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="SalaryStructureHeader" EntityType="Self.SalaryStructureHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="WeekendPolicy" EntityType="Self.WeekendPolicy" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
@@ -530,6 +561,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="SalaryRuleHeaders" EntityType="DB_9F30C5_HRDBModel.SalaryRuleHeader" />
           <EntitySet Name="SalaryRuleInputs" EntityType="DB_9F30C5_HRDBModel.SalaryRuleInput" />
           <EntitySet Name="WeekendPolicies" EntityType="DB_9F30C5_HRDBModel.WeekendPolicy" />
+          <EntitySet Name="SalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.SalaryStructureDetail" />
+          <EntitySet Name="SalaryStructureHeaders" EntityType="DB_9F30C5_HRDBModel.SalaryStructureHeader" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -921,6 +954,35 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SalaryStructureDetail">
+          <Key>
+            <PropertyRef Name="StructureDetailID" />
+          </Key>
+          <Property Name="StructureDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ComputationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SalaryStructureHeader">
+          <Key>
+            <PropertyRef Name="StructureID" />
+          </Key>
+          <Property Name="StructureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EffectiveDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1369,6 +1431,37 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
                 <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
                 <ScalarProperty Name="Monday" ColumnName="Monday" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaryStructureDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureDetail">
+              <MappingFragment StoreEntitySet="SalaryStructureDetail">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ComputationCode" ColumnName="ComputationCode" />
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="StructureDetailID" ColumnName="StructureDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaryStructureHeaders">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureHeader">
+              <MappingFragment StoreEntitySet="SalaryStructureHeader">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="StructureID" ColumnName="StructureID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

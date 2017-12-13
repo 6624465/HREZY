@@ -1,6 +1,6 @@
-﻿@{ 
+﻿@{
     var fname = string.Empty;
-    if(!string.IsNullOrWhiteSpace(Request.QueryString["fname"]))
+    if (!string.IsNullOrWhiteSpace(Request.QueryString["fname"]))
     {
         fname = Request.QueryString["fname"];
     }
@@ -12,28 +12,31 @@
         .table tbody td:nth-child(5) {
             width: 170px;
         }
+
         .table tbody td:nth-child(6) {
-            width:170px;
+            width: 170px;
         }
+
         .table tbody td:nth-child(7) {
             width: 120px;
             direction: rtl;
         }
+
         .table tbody td:nth-child(8) {
             width: 120px;
             direction: rtl;
         }
-        
+
         .table tfoot {
             /*display:block;*/
         }
 
         currencyCss {
-            direction:rtl;
+            direction: rtl;
         }
 
         .table tfoot {
-            display:table-footer-group;
+            display: table-footer-group;
         }
     </style>
 }
@@ -42,16 +45,16 @@
         <div class="col-md-12">
             <div class="panel panel-default panel-hovered panel-stacked mb10">
                 <div class="panel-heading">
-                    @fname Basic
+                    Salary Structure
                 </div>
                 <div class="panel-body">
                     <div class="row css5">
                         <label class="col-md-2 control-label">
-                            <span class="pull-right">Name</span>
+                            <span class="pull-right">Code</span>
                         </label>
                         <div class="col-md-4">
                             <input type="text" class="form-control" />
-                        </div>                        
+                        </div>
                     </div>
                     <div class="row css5">
                         <label class="col-md-2 control-label">
@@ -69,7 +72,7 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab-home">
-                                <div class="row">                                    
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             <table class="table table-condensed">
@@ -78,11 +81,10 @@
                                                         <th></th>
                                                         <th>CODE</th>
                                                         <th>DESCRIPTION</th>
-                                                        <th>CATEGORY</th>
                                                         <th>CONTRIBUTION REGISTER</th>
                                                         <th>COMPUTATION</th>
                                                         <th></th>
-                                                        <th>AMOUNT</th>                                                        
+                                                        <th>AMOUNT</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -92,14 +94,7 @@
                                                         </td>
                                                         <td>BASIC</td>
                                                         <td style="width:250px;">BASIC SALARY</td>
-                                                        <td>
-                                                            <select class="form-control input-sm categoryCss" id="category_1">
-                                                                <option value="BASIC">BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF">PF</option>
-                                                                <option value="SPL">SPL</option>
-                                                            </select>
-                                                        </td>
+                                                        
                                                         <td>
                                                             <select class="form-control input-sm contributionCss" id="contribution_1">
                                                                 <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
@@ -113,10 +108,10 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm computationtxtCss" style="width:80px;" id="computationtxt_1" value="20,000"  />
+                                                            <input type="text" class="form-control input-sm computationtxtCss" style="width:80px;" id="computationtxt_1" value="20,000" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm" style="width:80px;" value="20,000"  />
+                                                            <input type="text" class="form-control input-sm" style="width:80px;" value="20,000" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -146,7 +141,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm" value="5"  />
+                                                            <input type="text" class="form-control input-sm" value="5" />
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control input-sm" value="1,000" />
@@ -179,7 +174,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm"  />
+                                                            <input type="text" class="form-control input-sm" />
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control input-sm" />
@@ -212,7 +207,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm"  />
+                                                            <input type="text" class="form-control input-sm" />
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control input-sm" />
@@ -245,7 +240,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm"  />
+                                                            <input type="text" class="form-control input-sm" />
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control input-sm" />
@@ -278,7 +273,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm"  />
+                                                            <input type="text" class="form-control input-sm" />
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control input-sm" />
@@ -311,7 +306,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm"  />
+                                                            <input type="text" class="form-control input-sm" />
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control input-sm" />
@@ -344,7 +339,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm"  />
+                                                            <input type="text" class="form-control input-sm" />
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control input-sm" />
@@ -377,12 +372,12 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control input-sm"  />
+                                                            <input type="text" class="form-control input-sm" />
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control input-sm" />
                                                         </td>
-                                                    </tr>                                                    
+                                                    </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
@@ -399,7 +394,7 @@
                                                 </tfoot>
                                             </table>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -407,6 +402,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
         </div>
     </div>
 </div>

@@ -8,6 +8,10 @@ namespace HR.Web.Services.Payroll
 {
     public class SalaryStructureDetailRepository : IRepository<SalaryStructureDetail>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
         public void Add(SalaryStructureDetail entity)
         {
             try
@@ -19,8 +23,6 @@ namespace HR.Web.Services.Payroll
                         .Where(x => x.StructureDetailID == entity.StructureDetailID).FirstOrDefault();
                     if (SalaryStructureDetail == null)
                     {
-                        SalaryStructureDetail.ModifiedBy = entity.ModifiedBy;
-                        SalaryStructureDetail.ModifiedOn = entity.ModifiedOn;
                         dbContext.SalaryStructureDetails.Add(entity);
                     }
                     else

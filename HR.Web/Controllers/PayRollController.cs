@@ -168,8 +168,7 @@ namespace HR.Web.Controllers
                 SalaryStructureDetail salaryStructureDetail = new SalaryStructureDetail()
                 {
                     Code = item.Name,
-                    Description = item.Description,
-
+                    Description = item.Description
                 };
                 salaryStructureVm.structureDetail.Add(salaryStructureDetail);
             }
@@ -180,6 +179,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SalaryStructure(SalaryStructureVm salaryStructureVm)
         {
+            salaryStructureHeaderBO.SaveSalaryStructure(salaryStructureVm);
             return View();
         }
 

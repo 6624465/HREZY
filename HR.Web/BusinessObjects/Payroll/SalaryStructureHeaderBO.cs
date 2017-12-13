@@ -1,6 +1,7 @@
 ﻿using HR.Web.Controllers;
 using HR.Web.Models;
 using HR.Web.Services.Payroll;
+using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace HR.Web.BusinessObjects.Payroll
     public class SalaryStructureHeaderBO : BaseBO
     {
         SalaryStructureHeaderRepository salaryStructureHeaderRepository = null;
+        SalaryStructureDetailBO salaryStructureDetailBO = null;
         public SalaryStructureHeaderBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
             salaryStructureHeaderRepository = new SalaryStructureHeaderRepository();
+            salaryStructureDetailBO = new SalaryStructureDetailBO(_sessionObj);
         }
 
 
@@ -84,11 +87,49 @@ namespace HR.Web.BusinessObjects.Payroll
             }
         }
 
-        public IEnumerable<SalaryStructureHeader> GetListByProperty(Func<SalaryStructureHeader,bool> predicate)
+        public IEnumerable<SalaryStructureHeader> GetListByProperty(Func<SalaryStructureHeader, bool> predicate)
         {
             try
             {
                 return salaryStructureHeaderRepository.GetListByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        internal void SaveSalaryStructure(SalaryStructureVm salaryStructureVm)
+        {
+            try
+            {
+                SalaryStructureHeader structureHeader = new SalaryStructureHeader()
+                {
+                    Code = salaryStructureVm.structureHeader.Code,
+                    EffectiveDate = salaryStructureVm.structureHeader.EffectiveDate,
+                    IsActive = salaryStructureVm.structureHeader.IsActive,
+                    Remarks = salaryStructureVm.structureHeader.Remarks,
+                    CreatedBy = sessionObj.USERID,
+                    CreatedOn = UTILITY.SINGAPORETIME
+                };
+                Add(structureHeader);
+                salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
+                foreach (SalaryStructureDetail item in salaryStructureVm.structureDetail)
+                {
+                    SalaryStructureDetail detail = new SalaryStructureDetail() {
+                        Amount= item.Amount,
+                        Code=item.Code,
+                        ComputationCode=item.ComputationCode,
+                        CreatedBy=sessionObj.USERID,
+                        CreatedOn=UTILITY.SINGAPORETIME,
+                        Description=item.Description,
+                        IsActive = item.IsActive,
+                        RegisterCode = item.RegisterCode,
+                        StructureID = structureHeader.StructureID,
+                    };
+                    salaryStructureDetailBO.Add(detail);
+                }
             }
             catch (Exception ex)
             {

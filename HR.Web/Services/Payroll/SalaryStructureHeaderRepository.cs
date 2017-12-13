@@ -1,4 +1,5 @@
 ﻿using HR.Web.Models;
+using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,8 @@ namespace HR.Web.Services.Payroll
                         .Where(x => x.StructureID == entity.StructureID).FirstOrDefault();
                     if (salaryStructureHeader == null)
                     {
-                        salaryStructureHeader.ModifiedBy = entity.ModifiedBy;
-                        salaryStructureHeader.ModifiedOn = entity.ModifiedOn;
+                        //salaryStructureHeader.CreatedBy = entity.CreatedBy;
+                        //salaryStructureHeader.CreatedOn = entity.CreatedOn;
                         dbContext.SalaryStructureHeaders.Add(entity);
                     }
                     else
@@ -123,5 +124,8 @@ namespace HR.Web.Services.Payroll
                 throw ex;
             }
         }
+
+
+        
     }
 }

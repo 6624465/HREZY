@@ -17,7 +17,7 @@ namespace HR.Web.Models
         public int StructureID { get; set; }
         public string Code { get; set; }
         public Nullable<System.DateTime> EffectiveDate { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }

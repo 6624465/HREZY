@@ -2033,6 +2033,7 @@
     <Content Include="Views\PayRoll\SalaryStructure.cshtml" />
     <Content Include="Views\Leave\WeekendPolicyList.cshtml" />
     <Content Include="Views\Leave\WeekEndPolicy.cshtml" />
+    <Content Include="Views\PayRoll\SalaryStructureHeaderList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

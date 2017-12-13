@@ -65,25 +65,45 @@
 @for (var i = 0; i < Model.Count(); i++)
 {
      <div id="popover_@i" class="hide">
-        <div class="box-body">
-            <div class="row">
-                <div class="col-md-12">                    
-                    <ul class="list-group" style="font-weight:Bold; font-size:15px;">
-                        <li class="list-group-item">PL Per Year: @Model.ElementAt(i).PaidLeavesPerYear</li>
-                        <li class="list-group-item">PL Per Month: @Model.ElementAt(i).PaidLeavesPerMonth</li>
-                        <li class="list-group-item">IsPLCarryFarward: @Html.CheckBoxFor(x =>x.ElementAt(i).IsPaidLeaveCarryForward)</li>
-                        <li class="list-group-item">CarryFarwardPerYear: @Model.ElementAt(i).CarryFarwardPerYear</li>
-                        <li class="list-group-item">SL Per Year: @Model.ElementAt(i).SickLeavesPerYear</li>
-                        <li class="list-group-item">SL Per Month: @Model.ElementAt(i).SickLeavesPerMonth</li>
-                        <li class="list-group-item">IsSLCarryFarward: @Html.CheckBoxFor(x => x.ElementAt(i).IsSickLeaveCarryFarward)</li>
-                        <li class="list-group-item">CarryFarwardSLs: @Model.ElementAt(i).CarryFarwardSickLeaves</li>
-                        <li class="list-group-item">CL Per Year: @Model.ElementAt(i).CasualLeavesPerYear</li>
-                        <li class="list-group-item">CL Per Month: @Model.ElementAt(i).CasualLeavesPerMonth</li>
-                        <li class="list-group-item">IsCLCarryFarward: @Html.CheckBoxFor(x => x.ElementAt(i).IsCasualLeaveCarryFarward)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+         <div class="row">
+             <div class="col-md-12">
+                 <div class="list-group" style="font-weight:Bold; font-size:15px;">
+                     <a href="#" class="list-group-item">
+                         PL Per Year: <span class="pull-right text-muted small"><em>@Model.ElementAt(i).PaidLeavesPerYear</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         PL Per Month: <span class="pull-right text-muted small"><em>@Model.ElementAt(i).PaidLeavesPerMonth</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         IsPLCarryFarward: <span class="pull-right text-muted small"><em>@Html.CheckBoxFor(x => x.ElementAt(i).IsPaidLeaveCarryForward)</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         CarryFarwardPerYear: <span class="pull-right text-muted small"><em>@Model.ElementAt(i).CarryFarwardPerYear</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         SL Per Year: <span class="pull-right text-muted small"><em>@Model.ElementAt(i).SickLeavesPerYear</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         SL Per Month: <span class="pull-right text-muted small"><em>@Model.ElementAt(i).SickLeavesPerMonth</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         IsSLCarryFarward: <span class="pull-right text-muted small"><em>@Html.CheckBoxFor(x => x.ElementAt(i).IsSickLeaveCarryFarward)</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         CarryFarwardSLs: <span class="pull-right text-muted small"><em>@Model.ElementAt(i).CarryFarwardSickLeaves</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         CL Per Year: <span class="pull-right text-muted small"><em>@Model.ElementAt(i).CasualLeavesPerYear</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         CL Per Month: <span class="pull-right text-muted small"><em>@Model.ElementAt(i).CasualLeavesPerMonth</em></span>
+                     </a>
+                     <a href="#" class="list-group-item">
+                         IsCLCarryFarward: <span class="pull-right text-muted small"><em>@Html.CheckBoxFor(x => x.ElementAt(i).IsCasualLeaveCarryFarward)</em></span>
+                     </a>
+                 </div>
+             </div>
+         </div>
     </div>
     <script type="text/javascript">
         $(function () {

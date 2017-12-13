@@ -16,12 +16,16 @@ namespace HR.Web.Controllers
         SalaryRuleInputBO salaryRuleInputBO = null;
         SalaryRuleDetailBO salaryRuleDetailBO = null;
         ContributionBO contributionBO = null;
+        SalaryStructureHeaderBO salaryStructureHeaderBO = null;
+        SalaryStructureDetailBO salaryStructureDetailBO = null;
         public PayRollController()
         {
             salaryRuleBO = new SalaryRuleBO(SESSIONOBJ);
             salaryRuleInputBO = new SalaryRuleInputBO(SESSIONOBJ);
             salaryRuleDetailBO = new SalaryRuleDetailBO(SESSIONOBJ);
             contributionBO = new ContributionBO(SESSIONOBJ);
+            salaryStructureHeaderBO = new SalaryStructureHeaderBO(SESSIONOBJ);
+            salaryStructureDetailBO = new SalaryStructureDetailBO(SESSIONOBJ);
         }
         // GET: PayRoll
         public ActionResult PayRollInfo()

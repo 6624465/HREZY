@@ -26,7 +26,7 @@
 
         .table tbody td:nth-child(8) {
             width: 120px;
-            direction: rtl;
+            /*direction: rtl;*/
         }
 
         .table tfoot {
@@ -57,6 +57,7 @@
                                 <span class="pull-right">Code</span>
                             </label>
                             <div class="col-md-4">
+                                @Html.HiddenFor(x => x.structureHeader.StructureID)
                                 @Html.TextBoxFor(x => x.structureHeader.Code, new { @class = "form-control" })
                             </div>
                             <label class="col-md-2 control-label">
@@ -83,7 +84,7 @@
                                 <span class="pull-right">Is Active</span>
                             </label>
                             <div class="col-md-4" style="margin-top:10px;">
-                                @Html.CheckBoxFor(x=>x.structureHeader.IsActive,  new { @class = "form-control" })
+                                @Html.CheckBoxFor(x => x.structureHeader.IsActive, new { @class = "form-control" })
                             </div>
                         </div>
                         <br />
@@ -111,6 +112,7 @@
                                                     <tbody>
                                                         @for (int i = 0; i < Model.structureDetail.Count; i++)
                                                         {
+                                                            @Html.HiddenFor(x => x.structureDetail[i].StructureDetailID)
                                                             <tr>
                                                                 <td>
                                                                     @Html.CheckBoxFor(x => x.structureDetail[i].IsActive, new { @class = "form-control" })
@@ -122,14 +124,14 @@
 
                                                                 <td>
                                                                     @Html.DropDownListFor(x => x.structureDetail[i].RegisterCode,
-                                                               SelectListItemHelper.ContributionRegister(), "Select", new { @class = "form-control" })
+                                                                    new SelectList(SelectListItemHelper.ContributionRegister(), "Value", "Text", Model.structureDetail[i].RegisterCode), "", new { @class = "form-control input-sm" })
                                                                 </td>
                                                                 <td>
                                                                     @Html.DropDownListFor(x => x.structureDetail[i].ComputationCode,
-                                                               SelectListItemHelper.Computation(), "Select", new { @class = "form-control" })
+                                                                    new SelectList(SelectListItemHelper.Computation(), "Value", "Text", Model.structureDetail[i].ComputationCode), "", new { @class = "form-control input-sm" })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control" })
+                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control input-sm" })
                                                                 </td>
 
                                                             </tr>

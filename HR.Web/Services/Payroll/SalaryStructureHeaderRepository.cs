@@ -20,8 +20,7 @@ namespace HR.Web.Services.Payroll
                         .Where(x => x.StructureID == entity.StructureID).FirstOrDefault();
                     if (salaryStructureHeader == null)
                     {
-                        //salaryStructureHeader.CreatedBy = entity.CreatedBy;
-                        //salaryStructureHeader.CreatedOn = entity.CreatedOn;
+
                         dbContext.SalaryStructureHeaders.Add(entity);
                     }
                     else
@@ -126,6 +125,6 @@ namespace HR.Web.Services.Payroll
         }
 
 
-        
+
     }
 }

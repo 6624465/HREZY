@@ -156,21 +156,72 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult SalaryStructure()
+        public ActionResult SalaryStructure(int structurId = 0)
         {
             SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
+
             salaryStructureVm.structureHeader = new SalaryStructureHeader();
 
             List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).ToList();
             salaryStructureVm.structureDetail = new List<SalaryStructureDetail>();
-            foreach (Contribution item in contributionList)
+            if (structurId == 0)
             {
-                SalaryStructureDetail salaryStructureDetail = new SalaryStructureDetail()
+                foreach (Contribution item in contributionList)
                 {
-                    Code = item.Name,
-                    Description = item.Description
+                    SalaryStructureDetail salaryStructureDetail = new SalaryStructureDetail()
+                    {
+                        Code = item.Name,
+                        Description = item.Description
+                    };
+                    salaryStructureVm.structureDetail.Add(salaryStructureDetail);
+                }
+            }
+            else
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    var salaryStructure = dbContext.SalaryStructureHeaders
+                        .GroupJoin(dbContext.SalaryStructureDetails,
+                        a => a.StructureID, b => b.StructureID,
+                        (a, b) => new { A = a, B = b.AsEnumerable() })
+                        .Where(x => x.A.StructureID == structurId).FirstOrDefault();
+
+                    salaryStructureVm.structureHeader = new SalaryStructureHeader()
+                    {
+                        Code = salaryStructure.A.Code,
+                        CreatedBy = salaryStructure.A.CreatedBy,
+                        CreatedOn = salaryStructure.A.CreatedOn,
+                        EffectiveDate = salaryStructure.A.EffectiveDate.Value,
+                        IsActive = salaryStructure.A.IsActive,
+                        ModifiedBy = salaryStructure.A.ModifiedBy,
+                        ModifiedOn = salaryStructure.A.ModifiedOn,
+                        Remarks = salaryStructure.A.Remarks,
+                        StructureID = salaryStructure.A.StructureID,
+                    };
+
+                    foreach (SalaryStructureDetail item in salaryStructure.B)
+                    {
+                        SalaryStructureDetail salaryDetail = new SalaryStructureDetail()
+                        {
+
+                            Amount = item.Amount,
+                            Code = item.Code,
+                            CreatedBy = item.CreatedBy,
+                            ComputationCode = item.ComputationCode,
+                            CreatedOn = item.CreatedOn,
+                            Description = item.Description,
+                            IsActive = item.IsActive,
+                            ModifiedBy = item.ModifiedBy,
+                            ModifiedOn = item.ModifiedOn,
+                            RegisterCode = item.RegisterCode,
+                            StructureDetailID = item.StructureDetailID,
+                            StructureID = item.StructureID,
+                        };
+                        salaryStructureVm.structureDetail.Add(salaryDetail);
+                    }
+
                 };
-                salaryStructureVm.structureDetail.Add(salaryStructureDetail);
+
             }
 
             return View(salaryStructureVm);
@@ -180,13 +231,13 @@ namespace HR.Web.Controllers
         public ActionResult SalaryStructure(SalaryStructureVm salaryStructureVm)
         {
             salaryStructureHeaderBO.SaveSalaryStructure(salaryStructureVm);
-            return View();
+            return RedirectToAction("SalaryStructureHeaderList");
         }
-        public ViewResult SalaryStructureHeaderList(int? page=1)
+        public ViewResult SalaryStructureHeaderList(int? page = 1)
         {
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appSalaryStructureHeaderOffset"]);
             int skip = (page.Value - 1) * offset;
-            var list = salaryStructureHeaderBO.GetListByProperty( x => x.IsActive == true);
+            var list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true);
             var count = list.Count();
             decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
             HtmlTblVm<SalaryStructureHeader> HtmlTblVm = new HtmlTblVm<SalaryStructureHeader>();

@@ -106,6 +106,7 @@ namespace HR.Web.BusinessObjects.Payroll
             {
                 SalaryStructureHeader structureHeader = new SalaryStructureHeader()
                 {
+                    StructureID = salaryStructureVm.structureHeader.StructureID,
                     Code = salaryStructureVm.structureHeader.Code,
                     EffectiveDate = salaryStructureVm.structureHeader.EffectiveDate,
                     IsActive = salaryStructureVm.structureHeader.IsActive,
@@ -114,7 +115,7 @@ namespace HR.Web.BusinessObjects.Payroll
                     CreatedOn = UTILITY.SINGAPORETIME
                 };
                 Add(structureHeader);
-                salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
+               // salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
                 foreach (SalaryStructureDetail item in salaryStructureVm.structureDetail)
                 {
                     SalaryStructureDetail detail = new SalaryStructureDetail() {
@@ -127,6 +128,7 @@ namespace HR.Web.BusinessObjects.Payroll
                         IsActive = item.IsActive,
                         RegisterCode = item.RegisterCode,
                         StructureID = structureHeader.StructureID,
+                        StructureDetailID= item.StructureDetailID,
                     };
                     salaryStructureDetailBO.Add(detail);
                 }

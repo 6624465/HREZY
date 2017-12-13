@@ -131,7 +131,7 @@
                                                                     new SelectList(SelectListItemHelper.Computation(), "Value", "Text", Model.structureDetail[i].ComputationCode), "", new { @class = "form-control input-sm" })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control input-sm" })
+                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this,"+i+")" })
                                                                 </td>
 
                                                             </tr>
@@ -194,6 +194,19 @@
         function SaveStructure() {
             if ($('#frmSalary').valid())
                 $('#frmSalary').submit();
+        }
+
+        function validateAmount(el,index) {
+            debugger;
+            var temp = el.value;
+                      var ComputationCode = $('#structureDetail_' + index + '__ComputationCode').val();
+
+            if (ComputationCode == "AMOUNT") {
+                if (el.value > 100) {
+                    $('#' + el.id).val('');
+                }
+            }
+
         }
     </script>
 }

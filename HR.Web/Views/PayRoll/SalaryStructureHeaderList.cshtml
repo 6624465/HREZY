@@ -1,0 +1,53 @@
+﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.Models.SalaryStructureHeader>
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default panel-hovered panel-stacked mb10">
+            <div class="panel-heading">
+                Salary Structure Header List
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn  btn-primary btn-sm"><i class="fa fa-plus-square"></i>Create</button>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>StructureId</th>
+                            <th>Code</th>
+                            <th>Effective Date</th>
+                            <th>Remarks</th>
+                            <th>#Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.TableData.Count(); i++)
+                        {
+                            <tr>
+                                <td>@Model.TableData[i].StructureID </td>
+                                <td>@Model.TableData[i].Code</td>
+                                <td>@Model.TableData[i].EffectiveDate</td>
+                                <td>@Model.TableData[i].Remarks</td>
+                                <td><button class="btn btn-primary btn-sm">Edit</button>
+                                <button class="btn btn-danger btn-sm">Delete</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+@section Scripts{
+    <script>
+        $(function () {
+            $('#li_PayRollConfig').addClass('open');
+            $('#li_SalaryStructureHeaderList').addClass('active');
+        });
+       
+    </script>
+    }
+        
+

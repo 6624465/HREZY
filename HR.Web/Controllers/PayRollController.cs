@@ -159,5 +159,20 @@ namespace HR.Web.Controllers
         {
             return View();
         }
+        public ViewResult SalaryStructureHeaderList(int? page=1)
+        {
+            var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appSalaryStructureHeaderOffset"]);
+            int skip = (page.Value - 1) * offset;
+            var list = salaryStructureHeaderBO.GetListByProperty( x => x.IsActive == true);
+            var count = list.Count();
+            decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+
+            HtmlTblVm<SalaryStructureHeader> HtmlTblVm = new HtmlTblVm<SalaryStructureHeader>();
+            HtmlTblVm.TableData = list.Skip(skip).Take(offset).ToList();
+            HtmlTblVm.TotalRows = count;
+            HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+            HtmlTblVm.CurrentPage = page.Value;
+            return View(HtmlTblVm);
+        }
     }
 }

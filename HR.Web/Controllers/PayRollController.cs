@@ -48,7 +48,7 @@ namespace HR.Web.Controllers
         public ActionResult ContributionRegisterList()
         {
 
-            var list = contributionBO.GetListByProperty(true);
+            var list = contributionBO.GetListByProperty(x => x.IsActive == true);
             return View(list);
         }
         public ActionResult ContributionSave(Contribution contribution)
@@ -155,7 +155,30 @@ namespace HR.Web.Controllers
             return RedirectToAction("SalaryRulesList");
         }
 
+        [HttpGet]
         public ActionResult SalaryStructure()
+        {
+            SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
+            salaryStructureVm.structureHeader = new SalaryStructureHeader();
+
+            List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).ToList();
+            salaryStructureVm.structureDetail = new List<SalaryStructureDetail>();
+            foreach (Contribution item in contributionList)
+            {
+                SalaryStructureDetail salaryStructureDetail = new SalaryStructureDetail()
+                {
+                    Code = item.Name,
+                    Description = item.Description,
+
+                };
+                salaryStructureVm.structureDetail.Add(salaryStructureDetail);
+            }
+
+            return View(salaryStructureVm);
+        }
+
+        [HttpPost]
+        public ActionResult SalaryStructure(SalaryStructureVm salaryStructureVm)
         {
             return View();
         }

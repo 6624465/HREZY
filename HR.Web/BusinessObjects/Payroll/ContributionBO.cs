@@ -71,11 +71,11 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
-        public Contribution GetByProperty(bool isActive)
+        public Contribution GetByProperty(Func<Contribution, bool> predicate)
         {
             try
             {
-                return contributionRepository.GetByProperty(x=>x.IsActive == isActive);
+                return contributionRepository.GetByProperty(predicate);
             }
             catch (Exception ex)
             {
@@ -84,11 +84,11 @@ namespace HR.Web.BusinessObjects.Payroll
             }
         }
 
-        public IEnumerable<Contribution> GetListByProperty(bool isActive)
+        public IEnumerable<Contribution> GetListByProperty(Func<Contribution,bool> predicate)
         {
             try
             {
-                return contributionRepository.GetListByProperty(x => x.IsActive == isActive);
+                return contributionRepository.GetListByProperty(predicate);
             }
             catch (Exception ex)
             {

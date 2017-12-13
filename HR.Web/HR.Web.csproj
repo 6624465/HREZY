@@ -1901,6 +1901,7 @@
     <Compile Include="ViewModels\LeaveAdminVM.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
     <Compile Include="ViewModels\SalaryRuleHeaderVm.cs" />
+    <Compile Include="ViewModels\SalaryStructureVm.cs" />
     <Compile Include="ViewModels\WeekendPolicyVm.cs" />
   </ItemGroup>
   <ItemGroup>

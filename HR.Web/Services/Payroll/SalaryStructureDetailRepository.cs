@@ -34,6 +34,7 @@ namespace HR.Web.Services.Payroll
                         SalaryStructureDetail.RegisterCode = entity.RegisterCode;
                         SalaryStructureDetail.ModifiedBy = entity.ModifiedBy;
                         SalaryStructureDetail.ModifiedOn = entity.ModifiedOn;
+                        SalaryStructureDetail.IsActive = entity.IsActive;
                     }
 
                     dbContext.SaveChanges();

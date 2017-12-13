@@ -175,10 +175,25 @@
                 format: dateFormat,
                 minDate: date
             });
+
+            $('#frmSalary').validate({
+                rules: {
+                    'structureHeader.Code': {
+                        required: true
+                    },
+                    'structureHeader.EffectiveDate': {
+                        required: true
+                    },
+                    'structureHeader.Remarks': {
+                        required: true
+                    }
+                }
+            });
         });
 
         function SaveStructure() {
-            $('#frmSalary').submit();
+            if ($('#frmSalary').valid())
+                $('#frmSalary').submit();
         }
     </script>
 }

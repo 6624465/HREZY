@@ -28,7 +28,7 @@
                             @Html.HiddenFor(x => x.TableData[i].StructureID)
                             <tr>
                                 <td>@Model.TableData[i].Code</td>
-                                <td>@Model.TableData[i].EffectiveDate</td>
+                                <td>@Model.TableData[i].EffectiveDate.Value.ToString("dd/MM/yyyy")</td>
                                 <td>@Model.TableData[i].Remarks</td>
                                 <td><button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"onclick="location.href='@Url.Content("~/PayRoll/SalaryStructure/?structurId=" +Model.TableData[i].StructureID)'">
                                     <i class="fa fa-pencil" style="padding-left: 5px;"></i>

@@ -314,5 +314,31 @@ namespace HR.Web.Helpers
                     }).ToList().AsEnumerable();
             }
         }
+
+        public static IEnumerable<SelectListItem> ContributionRegister()
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONTRIBUTIONREGISTER)
+                    .Select(x => new SelectListItem()
+                    {
+                        Value = x.LookUpCode,
+                        Text = x.LookUpDescription
+                    }).ToList().AsEnumerable();
+            }
+        }
+
+        public static IEnumerable<SelectListItem> Computation()
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.COMPUTATION)
+                    .Select(x => new SelectListItem()
+                    {
+                        Value = x.LookUpCode,
+                        Text = x.LookUpDescription
+                    }).ToList().AsEnumerable();
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HR.Web.ViewModels.SalaryStructureVm
+
+@{
     var fname = string.Empty;
     if (!string.IsNullOrWhiteSpace(Request.QueryString["fname"]))
     {
@@ -53,15 +55,27 @@
                             <span class="pull-right">Code</span>
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(x => x.structureHeader.Code, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="row css5">
-                        <label class="col-md-2 control-label">
+                        <label class="col-md-1 control-label">
                             <span class="pull-right">Remarks</span>
                         </label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" />
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(x => x.structureHeader.Remarks, new { @class = "form-control" })
+                        </div>
+                        <label class="col-md-1 control-label">
+                            <span class="pull-right">Effective Date</span>
+                        </label>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, new { @class = "form-control" })
+                        </div>
+                        <label class="col-md-1 control-label">
+                            <span class="pull-right">Is Active</span>
+                        </label>
+                        <div class="col-md-3">
+                            @Html.CheckBox(nameof(Model.structureHeader.IsActive), Model.structureHeader.IsActive ?? false, new { @class = "form-control" })
                         </div>
                     </div>
                     <br />
@@ -83,315 +97,35 @@
                                                         <th>DESCRIPTION</th>
                                                         <th>CONTRIBUTION REGISTER</th>
                                                         <th>COMPUTATION</th>
-                                                        <th></th>
                                                         <th>AMOUNT</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" checked />
-                                                        </td>
-                                                        <td>BASIC</td>
-                                                        <td style="width:250px;">BASIC SALARY</td>
-                                                        
-                                                        <td>
-                                                            <select class="form-control input-sm contributionCss" id="contribution_1">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm computationCss" id="computation_1">
-                                                                <option value="PERCENTAGE">PERCENTAGE</option>
-                                                                <option value="AMOUNT" selected>AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm computationtxtCss" style="width:80px;" id="computationtxt_1" value="20,000" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" style="width:80px;" value="20,000" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" checked />
-                                                        </td>
-                                                        <td>HRA</td>
-                                                        <td>HOUSE RENTAL ALLOWANCE</td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="BASIC">BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF">PF</option>
-                                                                <option value="SPL">SPL</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="PERCENTAGE" selected>PERCENTAGE</option>
-                                                                <option value="AMOUNT">AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" value="5" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" value="1,000" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" />
-                                                        </td>
-                                                        <td>PF</td>
-                                                        <td>PROVIDENT FUND</td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="BASIC">BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF">PF</option>
-                                                                <option value="SPL">SPL</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="PERCENTAGE">PERCENTAGE</option>
-                                                                <option value="AMOUNT">AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" />
-                                                        </td>
-                                                        <td>TA</td>
-                                                        <td>VEHICLE RUNNING & MAINTAINCE</td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="BASIC">BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF">PF</option>
-                                                                <option value="SPL" selected>SPL</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="PERCENTAGE">PERCENTAGE</option>
-                                                                <option value="AMOUNT">AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" />
-                                                        </td>
-                                                        <td>DA</td>
-                                                        <td>DEARNESS ALLOWANCE</td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="BASIC">BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF">PF</option>
-                                                                <option value="SPL" selected>SPL</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="PERCENTAGE">PERCENTAGE</option>
-                                                                <option value="AMOUNT">AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" />
-                                                        </td>
-                                                        <td>ESI</td>
-                                                        <td>ESI</td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="BASIC">BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF" selected>PF</option>
-                                                                <option value="SPL">SPL</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="PERCENTAGE">PERCENTAGE</option>
-                                                                <option value="AMOUNT">AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" />
-                                                        </td>
-                                                        <td>INSURANCE</td>
-                                                        <td>INSURANCE</td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="BASIC">BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF" selected>PF</option>
-                                                                <option value="SPL">SPL</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="PERCENTAGE">PERCENTAGE</option>
-                                                                <option value="AMOUNT">AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" />
-                                                        </td>
-                                                        <td>PERKS</td>
-                                                        <td>PERKS</td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="BASIC" selected>BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF">PF</option>
-                                                                <option value="SPL">SPL</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="PERCENTAGE">PERCENTAGE</option>
-                                                                <option value="AMOUNT">AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" />
-                                                        </td>
-                                                        <td>COMMUNICATION</td>
-                                                        <td>COMMUNICATION</td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="BASIC">BASIC</option>
-                                                                <option value="HRA">HRA</option>
-                                                                <option value="PF">PF</option>
-                                                                <option value="SPL" selected>SPL</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="EMP-DUD">EMPLOYEE DEDUCTION</option>
-                                                                <option value="COM-DUD">COMPANY DEDUCTION</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm">
-                                                                <option value="PERCENTAGE">PERCENTAGE</option>
-                                                                <option value="AMOUNT">AMOUNT</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                    </tr>
+                                                    @for (int i = 0; i < Model.structureDetail.Count; i++)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                 </td>
+                                                            <td>@Html.DisplayFor(x => x.structureDetail[i].Code)</td>
+                                                            <td style="width:250px;">@Html.DisplayFor(x => x.structureDetail[i].Description)</td>
+
+                                                            <td>
+                                                                @Html.DropDownListFor(x => x.structureDetail[i].RegisterCode,
+                                                               SelectListItemHelper.ContributionRegister(), "Select", new { @class = "form-control" })
+                                                            </td>
+                                                            <td>
+                                                                @Html.DropDownListFor(x => x.structureDetail[i].ComputationCode,
+                                                               SelectListItemHelper.Computation(), "Select", new { @class = "form-control" })
+                                                            </td>
+                                                            <td>
+                                                                @Html.TextBoxFor(x => x.structureDetail[i].Amount)
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+
                                                 </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td class="pull-right" style="padding-top:13px;">NETT</td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-sm" />
-                                                        </td>
-                                                    </tr>
-                                                </tfoot>
+
                                             </table>
                                         </div>
 

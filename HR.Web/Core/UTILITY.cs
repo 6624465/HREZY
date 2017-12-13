@@ -64,6 +64,8 @@ namespace HR.Web
         public static string PAYROLLAMOUNT = "PayRoll Amount";
         public static string PAYROLLCONDITION = "PayRoll Condition";
         public static string PAYROLLCATEGORY = "PayRoll Category";
+        public static string CONTRIBUTIONREGISTER = "ContributionRegister";
+        public static string COMPUTATION = "COMPUTATION";
 
         /* Config Keys End */
 

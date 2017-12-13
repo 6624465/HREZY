@@ -189,7 +189,6 @@ namespace HR.Web.Controllers
             var list = salaryStructureHeaderBO.GetListByProperty( x => x.IsActive == true);
             var count = list.Count();
             decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
-
             HtmlTblVm<SalaryStructureHeader> HtmlTblVm = new HtmlTblVm<SalaryStructureHeader>();
             HtmlTblVm.TableData = list.Skip(skip).Take(offset).ToList();
             HtmlTblVm.TotalRows = count;

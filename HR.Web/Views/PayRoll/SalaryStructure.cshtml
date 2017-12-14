@@ -222,6 +222,15 @@
         }
 
         $(function () {
+            @*@if(Model.structureHeader.StructureID != 0)
+            {
+                <text>
+            debugger;
+            var dt = moment('@Model.structureHeader.EffectiveDate.Value.ToString("MM/dd/yyyy")', 'MM/DD/YYYY').format(dateFormat);
+            debugger;
+                $('#structureHeader_EffectiveDate').val(moment('@Model.structureHeader.EffectiveDate.Value.ToString("MM/dd/yyyy")', 'MM/DD/YYYY').format(dateFormat));
+                </text>
+            }*@
             $('#li_PayRollConfig').addClass('open');
             $('#li_SalaryStructures').addClass('active');
             showHide();
@@ -237,7 +246,7 @@
 
                 },
                 format: dateFormat,
-                minDate: date
+                minDate: moment(date)
             });
 
             $('#frmSalary').validate({
@@ -325,7 +334,7 @@
                 total=parseFloat(total).toFixed(2);
                 var ComputationCode = $('#structureDetail_' + i + '__ComputationCode').val();
                 if (ComputationCode == percentage) {
-                    
+
                     if(total>100){
                         $('#structureDetail_' + i + '__Amount').val('');
                         swal({

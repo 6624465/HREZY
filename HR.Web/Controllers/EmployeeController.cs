@@ -55,7 +55,7 @@ namespace HR.Web.Controllers
         [HttpGet]
         public JsonResult GetGridTileEmployees(int pageNumber)
         {
-            int offSet = 3;
+            int offSet = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skipRows = (pageNumber - 1) * offSet;
 
             using (var dbCntx = new HrDataContext())
@@ -90,7 +90,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult empsearchajax(EmpSearch empSearch)
         {
-            int offSet = 3;
+            int offSet = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skipRows = (empSearch.pageNumber - 1) * offSet;
             using (var dbCntx = new HrDataContext())
             {

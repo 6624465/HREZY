@@ -1,14 +1,5 @@
 ﻿@model HR.Web.ViewModels.SalaryStructureVm
 
-@{
-    var fname = string.Empty;
-    if (!string.IsNullOrWhiteSpace(Request.QueryString["fname"]))
-    {
-        fname = Request.QueryString["fname"];
-    }
-
-}
-
 @section Styles{
 
     @*<style type="text/css">
@@ -135,10 +126,11 @@
                                                             @Html.CheckBoxFor(x => x.structureDetail[i].IsActive, new { @class = "form-control chkCss", data_index = i })
                                                         </td>
                                                         @Html.HiddenFor(x => x.structureDetail[i].Code)
-                                                        <td>@Html.DisplayFor(x => x.structureDetail[i].Code)</td>
-                                                        @Html.HiddenFor(x => x.structureDetail[i].Description)
+                                                        <td>
+                                                            @Html.DisplayFor(x => x.structureDetail[i].Code)
+                                                            @Html.HiddenFor(x => x.structureDetail[i].Description)
+                                                        </td>
                                                         <td style="width:250px;">@Html.DisplayFor(x => x.structureDetail[i].Description)</td>
-
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureDetail[i].RegisterCode,
                                                                     new SelectList(ContributionRegister, "Value", "Text", Model.structureDetail[i].RegisterCode), "", new { @class = "form-control input-sm" })

@@ -1,4 +1,110 @@
 ﻿@model HR.Web.ViewModels.EmpSalaryStructureVm
 
+<div class="page">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
+                <div class="panel-heading">
+                    Salary Structure
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Name:</span>
+                        </label>
+                        <div class="col-md-4">
+                            <label class="control-label pull-left">@Model.EmployeeName</label>
+                        </div>                        
+                    </div>   
+                    <div class="row css5">
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Designation:</span>
+                        </label>
+                        <div class="col-md-4">
+                            <label class="control-label pull-left">@Model.Designation</label>
+                        </div>
+                    </div>
+                    <div class="row css5">
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Department:</span>
+                        </label>
+                        <div class="col-md-4">
+                            <label class="control-label pull-left">@Model.Department</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Code</th>                                            
+                                            <th class="no-wrap">Contribution Register</th>
+                                            <th>Computation</th>
+                                            <th>Amount</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+
+                                            var ContributionRegister = SelectListItemHelper.ContributionRegister();
+                                            var Computation = SelectListItemHelper.Computation();
+                                        }
+                                        @for (int i = 0; i < Model.employeeSalaryStructure.empSalaryStructureDetail.Count(); i++)
+                                        {
+                                            
+                                            <tr class="trCss">
+                                                <td>
+                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).EmployeeId)
+                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).BranchId)
+                                                    @Html.CheckBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).IsActive.Value, new { @class = "form-control chkCss", data_index = i })
+                                                </td>                                                
+                                                <td>
+                                                    @Html.DisplayFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Code)
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).ContributionRegister,
+                                                    new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).ContributionRegister), "", new { @class = "form-control input-sm" })
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Computation,
+                                                    new SelectList(Computation, "Value", "Text", Model.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Computation), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
+                                                </td>
+                                                <td>
+                                                    @Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
+                                                </td>
+                                                <td>
+                                                    @Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Total, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                </td>
 
 
+                                            </tr>
+
+                                        }
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right;">NETT</td>
+                                            <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Salary, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -270,12 +270,12 @@ namespace HR.Web.Controllers
                                             .FirstOrDefault().LookUpDescription,
                     }).FirstOrDefault();
 
-                var employeeSalaryStructure = dbcntx.EmpSalaryStructureHeaders
+                empsalaryobj.employeeSalaryStructure = dbcntx.EmpSalaryStructureHeaders
                     .GroupJoin(dbcntx.EmpSalaryStructureDetails,
                     a => new { a.EmployeeId, a.BranchId }, b => new { b.EmployeeId, b.BranchId },
                     (a, b) => new EmployeeSalaryStructure { empSalaryStructureHeader = a, empSalaryStructureDetail = b.AsEnumerable() }).FirstOrDefault();
 
-                if (employeeSalaryStructure == null)
+                if (empsalaryobj.employeeSalaryStructure == null)
                 {
                     var salaryStructure = dbcntx.SalaryStructureHeaders
                         .GroupJoin(dbcntx.SalaryStructureDetails,
@@ -286,7 +286,7 @@ namespace HR.Web.Controllers
                         })
                         .FirstOrDefault();
 
-                    employeeSalaryStructure = new EmployeeSalaryStructure {
+                    empsalaryobj.employeeSalaryStructure = new EmployeeSalaryStructure {
                         empSalaryStructureHeader = new EmpSalaryStructureHeader {
                             EmployeeId = employeeId,
                             BranchId = BRANCHID,
@@ -294,11 +294,12 @@ namespace HR.Web.Controllers
                             Remarks = ""
                         },
                         empSalaryStructureDetail = salaryStructure.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail {
-                            Amount = y.Amount,
+                            EmployeeId = employeeId,
                             BranchId = BRANCHID,
+                            Code = y.Code,
+                            Amount = y.Amount,
                             Computation = y.ComputationCode,
                             ContributionRegister = y.RegisterCode,
-                            EmployeeId = employeeId,
                             Total = y.Total,
                             IsActive = y.IsActive,
                         }).AsEnumerable()

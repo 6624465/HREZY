@@ -266,6 +266,7 @@
           </Key>
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
           <Property Name="ContributionRegister" Type="nvarchar" MaxLength="50" />
           <Property Name="Computation" Type="nvarchar" MaxLength="50" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="4" />
@@ -1044,6 +1045,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureHeader">
           <Key>
@@ -1548,6 +1550,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="EmpSalaryStructureDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmpSalaryStructureDetail">
               <MappingFragment StoreEntitySet="EmpSalaryStructureDetail">
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

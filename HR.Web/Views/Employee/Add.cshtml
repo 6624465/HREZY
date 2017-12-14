@@ -466,10 +466,9 @@
     <link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript">
         function CheckFileName(el) {
-            debugger;
             var fileName = document.getElementById(el.id).value;
             if (fileName == "") {
-                alert("Browse to upload a valid File with png extension");
+                alert("Browse to upload a valid File with png/jpeg/jpg/gif extension");
                 return false;
             }
             else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF")

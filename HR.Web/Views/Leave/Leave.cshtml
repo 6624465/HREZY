@@ -225,6 +225,7 @@
         $(function () {
             $('#li_Leave').addClass('open');
             $('#li_Leavepolicy').addClass('active');
+            $('#li_empdir').addClass('active');
 
             $.validator.addMethod("ValidatePaidLeave", function () {
                 if ((parseInt($('#PaidLeavesPerMonth').val()) == 0 && parseInt($('#PaidLeavesPerYear').val()) == 0) ||

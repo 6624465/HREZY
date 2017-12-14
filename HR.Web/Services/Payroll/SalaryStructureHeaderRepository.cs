@@ -31,6 +31,7 @@ namespace HR.Web.Services.Payroll
                         salaryStructureHeader.IsActive = entity.IsActive;
                         salaryStructureHeader.ModifiedBy = entity.ModifiedBy;
                         salaryStructureHeader.ModifiedOn = entity.ModifiedOn;
+                        salaryStructureHeader.NetAmount = entity.NetAmount;
                     }
 
                     dbContext.SaveChanges();

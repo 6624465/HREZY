@@ -112,23 +112,25 @@ namespace HR.Web.BusinessObjects.Payroll
                     IsActive = salaryStructureVm.structureHeader.IsActive,
                     Remarks = salaryStructureVm.structureHeader.Remarks,
                     CreatedBy = sessionObj.USERID,
-                    CreatedOn = UTILITY.SINGAPORETIME
+                    CreatedOn = UTILITY.SINGAPORETIME,
+                    NetAmount= salaryStructureVm.structureHeader.NetAmount
                 };
                 Add(structureHeader);
                // salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
                 foreach (SalaryStructureDetail item in salaryStructureVm.structureDetail)
                 {
                     SalaryStructureDetail detail = new SalaryStructureDetail() {
-                        Amount= item.Amount,
-                        Code=item.Code,
-                        ComputationCode=item.ComputationCode,
-                        CreatedBy=sessionObj.USERID,
-                        CreatedOn=UTILITY.SINGAPORETIME,
-                        Description=item.Description,
+                        Amount = item.Amount,
+                        Code = item.Code,
+                        ComputationCode = item.ComputationCode,
+                        CreatedBy = sessionObj.USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        Description = item.Description,
                         IsActive = item.IsActive,
                         RegisterCode = item.RegisterCode,
                         StructureID = structureHeader.StructureID,
-                        StructureDetailID= item.StructureDetailID,
+                        StructureDetailID = item.StructureDetailID,
+                        Total = item.Total
                     };
                     salaryStructureDetailBO.Add(detail);
                 }

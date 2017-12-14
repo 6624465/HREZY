@@ -88,7 +88,7 @@
                                 <span class="pull-right">Remarks</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.structureHeader.Remarks, new { @class = "form-control" })
+                                @Html.TextAreaFor(x => x.structureHeader.Remarks, new { @class = "form-control" })
                             </div>
 
                             <label class="col-md-2 control-label">
@@ -122,10 +122,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @{
+
+                                                    var ContributionRegister = SelectListItemHelper.ContributionRegister();
+                                                    var Computation = SelectListItemHelper.Computation();
+                                                }
                                                 @for (int i = 0; i < Model.structureDetail.Count; i++)
                                                 {
                                                     @Html.HiddenFor(x => x.structureDetail[i].StructureDetailID)
-                                                    <tr>
+                                                    <tr class="trCss">
                                                         <td>
                                                             @Html.CheckBoxFor(x => x.structureDetail[i].IsActive, new { @class = "form-control chkCss", data_index = i })
                                                         </td>
@@ -136,11 +141,11 @@
 
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureDetail[i].RegisterCode,
-                                                                    new SelectList(SelectListItemHelper.ContributionRegister(), "Value", "Text", Model.structureDetail[i].RegisterCode), "", new { @class = "form-control input-sm" })
+                                                                    new SelectList(ContributionRegister, "Value", "Text", Model.structureDetail[i].RegisterCode), "", new { @class = "form-control input-sm" })
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureDetail[i].ComputationCode,
-                                                                    new SelectList(SelectListItemHelper.Computation(), "Value", "Text", Model.structureDetail[i].ComputationCode), "", new { @class = "form-control input-sm" })
+                                                                    new SelectList(Computation, "Value", "Text", Model.structureDetail[i].ComputationCode), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
@@ -162,8 +167,8 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td>NETT</td>
-                                                    <td><input type="text" class="form-control input-sm"></td>
+                                                    <td style="text-align:right;">NETT</td>
+                                                    <td>@Html.TextBoxFor(x => x.structureHeader.NetAmount, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -178,7 +183,7 @@
                 </div>
             </div>
         </div>
-    }
+                                                    }
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-primary btn-sm" type="button" onclick="SaveStructure()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
@@ -195,20 +200,20 @@
         </text>
         }
 
-        var value=false;
+        var value=true;
         function showHide(value){
 
             for (var index = 1; index <count; index++)
             {
                 if(!value){
                     $('#structureDetail_' + index + '__ComputationCode').attr('disabled', 'disabled');
-                    $('#structureDetail_' + index + '__IsActive').attr('disabled', 'disabled');
+                    //$('#structureDetail_' + index + '__IsActive').attr('disabled', 'disabled');
                     $('#structureDetail_' + index + '__RegisterCode').attr('disabled', 'disabled');
                     $('#structureDetail_' + index + '__Amount').attr('disabled', 'disabled');
                 }
                 else{
                     $('#structureDetail_' + index + '__ComputationCode').removeAttr('disabled');
-                    $('#structureDetail_' + index + '__IsActive').removeAttr('disabled');
+                    //$('#structureDetail_' + index + '__IsActive').removeAttr('disabled');
                     $('#structureDetail_' + index + '__RegisterCode').removeAttr('disabled');
                     $('#structureDetail_' + index + '__Amount').removeAttr('disabled');
                 }
@@ -248,7 +253,7 @@
                     }
                 }
             });
-
+            $(".chkCss").trigger('ifChanged');
 
         });
 
@@ -257,52 +262,93 @@
                 $('#frmSalary').submit();
         }
 
-        /* calculation */
+
         $('.chkCss').on("ifChanged", function (event) {
             var temp = this;
             var index=$(this).data('index');
             debugger;
             if(index == 0){
                 if ($('#structureDetail_0__IsActive').prop('checked')) {
-                    showHide(true);
+                    //showHide(true);
                 }
                 else {
 
-                    showHide(false);
+                    // showHide(false);
                 }
             }
             if($('#'+this.id).prop('checked')){
 
                 $('#structureDetail_' + index + '__ComputationCode').attr('required','required');
-                $('#structureDetail_' + index + '__IsActive').attr('required','required');
                 $('#structureDetail_' + index + '__RegisterCode').attr('required','required');
                 $('#structureDetail_' + index + '__Amount').attr('required','required');
 
+                $('#structureDetail_' + index + '__ComputationCode').removeAttr('disabled');
+                $('#structureDetail_' + index + '__RegisterCode').removeAttr('disabled');
+                $('#structureDetail_' + index + '__Amount').removeAttr('disabled');
             }
             else{
+                $('#structureDetail_' + index + '__ComputationCode').attr('disabled', 'disabled');
+                $('#structureDetail_' + index + '__RegisterCode').attr('disabled', 'disabled');
+                $('#structureDetail_' + index + '__Amount').attr('disabled', 'disabled');
+
                 $('#structureDetail_' + index + '__ComputationCode').removeAttr('required');
-                $('#structureDetail_' + index + '__IsActive').removeAttr('required');
                 $('#structureDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#structureDetail_' + index + '__Amount').removeAttr('required');
             }
 
         });
 
+        /* calculation */
 
+        function calculateTotal(){
+            var obj={};
+            validateAmount(obj,0);
+        }
         function validateAmount(el, index) {
-            debugger;
-            var temp = el.value;
-            var ComputationCode = $('#structureDetail_' + index + '__ComputationCode').val();
-            var amount = $('#structureDetail_' + index + '__Amount').val();
-            var total = $('#structureDetail_' + index + '__Total').val(amount);
-            if (ComputationCode == percentage) {
-                if (el.value > 100) {
-                    $('#' + el.id).val('');
-                    swal({
-                        title: "Alert!",
-                        text: "Percentage value should be less than 100",
-                        type: "warning"
-                    });
+
+            var rowCount=$('.trCss').length;
+            var netAmount=0;
+            for(var i=0; i<rowCount;i++){
+
+
+
+                var basicAmount=$('#structureDetail_' + 0 + '__Amount').val();
+                if(index == 0){
+                    basicAmount =parseFloat(basicAmount).toFixed(2);
+                    $('#structureDetail_' + 0 + '__Total').val(basicAmount);
+                }
+                debugger;
+
+                if(!$('#structureDetail_' + i + '__IsActive').prop('checked'))
+                    continue;
+                var total = $('#structureDetail_' + i + '__Amount').val();
+                total=parseFloat(total).toFixed(2);
+                var ComputationCode = $('#structureDetail_' + i + '__ComputationCode').val();
+                if (ComputationCode == percentage) {
+                    
+                    if(total>100){
+                        $('#structureDetail_' + i + '__Amount').val('');
+                        swal({
+                            title: "Alert!",
+                            text: "Percentage value should be less than 100",
+                            type: "warning"
+                        });
+
+                        return;
+                    }
+                    var grandTotal=(basicAmount* total)/100;
+                    grandTotal=parseFloat(grandTotal).toFixed(2);
+                    $('#structureDetail_' + i + '__Total').val(grandTotal);
+                }else{
+                    $('#structureDetail_' + i + '__Total').val(total);
+                }
+
+                /* Calculate Nett amount*/
+                var currentValue=$('#structureDetail_' + i + '__Total').val();
+                if(currentValue!="" && currentValue!=null){
+                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                    netAmount=netAmount.toFixed(2);
+                    $('#structureHeader_NetAmount').val(netAmount);
                 }
             }
 

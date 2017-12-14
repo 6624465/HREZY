@@ -197,6 +197,7 @@ namespace HR.Web.Controllers
                         ModifiedOn = salaryStructure.A.ModifiedOn,
                         Remarks = salaryStructure.A.Remarks,
                         StructureID = salaryStructure.A.StructureID,
+                        NetAmount= salaryStructure.A.NetAmount
                     };
 
                     foreach (SalaryStructureDetail item in salaryStructure.B)
@@ -216,6 +217,7 @@ namespace HR.Web.Controllers
                             RegisterCode = item.RegisterCode,
                             StructureDetailID = item.StructureDetailID,
                             StructureID = item.StructureID,
+                            Total = item.Total
                         };
                         salaryStructureVm.structureDetail.Add(salaryDetail);
                     }

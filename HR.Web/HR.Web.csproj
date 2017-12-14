@@ -1631,6 +1631,7 @@
     <Content Include="Images\6.jpg" />
     <Content Include="Images\7.jpg" />
     <Content Include="Images\admin.jpg" />
+    <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\ban.png" />
     <Content Include="Images\bg.png" />
     <Content Include="Images\boxed-bg.jpg" />

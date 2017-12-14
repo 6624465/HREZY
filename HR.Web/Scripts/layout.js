@@ -119,6 +119,14 @@
     });
 
     $('.modal .modal-dialog').attr('class', 'modal-dialog  bounceIn  animated');
+
+    $('.ajaxCss').click(function () {
+        debugger;
+        $.loader({
+            className: "blue-with-image-2",
+            content: ''
+        });
+    });
     //$('.form-control').addClass('input-sm');
     //$('.control-label').css('margin-bottom','10px');
     //function testAnim(x) {

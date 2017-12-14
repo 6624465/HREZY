@@ -189,7 +189,12 @@
     <script type="text/javascript">
 
         $(function () {
-
+            @if(Model.structureHeader.StructureID != 0)
+            {
+                <text>
+                $('#structureHeader_EffectiveDate').val(moment('@Model.structureHeader.EffectiveDate.Value.ToString("MM/dd/yyyy")', 'MM/DD/YYYY').format(dateFormat));
+                </text>
+            }
             var date = new Date();
             $('.dtCss').datetimepicker({
                 icons: {

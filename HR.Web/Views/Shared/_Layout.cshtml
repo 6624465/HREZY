@@ -195,9 +195,7 @@
         <!-- content-here -->
         <div class="content-container" id="content">
             <!-- dashboard page -->
-            <script type="text/javascript">
-                var dateFormat = 'DD/MM/YYYY';
-            </script>
+            
             @RenderBody()
             <!-- #end dashboard page -->
         </div>
@@ -257,7 +255,10 @@
     <!-- Dev only -->
     <!-- Vendors -->
 
-    
+    <script type="text/javascript">
+        var dateFormat = 'DD/MM/YYYY';
+    </script>
+
     <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
     @*<script src="@Url.Content("~/Scripts/Core/vendors.js")"></script>*@
     @*<script src="@Url.Content("~/Scripts/Core/d3.min.js")"></script>

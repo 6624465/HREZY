@@ -1,110 +1,287 @@
 ﻿@model HR.Web.ViewModels.EmpSalaryStructureVm
 
+@section Styles{
+    <style>
+        .table tfoot {
+            display: table-footer-group;
+        }
+
+        .no-wrap {
+            white-space: nowrap;
+        }
+    </style>
+}
 <div class="page">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default panel-hovered panel-stacked mb10">
-                <div class="panel-heading">
-                    Salary Structure
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Name:</span>
-                        </label>
-                        <div class="col-md-4">
-                            <label class="control-label pull-left">@Model.EmployeeName</label>
-                        </div>                        
-                    </div>   
-                    <div class="row css5">
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Designation:</span>
-                        </label>
-                        <div class="col-md-4">
-                            <label class="control-label pull-left">@Model.Designation</label>
-                        </div>
+    @using (Html.BeginForm("EmpSalaryStructure", "Payroll", FormMethod.Post, new { id = "frmEmpSalary", name = "frmEmpSalary" }))
+    {
+        @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.EmployeeId)
+        @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.BranchId)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Salary Structure
                     </div>
-                    <div class="row css5">
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Department:</span>
-                        </label>
-                        <div class="col-md-4">
-                            <label class="control-label pull-left">@Model.Department</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-condensed table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Code</th>                                            
-                                            <th class="no-wrap">Contribution Register</th>
-                                            <th>Computation</th>
-                                            <th>Amount</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-
-                                            var ContributionRegister = SelectListItemHelper.ContributionRegister();
-                                            var Computation = SelectListItemHelper.Computation();
-                                        }
-                                        @for (int i = 0; i < Model.employeeSalaryStructure.empSalaryStructureDetail.Count(); i++)
-                                        {
-                                            
-                                            <tr class="trCss">
-                                                <td>
-                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).EmployeeId)
-                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).BranchId)
-                                                    @Html.CheckBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).IsActive.Value, new { @class = "form-control chkCss", data_index = i })
-                                                </td>                                                
-                                                <td>
-                                                    @Html.DisplayFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Code)
-                                                </td>
-                                                <td>
-                                                    @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).ContributionRegister,
-                                                    new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).ContributionRegister), "", new { @class = "form-control input-sm" })
-                                                </td>
-                                                <td>
-                                                    @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Computation,
-                                                    new SelectList(Computation, "Value", "Text", Model.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Computation), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
-                                                </td>
-                                                <td>
-                                                    @Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
-                                                </td>
-                                                <td>
-                                                    @Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail.ElementAt(i).Total, new { @class = "form-control input-sm", @readonly = "readonly" })
-                                                </td>
-
-
-                                            </tr>
-
-                                        }
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td style="text-align:right;">NETT</td>
-                                            <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Salary, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                    <div class="panel-body">
+                        <div class="row">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Name:</span>
+                            </label>
+                            <div class="col-md-4">
+                                <label class="control-label pull-left">@Model.EmployeeName</label>
+                                @Html.Hidden(Model.EmployeeName)
                             </div>
-
                         </div>
-                    </div>
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Designation:</span>
+                            </label>
+                            <div class="col-md-4">
+                                <label class="control-label pull-left">@Model.Designation</label>
+                                @Html.Hidden(Model.Designation)
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Department:</span>
+                            </label>
+                            <div class="col-md-4">
+                                <label class="control-label pull-left">@Model.Department</label>
+                                @Html.Hidden(Model.Department)
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Salary Strcture:</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.StructureID, SelectListItemHelper.SalaryStructure(), "",
+                               new { @class = "form-control", onchange = "GetSalaryStructure(this)" })
+                            </div>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Remarks:</span>
+                            </label>
+                            <div class="col-md-4">
+                              @Html.TextAreaFor(x=>x.employeeSalaryStructure.empSalaryStructureHeader.Remarks,new { @class="form-control"})
+                            </div>
+                        </div>
+                        <div class="row css10">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Code</th>
+                                                <th class="no-wrap">Contribution Register</th>
+                                                <th>Computation</th>
+                                                <th>Amount</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
 
+                                                var ContributionRegister = SelectListItemHelper.ContributionRegister();
+                                                var Computation = SelectListItemHelper.Computation();
+                                            }
+                                            @for (int i = 0; i < Model.employeeSalaryStructure.empSalaryStructureDetail.Count(); i++)
+                                            {
+
+                                                <tr class="trCss">
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].EmployeeId)
+                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].BranchId)
+                                                        @Html.CheckBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].IsActive,
+                                                        new { @class = "form-control chkCss", data_index = i })
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].Code)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].ContributionRegister,
+                                                    new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.empSalaryStructureDetail[i].ContributionRegister), "", new { @class = "form-control input-sm" })
+                                                    </td>
+                                                    <td>
+                                                        @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].Computation,
+                                                    new SelectList(Computation, "Value", "Text", Model.employeeSalaryStructure.empSalaryStructureDetail[i].Computation), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].Total, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                    </td>
+                                                </tr>
+
+                                            }
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="text-align:right;">NETT</td>
+                                                <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Salary, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-sm" type="button" onclick="SaveEmployeeStructure()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+            </div>
+        </div>
+                                                }
 </div>
+
+
+@section Scripts{
+
+    @*employeeSalaryStructure_empSalaryStructureDetail_0__ContributionRegister*@
+    <script type="text/javascript">
+         @{
+             <text>
+        var percentage = '@UTILITY.PERCENTAGE';
+        var count= @Model.employeeSalaryStructure.empSalaryStructureDetail.Count;
+
+        </text>
+         }
+
+        var value=true;
+        function showHide(value){
+
+            for (var index = 1; index <count; index++)
+            {
+                if(!value){
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__ContributionRegister').attr('disabled', 'disabled');
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Computation').attr('disabled', 'disabled');
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Amount').attr('disabled', 'disabled');
+                }
+                else{
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__ContributionRegister').removeAttr('disabled');
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Computation').removeAttr('disabled');
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Amount').removeAttr('disabled');
+                }
+            }
+
+        }
+
+        $(function () {
+            showHide(false);
+            $(".chkCss").trigger('ifChanged');
+        });
+
+        $('.chkCss').on("ifChanged", function (event) {
+            var temp = this;
+            var index=$(this).data('index');
+            debugger;
+            if(index == 0){
+                if ($('#employeeSalaryStructure_empSalaryStructureDetail_0__IsActive').prop('checked')) {
+                    //showHide(true);
+                }
+                else {
+
+                    // showHide(false);
+                }
+            }
+            if($('#'+this.id).prop('checked')){
+
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__ContributionRegister').attr('required','required');
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Computation').attr('required','required');
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Amount').attr('required','required');
+
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__ContributionRegister').removeAttr('disabled');
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Computation').removeAttr('disabled');
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Amount').removeAttr('disabled');
+            }
+            else{
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__ContributionRegister').val('').attr('disabled', 'disabled');
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Computation').val('').attr('disabled', 'disabled');
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
+
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Total').val('')
+
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__ContributionRegister').removeAttr('required');
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__RegisterCode').removeAttr('required');
+                $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__Amount').removeAttr('required');
+
+                calculateTotal();
+            }
+
+        });
+
+        function GetSalaryStructure(el){
+            debugger;
+            location.href='@Url.Content("~/Payroll/EmpSalaryStructure?employeeId=" + Model.employeeSalaryStructure.empSalaryStructureHeader.EmployeeId)' +'&structureId='+el.value;
+        }
+
+        function SaveEmployeeStructure(){
+            $('#frmEmpSalary').submit();
+        }
+
+
+
+            function calculateTotal(){
+                var obj={};
+                validateAmount(obj,0);
+            }
+
+
+            function validateAmount(el, index) {
+                debugger;
+                var rowCount=$('.trCss').length;
+                var netAmount=0;
+                for(var i=0; i<rowCount;i++){
+                    var basicAmount=$('#employeeSalaryStructure_empSalaryStructureDetail_' + 0 + '__Amount').val();
+                    if(index == 0 && basicAmount!=""){
+                        basicAmount
+                        basicAmount =parseFloat(basicAmount).toFixed(2);
+                        $('#employeeSalaryStructure_empSalaryStructureDetail_' + 0 + '__Total').val(basicAmount);
+                    }
+
+                    if(!$('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__IsActive').prop('checked'))
+                        continue;
+                    var total = $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Amount').val();
+                    if(total!="")
+                        total=parseFloat(total).toFixed(2);
+                    var ComputationCode = $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Computation').val();
+                    if (ComputationCode == percentage) {
+
+                        if(total>100){
+                            $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Amount').val('');
+                            swal({
+                                title: "Alert!",
+                                text: "Percentage value should be less than 100",
+                                type: "warning"
+                            });
+                            return;
+                        }
+                        var grandTotal=(basicAmount* total)/100;
+                        grandTotal=parseFloat(grandTotal).toFixed(2);
+                        $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val(grandTotal);
+                    }else{
+                        $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val(total);
+                    }
+
+                    /* Calculate Nett amount*/
+                    var currentValue=$('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val();
+                    if(currentValue!="" && currentValue!=null){
+                        netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                        netAmount=netAmount.toFixed(2);
+                        $('#employeeSalaryStructure_empSalaryStructureHeader_Salary').val(netAmount);
+                    }
+                }
+            }
+    </script>
+}

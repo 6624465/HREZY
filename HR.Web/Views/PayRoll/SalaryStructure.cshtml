@@ -37,13 +37,12 @@
         .table tfoot {
             display: table-footer-group;
         }
-    </style>
-}
-<style>
-    .no-wrap {
+        .no-wrap {
         white-space: nowrap;
     }
-</style>
+    </style>
+}
+
 <div class="page">
     @using (Html.BeginForm("SalaryStructure", "Payroll", FormMethod.Post, new { id = "frmSalary", name = "frmSalary" }))
     {

@@ -43,15 +43,33 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="pagination" class="pull-right"></div>
+            </div>
+        </div>
         </div>
     </div>
 @section Scripts{
+<script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
     <script>
         $(function () {
             $('#li_PayRollConfig').addClass('open');
             $('#li_SalaryStructureHeaderList').addClass('active');
+            debugger;
+            $('#pagination').bootpag({
+                total: @Model.PageLength,
+                page: @Model.CurrentPage,
+                maxVisible: 10,
+                href: '@Url.Content("~/PayRoll/SalaryStructureHeaderList?page="){{number}}', //"#pro-page-{{number}}",
+                leaps: false,
+                next: 'Next',
+                prev: 'Prev',
+                wrapClass: 'pagination pagination-sm'
+            }).on('page', function (event, num) {
+                $(".content3").html("Page " + num); // or some ajax content loading...
+            });
         });
-       
     </script>
     }
         

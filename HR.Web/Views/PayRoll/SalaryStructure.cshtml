@@ -101,78 +101,78 @@
                         <br />
                         <br />
                         <div class="clearfix">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab-home" data-toggle="tab" aria-expanded="true">Salary Rules</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="tab-home">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="table-responsive">
-                                                <table class="table table-condensed table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th>Code</th>
-                                                            <th>Description</th>
-                                                            <th class="no-wrap">Contribution Register</th>
-                                                            <th>Computation</th>
-                                                            <th>Amount</th>
-                                                            <th>Total</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @for (int i = 0; i < Model.structureDetail.Count; i++)
-                                                        {
-                                                            @Html.HiddenFor(x => x.structureDetail[i].StructureDetailID)
-                                                            <tr>
-                                                                <td>
-                                                                    @Html.CheckBoxFor(x => x.structureDetail[i].IsActive, new { @class = "form-control" })
-                                                                </td>
-                                                                @Html.HiddenFor(x => x.structureDetail[i].Code)
-                                                                <td>@Html.DisplayFor(x => x.structureDetail[i].Code)</td>
-                                                                @Html.HiddenFor(x => x.structureDetail[i].Description)
-                                                                <td style="width:250px;">@Html.DisplayFor(x => x.structureDetail[i].Description)</td>
+                            @* <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab-home" data-toggle="tab" aria-expanded="true">Salary Rules</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab-home">*@
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Code</th>
+                                                    <th>Description</th>
+                                                    <th class="no-wrap">Contribution Register</th>
+                                                    <th>Computation</th>
+                                                    <th>Amount</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.structureDetail.Count; i++)
+                                                {
+                                                    @Html.HiddenFor(x => x.structureDetail[i].StructureDetailID)
+                                                    <tr>
+                                                        <td>
+                                                            @Html.CheckBoxFor(x => x.structureDetail[i].IsActive, new { @class = "form-control chkCss", data_index = i })
+                                                        </td>
+                                                        @Html.HiddenFor(x => x.structureDetail[i].Code)
+                                                        <td>@Html.DisplayFor(x => x.structureDetail[i].Code)</td>
+                                                        @Html.HiddenFor(x => x.structureDetail[i].Description)
+                                                        <td style="width:250px;">@Html.DisplayFor(x => x.structureDetail[i].Description)</td>
 
-                                                                <td>
-                                                                    @Html.DropDownListFor(x => x.structureDetail[i].RegisterCode,
+                                                        <td>
+                                                            @Html.DropDownListFor(x => x.structureDetail[i].RegisterCode,
                                                                     new SelectList(SelectListItemHelper.ContributionRegister(), "Value", "Text", Model.structureDetail[i].RegisterCode), "", new { @class = "form-control input-sm" })
-                                                                </td>
-                                                                <td>
-                                                                    @Html.DropDownListFor(x => x.structureDetail[i].ComputationCode,
+                                                        </td>
+                                                        <td>
+                                                            @Html.DropDownListFor(x => x.structureDetail[i].ComputationCode,
                                                                     new SelectList(SelectListItemHelper.Computation(), "Value", "Text", Model.structureDetail[i].ComputationCode), "", new { @class = "form-control input-sm" })
-                                                                </td>
-                                                                <td>
-                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
-                                                                </td>
-                                                                <td>
-                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Total, new { @class = "form-control input-sm", @readonly = "readonly" })
-                                                                </td>
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.structureDetail[i].Total, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                        </td>
 
 
-                                                            </tr>
+                                                    </tr>
 
-                                                        }
+                                                }
 
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>NETT</td>
-                                                            <td><input type="text" class="form-control input-sm"></td>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>NETT</td>
+                                                    <td><input type="text" class="form-control input-sm"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
+
                                 </div>
                             </div>
+                            @*</div>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -187,10 +187,39 @@
 </div>
 @section Scripts{
     <script type="text/javascript">
+        @{
+            <text>
+        var percentage = '@UTILITY.PERCENTAGE';
+        var count= @Model.structureDetail.Count;
+
+        </text>
+        }
+
+        var value=false;
+        function showHide(value){
+
+            for (var index = 1; index <count; index++)
+            {
+                if(!value){
+                    $('#structureDetail_' + index + '__ComputationCode').attr('disabled', 'disabled');
+                    $('#structureDetail_' + index + '__IsActive').attr('disabled', 'disabled');
+                    $('#structureDetail_' + index + '__RegisterCode').attr('disabled', 'disabled');
+                    $('#structureDetail_' + index + '__Amount').attr('disabled', 'disabled');
+                }
+                else{
+                    $('#structureDetail_' + index + '__ComputationCode').removeAttr('disabled');
+                    $('#structureDetail_' + index + '__IsActive').removeAttr('disabled');
+                    $('#structureDetail_' + index + '__RegisterCode').removeAttr('disabled');
+                    $('#structureDetail_' + index + '__Amount').removeAttr('disabled');
+                }
+            }
+
+        }
 
         $(function () {
             $('#li_PayRollConfig').addClass('open');
             $('#li_SalaryStructures').addClass('active');
+            showHide();
             var date = new Date();
             $('.dtCss').datetimepicker({
                 icons: {
@@ -220,17 +249,46 @@
                 }
             });
 
+
         });
 
         function SaveStructure() {
             if ($('#frmSalary').valid())
                 $('#frmSalary').submit();
         }
-        @{
-            <text>
-        var percentage = '@UTILITY.PERCENTAGE';
-        </text>
-        }
+
+        /* calculation */
+        $('.chkCss').on("ifChanged", function (event) {
+            var temp = this;
+            var index=$(this).data('index');
+            debugger;
+            if(index == 0){
+                if ($('#structureDetail_0__IsActive').prop('checked')) {
+                    showHide(true);
+                }
+                else {
+
+                    showHide(false);
+                }
+            }
+            if($('#'+this.id).prop('checked')){
+
+                $('#structureDetail_' + index + '__ComputationCode').attr('required','required');
+                $('#structureDetail_' + index + '__IsActive').attr('required','required');
+                $('#structureDetail_' + index + '__RegisterCode').attr('required','required');
+                $('#structureDetail_' + index + '__Amount').attr('required','required');
+
+            }
+            else{
+                $('#structureDetail_' + index + '__ComputationCode').removeAttr('required');
+                $('#structureDetail_' + index + '__IsActive').removeAttr('required');
+                $('#structureDetail_' + index + '__RegisterCode').removeAttr('required');
+                $('#structureDetail_' + index + '__Amount').removeAttr('required');
+            }
+
+        });
+
+
         function validateAmount(el, index) {
             debugger;
             var temp = el.value;

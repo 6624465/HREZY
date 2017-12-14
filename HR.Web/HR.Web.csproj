@@ -1847,7 +1847,13 @@
     <Compile Include="Models\SalaryStructureDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalaryStructureDetail1.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SalaryStructureHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalaryStructureHeader1.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">

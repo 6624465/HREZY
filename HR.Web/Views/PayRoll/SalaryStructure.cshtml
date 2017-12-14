@@ -296,13 +296,17 @@
                 $('#structureDetail_' + index + '__Amount').removeAttr('disabled');
             }
             else{
-                $('#structureDetail_' + index + '__ComputationCode').attr('disabled', 'disabled');
-                $('#structureDetail_' + index + '__RegisterCode').attr('disabled', 'disabled');
-                $('#structureDetail_' + index + '__Amount').attr('disabled', 'disabled');
+                $('#structureDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
+                $('#structureDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
+                $('#structureDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
+
+                $('#structureDetail_' + index + '__Total').val('')
 
                 $('#structureDetail_' + index + '__ComputationCode').removeAttr('required');
                 $('#structureDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#structureDetail_' + index + '__Amount').removeAttr('required');
+
+                calculateTotal();
             }
 
         });

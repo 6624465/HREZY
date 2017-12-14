@@ -18,12 +18,12 @@ namespace HR.Web.Models
         public int BranchId { get; set; }
         public string ContributionRegister { get; set; }
         public string Computation { get; set; }
-        public decimal Amount { get; set; }
-        public decimal Total { get; set; }
+        public Nullable<decimal> Amount { get; set; }
+        public Nullable<decimal> Total { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

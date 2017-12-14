@@ -275,7 +275,7 @@ namespace HR.Web.Controllers
 
                 if (employeeSalaryStructure == null)
                 {
-                    var empStr = dbcntx.SalaryStructureHeaders
+                    var salaryStructure = dbcntx.SalaryStructureHeaders
                         .GroupJoin(dbcntx.SalaryStructureDetails,
                         a => a.StructureID, b => b.StructureID,
                         (a, b) => new SalaryStructure {
@@ -288,16 +288,16 @@ namespace HR.Web.Controllers
                         empSalaryStructureHeader = new EmpSalaryStructureHeader {
                             EmployeeId = employeeId,
                             BranchId = BRANCHID,
-                            //Salary = 0M,
+                            Salary = 0M,
                             Remarks = ""
                         },
-                        empSalaryStructureDetail = empStr.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail {
-                            Amount = y.Amount.Value,
+                        empSalaryStructureDetail = salaryStructure.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail {
+                            Amount = y.Amount,
                             BranchId = BRANCHID,
                             Computation = y.ComputationCode,
                             ContributionRegister = y.RegisterCode,
                             EmployeeId = employeeId,
-                            Total = y.Total.Value,
+                            Total = y.Total,
                             IsActive = y.IsActive,
                         }).AsEnumerable()
                     };

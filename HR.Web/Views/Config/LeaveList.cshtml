@@ -4,7 +4,8 @@
     ViewBag.Title = "LeaveType";
 }
 @{
-    WebGrid grid = new WebGrid(Model, rowsPerPage: 10, ajaxUpdateContainerId: "grid");
+    int offSet = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+    WebGrid grid = new WebGrid(Model, rowsPerPage: offSet, ajaxUpdateContainerId: "grid");
     grid.Pager(WebGridPagerModes.All);
 }
 

@@ -511,7 +511,7 @@ public void GetHolidayWeekends()
 
             using (var dbcntx = new HrDataContext())
             {
-                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appViewLeaveListOffSet"]);
+                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
                 var skip = (page - 1) * offset;
 
                 var grantleaveform = dbcntx.EmployeeHeaders.
@@ -804,7 +804,7 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
             using (var dbcntx = new HrDataContext())
             {
                 ViewData["RoleCode"] = ROLECODE;
-                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appViewLeaveListOffSet"]);
+                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
                 var skip = (page - 1) * offset;
 
                 var Query = dbcntx.EmployeeLeaveLists

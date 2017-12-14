@@ -77,7 +77,7 @@ namespace HR.Web.Controllers
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appViewLeaveListOffSet"]);
+                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
                 int skip = (page.Value - 1) * offset;
                 List<SalaryRuleHeaderVm> salaryRules = dbContext.SalaryRuleHeaders
                     .Select(x => new SalaryRuleHeaderVm()
@@ -237,7 +237,7 @@ namespace HR.Web.Controllers
         }
         public ViewResult SalaryStructureHeaderList(int? page = 1)
         {
-            var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appSalaryStructureHeaderOffset"]);
+            var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skip = (page.Value - 1) * offset;
             var list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true);
             var count = list.Count();

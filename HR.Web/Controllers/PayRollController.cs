@@ -249,6 +249,8 @@ namespace HR.Web.Controllers
             HtmlTblVm.CurrentPage = page.Value;
             return View(HtmlTblVm);
         }
+
+        [HttpGet]
         public ViewResult EmpSalaryStructure(int employeeId)
         {
             using (var dbcntx = new HrDataContext())

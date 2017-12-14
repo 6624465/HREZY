@@ -259,6 +259,38 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="EmpSalaryStructureDetail">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="ContributionRegister" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Computation" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmpSalaryStructureHeader">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="Salary" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="LeaveDetail">
           <Key>
             <PropertyRef Name="LeaveDetailID" />
@@ -471,6 +503,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="EmployeeLeaveList" EntityType="Self.EmployeeLeaveList" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeePersonalDetail" EntityType="Self.EmployeePersonalDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeWorkDetail" EntityType="Self.EmployeeWorkDetail" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="EmpSalaryStructureDetail" EntityType="Self.EmpSalaryStructureDetail" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="EmpSalaryStructureHeader" EntityType="Self.EmpSalaryStructureHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveDetail" EntityType="Self.LeaveDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveHeader" EntityType="Self.LeaveHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveTransaction" EntityType="Self.LeaveTransaction" Schema="Operation" store:Type="Tables" />
@@ -567,6 +601,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="WeekendPolicies" EntityType="DB_9F30C5_HRDBModel.WeekendPolicy" />
           <EntitySet Name="SalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.SalaryStructureDetail" />
           <EntitySet Name="SalaryStructureHeaders" EntityType="DB_9F30C5_HRDBModel.SalaryStructureHeader" />
+          <EntitySet Name="EmpSalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureDetail" />
+          <EntitySet Name="EmpSalaryStructureHeaders" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureHeader" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -991,6 +1027,38 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="NetAmount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="EmpSalaryStructureDetail">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="ContributionRegister" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Computation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmpSalaryStructureHeader">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="Salary" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1474,6 +1542,38 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
                 <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="StructureID" ColumnName="StructureID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpSalaryStructureDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmpSalaryStructureDetail">
+              <MappingFragment StoreEntitySet="EmpSalaryStructureDetail">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Computation" ColumnName="Computation" />
+                <ScalarProperty Name="ContributionRegister" ColumnName="ContributionRegister" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpSalaryStructureHeaders">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmpSalaryStructureHeader">
+              <MappingFragment StoreEntitySet="EmpSalaryStructureHeader">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

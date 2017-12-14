@@ -1799,6 +1799,12 @@
     <Compile Include="Models\EmployeeWorkDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmpSalaryStructureDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmpSalaryStructureHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HolidayList.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1877,9 +1883,11 @@
     <Compile Include="Services\Operation\EmployeeLeaveListService.cs" />
     <Compile Include="Services\Operation\EmployeePersonalDetailService.cs" />
     <Compile Include="Services\Operation\EmployeeWorkDetailService.cs" />
+    <Compile Include="Services\Operation\EmpSalaryStructureDetailService.cs" />
     <Compile Include="Services\Operation\LeaveDetailRepository.cs" />
     <Compile Include="Services\Operation\LeaveHeaderRepository.cs" />
     <Compile Include="Services\Operation\LeaveTrasactionRepository.cs" />
+    <Compile Include="Services\Operation\SalaryStructureHeaderService.cs" />
     <Compile Include="Services\Payroll\ContributionRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleDetailRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleHeaderRepository.cs" />

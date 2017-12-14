@@ -197,7 +197,7 @@ namespace HR.Web.Controllers
                         ModifiedOn = salaryStructure.A.ModifiedOn,
                         Remarks = salaryStructure.A.Remarks,
                         StructureID = salaryStructure.A.StructureID,
-                        NetAmount= salaryStructure.A.NetAmount
+                        NetAmount = salaryStructure.A.NetAmount
                     };
 
                     foreach (SalaryStructureDetail item in salaryStructure.B)
@@ -249,30 +249,86 @@ namespace HR.Web.Controllers
             HtmlTblVm.CurrentPage = page.Value;
             return View(HtmlTblVm);
         }
-        public ViewResult EmpSalaryStructure()
+        public ViewResult EmpSalaryStructure(int employeeId)
         {
-            using(var dbcntx=new HrDataContext())
+            using (var dbcntx = new HrDataContext())
             {
                 var empsalaryobj = dbcntx.EmployeeHeaders
                     .Join(dbcntx.EmployeeWorkDetails,
                     a => a.EmployeeId, b => b.EmployeeId,
                     (a, b) => new { A = a, B = b })
-                    .Join(dbcntx.SalaryStructureHeaders,
-                    c => c.A.EmployeeId, d => d.StructureID,
-                    (c, d) => new { C = c, D = d })
                     .Select(x => new EmpSalaryStructureVm
                     {
-                        EmployeeName = x.C.A.FirstName + "" + x.C.A.LastName,
+                        EmployeeName = x.A.FirstName + "" + x.A.LastName,
                         Designation = dbcntx.LookUps
-                                            .Where(y => y.LookUpID == x.C.B.DesignationId)
+                                            .Where(y => y.LookUpID == x.B.DesignationId)
                                             .FirstOrDefault().LookUpDescription,
-                        StructureId = x.D.StructureID
+                        Department = dbcntx.LookUps
+                                            .Where(y => y.LookUpID == x.B.DepartmentId)                                            
+                                            .FirstOrDefault().LookUpDescription,
+                    }).FirstOrDefault();
 
-                    });
+                var employeeSalaryStructure = dbcntx.EmpSalaryStructureHeaders
+                    .GroupJoin(dbcntx.EmpSalaryStructureDetails,
+                    a => new { a.EmployeeId, a.BranchId }, b => new { b.EmployeeId, b.BranchId },
+                    (a, b) => new EmployeeSalaryStructure { empSalaryStructureHeader = a, empSalaryStructureDetail = b.AsEnumerable() }).FirstOrDefault();
+
+                if (employeeSalaryStructure == null)
+                {
+                    var empStr = dbcntx.SalaryStructureHeaders
+                        .GroupJoin(dbcntx.SalaryStructureDetails,
+                        a => a.StructureID, b => b.StructureID,
+                        (a, b) => new SalaryStructure {
+                            salaryStructureHeader = a,
+                            salaryStructureDetail = b.AsEnumerable()
+                        })
+                        .FirstOrDefault();
+
+                    employeeSalaryStructure = new EmployeeSalaryStructure {
+                        empSalaryStructureHeader = new EmpSalaryStructureHeader {
+                            EmployeeId = employeeId,
+                            BranchId = BRANCHID,
+                            //Salary = 0M,
+                            Remarks = ""
+                        },
+                        empSalaryStructureDetail = empStr.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail {
+                            Amount = y.Amount.Value,
+                            BranchId = BRANCHID,
+                            Computation = y.ComputationCode,
+                            ContributionRegister = y.RegisterCode,
+                            EmployeeId = employeeId,
+                            Total = y.Total.Value,
+                            IsActive = y.IsActive,
+                        }).AsEnumerable()
+                    };
+
+
+                        //.Select(x => new 
+                        //{
+                        //    empSalaryStructureHeader= new {
+                        //        EmployeeId = employeeId,
+                        //        BranchId = BRANCHID,
+                        //        //Salary = 0M,
+                        //        Remarks = ""
+                        //    },
+                        //    empSalaryStructureDetail = x.B.Select(y => new {
+                        //        Amount=y.Amount.Value,
+                        //        BranchId = BRANCHID,
+                        //        Computation = y.ComputationCode,
+                        //        ContributionRegister = y.RegisterCode,
+                        //        EmployeeId = employeeId,
+                        //        Total = y.Total.Value,
+                        //        IsActive = y.IsActive,
+                        //    })
+                        //}).FirstOrDefault();
+                }
+                
+
+                return View(empsalaryobj);
             }
 
-            return View();
+
         }
-        
+
     }
 }

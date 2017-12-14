@@ -1736,6 +1736,8 @@
     <Compile Include="BusinessObjects\Operation\EmployeeHeaderBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveHeaderBO.cs" />
+    <Compile Include="BusinessObjects\Operation\EmpSalaryStructureHeaderDetailBO.cs" />
+    <Compile Include="BusinessObjects\Operation\EmpSalaryStructureHeaderBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveTrasactionBO.cs" />
     <Compile Include="BusinessObjects\Payroll\ContributionBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleBO.cs" />

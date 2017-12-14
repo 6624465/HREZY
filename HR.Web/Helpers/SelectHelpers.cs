@@ -340,5 +340,17 @@ namespace HR.Web.Helpers
                     }).ToList().AsEnumerable();
             }
         }
+        public static IEnumerable<SelectListItem> SalaryStructure()
+        {
+            using(HrDataContext dbcntx = new HrDataContext())
+            {
+                return dbcntx.SalaryStructureHeaders.Select(x => new SelectListItem
+                {
+                    Value = x.StructureID.ToString(),
+                    Text = x.Code
+                }).ToList().AsEnumerable();
+            }
+        }
+
     }
 }

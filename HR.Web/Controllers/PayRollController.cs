@@ -247,5 +247,30 @@ namespace HR.Web.Controllers
             HtmlTblVm.CurrentPage = page.Value;
             return View(HtmlTblVm);
         }
+        public ViewResult EmpSalaryStructure()
+        {
+            using(var dbcntx=new HrDataContext())
+            {
+                var empsalaryobj = dbcntx.EmployeeHeaders
+                    .Join(dbcntx.EmployeeWorkDetails,
+                    a => a.EmployeeId, b => b.EmployeeId,
+                    (a, b) => new { A = a, B = b })
+                    .Join(dbcntx.SalaryStructureHeaders,
+                    c => c.A.EmployeeId, d => d.StructureID,
+                    (c, d) => new { C = c, D = d })
+                    .Select(x => new EmpSalaryStructureVm
+                    {
+                        EmployeeName = x.C.A.FirstName + "" + x.C.A.LastName,
+                        Designation = dbcntx.LookUps
+                                            .Where(y => y.LookUpID == x.C.B.DesignationId)
+                                            .FirstOrDefault().LookUpDescription,
+                        StructureId = x.D.StructureID
+
+                    });
+            }
+
+            return View();
+        }
+        
     }
 }

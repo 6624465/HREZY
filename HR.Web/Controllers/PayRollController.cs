@@ -1,4 +1,5 @@
-﻿using HR.Web.BusinessObjects.Payroll;
+﻿using HR.Web.BusinessObjects.Operation;
+using HR.Web.BusinessObjects.Payroll;
 using HR.Web.Models;
 using HR.Web.ViewModels;
 using System;
@@ -18,6 +19,7 @@ namespace HR.Web.Controllers
         ContributionBO contributionBO = null;
         SalaryStructureHeaderBO salaryStructureHeaderBO = null;
         SalaryStructureDetailBO salaryStructureDetailBO = null;
+        EmpSalaryStructureHeaderBO empSalaryStructureHeaderBO = null;
         public PayRollController()
         {
             salaryRuleBO = new SalaryRuleBO(SESSIONOBJ);
@@ -26,6 +28,7 @@ namespace HR.Web.Controllers
             contributionBO = new ContributionBO(SESSIONOBJ);
             salaryStructureHeaderBO = new SalaryStructureHeaderBO(SESSIONOBJ);
             salaryStructureDetailBO = new SalaryStructureDetailBO(SESSIONOBJ);
+            empSalaryStructureHeaderBO = new EmpSalaryStructureHeaderBO(SESSIONOBJ);
         }
         // GET: PayRoll
         public ActionResult PayRollInfo()
@@ -325,26 +328,7 @@ namespace HR.Web.Controllers
                             IsActive = y.IsActive,
                         }).ToList()
                     };
-
-
-                    //.Select(x => new 
-                    //{
-                    //    empSalaryStructureHeader= new {
-                    //        EmployeeId = employeeId,
-                    //        BranchId = BRANCHID,
-                    //        //Salary = 0M,
-                    //        Remarks = ""
-                    //    },
-                    //    empSalaryStructureDetail = x.B.Select(y => new {
-                    //        Amount=y.Amount.Value,
-                    //        BranchId = BRANCHID,
-                    //        Computation = y.ComputationCode,
-                    //        ContributionRegister = y.RegisterCode,
-                    //        EmployeeId = employeeId,
-                    //        Total = y.Total.Value,
-                    //        IsActive = y.IsActive,
-                    //    })
-                    //}).FirstOrDefault();
+                    
                 }
 
 
@@ -357,7 +341,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ViewResult EmpSalaryStructure(EmpSalaryStructureVm structureVm)
         {
-
+            empSalaryStructureHeaderBO.SaveSalaryStructure(structureVm);
             return View();
         }
     }

@@ -1883,6 +1883,7 @@
     <Compile Include="Services\Operation\EmployeeLeaveListService.cs" />
     <Compile Include="Services\Operation\EmployeePersonalDetailService.cs" />
     <Compile Include="Services\Operation\EmployeeWorkDetailService.cs" />
+    <Compile Include="Services\Operation\EmpSalaryStructureDetailService.cs" />
     <Compile Include="Services\Operation\LeaveDetailRepository.cs" />
     <Compile Include="Services\Operation\LeaveHeaderRepository.cs" />
     <Compile Include="Services\Operation\LeaveTrasactionRepository.cs" />

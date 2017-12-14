@@ -1,4 +1,5 @@
 ﻿using HR.Web.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,27 +7,26 @@ using System.Web;
 
 namespace HR.Web.Services.Operation
 {
-    public class EmpSalaryStructureHeaderService : IRepository<EmpSalaryStructureHeader>
+    public class EmpSalaryStructureDetailService : IRepository<EmpSalaryStructureDetail>
     {
-        public void Add(EmpSalaryStructureHeader entity)
+        public void Add(EmpSalaryStructureDetail entity)
         {
             using (var dbCntx = new HrDataContext())
             {
                 var obj = GetByProperty(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId);
-
                 if(obj != null)
                 {
                     Update(entity);
                 }
                 else
                 {
-                    dbCntx.EmpSalaryStructureHeaders.Add(entity);
+                    dbCntx.EmpSalaryStructureDetails.Add(entity);
                     dbCntx.SaveChanges();
                 }
             }
         }
 
-        private void Update(EmpSalaryStructureHeader entity)
+        private void Update(EmpSalaryStructureDetail entity)
         {
             using (var dbCntx = new HrDataContext())
             {
@@ -38,38 +38,41 @@ namespace HR.Web.Services.Operation
             }
         }
 
-        public void Delete(EmpSalaryStructureHeader entity)
+        public EmpSalaryStructureDetail GetByProperty(Func<EmpSalaryStructureDetail, bool> predicate)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                return dbCntx.EmpSalaryStructureDetails
+                            .Where(predicate)
+                            .FirstOrDefault();
+            }
+        }
+
+        public void Delete(EmpSalaryStructureDetail entity)
         {
             using (var dbCntx = new HrDataContext())
             {
                 var obj = GetByProperty(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId);
-                obj.IsActive = false;
 
-                dbCntx.SaveChanges();
+                if (obj != null)
+                {
+                    obj.IsActive = false;
+                    dbCntx.SaveChanges();
+                }
             }
         }
 
-        public IEnumerable<EmpSalaryStructureHeader> GetAll()
+        public IEnumerable<EmpSalaryStructureDetail> GetAll()
         {
             using (var dbCntx = new HrDataContext())
             {
-                return dbCntx.EmpSalaryStructureHeaders.ToList();
+                return dbCntx.EmpSalaryStructureDetails.ToList();
             }
         }
 
-        public EmpSalaryStructureHeader GetById(int id)
+        public EmpSalaryStructureDetail GetById(int id)
         {
             throw new NotImplementedException();
-        }
-
-        public EmpSalaryStructureHeader GetByProperty(Func<EmpSalaryStructureHeader, bool> predicate)
-        {
-            using (var dbCntx = new HrDataContext())
-            {
-                return dbCntx.EmpSalaryStructureHeaders
-                            .Where(predicate)
-                            .FirstOrDefault();
-            }
         }
     }
 }

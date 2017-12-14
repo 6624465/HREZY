@@ -76,7 +76,7 @@
                             </label>
                             <div class="col-md-4">
                                 <div class="input-group date" id="EffectiveDate">
-                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, new { @class = "form-control dtCss" })
+                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:dd/MM/yyyy}", new { @class = "form-control dtCss" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -217,6 +217,8 @@
         }
 
         $(function () {
+            $('#li_PayRollConfig').addClass('open');
+            $('#li_SalaryStructures').addClass('active');
             showHide();
             var date = new Date();
             $('.dtCss').datetimepicker({

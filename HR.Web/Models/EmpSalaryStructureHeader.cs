@@ -12,7 +12,7 @@ namespace HR.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SalaryStructureHeader1
+    public partial class EmpSalaryStructureHeader
     {
         public int EmployeeId { get; set; }
         public int BranchId { get; set; }

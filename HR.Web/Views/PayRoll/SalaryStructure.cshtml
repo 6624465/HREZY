@@ -318,20 +318,18 @@
             var rowCount=$('.trCss').length;
             var netAmount=0;
             for(var i=0; i<rowCount;i++){
-
-
-
                 var basicAmount=$('#structureDetail_' + 0 + '__Amount').val();
-                if(index == 0){
+                if(index == 0 && basicAmount!=""){
+                    basicAmount
                     basicAmount =parseFloat(basicAmount).toFixed(2);
                     $('#structureDetail_' + 0 + '__Total').val(basicAmount);
                 }
-                debugger;
 
                 if(!$('#structureDetail_' + i + '__IsActive').prop('checked'))
                     continue;
                 var total = $('#structureDetail_' + i + '__Amount').val();
-                total=parseFloat(total).toFixed(2);
+                if(total!="")
+                    total=parseFloat(total).toFixed(2);
                 var ComputationCode = $('#structureDetail_' + i + '__ComputationCode').val();
                 if (ComputationCode == percentage) {
 
@@ -342,7 +340,6 @@
                             text: "Percentage value should be less than 100",
                             type: "warning"
                         });
-
                         return;
                     }
                     var grandTotal=(basicAmount* total)/100;

@@ -375,6 +375,7 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="StructureID" Type="int" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -973,6 +974,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="StructureID" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -1441,6 +1443,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="SalaryStructureDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureDetail">
               <MappingFragment StoreEntitySet="SalaryStructureDetail">
+                <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="StructureID" ColumnName="StructureID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />

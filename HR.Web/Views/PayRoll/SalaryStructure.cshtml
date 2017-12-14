@@ -6,42 +6,53 @@
     {
         fname = Request.QueryString["fname"];
     }
+
 }
 
 @section Styles{
 
-    <style type="text/css">
-        .table tbody td:nth-child(5) {
-            width: 170px;
-        }
+    @*<style type="text/css">
+            .table tbody td:nth-child(5) {
+                width: 170px;
+            }
 
-        .table tbody td:nth-child(6) {
-            width: 170px;
-        }
+            .table tbody td:nth-child(6) {
+                width: 170px;
+            }
 
-        .table tbody td:nth-child(7) {
-            width: 120px;
-            /*direction: rtl;*/
-        }
+            .table tbody td:nth-child(7) {
+                width: 120px;
+                /*direction: rtl;*/
+            }
 
-        .table tbody td:nth-child(8) {
-            width: 120px;
-            /*direction: rtl;*/
-        }
+            .table tbody td:nth-child(8) {
+                width: 120px;
+                /*direction: rtl;*/
+            }
 
-        .table tfoot {
-            /*display:block;*/
-        }
+            .table tfoot {
+                /*display:block;*/
+            }
 
-        currencyCss {
-            direction: rtl;
-        }
+            currencyCss {
+                direction: rtl;
+            }
 
+            .table tfoot {
+                display: table-footer-group;
+            }
+        </style>*@
+    <style>
         .table tfoot {
             display: table-footer-group;
         }
     </style>
 }
+<style>
+    .no-wrap {
+        white-space: nowrap;
+    }
+</style>
 <div class="page">
     @using (Html.BeginForm("SalaryStructure", "Payroll", FormMethod.Post, new { id = "frmSalary", name = "frmSalary" }))
     {
@@ -98,15 +109,16 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="table-responsive">
-                                                <table class="table table-condensed">
+                                                <table class="table table-condensed table-bordered">
                                                     <thead>
                                                         <tr>
                                                             <th></th>
-                                                            <th>CODE</th>
-                                                            <th>DESCRIPTION</th>
-                                                            <th>CONTRIBUTION REGISTER</th>
-                                                            <th>COMPUTATION</th>
-                                                            <th>AMOUNT</th>
+                                                            <th>Code</th>
+                                                            <th>Description</th>
+                                                            <th class="no-wrap">Contribution Register</th>
+                                                            <th>Computation</th>
+                                                            <th>Amount</th>
+                                                            <th>Total</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -131,14 +143,29 @@
                                                                     new SelectList(SelectListItemHelper.Computation(), "Value", "Text", Model.structureDetail[i].ComputationCode), "", new { @class = "form-control input-sm" })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this,"+i+")" })
+                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.structureDetail[i].Total, new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                 </td>
 
+
                                                             </tr>
+
                                                         }
 
                                                     </tbody>
-
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>NETT</td>
+                                                            <td><input type="text" class="form-control input-sm"></td>
+                                                        </tr>
+                                                    </tfoot>
                                                 </table>
                                             </div>
 
@@ -160,7 +187,9 @@
 </div>
 @section Scripts{
     <script type="text/javascript">
+
         $(function () {
+
             var date = new Date();
             $('.dtCss').datetimepicker({
                 icons: {
@@ -189,21 +218,32 @@
                     }
                 }
             });
+
         });
 
         function SaveStructure() {
             if ($('#frmSalary').valid())
                 $('#frmSalary').submit();
         }
-
-        function validateAmount(el,index) {
+        @{
+            <text>
+        var percentage = '@UTILITY.PERCENTAGE';
+        </text>
+        }
+        function validateAmount(el, index) {
             debugger;
             var temp = el.value;
-                      var ComputationCode = $('#structureDetail_' + index + '__ComputationCode').val();
-
-            if (ComputationCode == "AMOUNT") {
+            var ComputationCode = $('#structureDetail_' + index + '__ComputationCode').val();
+            var amount = $('#structureDetail_' + index + '__Amount').val();
+            var total = $('#structureDetail_' + index + '__Total').val(amount);
+            if (ComputationCode == percentage) {
                 if (el.value > 100) {
                     $('#' + el.id).val('');
+                    swal({
+                        title: "Alert!",
+                        text: "Percentage value should be less than 100",
+                        type: "warning"
+                    });
                 }
             }
 

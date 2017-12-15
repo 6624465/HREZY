@@ -22,7 +22,7 @@
                 <div class="box-header">
                     <h4>Leaves</h4>
                     <div class="box-tools">
-                        <button class="btn btn-info btn-raised waves-effect btn-sm"
+                        <button class="btn btn-info btn-raised waves-effect btn-sm ajaxCss"
                                 type="button" onclick="location.href='@Url.Content("~/Leave/Leave")'">
                             <i class="fa fa-plus"></i> Add
                         </button>
@@ -45,7 +45,7 @@
                                             <td>@Model.ElementAt(i).BranchName</td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm" type="button" data-toggle="popover_@(i)" data-trigger="focus" title="Leave Policy"><i class="fa fa-eye"></i>&nbsp;info</button>
-                                                <button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")+ @Model.ElementAt(i).LeaveId &branchid=@Model.ElementAt(i).BranchId'"><i class="fa fa-pencil-square"></i>&nbsp;Edit</button>
+                                                <button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")+ @Model.ElementAt(i).LeaveId &branchid=@Model.ElementAt(i).BranchId'"><i class="fa fa-pencil-square"></i>&nbsp;Edit</button>
                                             </td>
                                         </tr>
                                     }

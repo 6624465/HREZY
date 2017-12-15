@@ -9,7 +9,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'"><i class="fa fa-plus-square"></i>&nbsp;Create</button>
+                        <button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'"><i class="fa fa-plus-square"></i>&nbsp;Create</button>
                     </div>
                 </div>
                 <div class="row">
@@ -40,7 +40,7 @@
                                             @Model.ElementAt(i).Description
                                         </td>
                                         <td>
-                                            <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
+                                            <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
                                                     onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.ElementAt(i).ContributionId)'">
                                                 <i class="fa fa-pencil" style="padding-left: 5px;"></i>
                                             </button>

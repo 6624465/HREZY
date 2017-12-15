@@ -121,7 +121,6 @@
     $('.modal .modal-dialog').attr('class', 'modal-dialog  bounceIn  animated');
 
     $('.ajaxCss').click(function () {
-        debugger;
         $.loader({
             className: "blue-with-image-2",
             content: ''

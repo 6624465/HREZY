@@ -28,7 +28,7 @@
                                 <span class="pull-right">Name:</span>
                             </label>
                             <div class="col-md-4">
-                                <label class="control-label pull-left">@Model.EmployeeName</label>                              
+                                <label class="control-label pull-left">@Model.EmployeeName</label>
                             </div>
                         </div>
                         <div class="row css5">
@@ -36,7 +36,7 @@
                                 <span class="pull-right">Designation:</span>
                             </label>
                             <div class="col-md-4">
-                                <label class="control-label pull-left">@Model.Designation</label>                                
+                                <label class="control-label pull-left">@Model.Designation</label>
                             </div>
                         </div>
                         <div class="row css5">
@@ -44,7 +44,7 @@
                                 <span class="pull-right">Department:</span>
                             </label>
                             <div class="col-md-4">
-                                <label class="control-label pull-left">@Model.Department</label>                               
+                                <label class="control-label pull-left">@Model.Department</label>
                             </div>
                         </div>
                         <div class="row css5">
@@ -59,7 +59,7 @@
                                 <span class="pull-right">Remarks:</span>
                             </label>
                             <div class="col-md-4">
-                              @Html.TextAreaFor(x=>x.employeeSalaryStructure.empSalaryStructureHeader.Remarks,new { @class="form-control"})
+                                @Html.TextAreaFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Remarks, new { @class = "form-control", rows = 2, cols = 3 })
                             </div>
                         </div>
                         <div class="row css10">
@@ -178,21 +178,24 @@
         $(function () {
             showHide(false);
             $(".chkCss").trigger('ifChanged');
+
+            $('#frmEmpSalary').validate({
+                rules:{
+                    'employeeSalaryStructure.empSalaryStructureHeader.StructureID':{
+                        required :true
+                    },
+                    'employeeSalaryStructure.empSalaryStructureHeader.Remarks':{
+                        required :true
+                    }
+                }
+            })
+
         });
 
         $('.chkCss').on("ifChanged", function (event) {
             var temp = this;
             var index=$(this).data('index');
-            debugger;
-            if(index == 0){
-                if ($('#employeeSalaryStructure_empSalaryStructureDetail_0__IsActive').prop('checked')) {
-                    //showHide(true);
-                }
-                else {
 
-                    // showHide(false);
-                }
-            }
             if($('#'+this.id).prop('checked')){
 
                 $('#employeeSalaryStructure_empSalaryStructureDetail_' + index + '__ContributionRegister').attr('required','required');
@@ -220,66 +223,66 @@
         });
 
         function GetSalaryStructure(el){
-            debugger;
             location.href='@Url.Content("~/Payroll/EmpSalaryStructure?employeeId=" + Model.employeeSalaryStructure.empSalaryStructureHeader.EmployeeId)' +'&structureId='+el.value;
         }
 
         function SaveEmployeeStructure(){
-            $('#frmEmpSalary').submit();
+            if( $('#frmEmpSalary').valid())
+                $('#frmEmpSalary').submit();
         }
 
 
 
-            function calculateTotal(){
-                var obj={};
-                validateAmount(obj,0);
-            }
+        function calculateTotal(){
+            var obj={};
+            validateAmount(obj,0);
+        }
 
 
-            function validateAmount(el, index) {
-                debugger;
-                var rowCount=$('.trCss').length;
-                var netAmount=0;
-                for(var i=0; i<rowCount;i++){
-                    var basicAmount=$('#employeeSalaryStructure_empSalaryStructureDetail_' + 0 + '__Amount').val();
-                    if(index == 0 && basicAmount!=""){
-                        basicAmount
-                        basicAmount =parseFloat(basicAmount).toFixed(2);
-                        $('#employeeSalaryStructure_empSalaryStructureDetail_' + 0 + '__Total').val(basicAmount);
+        function validateAmount(el, index) {
+            debugger;
+            var rowCount=$('.trCss').length;
+            var netAmount=0;
+            for(var i=0; i<rowCount;i++){
+                var basicAmount=$('#employeeSalaryStructure_empSalaryStructureDetail_' + 0 + '__Amount').val();
+                if(index == 0 && basicAmount!=""){
+                    basicAmount
+                    basicAmount =parseFloat(basicAmount).toFixed(2);
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + 0 + '__Total').val(basicAmount);
+                }
+
+                if(!$('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__IsActive').prop('checked'))
+                    continue;
+                var total = $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Amount').val();
+                if(total!="")
+                    total=parseFloat(total).toFixed(2);
+                var ComputationCode = $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Computation').val();
+                if (ComputationCode == percentage) {
+
+                    if(total>100){
+                        $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Amount').val('');
+                        swal({
+                            title: "Alert!",
+                            text: "Percentage value should be less than 100",
+                            type: "warning"
+                        });
+                        return;
                     }
+                    var grandTotal=(basicAmount* total)/100;
+                    grandTotal=parseFloat(grandTotal).toFixed(2);
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val(grandTotal);
+                }else{
+                    $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val(total);
+                }
 
-                    if(!$('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__IsActive').prop('checked'))
-                        continue;
-                    var total = $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Amount').val();
-                    if(total!="")
-                        total=parseFloat(total).toFixed(2);
-                    var ComputationCode = $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Computation').val();
-                    if (ComputationCode == percentage) {
-
-                        if(total>100){
-                            $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Amount').val('');
-                            swal({
-                                title: "Alert!",
-                                text: "Percentage value should be less than 100",
-                                type: "warning"
-                            });
-                            return;
-                        }
-                        var grandTotal=(basicAmount* total)/100;
-                        grandTotal=parseFloat(grandTotal).toFixed(2);
-                        $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val(grandTotal);
-                    }else{
-                        $('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val(total);
-                    }
-
-                    /* Calculate Nett amount*/
-                    var currentValue=$('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val();
-                    if(currentValue!="" && currentValue!=null){
-                        netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
-                        netAmount=netAmount.toFixed(2);
-                        $('#employeeSalaryStructure_empSalaryStructureHeader_Salary').val(netAmount);
-                    }
+                /* Calculate Nett amount*/
+                var currentValue=$('#employeeSalaryStructure_empSalaryStructureDetail_' + i + '__Total').val();
+                if(currentValue!="" && currentValue!=null){
+                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                    netAmount=netAmount.toFixed(2);
+                    $('#employeeSalaryStructure_empSalaryStructureHeader_Salary').val(netAmount);
                 }
             }
+        }
     </script>
 }

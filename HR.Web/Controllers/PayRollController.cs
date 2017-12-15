@@ -274,10 +274,10 @@ namespace HR.Web.Controllers
                 var empsalaryobj = dbcntx.EmployeeHeaders
                     .Join(dbcntx.EmployeeWorkDetails,
                     a => a.EmployeeId, b => b.EmployeeId,
-                    (a, b) => new { A = a, B = b })
+                    (a, b) => new { A = a, B = b }).Where(x => x.A.EmployeeId == employeeId)
                     .Select(x => new EmpSalaryStructureVm
                     {
-                        EmployeeName = x.A.FirstName + "" + x.A.LastName,
+                        EmployeeName = x.A.FirstName + " " + x.A.LastName,
                         Designation = dbcntx.LookUps
                                             .Where(y => y.LookUpID == x.B.DesignationId)
                                             .FirstOrDefault().LookUpDescription,

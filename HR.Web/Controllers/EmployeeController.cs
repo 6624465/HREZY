@@ -210,7 +210,7 @@ namespace HR.Web.Controllers
                                     address = x.F
                                 }).FirstOrDefault();
 
-
+                    if (empObj != null) { 
                     empObj.empDocument = dbCntx.LookUps
                                             .Where(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
                                             .Select(y => new EmployeeDocumentVm
@@ -218,6 +218,7 @@ namespace HR.Web.Controllers
                                                 DocumentType = y.LookUpID,
                                                 DocumentDescription = y.LookUpDescription
                                             }).ToList();
+                    }
                     return View(empObj);
                 }
             }

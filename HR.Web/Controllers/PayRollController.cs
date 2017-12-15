@@ -161,71 +161,66 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult SalaryStructure(int structurId = 0)
         {
-            SalaryStructureVm salaryStructureVm = new SalaryStructureVm();            
+            SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
 
             List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).ToList();
             salaryStructureVm.structureDetail = new List<SalaryStructureDetail>();
             if (structurId == 0)
             {
                 salaryStructureVm.structureHeader = new SalaryStructureHeader();
-                foreach (Contribution item in contributionList)
-                {
-                    SalaryStructureDetail salaryStructureDetail = new SalaryStructureDetail()
+                salaryStructureVm.structureDetail = contributionList.Select(
+                    item => new SalaryStructureDetail()
                     {
                         Code = item.Name,
                         Description = item.Description
-                    };
-                    salaryStructureVm.structureDetail.Add(salaryStructureDetail);
-                }
+                    }).ToList();
             }
             else
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    //var salaryStructure = dbContext.SalaryStructureHeaders
-                    //    .GroupJoin(dbContext.SalaryStructureDetails,
-                    //    a => a.StructureID, b => b.StructureID,
-                    //    (a, b) => new { A = a, B = b.AsEnumerable() })
-                    //    .Where(x => x.A.StructureID == structurId)
-                    //    .FirstOrDefault();
 
-
-                    salaryStructureVm = dbContext.SalaryStructureHeaders
+                    var salaryStructure = dbContext.SalaryStructureHeaders
                         .GroupJoin(dbContext.SalaryStructureDetails,
                         a => a.StructureID, b => b.StructureID,
                         (a, b) => new { A = a, B = b.AsEnumerable() })
-                        .Where(x => x.A.StructureID == structurId)
-                        .Select(x => new SalaryStructureVm{
-                            structureHeader = new SalaryStructureHeader()
-                            {
-                                Code = x.A.Code,
-                                CreatedBy = x.A.CreatedBy,
-                                CreatedOn = x.A.CreatedOn,
-                                EffectiveDate = x.A.EffectiveDate.Value,
-                                IsActive = x.A.IsActive,
-                                ModifiedBy = x.A.ModifiedBy,
-                                ModifiedOn = x.A.ModifiedOn,
-                                Remarks = x.A.Remarks,
-                                StructureID = x.A.StructureID,
-                                NetAmount = x.A.NetAmount
-                            },
-                            structureDetail = x.B.Select(item => new SalaryStructureDetail()
-                            {
-                                Amount = item.Amount,
-                                Code = item.Code,
-                                CreatedBy = item.CreatedBy,
-                                ComputationCode = item.ComputationCode,
-                                CreatedOn = item.CreatedOn,
-                                Description = item.Description,
-                                IsActive = item.IsActive,
-                                ModifiedBy = item.ModifiedBy,
-                                ModifiedOn = item.ModifiedOn,
-                                RegisterCode = item.RegisterCode,
-                                StructureDetailID = item.StructureDetailID,
-                                StructureID = item.StructureID,
-                                Total = item.Total
-                            }).ToList()
-                        }).FirstOrDefault();
+                        .Where(x => x.A.StructureID == structurId).FirstOrDefault();
+
+                    salaryStructureVm.structureHeader = new SalaryStructureHeader()
+                    {
+                        Code = salaryStructure.A.Code,
+                        CreatedBy = salaryStructure.A.CreatedBy,
+                        CreatedOn = salaryStructure.A.CreatedOn,
+                        EffectiveDate = salaryStructure.A.EffectiveDate.Value,
+                        IsActive = salaryStructure.A.IsActive,
+                        ModifiedBy = salaryStructure.A.ModifiedBy,
+                        ModifiedOn = salaryStructure.A.ModifiedOn,
+                        Remarks = salaryStructure.A.Remarks,
+                        StructureID = salaryStructure.A.StructureID,
+                        NetAmount = salaryStructure.A.NetAmount
+                    };
+
+                    foreach (SalaryStructureDetail item in salaryStructure.B)
+                    {
+                        SalaryStructureDetail salaryDetail = new SalaryStructureDetail()
+                        {
+
+                            Amount = item.Amount,
+                            Code = item.Code,
+                            CreatedBy = item.CreatedBy,
+                            ComputationCode = item.ComputationCode,
+                            CreatedOn = item.CreatedOn,
+                            Description = item.Description,
+                            IsActive = item.IsActive,
+                            ModifiedBy = item.ModifiedBy,
+                            ModifiedOn = item.ModifiedOn,
+                            RegisterCode = item.RegisterCode,
+                            StructureDetailID = item.StructureDetailID,
+                            StructureID = item.StructureID,
+                            Total = item.Total
+                        };
+                        salaryStructureVm.structureDetail.Add(salaryDetail);
+                    }
 
                     var CodeList = new List<string>();
                     if (salaryStructureVm != null && salaryStructureVm.structureDetail != null && salaryStructureVm.structureDetail.Count > 0)
@@ -235,17 +230,14 @@ namespace HR.Web.Controllers
                                         .ToList();
                     }
 
-                    foreach (Contribution item in contributionList.Where(x => !CodeList.Contains(x.Name)))
-                    {
-                        SalaryStructureDetail salaryStructureDetail = new SalaryStructureDetail()
-                        {
-                            Code = item.Name,
-                            Description = item.Description
-                        };
-                        salaryStructureVm.structureDetail.Add(salaryStructureDetail);
-                    }                 
+                    var structureDetail = contributionList.Where(x => !CodeList.Contains(x.Name)).Select(
+                                                   item => new SalaryStructureDetail()
+                                                   {
+                                                       Code = item.Name,
+                                                       Description = item.Description
+                                                   }).ToList();
+                    salaryStructureVm.structureDetail.AddRange(structureDetail);
 
-                    
                 };
 
             }
@@ -300,14 +292,14 @@ namespace HR.Web.Controllers
                     (a, b) => new EmployeeSalaryStructure { empSalaryStructureHeader = a, empSalaryStructureDetail = b.ToList() }).FirstOrDefault();
 
                 List<string> CodeList = new List<string>();
-                if(empsalaryobj != null && empsalaryobj.employeeSalaryStructure != null && empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail.Count > 0)
+                if (empsalaryobj != null && empsalaryobj.employeeSalaryStructure != null && empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail.Count > 0)
                 {
                     CodeList = empsalaryobj.employeeSalaryStructure
                                     .empSalaryStructureDetail
                                     .Select(x => x.Code)
                                     .ToList();
                 }
-                
+
 
                 if (true)//empsalaryobj.employeeSalaryStructure == null
                 {

@@ -16,6 +16,7 @@ namespace HR.Web.Models
     {
         public int EmployeeId { get; set; }
         public int BranchId { get; set; }
+        public string Code { get; set; }
         public string ContributionRegister { get; set; }
         public string Computation { get; set; }
         public Nullable<decimal> Amount { get; set; }
@@ -25,6 +26,5 @@ namespace HR.Web.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool IsActive { get; set; }
-        public string Code { get; set; }
     }
 }

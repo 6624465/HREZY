@@ -94,6 +94,7 @@
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].Code)
+                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].Code)
                                                     </td>
                                                     <td>
                                                         @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureDetail[i].ContributionRegister,

@@ -385,10 +385,10 @@ namespace HR.Web.Controllers
         }
 
         [HttpPost]
-        public ViewResult EmpSalaryStructure(EmpSalaryStructureVm structureVm)
+        public ActionResult EmpSalaryStructure(EmpSalaryStructureVm structureVm)
         {
             empSalaryStructureHeaderBO.SaveSalaryStructure(structureVm);
-            return View();
+            return RedirectToAction("SalaryStructureHeaderList");
         }
     }
 }

@@ -298,20 +298,16 @@ namespace HR.Web.Controllers
 
 
                 List<string> CodeList = new List<string>();
-                
-                    List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).ToList();
-                    var structureDetail = contributionList.Select(
-                                                  y => new EmpSalaryStructureDetail()
-                                                  {
-                                                      Code = y.Name,
-                                                      EmployeeId = employeeId,
-                                                      BranchId = BRANCHID,    
-                                                      IsActive = false,
-                                                  }).ToList();
-                    //CodeList = structureDetail.Select(x => x.Code)
-                                   // .ToList();
-                
 
+                List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).ToList();
+                var structureDetail = contributionList.Select(
+                                              y => new EmpSalaryStructureDetail()
+                                              {
+                                                  Code = y.Name,
+                                                  EmployeeId = employeeId,
+                                                  BranchId = BRANCHID,
+                                                  IsActive = false,
+                                              }).ToList();
 
                 if (true)//empsalaryobj.employeeSalaryStructure == null
                 {
@@ -326,7 +322,6 @@ namespace HR.Web.Controllers
                                 salaryStructureHeader = a,
                                 salaryStructureDetail = b.ToList() //b.Where(y => !CodeList.Contains(y.Code)).ToList()
                             })
-                            //.Where(x => x.salaryStructureDetail.Where(y => !CodeList.Contains(y.Code)))
                             .FirstOrDefault();
                     }
                     else
@@ -378,14 +373,11 @@ namespace HR.Web.Controllers
                     CodeList = empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail.Select(x => x.Code).ToList();
 
                     empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail
-                        .AddRange(structureDetail.Where(x=>!CodeList.Contains(x.Code)));//(remainingSalStructure.empSalaryStructureDetail);
+                        .AddRange(structureDetail.Where(x => !CodeList.Contains(x.Code)));//(remainingSalStructure.empSalaryStructureDetail);
 
                     empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader.StructureID = structureId;
 
-
                 }
-
-
                 return View(empsalaryobj);
             }
 

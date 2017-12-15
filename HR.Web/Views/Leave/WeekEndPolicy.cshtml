@@ -64,7 +64,7 @@
                         </div>
                     </div>
                   
-                    <button class="btn btn-primary btn-sm pull-right" onclick="SaveWeekendPolicy()">
+                    <button class="btn btn-primary btn-sm pull-right ajaxCss" onclick="SaveWeekendPolicy()">
                         <i class="fa fa-floppy-o"></i>
                         Save
                     </button>
@@ -97,6 +97,10 @@
             $('#policyBranchId').val(el.value);
             $('#frmGetBranchPolicy').submit();
         }
+        $(function () {
+            $('#li_Leave').addClass('open');
+            $('#li_weekendpolicy').addClass('active');
+        })
 
         //$('input').on('ifChanged', function (event) {
         //    var hdnId = event.currentTarget.id.replace('_', '.');

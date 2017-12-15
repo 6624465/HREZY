@@ -289,7 +289,9 @@ namespace HR.Web.Controllers
                 empsalaryobj.employeeSalaryStructure = dbcntx.EmpSalaryStructureHeaders
                     .GroupJoin(dbcntx.EmpSalaryStructureDetails,
                     a => new { a.EmployeeId, a.BranchId }, b => new { b.EmployeeId, b.BranchId },
-                    (a, b) => new EmployeeSalaryStructure { empSalaryStructureHeader = a, empSalaryStructureDetail = b.ToList() }).FirstOrDefault();
+                    (a, b) => new EmployeeSalaryStructure { empSalaryStructureHeader = a, empSalaryStructureDetail = b.ToList() })
+                    .Where(x=>x.empSalaryStructureHeader.EmployeeId == employeeId && x.empSalaryStructureHeader.BranchId == BRANCHID)
+                    .FirstOrDefault();
 
                 List<string> CodeList = new List<string>();
                 if (empsalaryobj != null && empsalaryobj.employeeSalaryStructure != null && empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail.Count > 0)
@@ -329,17 +331,11 @@ namespace HR.Web.Controllers
                            })
                            .Where(x => x.salaryStructureHeader.StructureID == structureId)
                            .FirstOrDefault();
+
+                        
                     }
                     var remainingSalStructure = new EmployeeSalaryStructure
                     {
-                        empSalaryStructureHeader = new EmpSalaryStructureHeader
-                        {
-                            EmployeeId = employeeId,
-                            BranchId = BRANCHID,
-                            Salary = 0M,
-                            Remarks = "",
-                            StructureID = structureId
-                        },
                         empSalaryStructureDetail = salaryStructure.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail
                         {
                             EmployeeId = employeeId,
@@ -355,6 +351,8 @@ namespace HR.Web.Controllers
 
                     empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail
                         .AddRange(remainingSalStructure.empSalaryStructureDetail);
+
+                    empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader.StructureID = structureId;
 
 
                 }

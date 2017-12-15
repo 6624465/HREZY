@@ -290,17 +290,27 @@ namespace HR.Web.Controllers
                     .GroupJoin(dbcntx.EmpSalaryStructureDetails,
                     a => new { a.EmployeeId, a.BranchId }, b => new { b.EmployeeId, b.BranchId },
                     (a, b) => new EmployeeSalaryStructure { empSalaryStructureHeader = a, empSalaryStructureDetail = b.ToList() })
-                    .Where(x=>x.empSalaryStructureHeader.EmployeeId == employeeId && x.empSalaryStructureHeader.BranchId == BRANCHID)
+                    .Where(x => x.empSalaryStructureHeader.EmployeeId == employeeId
+                    && x.empSalaryStructureHeader.BranchId == BRANCHID
+                    && x.empSalaryStructureHeader.StructureID == structureId)
                     .FirstOrDefault();
 
+
+
                 List<string> CodeList = new List<string>();
-                if (empsalaryobj != null && empsalaryobj.employeeSalaryStructure != null && empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail.Count > 0)
-                {
-                    CodeList = empsalaryobj.employeeSalaryStructure
-                                    .empSalaryStructureDetail
-                                    .Select(x => x.Code)
-                                    .ToList();
-                }
+                
+                    List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).ToList();
+                    var structureDetail = contributionList.Select(
+                                                  y => new EmpSalaryStructureDetail()
+                                                  {
+                                                      Code = y.Name,
+                                                      EmployeeId = employeeId,
+                                                      BranchId = BRANCHID,    
+                                                      IsActive = false,
+                                                  }).ToList();
+                    //CodeList = structureDetail.Select(x => x.Code)
+                                   // .ToList();
+                
 
 
                 if (true)//empsalaryobj.employeeSalaryStructure == null
@@ -314,7 +324,7 @@ namespace HR.Web.Controllers
                             (a, b) => new SalaryStructure
                             {
                                 salaryStructureHeader = a,
-                                salaryStructureDetail = b.Where(y => !CodeList.Contains(y.Code)).ToList()
+                                salaryStructureDetail = b.ToList() //b.Where(y => !CodeList.Contains(y.Code)).ToList()
                             })
                             //.Where(x => x.salaryStructureDetail.Where(y => !CodeList.Contains(y.Code)))
                             .FirstOrDefault();
@@ -332,10 +342,19 @@ namespace HR.Web.Controllers
                            .Where(x => x.salaryStructureHeader.StructureID == structureId)
                            .FirstOrDefault();
 
-                        
+
                     }
                     var remainingSalStructure = new EmployeeSalaryStructure
                     {
+                        empSalaryStructureHeader = new EmpSalaryStructureHeader()
+                        {
+                            EmployeeId = employeeId,
+                            BranchId = BRANCHID,
+                            IsActive = salaryStructure.salaryStructureHeader.IsActive,
+                            Remarks = salaryStructure.salaryStructureHeader.Remarks,
+                            Salary = 0M,
+                            StructureID = salaryStructure.salaryStructureHeader.StructureID
+                        },
                         empSalaryStructureDetail = salaryStructure.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail
                         {
                             EmployeeId = employeeId,
@@ -349,8 +368,17 @@ namespace HR.Web.Controllers
                         }).ToList()
                     };
 
+                    if (empsalaryobj.employeeSalaryStructure == null)
+                    {
+                        empsalaryobj.employeeSalaryStructure = remainingSalStructure;
+                        empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader = remainingSalStructure.empSalaryStructureHeader;
+                        empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail = remainingSalStructure.empSalaryStructureDetail;
+                    }
+
+                    CodeList = empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail.Select(x => x.Code).ToList();
+
                     empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail
-                        .AddRange(remainingSalStructure.empSalaryStructureDetail);
+                        .AddRange(structureDetail.Where(x=>!CodeList.Contains(x.Code)));//(remainingSalStructure.empSalaryStructureDetail);
 
                     empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader.StructureID = structureId;
 

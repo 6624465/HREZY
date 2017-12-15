@@ -116,7 +116,7 @@ namespace HR.Web.BusinessObjects.Payroll
                     NetAmount= salaryStructureVm.structureHeader.NetAmount
                 };
                 Add(structureHeader);
-               // salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
+                salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
                 foreach (SalaryStructureDetail item in salaryStructureVm.structureDetail)
                 {
                     SalaryStructureDetail detail = new SalaryStructureDetail() {

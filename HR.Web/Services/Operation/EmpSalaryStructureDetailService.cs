@@ -14,7 +14,7 @@ namespace HR.Web.Services.Operation
             using (var dbCntx = new HrDataContext())
             {
                 var obj = GetByProperty(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId && x.Code == entity.Code);
-                if(obj != null)
+                if (obj != null)
                 {
                     Update(entity);
                 }
@@ -30,7 +30,17 @@ namespace HR.Web.Services.Operation
         {
             using (var dbCntx = new HrDataContext())
             {
-                var obj = GetByProperty(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId && x.Code == entity.Code);
+                EmpSalaryStructureDetail obj = dbCntx.EmpSalaryStructureDetails
+                    .Where(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId && x.Code == entity.Code)
+                    .FirstOrDefault();
+                obj.Amount = entity.Amount;
+                obj.Code = entity.Code;
+                obj.BranchId = entity.BranchId;
+                obj.Computation = entity.Computation;
+                obj.ContributionRegister = entity.ContributionRegister;
+                obj.EmployeeId = entity.EmployeeId;
+                obj.IsActive = entity.IsActive;
+                obj.Total = entity.Total;
                 obj.ModifiedBy = entity.ModifiedBy;
                 obj.ModifiedOn = entity.ModifiedOn;
 

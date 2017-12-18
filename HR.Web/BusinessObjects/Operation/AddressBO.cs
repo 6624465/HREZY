@@ -71,5 +71,18 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
+
+        internal Address GetByProperty(Func<Address, bool> predicate)
+        {
+            try
+            {
+                return addressServices.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

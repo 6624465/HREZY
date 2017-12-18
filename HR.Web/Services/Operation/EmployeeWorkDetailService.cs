@@ -54,6 +54,22 @@ namespace HR.Web.Services.Operation
 
         }
 
+        internal EmployeeWorkDetail GetByProperty(Func<EmployeeWorkDetail, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                   return dbContext.EmployeeWorkDetails.Where(predicate).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public void Delete(EmployeeWorkDetail entity)
         {
             try

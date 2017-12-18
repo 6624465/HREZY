@@ -40,6 +40,8 @@ namespace HR.Web.Services.Operation
                         address.TelNo = entity.TelNo;
                         address.FaxNo = entity.FaxNo;
                         address.Contact = entity.Contact;
+                        address.CityName = entity.CityName;
+                        address.StateName = entity.StateName;
                         address.Email = entity.Email;
                         address.WebSite = entity.WebSite;
                         address.IsActive = entity.IsActive;
@@ -49,6 +51,22 @@ namespace HR.Web.Services.Operation
                         address.ModifiedOn = entity.ModifiedOn;
                     }
                     dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            };
+        }
+
+        internal Address GetByProperty(Func<Address, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                 return   dbContext.Addresses.Where(predicate).FirstOrDefault();
                 }
             }
             catch (Exception ex)

@@ -28,7 +28,7 @@ namespace HR.Web.BusinessObjects.Operation
                 Gender = empPerDetail.Gender, //
                 BirthCountry = empPerDetail.BirthCountry, //
                 CitizenshipCountry = "", //
-                FatherName =empPerDetail.FatherName,
+                FatherName = empPerDetail.FatherName,
                 MaritalStatus = empPerDetail.MaritalStatus,
                 SpouseName = empPerDetail.SpouseName, //
                 EmergencyContactName = empPerDetail.EmergencyContactName,
@@ -95,6 +95,19 @@ namespace HR.Web.BusinessObjects.Operation
                 throw ex;
             }
 
+        }
+
+        public EmployeePersonalDetail GetByProperty(Func<EmployeePersonalDetail, bool> predicate)
+        {
+            try
+            {
+                return empPersonalDetailService.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }

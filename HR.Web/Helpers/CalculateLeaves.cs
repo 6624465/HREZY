@@ -78,38 +78,38 @@ namespace HR.Web.Helpers
                 if (date.DayOfWeek == DayOfWeek.Monday)
                     if (weekendPolicy.IsMondayHalfDay.Value)
                         calCBusinessDays = calCBusinessDays - 0.5;
-                    else
+                    else if(weekendPolicy.Monday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Tuesday)
                     if (weekendPolicy.IsTuesdayHalfDay.Value)
                         calCBusinessDays = calCBusinessDays - 0.5;
-                    else
+                else if(weekendPolicy.Tuesday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Wednesday)
                     if (weekendPolicy.IsWednesdayHalfDay.Value)
                         calCBusinessDays = calCBusinessDays - 0.5;
-                    else
+                    else if (weekendPolicy.Wednesday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Thursday)
                     if (weekendPolicy.IsThursdayHalfDay.Value)
                         calCBusinessDays = calCBusinessDays - 0.5;
-                    else
+                    else if (weekendPolicy.Thursday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Friday)
                     if (weekendPolicy.IsFridayHalfDay.Value)
                         calCBusinessDays = calCBusinessDays - 0.5;
-                    else
+                    else if (weekendPolicy.Friday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Saturday)
                     if (weekendPolicy.IsSaturdayHalfDay.Value)
                         calCBusinessDays = calCBusinessDays - 0.5;
-                    else
+                    else if (weekendPolicy.Saturday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Sunday)
-                    if (weekendPolicy.Sunday.Value)
+                   
                         if (weekendPolicy.IsSundayHalfDay.Value)
                             calCBusinessDays = calCBusinessDays - 0.5;
-                        else
+                        else if (weekendPolicy.Sunday.Value)
                             calCBusinessDays--;
             }
 

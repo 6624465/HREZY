@@ -133,7 +133,8 @@ namespace HR.Web.BusinessObjects.Payroll
                         StructureDetailID = item.StructureDetailID,
                         Total = item.Total
                     };
-                    salaryStructureDetailBO.Delete(detail);
+                    if (item.StructureDetailID != null && item.StructureDetailID >0)
+                        salaryStructureDetailBO.Delete(detail);
                     if (item.IsActive)
                         salaryStructureDetailBO.Add(detail);
                 }

@@ -162,7 +162,7 @@ namespace HR.Web.Controllers
             }
         }
 
-public void GetHolidayWeekends()
+        public void GetHolidayWeekends()
         {
             List<int> weekEnd = new List<int>();
 
@@ -177,31 +177,31 @@ public void GetHolidayWeekends()
             ViewBag.HoliDayList = holidaysList;
             if (weekendPolicy != null)
             {
-                if (!weekendPolicy.Monday.Value)
+                if ((!weekendPolicy.Monday.Value && !weekendPolicy.IsMondayHalfDay.Value) || !weekendPolicy.Monday.Value || weekendPolicy.IsMondayHalfDay.Value)
                 {
                     weekEnd.Add(1);
                 }
-                if (!weekendPolicy.Tuesday.Value)
+                if ((!weekendPolicy.Tuesday.Value && !weekendPolicy.IsTuesdayHalfDay.Value) || !weekendPolicy.Tuesday.Value || weekendPolicy.IsTuesdayHalfDay.Value)
                 {
                     weekEnd.Add(2);
                 }
-                if (!weekendPolicy.Wednesday.Value)
+                if ((!weekendPolicy.Wednesday.Value && !weekendPolicy.IsWednesdayHalfDay.Value) || !weekendPolicy.Wednesday.Value || weekendPolicy.IsWednesdayHalfDay.Value)
                 {
                     weekEnd.Add(3);
                 }
-                if (!weekendPolicy.Thursday.Value)
+                if ((!weekendPolicy.Thursday.Value && !weekendPolicy.IsThursdayHalfDay.Value) || !weekendPolicy.Thursday.Value || weekendPolicy.IsThursdayHalfDay.Value)
                 {
                     weekEnd.Add(4);
                 }
-                if (!weekendPolicy.Friday.Value)
+                if ((!weekendPolicy.Friday.Value && !weekendPolicy.IsFridayHalfDay.Value) || !weekendPolicy.Friday.Value && weekendPolicy.IsFridayHalfDay.Value)
                 {
                     weekEnd.Add(5);
                 }
-                if (!weekendPolicy.Saturday.Value)
+                if ((!weekendPolicy.Saturday.Value && !weekendPolicy.IsSaturdayHalfDay.Value) || !weekendPolicy.Saturday.Value || weekendPolicy.IsSaturdayHalfDay.Value)
                 {
                     weekEnd.Add(6);
                 }
-                if (!weekendPolicy.Sunday.Value)
+                if ((!weekendPolicy.Sunday.Value && !weekendPolicy.IsSundayHalfDay.Value) || !weekendPolicy.Sunday.Value || weekendPolicy.IsSundayHalfDay.Value)
                 {
                     weekEnd.Add(7);
                 }
@@ -706,7 +706,14 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                     Thursday = false,
                     Friday = false,
                     Saturday = false,
-                    Sunday = false
+                    Sunday = false,
+                    IsMondayHalfDay = false,
+                    IsTuesdayHalfDay = false,
+                    IsWednesdayHalfDay = false,
+                    IsThursdayHalfDay = false,
+                    IsFridayHalfDay = false,
+                    IsSaturdayHalfDay = false,
+                    IsSundayHalfDay = false
                 };
             }
             else
@@ -723,7 +730,14 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                         Thursday = false,
                         Friday = false,
                         Saturday = false,
-                        Sunday = false
+                        Sunday = false,
+                        IsMondayHalfDay = false,
+                        IsTuesdayHalfDay = false,
+                        IsWednesdayHalfDay = false,
+                        IsThursdayHalfDay = false,
+                        IsFridayHalfDay = false,
+                        IsSaturdayHalfDay = false,
+                        IsSundayHalfDay = false
                     };
                 }
                 return View("Leave", leaveVm);
@@ -767,7 +781,14 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                             Thursday = false,
                             Friday = false,
                             Saturday = false,
-                            Sunday = false
+                            Sunday = false,
+                            IsMondayHalfDay = false,
+                            IsTuesdayHalfDay = false,
+                            IsWednesdayHalfDay = false,
+                            IsThursdayHalfDay = false,
+                            IsFridayHalfDay = false,
+                            IsSaturdayHalfDay = false,
+                            IsSundayHalfDay = false
                         };
                     }
                     else
@@ -795,7 +816,7 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                 weekendPolicyBO.Add(wekendPolicy);
             }
             return RedirectToAction("LeaveList");
-           // return RedirectToAction("Leave", new { leaveId = leave.LeaveId, branchid = wekendPolicy.BranchId });
+            // return RedirectToAction("Leave", new { leaveId = leave.LeaveId, branchid = wekendPolicy.BranchId });
         }
 
         public ActionResult ViewLeavesList(int? page = 1)

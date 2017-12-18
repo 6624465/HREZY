@@ -12,104 +12,124 @@
     <div class="page">
         <div class="panel panel-default panel-hovered panel-stacked mb10">
             <div class="panel-heading">
-                 Leave Policy
+                Leave Policy
             </div>
         </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default panel-hovered panel-stacked mb10">
-                        <div class="panel-heading">
-                            Paid Leaves
-                        </div>
-                        <div class="panel-body">
-                            <div class="row css5">
-                                <div class="col-md-8">
-                                    @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
-                                    {
-                                        <label class="col-md-2 control-label">
-                                            <span class="pull-right">Branch</span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            @Html.DropDownListFor(x => x.leave.BranchId,
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Paid Leaves
+                    </div>
+                    <div class="panel-body">
+                        <div class="row css5">
+                            <div class="col-md-8">
+                                @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
+                                {
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">Branch</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(x => x.leave.BranchId,
                                     SelectListItemHelper.Branches(),
                                     "Select Branch",
                                     new { @class = "form-control", onchange = "GetBranchData(this)" })
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        @Html.HiddenFor(x => x.leave.BranchId)
-                                    }
-                                </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    @Html.HiddenFor(x => x.leave.BranchId)
+                                }
                             </div>
-                            <div class="row css5">
-                                <div class="col-md-12">
-                                    <div class="col-md-4 css5">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <label class="col-md-6 control-label">
-                                                    <span class="pull-right">Per Year</span>
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.TextBoxFor(x => x.leave.PaidLeavesPerYear, new { @class = "form-control numCss", required = "required" })
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-12">
+                                <div class="col-md-4 css5">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-6 control-label">
+                                                <span class="pull-right">Per Year</span>
+                                            </label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.leave.PaidLeavesPerYear, new { @class = "form-control numCss", required = "required" })
 
-                                                </div>
                                             </div>
-                                            <div class="row css5">
-                                                <label class="col-md-6 control-label">
-                                                    <span class="pull-right">Per Month</span>
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.TextBoxFor(x => x.leave.PaidLeavesPerMonth,
+                                        </div>
+                                        <div class="row css5">
+                                            <label class="col-md-6 control-label">
+                                                <span class="pull-right">Per Month</span>
+                                            </label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.leave.PaidLeavesPerMonth,
                                     new { @class = "form-control decimalCss" })
-                                                </div>
                                             </div>
-
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="col-md-6 control-label">
-                                                <span class="pull-right" style="white-space:nowrap;">Carry Forward</span>
-                                            </label>
-                                            <div class="col-md-2" style="margin-top:10px">
-                                                @Html.CheckBoxFor(x => x.leave.IsPaidLeaveCarryForward, new { @class = "form-control " })
-                                            </div>
-                                            <div class="col-md-4">
-                                                @Html.TextBoxFor(x => x.leave.CarryForwardPerYear,
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label">
+                                            <span class="pull-right" style="white-space:nowrap;">Carry Forward</span>
+                                        </label>
+                                        <div class="col-md-2" style="margin-top:10px">
+                                            @Html.CheckBoxFor(x => x.leave.IsPaidLeaveCarryForward, new { @class = "form-control " })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.leave.CarryForwardPerYear,
                                     new { @class = "form-control decimalCss" })
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
-                                        <h5>WEEKEND POLICY</h5>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5>WEEKEND POLICY</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
 
-                                                        <th>Monday</th>
-                                                        <th>Tuesday</th>
-                                                        <th>Wednesday</th>
-                                                        <th>Thursday</th>
-                                                        <th>Friday</th>
-                                                        <th>Saturday</th>
-                                                        <th>Sunday</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>@Html.CheckBox(nameof(Model.weekendPolicy.Monday), Model.weekendPolicy.Monday ?? false)</td>
-                                                        <td>@Html.CheckBox(nameof(Model.weekendPolicy.Tuesday), Model.weekendPolicy.Tuesday ?? false)</td>
-                                                        <td>@Html.CheckBox(nameof(Model.weekendPolicy.Wednesday), Model.weekendPolicy.Wednesday ?? false)</td>
-                                                        <td>@Html.CheckBox(nameof(Model.weekendPolicy.Thursday), Model.weekendPolicy.Thursday ?? false)</td>
-                                                        <td>@Html.CheckBox(nameof(Model.weekendPolicy.Friday), Model.weekendPolicy.Friday ?? false)</td>
-                                                        <td>@Html.CheckBox(nameof(Model.weekendPolicy.Saturday), Model.weekendPolicy.Saturday ?? false)</td>
-                                                        <td>@Html.CheckBox(nameof(Model.weekendPolicy.Sunday), Model.weekendPolicy.Sunday ?? false)</td>
+                                                    <th>Monday</th>
+                                                    <th>Tuesday</th>
+                                                    <th>Wednesday</th>
+                                                    <th>Thursday</th>
+                                                    <th>Friday</th>
+                                                    <th>Saturday</th>
+                                                    <th>Sunday</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Monday), Model.weekendPolicy.Monday ?? false)
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsMondayHalfDay), Model.weekendPolicy.IsMondayHalfDay ?? false)
+                                                    </td>
+                                                    <td>
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Tuesday), Model.weekendPolicy.Tuesday ?? false)
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsTuesdayHalfDay), Model.weekendPolicy.IsTuesdayHalfDay ?? false)
+                                                    </td>
+                                                    <td>
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Wednesday), Model.weekendPolicy.Wednesday ?? false)
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsWednesdayHalfDay), Model.weekendPolicy.IsWednesdayHalfDay ?? false)
+                                                    </td>
+                                                    <td>
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Thursday), Model.weekendPolicy.Thursday ?? false)
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsThursdayHalfDay), Model.weekendPolicy.IsThursdayHalfDay ?? false)
+                                                    </td>
+                                                    <td style="white-space:nowrap">
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Friday), Model.weekendPolicy.Friday ?? false)
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsFridayHalfDay), Model.weekendPolicy.IsFridayHalfDay ?? false)
+                                                    </td>
+                                                    <td>
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Saturday), Model.weekendPolicy.Saturday ?? false)
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsSaturdayHalfDay), Model.weekendPolicy.IsSaturdayHalfDay ?? false)
+                                                    </td>
+                                                    <td>
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Sunday), Model.weekendPolicy.Sunday ?? false)
+                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsSundayHalfDay), Model.weekendPolicy.IsSundayHalfDay ?? false)
+                                                    </td>
 
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -117,13 +137,59 @@
                     </div>
                 </div>
             </div>
+        </div>
 
 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">
+                        Sick Leaves
+                    </div>
+                    <div class="panel-body">
+                        <div class="row css5">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-md-4 control-label">
+                                        <span class="pull-right">Per Year</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.leave.SickLeavesPerYear, new { @class = "form-control numCss" })
+                                    </div>
+                                </div>
+                                <div class="row css5">
+                                    <label class="col-md-4 control-label">
+                                        <span class="pull-right">Per Month</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.leave.SickLeavesPerMonth,
+                                    new { @class = "form-control decimalCss" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">
+                                    <span class="pull-right">Carry Forward</span>
+                                </label>
+                                <div class="col-md-2" style="margin-top:10px">
+                                    @Html.CheckBoxFor(x => x.leave.IsSickLeaveCarryForward, new { @class = "form-control " })
+                                </div>
+                                <div class="col-md-3 chkClass">
+                                    @Html.TextBoxFor(x => x.leave.CarryForwardSickLeaves,
+                                    new { @class = "form-control decimalCss" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="panel panel-default panel-hovered panel-stacked mb10">
                         <div class="panel-heading">
-                            Sick Leaves
+                            Casual Leaves
                         </div>
                         <div class="panel-body">
                             <div class="row css5">
@@ -133,7 +199,7 @@
                                             <span class="pull-right">Per Year</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.leave.SickLeavesPerYear, new { @class = "form-control numCss" })
+                                            @Html.TextBoxFor(x => x.leave.CasualLeavesPerYear, new { @class = "form-control numCss" })
                                         </div>
                                     </div>
                                     <div class="row css5">
@@ -141,7 +207,7 @@
                                             <span class="pull-right">Per Month</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.leave.SickLeavesPerMonth,
+                                            @Html.TextBoxFor(x => x.leave.CasualLeavesPerMonth,
                                     new { @class = "form-control decimalCss" })
                                         </div>
                                     </div>
@@ -153,69 +219,24 @@
                                         <span class="pull-right">Carry Forward</span>
                                     </label>
                                     <div class="col-md-2" style="margin-top:10px">
-                                        @Html.CheckBoxFor(x => x.leave.IsSickLeaveCarryForward, new { @class = "form-control " })
+                                        @Html.CheckBoxFor(x => x.leave.IsCasualLeaveCarryForward, new { @class = "form-control " })
                                     </div>
-                                    <div class="col-md-3 chkClass">
-                                        @Html.TextBoxFor(x => x.leave.CarryForwardSickLeaves,
-                                    new { @class = "form-control decimalCss" })
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-default panel-hovered panel-stacked mb10">
-                            <div class="panel-heading">
-                                Casual Leaves
-                            </div>
-                            <div class="panel-body">
-                                <div class="row css5">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <label class="col-md-4 control-label">
-                                                <span class="pull-right">Per Year</span>
-                                            </label>
-                                            <div class="col-md-4">
-                                                @Html.TextBoxFor(x => x.leave.CasualLeavesPerYear, new { @class = "form-control numCss" })
-                                            </div>
-                                        </div>
-                                        <div class="row css5">
-                                            <label class="col-md-4 control-label">
-                                                <span class="pull-right">Per Month</span>
-                                            </label>
-                                            <div class="col-md-4">
-                                                @Html.TextBoxFor(x => x.leave.CasualLeavesPerMonth,
-                                    new { @class = "form-control decimalCss" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row css5">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label">
-                                            <span class="pull-right">Carry Forward</span>
-                                        </label>
-                                        <div class="col-md-2" style="margin-top:10px">
-                                            @Html.CheckBoxFor(x => x.leave.IsCasualLeaveCarryForward, new { @class = "form-control " })
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                 </div>
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+            </div>
+        </div>
+    </div>
 
 }
 
@@ -329,7 +350,7 @@
                 });
                 $('#frmLeave').submit();
             }
-               
+
         }
 
 

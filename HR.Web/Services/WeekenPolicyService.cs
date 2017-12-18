@@ -30,7 +30,7 @@ namespace HR.Web.Services
                     }
                     else
                     {
-                       
+
                         weekendPolicy.ModifiedBy = sessionobj.USERID;
                         weekendPolicy.ModifiedOn = UTILITY.SINGAPORETIME;
                         weekendPolicy.Monday = entity.Monday;
@@ -40,6 +40,13 @@ namespace HR.Web.Services
                         weekendPolicy.Friday = entity.Friday;
                         weekendPolicy.Saturday = entity.Saturday;
                         weekendPolicy.Sunday = entity.Sunday;
+                        weekendPolicy.IsMondayHalfDay = entity.IsMondayHalfDay;
+                        weekendPolicy.IsTuesdayHalfDay = entity.IsTuesdayHalfDay;
+                        weekendPolicy.IsWednesdayHalfDay = entity.IsWednesdayHalfDay;
+                        weekendPolicy.IsThursdayHalfDay = entity.IsThursdayHalfDay;
+                        weekendPolicy.IsFridayHalfDay = entity.IsFridayHalfDay;
+                        weekendPolicy.IsSaturdayHalfDay = entity.IsSaturdayHalfDay;
+                        weekendPolicy.IsSundayHalfDay = entity.IsSundayHalfDay;
                     }
                     dbContext.SaveChanges();
                 }

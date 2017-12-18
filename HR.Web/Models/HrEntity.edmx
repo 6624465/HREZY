@@ -443,6 +443,13 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsMondayHalfDay" Type="bit" />
+          <Property Name="IsTuesdayHalfDay" Type="bit" />
+          <Property Name="IsThursdayHalfDay" Type="bit" />
+          <Property Name="IsSaturdayHalfDay" Type="bit" />
+          <Property Name="IsSundayHalfDay" Type="bit" />
+          <Property Name="IsWednesdayHalfDay" Type="bit" />
+          <Property Name="IsFridayHalfDay" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -997,6 +1004,13 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsMondayHalfDay" Type="Boolean" />
+          <Property Name="IsTuesdayHalfDay" Type="Boolean" />
+          <Property Name="IsThursdayHalfDay" Type="Boolean" />
+          <Property Name="IsSaturdayHalfDay" Type="Boolean" />
+          <Property Name="IsSundayHalfDay" Type="Boolean" />
+          <Property Name="IsWednesdayHalfDay" Type="Boolean" />
+          <Property Name="IsFridayHalfDay" Type="Boolean" />
         </EntityType>
         <EntityType Name="SalaryStructureDetail">
           <Key>
@@ -1501,6 +1515,13 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="WeekendPolicies">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.WeekendPolicy">
               <MappingFragment StoreEntitySet="WeekendPolicy">
+                <ScalarProperty Name="IsFridayHalfDay" ColumnName="IsFridayHalfDay" />
+                <ScalarProperty Name="IsWednesdayHalfDay" ColumnName="IsWednesdayHalfDay" />
+                <ScalarProperty Name="IsSundayHalfDay" ColumnName="IsSundayHalfDay" />
+                <ScalarProperty Name="IsSaturdayHalfDay" ColumnName="IsSaturdayHalfDay" />
+                <ScalarProperty Name="IsThursdayHalfDay" ColumnName="IsThursdayHalfDay" />
+                <ScalarProperty Name="IsTuesdayHalfDay" ColumnName="IsTuesdayHalfDay" />
+                <ScalarProperty Name="IsMondayHalfDay" ColumnName="IsMondayHalfDay" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />

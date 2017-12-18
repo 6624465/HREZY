@@ -26,5 +26,12 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public Nullable<bool> IsMondayHalfDay { get; set; }
+        public Nullable<bool> IsTuesdayHalfDay { get; set; }
+        public Nullable<bool> IsThursdayHalfDay { get; set; }
+        public Nullable<bool> IsSaturdayHalfDay { get; set; }
+        public Nullable<bool> IsSundayHalfDay { get; set; }
+        public Nullable<bool> IsWednesdayHalfDay { get; set; }
+        public Nullable<bool> IsFridayHalfDay { get; set; }
     }
 }

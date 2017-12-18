@@ -123,7 +123,7 @@
     $('.ajaxCss').click(function () {
         $.loader({
             className: "blue-with-image-2",
-            content: ''
+            content: '',
         });
     });
     //$('.form-control').addClass('input-sm');

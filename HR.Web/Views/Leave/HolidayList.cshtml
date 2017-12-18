@@ -120,6 +120,10 @@
         }
         function SaveChanges() {
             if ($('#holidayfrm').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 var dt = $('#Dt').find('input').val();
                 $('#Date').val(dt);
                 $('#holidayfrm').submit();

@@ -57,6 +57,10 @@
     <script type="text/javascript">
         function ContributionSave() {
             if ($('#contributionfrm').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 $('#contributionfrm').submit();
             }
         }

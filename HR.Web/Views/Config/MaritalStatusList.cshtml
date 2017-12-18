@@ -99,7 +99,11 @@
         });
 
         function SaveMaritalStatus() {
-            if ($('#frm').valid()){
+            if ($('#frm').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 $('#frm').submit();
             }
         }

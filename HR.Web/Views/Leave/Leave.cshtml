@@ -322,8 +322,14 @@
                     }
                 }
             });
-            if ($('#frmLeave').valid())
+            if ($('#frmLeave').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 $('#frmLeave').submit();
+            }
+               
         }
 
 

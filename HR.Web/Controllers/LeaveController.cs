@@ -903,7 +903,14 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                         Thursday = x.B.Thursday,
                         Friday = x.B.Friday,
                         Saturday = x.B.Saturday,
-                        Sunday = x.B.Sunday
+                        Sunday = x.B.Sunday,
+                        IsMondayHalfDay    = x.B.IsMondayHalfDay,
+                        IsTuesdayHalfDay   = x.B.IsTuesdayHalfDay,
+                        IsWednesdayHalfDay = x.B.IsWednesdayHalfDay,
+                        IsThursdayHalfDay  = x.B.IsThursdayHalfDay,
+                        IsFridayHalfDay    = x.B.IsFridayHalfDay,
+                        IsSaturdayHalfDay  = x.B.IsSaturdayHalfDay,
+                        IsSundayHalfDay    = x.B.IsSundayHalfDay
                     }).ToList();
                 return View("WeekendPolicyList", list);
             }
@@ -923,7 +930,14 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                     Thursday = false,
                     Friday = false,
                     Saturday = false,
-                    Sunday = false
+                    Sunday = false,
+                    IsMondayHalfDay = false,
+                    IsTuesdayHalfDay = false,
+                    IsWednesdayHalfDay = false,
+                    IsThursdayHalfDay = false,
+                    IsFridayHalfDay = false,
+                    IsSaturdayHalfDay = false,
+                    IsSundayHalfDay = false
                 });
             }
             else

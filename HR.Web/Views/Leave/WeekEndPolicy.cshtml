@@ -1,78 +1,109 @@
 ﻿@model HR.Web.Models.WeekendPolicy
 @using (Html.BeginForm("SaveWeekendPolicy", "Leave", FormMethod.Post, new { id = "weekendfrm", name = "weekendfrm" }))
 {
-<div class="page">
-    <div class="page-wrap">
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Weekend Policy
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-1">
-                            <label class="control-label pull-left">
-                                BranchName
-                            </label>
-                        </div>
-                        <div class="col-md-4">
-                            @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control" , onchange="GetBranchPolicy(this)"})
-                        </div>
+    <div class="page">
+        <div class="page-wrap">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Weekend Policy
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.CheckBox(nameof(Model.Monday), Model.Monday ?? false)
-                            <label class="control-label">Monday</label>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="control-label pull-left">
+                                    BranchName
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control", onchange = "GetBranchPolicy(this)" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.CheckBox(nameof(Model.Tuesday), Model.Tuesday ?? false)
-                            <label class="control-label">Tuesday</label>
+                        <div class="row">
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.Monday), Model.Monday ?? false)
+
+                                <label class="control-label">Monday</label>
+                            </div>
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.IsMondayHalfDay), Model.IsMondayHalfDay ?? false)
+                                <label class="control-label">Half Day</label>
+                            </div>
+
                         </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.CheckBox(nameof(Model.Wednesday), Model.Wednesday ?? false)
-                            <label class="control-label">Wednesday</label>
+                        <div class="row">
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.Tuesday), Model.Tuesday ?? false)
+
+                                <label class="control-label">Tuesday</label>
+                            </div>
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.IsTuesdayHalfDay), Model.IsTuesdayHalfDay ?? false)
+                                <label class="control-label">Half Day</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.CheckBox(nameof(Model.Thursday), Model.Thursday ?? false)
-                            <label class="control-label">Thursday</label>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.Wednesday), Model.Wednesday ?? false)
+                                
+                                <label class="control-label">Wednesday</label>
+                            </div>
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.IsWednesdayHalfDay), Model.IsWednesdayHalfDay ?? false)
+                                <label class="control-label">Half Day</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.CheckBox(nameof(Model.Friday), Model.Friday ?? false)
-                            <label class="control-label">Friday</label>
+                        <div class="row">
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.Thursday), Model.Thursday ?? false)
+                                <label class="control-label">Thursday</label>
+                            </div>
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.IsThursdayHalfDay), Model.IsThursdayHalfDay ?? false)
+                                <label class="control-label">Half Day</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.CheckBox(nameof(Model.Saturday), Model.Saturday ?? false)
-                            <label class="control-label">Saturday</label>
+                        <div class="row">
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.Friday), Model.Friday ?? false)
+                                <label class="control-label">Friday</label>
+                            </div>
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.IsFridayHalfDay), Model.IsFridayHalfDay ?? false)
+                                <label class="control-label">Half Day</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.CheckBox(nameof(Model.Sunday), Model.Sunday ?? false)
-                            @*<input type="checkbox" value="@Model.Sunday" />*@
-                            <label class="control-label">Sunday</label>
+                        <div class="row">
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.Saturday), Model.Saturday ?? false)
+                                <label class="control-label">Saturday</label>
+                            </div>
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.IsSaturdayHalfDay), Model.IsSaturdayHalfDay ?? false)
+                                <label class="control-label">Half Day</label>
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                @Html.CheckBox(nameof(Model.Sunday), Model.Sunday ?? false)                                
+                                <label class="control-label">Sunday</label>
+                            </div>
+                            <div class="col-md-2">
+                               @Html.CheckBox(nameof(Model.IsSundayHalfDay), Model.IsSundayHalfDay ?? false)
+                                <label class="control-label">Half Day</label>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-sm pull-right" onclick="SaveWeekendPolicy()">
+                            <i class="fa fa-floppy-o"></i>
+                            Save
+                        </button>
                     </div>
-                  
-                    <button class="btn btn-primary btn-sm pull-right" onclick="SaveWeekendPolicy()">
-                        <i class="fa fa-floppy-o"></i>
-                        Save
-                    </button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 }
 @using (Html.BeginForm("GetBranchPolicy", "Leave", FormMethod.Post, new { id = "frmGetBranchPolicy", name = "frmGetBranchPolicy" }))
 {
@@ -91,8 +122,8 @@
         }
         $('#weekendfrm').validate({
             rules: {
-                BranchId : {
-                    required:true
+                BranchId: {
+                    required: true
                 }
             }
         });

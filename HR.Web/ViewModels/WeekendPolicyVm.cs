@@ -18,5 +18,13 @@ namespace HR.Web.ViewModels
         public bool? Saturday { get; set; }
         public bool? Sunday { get; set; }
         public String BranchName { get; set; }
+
+        public bool? IsMondayHalfDay { get; set; }
+        public bool? IsTuesdayHalfDay { get; set; }
+        public bool? IsWednesdayHalfDay { get; set; }
+        public bool? IsThursdayHalfDay { get; set; }
+        public bool? IsFridayHalfDay { get; set; }
+        public bool? IsSaturdayHalfDay { get; set; }
+        public bool? IsSundayHalfDay { get; set; }
     }
 }

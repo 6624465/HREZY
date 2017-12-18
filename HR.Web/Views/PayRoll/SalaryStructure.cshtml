@@ -258,8 +258,14 @@
         });
 
         function SaveStructure() {
-            if ($('#frmSalary').valid())
+            if ($('#frmSalary').valid()){
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 $('#frmSalary').submit();
+            }
+              
         }
 
 

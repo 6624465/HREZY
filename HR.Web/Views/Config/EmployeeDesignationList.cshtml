@@ -63,7 +63,6 @@
 @section Scripts{
     <script type="text/javascript">
         $(function () {
-
             $('#li_Master').addClass('open');
             $('#li_empdesignation').addClass('active');
         });
@@ -94,10 +93,15 @@
                     maxlength:30
                 }
             }
+         
         });
 
         function SaveDesignation() {
             if ($('#frm').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 $('#frm').submit();
             }
         }

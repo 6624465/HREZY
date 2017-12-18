@@ -227,8 +227,14 @@
         }
 
         function SaveEmployeeStructure(){
-            if( $('#frmEmpSalary').valid())
+            if( $('#frmEmpSalary').valid()){
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 $('#frmEmpSalary').submit();
+            }
+             
         }
 
 

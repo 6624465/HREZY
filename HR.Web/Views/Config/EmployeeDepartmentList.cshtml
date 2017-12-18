@@ -93,8 +93,12 @@
                 }
             }
         });
-        function SaveChanges() {
-        if($('#frm').valid()){
+        function SaveDepartment() {
+            if ($('#frm').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
             $('#frm').submit();
             }
       }

@@ -199,6 +199,10 @@
         })
         function SaveCompany() {
             if ($('#frmCompany').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 $('#frmCompany').submit()
             }
 

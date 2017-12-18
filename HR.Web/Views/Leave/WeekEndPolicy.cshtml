@@ -81,8 +81,11 @@
 @section Scripts{
     <script>
         function SaveWeekendPolicy() {
-            debugger;
             if ($('#weekendfrm').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
                 $('#weekendfrm').submit();
             }
         }

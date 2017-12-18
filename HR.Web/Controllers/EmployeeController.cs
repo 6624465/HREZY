@@ -188,70 +188,70 @@ namespace HR.Web.Controllers
             ViewData["BranchId"] = BRANCHID;
 
 
-            using (var dbCntx = new HrDataContext())
+            //using (var dbCntx = new HrDataContext())
+            //{
+            //    var documentTypes = dbCntx.LookUps
+            //                            .Where(x => x.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+            //                            .Select(x => new EmployeeDocumentVm
+            //                            {
+            //                                DocumentType = x.LookUpID,
+            //                                DocumentDescription = x.LookUpDescription
+            //                            }).ToList();
+            //    return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true }, empDocument = documentTypes });
+            //}
+
+            if (EmployeeId != null)
             {
-                var documentTypes = dbCntx.LookUps
-                                        .Where(x => x.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
-                                        .Select(x => new EmployeeDocumentVm
-                                        {
-                                            DocumentType = x.LookUpID,
-                                            DocumentDescription = x.LookUpDescription
-                                        }).ToList();
-                return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true }, empDocument = documentTypes });
+                using (var dbCntx = new HrDataContext())
+                {
+                    var empObj = dbCntx.EmployeeHeaders
+                                .Join(dbCntx.EmployeePersonalDetails,
+                                a => a.EmployeeId, b => b.EmployeeId,
+                                (a, b) => new { A = a, B = b })
+                                .Join(dbCntx.EmployeeWorkDetails,
+                                c => c.A.EmployeeId, d => d.EmployeeId,
+                                (c, d) => new { C = c, D = d })
+                                .Join(dbCntx.Addresses,
+                                e => e.C.A.EmployeeId, f => f.LinkID,
+                                (e, f) => new { E = e, F = f })
+
+                                .Where(x => x.E.C.A.EmployeeId == EmployeeId)
+                                .Select(x => new EmployeeVm
+                                {
+                                    empHeader = x.E.C.A,
+                                    empPersonalDetail = x.E.C.B,
+                                    empWorkDetail = x.E.D,
+                                    address = x.F
+                                }).FirstOrDefault();
+
+                    if (empObj != null)
+                    {
+                        empObj.empDocument = dbCntx.LookUps
+                                                .Where(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+                                                .Select(y => new EmployeeDocumentVm
+                                                {
+                                                    DocumentType = y.LookUpID,
+                                                    DocumentDescription = y.LookUpDescription
+                                                }).ToList();
+                    }
+                    return View(empObj);
+                }
             }
+            else
+            {
 
-            //if (EmployeeId != null)
-            //{
-            //    using (var dbCntx = new HrDataContext())
-            //    {
-            //        var empObj = dbCntx.EmployeeHeaders
-            //                    .Join(dbCntx.EmployeePersonalDetails,
-            //                    a => a.EmployeeId, b => b.EmployeeId,
-            //                    (a, b) => new { A = a, B = b })
-            //                    .Join(dbCntx.EmployeeWorkDetails,
-            //                    c => c.A.EmployeeId, d => d.EmployeeId,
-            //                    (c, d) => new { C = c, D = d })
-            //                    .Join(dbCntx.Addresses,
-            //                    e => e.C.A.EmployeeId, f => f.LinkID,
-            //                    (e, f) => new { E = e, F = f })
-
-            //                    .Where(x => x.E.C.A.EmployeeId == EmployeeId)
-            //                    .Select(x => new EmployeeVm
-            //                    {
-            //                        empHeader = x.E.C.A,
-            //                        empPersonalDetail = x.E.C.B,
-            //                        empWorkDetail = x.E.D,
-            //                        address = x.F
-            //                    }).FirstOrDefault();
-
-            //        if (empObj != null)
-            //        {
-            //            empObj.empDocument = dbCntx.LookUps
-            //                                    .Where(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
-            //                                    .Select(y => new EmployeeDocumentVm
-            //                                    {
-            //                                        DocumentType = y.LookUpID,
-            //                                        DocumentDescription = y.LookUpDescription
-            //                                    }).ToList();
-            //        }
-            //        return View(empObj);
-            //    }
-            //}
-            //else
-            //{
-
-            //    using (var dbCntx = new HrDataContext())
-            //    {
-            //        var documentTypes = dbCntx.LookUps
-            //                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
-            //                                .Select(x => new EmployeeDocumentVm
-            //                                {
-            //                                    DocumentType = x.LookUpID,
-            //                                    DocumentDescription = x.LookUpDescription
-            //                                }).ToList();
-            //        return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true }, empDocument = documentTypes });
-            //    }
-            //}
+                using (var dbCntx = new HrDataContext())
+                {
+                    var documentTypes = dbCntx.LookUps
+                                            .Where(x => x.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+                                            .Select(x => new EmployeeDocumentVm
+                                            {
+                                                DocumentType = x.LookUpID,
+                                                DocumentDescription = x.LookUpDescription
+                                            }).ToList();
+                    return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true }, empDocument = documentTypes });
+                }
+            }
         }
 
 

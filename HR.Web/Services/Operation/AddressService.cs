@@ -37,6 +37,8 @@ namespace HR.Web.Services.Operation
                         address.Address3 = entity.Address3;
                         address.Address4 = entity.Address4;
                         address.CityName = entity.CityName;
+                        address.TelNo = entity.TelNo;
+                        address.FaxNo = entity.FaxNo;
                         address.Contact = entity.Contact;
                         address.Email = entity.Email;
                         address.WebSite = entity.WebSite;

@@ -121,5 +121,22 @@ namespace HR.Web.Services.Operation
                 throw ex;
             }
         }
+
+        public EmployeePersonalDetail GetByProperty(Func<EmployeePersonalDetail,bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                  return  dbContext.EmployeePersonalDetails.Where(predicate).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

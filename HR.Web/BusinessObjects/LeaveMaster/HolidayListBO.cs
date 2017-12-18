@@ -77,19 +77,21 @@ namespace HR.Web.BusinessObjects.LeaveMaster
         {
             try
             {
-                if (holidayList.HolidayId != -1)
-                {
-                    holidayList.CreatedBy = sessionObj.USERID;
-                    holidayList.CreatedOn = UTILITY.SINGAPORETIME;
-                   
-                    holidayListRepository.Add(holidayList);
-                }
-                else
-                {
-                    holidayList.ModifiedBy = sessionObj.USERID;
-                    holidayList.ModifiedOn = UTILITY.SINGAPORETIME;
-                    holidayListRepository.Add(holidayList);
-                }
+                holidayList.CreatedBy = sessionObj.USERID;
+                holidayList.CreatedOn = UTILITY.SINGAPORETIME;
+
+                holidayListRepository.Add(holidayList);
+
+                //if (holidayList.HolidayId != -1)
+                //{
+                  
+                //}
+                //else
+                //{
+                //    holidayList.ModifiedBy = sessionObj.USERID;
+                //    holidayList.ModifiedOn = UTILITY.SINGAPORETIME;
+                //    holidayListRepository.Add(holidayList);
+                //}
 
                
             }

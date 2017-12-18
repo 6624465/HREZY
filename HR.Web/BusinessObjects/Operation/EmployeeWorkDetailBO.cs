@@ -71,5 +71,18 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
+
+        internal EmployeeWorkDetail GetByProperty(Func<EmployeeWorkDetail, bool> predicate)
+        {
+            try
+            {
+                return employeeWorkDetailService.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

@@ -794,8 +794,8 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                 leaveBO.Add(leave);
                 weekendPolicyBO.Add(wekendPolicy);
             }
-
-            return RedirectToAction("Leave");
+            return RedirectToAction("LeaveList");
+           // return RedirectToAction("Leave", new { leaveId = leave.LeaveId, branchid = wekendPolicy.BranchId });
         }
 
         public ActionResult ViewLeavesList(int? page = 1)

@@ -8,41 +8,55 @@
     WebGrid grid = new WebGrid(Model, rowsPerPage: offSet, ajaxUpdateContainerId: "grid");
     grid.Pager(WebGridPagerModes.All);
 }
+@section Styles {
+    <style type="text/css">
+        .pagination {
+            display: table;
+            margin: 15px auto;
+            position: relative;
+            float: right;
+        }
 
+        .width {
+            width: 40%;
+        }
+    </style>
+}
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
-            <div class="box" id="grid">
-                <div class="box-header">
-                    <h4>Leave Type</h4>
-                    <div class="box-tools">
-                        <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="editLeaveType(-1);"><i class="fa fa-plus"></i> Add</button>
+            <div class="center-block width">
+                <div class="box" id="grid">
+                    <div class="box-header">
+                        <h4>Leave Type</h4>
+                        <div class="box-tools">
+                            <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="editLeaveType(-1);"><i class="fa fa-plus"></i> Add</button>
+                        </div>
                     </div>
-                </div>
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            @grid.GetHtml(
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @grid.GetHtml(
                             footerStyle: "Grid-Footer",
                             columns: grid.Columns(
                             grid.Column("LookUpCode", "Leave Type Name", canSort: true),
                             grid.Column("LookUpDescription", "Leave Type Description", canSort: true),
                             //grid.Column("IsActive", "Status", canSort: false),
-                                    @*grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
+                            @*grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
                             grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
                             tableStyle: "table table-condensed table-bordered")
+                            </div>
                         </div>
-                    </div>  
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div>@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div>@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-        </div>
 
+            </div>
+            </div>
         </div>
     </div>
 

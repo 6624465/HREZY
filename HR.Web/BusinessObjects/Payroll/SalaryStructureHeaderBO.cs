@@ -113,13 +113,14 @@ namespace HR.Web.BusinessObjects.Payroll
                     Remarks = salaryStructureVm.structureHeader.Remarks,
                     CreatedBy = sessionObj.USERID,
                     CreatedOn = UTILITY.SINGAPORETIME,
-                    NetAmount= salaryStructureVm.structureHeader.NetAmount
+                    NetAmount = salaryStructureVm.structureHeader.NetAmount
                 };
                 Add(structureHeader);
-                salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
+                //salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
                 foreach (SalaryStructureDetail item in salaryStructureVm.structureDetail)
                 {
-                    SalaryStructureDetail detail = new SalaryStructureDetail() {
+                    SalaryStructureDetail detail = new SalaryStructureDetail()
+                    {
                         Amount = item.Amount,
                         Code = item.Code,
                         ComputationCode = item.ComputationCode,
@@ -132,7 +133,10 @@ namespace HR.Web.BusinessObjects.Payroll
                         StructureDetailID = item.StructureDetailID,
                         Total = item.Total
                     };
-                    salaryStructureDetailBO.Add(detail);
+                    if (item.StructureDetailID >0)
+                        salaryStructureDetailBO.Delete(detail);
+                    if (item.IsActive)
+                        salaryStructureDetailBO.Add(detail);
                 }
             }
             catch (Exception ex)

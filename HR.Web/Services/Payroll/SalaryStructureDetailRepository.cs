@@ -54,7 +54,9 @@ namespace HR.Web.Services.Payroll
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    dbContext.SalaryStructureDetails.Remove(entity);
+                    SalaryStructureDetail SalaryStructureDetail = dbContext.SalaryStructureDetails
+                        .Where(x => x.StructureDetailID == entity.StructureDetailID).FirstOrDefault();
+                    dbContext.SalaryStructureDetails.Remove(SalaryStructureDetail);
                     dbContext.SaveChanges();
                 }
             }

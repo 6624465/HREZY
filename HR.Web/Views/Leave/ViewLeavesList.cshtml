@@ -72,13 +72,24 @@
                                             <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
                                         }
                                     </td>
+                                    @if ((Model.TableData[i].Status == UTILITY.LEAVEPENDING) || (string.IsNullOrWhiteSpace(Model.TableData[i].Status)))
+                                    {
                                     <td>
-                                        <button class="btn btn-primary btn-sm ajaxCss"
-                                                type="button"
-                                                onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @Model.TableData[i].EmployeeLeaveID">
-                                            <i class="fa fa-eye"></i>&nbsp;View
+                                        <button class="btn btn-danger btn-sm"
+                                                type="button" data-toggle="popoverCancel" data-trigger="focus" >
+                                            <i class="fa fa-trash-o"></i>&nbsp;Cancel
                                         </button>
                                     </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <button class="btn btn-danger btn-sm"
+                                                    type="button" data-toggle="popoverCancel" disabled>
+                                                <i class="fa fa-trash-o"></i>&nbsp;Cancel
+                                            </button>
+                                        </td>
+                                    }
                                 </tr>
                             }
                         </tbody>

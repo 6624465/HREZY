@@ -521,6 +521,7 @@ namespace HR.Web.Controllers
                     .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
                     .Select(x => new GrantLeaveListVm
                     {
+                        EmployeeName=x.A.FirstName+""+x.A.LastName,
                         ToDate = x.B.ToDate,
                         FromDate = x.B.FromDate,
                         Name = x.A.FirstName + " " + x.A.LastName,
@@ -835,6 +836,7 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                                         .Where(x => x.A.EmployeeId == EMPLOYEEID)
                                         .Select(x => new ViewLeaveVm
                                         {
+                                            EmployeeName=x.B.FirstName+""+x.B.LastName,
                                             EmployeeLeaveID = x.A.EmployeeLeaveID,
                                             EmployeeId = x.A.EmployeeId,
                                             LeaveTypeId = x.A.LeaveTypeId,

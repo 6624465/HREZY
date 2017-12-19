@@ -74,6 +74,7 @@ namespace HR.Web.ViewModels
         public string LeaveTypeDesc { get; set; }
 
         public decimal? TotalDays { get; set; }
+        public string EmployeeName { get; set; }
 
     }
 
@@ -93,6 +94,8 @@ namespace HR.Web.ViewModels
         public System.DateTime ApplyDate { get; set; }
         public int ManagerId { get; set; }
         public string ManagerName { get; set; }
+        public string EmployeeName { get; set; }
+
     }
     public class LeavepolicyVm
     {

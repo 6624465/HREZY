@@ -34,7 +34,7 @@
                             @for (var i = 0; i < Model.TableData.Count; i++)
                             {
                                 <tr>
-                                    <td>@Model.TableData[i].EmployeeName</td>
+                                    <td>@Model.TableData[i].Name</td>
                                     <td>@Model.TableData[i].ApplyDate.ToString("dd/MM/yyyy")</td>
                                     <td>@Model.TableData[i].FromDate.ToString("dd/MM/yyyy")</td>
                                     <td>@Model.TableData[i].ToDate.ToString("dd/MM/yyyy")</td>
@@ -74,75 +74,6 @@
                             }
                         </tbody>
                     </table>
-
-                    @*<div >
-                <div class="col-md-6">
-                    <div class="panel panel-default panel-hovered panel-stacked mb10">
-                        <div class="box">
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-left">From Date: <b>@Model.TableData[i].FromDate.ToShortDateString()</b></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-right">To Date: <b>@Model.TableData[i].ToDate.ToShortDateString()</b></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-left">Apply Date: <b>@Model.TableData[i].ApplyDate.ToShortDateString()</b></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
-                                        {
-                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
-                                        {
-                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
-                                        {
-                                            <label class="control-label pull-right">Status: &nbsp;<span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
-                                        {
-                                            <label class="control-label pull-right">Status:&nbsp;<span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-left">Leave Type: <b>@Model.TableData[i].LeaveTypeDesc</b></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="control-label pull-right">Total Days: <b>@Model.TableData[i].TotalDays.Value</b></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <blockquote>
-                                            <p>@Model.TableData[i].Reason</p>
-                                            @if (!string.IsNullOrWhiteSpace(Model.TableData[i].Remarks))
-                                            {
-                                                <p>@Model.TableData[i].Remarks</p>
-                                            }
-                                            <div class="pull-right">
-                                                <button class="btn btn-primary btn-sm ajaxCss"
-                                                        type="button"
-                                                        onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @Model.TableData[i].EmployeeLeaveID">
-                                                    <i class="fa fa-eye"></i>&nbsp;View
-                                                </button>
-                                            </div>
-                                        </blockquote>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
-
                 </div>
             </div>
             <div class="row">

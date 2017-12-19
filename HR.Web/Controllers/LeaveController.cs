@@ -521,7 +521,7 @@ namespace HR.Web.Controllers
                     .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
                     .Select(x => new GrantLeaveListVm
                     {
-                        EmployeeName=x.A.FirstName+""+x.A.LastName,
+                        
                         ToDate = x.B.ToDate,
                         FromDate = x.B.FromDate,
                         Name = x.A.FirstName + " " + x.A.LastName,

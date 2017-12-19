@@ -74,7 +74,7 @@ namespace HR.Web.ViewModels
         public string LeaveTypeDesc { get; set; }
 
         public decimal? TotalDays { get; set; }
-        public string EmployeeName { get; set; }
+
 
     }
 

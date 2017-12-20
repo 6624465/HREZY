@@ -836,7 +836,6 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                                         .Where(x => x.A.EmployeeId == EMPLOYEEID)
                                         .Select(x => new ViewLeaveVm
                                         {
-                                            EmployeeName=x.B.FirstName+""+x.B.LastName,
                                             EmployeeLeaveID = x.A.EmployeeLeaveID,
                                             EmployeeId = x.A.EmployeeId,
                                             LeaveTypeId = x.A.LeaveTypeId,

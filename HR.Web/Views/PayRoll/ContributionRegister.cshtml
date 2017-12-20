@@ -1,40 +1,53 @@
 ﻿@model HR.Web.Models.Contribution
 <link href="~/Css/sweetalert.css" rel="stylesheet" />
-@using (Html.BeginForm("ContributionSave","PayRoll",FormMethod.Post, new { id="contributionfrm",name= "contributionfrm" }))
+@using (Html.BeginForm("ContributionSave", "PayRoll", FormMethod.Post, new { id = "contributionfrm", name = "contributionfrm" }))
 {
-<div class="page">
-    <div class="page-wrap">
-            <div class="panel-group" >
+    <div class="page">
+        <div class="page-wrap">
+            <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Contribution registers
                     </div>
                     <div class="panel-body">
-                        <div  class="row">
+                        <div class="row">
                             <label class="col-md-2 control-label">
-                               <span class="pull-right">Name</span> 
+                                <span class="pull-right">Name</span>
                             </label>
                             <div class="col-md-8">
-                                @Html.HiddenFor(x=>x.ContributionId)
+                                @Html.HiddenFor(x => x.ContributionId)
                                 @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
                             </div>
 
                         </div>
                         <div class="row css5">
                             <label class="col-md-2 control-label">
+                                <span class="pull-right">Register Code</span>
+                            </label>
+                            @{
+                                var ContributionRegister = SelectListItemHelper.ContributionRegister();
+                            }
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(x => x.RegisterCode,
+                                                                    new SelectList(ContributionRegister,
+                                                                    "Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
                                 <span class="pull-right">Description</span>
                             </label>
                             <div class="col-md-8">
-                                @Html.TextAreaFor(x => x.Description,new { @class="form-control"})
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="row css5">
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Status</span>
                             </label>
-                             <div style="margin-top:10px">
-                                 @Html.CheckBox(nameof(Model.IsActive), Model.IsActive)
-                                                             </div>
+                            <div style="margin-top:10px">
+                                @Html.CheckBox(nameof(Model.IsActive), Model.IsActive)
+                            </div>
                         </div>
                         <div class="row css10">
                             <div class="form-group ">
@@ -47,10 +60,10 @@
                         </div>
                     </div>
                 </div>
-     </div>
-  </div>
-</div>
-}
+            </div>
+        </div>
+    </div>
+                                }
 <link href="~/Css/sweetalert.css" rel="stylesheet" />
 <script src="~/Scripts/Core/sweetalert.js"></script>
 @section Scripts{
@@ -68,11 +81,11 @@
             rules: {
                 Name: {
                     required: true,
-                   
+
                 },
                 Description: {
                     required: true,
-                    
+
                 }
             }
         });
@@ -80,6 +93,6 @@
             $('#li_PayRollConfig').addClass('open');
             $('#li_ContributionRegisterList').addClass('active');
         });
-        
+
     </script>
-    }
+}

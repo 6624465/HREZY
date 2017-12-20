@@ -28,6 +28,7 @@ namespace HR.Web.Services.Payroll
                         contribution.ModifiedBy = entity.ModifiedBy;
                         contribution.ModifiedOn = entity.ModifiedOn;
                         contribution.Name = entity.Name;
+                        contribution.RegisterCode = entity.RegisterCode;
                     }
                     dbContext.SaveChanges();
                 }

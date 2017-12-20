@@ -117,7 +117,7 @@ namespace HR.Web.BusinessObjects.Payroll
                 };
                 Add(structureHeader);
                 //salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
-                foreach (SalaryStructureDetail item in salaryStructureVm.structureDetail)
+                foreach (SalaryStructureDetail item in salaryStructureVm.structureCompanyDeductionDetail)
                 {
                     SalaryStructureDetail detail = new SalaryStructureDetail()
                     {
@@ -134,6 +134,28 @@ namespace HR.Web.BusinessObjects.Payroll
                         Total = item.Total
                     };
                     if (item.StructureDetailID >0)
+                        salaryStructureDetailBO.Delete(detail);
+                    if (item.IsActive)
+                        salaryStructureDetailBO.Add(detail);
+                }
+
+                foreach (SalaryStructureDetail item in salaryStructureVm.structureEmployeeDeductionDetail)
+                {
+                    SalaryStructureDetail detail = new SalaryStructureDetail()
+                    {
+                        Amount = item.Amount,
+                        Code = item.Code,
+                        ComputationCode = item.ComputationCode,
+                        CreatedBy = sessionObj.USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        Description = item.Description,
+                        IsActive = item.IsActive,
+                        RegisterCode = item.RegisterCode,
+                        StructureID = structureHeader.StructureID,
+                        StructureDetailID = item.StructureDetailID,
+                        Total = item.Total
+                    };
+                    if (item.StructureDetailID > 0)
                         salaryStructureDetailBO.Delete(detail);
                     if (item.IsActive)
                         salaryStructureDetailBO.Add(detail);

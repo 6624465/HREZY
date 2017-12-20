@@ -24,5 +24,7 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string Remarks { get; set; }
         public Nullable<decimal> NetAmount { get; set; }
+        public Nullable<decimal> TotalGross { get; set; }
+        public Nullable<decimal> TotalDeductions { get; set; }
     }
 }

@@ -68,6 +68,9 @@ namespace HR.Web
         public static string COMPUTATION = "COMPUTATION";
         public static string PERCENTAGE = "PERCENTAGE";
 
+        public static string EMPLOYEEDEDUCTION = "EMPLOYEE DEDUCTION";
+        public static string COMPANYDEDUCTION = "COMPANY DEDUCTION";
+
         /* Config Keys End */
 
         public static DateTime SINGAPORETIME

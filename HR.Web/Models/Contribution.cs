@@ -22,5 +22,6 @@ namespace HR.Web.Models
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public string RegisterCode { get; set; }
     }
 }

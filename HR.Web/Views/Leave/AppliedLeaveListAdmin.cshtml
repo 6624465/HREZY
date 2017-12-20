@@ -2,6 +2,13 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Styles{
+    <style>
+        .width{
+            width:40%;
+        }
+    </style>
+    }
 
 <div class="page">
     <div class="page-wrap">
@@ -17,69 +24,69 @@
                     <div class="panel-collapse collapse" id="collapse">
                         <div class="panel-body">
                             <div>
-
-
-                                <table class="table ">
-                                    <thead>
-                                        <tr>
-                                            <th>EmployeeName</th>
-                                            <th>From Date</th>
-                                            <th>To Date</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for (var i = 0; i < Model.Count(); i++)
-                                        {
-                                            for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
+                                <div class="center-block width">
+                                    <table class="table ">
+                                        <thead>
+                                            <tr>
+                                                <th>EmployeeName</th>
+                                                <th>From Date</th>
+                                                <th>To Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (var i = 0; i < Model.Count(); i++)
                                             {
+                                                for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
+                                                {
 
-                                                <tr>
-                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeName</td>
-                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate.ToString("MM/dd/yyyy")</td>
-                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate.ToString("MM/dd/yyyy")</td>
-                                                    @if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEAPPROVED)
-                                                    {
-                                                        <td class="control-label">
-                                                            <span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
-                                                        </td>
-                                                    }
-                                                    else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEREJECTED)
-                                                    {
-                                                        <td class="control-label">
-                                                            <span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
-                                                        </td>
-                                                    }
-                                                    else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVECANCELLED)
-                                                    {
-                                                        <td class="control-label">
-                                                            <span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
-                                                        </td>
-                                                    }
-                                                    else if (string.IsNullOrWhiteSpace(Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status))
-                                                    {
-                                                        <td class="control-label">
-                                                            <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
-                                                        </td>
-                                                    }
-                                                    else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEPENDING)
-                                                    {
-                                                        <td class="control-label">
-                                                            <span class="label label-info" style="font-weight:bold;font-size:14px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
-                                                        </td>
-                                                    }
-                                                   
-                                                </tr>
+                                                    <tr>
+                                                        <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeName</td>
+                                                        <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate.ToString("MM/dd/yyyy")</td>
+                                                        <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate.ToString("MM/dd/yyyy")</td>
+                                                        @if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEAPPROVED)
+                                                        {
+                                                            <td class="control-label">
+                                                                <span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
+                                                            </td>
+                                                        }
+                                                        else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEREJECTED)
+                                                        {
+                                                            <td class="control-label">
+                                                                <span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
+                                                            </td>
+                                                        }
+                                                        else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVECANCELLED)
+                                                        {
+                                                            <td class="control-label">
+                                                                <span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
+                                                            </td>
+                                                        }
+                                                        else if (string.IsNullOrWhiteSpace(Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status))
+                                                        {
+                                                            <td class="control-label">
+                                                                <span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span>
+                                                            </td>
+                                                        }
+                                                        else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEPENDING)
+                                                        {
+                                                            <td class="control-label">
+                                                                <span class="label label-info" style="font-weight:bold;font-size:14px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
+                                                            </td>
+                                                        }
 
+                                                    </tr>
+
+                                                }
                                             }
-                                        }
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
 
 
 
 
-                            </div>
+                                </div>
+                                </div>
                         </div>
                     </div>
                 </div>

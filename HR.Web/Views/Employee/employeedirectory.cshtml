@@ -13,6 +13,15 @@
             height: 52px;
             border-radius: 100%;
         }
+           .pagination {
+            display: table;
+            margin: 15px auto;
+            position: relative;
+            float: right;
+        }
+        .width{
+            width:80%;
+        }
     </style>
 }
 
@@ -20,123 +29,132 @@
 
     <div class="page-wrap">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1" style="font-size:16px;font-weight:bold">Advanced Search</a>
-                </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body">
-                    @using (Html.BeginForm("empsearch", "Employee", FormMethod.Post, new { id = "frmSearch", name = "frmSearch" }))
-                    {
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-md-1 control-label">
-                                    <span class="pull-right">Name</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.TextBoxFor(x => x.empSearch.EmployeeName, new { @class = "form-control", placeholder = "fname/lname/mname" })
-                                </div>
-                                <label class="col-md-1 control-label">
-                                    <span class="pull-right">DOJ</span>
-                                </label>
-                                <div class="col-md-3">
-                                    <div class="input-group input-sm date" id="DOJDt">
-                                        @Html.TextBoxFor(x => x.empSearch.DOJ, new { @class = "form-control dtCss" })
-                                        <span class="input-group-addon">
-                                            <i class="ion ion-calendar"></i>
-                                        </span>
+           
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1" style="font-size:16px;font-weight:bold">Advanced Search</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    
+                        <div class="panel-body">
+                            @using (Html.BeginForm("empsearch", "Employee", FormMethod.Post, new { id = "frmSearch", name = "frmSearch" }))
+                            {
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">
+                                            <span class="pull-right">Name</span>
+                                        </label>
+                                        <div class="col-md-3">
+                                            @Html.TextBoxFor(x => x.empSearch.EmployeeName, new { @class = "form-control", placeholder = "fname/lname/mname" })
+                                        </div>
+                                        <label class="col-md-1 control-label">
+                                            <span class="pull-right">DOJ</span>
+                                        </label>
+                                        <div class="col-md-3">
+                                            <div class="input-group input-sm date" id="DOJDt">
+                                                @Html.TextBoxFor(x => x.empSearch.DOJ, new { @class = "form-control dtCss" })
+                                                <span class="input-group-addon">
+                                                    <i class="ion ion-calendar"></i>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row css10">
-                            <div class="form-group">
-                                <label class="col-md-1 control-label">
-                                    <span class="pull-right">Designation</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(x => x.empSearch.Designation,
+                                <div class="row css10">
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">
+                                            <span class="pull-right">Designation</span>
+                                        </label>
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(x => x.empSearch.Designation,
                              SelectListItemHelper.Designation(),
                              "Select Designation",
                              new { @class = "form-control" })
-                                </div>
-                                <label class="col-md-1 control-label">
-                                    <span class="pull-right">Type</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(x => x.empSearch.EmployeeType,
+                                        </div>
+                                        <label class="col-md-1 control-label">
+                                            <span class="pull-right">Type</span>
+                                        </label>
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(x => x.empSearch.EmployeeType,
                              SelectListItemHelper.EmployeeType(),
                              "Select Type",
                              new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-2 col-md-offset-1">
+                                            <button type="button" class="btn btn-info btn-raised waves-effect btn-sm" onclick="SearchEmployee()">Search</button>
+                                            @*<button type="button" id="refresh_button" class="btn btn-info btn-raised waves-effect btn-sm">Refresh</button>*@
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-2 col-md-offset-1">
-                                    <button type="button" class="btn btn-info btn-raised waves-effect btn-sm" onclick="SearchEmployee()">Search</button>
-                                    @*<button type="button" id="refresh_button" class="btn btn-info btn-raised waves-effect btn-sm">Refresh</button>*@
-                                </div>
-                            </div>
+                            }
                         </div>
-                    }
-                </div>
 
+                    </div>
             </div>
-        </div>
         <div class="panel panel-default">
             <div class="box">
-                <div class="box-header">
-                    <h4>Employee List</h4>
-                    <div class="box-tools">
+                <div class="center-block width">
+                    <div class="box-header">
+                        <h4>Employee List</h4>
+                        <div class="box-tools">
 
-                        <div class="btn-toolbar">
-                            <div class="btn-group">
-                                <button type="button" id="btnTile" class="btn btn-default" onclick="showTile()"><i class="fa fa-th" aria-hidden="true"></i></button>
-                                <button type="button" id="btnGrid" class="btn btn-default active" onclick="showGrid()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+                            <div class="btn-toolbar">
+                                <div class="btn-group">
+                                    <button type="button" id="btnTile" class="btn btn-default" onclick="showTile()"><i class="fa fa-th" aria-hidden="true"></i></button>
+                                    <button type="button" id="btnGrid" class="btn btn-default active" onclick="showGrid()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+                                </div>
+
+
+
+                                <button class="btn btn-info btn-raised waves-effect btn-sm ajaxCss" type="button"
+                                        onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")'">
+                                    <i class="fa fa-plus"></i> Create
+                                </button>
                             </div>
+                        </div>
+                    </div>
+              
+            <div class="box-body">
+               
+                    <div class="row" id="tableGrid">
 
+                        <div class="col-md-12">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>EmployeeName</th>
+                                        <th>JobTitle</th>
+                                        <th>Official Email</th>
+                                        <th>Personal Email</th>
+                                        @*<th>Department</th>
+                                <th>Desigation</th>
+                                <th>Manager</th>*@
+                                        <th>ContactNo</th>
+                                        <th>AlternateNo</th>
+                                        <th>#Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
 
+                    <div class="row" id="tiles">
 
-                            <button class="btn btn-info btn-raised waves-effect btn-sm ajaxCss" type="button"
-                                    onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")'">
-                                <i class="fa fa-plus"></i> Create
-                            </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="pagination"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="box-body">
-                <div class="row" id="tableGrid">
-                    <div class="col-md-12">
-                        <table class="table table-condensed table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>EmployeeName</th>
-                                    <th>JobTitle</th>
-                                    <th>email</th>
-                                    @*<th>Department</th>
-                                        <th>Desigation</th>
-                                        <th>Manager</th>*@
-                                    <th>ContactNo</th>
-                                    <th>#Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tBody"></tbody>
-                        </table>
-                    </div>
                 </div>
-
-                <div class="row" id="tiles">
-
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="pagination"></div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
+  </div>
+   
 
 @section Scripts{
     <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
@@ -147,11 +165,13 @@
         <tr>
             <td>${EmployeeName}</td>
             <td>${JobTitle}</td>
+            <td>${OfficialEmailId}</td>
             <td>${PersonalEmailId}</td>
             @*<td>${Department}</td>
                 <td>${Desigation}</td>
                 <td>${Manager}</td>*@
             <td>${ContactNo}</td>
+            <td>${AlternateNo}</td>
             <td>
                 <button class="btn btn-xs btn-raised waves-effect btn-sm waves-effect ajaxCss"
                         style="padding-left: 5px;margin-left: 6px;" onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'">
@@ -271,7 +291,6 @@
             $.when(promise).done(function (data) {
 
                 getDataCallBack(data);
-                debugger;
                 $('#pagination').bootpag({
                     total: data.PagerLength,
                     page: 1,

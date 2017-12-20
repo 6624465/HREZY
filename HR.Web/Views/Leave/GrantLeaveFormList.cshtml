@@ -6,80 +6,93 @@
             max-width: 100%;
             width: 500px;
         }
+         .pagination {
+            display: table;
+            margin: 15px auto;
+            position: relative;
+            float: right;
+        }
+
+        .width{
+            width:90%;
+        }
     </style>
 }
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default panel-hovered panel-stacked mb10">
+            <div class="center-block width">
                 <div class="panel-heading">
                     <h4>Grant Leave Form</h4>
                 </div>
-            <div class="panel-body">
-                <div class="">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Apply Date</th>
-                                <th>From Date</th>
-                                <th>To Date</th>
-                                <th>Leave Type</th>
-                                <th>Total Days</th>
-                                <th>Reason</th>
-                                <th>Status</th>
-                                <th>#Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (var i = 0; i < Model.TableData.Count; i++)
-                            {
+                <div class="panel-body">
+                    <div class="">
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>@Model.TableData[i].Name</td>
-                                    <td>@Model.TableData[i].ApplyDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@Model.TableData[i].FromDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@Model.TableData[i].ToDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@Model.TableData[i].LeaveTypeDesc</td>
-                                    <td>@Model.TableData[i].TotalDays</td>
-                                    <td>@Model.TableData[i].Reason</td>
-                                    <td>
-                                        @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
-                                        {
-                                            <label class="control-label"><span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
-                                        {
-                                            <label class="control-label"><span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
-                                        {
-                                            <label class="control-label"><span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                        else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
-                                        {
-                                            <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
-                                        }
-                                        else if (Model.TableData[i].Status==UTILITY.LEAVEPENDING)
-                                        {
-                                            <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
-                                        }
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary btn-sm ajaxCss"
-                                                type="button"
-                                                onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @Model.TableData[i].EmployeeLeaveID">
-                                            <i class="fa fa-eye"></i>&nbsp;View
-                                        </button>
-                                    </td>
+                                    <th>Employee Name</th>
+                                    <th>Apply Date</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Leave Type</th>
+                                    <th>Total Days</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>#Action</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.TableData.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.TableData[i].Name</td>
+                                        <td>@Model.TableData[i].ApplyDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@Model.TableData[i].FromDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@Model.TableData[i].ToDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@Model.TableData[i].LeaveTypeDesc</td>
+                                        <td>@Model.TableData[i].TotalDays</td>
+                                        <td>@Model.TableData[i].Reason</td>
+                                        <td>
+                                            @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
+                                            {
+                                                <label class="control-label"><span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
+                                            }
+                                            else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
+                                            {
+                                                <label class="control-label"><span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
+                                            }
+                                            else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
+                                            {
+                                                <label class="control-label"><span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
+                                            }
+                                            else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
+                                            {
+                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:12px;">Pending</span></label>
+                                            }
+                                            else if (Model.TableData[i].Status == UTILITY.LEAVEPENDING)
+                                            {
+                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
+                                            }
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm ajaxCss"
+                                                    type="button"
+                                                    onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @Model.TableData[i].EmployeeLeaveID">
+                                                <i class="fa fa-eye"></i>&nbsp;View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="pagination"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="pagination" class="pull-right"></div>
-                </div>
+                
             </div>
         </div>
 </div>

@@ -1,33 +1,41 @@
 ﻿@model List<HR.Web.ViewModels.WeekendPolicyVm>
+    @section Styles{
+        <style>
+            .width{
+                width:60%;
+            }
+        </style>
+        }
  
     <div class="page">
         <div class="page-wrap">
             <div class="panel-group">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Weekend Policy List
-                    </div>
+                    <div class="center-block width">
+                        <div class="panel-heading">
+                            Weekend Policy List
+                        </div>
                         <div class="panel-body">
-                            <button class="btn btn-primary btn-sm pull-right ajaxCss" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=-1")'">
+                            <button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=-1")'">
                                 <i class="fa fa-plus-square"></i>Add
                             </button>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                    <th>BranchName</th>
-                                    <th>Monday</th>
-                                    <th>Tuesday</th>
-                                    <th>Wednesday</th>
-                                    <th>Thursday</th>
-                                    <th>Friday</th>
-                                    <th>Saturday</th>
-                                    <th>Sunday</th>
-                                     <th>Edit</th>
+                                        <th>BranchName</th>
+                                        <th>Monday</th>
+                                        <th>Tuesday</th>
+                                        <th>Wednesday</th>
+                                        <th>Thursday</th>
+                                        <th>Friday</th>
+                                        <th>Saturday</th>
+                                        <th>Sunday</th>
+                                        <th>Edit</th>
                                     </tr>
                                 </thead>
-                             
-                                   @for (var i = 0; i < Model.Count(); i++)
-                                   {
+
+                                @for (var i = 0; i < Model.Count(); i++)
+                                {
                                     <tbody>
                                         <tr>
                                             <td>@Model.ElementAt(i).BranchName</td>
@@ -38,16 +46,21 @@
                                             <td>@Html.CheckBoxFor(x => x.ElementAt(i).Friday.Value)</td>
                                             <td>@Html.CheckBoxFor(x => x.ElementAt(i).Saturday.Value)</td>
                                             <td>@Html.CheckBoxFor(x => x.ElementAt(i).Sunday.Value)</td>
-                                            <td><button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=")'+ @Model.ElementAt(i).BranchId">
-                                                <i class="fa fa-pencil-square"></i>Edit</button></td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=")'+ @Model.ElementAt(i).BranchId">
+                                                    <i class="fa fa-pencil-square"></i>Edit
+                                                </button>
+                                            </td>
                                         </tr>
                                     </tbody>
-                                   }
+                                }
 
-                                   
+
                             </table>
-                           </div>
-                    </div>
+                        </div>
+               </div>
+                        </div>
+
                 </div>
             </div>
         </div>

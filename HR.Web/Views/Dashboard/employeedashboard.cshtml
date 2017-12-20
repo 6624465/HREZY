@@ -144,23 +144,23 @@
                                                     <td>
                                                         @if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEAPPROVED)
                                                         {
-                                                            <span class="label label-success" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            <span class="label label-success" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
                                                         }
                                                         else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEREJECTED)
                                                         {
-                                                            <span class="label label-danger" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            <span class="label label-danger" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
                                                         }
                                                         else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVECANCELLED)
                                                         {
-                                                            <span class="label label-primary" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            <span class="label label-primary" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
                                                         }
                                                         else if (string.IsNullOrWhiteSpace(Model.empLeaveDashBoard.ElementAt(i).Status))
                                                         {
-                                                            <span class="label label-info" style="font-weight:bold;font-size:14px;color:white;">Pending</span>
+                                                            <span class="label label-info" style="font-weight:bold;font-size:12px;color:white;">Pending</span>
                                                         }
                                                         else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEPENDING)
                                                         {
-                                                            <span class="label label-info" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            <span class="label label-info" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
                                                         }
                                                     </td>
                                                 </tr>

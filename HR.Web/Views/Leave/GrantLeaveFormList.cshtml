@@ -16,6 +16,9 @@
         .width{
             width:90%;
         }
+        .control-label{
+            font-size:75%;
+        }
     </style>
 }
 <div class="page">
@@ -55,23 +58,23 @@
                                         <td>
                                             @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
                                             {
-                                                <label class="control-label"><span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                <label class="control-label"><span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                             else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
                                             {
-                                                <label class="control-label"><span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                <label class="control-label"><span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                             else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
                                             {
-                                                <label class="control-label"><span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                <label class="control-label"><span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                             else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
                                             {
-                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:14px;">Pending</span></label>
+                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:12px;">Pending</span></label>
                                             }
                                             else if (Model.TableData[i].Status == UTILITY.LEAVEPENDING)
                                             {
-                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                         </td>
                                         <td>

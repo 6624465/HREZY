@@ -36,7 +36,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Employee Name</th>
+                                    <th>Manager Name</th>
                                     <th>Apply Date</th>
                                     <th>From Date</th>
                                     <th>To Date</th>
@@ -54,7 +54,7 @@
                                     @Html.HiddenFor(x => x.TableData[i].EmployeeId)
                                     @Html.HiddenFor(x => x.TableData[i].EmployeeLeaveID)
                                     <tr>
-                                        <td>@Model.TableData[i].EmployeeName</td>
+                                        <td>@Model.TableData[i].ManagerName</td>
                                         <td>@Model.TableData[i].ApplyDate.ToString("dd/MM/yyyy")</td>
                                         <td>@Model.TableData[i].FromDate.ToString("dd/MM/yyyy")</td>
                                         <td>@Model.TableData[i].ToDate.ToString("dd/MM/yyyy")</td>

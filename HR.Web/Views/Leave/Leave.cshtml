@@ -1,11 +1,16 @@
 ﻿@model HR.Web.ViewModels.BranchLeaveVm
-
+@section Styles{
 <style>
     .chkClass {
         position: relative;
         right: 40px;
     }
+    .width{
+        width:80%;
+    }
 </style>
+    }
+
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
     @Html.HiddenFor(x => x.leave.LeaveId)
@@ -81,55 +86,57 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h5>WEEKEND POLICY</h5>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
+                                    <div class="center-block width">
+                                        <h5>WEEKEND POLICY</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
 
-                                                    <th>Monday</th>
-                                                    <th>Tuesday</th>
-                                                    <th>Wednesday</th>
-                                                    <th>Thursday</th>
-                                                    <th>Friday</th>
-                                                    <th>Saturday</th>
-                                                    <th>Sunday</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Monday), Model.weekendPolicy.Monday ?? false)
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsMondayHalfDay), Model.weekendPolicy.IsMondayHalfDay ?? false)
-                                                    </td>
-                                                    <td>
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Tuesday), Model.weekendPolicy.Tuesday ?? false)
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsTuesdayHalfDay), Model.weekendPolicy.IsTuesdayHalfDay ?? false)
-                                                    </td>
-                                                    <td>
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Wednesday), Model.weekendPolicy.Wednesday ?? false)
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsWednesdayHalfDay), Model.weekendPolicy.IsWednesdayHalfDay ?? false)
-                                                    </td>
-                                                    <td>
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Thursday), Model.weekendPolicy.Thursday ?? false)
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsThursdayHalfDay), Model.weekendPolicy.IsThursdayHalfDay ?? false)
-                                                    </td>
-                                                    <td style="white-space:nowrap">
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Friday), Model.weekendPolicy.Friday ?? false)
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsFridayHalfDay), Model.weekendPolicy.IsFridayHalfDay ?? false)
-                                                    </td>
-                                                    <td>
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Saturday), Model.weekendPolicy.Saturday ?? false)
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsSaturdayHalfDay), Model.weekendPolicy.IsSaturdayHalfDay ?? false)
-                                                    </td>
-                                                    <td>
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.Sunday), Model.weekendPolicy.Sunday ?? false)
-                                                        @Html.CheckBox(nameof(Model.weekendPolicy.IsSundayHalfDay), Model.weekendPolicy.IsSundayHalfDay ?? false)
-                                                    </td>
+                                                        <th>Monday</th>
+                                                        <th>Tuesday</th>
+                                                        <th>Wednesday</th>
+                                                        <th>Thursday</th>
+                                                        <th>Friday</th>
+                                                        <th>Saturday</th>
+                                                        <th>Sunday</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Monday), Model.weekendPolicy.Monday ?? false)
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsMondayHalfDay), Model.weekendPolicy.IsMondayHalfDay ?? false)
+                                                        </td>
+                                                        <td>
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Tuesday), Model.weekendPolicy.Tuesday ?? false)
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsTuesdayHalfDay), Model.weekendPolicy.IsTuesdayHalfDay ?? false)
+                                                        </td>
+                                                        <td>
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Wednesday), Model.weekendPolicy.Wednesday ?? false)
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsWednesdayHalfDay), Model.weekendPolicy.IsWednesdayHalfDay ?? false)
+                                                        </td>
+                                                        <td>
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Thursday), Model.weekendPolicy.Thursday ?? false)
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsThursdayHalfDay), Model.weekendPolicy.IsThursdayHalfDay ?? false)
+                                                        </td>
+                                                        <td style="white-space:nowrap">
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Friday), Model.weekendPolicy.Friday ?? false)
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsFridayHalfDay), Model.weekendPolicy.IsFridayHalfDay ?? false)
+                                                        </td>
+                                                        <td>
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Saturday), Model.weekendPolicy.Saturday ?? false)
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsSaturdayHalfDay), Model.weekendPolicy.IsSaturdayHalfDay ?? false)
+                                                        </td>
+                                                        <td>
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Sunday), Model.weekendPolicy.Sunday ?? false)
+                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsSundayHalfDay), Model.weekendPolicy.IsSundayHalfDay ?? false)
+                                                        </td>
 
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

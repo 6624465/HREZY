@@ -359,6 +359,7 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="RegisterCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SalaryRuleDetail">
           <Key>
@@ -426,6 +427,8 @@
           <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="NetAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalGross" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalDeductions" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
@@ -953,6 +956,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SalaryRuleDetail">
           <Key>
@@ -1044,6 +1048,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="NetAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalGross" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalDeductions" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureHeader">
           <Key>
@@ -1464,6 +1470,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="Contributions">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Contribution">
               <MappingFragment StoreEntitySet="Contribution">
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
@@ -1559,6 +1566,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="SalaryStructureHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureHeader">
               <MappingFragment StoreEntitySet="SalaryStructureHeader">
+                <ScalarProperty Name="TotalDeductions" ColumnName="TotalDeductions" />
+                <ScalarProperty Name="TotalGross" ColumnName="TotalGross" />
                 <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />

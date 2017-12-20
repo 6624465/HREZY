@@ -24,5 +24,7 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool IsActive { get; set; }
         public int StructureID { get; set; }
+        public Nullable<decimal> TotalGross { get; set; }
+        public Nullable<decimal> TotalDeductions { get; set; }
     }
 }

@@ -19,7 +19,9 @@ namespace HR.Web.ViewModels
     public class EmployeeSalaryStructure
     {
         public EmpSalaryStructureHeader empSalaryStructureHeader { get; set; }
-        public List<EmpSalaryStructureDetail> empSalaryStructureDetail { get; set; }
+        public List<EmpSalaryStructureDetail> structureCompanyDeductionDetail { get; set; }
+
+        public List<EmpSalaryStructureDetail> structureEmployeeDeductionDetail { get; set; }
     }
 
     public class SalaryStructure

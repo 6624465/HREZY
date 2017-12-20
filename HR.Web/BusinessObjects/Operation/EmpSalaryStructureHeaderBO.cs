@@ -88,7 +88,7 @@ namespace HR.Web.BusinessObjects.Operation
             };
             Add(empStructure);
 
-            foreach (EmpSalaryStructureDetail item in structureVm.employeeSalaryStructure.empSalaryStructureDetail)
+            foreach (EmpSalaryStructureDetail item in structureVm.employeeSalaryStructure.structureCompanyDeductionDetail)
             {
                 EmpSalaryStructureDetail detail = new EmpSalaryStructureDetail()
                 {

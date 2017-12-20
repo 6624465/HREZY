@@ -293,6 +293,8 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="StructureID" Type="int" Nullable="false" />
+          <Property Name="TotalGross" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalDeductions" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="LeaveDetail">
           <Key>
@@ -1066,6 +1068,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="StructureID" Type="Int32" Nullable="false" />
+          <Property Name="TotalGross" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalDeductions" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureDetail">
           <Key>
@@ -1584,6 +1588,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="EmpSalaryStructureHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmpSalaryStructureHeader">
               <MappingFragment StoreEntitySet="EmpSalaryStructureHeader">
+                <ScalarProperty Name="TotalDeductions" ColumnName="TotalDeductions" />
+                <ScalarProperty Name="TotalGross" ColumnName="TotalGross" />
                 <ScalarProperty Name="StructureID" ColumnName="StructureID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />

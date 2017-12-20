@@ -10,7 +10,6 @@
         .no-wrap {
             white-space: nowrap;
         }
-        
     </style>
 }
 
@@ -303,7 +302,7 @@
         $('.chkCss').on("ifChanged", function (event) {
             var temp = this;
             var index=$(this).data('index');
-           
+
             if($('#'+this.id).prop('checked')){
 
 
@@ -345,14 +344,14 @@
                 $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').attr('required','required');
                 $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').attr('required','required');
                 $('#structureEmployeeDeductionDetail_' + index + '__Amount').attr('required','required');
-                
+
                 $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').removeAttr('disabled');
                 $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').removeAttr('disabled');
                 $('#structureEmployeeDeductionDetail_' + index + '__Amount').removeAttr('disabled');
 
             }
             else{
-               
+
                 $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
                 $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
                 $('#structureEmployeeDeductionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
@@ -377,7 +376,7 @@
             validateDeductAmount(obj,0);
         }
         function validateAmount(el, index) {
-            
+
             var rowCount=$('.trCss').length;
             var TotalGross=0;
             for(var i=0; i<rowCount;i++){
@@ -421,7 +420,7 @@
                     $('#structureHeader_TotalGross').val(TotalGross);
 
                 }
-                
+
                 var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
                 var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
@@ -434,7 +433,7 @@
         }
 
         function validateDeductAmount(el, index){
-            
+
             var rowCount=$('.trCssDeduct').length;
             var netAmount=0;
             for(var i=0; i<rowCount;i++){
@@ -444,8 +443,9 @@
                     $('#structureCompanyDeductionDetail_' + 0 + '__Total').val(basicAmount);
                 }
 
-                if(!$('#structureEmployeeDeductionDetail_' + i + '__IsActive').prop('checked'))
-                    continue;
+                // if(!$('#structureEmployeeDeductionDetail_' + i + '__IsActive').prop('checked'))
+                // continue;
+
                 var total = $('#structureEmployeeDeductionDetail_' + i + '__Amount').val();
                 if(total!="")
                     total=parseFloat(total).toFixed(2);
@@ -469,12 +469,12 @@
                 }
 
                 /* Calculate Nett amount*/
-                var currentValue=$('#structureEmployeeDeductionDetail_' + i + '__Total').val();
-                if(currentValue!="" && currentValue!=null){
-                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
-                    netAmount=netAmount.toFixed(2);
-                    $('#structureHeader_TotalDeductions').val(netAmount);
-                }
+                var currentValue=$('#structureEmployeeDeductionDetail_' + i + '__Total').val() == "" ? 0 :$('#structureEmployeeDeductionDetail_' + i + '__Total').val();
+                //if(currentValue!="" && currentValue!=null){
+                netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                netAmount=netAmount.toFixed(2);
+                $('#structureHeader_TotalDeductions').val(netAmount);
+                //}
 
             }
             var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();

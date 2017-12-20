@@ -158,7 +158,7 @@ namespace HR.Web.Controllers
             return RedirectToAction("SalaryRulesList");
         }
 
-       
+
         [HttpGet]
         public ActionResult SalaryStructure(int structurId = 0)
         {
@@ -325,7 +325,15 @@ namespace HR.Web.Controllers
                 empsalaryobj.employeeSalaryStructure = dbcntx.EmpSalaryStructureHeaders
                     .GroupJoin(dbcntx.EmpSalaryStructureDetails,
                     a => new { a.EmployeeId, a.BranchId }, b => new { b.EmployeeId, b.BranchId },
-                    (a, b) => new EmployeeSalaryStructure { empSalaryStructureHeader = a, empSalaryStructureDetail = b.ToList() })
+                    (a, b) => new EmployeeSalaryStructure
+                    {
+                        empSalaryStructureHeader = a,
+                        structureCompanyDeductionDetail = b
+                    .Where(x => x.ContributionRegister == UTILITY.COMPANYDEDUCTION).ToList()
+                    ,
+                        structureEmployeeDeductionDetail = b
+                    .Where(x => x.ContributionRegister == UTILITY.EMPLOYEEDEDUCTION).ToList()
+                    })
                     .Where(x => x.empSalaryStructureHeader.EmployeeId == employeeId
                     && x.empSalaryStructureHeader.BranchId == BRANCHID
                     && x.empSalaryStructureHeader.StructureID == structureId)
@@ -386,7 +394,7 @@ namespace HR.Web.Controllers
                             Salary = 0M,
                             StructureID = salaryStructure.salaryStructureHeader.StructureID
                         },
-                        empSalaryStructureDetail = salaryStructure.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail
+                        structureCompanyDeductionDetail = salaryStructure.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail
                         {
                             EmployeeId = employeeId,
                             BranchId = BRANCHID,
@@ -396,19 +404,32 @@ namespace HR.Web.Controllers
                             ContributionRegister = y.RegisterCode,
                             Total = y.Total,
                             IsActive = y.IsActive,
-                        }).ToList()
+                        }).Where(x => x.ContributionRegister == UTILITY.COMPANYDEDUCTION).ToList(),
+                        structureEmployeeDeductionDetail = salaryStructure.salaryStructureDetail.Select(y => new EmpSalaryStructureDetail
+                        {
+                            EmployeeId = employeeId,
+                            BranchId = BRANCHID,
+                            Code = y.Code,
+                            Amount = y.Amount,
+                            Computation = y.ComputationCode,
+                            ContributionRegister = y.RegisterCode,
+                            Total = y.Total,
+                            IsActive = y.IsActive,
+                        }).Where(x => x.ContributionRegister == UTILITY.EMPLOYEEDEDUCTION).ToList()
                     };
 
                     if (empsalaryobj.employeeSalaryStructure == null)
                     {
                         empsalaryobj.employeeSalaryStructure = remainingSalStructure;
                         empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader = remainingSalStructure.empSalaryStructureHeader;
-                        empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail = remainingSalStructure.empSalaryStructureDetail;
+                        empsalaryobj.employeeSalaryStructure.structureCompanyDeductionDetail = remainingSalStructure.structureCompanyDeductionDetail;
+                        empsalaryobj.employeeSalaryStructure.structureEmployeeDeductionDetail = remainingSalStructure.structureEmployeeDeductionDetail
+                            .Where(x => x.ContributionRegister == UTILITY.EMPLOYEEDEDUCTION).ToList();
                     }
 
-                    CodeList = empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail.Select(x => x.Code).ToList();
+                    CodeList = empsalaryobj.employeeSalaryStructure.structureCompanyDeductionDetail.Select(x => x.Code).ToList();
 
-                    empsalaryobj.employeeSalaryStructure.empSalaryStructureDetail
+                    empsalaryobj.employeeSalaryStructure.structureEmployeeDeductionDetail
                         .AddRange(structureDetail.Where(x => !CodeList.Contains(x.Code)));//(remainingSalStructure.empSalaryStructureDetail);
 
                     empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader.StructureID = structureId;

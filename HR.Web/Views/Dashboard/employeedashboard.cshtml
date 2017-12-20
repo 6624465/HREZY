@@ -28,6 +28,9 @@
                 top: 49%;
                 left: 50%;
             }
+            .width{
+                width:50%;
+            }
     </style>
 }
 <div class="page page-dashboard">
@@ -111,58 +114,60 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
-                    <div class="panel-heading">
-                        <h5>Employee Leave Info</h5>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>From Date</th>
-                                            <th>To Date</th>
-                                            <th>Apply Date</th>
-                                            <th>Leave Type</th>
-                                            <th>Days</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for (var i = 0; i < Model.empLeaveDashBoard.Count(); i++)
-                                        {
+                    <div class="center-block width">
+                        <div class="panel-heading">
+                            <h5>Employee Leave Info</h5>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <thead>
                                             <tr>
-                                                <td>@Model.empLeaveDashBoard.ElementAt(i).FromDate.ToShortDateString()</td>
-                                                <td>@Model.empLeaveDashBoard.ElementAt(i).ToDate.ToShortDateString()</td>
-                                                <td>@Model.empLeaveDashBoard.ElementAt(i).ApplyDate.ToShortDateString()</td>
-                                                <td>@Model.empLeaveDashBoard.ElementAt(i).LeaveTypeDesc</td>
-                                                <td>@Model.empLeaveDashBoard.ElementAt(i).Days</td>
-                                                <td>
-                                                    @if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEAPPROVED)
-                                                    {
-                                                        <span class="label label-success" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
-                                                    }
-                                                    else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEREJECTED)
-                                                    {
-                                                        <span class="label label-danger" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
-                                                    }
-                                                    else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVECANCELLED)
-                                                    {
-                                                        <span class="label label-primary" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
-                                                    }
-                                                    else if (string.IsNullOrWhiteSpace(Model.empLeaveDashBoard.ElementAt(i).Status))
-                                                    {
-                                                        <span class="label label-info" style="font-weight:bold;font-size:14px;color:white;">Pending</span>
-                                                    }
-                                                    else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEPENDING)
-                                                    {
-                                                        <span class="label label-info" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
-                                                    }
-                                                </td>
+                                                <th>From Date</th>
+                                                <th>To Date</th>
+                                                <th>Apply Date</th>
+                                                <th>Leave Type</th>
+                                                <th>Days</th>
+                                                <th>Status</th>
                                             </tr>
-                                        }
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @for (var i = 0; i < Model.empLeaveDashBoard.Count(); i++)
+                                            {
+                                                <tr>
+                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).FromDate.ToShortDateString()</td>
+                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).ToDate.ToShortDateString()</td>
+                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).ApplyDate.ToShortDateString()</td>
+                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).LeaveTypeDesc</td>
+                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).Days</td>
+                                                    <td>
+                                                        @if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEAPPROVED)
+                                                        {
+                                                            <span class="label label-success" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                        }
+                                                        else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEREJECTED)
+                                                        {
+                                                            <span class="label label-danger" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                        }
+                                                        else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVECANCELLED)
+                                                        {
+                                                            <span class="label label-primary" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                        }
+                                                        else if (string.IsNullOrWhiteSpace(Model.empLeaveDashBoard.ElementAt(i).Status))
+                                                        {
+                                                            <span class="label label-info" style="font-weight:bold;font-size:14px;color:white;">Pending</span>
+                                                        }
+                                                        else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEPENDING)
+                                                        {
+                                                            <span class="label label-info" style="font-weight:bold;font-size:14px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

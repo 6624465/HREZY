@@ -64,23 +64,25 @@
                                         <td>
                                             @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
                                             {
-                                                <label class="control-label"><span class="label label-success" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+
+                                                <label class="control-label"><span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
+
                                             else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
                                             {
-                                                <label class="control-label"><span class="label label-danger" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                <label class="control-label"><span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                             else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
                                             {
-                                                <label class="control-label"><span class="label label-primary" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                <label class="control-label"><span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                             else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
                                             {
-                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:14px;"></span>Pending</label>
+                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:12px;"></span>Pending</label>
                                             }
                                             else if (Model.TableData[i].Status == UTILITY.LEAVEPENDING)
                                             {
-                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:14px;">@Model.TableData[i].Status</span></label>
+                                                <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                         </td>
                                         @if ((Model.TableData[i].Status == UTILITY.LEAVEPENDING) || (string.IsNullOrWhiteSpace(Model.TableData[i].Status)))
@@ -88,7 +90,7 @@
                                             <td>
                                                 <button class="btn btn-danger btn-sm"
                                                         type="button" data-toggle="popoverCancel">
-                                                    <i class="fa fa-trash-o"></i>&nbsp;Cancel
+                                                  <i class="fa fa-trash-o"></i> Cancel
                                                 </button>
                                             </td>
                                         }
@@ -97,7 +99,7 @@
                                             <td>
                                                 <button class="btn btn-danger btn-sm"
                                                         type="button" data-toggle="popoverCancel" disabled>
-                                                    <i class="fa fa-trash-o"></i>&nbsp;Cancel
+                                                    <i class="fa fa-trash-o"></i> Cancel
                                                 </button>
                                             </td>
                                         }

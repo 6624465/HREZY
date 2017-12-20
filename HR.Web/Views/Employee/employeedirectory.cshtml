@@ -125,11 +125,13 @@
                                     <tr>
                                         <th>EmployeeName</th>
                                         <th>JobTitle</th>
-                                        <th>email</th>
+                                        <th>Official Email</th>
+                                        <th>Personal Email</th>
                                         @*<th>Department</th>
                                 <th>Desigation</th>
                                 <th>Manager</th>*@
                                         <th>ContactNo</th>
+                                        <th>AlternateNo</th>
                                         <th>#Action</th>
                                     </tr>
                                 </thead>
@@ -151,7 +153,7 @@
         </div>
     </div>
 </div>
-  
+  </div>
    
 
 @section Scripts{
@@ -163,11 +165,13 @@
         <tr>
             <td>${EmployeeName}</td>
             <td>${JobTitle}</td>
+            <td>${OfficialEmailId}</td>
             <td>${PersonalEmailId}</td>
             @*<td>${Department}</td>
                 <td>${Desigation}</td>
                 <td>${Manager}</td>*@
             <td>${ContactNo}</td>
+            <td>${AlternateNo}</td>
             <td>
                 <button class="btn btn-xs btn-raised waves-effect btn-sm waves-effect ajaxCss"
                         style="padding-left: 5px;margin-left: 6px;" onclick="location.href = '@Url.Content("~/Employee/add?EmployeeId=")${EmployeeId}'">

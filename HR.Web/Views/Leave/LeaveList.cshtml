@@ -8,6 +8,9 @@
               height:300px;
               overflow-y:scroll;
         }
+        .width{
+            width:50%;
+        }
 
         
        
@@ -18,46 +21,51 @@
 <div class="page" style="min-height:1000px;">
     <div class="page-wrap">
         <div class="panel panel-default">
-            <div class="box" id="grid">
-                <div class="box-header">
-                    <h4>Leaves</h4>
-                    <div class="box-tools">
-                        <button class="btn btn-info btn-raised waves-effect btn-sm ajaxCss"
-                                type="button" onclick="location.href='@Url.Content("~/Leave/Leave")'">
-                            <i class="fa fa-plus"></i> Add
-                        </button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="row" id="tableGrid">
-                        <div class="col-md-6">
-                            <table class="table table-condensed table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>BranchName</th>
-                                        <th>Information</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.Count(); i++)
-                                    {
-                                        <tr>
-                                            <td>@Model.ElementAt(i).BranchName</td>
-                                            <td>
-                                                <button class="btn btn-primary btn-sm" type="button" data-toggle="popover_@(i)" data-trigger="focus" title="Leave Policy"><i class="fa fa-eye"></i>&nbsp;info</button>
-                                                <button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")+ @Model.ElementAt(i).LeaveId &branchid=@Model.ElementAt(i).BranchId'"><i class="fa fa-pencil-square"></i>&nbsp;Edit</button>
-                                            </td>
-                                        </tr>
-                                    }
+                <div class="box" id="grid">
+                    <div class="center-block width">
+                        <div class="box-header">
+                            <h4>Leaves</h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary btn-raised waves-effect btn-sm ajaxCss"
+                                            type="button" onclick="location.href='@Url.Content("~/Leave/Leave")'">
+                                        <i class="fa fa-plus-square"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row" id="tableGrid">
+                                
+                                <div class="col-md-6">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>BranchName</th>
+                                                <th>Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (var i = 0; i < Model.Count(); i++)
+                                            {
+                                                <tr>
+                                                    <td>@Model.ElementAt(i).BranchName</td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-sm" type="button" data-toggle="popover_@(i)" data-trigger="focus" title="Leave Policy"><i class="fa fa-eye"></i>&nbsp;info</button>
+                                                        <button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")+ @Model.ElementAt(i).LeaveId &branchid=@Model.ElementAt(i).BranchId'"><i class="fa fa-pencil-square"></i>&nbsp;Edit</button>
+                                                    </td>
+                                                </tr>
+                                            }
 
-                                </tbody>
+                                        </tbody>
 
-                            </table>
+                                    </table>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
-
-                    
-                </div>
             </div>
         </div>
     </div>

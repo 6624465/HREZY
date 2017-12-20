@@ -113,7 +113,9 @@ namespace HR.Web.BusinessObjects.Payroll
                     Remarks = salaryStructureVm.structureHeader.Remarks,
                     CreatedBy = sessionObj.USERID,
                     CreatedOn = UTILITY.SINGAPORETIME,
-                    NetAmount = salaryStructureVm.structureHeader.NetAmount
+                    NetAmount = salaryStructureVm.structureHeader.NetAmount,
+                    TotalGross = salaryStructureVm.structureHeader.TotalGross,
+                    TotalDeductions = salaryStructureVm.structureHeader.TotalDeductions
                 };
                 Add(structureHeader);
                 //salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();

@@ -85,10 +85,30 @@ namespace HR.Web.BusinessObjects.Operation
                 Remarks = structureVm.employeeSalaryStructure.empSalaryStructureHeader.Remarks,
                 Salary = structureVm.employeeSalaryStructure.empSalaryStructureHeader.Salary,
                 StructureID = structureVm.employeeSalaryStructure.empSalaryStructureHeader.StructureID,
+                TotalGross = structureVm.employeeSalaryStructure.empSalaryStructureHeader.TotalGross,
+                TotalDeductions = structureVm.employeeSalaryStructure.empSalaryStructureHeader.TotalDeductions,
             };
             Add(empStructure);
 
             foreach (EmpSalaryStructureDetail item in structureVm.employeeSalaryStructure.structureCompanyDeductionDetail)
+            {
+                EmpSalaryStructureDetail detail = new EmpSalaryStructureDetail()
+                {
+                    Amount = item.Amount,
+                    BranchId = item.BranchId,
+                    Code = item.Code,
+                    Computation = item.Computation,
+                    ContributionRegister = item.ContributionRegister,
+                    CreatedBy = sessionObj.USERID,
+                    CreatedOn = UTILITY.SINGAPORETIME,
+                    EmployeeId = empStructure.EmployeeId,
+                    IsActive = item.IsActive,
+                    Total = item.Total,
+                };
+                empSalaryStructureHeaderDetailBO.Add(detail);
+            }
+
+            foreach (EmpSalaryStructureDetail item in structureVm.employeeSalaryStructure.structureEmployeeDeductionDetail)
             {
                 EmpSalaryStructureDetail detail = new EmpSalaryStructureDetail()
                 {

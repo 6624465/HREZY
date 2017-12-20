@@ -91,7 +91,7 @@ namespace HR.Web.BusinessObjects.Payroll
                     IsOnPayslip = salaryRules.IsOnPayslip,
                     Name = salaryRules.Name,
                     SequenceNo = salaryRules.SequenceNo,
-                    
+
                 };
                 Add(salaryRule);
 
@@ -116,6 +116,6 @@ namespace HR.Web.BusinessObjects.Payroll
             }
         }
 
-
+       
     }
 }

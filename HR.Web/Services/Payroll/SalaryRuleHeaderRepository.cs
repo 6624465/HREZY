@@ -57,6 +57,25 @@ namespace HR.Web.Services.Payroll
             }
         }
 
+        public void DeleteById(int RuleId)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    SalaryRuleHeader salaryRule = dbContext.SalaryRuleHeaders
+                            .Where(x => x.RuleId == RuleId).FirstOrDefault();
+                    salaryRule.IsActive = false;
+                    dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public IEnumerable<SalaryRuleHeader> GetAll()
         {
             try

@@ -167,5 +167,10 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
+
+        internal void DeleteById(int structurId)
+        {
+            salaryStructureHeaderRepository.DeleteById(structurId);
+        }
     }
 }

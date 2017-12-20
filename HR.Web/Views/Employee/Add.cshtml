@@ -24,8 +24,8 @@
                                     <span class="pull-right">DOJ</span>
                                 </label>
                                 <div class="col-md-4">
-                                    <div class="input-group date" id="JoiningDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss", required = "required" })
+                                    <div class="input-group date dtCss" id="JoiningDate">
+                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt", required = "required" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -79,8 +79,8 @@
                                 <span class="pull-right">DOB</span>
                             </label>
                             <div class="col-md-4">
-                                <div class="input-group date" id="DOB">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss" })
+                                <div class="input-group date dtCss" id="DOB">
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -298,8 +298,8 @@
                                     <span class="pull-right">Confirmation Date</span>
                                 </label>
                                 <div class="col-md-9">
-                                    <div class="input-group date" id="ConfirmationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss" })
+                                    <div class="input-group date dtCss" id="ConfirmationDate">
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -313,8 +313,8 @@
                                     <span class="pull-right">Resigned Date</span>
                                 </label>
                                 <div class="col-md-9">
-                                    <div class="input-group date" id="ResignationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCss" })
+                                    <div class="input-group date dtCss" id="ResignationDate">
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>

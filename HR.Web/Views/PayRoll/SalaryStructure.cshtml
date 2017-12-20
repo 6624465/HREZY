@@ -2,37 +2,6 @@
 
 @section Styles{
 
-    @*<style type="text/css">
-            .table tbody td:nth-child(5) {
-                width: 170px;
-            }
-
-            .table tbody td:nth-child(6) {
-                width: 170px;
-            }
-
-            .table tbody td:nth-child(7) {
-                width: 120px;
-                /*direction: rtl;*/
-            }
-
-            .table tbody td:nth-child(8) {
-                width: 120px;
-                /*direction: rtl;*/
-            }
-
-            .table tfoot {
-                /*display:block;*/
-            }
-
-            currencyCss {
-                direction: rtl;
-            }
-
-            .table tfoot {
-                display: table-footer-group;
-            }
-        </style>*@
     <style>
         .table tfoot {
             display: table-footer-group;
@@ -41,6 +10,7 @@
         .no-wrap {
             white-space: nowrap;
         }
+        
     </style>
 }
 
@@ -66,8 +36,8 @@
                                 <span class="pull-right">Effective Date</span>
                             </label>
                             <div class="col-md-4">
-                                <div class="input-group date" id="EffectiveDate">
-                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:dd/MM/yyyy}", new { @class = "form-control dtCss" })
+                                <div class="input-group date dtCss" id="EffectiveDate">
+                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:dd/MM/yyyy}", new { @class = "form-control dtCssTxt" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -333,7 +303,7 @@
         $('.chkCss').on("ifChanged", function (event) {
             var temp = this;
             var index=$(this).data('index');
-            debugger;
+           
             if($('#'+this.id).prop('checked')){
 
 
@@ -407,7 +377,7 @@
             validateDeductAmount(obj,0);
         }
         function validateAmount(el, index) {
-            debugger;
+            
             var rowCount=$('.trCss').length;
             var TotalGross=0;
             for(var i=0; i<rowCount;i++){
@@ -451,7 +421,7 @@
                     $('#structureHeader_TotalGross').val(TotalGross);
 
                 }
-                debugger;
+                
                 var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
                 var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
@@ -464,7 +434,7 @@
         }
 
         function validateDeductAmount(el, index){
-            debugger;
+            
             var rowCount=$('.trCssDeduct').length;
             var netAmount=0;
             for(var i=0; i<rowCount;i++){

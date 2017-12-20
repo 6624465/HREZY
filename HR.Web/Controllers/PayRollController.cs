@@ -158,6 +158,7 @@ namespace HR.Web.Controllers
             return RedirectToAction("SalaryRulesList");
         }
 
+       
         [HttpGet]
         public ActionResult SalaryStructure(int structurId = 0)
         {
@@ -277,6 +278,13 @@ namespace HR.Web.Controllers
         public ActionResult SalaryStructure(SalaryStructureVm salaryStructureVm)
         {
             salaryStructureHeaderBO.SaveSalaryStructure(salaryStructureVm);
+            return RedirectToAction("SalaryStructureHeaderList");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteSalaryStructure(int? structurId)
+        {
+            salaryStructureHeaderBO.DeleteById(structurId.Value);
             return RedirectToAction("SalaryStructureHeaderList");
         }
         public ViewResult SalaryStructureHeaderList(int? page = 1)

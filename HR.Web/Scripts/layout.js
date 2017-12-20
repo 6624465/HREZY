@@ -34,8 +34,8 @@
         return false;
     });
 
-    $(document).on('keydown', '.dtCss', function (evt) {        
-        return false;
+    $(document).on('keydown', '.dtCss', function (evt) {
+       return false;
     });
 
     $(document).on('keypress', '.alphaNumCss', function (evt) {
@@ -125,6 +125,12 @@
             className: "blue-with-image-2",
             content: '',
         });
+    });
+
+    $(".dtCss input.form-control").keypress(function (evt) {
+        debugger;
+        evt.preventDefault();
+        return false;
     });
     //$('.form-control').addClass('input-sm');
     //$('.control-label').css('margin-bottom','10px');

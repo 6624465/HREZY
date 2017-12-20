@@ -82,8 +82,8 @@
                                         <span class="pull-right">From Date</span>
                                     </label>
                                     <div class="col-md-6">
-                                        <div class="input-group date" id="FromDt">
-                                            @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCss", required = "required" })
+                                        <div class="input-group date dtCss" id="FromDt">
+                                            @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCssTxt", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
                                             </span>
@@ -100,8 +100,8 @@
                                         <span class="pull-right">To Date</span>
                                     </label>
                                     <div class="col-md-6">
-                                        <div class="input-group date" id="ToDt">
-                                            @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCss", required = "required" })
+                                        <div class="input-group date dtCss" id="ToDt">
+                                            @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCssTxt", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
                                             </span>

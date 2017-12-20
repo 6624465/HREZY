@@ -125,7 +125,23 @@ namespace HR.Web.Services.Payroll
             }
         }
 
+        internal void DeleteById(int structurId)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    SalaryStructureHeader structureHeader= dbContext.SalaryStructureHeaders.Where(x=>x.StructureID== structurId).FirstOrDefault();
+                    structureHeader.IsActive = false;
+                    dbContext.SaveChanges();
 
+                }
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
     }
 }

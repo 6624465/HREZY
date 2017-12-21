@@ -342,7 +342,7 @@ namespace HR.Web.Helpers
         }
         public static IEnumerable<SelectListItem> SalaryStructure()
         {
-            using(HrDataContext dbcntx = new HrDataContext())
+            using (HrDataContext dbcntx = new HrDataContext())
             {
                 return dbcntx.SalaryStructureHeaders.Select(x => new SelectListItem
                 {
@@ -351,6 +351,21 @@ namespace HR.Web.Helpers
                 }).ToList().AsEnumerable();
             }
         }
+        public static IEnumerable<SelectListItem> LeaveSession()
+        {
 
+            List<SelectListItem> listItem = new List<SelectListItem>() {
+                                            new SelectListItem() {
+                                                Text="AM",
+                                                Value="AM"
+                                            },
+                                             new SelectListItem() {
+                                                Text="PM",
+                                                Value="PM"
+                                            },
+                                        };
+
+            return listItem;
+        }
     }
 }

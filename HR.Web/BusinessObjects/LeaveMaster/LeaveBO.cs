@@ -21,6 +21,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
         {
             try
             {
+                
                 leaveRepository.Add(leave);
             }
             catch (Exception ex)

@@ -33,5 +33,8 @@ namespace HR.Web.Models
         public Nullable<bool> IsSundayHalfDay { get; set; }
         public Nullable<bool> IsWednesdayHalfDay { get; set; }
         public Nullable<bool> IsFridayHalfDay { get; set; }
+        public string FridaySession { get; set; }
+        public string SaturdaySession { get; set; }
+        public string SundaySession { get; set; }
     }
 }

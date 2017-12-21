@@ -47,6 +47,9 @@ namespace HR.Web.Services
                         weekendPolicy.IsFridayHalfDay = entity.IsFridayHalfDay;
                         weekendPolicy.IsSaturdayHalfDay = entity.IsSaturdayHalfDay;
                         weekendPolicy.IsSundayHalfDay = entity.IsSundayHalfDay;
+                        weekendPolicy.FridaySession = entity.FridaySession;
+                        weekendPolicy.SaturdaySession = entity.SaturdaySession;
+                        weekendPolicy.SundaySession = entity.SundaySession;
                     }
                     dbContext.SaveChanges();
                 }

@@ -9,9 +9,12 @@
         .width {
             width: 80%;
         }
+
+        .icheckbox_flat-blue {
+            margin-top: 10px;
+        }
     </style>
 }
-
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
     @Html.HiddenFor(x => x.leave.LeaveId)
@@ -77,7 +80,7 @@
                                         <label class="col-md-6 control-label">
                                             <span class="pull-right" style="white-space:nowrap;">Carry Forward</span>
                                         </label>
-                                        <div class="col-md-2" style="margin-top:10px">
+                                        <div class="col-md-2">
                                             @Html.CheckBoxFor(x => x.leave.IsPaidLeaveCarryForward, new { @class = "form-control " })
                                         </div>
                                         <div class="col-md-4">
@@ -87,56 +90,129 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
+                                    <h5>WEEKEND POLICY</h5>
                                     <div class="center-block width">
-                                        <h5>WEEKEND POLICY</h5>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
+                                        <div class="row">
+                                            <label class="col-md-1 control-label">
+                                                <span class="pull-right" style="white-space:nowrap;">Monday</span>
+                                            </label>
+                                            <div class="col-md-1">
+                                                @Html.CheckBox("weekendPolicy.Monday", Model.weekendPolicy.Monday ?? false)
+                                            </div>
+                                        </div>
 
-                                                        <th>Monday</th>
-                                                        <th>Tuesday</th>
-                                                        <th>Wednesday</th>
-                                                        <th>Thursday</th>
-                                                        <th>Friday</th>
-                                                        <th>Saturday</th>
-                                                        <th>Sunday</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Monday), Model.weekendPolicy.Monday ?? false)
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsMondayHalfDay), Model.weekendPolicy.IsMondayHalfDay ?? false)
-                                                        </td>
-                                                        <td>
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Tuesday), Model.weekendPolicy.Tuesday ?? false)
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsTuesdayHalfDay), Model.weekendPolicy.IsTuesdayHalfDay ?? false)
-                                                        </td>
-                                                        <td>
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Wednesday), Model.weekendPolicy.Wednesday ?? false)
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsWednesdayHalfDay), Model.weekendPolicy.IsWednesdayHalfDay ?? false)
-                                                        </td>
-                                                        <td>
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Thursday), Model.weekendPolicy.Thursday ?? false)
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsThursdayHalfDay), Model.weekendPolicy.IsThursdayHalfDay ?? false)
-                                                        </td>
-                                                        <td style="white-space:nowrap">
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Friday), Model.weekendPolicy.Friday ?? false)
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsFridayHalfDay), Model.weekendPolicy.IsFridayHalfDay ?? false)
-                                                        </td>
-                                                        <td>
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Saturday), Model.weekendPolicy.Saturday ?? false)
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsSaturdayHalfDay), Model.weekendPolicy.IsSaturdayHalfDay ?? false)
-                                                        </td>
-                                                        <td>
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.Sunday), Model.weekendPolicy.Sunday ?? false)
-                                                            @Html.CheckBox(nameof(Model.weekendPolicy.IsSundayHalfDay), Model.weekendPolicy.IsSundayHalfDay ?? false)
-                                                        </td>
 
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                        <div class="row">
+                                            <label class="col-md-1 control-label">
+                                                <span class="pull-right" style="white-space:nowrap;">Tuesday</span>
+                                            </label>
+                                            <div class="col-md-1">
+                                                @Html.CheckBox("weekendPolicy.Tuesday", Model.weekendPolicy.Tuesday ?? false)
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="row">
+                                            <label class="col-md-1 control-label">
+                                                <span class="pull-right" style="white-space:nowrap;">Wednesday</span>
+                                            </label>
+                                            <div class="col-md-1">
+                                                @Html.CheckBox("weekendPolicy.Wednesday", Model.weekendPolicy.Wednesday ?? false)
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-1 control-label">
+                                                <span class="pull-right" style="white-space:nowrap;">Thursday</span>
+                                            </label>
+                                            <div class="col-md-1">
+                                                @Html.CheckBox("weekendPolicy.Thursday", Model.weekendPolicy.Thursday ?? false)
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-1 control-label">
+                                                <span class="pull-right" style="white-space:nowrap;">Friday</span>
+                                            </label>
+                                            <div class="col-md-1">
+                                                @Html.CheckBox("weekendPolicy.Friday", Model.weekendPolicy.Friday ?? false)
+                                            </div>
+                                            <div id="IsFridayHalfDaySession">
+                                                <label class="col-md-2 control-label">
+                                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
+                                                </label>
+                                                <div class="col-md-1">
+                                                    @Html.CheckBox("weekendPolicy.IsFridayHalfDay", Model.weekendPolicy.IsFridayHalfDay ?? false)
+                                                </div>
+                                            </div>
+                                            <div id="FridaySession">
+                                                <label class="col-md-2 control-label">
+                                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                                </label>
+                                                <div class="col-md-3">
+                                                    
+                                                    @Html.DropDownListFor(x => x.weekendPolicy.FridaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-1 control-label">
+                                                <span class="pull-right" style="white-space:nowrap;">Saturday</span>
+                                            </label>
+                                            <div class="col-md-1">
+                                                @Html.CheckBox("weekendPolicy.Saturday", Model.weekendPolicy.Saturday ?? false)
+                                            </div>
+                                            <div id="IsSaturdayHalfDaySession">
+                                                <label class="col-md-2 control-label">
+                                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
+                                                </label>
+                                                <div class="col-md-1">
+                                                    @Html.CheckBox("weekendPolicy.IsSaturdayHalfDay", Model.weekendPolicy.IsSaturdayHalfDay ?? false)
+                                                </div>
+                                            </div>
+                                            <div id="SaturdaySession">
+                                                <label class="col-md-2 control-label">
+                                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                                </label>
+                                                <div class="col-md-3">
+
+                                                    
+                                                    @Html.DropDownListFor(x => x.weekendPolicy.SaturdaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-1 control-label">
+                                                <span class="pull-right" style="white-space:nowrap;">Sunday</span>
+                                            </label>
+                                            <div class="col-md-1">
+                                                @Html.CheckBox("weekendPolicy.Sunday", Model.weekendPolicy.Sunday ?? false)
+                                            </div>
+                                            <div id="IsSundayHalfDaySession">
+                                                <label class="col-md-2 control-label">
+                                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
+                                                </label>
+                                                <div class="col-md-1">
+                                                    @Html.CheckBox("weekendPolicy.IsSundayHalfDay", Model.weekendPolicy.IsSundayHalfDay ?? false)
+                                                </div>
+                                            </div>
+                                            <div id="SundaySession">
+                                                <label class="col-md-2 control-label">
+                                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                                </label>
+                                                <div class="col-md-3">
+                                                    @*@Html.DropDownList(nameof(Model.weekendPolicy.SundaySession), SelectListItemHelper.LeaveSession(), new { @class = "form-control" })*@
+                                                    @Html.DropDownListFor(x=>x.weekendPolicy.SundaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control" })
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +258,7 @@
                                 <label class="col-md-4 control-label">
                                     <span class="pull-right">Carry Forward</span>
                                 </label>
-                                <div class="col-md-2" style="margin-top:10px">
+                                <div class="col-md-2">
                                     @Html.CheckBoxFor(x => x.leave.IsSickLeaveCarryForward, new { @class = "form-control " })
                                 </div>
                                 <div class="col-md-3 chkClass">
@@ -208,7 +284,7 @@
                                             <span class="pull-right">Per Year</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.leave.CasualLeavesPerYear, new { @class = "form-control numCss",onblur= "calcCasualLeave(this)" })
+                                            @Html.TextBoxFor(x => x.leave.CasualLeavesPerYear, new { @class = "form-control numCss", onblur = "calcCasualLeave(this)" })
                                         </div>
                                     </div>
                                     <div class="row css5">
@@ -217,7 +293,7 @@
                                         </label>
                                         <div class="col-md-4">
                                             @Html.TextBoxFor(x => x.leave.CasualLeavesPerMonth,
-                                    new { @class = "form-control decimalCss",@readonly="readonly" })
+                                    new { @class = "form-control decimalCss", @readonly = "readonly" })
                                         </div>
                                     </div>
                                 </div>
@@ -227,7 +303,7 @@
                                     <label class="col-md-4 control-label">
                                         <span class="pull-right">Carry Forward</span>
                                     </label>
-                                    <div class="col-md-2" style="margin-top:10px">
+                                    <div class="col-md-2">
                                         @Html.CheckBoxFor(x => x.leave.IsCasualLeaveCarryForward, new { @class = "form-control " })
                                     </div>
 
@@ -310,11 +386,74 @@
             //        return false;
             //}, "Please CarryForward Leaves Per Month should be less than Sick Leaves Per Year ");
 
+            $('#FridaySession').hide();
+            $('#SaturdaySession').hide();
+            $('#SundaySession').hide();
+            $('#IsFridayHalfDaySession').hide();
+            $('#IsSaturdayHalfDaySession').hide();
+            $('#IsSundayHalfDaySession').hide();
 
+            $('#weekendPolicy_Friday').trigger('ifChanged');
+            $('#weekendPolicy_Saturday').trigger('ifChanged');
+            $('#weekendPolicy_Sunday').trigger('ifChanged');
+            $('#weekendPolicy_IsFridayHalfDay').trigger('ifChanged');
+            $('#weekendPolicy_IsSaturdayHalfDay').trigger('ifChanged');
+            $('#weekendPolicy_IsSundayHalfDay').trigger('ifChanged');
+
+            //$(".chkCss").trigger('ifChanged');
         });
 
+        $('#weekendPolicy_Friday').on('ifChanged', function () {
+            if ($('#weekendPolicy_Friday').prop('checked')) {
+                $('#IsFridayHalfDaySession').show();
+            }
+            else
+                $('#IsFridayHalfDaySession').hide();
+        });
+
+        $('#weekendPolicy_Saturday').on('ifChanged', function () {
+            if ($('#weekendPolicy_Saturday').prop('checked')) {
+                $('#IsSaturdayHalfDaySession').show();
+            }
+            else
+                $('#IsSaturdayHalfDaySession').hide();
+        });
+
+
+        $('#weekendPolicy_Sunday').on('ifChanged', function () {
+            if ($('#weekendPolicy_Sunday').prop('checked')) {
+                $('#IsSundayHalfDaySession').show();
+            }
+            else
+                $('#IsSundayHalfDaySession').hide();
+        });
+
+        $('#weekendPolicy_IsFridayHalfDay').on('ifChanged', function () {
+            if ($('#weekendPolicy_IsFridayHalfDay').prop('checked')) {
+                $('#FridaySession').show();
+            }
+            else
+                $('#FridaySession').hide();
+        });
+
+        $('#weekendPolicy_IsSaturdayHalfDay').on('ifChanged', function () {
+            if ($('#weekendPolicy_IsSaturdayHalfDay').prop('checked')) {
+                $('#SaturdaySession').show();
+            }
+            else
+                $('#SaturdaySession').hide();
+        });
+
+        $('#weekendPolicy_IsSundayHalfDay').on('ifChanged', function () {
+            if ($('#weekendPolicy_IsSundayHalfDay').prop('checked')) {
+                $('#SundaySession').show();
+            }
+            else
+                $('#SundaySession').hide();
+        });
+
+
         function calcLeavePerMonth(obj) {
-            debugger;
             var peryear = $('#' + obj.id).val();
             var PaidLeavesPerMonth = (peryear / 12).toFixed(2);
             $('#leave_PaidLeavesPerMonth').val(PaidLeavesPerMonth);

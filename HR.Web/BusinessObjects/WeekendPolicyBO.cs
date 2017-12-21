@@ -23,6 +23,13 @@ namespace HR.Web.BusinessObjects
         {
             try
             {
+                entity.IsMondayHalfDay = entity.IsMondayHalfDay == null ? false : entity.IsMondayHalfDay;
+                entity.IsSundayHalfDay = entity.IsSundayHalfDay == null ? false : entity.IsSundayHalfDay;
+                entity.IsTuesdayHalfDay = entity.IsTuesdayHalfDay == null ? false : entity.IsTuesdayHalfDay;
+                entity.IsWednesdayHalfDay = entity.IsWednesdayHalfDay == null ? false : entity.IsWednesdayHalfDay;
+                entity.IsThursdayHalfDay = entity.IsThursdayHalfDay == null ? false : entity.IsThursdayHalfDay;
+                entity.IsFridayHalfDay = entity.IsFridayHalfDay == null ? false : entity.IsFridayHalfDay;
+                entity.IsSaturdayHalfDay = entity.IsSaturdayHalfDay == null ? false : entity.IsSaturdayHalfDay;
                 weekenPolicyService.Add(entity);
             }
             catch (Exception ex)

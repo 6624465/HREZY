@@ -456,6 +456,9 @@
           <Property Name="IsSundayHalfDay" Type="bit" />
           <Property Name="IsWednesdayHalfDay" Type="bit" />
           <Property Name="IsFridayHalfDay" Type="bit" />
+          <Property Name="FridaySession" Type="nvarchar" MaxLength="5" />
+          <Property Name="SaturdaySession" Type="nvarchar" MaxLength="5" />
+          <Property Name="SundaySession" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1019,6 +1022,9 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="IsSundayHalfDay" Type="Boolean" />
           <Property Name="IsWednesdayHalfDay" Type="Boolean" />
           <Property Name="IsFridayHalfDay" Type="Boolean" />
+          <Property Name="FridaySession" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="SaturdaySession" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="SundaySession" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SalaryStructureDetail">
           <Key>
@@ -1529,6 +1535,9 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="WeekendPolicies">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.WeekendPolicy">
               <MappingFragment StoreEntitySet="WeekendPolicy">
+                <ScalarProperty Name="SundaySession" ColumnName="SundaySession" />
+                <ScalarProperty Name="SaturdaySession" ColumnName="SaturdaySession" />
+                <ScalarProperty Name="FridaySession" ColumnName="FridaySession" />
                 <ScalarProperty Name="IsFridayHalfDay" ColumnName="IsFridayHalfDay" />
                 <ScalarProperty Name="IsWednesdayHalfDay" ColumnName="IsWednesdayHalfDay" />
                 <ScalarProperty Name="IsSundayHalfDay" ColumnName="IsSundayHalfDay" />

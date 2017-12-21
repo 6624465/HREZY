@@ -22,7 +22,6 @@
         height: 10em;
         background-color: #fff;
         margin: 2em auto;
-        
         box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
         overflow: hidden;
         -webkit-backface-visibility: hidden;
@@ -122,11 +121,25 @@
                                 </label>
                                 <div class="col-md-6">
                                     @Html.DropDownListFor(x => x.LeaveTypeId,
-                                                     SelectListItemHelper.EmployeeLeaveType(),
-                                                     "Select Leave Type",
-                                                     new { @class = "form-control" })
+                      SelectListItemHelper.EmployeeLeaveType(),
+                      "Select Leave Type",
+                      new { @class = "form-control" })
                                 </div>
                                 <div class="col-md-3">
+                                    @{
+                                        List<SelectListItem> listItem = new List<SelectListItem>() {
+                                            new SelectListItem() {
+                                                Text="AM",
+                                                Value="AM"
+                                            },
+                                             new SelectListItem() {
+                                                Text="PM",
+                                                Value="PM"
+                                            },
+                                        };
+                                    }
+
+                                    @Html.DropDownListFor(x => x.Session, listItem, new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="row css10">
@@ -173,14 +186,14 @@
 
     <input type="hidden" name="isChecked" id="isChecked" />
     <input type="hidden" name="isLOP" id="isLOP" />
-}
+                                        }
 
 @section Scripts{
-   
+
     <script src="@Url.Content("~/Scripts/moment-weekday-calc.js")"></script>
     <script type="text/javascript">
         $(function () {
-
+            $('#Session').hide();
             @if (!string.IsNullOrWhiteSpace(message))
             {
                 if (IsLop)
@@ -352,14 +365,16 @@
                         $('#chkhalfday').removeAttr('checked');
                         $('.icheckbox_flat-blue').removeClass('checked');
                         $('#chkhalfday').attr('disabled', 'disabled');
-                        $('#isChecked').val('off');
+                        $('#isChecked').val('off'); 
+                        $('#Session').hide();
                     }
                     if (daysCount == 1) {
 
-                       // $('#chkhalfday').removeAttr('checked');
+                        // $('#chkhalfday').removeAttr('checked');
                         //$('.icheckbox_flat-blue').removeClass('checked');
                         $('#chkhalfday').removeAttr('disabled', 'disabled');
-                       // $('#isChecked').val('off');
+                      
+                        // $('#isChecked').val('off');
                     }
                 }
                 else{
@@ -419,7 +434,12 @@
             //var from = moment(fromDate, dateFormat);
             //var to = moment(toDate, dateFormat);
             //var days = moment.duration(to.diff(from)).asDays() + 1;
-
+            if( $('#chkhalfday').prop('checked')){
+                $('#Session').show();               
+            }
+            else{
+                $('#Session').hide();
+            }
             isoWeekDayCalc();
             var daysCount=$('#Days').val();
 

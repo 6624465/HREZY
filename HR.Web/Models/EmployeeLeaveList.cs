@@ -32,5 +32,6 @@ namespace HR.Web.Models
         public int ManagerId { get; set; }
         public Nullable<decimal> LossOfPayDays { get; set; }
         public bool IsLossOfPay { get; set; }
+        public string Session { get; set; }
     }
 }

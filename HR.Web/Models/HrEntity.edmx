@@ -216,6 +216,7 @@
           <Property Name="ManagerId" Type="int" Nullable="false" />
           <Property Name="LossOfPayDays" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsLossOfPay" Type="bit" Nullable="false" />
+          <Property Name="Session" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="EmployeePersonalDetail">
           <Key>
@@ -933,6 +934,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ManagerId" Type="Int32" Nullable="false" />
           <Property Name="LossOfPayDays" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsLossOfPay" Type="Boolean" Nullable="false" />
+          <Property Name="Session" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="usp_EmployeeDetail_Result">
           <Property Type="Int32" Name="EmployeeId" Nullable="false" />
@@ -1433,6 +1435,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="EmployeeLeaveLists">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeLeaveList">
               <MappingFragment StoreEntitySet="EmployeeLeaveList">
+                <ScalarProperty Name="Session" ColumnName="Session" />
                 <ScalarProperty Name="IsLossOfPay" ColumnName="IsLossOfPay" />
                 <ScalarProperty Name="LossOfPayDays" ColumnName="LossOfPayDays" />
                 <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />

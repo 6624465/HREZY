@@ -234,7 +234,12 @@ namespace HR.Web.Controllers
             {
                 ishalfday = Request.Form["isChecked"] == "on";
                 if (ishalfday)
+                {
                     EmployeeLeaveList.Days = 0.5m;
+
+                }
+                else
+                    EmployeeLeaveList.Session = "";
             }
             using (var dbCntx = new HrDataContext())
             {
@@ -338,6 +343,7 @@ namespace HR.Web.Controllers
                                         .FirstOrDefault()
                                         .ManagerId.Value;
                     obj.Status = UTILITY.LEAVEPENDING;
+                    obj.Session = EmployeeLeaveList.Session;
 
                     dbCntx.EmployeeLeaveLists.Add(obj);
 
@@ -521,7 +527,7 @@ namespace HR.Web.Controllers
                     .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
                     .Select(x => new GrantLeaveListVm
                     {
-                        
+
                         ToDate = x.B.ToDate,
                         FromDate = x.B.FromDate,
                         Name = x.A.FirstName + " " + x.A.LastName,
@@ -761,6 +767,7 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                                 .leaveWhere(BRANCHID, ROLECODE)
                                 .FirstOrDefault();
                     leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
+
                 }
 
                 if (leaveId != 0 && branchid != 0)
@@ -772,32 +779,33 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                                     .FirstOrDefault();
                     }
 
-                    if (branchid == -1)
-                    {
-                        leaveVm.weekendPolicy = new WeekendPolicy
-                        {
-                            Monday = false,
-                            Tuesday = false,
-                            Wednesday = false,
-                            Thursday = false,
-                            Friday = false,
-                            Saturday = false,
-                            Sunday = false,
-                            IsMondayHalfDay = false,
-                            IsTuesdayHalfDay = false,
-                            IsWednesdayHalfDay = false,
-                            IsThursdayHalfDay = false,
-                            IsFridayHalfDay = false,
-                            IsSaturdayHalfDay = false,
-                            IsSundayHalfDay = false
-                        };
-                    }
-                    else
-                    {
-                        leaveVm.weekendPolicy = weekendPolicyBO.GetById(branchid);
-                        return View(leaveVm);
-                    }
 
+                }
+                if (leaveVm.leave == null && BRANCHID == -1)
+                {
+                    leaveVm.weekendPolicy = new WeekendPolicy
+                    {
+                        Monday = false,
+                        Tuesday = false,
+                        Wednesday = false,
+                        Thursday = false,
+                        Friday = false,
+                        Saturday = false,
+                        Sunday = false,
+                        IsMondayHalfDay = false,
+                        IsTuesdayHalfDay = false,
+                        IsWednesdayHalfDay = false,
+                        IsThursdayHalfDay = false,
+                        IsFridayHalfDay = false,
+                        IsSaturdayHalfDay = false,
+                        IsSundayHalfDay = false
+                    };
+                }
+                else
+                {
+                    if (branchid != 0)
+                        leaveVm.weekendPolicy = weekendPolicyBO.GetById(branchid);
+                    return View(leaveVm);
                 }
                 return View(leaveVm);
             }
@@ -815,6 +823,10 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
             {
                 leaveBO.Add(leave);
                 weekendPolicyBO.Add(wekendPolicy);
+            }
+            if (ROLECODE == UTILITY.ROLE_ADMIN)
+            {
+                return View(leave);
             }
             return RedirectToAction("LeaveList");
             // return RedirectToAction("Leave", new { leaveId = leave.LeaveId, branchid = wekendPolicy.BranchId });
@@ -905,13 +917,13 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                         Friday = x.B.Friday,
                         Saturday = x.B.Saturday,
                         Sunday = x.B.Sunday,
-                        IsMondayHalfDay    = x.B.IsMondayHalfDay,
-                        IsTuesdayHalfDay   = x.B.IsTuesdayHalfDay,
+                        IsMondayHalfDay = x.B.IsMondayHalfDay,
+                        IsTuesdayHalfDay = x.B.IsTuesdayHalfDay,
                         IsWednesdayHalfDay = x.B.IsWednesdayHalfDay,
-                        IsThursdayHalfDay  = x.B.IsThursdayHalfDay,
-                        IsFridayHalfDay    = x.B.IsFridayHalfDay,
-                        IsSaturdayHalfDay  = x.B.IsSaturdayHalfDay,
-                        IsSundayHalfDay    = x.B.IsSundayHalfDay
+                        IsThursdayHalfDay = x.B.IsThursdayHalfDay,
+                        IsFridayHalfDay = x.B.IsFridayHalfDay,
+                        IsSaturdayHalfDay = x.B.IsSaturdayHalfDay,
+                        IsSundayHalfDay = x.B.IsSundayHalfDay
                     }).ToList();
                 return View("WeekendPolicyList", list);
             }

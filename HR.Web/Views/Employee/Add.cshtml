@@ -102,7 +102,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-     new { @class = "form-control" })
+     new { @class = "form-control",onblur="appendEmail(this)" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Father's Name</span>
@@ -153,11 +153,11 @@
                         <div class="row css5">
                             <div class="form-group" style="white-space:nowrap">
                                 <div class="col-md-6">
-                                    </div>
-                                    
                                 </div>
+
+                            </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -325,22 +325,22 @@
                         <div class="row css5">
                             <div class="form-group" style="white-space:nowrap">
                                 <div class="col-md-2">
-                                    </div>
-                                    <label class="col-md-1 control-label">
-                                        <span class="pull-right">Reporting To</span>
-                                    </label>
-                                    <div class="col-md-1" style="margin-top:10px">
-                                        @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
+                                </div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Reporting To</span>
+                                </label>
+                                <div class="col-md-1" style="margin-top:10px">
+                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
 
-                                    </div>
-                                    <div id="isReportingTo">
+                                </div>
+                                <div id="isReportingTo">
 
-                                        <div class="col-md-8">
-                                            @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
+                                    <div class="col-md-8">
+                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
                                     new { @class = "form-control" })
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                         <div class="row css5">
                             @*<div class="form-group">
@@ -359,7 +359,7 @@
                                 <label class="col-md-3 control-label">
                                     <span class="pull-right"></span>
                                 </label>
-                                @if (Model.empHeader.EmployeeId!=-1)
+                                @if (Model.empHeader.EmployeeId != -1)
                                 {
                                     <div class="col-md-9">
                                         <div class="pull-right ajaxCss"><button type="button" onclick="location.href = '@Url.Content("~/PayRoll/EmpSalaryStructure?employeeId=" + Model.empHeader.EmployeeId)'" class="btn btn-success btn-sm"><i class="fa fa-gears"></i>&nbsp;Apply Salary Structure</button></div>
@@ -383,8 +383,7 @@
                                     <span class="pull-right">Email</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-                                    new { @class = "form-control" })
+                                    <input type="text" class="form-control" id="loginEmail" disabled="disabled">
                                 </div>
 
                             </div>
@@ -501,6 +500,10 @@
 
 
         });
+
+        function appendEmail(){
+            $('#loginEmail').val($('#empHeader_UserEmailId').val());
+        }
 
         $('#frmEmp').validate({
             rules: {

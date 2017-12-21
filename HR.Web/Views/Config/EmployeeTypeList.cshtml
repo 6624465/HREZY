@@ -18,7 +18,7 @@
         }
 
         .width {
-            width: 40%;
+            width: 60%;
         }
         
     </style>
@@ -39,8 +39,8 @@
                             <div class="col-md-12">
                                 @grid.GetHtml(
                 columns: grid.Columns(
-                grid.Column("LookUpCode", "Employee Type Name", canSort: true),
-                grid.Column("LookUpDescription", "Employee Type Description", canSort: true),
+                grid.Column("LookUpCode", "Type Name", canSort: true),
+                grid.Column("LookUpDescription", "Type Description", canSort: true),
                 //grid.Column("IsActive", "Status", canSort: false),
                 @*grid.Column("IsActive", "Status", format:@<text>
                 <div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">

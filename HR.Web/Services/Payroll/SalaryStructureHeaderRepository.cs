@@ -32,6 +32,8 @@ namespace HR.Web.Services.Payroll
                         salaryStructureHeader.ModifiedBy = entity.ModifiedBy;
                         salaryStructureHeader.ModifiedOn = entity.ModifiedOn;
                         salaryStructureHeader.NetAmount = entity.NetAmount;
+                        salaryStructureHeader.TotalDeductions = entity.TotalDeductions;
+                        salaryStructureHeader.TotalGross = entity.TotalGross;
                     }
 
                     dbContext.SaveChanges();

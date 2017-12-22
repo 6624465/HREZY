@@ -457,7 +457,7 @@
                 $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
 
             }
-            validateDeductAmount(this, 0);
+            validateDeductAmount(this, 0,code);
 
         }
 
@@ -475,8 +475,7 @@
                     basicAmount =parseFloat(basicAmount).toFixed(2);
                     $('#structureCompanyDeductionDetail_' + 0 + '__Total').val(basicAmount);
                 }
-
-
+                
                 var total = $('#structureEmployeeDeductionDetail_' + i + '__Amount').val();
                 if(total!="")
                     total=parseFloat(total).toFixed(2);

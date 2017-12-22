@@ -87,6 +87,7 @@ namespace HR.Web.BusinessObjects.Operation
                 StructureID = structureVm.employeeSalaryStructure.empSalaryStructureHeader.StructureID,
                 TotalGross = structureVm.employeeSalaryStructure.empSalaryStructureHeader.TotalGross,
                 TotalDeductions = structureVm.employeeSalaryStructure.empSalaryStructureHeader.TotalDeductions,
+
             };
             Add(empStructure);
 
@@ -104,6 +105,7 @@ namespace HR.Web.BusinessObjects.Operation
                     EmployeeId = empStructure.EmployeeId,
                     IsActive = item.IsActive,
                     Total = item.Total,
+                    PaymentType = item.PaymentType,
                 };
                 empSalaryStructureHeaderDetailBO.Add(detail);
             }
@@ -122,6 +124,7 @@ namespace HR.Web.BusinessObjects.Operation
                     EmployeeId = empStructure.EmployeeId,
                     IsActive = item.IsActive,
                     Total = item.Total,
+                    PaymentType = item.PaymentType,
                 };
                 empSalaryStructureHeaderDetailBO.Add(detail);
             }

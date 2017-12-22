@@ -86,7 +86,7 @@
                                             {
 
                                                 <tr class="trCss">
-                                                    <td>
+                                                    <td>@Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].PaymentType)
                                                         @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].EmployeeId)
                                                         @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].BranchId)
                                                         @Html.CheckBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].IsActive,
@@ -98,7 +98,7 @@
                                                     </td>
                                                     <td>
                                                         @Html.DropDownListFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].ContributionRegister,
-                                                    new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.structureCompanyDeductionDetail[i].ContributionRegister), "", new { @class = "form-control input-sm" })
+                                                    new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.structureCompanyDeductionDetail[i].ContributionRegister), "", new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
                                                     </td>
                                                     <td>
                                                         @Html.DropDownListFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Computation,
@@ -138,7 +138,7 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th>Code</th>                                              
+                                                <th>Code</th>
                                                 <th class="no-wrap">Contribution Register</th>
                                                 <th>Computation</th>
                                                 <th>Amount</th>
@@ -151,7 +151,7 @@
                                             {
 
                                                 <tr class="trCssDeduct">
-                                                    <td>
+                                                    <td>@Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].PaymentType)
                                                         @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].EmployeeId)
                                                         @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].BranchId)
                                                         @Html.CheckBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].IsActive,
@@ -163,7 +163,7 @@
                                                     </td>
                                                     <td>
                                                         @Html.DropDownListFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].ContributionRegister,
-                                                    new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.structureEmployeeDeductionDetail[i].ContributionRegister), "", new { @class = "form-control input-sm" })
+                                                    new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.structureEmployeeDeductionDetail[i].ContributionRegister), "", new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
                                                     </td>
                                                     <td>
                                                         @Html.DropDownListFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Computation,
@@ -192,7 +192,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td></td>                                               
+                                                <td></td>
                                                 <td style="text-align:right;">Total Payable</td>
                                                 <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Salary, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                             </tr>
@@ -291,7 +291,7 @@
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Computation').val('').attr('disabled', 'disabled');
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
 
-               // $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Total').val('')
+                // $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Total').val('')
 
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__ContributionRegister').removeAttr('required');
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__RegisterCode').removeAttr('required');
@@ -347,21 +347,25 @@
 
         }
 
+        function calculateTotalByCode(obj){
+            var code=     $('#'+obj.id).val();
+            calculateTotal(code);
+        }
 
-
-        function calculateTotal(){
+        function calculateTotal(code){
             var obj={};
-            validateAmount(obj,0);
-            validateDeductAmount(obj,0);
+            validateAmount(obj,0,code);
+            validateDeductAmount(obj,0,code);
         }
 
 
-        function validateAmount(el, index) {
-           
+        function validateAmount(el, index,code) {
+
             var rowCount=$('.trCss').length;
             var TotalGross=0;
             for(var i=0; i<rowCount;i++){
                 var basicAmount=$('#employeeSalaryStructure_structureCompanyDeductionDetail_' + 0 + '__Amount').val();
+                code= $('#employeeSalaryStructure_structureCompanyDeductionDetail_'+i+'__ContributionRegister').val();
                 if(index == 0 && basicAmount!=""){
 
                     basicAmount =parseFloat(basicAmount).toFixed(2);
@@ -388,37 +392,56 @@
                     }
                     var grandTotal=(basicAmount* total)/100;
                     grandTotal=parseFloat(grandTotal).toFixed(2);
-                    $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + i + '__Total').val(grandTotal);
+                    if(code =="EMPLOYEE DEDUCTION"){
+                        grandTotal= 0 - grandTotal
+                        $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + i + '__Total').val(grandTotal);
+                    }else
+                        $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + i + '__Total').val(grandTotal);
+
                 }else{
-                    $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + i + '__Total').val(total);
+                    if(code =="EMPLOYEE DEDUCTION"){
+                        total=0-total;
+                        $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + i + '__Total').val(total);
+                    }
+                    else
+                        $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + i + '__Total').val(total);
                 }
                 debugger;
                 /* Calculate Nett amount*/
                 var currentValue=$('#employeeSalaryStructure_structureCompanyDeductionDetail_' + i + '__Total').val();
                 if(currentValue!="" && currentValue!=null){
-                    TotalGross = parseFloat(TotalGross)+ parseFloat(currentValue);
-                    TotalGross=TotalGross.toFixed(2);
+                    if(code !="EMPLOYEE DEDUCTION")
+                        TotalGross = parseFloat(TotalGross)+ parseFloat(currentValue);
+                        //TotalGross=TotalGross.toFixed(2);
+                    else{
+                        if(TotalGross!=0)
+                            TotalGross = parseFloat(TotalGross) + parseFloat(currentValue);
+                        else
+                            TotalGross =parseFloat(currentValue);
+                      
+                    }
                     $('#employeeSalaryStructure_empSalaryStructureHeader_TotalGross').val(TotalGross);
 
+                    var _totalGross= $('#employeeSalaryStructure_empSalaryStructureHeader_TotalGross').val() == "" ? 0 :  $('#employeeSalaryStructure_empSalaryStructureHeader_TotalGross').val();
+                    var _totalDeductions= $('#employeeSalaryStructure_empSalaryStructureHeader_TotalDeductions').val()== "" ? 0 : $('#employeeSalaryStructure_empSalaryStructureHeader_TotalDeductions').val();
+
+                    var netAmount=parseFloat(_totalGross)+ parseFloat(_totalDeductions);
+                    $('#employeeSalaryStructure_empSalaryStructureHeader_Salary').val(netAmount.toFixed(2));
+
                 }
-                
-                var _totalGross= $('#employeeSalaryStructure_empSalaryStructureHeader_TotalGross').val() == "" ? 0 :  $('#employeeSalaryStructure_empSalaryStructureHeader_TotalGross').val();
-                var _totalDeductions= $('#employeeSalaryStructure_empSalaryStructureHeader_TotalDeductions').val()== "" ? 0 : $('#employeeSalaryStructure_empSalaryStructureHeader_TotalDeductions').val();
-
-                var netAmount=parseFloat(_totalGross)+ parseFloat(_totalDeductions);
-                $('#employeeSalaryStructure_empSalaryStructureHeader_Salary').val(netAmount.toFixed(2));
-
             }
-            validateDeductAmount(this, 0);
+            validateDeductAmount(this, 0,code);
+
 
         }
 
 
-        function validateDeductAmount(el, index){
+        function validateDeductAmount(el, index,code){
             debugger;
             var rowCount=$('.trCssDeduct').length;
             var netAmount=0;
             for(var i=0; i<rowCount;i++){
+                code=$('#employeeSalaryStructure_structureEmployeeDeductionDetail_'+i+'__ContributionRegister').val();
                 var basicAmount=$('#employeeSalaryStructure_structureCompanyDeductionDetail_' + 0 + '__Amount').val();
                 if(index == 0 && basicAmount!=""){
                     basicAmount =parseFloat(basicAmount).toFixed(2);
@@ -453,12 +476,23 @@
                 /* Calculate Nett amount*/
                 var currentValue=$('#employeeSalaryStructure_structureEmployeeDeductionDetail_' + i + '__Total').val() == "" ?
                      0 : $('#employeeSalaryStructure_structureEmployeeDeductionDetail_' + i + '__Total').val();
-                //if(currentValue!="" && currentValue!=null){
-                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
-                    netAmount=netAmount.toFixed(2);
-                    $('#employeeSalaryStructure_empSalaryStructureHeader_TotalDeductions').val(netAmount);
-              //  }
                
+                //netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                if(code !="EMPLOYEE DEDUCTION")
+                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                else
+                {
+                    netAmount = parseFloat(netAmount) - parseFloat(currentValue);
+                    var currentVal=  $('#employeeSalaryStructure_structureEmployeeDeductionDetail_' + i + '__Total').val();
+                    if(currentVal!="" && currentVal !=null && currentVal>0)
+                        currentValue =0- parseFloat(currentValue).toFixed(2);
+                    $('#employeeSalaryStructure_structureEmployeeDeductionDetail_' + i + '__Total').val(currentValue);
+                }
+
+                netAmount=netAmount.toFixed(2);
+                $('#employeeSalaryStructure_empSalaryStructureHeader_TotalDeductions').val(netAmount);
+              
+
 
             }
             var _totalGross= $('#employeeSalaryStructure_empSalaryStructureHeader_TotalGross').val() == "" ? 0 :  $('#employeeSalaryStructure_empSalaryStructureHeader_TotalGross').val();

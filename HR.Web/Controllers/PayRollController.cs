@@ -309,6 +309,7 @@ namespace HR.Web.Controllers
         {
             using (var dbcntx = new HrDataContext())
             {
+                structureId = dbcntx.EmpSalaryStructureHeaders.Where(x => x.EmployeeId == employeeId).FirstOrDefault().StructureID;
                 var empsalaryobj = dbcntx.EmployeeHeaders
                     .Join(dbcntx.EmployeeWorkDetails,
                     a => a.EmployeeId, b => b.EmployeeId,
@@ -430,8 +431,8 @@ namespace HR.Web.Controllers
                         empsalaryobj.employeeSalaryStructure = remainingSalStructure;
                         empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader = remainingSalStructure.empSalaryStructureHeader;
                         empsalaryobj.employeeSalaryStructure.structureCompanyDeductionDetail = remainingSalStructure.structureCompanyDeductionDetail;
-                        empsalaryobj.employeeSalaryStructure.structureEmployeeDeductionDetail = remainingSalStructure.structureEmployeeDeductionDetail
-                            .Where(x => x.ContributionRegister == UTILITY.EMPLOYEEDEDUCTION).ToList();
+                        empsalaryobj.employeeSalaryStructure.structureEmployeeDeductionDetail = remainingSalStructure.structureEmployeeDeductionDetail;
+                           // .Where(x => x.ContributionRegister == UTILITY.EMPLOYEEDEDUCTION).ToList();
                     }
 
                     CodeList = empsalaryobj.employeeSalaryStructure.structureCompanyDeductionDetail.Select(x => x.Code).ToList();

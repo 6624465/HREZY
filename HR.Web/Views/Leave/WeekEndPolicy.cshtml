@@ -21,37 +21,34 @@
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.Monday), Model.Monday ?? false)
+                                @Html.CheckBox("Monday", Model.Monday ?? false)
 
                                 <label class="control-label">Monday</label>
                             </div>
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.IsMondayHalfDay), Model.IsMondayHalfDay ?? false)
-                                <label class="control-label">Half Day</label>
+                                @Html.Hidden("IsMondayHalfDay", Model.IsMondayHalfDay ?? false)
                             </div>
 
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.Tuesday), Model.Tuesday ?? false)
+                                @Html.CheckBox("Tuesday", Model.Tuesday ?? false)
 
                                 <label class="control-label">Tuesday</label>
                             </div>
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.IsTuesdayHalfDay), Model.IsTuesdayHalfDay ?? false)
-                                <label class="control-label">Half Day</label>
+                                @Html.Hidden("IsTuesdayHalfDay", Model.IsTuesdayHalfDay ?? false)
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.Wednesday), Model.Wednesday ?? false)
-                                
+                                @Html.CheckBox("Wednesday", Model.Wednesday ?? false)
+
                                 <label class="control-label">Wednesday</label>
                             </div>
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.IsWednesdayHalfDay), Model.IsWednesdayHalfDay ?? false)
-                                <label class="control-label">Half Day</label>
+                                @Html.Hidden("IsWednesdayHalfDay", Model.IsWednesdayHalfDay ?? false)
                             </div>
                         </div>
                         <div class="row">
@@ -60,38 +57,70 @@
                                 <label class="control-label">Thursday</label>
                             </div>
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.IsThursdayHalfDay), Model.IsThursdayHalfDay ?? false)
-                                <label class="control-label">Half Day</label>
+                                @Html.Hidden("IsThursdayHalfDay", Model.IsThursdayHalfDay ?? false)
+
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.Friday), Model.Friday ?? false)
+                                @Html.CheckBox("Friday", Model.Friday ?? false)
                                 <label class="control-label">Friday</label>
                             </div>
-                            <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.IsFridayHalfDay), Model.IsFridayHalfDay ?? false)
-                                <label class="control-label">Half Day</label>
+                            <div id="IsFridayHalfDaySession">
+                                <div class="col-md-2">
+                                    <label class="control-label">Half Day</label>
+                                    @Html.CheckBox("IsFridayHalfDay", Model.IsFridayHalfDay ?? false)
+
+                                </div>
+                            </div>
+                            <div id="FridaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                </label>
+                                <div class="col-md-2">
+
+                                    @Html.DropDownListFor(x => x.FridaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.Saturday), Model.Saturday ?? false)
+                                @Html.CheckBox("Saturday", Model.Saturday ?? false)
                                 <label class="control-label">Saturday</label>
                             </div>
-                            <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.IsSaturdayHalfDay), Model.IsSaturdayHalfDay ?? false)
-                                <label class="control-label">Half Day</label>
+                            <div id="IsSaturdayHalfDaySession">
+                                <div class="col-md-2">
+                                    <label class="control-label">Half Day</label>
+                                    @Html.CheckBox("IsSaturdayHalfDay", Model.IsSaturdayHalfDay ?? false)
+                                </div>
+                            </div>
+                            <div id="SaturdaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.SaturdaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                @Html.CheckBox(nameof(Model.Sunday), Model.Sunday ?? false)                                
+                                @Html.CheckBox("Sunday", Model.Sunday ?? false)
                                 <label class="control-label">Sunday</label>
                             </div>
-                            <div class="col-md-2">
-                               @Html.CheckBox(nameof(Model.IsSundayHalfDay), Model.IsSundayHalfDay ?? false)
-                                <label class="control-label">Half Day</label>
+                            <div id="IsSundayHalfDaySession">
+                                <div class="col-md-2">
+                                    <label class="control-label">Half Day</label>
+                                    @Html.CheckBox("IsSundayHalfDay", Model.IsSundayHalfDay ?? false)
+                                </div>
+                            </div>
+                            <div id="SundaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.SundaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
+                                </div>
                             </div>
                         </div>
 
@@ -134,18 +163,70 @@
         $(function () {
             $('#li_Leave').addClass('open');
             $('#li_weekendpolicy').addClass('active');
-        })
 
-        //$('input').on('ifChanged', function (event) {
-        //    var hdnId = event.currentTarget.id.replace('_', '.');
-        //    debugger;
-        //    if (event.currentTarget.checked)
-        //        $('input[name=' + hdnId +']').val('true');
-        //    else
-        //        $('input[name=' + hdnId + ']').val('false');
+            $('#FridaySession').hide();
+            $('#SaturdaySession').hide();
+            $('#SundaySession').hide();
+            $('#IsFridayHalfDaySession').hide();
+            $('#IsSaturdayHalfDaySession').hide();
+            $('#IsSundayHalfDaySession').hide();
 
-        //    debugger;
-        //    $(event.target).trigger('change');
-        //});
+            $('#Friday').trigger('ifChanged');
+            $('#Saturday').trigger('ifChanged');
+            $('#Sunday').trigger('ifChanged');
+            $('#IsFridayHalfDay').trigger('ifChanged');
+            $('#IsSaturdayHalfDay').trigger('ifChanged');
+            $('#IsSundayHalfDay').trigger('ifChanged');
+        });
+
+        $('#Friday').on('ifChanged', function () {
+            if ($('#Friday').prop('checked')) {
+                $('#IsFridayHalfDaySession').show();
+            }
+            else
+                $('#IsFridayHalfDaySession').hide();
+        });
+
+        $('#Saturday').on('ifChanged', function () {
+            if ($('#Saturday').prop('checked')) {
+                $('#IsSaturdayHalfDaySession').show();
+            }
+            else
+                $('#IsSaturdayHalfDaySession').hide();
+        });
+
+
+        $('#Sunday').on('ifChanged', function () {
+            if ($('#Sunday').prop('checked')) {
+                $('#IsSundayHalfDaySession').show();
+            }
+            else
+                $('#IsSundayHalfDaySession').hide();
+        });
+
+        $('#IsFridayHalfDay').on('ifChanged', function () {
+            if ($('#IsFridayHalfDay').prop('checked')) {
+                $('#FridaySession').show();
+            }
+            else
+                $('#FridaySession').hide();
+        });
+
+        $('#IsSaturdayHalfDay').on('ifChanged', function () {
+            if ($('#IsSaturdayHalfDay').prop('checked')) {
+                $('#SaturdaySession').show();
+            }
+            else
+                $('#SaturdaySession').hide();
+        });
+
+        $('#IsSundayHalfDay').on('ifChanged', function () {
+            if ($('#IsSundayHalfDay').prop('checked')) {
+                $('#SundaySession').show();
+            }
+            else
+                $('#SundaySession').hide();
+        });
+
     </script>
 }

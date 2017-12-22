@@ -26,5 +26,6 @@ namespace HR.Web.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool IsActive { get; set; }
+        public string PaymentType { get; set; }
     }
 }

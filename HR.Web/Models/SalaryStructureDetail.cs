@@ -27,5 +27,6 @@ namespace HR.Web.Models
         public bool IsActive { get; set; }
         public int StructureID { get; set; }
         public Nullable<decimal> Total { get; set; }
+        public string PaymentType { get; set; }
     }
 }

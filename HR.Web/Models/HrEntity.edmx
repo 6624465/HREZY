@@ -278,6 +278,7 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureHeader">
           <Key>
@@ -415,6 +416,7 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="StructureID" Type="int" Nullable="false" />
           <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -1043,6 +1045,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="StructureID" Type="Int32" Nullable="false" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -1097,6 +1100,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1563,6 +1567,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="SalaryStructureDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureDetail">
               <MappingFragment StoreEntitySet="SalaryStructureDetail">
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="StructureID" ColumnName="StructureID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -1618,6 +1623,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="EmpSalaryStructureDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmpSalaryStructureDetail">
               <MappingFragment StoreEntitySet="EmpSalaryStructureDetail">
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

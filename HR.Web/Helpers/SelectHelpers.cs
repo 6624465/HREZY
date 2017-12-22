@@ -328,6 +328,7 @@ namespace HR.Web.Helpers
             }
         }
 
+
         public static IEnumerable<SelectListItem> Computation()
         {
             using (HrDataContext dbContext = new HrDataContext())
@@ -366,6 +367,24 @@ namespace HR.Web.Helpers
                                         };
 
             return listItem;
+        }
+
+        public static IEnumerable<SelectListItem> Deductions()
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                List<SelectListItem> listItem = new List<SelectListItem>() {
+                                            new SelectListItem() {
+                                                Text="PAYMENTS",
+                                                Value="PAYMENTS"
+                                            },
+                                             new SelectListItem() {
+                                                Text="DEDUCTIONS",
+                                                Value="DEDUCTIONS"
+                                            },
+                                        };
+                return listItem;
+            }
         }
     }
 }

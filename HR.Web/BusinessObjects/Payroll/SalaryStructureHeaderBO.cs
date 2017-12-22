@@ -133,7 +133,8 @@ namespace HR.Web.BusinessObjects.Payroll
                         RegisterCode = item.RegisterCode,
                         StructureID = structureHeader.StructureID,
                         StructureDetailID = item.StructureDetailID,
-                        Total = item.Total
+                        Total = item.Total,
+                        PaymentType = item.PaymentType
                     };
                     if (item.StructureDetailID >0)
                         salaryStructureDetailBO.Delete(detail);
@@ -155,7 +156,8 @@ namespace HR.Web.BusinessObjects.Payroll
                         RegisterCode = item.RegisterCode,
                         StructureID = structureHeader.StructureID,
                         StructureDetailID = item.StructureDetailID,
-                        Total = item.Total
+                        Total = item.Total,
+                        PaymentType = item.PaymentType
                     };
                     if (item.StructureDetailID > 0)
                         salaryStructureDetailBO.Delete(detail);

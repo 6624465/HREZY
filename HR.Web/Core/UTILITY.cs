@@ -16,7 +16,7 @@ namespace HR.Web
         /// <param name="date">Date to check</param>
         /// <returns>Input date if valid in the DB, or Null if date is 
         /// too early to be DB compatible.</returns>
-      
+
         public static DateTime? ToNullIfTooEarlyForDb(this DateTime date)
         {
             return (date >= (DateTime)SqlDateTime.MinValue) ? date : (DateTime?)null;
@@ -68,8 +68,8 @@ namespace HR.Web
         public static string COMPUTATION = "COMPUTATION";
         public static string PERCENTAGE = "PERCENTAGE";
 
-        public static string EMPLOYEEDEDUCTION = "EMPLOYEE DEDUCTION";
-        public static string COMPANYDEDUCTION = "COMPANY DEDUCTION";
+        public static string EMPLOYEEDEDUCTION = "DEDUCTIONS";
+        public static string COMPANYDEDUCTION = "PAYMENTS";
 
         /* Config Keys End */
 
@@ -84,7 +84,7 @@ namespace HR.Web
 
         }
 
-        
-       
+
+
     }
 }

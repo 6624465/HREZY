@@ -114,21 +114,12 @@
             },
             function (isConfirm) {
                 if (isConfirm) {
-                    $.ajax({
-                        url: '@Url.Content("~/Config/LeaveListDelete?lookupid=")' + LookUpID,
-                        method: 'post',
-                        success: function (data) {
-                            swal("Deleted!", "", "success");
-                        },
-                        error: function (data) {
-                            swal("cancelled!", "", "error")
-                        }
-
-                    })
-
-                }
-
-
+                    location.href = '@Url.Content("~/Config/LeaveListDelete?lookupid=")' + LookUpID;
+                        swal("Deleted!", "You have successfully Deleted", "success");
+                    }
+                    else {
+                        swal("Cancelled", "", "error");
+                    }
             }
             )
 

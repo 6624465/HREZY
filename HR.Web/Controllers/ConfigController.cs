@@ -54,7 +54,7 @@ namespace HR.Web.Controllers
             }
             return RedirectToAction("EmployeeDesignationList");
         }
-        [HttpPost]
+    
         public ActionResult DesignationDelete(int lookupid)
         {
             
@@ -129,7 +129,7 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeDepartmentList");
         }
-        [HttpPost]
+       
         public ActionResult DepartmentDelete(int lookupid)
         {
 
@@ -162,7 +162,7 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeStatusList");
         }
-        [HttpPost]
+      
         public ActionResult EmployeeStatusDelete(int lookupid)
         {
 
@@ -196,7 +196,7 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("MaritalStatusList");
         }
-        [HttpPost]
+       
         public ActionResult MaritalStatusDelete(int lookupid)
         {
 
@@ -228,7 +228,7 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("LeaveList");
         }
-        [HttpPost]
+        
         public ActionResult LeaveListDelete(int lookupid)
         {
 
@@ -260,7 +260,7 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("PaymentTypeList");
         }
-        [HttpPost]
+     
         public ActionResult PaymentTypeDelete(int lookupid)
         {
 

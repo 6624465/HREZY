@@ -24,7 +24,8 @@ namespace HR.Web.Services.LeaveMaster
                     }
                     else
                     {
-                        lookUp.IsActive = entity.IsActive;
+                        lookUp.IsCarryForward = entity.IsCarryForward;
+                        lookUp.IsWeekendPolicy = entity.IsWeekendPolicy;
                         lookUp.LookUpCategory = entity.LookUpCategory;
                         lookUp.LookUpCode = entity.LookUpCode;
                         lookUp.LookUpDescription = entity.LookUpDescription;

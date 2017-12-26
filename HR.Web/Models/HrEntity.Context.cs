@@ -54,6 +54,7 @@ namespace HR.Web.Models
         public virtual DbSet<SalaryStructureHeader> SalaryStructureHeaders { get; set; }
         public virtual DbSet<EmpSalaryStructureHeader> EmpSalaryStructureHeaders { get; set; }
         public virtual DbSet<EmpSalaryStructureDetail> EmpSalaryStructureDetails { get; set; }
+        public virtual DbSet<OtherLeave> OtherLeaves { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)
         {

@@ -1725,6 +1725,7 @@
     <Compile Include="BusinessObjects\BaseBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\BranchBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\CompanyBO.cs" />
+    <Compile Include="BusinessObjects\LeaveMaster\OtherLeaveBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\LookUpBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\HolidayListBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\LeaveBO.cs" />
@@ -1841,6 +1842,9 @@
     <Compile Include="Models\LookUp.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OtherLeave.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1878,6 +1882,7 @@
     <Compile Include="Services\LeaveMaster\CompanyRepository.cs" />
     <Compile Include="Services\LeaveMaster\CountryRepository.cs" />
     <Compile Include="Services\LeaveMaster\HolidayListRepository.cs" />
+    <Compile Include="Services\LeaveMaster\OtherLeaveRepository.cs" />
     <Compile Include="Services\LeaveMaster\LeaveRepository.cs" />
     <Compile Include="Services\LeaveMaster\LookUpRepository.cs" />
     <Compile Include="Services\Operation\AddressService.cs" />

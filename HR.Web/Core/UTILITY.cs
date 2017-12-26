@@ -71,6 +71,8 @@ namespace HR.Web
         public static string EMPLOYEEDEDUCTION = "DEDUCTIONS";
         public static string COMPANYDEDUCTION = "PAYMENTS";
 
+        public static string LOOKUPCATEGORY = "LeaveType";
+
         /* Config Keys End */
 
         public static DateTime SINGAPORETIME

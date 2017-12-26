@@ -25,11 +25,19 @@
 </div>
 <div class="row">
     <label class="col-md-4 control-label">
-        <span class="pull-right">IsActive</span>
+        <span class="pull-right">Carry Forward</span>
     </label>
-    <div class="col-md-4">
+    <div class="col-md-1">
         <div style="margin-top:10px;">
-            @Html.CheckBoxFor(x => x.IsActive)
+            @Html.CheckBoxFor(x => x.IsCarryForward)
+        </div>
+    </div>
+    <label class="col-md-3 control-label">
+        <span class="pull-right">Weekend Policy</span>
+    </label>
+    <div class="col-md-2">
+        <div style="margin-top:10px;">
+            @Html.CheckBoxFor(x => x.IsWeekendPolicy)
         </div>
     </div>
 </div>

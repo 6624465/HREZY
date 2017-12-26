@@ -12,18 +12,15 @@ namespace HR.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class LookUp
+    public partial class OtherLeave
     {
-        public int LookUpID { get; set; }
-        public string LookUpCode { get; set; }
-        public string LookUpDescription { get; set; }
-        public string LookUpCategory { get; set; }
-        public bool IsActive { get; set; }
-        public string CreatedBy { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public string ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public int LeaveId { get; set; }
+        public Nullable<int> LeaveTypeId { get; set; }
+        public Nullable<decimal> LeavesPerYear { get; set; }
+        public Nullable<decimal> LeavesPerMonth { get; set; }
         public bool IsCarryForward { get; set; }
-        public bool IsWeekendPolicy { get; set; }
+        public Nullable<decimal> CarryForward { get; set; }
+        public Nullable<int> BranchId { get; set; }
+        public string Description { get; set; }
     }
 }

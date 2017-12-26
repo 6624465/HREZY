@@ -18,6 +18,8 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsCarryForward" Type="bit" Nullable="false" />
+          <Property Name="IsWeekendPolicy" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Branches">
           <Key>
@@ -94,6 +96,19 @@
           <Property Name="IsCasualLeaveCarryForward" Type="bit" Nullable="false" />
           <Property Name="BranchId" Type="bigint" />
           <Property Name="CarryForwardCasualLeave" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="OtherLeave">
+          <Key>
+            <PropertyRef Name="LeaveId" />
+          </Key>
+          <Property Name="LeaveId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeaveTypeId" Type="int" />
+          <Property Name="LeavesPerYear" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LeavesPerMonth" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsCarryForward" Type="bit" Nullable="false" />
+          <Property Name="CarryForward" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BranchId" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -517,6 +532,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="Master" store:Type="Tables" />
           <EntitySet Name="HolidayList" EntityType="Self.HolidayList" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Leave" EntityType="Self.Leave" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="OtherLeave" EntityType="Self.OtherLeave" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeAddress" EntityType="Self.EmployeeAddress" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeDocumentDetail" EntityType="Self.EmployeeDocumentDetail" Schema="Operation" store:Type="Tables" />
@@ -624,6 +640,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="SalaryStructureHeaders" EntityType="DB_9F30C5_HRDBModel.SalaryStructureHeader" />
           <EntitySet Name="EmpSalaryStructureHeaders" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureHeader" />
           <EntitySet Name="EmpSalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureDetail" />
+          <EntitySet Name="OtherLeaves" EntityType="DB_9F30C5_HRDBModel.OtherLeave" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -723,6 +740,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsCarryForward" Type="Boolean" Nullable="false" />
+          <Property Name="IsWeekendPolicy" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -1102,6 +1121,19 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="OtherLeave">
+          <Key>
+            <PropertyRef Name="LeaveId" />
+          </Key>
+          <Property Name="LeaveId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeaveTypeId" Type="Int32" />
+          <Property Name="LeavesPerYear" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LeavesPerMonth" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsCarryForward" Type="Boolean" Nullable="false" />
+          <Property Name="CarryForward" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1227,6 +1259,8 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="LookUps">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.LookUp">
               <MappingFragment StoreEntitySet="LookUp">
+                <ScalarProperty Name="IsWeekendPolicy" ColumnName="IsWeekendPolicy" />
+                <ScalarProperty Name="IsCarryForward" ColumnName="IsCarryForward" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
@@ -1636,6 +1670,20 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtherLeaves">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.OtherLeave">
+              <MappingFragment StoreEntitySet="OtherLeave">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="CarryForward" ColumnName="CarryForward" />
+                <ScalarProperty Name="IsCarryForward" ColumnName="IsCarryForward" />
+                <ScalarProperty Name="LeavesPerMonth" ColumnName="LeavesPerMonth" />
+                <ScalarProperty Name="LeavesPerYear" ColumnName="LeavesPerYear" />
+                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="LeaveId" ColumnName="LeaveId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

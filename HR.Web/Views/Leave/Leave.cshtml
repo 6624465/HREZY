@@ -212,7 +212,7 @@
                                             <span class="pull-right">Per Year</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerYear, new { @class = "form-control numCss input-sm", onblur = "calcCasualLeave(this," + i + ")" })
+                                            @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerYear, new { @class = "form-control numCss input-sm", onblur = "calcCasualLeave(this," + i + ")", required = "required" })
                                         </div>
                                     </div>
                                     <div class="row css5">

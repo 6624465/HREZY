@@ -60,6 +60,19 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             }
         }
 
+        public List<OtherLeave> GetListById(int id)
+        {
+            try
+            {
+                return OtherLeaveRepository.GetlistById(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public OtherLeave GetById(int id)
         {
             try

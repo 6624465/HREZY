@@ -229,7 +229,7 @@ namespace HR.Web.Controllers
                             StructureDetailID = item.StructureDetailID,
                             StructureID = item.StructureID,
                             Total = item.Total,
-                            PaymentType=item.PaymentType
+                            PaymentType = item.PaymentType
                         };
                         if (item.PaymentType == UTILITY.COMPANYDEDUCTION)
                             salaryStructureVm.structureCompanyDeductionDetail.Add(salaryDetail);
@@ -305,11 +305,15 @@ namespace HR.Web.Controllers
 
         [HttpGet]
         public ViewResult EmpSalaryStructure(int employeeId, int structureId = 0)
-
         {
             using (var dbcntx = new HrDataContext())
             {
-                structureId = dbcntx.EmpSalaryStructureHeaders.Where(x => x.EmployeeId == employeeId).FirstOrDefault().StructureID;
+                if (structureId == 0)
+                {
+                    var salarystructureDetail = dbcntx.EmpSalaryStructureHeaders.Where(x => x.EmployeeId == employeeId).FirstOrDefault();
+                    if (salarystructureDetail != null)
+                        structureId = salarystructureDetail.StructureID;
+                }
                 var empsalaryobj = dbcntx.EmployeeHeaders
                     .Join(dbcntx.EmployeeWorkDetails,
                     a => a.EmployeeId, b => b.EmployeeId,
@@ -409,7 +413,7 @@ namespace HR.Web.Controllers
                             ContributionRegister = y.RegisterCode,
                             Total = y.Total,
                             IsActive = y.IsActive,
-                            PaymentType=y.PaymentType
+                            PaymentType = y.PaymentType
                         }).Where(x => x.PaymentType == UTILITY.COMPANYDEDUCTION).ToList();//
                     remainingSalStructure.structureEmployeeDeductionDetail = salaryStructure.salaryStructureDetail
                     .Select(y => new EmpSalaryStructureDetail
@@ -422,7 +426,7 @@ namespace HR.Web.Controllers
                         ContributionRegister = y.RegisterCode,
                         Total = y.Total,
                         IsActive = y.IsActive,
-                        PaymentType=y.PaymentType
+                        PaymentType = y.PaymentType
                     }).Where(x => x.PaymentType == UTILITY.EMPLOYEEDEDUCTION).ToList();//
 
 
@@ -432,7 +436,7 @@ namespace HR.Web.Controllers
                         empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader = remainingSalStructure.empSalaryStructureHeader;
                         empsalaryobj.employeeSalaryStructure.structureCompanyDeductionDetail = remainingSalStructure.structureCompanyDeductionDetail;
                         empsalaryobj.employeeSalaryStructure.structureEmployeeDeductionDetail = remainingSalStructure.structureEmployeeDeductionDetail;
-                           // .Where(x => x.ContributionRegister == UTILITY.EMPLOYEEDEDUCTION).ToList();
+                        // .Where(x => x.ContributionRegister == UTILITY.EMPLOYEEDEDUCTION).ToList();
                     }
 
                     CodeList = empsalaryobj.employeeSalaryStructure.structureCompanyDeductionDetail.Select(x => x.Code).ToList();

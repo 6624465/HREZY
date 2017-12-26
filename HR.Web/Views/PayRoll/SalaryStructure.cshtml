@@ -100,17 +100,17 @@
                                                         <td style="width:250px;">@Html.DisplayFor(x => x.structureCompanyDeductionDetail[i].Description)</td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureCompanyDeductionDetail[i].RegisterCode,
-                                                                 new SelectList(ContributionRegister, "Value", "Text", Model.structureCompanyDeductionDetail[i].RegisterCode), "", new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
+                                                                 new SelectList(ContributionRegister, "Value", "Text", Model.structureCompanyDeductionDetail[i].RegisterCode), "", new { @class = "form-control input-sm ", onchange = "calculateTotalByCode(this)" })
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureCompanyDeductionDetail[i].ComputationCode,
                                                                  new SelectList(Computation, "Value", "Text", Model.structureCompanyDeductionDetail[i].ComputationCode), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.structureCompanyDeductionDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
+                                                            @Html.TextBoxFor(x => x.structureCompanyDeductionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateAmount(this," + i + ")" })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.structureCompanyDeductionDetail[i].Total, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                            @Html.TextBoxFor(x => x.structureCompanyDeductionDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
                                                         </td>
 
 
@@ -126,7 +126,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td style="text-align:right;">Total Gross</td>
-                                                    <td>@Html.TextBoxFor(x => x.structureHeader.TotalGross, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                    <td>@Html.TextBoxFor(x => x.structureHeader.TotalGross, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -175,10 +175,10 @@
                                                                  new SelectList(Computation, "Value", "Text", Model.structureEmployeeDeductionDetail[i].ComputationCode), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.structureEmployeeDeductionDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateDeductAmount(this," + i + ")" })
+                                                            @Html.TextBoxFor(x => x.structureEmployeeDeductionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateDeductAmount(this," + i + ")" })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.structureEmployeeDeductionDetail[i].Total, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                            @Html.TextBoxFor(x => x.structureEmployeeDeductionDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
                                                         </td>
 
 
@@ -194,7 +194,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td style="text-align:right;">Total Deductions</td>
-                                                    <td>@Html.TextBoxFor(x => x.structureHeader.TotalDeductions, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                    <td>@Html.TextBoxFor(x => x.structureHeader.TotalDeductions, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>

@@ -97,7 +97,7 @@
                                                 <span class="pull-right" style="white-space:nowrap;">Monday</span>
                                             </label>
                                             <div class="col-md-1">
-                                                @Html.CheckBox("weekendPolicy.Monday", Model.weekendPolicy.Monday ?? false,new { @class= " input-sm" })
+                                                @Html.CheckBox("weekendPolicy.Monday", Model.weekendPolicy.Monday ?? false, new { @class = " input-sm" })
                                             </div>
                                         </div>
 
@@ -156,7 +156,7 @@
                                                     <span class="pull-right" style="white-space:nowrap;">Session</span>
                                                 </label>
                                                 <div class="col-md-3">
-                                                    
+
                                                     @Html.DropDownListFor(x => x.weekendPolicy.FridaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
                                                 </div>
                                             </div>
@@ -183,7 +183,7 @@
                                                 </label>
                                                 <div class="col-md-3">
 
-                                                    
+
                                                     @Html.DropDownListFor(x => x.weekendPolicy.SaturdaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
                                                 </div>
                                             </div>
@@ -209,7 +209,7 @@
                                                     <span class="pull-right" style="white-space:nowrap;">Session</span>
                                                 </label>
                                                 <div class="col-md-3">
-                                                    @Html.DropDownListFor(x=>x.weekendPolicy.SundaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
+                                                    @Html.DropDownListFor(x => x.weekendPolicy.SundaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
                                                 </div>
                                             </div>
                                         </div>
@@ -405,26 +405,39 @@
         $('#weekendPolicy_Friday').on('ifChanged', function () {
             if ($('#weekendPolicy_Friday').prop('checked')) {
                 $('#IsFridayHalfDaySession').show();
+                $('#FridaySession').show();
+                //  $('.icheckbox_flat-blue').addClass('checked');
+                // $('#weekendPolicy_IsFridayHalfDay').attr('checked', 'checked');
             }
-            else
+            else {
                 $('#IsFridayHalfDaySession').hide();
+                $('#FridaySession').hide();
+                // $('#weekendPolicy_IsFridayHalfDay').removeAttr('checked');
+                //$('.icheckbox_flat-blue hover').removeClass('checked');
+            }
         });
 
         $('#weekendPolicy_Saturday').on('ifChanged', function () {
             if ($('#weekendPolicy_Saturday').prop('checked')) {
                 $('#IsSaturdayHalfDaySession').show();
+                $('#SaturdaySession').show();
             }
-            else
+            else{
                 $('#IsSaturdayHalfDaySession').hide();
+                $('#SaturdaySession').hide();
+            }
         });
 
 
         $('#weekendPolicy_Sunday').on('ifChanged', function () {
             if ($('#weekendPolicy_Sunday').prop('checked')) {
                 $('#IsSundayHalfDaySession').show();
+                $('#SundaySession').show();
             }
-            else
+            else{
                 $('#IsSundayHalfDaySession').hide();
+                $('#SundaySession').hide();
+            }
         });
 
         $('#weekendPolicy_IsFridayHalfDay').on('ifChanged', function () {

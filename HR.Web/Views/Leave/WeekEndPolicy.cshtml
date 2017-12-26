@@ -182,26 +182,35 @@
         $('#Friday').on('ifChanged', function () {
             if ($('#Friday').prop('checked')) {
                 $('#IsFridayHalfDaySession').show();
+                $('#FridaySession').show();
             }
-            else
+            else{
                 $('#IsFridayHalfDaySession').hide();
+                $('#FridaySession').hide();
+            }
         });
 
         $('#Saturday').on('ifChanged', function () {
             if ($('#Saturday').prop('checked')) {
                 $('#IsSaturdayHalfDaySession').show();
+                $('#SaturdaySession').show();
             }
-            else
+            else{
                 $('#IsSaturdayHalfDaySession').hide();
+                $('#SaturdaySession').hide();
+            }
         });
 
 
         $('#Sunday').on('ifChanged', function () {
             if ($('#Sunday').prop('checked')) {
                 $('#IsSundayHalfDaySession').show();
+                $('#SundaySession').show();
             }
-            else
+            else{
                 $('#IsSundayHalfDaySession').hide();
+                $('#SundaySession').hide();               
+            }
         });
 
         $('#IsFridayHalfDay').on('ifChanged', function () {

@@ -105,10 +105,10 @@
                                                     new SelectList(Computation, "Value", "Text", Model.employeeSalaryStructure.structureCompanyDeductionDetail[i].Computation), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                     </td>
                                                     <td>
-                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateAmount(this," + i + ")" })
+                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateAmount(this," + i + ")" })
                                                     </td>
                                                     <td>
-                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Total, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
                                                     </td>
                                                 </tr>
 
@@ -122,7 +122,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td style="text-align:right;">Total Gross</td>
-                                                <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.TotalGross, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.TotalGross, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -170,10 +170,10 @@
                                                     new SelectList(Computation, "Value", "Text", Model.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Computation), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                     </td>
                                                     <td>
-                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Amount, new { @class = "form-control input-sm", onblur = "validateDeductAmount(this," + i + ")" })
+                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateDeductAmount(this," + i + ")" })
                                                     </td>
                                                     <td>
-                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Total, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
                                                     </td>
                                                 </tr>
                                             }
@@ -186,7 +186,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td style="text-align:right;">Total Deductions</td>
-                                                <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.TotalDeductions, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.TotalDeductions, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
@@ -194,7 +194,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td style="text-align:right;">Total Payable</td>
-                                                <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Salary, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                <td>@Html.TextBoxFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Salary, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                             </tr>
                                         </tfoot>
                                     </table>

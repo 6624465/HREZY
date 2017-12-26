@@ -18,42 +18,48 @@
         }
     </style>
 }
-<div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default">
-            <div class="center-block width">
-                <div class="box" id="grid">
 
-                    <div class="box-header">
-                        <h4>Employee Designation</h4>
-                        <div class="box-tools">
-                            <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="editEmpDesignation(-1);"><i class="fa fa-plus"></i> Add</button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                @grid.GetHtml(
-                                columns: grid.Columns(
-                                grid.Column("LookUpCode", "Designation Name", canSort: true),
-                                grid.Column("LookUpDescription", "Designation Description", canSort: true),
-                                //grid.Column("IsActive", "Status"),
-                                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
-                                tableStyle: "table table-condensed table-bordered")
+    <div class="page">
+        <div class="page-wrap">
+            <div class="panel panel-default">
+                <div class="center-block width">
+                    <div class="box" id="grid">
+
+                        <div class="box-header">
+                            <h4>Employee Designation</h4>
+                            <div class="box-tools">
+                                <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="editEmpDesignation(-1);"><i class="fa fa-plus"></i> Add</button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div>@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @grid.GetHtml(
+     columns: grid.Columns(
+     grid.Column("LookUpCode", "Designation Name", canSort: true),
+     grid.Column("LookUpDescription", "Designation Description", canSort: true),
+     //grid.Column("IsActive", "Status"),
+     grid.Column("", "#Action", canSort: false,
+     format: @<text>
+        <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
+        <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deletedesignation(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button>
+    </text>)),
+     tableStyle: "table table-condensed table-bordered")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div>@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @using (Html.BeginForm("SaveEmployeeDesignation", "Config", FormMethod.Post, new { id = "frm", name = "frm" }))
 {
     <div id="myDesignationModal" class="modal fade" role="dialog">
@@ -94,6 +100,37 @@
 
                 }
             });
+        }
+        function deletedesignation(LookUpID) {
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this Record?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Delete",
+                confirmButtonClass: "btn-danger"
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: '@Url.Content("~/Config/DesignationDelete?lookupid=")' + LookUpID,
+                        method: 'post',
+                        success:function(data){
+                            swal("Deleted!","","success");
+                        },
+                        error: function (data) {
+                            swal("cancelled!","", "error")
+                        }
+                    
+                    })
+                  
+                }
+               
+
+            }
+            )
+
         }
 
         $('#frm').validate({

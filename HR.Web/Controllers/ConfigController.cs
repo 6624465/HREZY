@@ -54,6 +54,13 @@ namespace HR.Web.Controllers
             }
             return RedirectToAction("EmployeeDesignationList");
         }
+        [HttpPost]
+        public ActionResult DesignationDelete(int lookupid)
+        {
+            
+            lookUpBO.Delete(lookupid);
+            return RedirectToAction("EmployeeDesignationList");
+        }
 
         #endregion
 
@@ -88,7 +95,13 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeTypeList");
         }
+        [HttpPost]
+        public ActionResult EmployeeTypeDelete(int lookupid)
+        {
 
+            lookUpBO.Delete(lookupid);
+            return RedirectToAction("EmployeeTypeList");
+        }
         #endregion
         #region department
         public ActionResult EmployeeDepartmentList()
@@ -116,6 +129,14 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeDepartmentList");
         }
+        [HttpPost]
+        public ActionResult DepartmentDelete(int lookupid)
+        {
+
+            lookUpBO.Delete(lookupid);
+            return RedirectToAction("EmployeeDepartmentList");
+        }
+
         #endregion
         #region EmployeeStatus
         public ActionResult EmployeeStatusList()
@@ -139,6 +160,13 @@ namespace HR.Web.Controllers
         {
             lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEESTATUS;
             lookUpBO.Add(lookup);
+            return RedirectToAction("EmployeeStatusList");
+        }
+        [HttpPost]
+        public ActionResult EmployeeStatusDelete(int lookupid)
+        {
+
+            lookUpBO.Delete(lookupid);
             return RedirectToAction("EmployeeStatusList");
         }
         #endregion
@@ -168,6 +196,13 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("MaritalStatusList");
         }
+        [HttpPost]
+        public ActionResult MaritalStatusDelete(int lookupid)
+        {
+
+            lookUpBO.Delete(lookupid);
+            return RedirectToAction("MaritalStatusList");
+        }
         #endregion
         #region LeaveList
         public ActionResult LeaveList()
@@ -193,6 +228,13 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("LeaveList");
         }
+        [HttpPost]
+        public ActionResult LeaveListDelete(int lookupid)
+        {
+
+            lookUpBO.Delete(lookupid);
+            return RedirectToAction("LeaveList");
+        }
         #endregion
         #region PaymentType
         public ActionResult PaymentTypeList()
@@ -216,6 +258,13 @@ namespace HR.Web.Controllers
         {
             lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEPAYMENTTYPE;
             lookUpBO.Add(lookup);
+            return RedirectToAction("PaymentTypeList");
+        }
+        [HttpPost]
+        public ActionResult PaymentTypeDelete(int lookupid)
+        {
+
+            lookUpBO.Delete(lookupid);
             return RedirectToAction("PaymentTypeList");
         }
         #endregion

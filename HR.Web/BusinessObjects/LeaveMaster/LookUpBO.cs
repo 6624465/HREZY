@@ -35,11 +35,12 @@ namespace HR.Web.BusinessObjects.LookUpMaster
             }
         }
 
-        public void Delete(LookUp lookUp)
+       
+        public void Delete(int id)
         {
             try
             {
-                lookUpRepository.Delete(lookUp);
+                lookUpRepository.Delete(id);
             }
             catch (Exception ex)
             {

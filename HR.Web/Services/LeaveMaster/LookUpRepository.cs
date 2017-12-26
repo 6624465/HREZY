@@ -40,13 +40,38 @@ namespace HR.Web.Services.LeaveMaster
             }
         }
 
+        //public void Delete(LookUp entity)
+        //{
+        //    try
+        //    {
+        //        using (HrDataContext dbContext = new HrDataContext())
+        //        {
+        //            LookUp lookUp = dbContext.LookUps
+        //                .Where(x => x.LookUpID == entity.LookUpID).FirstOrDefault();
+        //            lookUp.IsActive = false;
+        //            //dbContext.LookUps.Remove(entity);
+        //            dbContext.SaveChanges();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw ex;
+        //    }
+        //}
         public void Delete(LookUp entity)
+        {
+            throw new NotImplementedException();
+        }
+        public void Delete(int id)
         {
             try
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    dbContext.LookUps.Remove(entity);
+                    var record = dbContext.LookUps.Where(x => x.LookUpID == id).FirstOrDefault();
+                    record.IsActive = false;
+
                     dbContext.SaveChanges();
                 }
             }

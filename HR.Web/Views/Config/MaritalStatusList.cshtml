@@ -38,7 +38,9 @@
                             grid.Column("LookUpCode", "Status Name", canSort: true),
                             grid.Column("LookUpDescription", "Status Description", canSort: true),
                             //grid.Column("IsActive", "Status"),
-                            grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpMaritalStatus(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
+                            grid.Column("", "#Action", canSort: false, format: @<text>
+                            <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpMaritalStatus(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
+                                <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteMaritalStatus(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button></text>)),
                             tableStyle: "table table-condensed table-bordered")
                             </div>
                         </div>
@@ -76,7 +78,7 @@
 @section Scripts{
     <script type="text/javascript">
         $(function () {
-            
+
             $('#li_Master').addClass('open');
             $('#li_maritalstatus').addClass('active');
         });
@@ -94,6 +96,37 @@
 
                 }
             });
+        }
+        function deleteMaritalStatus(LookUpID) {
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this Record?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Delete",
+                confirmButtonClass: "btn-danger"
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: '@Url.Content("~/Config/MaritalStatusDelete?lookupid=")' + LookUpID,
+                        method: 'post',
+                        success:function(data){
+                            swal("Deleted!","","success");
+                        },
+                        error: function (data) {
+                            swal("cancelled!","", "error")
+                        }
+
+                    })
+
+                }
+
+
+            }
+            )
+
         }
 
         $('#frm').validate({

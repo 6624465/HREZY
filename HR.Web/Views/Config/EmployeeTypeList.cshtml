@@ -52,7 +52,9 @@
                     </label>
                     </div>
             </text>),*@
-                grid.Column("", "#Action", canSort: false, format: @<text><button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editEmpType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button></text>)),
+                grid.Column("", "#Action", canSort: false, format: @<text>
+                <button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editEmpType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
+                                <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteEmployeeType(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table table-condensed table-bordered")
                             </div>
                         </div>
@@ -106,6 +108,37 @@
                 }
             });
         }
+        function deleteEmployeeType(LookUpID) {
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this Record?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Delete",
+                confirmButtonClass: "btn-danger"
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: '@Url.Content("~/Config/EmployeeTypeDelete?lookupid=")' + LookUpID,
+                        method: 'post',
+                        success:function(data){
+                            swal("Deleted!","","success");
+                        },
+                        error: function (data) {
+                            swal("cancelled!","", "error")
+                        }
+
+                    })
+
+                }
+
+
+            }
+            )
+
+        }
         $('#frm').validate({
             rules: {
                 LookUpCode: {
@@ -138,8 +171,8 @@
         //});
 
 
-       
-       
+
+
     </script>
 }
 <style>

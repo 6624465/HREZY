@@ -812,30 +812,14 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                 leaveVm.leave = new Leave();
                 leaveVm.otherLeave = new List<OtherLeave>();
 
-                List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY).ToList();
+                List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true).ToList();
 
                 List<int> lookupIdList = dbContext.OtherLeaves
                            .Select(x => x.LeaveTypeId.Value).ToList();
 
                 if (ROLECODE != UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
                 {
-                    //leaveVm.weekendPolicy = new WeekendPolicy
-                    //{
-                    //    Monday = false,
-                    //    Tuesday = false,
-                    //    Wednesday = false,
-                    //    Thursday = false,
-                    //    Friday = false,
-                    //    Saturday = false,
-                    //    Sunday = false,
-                    //    IsMondayHalfDay = false,
-                    //    IsTuesdayHalfDay = false,
-                    //    IsWednesdayHalfDay = false,
-                    //    IsThursdayHalfDay = false,
-                    //    IsFridayHalfDay = false,
-                    //    IsSaturdayHalfDay = false,
-                    //    IsSundayHalfDay = false
-                    //};
+                   
                     leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
                     leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == BRANCHID).ToList();
                     if (leaveVm.otherLeave.Count == 0)

@@ -1,5 +1,6 @@
 ﻿using HR.Web.BusinessObjects;
 using HR.Web.BusinessObjects.LeaveMaster;
+using HR.Web.BusinessObjects.LookUpMaster;
 using HR.Web.BusinessObjects.Operation;
 using HR.Web.Helpers;
 using HR.Web.Models;
@@ -25,6 +26,7 @@ namespace HR.Web.Controllers
         HolidayListBO holidayListBO = null;
         EmployeeLeaveListBO employeeLeaveListBO = null;
         LeaveTrasactionBO leaveTransactionBO = null;
+        LookUpBO lookUpBo = null;
         public LeaveController()
         {
             weekendPolicyBO = new WeekendPolicyBO(SESSIONOBJ);
@@ -34,6 +36,7 @@ namespace HR.Web.Controllers
             employeeLeaveListBO = new EmployeeLeaveListBO(SESSIONOBJ);
             leaveTransactionBO = new LeaveTrasactionBO(SESSIONOBJ);
             otherLeaveBO = new OtherLeaveBO(SESSIONOBJ);
+            lookUpBo = new LookUpBO(SESSIONOBJ);
         }
 
         // GET: Leave
@@ -701,7 +704,15 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
         {
             ViewBag.RoleCode = ROLECODE;
             BranchLeaveVm leaveVm = new BranchLeaveVm();
+            leaveVm.BranchId = Convert.ToInt32(leave.BranchId.Value);
             leaveVm.leave = new Leave();
+
+            List<LookUp> lookUpList = lookUpBo.GetListByProperty(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY).ToList();
+
+            List<int> lookupIdList = otherLeaveBO.GetByAll().Select(x => x.LeaveTypeId.Value).ToList();
+            //dbContext.OtherLeaves
+            //.Select(x => x.LeaveTypeId.Value).ToList();
+
             if (leave.BranchId == -1)
             {
                 if (leaveVm.leave == null)
@@ -727,8 +738,44 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
             }
             else
             {
-                leaveVm.leave = leaveBO.GetById(Convert.ToInt32(leave.BranchId));
+
+                leaveVm.otherLeave = otherLeaveBO.GetListById(Convert.ToInt32(leave.BranchId));
+
+                if (leaveVm.otherLeave.Count == 0)
+                {
+                    foreach (LookUp lookUp in lookUpList)
+                    {
+                        OtherLeave otherleaves = new OtherLeave()
+                        {
+                            LeaveTypeId = lookUp.LookUpID,
+                            Description = lookUp.LookUpDescription,
+                            IsCarryForward = lookUp.IsCarryForward,
+                            //BranchId = BRANCHID
+                        };
+                        leaveVm.otherLeave.Add(otherleaves);
+                    }
+                }
+                else
+                {
+
+                    lookUpList = lookUpList.Where(x => !lookupIdList.Contains(x.LookUpID)).ToList();
+                    foreach (LookUp lookUp in lookUpList)
+                    {
+
+                        OtherLeave otherleaves = new OtherLeave()
+                        {
+                            LeaveTypeId = lookUp.LookUpID,
+                            Description = lookUp.LookUpDescription,
+                            IsCarryForward = lookUp.IsCarryForward,
+                            BranchId = BRANCHID
+                        };
+                        leaveVm.otherLeave.Add(otherleaves);
+                    }
+                }
+
+
                 leaveVm.weekendPolicy = weekendPolicyBO.GetById(Convert.ToInt32(leave.BranchId));
+
                 if (leaveVm.weekendPolicy == null)
                 {
                     leaveVm.weekendPolicy = new WeekendPolicy
@@ -765,14 +812,15 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                 leaveVm.leave = new Leave();
                 leaveVm.otherLeave = new List<OtherLeave>();
 
-                List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY).ToList();
+                List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true).ToList();
 
-                //List<int> lookupId= dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY).ToList();
-
+                List<int> lookupIdList = dbContext.OtherLeaves
+                           .Select(x => x.LeaveTypeId.Value).ToList();
 
                 if (ROLECODE != UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
                 {
-
+                   
+                    leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
                     leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == BRANCHID).ToList();
                     if (leaveVm.otherLeave.Count == 0)
                     {
@@ -790,12 +838,11 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                     }
                     else
                     {
-                        List<int> lookupIdList = dbContext.OtherLeaves
-                            .Select(x => x.LeaveTypeId.Value).ToList();
+
                         lookUpList = lookUpList.Where(x => !lookupIdList.Contains(x.LookUpID)).ToList();
                         foreach (LookUp lookUp in lookUpList)
                         {
-                            
+
                             OtherLeave otherleaves = new OtherLeave()
                             {
                                 LeaveTypeId = lookUp.LookUpID,
@@ -806,67 +853,142 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
                             leaveVm.otherLeave.Add(otherleaves);
                         }
                     }
-                }
-
-
-
-
-                if (ROLECODE != UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
-                {
-                    leaveVm.leave = dbContext.Leaves
-                                .leaveWhere(BRANCHID, ROLECODE)
-                                .FirstOrDefault();
-                    leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
-                    return View(leaveVm);
-                }
-
-                if (leaveId == 0 && branchid == -1)
-                {
-                    leaveVm.leave = new Models.Leave();
-                    leaveVm.weekendPolicy = new WeekendPolicy
-                    {
-                        Monday = false,
-                        Tuesday = false,
-                        Wednesday = false,
-                        Thursday = false,
-                        Friday = false,
-                        Saturday = false,
-                        Sunday = false,
-                        IsMondayHalfDay = false,
-                        IsTuesdayHalfDay = false,
-                        IsWednesdayHalfDay = false,
-                        IsThursdayHalfDay = false,
-                        IsFridayHalfDay = false,
-                        IsSaturdayHalfDay = false,
-                        IsSundayHalfDay = false
-                    };
                     return View(leaveVm);
                 }
                 else
                 {
-                    leaveVm.leave = dbContext.Leaves.Where(x => x.BranchId == branchid)
-                        .FirstOrDefault();
-                    leaveVm.weekendPolicy = weekendPolicyBO.GetById(branchid);
+
+                    if (leaveId == 0 && branchid == -1)
+                    {
+                        foreach (LookUp lookUp in lookUpList)
+                        {
+                            OtherLeave otherleaves = new OtherLeave()
+                            {
+                                LeaveTypeId = lookUp.LookUpID,
+                                Description = lookUp.LookUpDescription,
+                                IsCarryForward = lookUp.IsCarryForward,
+                                BranchId = BRANCHID
+                            };
+                            leaveVm.otherLeave.Add(otherleaves);
+                        }
+                        leaveVm.weekendPolicy = new WeekendPolicy
+                        {
+                            Monday = false,
+                            Tuesday = false,
+                            Wednesday = false,
+                            Thursday = false,
+                            Friday = false,
+                            Saturday = false,
+                            Sunday = false,
+                            IsMondayHalfDay = false,
+                            IsTuesdayHalfDay = false,
+                            IsWednesdayHalfDay = false,
+                            IsThursdayHalfDay = false,
+                            IsFridayHalfDay = false,
+                            IsSaturdayHalfDay = false,
+                            IsSundayHalfDay = false
+                        };
+                    }
+                    else
+                    {
+                        leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == branchid).ToList();
+                        leaveVm.weekendPolicy = weekendPolicyBO.GetById(branchid);
+                        if (leaveVm.otherLeave.Count == 0)
+                        {
+                            foreach (LookUp lookUp in lookUpList)
+                            {
+                                OtherLeave otherleaves = new OtherLeave()
+                                {
+                                    LeaveTypeId = lookUp.LookUpID,
+                                    Description = lookUp.LookUpDescription,
+                                    IsCarryForward = lookUp.IsCarryForward,
+                                    BranchId = BRANCHID
+                                };
+                                leaveVm.otherLeave.Add(otherleaves);
+                            }
+                        }
+                        else
+                        {
+
+                            lookUpList = lookUpList.Where(x => !lookupIdList.Contains(x.LookUpID)).ToList();
+                            foreach (LookUp lookUp in lookUpList)
+                            {
+
+                                OtherLeave otherleaves = new OtherLeave()
+                                {
+                                    LeaveTypeId = lookUp.LookUpID,
+                                    Description = lookUp.LookUpDescription,
+                                    IsCarryForward = lookUp.IsCarryForward,
+                                    BranchId = BRANCHID
+                                };
+                                leaveVm.otherLeave.Add(otherleaves);
+                            }
+                        }
+                    }
+                    return View(leaveVm);
                 }
 
-                return View(leaveVm);
+
+                //if (ROLECODE != UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
+                //{
+                //    leaveVm.leave = dbContext.Leaves
+                //                .leaveWhere(BRANCHID, ROLECODE)
+                //                .FirstOrDefault();
+                //    leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
+                //    return View(leaveVm);
+                //}
+
+                //if (leaveId == 0 && branchid == -1)
+                //{
+                //    leaveVm.leave = new Models.Leave();
+                //    leaveVm.weekendPolicy = new WeekendPolicy
+                //    {
+                //        Monday = false,
+                //        Tuesday = false,
+                //        Wednesday = false,
+                //        Thursday = false,
+                //        Friday = false,
+                //        Saturday = false,
+                //        Sunday = false,
+                //        IsMondayHalfDay = false,
+                //        IsTuesdayHalfDay = false,
+                //        IsWednesdayHalfDay = false,
+                //        IsThursdayHalfDay = false,
+                //        IsFridayHalfDay = false,
+                //        IsSaturdayHalfDay = false,
+                //        IsSundayHalfDay = false
+                //    };
+                //    return View(leaveVm);
+                //}
+                //else
+                //{
+                //    leaveVm.leave = dbContext.Leaves.Where(x => x.BranchId == branchid)
+                //        .FirstOrDefault();
+                //    leaveVm.weekendPolicy = weekendPolicyBO.GetById(branchid);
+                //}
+
+                //return View(leaveVm);
             }
         }
         [HttpPost]
         public ActionResult Leave(BranchLeaveVm vm)
         {
             List<OtherLeave> leaveList = new List<OtherLeave>();
-
+            if (ROLECODE == UTILITY.ROLE_ADMIN)
+            {
+                vm.BranchId = BRANCHID;
+            }
             foreach (OtherLeave leaveVm in vm.otherLeave)
             {
                 OtherLeave OtherLeave = new OtherLeave()
                 {
+                    LeaveId = leaveVm.LeaveId,
                     CarryForward = leaveVm.CarryForward,
                     IsCarryForward = leaveVm.IsCarryForward,
                     LeaveTypeId = leaveVm.LeaveTypeId,
                     LeavesPerMonth = leaveVm.LeavesPerMonth,
                     LeavesPerYear = leaveVm.LeavesPerYear,
-                    BranchId = leaveVm.BranchId,
+                    BranchId = vm.BranchId,
                     Description = leaveVm.Description
                 };
                 otherLeaveBO.Add(OtherLeave);
@@ -874,18 +996,9 @@ leavetransaction.PreviousCasualLeaves, leavetransaction.PreviousPaidLeaves, leav
 
             Leave leave = vm.leave;
             WeekendPolicy wekendPolicy = vm.weekendPolicy;
-            //Leave leave, WeekendPolicy wekendPolicy
-            wekendPolicy.BranchId = Convert.ToInt32(leave.BranchId);
-            if (leave.LeaveId == 0)
-            {
-                leaveBO.Add(leave);
-                weekendPolicyBO.Add(wekendPolicy);
-            }
-            else
-            {
-                leaveBO.Add(leave);
-                weekendPolicyBO.Add(wekendPolicy);
-            }
+            wekendPolicy.BranchId = Convert.ToInt32(vm.BranchId);
+            weekendPolicyBO.Add(wekendPolicy);
+            
             if (ROLECODE == UTILITY.ROLE_ADMIN)
             {
                 return RedirectToAction("Leave", new { leaveId = leave.LeaveId, branchid = wekendPolicy.BranchId });

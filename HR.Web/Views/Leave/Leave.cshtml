@@ -24,34 +24,168 @@
                 Leave Policy
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default panel-hovered panel-stacked mb10">
+        @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default panel-hovered panel-stacked mb10">
 
-                    <div class="panel-body">
-                        <div class="row css5">
-                            <div class="col-md-8">                             
-                                @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
-                                {
+                        <div class="panel-body">
+                            <div class="row css5">
+                                <div class="col-md-8">
                                     <label class="col-md-2 control-label">
                                         <span class="pull-right">Branch</span>
                                     </label>
                                     <div class="col-md-4">
-                                        @Html.DropDownListFor(x => x.otherLeave[0].BranchId,
-                                    SelectListItemHelper.Branches(),
-                                    "Select Branch",
-                                    new { @class = "form-control input-sm", onchange = "GetBranchData(this)" })
+                                        @Html.DropDownListFor(x => x.BranchId,
+                                         SelectListItemHelper.Branches(),
+                                         "Select Branch",
+                                         new { @class = "form-control input-sm", onchange = "GetBranchData(this)" })
                                     </div>
-                                }
-                                else
-                                {
-                                   // @Html.HiddenFor(x => x.otherLeave[0].BranchId)
-                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(x => x.BranchId)
+        }
+
+        <div class="panel panel-default panel-hovered panel-stacked mb10">
+            <div class="panel-heading">
+                WEEKEND POLICY
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="center-block width">
+                        <div class="row">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right" style="white-space:nowrap;">Monday</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.CheckBox("weekendPolicy.Monday", Model.weekendPolicy.Monday ?? false, new { @class = " input-sm" })
                             </div>
                         </div>
 
+
+                        <div class="row">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right" style="white-space:nowrap;">Tuesday</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.CheckBox("weekendPolicy.Tuesday", Model.weekendPolicy.Tuesday ?? false, new { @class = " input-sm" })
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="row">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right" style="white-space:nowrap;">Wednesday</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.CheckBox("weekendPolicy.Wednesday", Model.weekendPolicy.Wednesday ?? false, new { @class = " input-sm" })
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right" style="white-space:nowrap;">Thursday</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.CheckBox("weekendPolicy.Thursday", Model.weekendPolicy.Thursday ?? false, new { @class = " input-sm" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right" style="white-space:nowrap;">Friday</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.CheckBox("weekendPolicy.Friday", Model.weekendPolicy.Friday ?? false, new { @class = " input-sm" })
+                            </div>
+                            <div id="IsFridayHalfDaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
+                                </label>
+                                <div class="col-md-1">
+                                    @Html.CheckBox("weekendPolicy.IsFridayHalfDay", Model.weekendPolicy.IsFridayHalfDay ?? false, new { @class = " input-sm" })
+                                </div>
+                            </div>
+                            <div id="FridaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                </label>
+                                <div class="col-md-3">
+
+                                    @Html.DropDownListFor(x => x.weekendPolicy.FridaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right" style="white-space:nowrap;">Saturday</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.CheckBox("weekendPolicy.Saturday", Model.weekendPolicy.Saturday ?? false)
+                            </div>
+                            <div id="IsSaturdayHalfDaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
+                                </label>
+                                <div class="col-md-1">
+                                    @Html.CheckBox("weekendPolicy.IsSaturdayHalfDay", Model.weekendPolicy.IsSaturdayHalfDay ?? false, new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                            <div id="SaturdaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                </label>
+                                <div class="col-md-3">
+
+
+                                    @Html.DropDownListFor(x => x.weekendPolicy.SaturdaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right" style="white-space:nowrap;">Sunday</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.CheckBox("weekendPolicy.Sunday", Model.weekendPolicy.Sunday ?? false, new { @class = "form-control input-sm" })
+                            </div>
+                            <div id="IsSundayHalfDaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
+                                </label>
+                                <div class="col-md-1">
+                                    @Html.CheckBox("weekendPolicy.IsSundayHalfDay", Model.weekendPolicy.IsSundayHalfDay ?? false, new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                            <div id="SundaySession">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(x => x.weekendPolicy.SundaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -59,7 +193,7 @@
 
         <div class="row">
             @for (int i = 0; i < Model.otherLeave.Count; i++)
-            {
+                {
 
                 <div class="col-md-6">
                     <div class="panel panel-default panel-hovered panel-stacked mb10">
@@ -123,10 +257,12 @@
         </div>
     </div>
 
+
+
 }
 
 @using (Html.BeginForm("GetLeaves", "Leave", FormMethod.Post, new { id = "frmGetLeaves", name = "frmGetLeaves" }))
-{
+            {
     <input type="hidden" id="hdnBranchId" name="leave.BranchId" />
 }
 
@@ -277,10 +413,10 @@
             $('#leave_SickLeavesPerMonth').val(PaidLeavesPerMonth);
         }
 
-        function calcCasualLeave(obj,i) {
+        function calcCasualLeave(obj, i) {
             var peryear = $('#' + obj.id).val();
             var PaidLeavesPerMonth = (peryear / 12).toFixed(2);
-            $('#otherLeave_'+ i +'__LeavesPerMonth').val(PaidLeavesPerMonth);
+            $('#otherLeave_' + i + '__LeavesPerMonth').val(PaidLeavesPerMonth);
         }
 
 

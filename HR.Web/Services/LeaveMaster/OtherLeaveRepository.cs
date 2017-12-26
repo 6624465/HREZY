@@ -19,7 +19,7 @@ namespace HR.Web.Services.OtherLeaveMaster
                 using (HrDataContext dbContext = new HrDataContext())
                 {
                     OtherLeave OtherLeave = dbContext.OtherLeaves
-                        .Where(x => x.LeaveId == entity.LeaveId).FirstOrDefault();
+                        .Where(x => x.BranchId == entity.BranchId && x.LeaveId == entity.LeaveId).FirstOrDefault();
                     if (OtherLeave == null)
                     {
                         dbContext.OtherLeaves.Add(entity);
@@ -69,6 +69,22 @@ namespace HR.Web.Services.OtherLeaveMaster
                 using (HrDataContext dbContext = new HrDataContext())
                 {
                     return dbContext.OtherLeaves.ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<OtherLeave> GetlistById(int id)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.OtherLeaves.Where(x => x.BranchId == id).ToList();
                 }
             }
             catch (Exception)

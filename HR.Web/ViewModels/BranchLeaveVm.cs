@@ -9,6 +9,8 @@ namespace HR.Web.ViewModels
     public class BranchLeaveVm
     {
         public Leave leave { get; set; }
+
+        public int BranchId { get; set; }
         public WeekendPolicy weekendPolicy { get; set; }
         public List<OtherLeave> otherLeave { get; set; }
     }

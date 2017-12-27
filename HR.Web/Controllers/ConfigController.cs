@@ -269,6 +269,4 @@ namespace HR.Web.Controllers
         }
         #endregion
     }
-
-
 }

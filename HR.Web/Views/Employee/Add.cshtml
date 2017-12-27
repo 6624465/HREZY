@@ -114,8 +114,7 @@
                                 {
                                     <div class="col-md-4">
                                         @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-                                           new { @class = "form-control", onblur = "appendEmail(this)", @readonly = "true" })
-                                        <label id="error">Email Already Exists.</label>
+                                           new { @class = "form-control", @readonly = "true" })
                                     </div>
                                 }
                                 else
@@ -520,7 +519,7 @@
                 format: dateFormat
             });
 
-
+            $('#loginEmail').val($('#empHeader_UserEmailId').val());
         });
         function appendEmail(el) {
             $.ajax({
@@ -528,6 +527,7 @@
                 method: 'get',
                 contentType: 'Json',
                 success: function (result) {
+                    debugger;
                     if (result == "True") {
                         $('#error').show();
                         $('#empHeader_UserEmailId').val('');
@@ -535,6 +535,7 @@
                     }
                     else {
                         $('#error').hide();
+                        $('#loginEmail').val($('#empHeader_UserEmailId').val());
                     }
                 },
                 error: function(err){

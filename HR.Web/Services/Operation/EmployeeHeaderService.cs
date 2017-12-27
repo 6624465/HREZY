@@ -120,5 +120,22 @@ namespace HR.Web.Services.Operation
                 throw ex;
             }
         }
+        public IEnumerable<EmployeeHeader> GetListByProperty(Func<EmployeeHeader, bool> predicate)
+        {
+
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.EmployeeHeaders.Where(predicate).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

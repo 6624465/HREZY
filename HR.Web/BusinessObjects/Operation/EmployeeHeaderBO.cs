@@ -267,5 +267,17 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
+        public IEnumerable<EmployeeHeader> GetListByProperty(Func<EmployeeHeader, bool> predicate)
+        {
+            try
+            {
+                return employeeHeaderService.GetListByProperty(predicate).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

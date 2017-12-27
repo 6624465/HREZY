@@ -1,4 +1,12 @@
 ﻿@model HR.Web.ViewModels.EmployeeVm
+    @section Styles{
+        <style>
+            #error{
+         display:none;        
+            color:Red;
+            }
+        </style>
+        }
 @using (Html.BeginForm("SaveEmployee", "Employee", FormMethod.Post, new { id = "frmEmp", name = "frmEmp", enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(x => x.empHeader.EmployeeId)
@@ -103,6 +111,7 @@
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.UserEmailId,
      new { @class = "form-control",onblur="appendEmail(this)" })
+                                        <label id="error" >Email Already Exists.</label>
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Father's Name</span>
@@ -500,9 +509,27 @@
 
 
         });
+        function appendEmail(el) {
+            debugger;
+            $.ajax({
+                url: '@Url.Content("~/Employee/IsEmailExists?Email=")' + $('#empHeader_UserEmailId').val(),
+                method: 'get',
+                contentType: 'Json',
+                success: function (result) {
+                    if (result == "True") {
+                        $('#error').show();
+                        $('#empHeader_UserEmailId').val('');
+                        $('#error').fadeOut(5000);
+                    }
+                    else {
+                        $('#error').hide();
+                    }
+                },
+                error: function(err){
+                    return result;
+                }
 
-        function appendEmail(){
-            $('#loginEmail').val($('#empHeader_UserEmailId').val());
+            });
         }
 
         $('#frmEmp').validate({

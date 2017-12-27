@@ -248,6 +248,12 @@ namespace HR.Web.Controllers
                 throw ex;
             }
         }
+       public bool IsEmailExists(string Email)
+        {
+            var list = empHeaderBO.GetListByProperty(x => x.UserEmailId == Email).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
 
         /*
         private EmployeePersonalDetail PrepareEmployeePersonalInfo(EmployeePersonalDetail employeePersonalInfo, EmployeeHeader employeeHeader)

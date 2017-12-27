@@ -28,7 +28,7 @@
         <div class="panel panel-default panel-hovered panel-stacked mb10">
             <div class="center-block width">
                 <div class="panel-heading">
-                    <h5>Leave List For The Year(@DateTime.Now.Year)</h5>
+                    Leave List For The Year(@DateTime.Now.Year)
                     @if (ViewData["RoleCode"].ToString() != UTILITY.ROLE_SUPERADMIN)
                     {
                         <div class="box-tools">
@@ -187,14 +187,11 @@
         $(function () {
             $('#li_Leave').addClass('open');
             $('#li_empadd').addClass('active');
-
             
-
             $('[data-toggle="popoverCancel"]').popover({
                 placement: 'left',
                 html: true,
                 content: function () {
-                    debugger;
                     var empLeaveId=$(this).data("id");
                     $('#employeeLeaveID').val(empLeaveId);
                     return $('#popoverCancel').html();
@@ -216,12 +213,10 @@
         });
 
         function cancelRequest(id) {
-            debugger;
             $('#employeeLeaveID').val(id);
         }
 
         function CancelLeave() {
-            debugger;
             var remarks = $('#txtRemarks').val();
             $('#employeeRemarks').val(remarks);
             $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);

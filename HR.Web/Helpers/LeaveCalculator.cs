@@ -23,23 +23,22 @@ namespace HR.Web.Helpers
                                               .ThenByDescending(x => x.CreatedOn).FirstOrDefault();
                 if (leaveTransaction != null)
                 {
-                    if (LeaveType == UTILITY.CASUALLEAVE)
-                    {
+                    
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
-                    }
-                    else if (LeaveType == UTILITY.PAIDLEAVE)
-                    {
-                        appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
-                        eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                    
+                    //else if (LeaveType == UTILITY.PAIDLEAVE)
+                    //{
+                    //    appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
+                    //    eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
 
-                    }
-                    else if (LeaveType == UTILITY.PAIDLEAVE)
-                    {
-                        appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
-                        eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                    //}
+                    //else if (LeaveType == UTILITY.PAIDLEAVE)
+                    //{
+                    //    appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
+                    //    eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
 
-                    }
+                    //}
                 }
                 return eligibleLeaves;
 

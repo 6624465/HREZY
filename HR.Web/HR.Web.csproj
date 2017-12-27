@@ -1739,6 +1739,7 @@
     <Compile Include="BusinessObjects\Operation\LeaveHeaderBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmpSalaryStructureHeaderDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmpSalaryStructureHeaderBO.cs" />
+    <Compile Include="BusinessObjects\Operation\LeaveTransBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveTrasactionBO.cs" />
     <Compile Include="BusinessObjects\Payroll\ContributionBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleBO.cs" />
@@ -1836,6 +1837,9 @@
     <Compile Include="Models\LeaveHeader.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LeaveTran.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LeaveTransaction.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1894,6 +1898,7 @@
     <Compile Include="Services\Operation\EmpSalaryStructureDetailService.cs" />
     <Compile Include="Services\Operation\LeaveDetailRepository.cs" />
     <Compile Include="Services\Operation\LeaveHeaderRepository.cs" />
+    <Compile Include="Services\Operation\LeaveTransRepository.cs" />
     <Compile Include="Services\Operation\LeaveTrasactionRepository.cs" />
     <Compile Include="Services\Operation\SalaryStructureHeaderService.cs" />
     <Compile Include="Services\Payroll\ContributionRepository.cs" />

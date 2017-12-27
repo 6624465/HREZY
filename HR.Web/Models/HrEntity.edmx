@@ -345,6 +345,23 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="LeaveTrans">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="FromDt" Type="datetime" Nullable="false" />
+          <Property Name="ToDt" Type="datetime" Nullable="false" />
+          <Property Name="PreviousLeaves" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CurrentLeaves" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="LeaveType" Type="int" />
+        </EntityType>
         <EntityType Name="LeaveTransaction">
           <Key>
             <PropertyRef Name="TransactionId" />
@@ -544,6 +561,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="EmpSalaryStructureHeader" EntityType="Self.EmpSalaryStructureHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveDetail" EntityType="Self.LeaveDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveHeader" EntityType="Self.LeaveHeader" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="LeaveTrans" EntityType="Self.LeaveTrans" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveTransaction" EntityType="Self.LeaveTransaction" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="Contribution" EntityType="Self.Contribution" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryRuleDetail" EntityType="Self.SalaryRuleDetail" Schema="Payroll" store:Type="Tables" />
@@ -641,6 +659,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySet Name="EmpSalaryStructureHeaders" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureHeader" />
           <EntitySet Name="EmpSalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureDetail" />
           <EntitySet Name="OtherLeaves" EntityType="DB_9F30C5_HRDBModel.OtherLeave" />
+          <EntitySet Name="LeaveTrans" EntityType="DB_9F30C5_HRDBModel.LeaveTran" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1133,6 +1152,23 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="CarryForward" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LeaveTran">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="FromDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ToDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PreviousLeaves" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="CurrentLeaves" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="LeaveType" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1684,6 +1720,24 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
                 <ScalarProperty Name="LeavesPerYear" ColumnName="LeavesPerYear" />
                 <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
                 <ScalarProperty Name="LeaveId" ColumnName="LeaveId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveTrans">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.LeaveTran">
+              <MappingFragment StoreEntitySet="LeaveTrans">
+                <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CurrentLeaves" ColumnName="CurrentLeaves" />
+                <ScalarProperty Name="PreviousLeaves" ColumnName="PreviousLeaves" />
+                <ScalarProperty Name="ToDt" ColumnName="ToDt" />
+                <ScalarProperty Name="FromDt" ColumnName="FromDt" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

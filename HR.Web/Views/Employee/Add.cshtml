@@ -108,11 +108,24 @@
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Email</span>
                                 </label>
-                                <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-     new { @class = "form-control",onblur="appendEmail(this)" })
-                                        <label id="error" >Email Already Exists.</label>
-                                </div>
+                               
+                                
+                                @if (Model.empHeader.EmployeeId != -1)
+                                {
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.empHeader.UserEmailId,
+                                           new { @class = "form-control", onblur = "appendEmail(this)", @readonly = "true" })
+                                        <label id="error">Email Already Exists.</label>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.empHeader.UserEmailId,
+                                new { @class = "form-control", onblur = "appendEmail(this)" })
+                                        <label id="error">Email Already Exists.</label>
+                                    </div>
+                                }
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Father's Name</span>
                                 </label>
@@ -510,7 +523,6 @@
 
         });
         function appendEmail(el) {
-            debugger;
             $.ajax({
                 url: '@Url.Content("~/Employee/IsEmailExists?Email=")' + $('#empHeader_UserEmailId').val(),
                 method: 'get',

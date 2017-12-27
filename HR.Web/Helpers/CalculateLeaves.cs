@@ -8,45 +8,59 @@ namespace HR.Web.Helpers
 {
     public static class CalculateLeavesTransaction
     {
-        public static void CalculateLeaveFromTransaction(LeaveTransaction LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc, bool flag)
+        public static void CalculateLeaveFromTransaction(LeaveTran LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc, bool flag)
         {
-            if (obj.LeaveTypeId == 1030)
+            if (obj.LeaveTypeId == UTILITY.CASUALLEAVE)
             {
                 if (flag)
                 {
-                    leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
-
-                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves != 0 ? leaveListCalc.currentCasualLeaves - obj.Days.Value : leaveListCalc.currentCasualLeaves;
+                    leaveListCalc.previousLeaves = leaveListCalc.currentLeaves;
+                    leaveListCalc.currentLeaves = leaveListCalc.currentLeaves != 0 ? leaveListCalc.currentLeaves - obj.Days.Value : leaveListCalc.currentLeaves;
                 }
                 else
                 {
-                    leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves + obj.Days.Value;
-                    leaveListCalc.previousCasualLeaves = leaveListCalc.currentCasualLeaves;
+                    leaveListCalc.currentLeaves = leaveListCalc.currentLeaves + obj.Days.Value;
+                    leaveListCalc.previousLeaves = leaveListCalc.currentLeaves;
+                }
+            }
+            else if (obj.LeaveTypeId == UTILITY.PAIDLEAVE)
+            {
+                if (flag)
+                {
+                    leaveListCalc.previousLeaves = leaveListCalc.currentLeaves;
+                    leaveListCalc.currentLeaves = leaveListCalc.currentLeaves != 0 ?
+                        leaveListCalc.currentLeaves - obj.Days.Value : leaveListCalc.currentLeaves;
+                }
+                else
+                {
+                    leaveListCalc.currentLeaves = leaveListCalc.currentLeaves + obj.Days.Value;
+                    leaveListCalc.previousLeaves = leaveListCalc.currentLeaves;
 
                 }
             }
-            else if (obj.LeaveTypeId == 1049)
+            if (obj.LeaveTypeId == UTILITY.SICKLEAVE)
             {
                 if (flag)
                 {
-                    leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
-                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves != 0 ? leaveListCalc.currentPaidLeaves - obj.Days.Value : leaveListCalc.currentPaidLeaves;
+                    leaveListCalc.previousLeaves = leaveListCalc.currentLeaves;
+                    leaveListCalc.currentLeaves = leaveListCalc.currentLeaves != 0 ? leaveListCalc.currentLeaves - obj.Days.Value : leaveListCalc.currentLeaves;
                 }
                 else
                 {
-                    leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves + obj.Days.Value;
-                    leaveListCalc.previousPaidLeaves = leaveListCalc.currentPaidLeaves;
-
+                    leaveListCalc.currentLeaves = leaveListCalc.currentLeaves + obj.Days.Value;
+                    leaveListCalc.previousLeaves = leaveListCalc.currentLeaves;
                 }
             }
 
         }
-        public static void CalculateLeave(Leave LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc)
+        public static void CalculateLeave(OtherLeave LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc)
         {
-            if (obj.LeaveTypeId == 1030)
-                leaveListCalc.currentCasualLeaves = leaveListCalc.currentCasualLeaves - obj.Days.Value;
-            else if (obj.LeaveTypeId == 1049)
-                leaveListCalc.currentPaidLeaves = leaveListCalc.currentPaidLeaves - obj.Days.Value;
+            if (obj.LeaveTypeId == UTILITY.CASUALLEAVE)
+                leaveListCalc.currentLeaves = leaveListCalc.currentLeaves - obj.Days.Value;
+            else if (obj.LeaveTypeId == UTILITY.PAIDLEAVE)
+                leaveListCalc.currentLeaves = leaveListCalc.previousLeaves - obj.Days.Value;
+            if (obj.LeaveTypeId == UTILITY.SICKLEAVE)
+                leaveListCalc.currentLeaves = leaveListCalc.currentLeaves - obj.Days.Value;
         }
 
         public static double GetBusinessDays(DateTime StartDate, DateTime EndDate, WeekendPolicy weekendPolicy, List<HolidayList> holidayList)
@@ -78,12 +92,12 @@ namespace HR.Web.Helpers
                 if (date.DayOfWeek == DayOfWeek.Monday)
                     if (weekendPolicy.IsMondayHalfDay.Value)
                         calCBusinessDays = calCBusinessDays - 0.5;
-                    else if(weekendPolicy.Monday.Value)
+                    else if (weekendPolicy.Monday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Tuesday)
                     if (weekendPolicy.IsTuesdayHalfDay.Value)
                         calCBusinessDays = calCBusinessDays - 0.5;
-                else if(weekendPolicy.Tuesday.Value)
+                    else if (weekendPolicy.Tuesday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Wednesday)
                     if (weekendPolicy.IsWednesdayHalfDay.Value)
@@ -106,11 +120,11 @@ namespace HR.Web.Helpers
                     else if (weekendPolicy.Saturday.Value)
                         calCBusinessDays--;
                 if (date.DayOfWeek == DayOfWeek.Sunday)
-                   
-                        if (weekendPolicy.IsSundayHalfDay.Value)
-                            calCBusinessDays = calCBusinessDays - 0.5;
-                        else if (weekendPolicy.Sunday.Value)
-                            calCBusinessDays--;
+
+                    if (weekendPolicy.IsSundayHalfDay.Value)
+                        calCBusinessDays = calCBusinessDays - 0.5;
+                    else if (weekendPolicy.Sunday.Value)
+                        calCBusinessDays--;
             }
 
             return calCBusinessDays;
@@ -121,21 +135,13 @@ namespace HR.Web.Helpers
 
 public class LeaveListCalc
 {
-    public decimal currentCasualLeaves = 0;
-    public decimal currentPaidLeaves = 0;
-    public decimal currentSickLeaves = 0;
-    public decimal previousCasualLeaves = 0;
-    public decimal previousPaidLeaves = 0;
-    public decimal previousSickLeaves = 0;
-    public LeaveListCalc(decimal _currentCasualLeaves, decimal _currentPaidLeaves, decimal _currentSickLeaves,
-        decimal _previousCasualLeaves, decimal _previousPaidLeaves, decimal _previousSickLeaves)
+    public decimal currentLeaves = 0;
+    public decimal previousLeaves = 0;
+
+    public LeaveListCalc(decimal _currentLeaves, decimal _previousLeaves)
     {
-        currentCasualLeaves = _currentCasualLeaves;
-        currentPaidLeaves = _currentPaidLeaves;
-        currentSickLeaves = _currentSickLeaves;
-        previousCasualLeaves = _previousCasualLeaves;
-        previousPaidLeaves = _previousPaidLeaves;
-        previousSickLeaves = _previousSickLeaves;
+        currentLeaves = _currentLeaves;
+        previousLeaves = _previousLeaves;
     }
 
 }

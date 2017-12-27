@@ -17,21 +17,27 @@ namespace HR.Web.Helpers
             using (HrDataContext dbContext = new HrDataContext())
             {
 
-                Leave leave = dbContext.Leaves.Where(x => x.BranchId == BranchID).FirstOrDefault();
-                LeaveTransaction leaveTransaction = dbContext.LeaveTransactions.Where(x => x.EmployeeId == EmployeeID && x.BranchId == BranchID)
+                OtherLeave leave = dbContext.OtherLeaves.Where(x => x.BranchId == BranchID && x.LeaveTypeId == LeaveType).FirstOrDefault();
+                LeaveTran leaveTransaction = dbContext.LeaveTrans.Where(x => x.EmployeeId == EmployeeID && x.BranchId == BranchID && x.LeaveType == LeaveType)
                                                     .OrderByDescending(x => x.TransactionId)
                                               .ThenByDescending(x => x.CreatedOn).FirstOrDefault();
                 if (leaveTransaction != null)
                 {
-                    if (LeaveType == 1030)
+                    if (LeaveType == UTILITY.CASUALLEAVE)
                     {
-                        appliedLeave = leave.CasualLeavesPerYear.Value - leaveTransaction.CurrentCasualLeaves;
-                        eligibleLeaves = (currentMonth * leave.CasualLeavesPerMonth.Value) - appliedLeave;
+                        appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
+                        eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
                     }
-                    else if (LeaveType == 1049)
+                    else if (LeaveType == UTILITY.PAIDLEAVE)
                     {
-                        appliedLeave = leave.PaidLeavesPerYear.Value - leaveTransaction.CurrentPaidLeaves;
-                        eligibleLeaves = (currentMonth * leave.PaidLeavesPerMonth.Value) - appliedLeave;
+                        appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
+                        eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+
+                    }
+                    else if (LeaveType == UTILITY.PAIDLEAVE)
+                    {
+                        appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
+                        eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
 
                     }
                 }

@@ -28,6 +28,7 @@ namespace HR.Web.Controllers
         UserBO userBo = null;
         LeaveTrasactionBO leaveTransactionBO = null;
         LookUpBO lookUpBO = null;
+        LeaveTransBO leaveTransBO = null;
         public EmployeeController()
         {
 
@@ -39,6 +40,7 @@ namespace HR.Web.Controllers
             userBo = new UserBO(SESSIONOBJ);
             leaveTransactionBO = new LeaveTrasactionBO(SESSIONOBJ);
             lookUpBO = new LookUpBO(SESSIONOBJ);
+            leaveTransBO = new LeaveTransBO(SESSIONOBJ);
         }
         [HttpGet]
         public ViewResult employeedirectory()
@@ -233,7 +235,7 @@ namespace HR.Web.Controllers
                 {
                     empHeaderBO.SaveEmployeeVm(empVm);
                     userBo.AddUserVm(empVm);
-                    leaveTransactionBO.AddLeave(empVm.empHeader.EmployeeId);
+                    leaveTransBO.AddLeave(empVm.empHeader.EmployeeId);
                     return RedirectToAction("employeedirectory");
                 }
                 else

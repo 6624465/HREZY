@@ -13,12 +13,12 @@ namespace HR.Web.BusinessObjects.Operation
     public class EmployeeLeaveListBO : BaseBO
     {
         EmployeeLeaveListService employeeLeaveListService = null;
-        LeaveTrasactionBO leaveTransactionBO = null;
+        LeaveTransBO leaveTransBO = null;
         public EmployeeLeaveListBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
             employeeLeaveListService = new EmployeeLeaveListService();
-            leaveTransactionBO = new LeaveTrasactionBO(_sessionObj);
+            leaveTransBO = new LeaveTransBO(_sessionObj);
         }
 
         public EmployeeLeaveList ApproveLeave(GrantLeaveListVm grantLeaveListVm)
@@ -49,7 +49,8 @@ namespace HR.Web.BusinessObjects.Operation
             empLeaveObj.Status = "Cancelled";
             empLeaveObj.Remarks = remarks;
             Add(empLeaveObj);
-            LeaveTransaction leavetransaction = leaveTransactionBO.GetByProperty(sessionObj.BRANCHID, sessionObj.EMPLOYEEID);
+            LeaveTran leavetransaction = leaveTransBO.GetByProperty(x => x.BranchId == sessionObj.BRANCHID &&
+            x.EmployeeId == sessionObj.EMPLOYEEID && x.LeaveType == empLeaveObj.LeaveTypeId);
 
             LeaveListCalc leaveListCalc = null;
             if (leavetransaction != null)
@@ -57,12 +58,9 @@ namespace HR.Web.BusinessObjects.Operation
 
 
                 leaveListCalc = new LeaveListCalc(
-                    leavetransaction.CurrentCasualLeaves,
-                    leavetransaction.CurrentPaidLeaves,
-                    leavetransaction.CurrentSickLeaves,
-                    leavetransaction.PreviousCasualLeaves,
-                    leavetransaction.PreviousPaidLeaves,
-                    leavetransaction.PreviousSickLeaves);
+                    leavetransaction.CurrentLeaves,
+                    leavetransaction.PreviousLeaves
+                   );
 
                 CalculateLeavesTransaction.CalculateLeaveFromTransaction(
                     leavetransaction,
@@ -71,23 +69,20 @@ namespace HR.Web.BusinessObjects.Operation
                     false);
             }
 
-            LeaveTransaction leaveTransaction = new LeaveTransaction()
+            LeaveTran leaveTransaction = new LeaveTran()
             {
                 BranchId = sessionObj.BRANCHID,
                 CreatedBy = sessionObj.USERID,
                 CreatedOn = UTILITY.SINGAPORETIME,
-                CurrentCasualLeaves = leaveListCalc.currentCasualLeaves,
-                CurrentPaidLeaves = leaveListCalc.currentPaidLeaves,
-                CurrentSickLeaves = leaveListCalc.currentSickLeaves,
+                CurrentLeaves = leaveListCalc.currentLeaves,
+                PreviousLeaves = leaveListCalc.previousLeaves,
                 EmployeeId = sessionObj.EMPLOYEEID,
                 FromDt = empLeaveObj.FromDate,
                 ToDt = empLeaveObj.ToDate,
-                PreviousCasualLeaves = leaveListCalc.previousCasualLeaves,
-                PreviousPaidLeaves = leaveListCalc.previousPaidLeaves,
-                PreviousSickLeaves = leaveListCalc.previousSickLeaves,
+
                 LeaveType = empLeaveObj.LeaveTypeId
             };
-            leaveTransactionBO.Add(leaveTransaction);
+            leaveTransBO.Add(leaveTransaction);
 
         }
 

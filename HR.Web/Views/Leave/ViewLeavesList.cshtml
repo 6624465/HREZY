@@ -5,6 +5,7 @@
             max-width: 100%;
             width: 500px;
         }
+
         .pagination {
             display: table;
             margin: 15px auto;
@@ -15,9 +16,11 @@
         .width {
             width: 80%;
         }
+
         .nowrap {
-        white-space:nowrap;
+            white-space: nowrap;
         }
+
     </style>
 }
 <div class="page">
@@ -92,9 +95,13 @@
                                         {
                                             <td>
                                                 <button class="btn btn-danger btn-sm"
-                                                        type="button" data-toggle="popoverCancel">
-                                                  <i class="fa fa-trash-o"></i> Cancel
+                                                        type="button" data-toggle="popoverCancel" data-id="@Model.TableData[i].EmployeeLeaveID">
+                                                    <i class="fa fa-trash-o"></i> Cancel
                                                 </button>
+                                                @*<button class="btn btn-danger btn-sm"
+                                                            type="button" onclick="OpenCancelPopover(@Model.TableData[i].EmployeeLeaveID)">
+                                                        <i class="fa fa-trash-o"></i> Cancel
+                                                    </button>*@
                                             </td>
                                         }
                                         else
@@ -118,12 +125,12 @@
                         </div>
                     </div>
                 </div>
-               
-                </div>
+
             </div>
-       
         </div>
+
     </div>
+</div>
 
 
 @using (Html.BeginForm("CancelLeave", "Leave", FormMethod.Post, new { id = "frmCancelLeave", name = "frmCancelLeave" }))
@@ -157,9 +164,19 @@
     <script type="text/javascript">
         function OpenCancelPopover(empLeaveId){
             debugger;
+            $('[data-toggle="popoverCancel"]').popover({
+                placement: 'left',
+                html: true,
+                content: function () {
+                    return $('#popoverCancel').html();
+                }
+            });
+            //$('#popoverCancel').removeClass('hide');
+            //$('#popoverCancel').addClass('popover fade left in show');
+            //$('#popoverCancel').addClass('show');
 
-            $('#popoverCancel').popover('show');
-            //$('[data-toggle="popoverCancel"]').popover('show');
+
+            $('[data-toggle="popoverCancel"]').popover();
             $('#employeeLeaveID').val(empLeaveId);
         }
         function getyear(){
@@ -171,22 +188,18 @@
             $('#li_Leave').addClass('open');
             $('#li_empadd').addClass('active');
 
+            
+
             $('[data-toggle="popoverCancel"]').popover({
                 placement: 'left',
                 html: true,
                 content: function () {
+                    debugger;
+                    var empLeaveId=$(this).data("id");
+                    $('#employeeLeaveID').val(empLeaveId);
                     return $('#popoverCancel').html();
                 }
-            });
-
-            //$('[data-toggle="popoverCancel"]').popover({
-            //    placement: 'top',
-            //    html: true,
-            //    content: function () {
-
-            //        return $('#popoverCancel').html();
-            //    }
-            //})
+            })
 
             $('#pagination').bootpag({
                 total: @Model.PageLength,
@@ -203,10 +216,12 @@
         });
 
         function cancelRequest(id) {
+            debugger;
             $('#employeeLeaveID').val(id);
         }
 
         function CancelLeave() {
+            debugger;
             var remarks = $('#txtRemarks').val();
             $('#employeeRemarks').val(remarks);
             $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
@@ -214,7 +229,7 @@
 
         }
         function ClosePopUp() {
-            $('[data-toggle="popoverCancel"]').popover('hide');
+            $('#popoverCancel').addClass('hide');
         }
 
     </script>

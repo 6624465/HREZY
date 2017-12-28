@@ -94,7 +94,7 @@
                                     </td>
                                     <td>
                                         @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward,
-                              new { @class = "form-control " })
+                              new { @class = "form-control " , disabled = "disabled" })
                                     </td>
 
                                     <td>
@@ -114,6 +114,7 @@ new
 new
 {
     @class = "form-control decimalCss input-sm",
+    disabled = "disabled",
     onblur = "CarryFardWard(this," + i + ")"
 })
                                         }

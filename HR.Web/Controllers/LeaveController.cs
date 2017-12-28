@@ -409,6 +409,7 @@ namespace HR.Web.Controllers
 
                     return View("EmployeeRequestFrom", EmployeeLeaveList);
                 }
+                return View("EmployeeRequestFrom", EmployeeLeaveList);
             }
         }
 

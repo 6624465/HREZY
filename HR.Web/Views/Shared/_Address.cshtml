@@ -50,7 +50,7 @@
                     <span class="pull-right">Zip Code</span>
                 </label>
                 <div class="col-md-4">
-                    @Html.TextBoxFor(x => x.ZipCode, new { @class = "form-control" })
+                    @Html.TextBoxFor(x => x.ZipCode, new { @class = "form-control number" })
                 </div>
             </div>
         </div>
@@ -61,13 +61,13 @@
                     <span class="pull-right">Tel No</span>
                 </label>
                 <div class="col-md-4">
-                    @Html.TextBoxFor(x => x.TelNo, new { @class = "form-control" })
+                    @Html.TextBoxFor(x => x.TelNo, new { @class = "form-control validatenumber" })
                 </div>
                 <label class="col-md-2 control-label">
                     <span class="pull-right">Fax No</span>
                 </label>
                 <div class="col-md-4">
-                    @Html.TextBoxFor(x => x.FaxNo, new { @class = "form-control" })
+                    @Html.TextBoxFor(x => x.FaxNo, new { @class = "form-control validatenumber" })
                 </div>
             </div>
         </div>
@@ -77,13 +77,13 @@
                     <span class="pull-right">Mobile No</span>
                 </label>
                 <div class="col-md-4">
-                    @Html.TextBoxFor(x => x.MobileNo, new { @class = "form-control" })
+                    @Html.TextBoxFor(x => x.MobileNo, new { @class = "form-control validatenumber" })
                 </div>
                 <label class="col-md-2 control-label">
                     <span class="pull-right">Contact</span>
                 </label>
                 <div class="col-md-4">
-                    @Html.TextBoxFor(x => x.Contact, new { @class = "form-control" })
+                    @Html.TextBoxFor(x => x.Contact, new { @class = "form-control validatenumber" })
                 </div>
             </div>
         </div>

@@ -47,15 +47,15 @@
                                     <span class="pull-right">First Name</span>
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.empHeader.FirstName,
-        new { @class = "form-control" })
+                                        @Html.TextBoxFor(x => x.empHeader.FirstName,
+        new { @class = "form-control validatename" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Last Name</span>
                                 </label>
-                                <div class="col-md-4">
+                                <div class="col-md-4 name">
                                     @Html.TextBoxFor(x => x.empHeader.LastName,
-          new { @class = "form-control" })
+          new { @class = "form-control validatename" })
                                 </div>
                             </div>
                         </div>
@@ -64,9 +64,9 @@
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Middle Name</span>
                                 </label>
-                                <div class="col-md-4">
+                                <div class="col-md-4 name">
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
-      new { @class = "form-control" })
+      new { @class = "form-control validatename" })
                                 </div>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-4">
@@ -141,7 +141,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.address.MobileNo,
-      new { @class = "form-control" })
+      new { @class = "form-control validatenumber" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Emg. Contact Name</span>
@@ -167,7 +167,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-     new { @class = "form-control" })
+     new { @class = "form-control validatenumber" })
                                 </div>
                             </div>
                         </div>
@@ -555,7 +555,8 @@
                 },
                 'empHeader.FirstName': {
                     required: true,
-                    maxlength: 30
+                    maxlength: 30,
+                   
                 },
                 'empHeader.MiddleName': {
                     maxlength: 30
@@ -578,7 +579,7 @@
                     email: true
                 },
                 'address.MobileNo': {
-                    required: true
+                    required: true,
                 },
                 'empHeader.Nationality': {
                     required: true
@@ -609,9 +610,44 @@
                 'empHeader.ConfirmPassword': {
                     required: true,
                     equalTo: '#empHeader_Password'
-                }
+                },
             }
         });
+        //$("#empHeader_FirstName").keypress(function (e) {
+        //    if (window.event)
+        //        code = e.keyCode;
+        //    else
+        //        code = e.which;
+        //    if (code == 32 || (code >= 97 && code <= 122) || (code >= 65 && code <= 90))
+        //        return true;
+        //    else
+        //        return false;
+        //});
+        //$("#empHeader_LastName").keypress(function (e) {
+        //    if (window.event)
+        //        code = e.keyCode;
+        //    else
+        //        code = e.which;
+        //    if (code == 32 || (code >= 97 && code <= 122) || (code >= 65 && code <= 90))
+        //        return true;
+        //    else
+        //        return false;
+        //});
+        //$("#empHeader_MiddleName").keypress(function (e) {
+        //    if (window.event)
+        //        code = e.keyCode;
+        //    else
+        //        code = e.which;
+        //    if (code == 32 || (code >= 97 && code <= 122) || (code >= 65 && code <= 90))
+        //        return true;
+        //    else
+        //        return false;
+        //});
+
+        
+
+
+
 
 
         //$("#empHeader_IsReportingAuthority").on("ifChanged", function () {

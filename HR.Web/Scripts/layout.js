@@ -103,7 +103,42 @@
         else
             return false;
     });
+    $('.validatename').keypress(function (e) {
+        if (window.event)
+                    code = e.keyCode;
+                else
+                    code = e.which;
+                if (code == 32 || (code >= 97 && code <= 122) || (code >= 65 && code <= 90))
+                    return true;
+                else
+                    return false;
+    });
+    $('.validatenumber').keypress(function (e) {
+        if (window.event)
+            code = e.keyCode;
+        else
+            code = e.which;
+        if ((code >= 48 && code <= 57)||code==43)
+            return true;
+        else
+            return false;
 
+    });
+    $('.number').keypress(function (e) {
+        if (window.event)
+            code = e.keyCode;
+        else
+            code = e.which;
+        if (code >= 48 && code <= 57 )
+            return true;
+        else
+            return false;
+    })
+
+    
+   
+
+   
     $.ajaxSetup({
         error: function (x, e) {
             if (x.status == 401) {

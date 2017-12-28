@@ -274,7 +274,7 @@ namespace HR.Web.Controllers
                 {
                     List<OtherLeave> leaveList = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID).ToList();
 
-                    foreach (OtherLeave leave in leaveList)
+                    /*foreach (OtherLeave leave in leaveList)
                     {
                         leavetransaction = new LeaveTran()
                         {
@@ -293,7 +293,7 @@ namespace HR.Web.Controllers
 
                         dbCntx.LeaveTrans.Add(leavetransaction);
                         dbCntx.SaveChanges();
-                    }
+                    }*/
                 }
                 if (!isPreviousLeaveExists)
                 {

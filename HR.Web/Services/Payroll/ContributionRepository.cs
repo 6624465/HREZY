@@ -18,7 +18,7 @@ namespace HR.Web.Services.Payroll
                         .Where(x => x.ContributionId == entity.ContributionId).FirstOrDefault();
                     if (contribution == null)
                     {
-                      
+                        entity.IsActive = true;
                         dbContext.Contributions.Add(entity);
                     }
                     else

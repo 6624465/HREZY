@@ -38,23 +38,14 @@ namespace HR.Web.Controllers
             else
                 return PartialView("GetEmployeeDesignation", new LookUp { LookUpID = -1 });
         }
-
         [HttpPost]
         public ActionResult SaveEmployeeDesignation(LookUp lookup)
         {
-            if (lookup.LookUpID != -1)
-            {
-                
-                var _lookupObj = lookUpBO.GetByProperty(x => x.LookUpID == lookup.LookUpID && x.IsActive == true);
-                lookUpBO.Add(_lookupObj);
-            }
-            else { 
-                lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEDESIGNATION;
+            lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEDESIGNATION;
             lookUpBO.Add(lookup);
-            }
             return RedirectToAction("EmployeeDesignationList");
         }
-    
+
         public ActionResult DesignationDelete(int lookupid)
         {
             
@@ -101,7 +92,7 @@ namespace HR.Web.Controllers
             lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeTypeList");
         }
-        [HttpPost]
+    
         public ActionResult EmployeeTypeDelete(int lookupid)
         {
 

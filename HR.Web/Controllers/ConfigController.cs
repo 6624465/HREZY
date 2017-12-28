@@ -61,6 +61,12 @@ namespace HR.Web.Controllers
             lookUpBO.Delete(lookupid);
             return RedirectToAction("EmployeeDesignationList");
         }
+        public bool IsEmployeeDesignationExist(string Designation)
+        {
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == Designation.ToUpper()).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
 
         #endregion
 
@@ -102,6 +108,12 @@ namespace HR.Web.Controllers
             lookUpBO.Delete(lookupid);
             return RedirectToAction("EmployeeTypeList");
         }
+        public bool IsEmployeeTypeExist(string EmployeeType)
+        {
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == EmployeeType.ToUpper()).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
         #endregion
         #region department
         public ActionResult EmployeeDepartmentList()
@@ -136,7 +148,12 @@ namespace HR.Web.Controllers
             lookUpBO.Delete(lookupid);
             return RedirectToAction("EmployeeDepartmentList");
         }
-
+        public bool IsEmployeeDepartmentExist(string Department)
+        {
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == Department.ToUpper()).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
         #endregion
         #region EmployeeStatus
         public ActionResult EmployeeStatusList()
@@ -168,6 +185,12 @@ namespace HR.Web.Controllers
 
             lookUpBO.Delete(lookupid);
             return RedirectToAction("EmployeeStatusList");
+        }
+        public bool IsEmployeeStatusExist(string Status)
+        {
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == Status.ToUpper()).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
         }
         #endregion
 
@@ -203,6 +226,12 @@ namespace HR.Web.Controllers
             lookUpBO.Delete(lookupid);
             return RedirectToAction("MaritalStatusList");
         }
+        public bool IsMaritalStatusExist(string MaritalStatus)
+        {
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == MaritalStatus.ToUpper()).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
         #endregion
         #region LeaveList
         public ActionResult LeaveList()
@@ -235,6 +264,12 @@ namespace HR.Web.Controllers
             lookUpBO.Delete(lookupid);
             return RedirectToAction("LeaveList");
         }
+        public bool IsLeaveTypeExist(string LeaveType)
+        {
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == LeaveType.ToUpper()).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
         #endregion
         #region PaymentType
         public ActionResult PaymentTypeList()
@@ -266,6 +301,12 @@ namespace HR.Web.Controllers
 
             lookUpBO.Delete(lookupid);
             return RedirectToAction("PaymentTypeList");
+        }
+        public bool IsPaymentTypeExist(string PaymentType)
+        {
+            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == PaymentType.ToUpper()).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
         }
         #endregion
     }

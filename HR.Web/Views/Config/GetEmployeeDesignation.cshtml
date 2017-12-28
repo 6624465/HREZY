@@ -1,4 +1,10 @@
 ﻿@model HR.Web.Models.LookUp
+    <style>
+        #error {
+            display: none;
+            color: Red;
+        }
+    </style>
 <div class="row">
     @Html.HiddenFor(x => x.LookUpID)
     @*@Html.HiddenFor(x => x.IsActive)*@
@@ -8,7 +14,8 @@
         </label>
         <div class="col-md-8">
             @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control" })
+            new { @class = "form-control",onblur= "checkDesignation(this)" })
+            <label id="error">Employee Designation Already Exists.</label>
         </div>
     </div>
 </div>
@@ -31,6 +38,7 @@
         <div style="margin-top:10px;">@Html.CheckBoxFor(x => x.IsActive)</div>
     </div>
 </div>*@
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('input').iCheck({
@@ -39,6 +47,29 @@
             increaseArea: '20%' // optional
         });
     });
+    function checkDesignation(el) {
+        $.ajax({
+            url: '@Url.Content("~/Config/IsEmployeeDesignationExist?Designation=")' + $('#LookUpCode').val(),
+            method: 'get',
+            contentType: 'Json',
+            success: function (result) {
+                if (result == "True") {
+                    $('#error').show();
+                    $('#LookUpCode').val('');
+                    $('#error').fadeOut(5000);
+                }
+                else {
+                    $('#error').hide();
+                }
+            },
+            error: function (err) {
+                return result;
+            }
+
+        });
+    }
 </script>
+ 
+
 
 

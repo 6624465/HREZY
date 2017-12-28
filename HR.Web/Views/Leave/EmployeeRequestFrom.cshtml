@@ -262,8 +262,9 @@
             </text>
             }
         });
-        var date = new Date();
-        $('.dtCss').datetimepicker({
+        var date = new Date('12/01/2017');
+        debugger;
+         $('.dtCss').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',
                 date: 'fa fa-calendar',
@@ -276,6 +277,20 @@
             format: dateFormat,
             minDate: date
         });
+
+        //$('.dtCss').datetimepicker({
+        //    icons: {
+        //        time: 'fa fa-clock-o',
+        //        date: 'fa fa-calendar',
+        //        up: 'fa fa-arrow-up',
+        //        down: 'fa fa-arrow-down',
+        //        previous: 'fa fa-arrow-left',
+        //        next: 'fa fa-arrow-right',
+
+        //    },
+        //    format: dateFormat,
+        //    minDate: date
+        //});
 
         $("#FromDt").on("dp.change", function (e) {
             var fromDate = $('#FromDt').find('input').val();

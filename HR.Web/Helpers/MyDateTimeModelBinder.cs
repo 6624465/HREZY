@@ -11,7 +11,7 @@ namespace HR.Web.Helpers
     {
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var displayFormat = "{0:MM/dd/yyyy}"; //bindingContext.ModelMetadata.DisplayFormatString;
+            var displayFormat = "{0:dd/MM/yyyy}"; //bindingContext.ModelMetadata.DisplayFormatString;
             var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 
             if (!string.IsNullOrEmpty(displayFormat) && value != null)

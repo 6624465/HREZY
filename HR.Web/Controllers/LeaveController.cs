@@ -399,6 +399,12 @@ namespace HR.Web.Controllers
 
                         return RedirectToAction("ViewLeavesList");
                     }
+                    else
+                    {
+                        ViewData["IsLop"] = true;
+                        ViewData["Message"] = "You are not eligible for applied number of leaves";
+                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                    }
                 }
                 else
                 {
@@ -409,7 +415,7 @@ namespace HR.Web.Controllers
 
                     return View("EmployeeRequestFrom", EmployeeLeaveList);
                 }
-                return View("EmployeeRequestFrom", EmployeeLeaveList);
+                // return View("EmployeeRequestFrom", EmployeeLeaveList);
             }
         }
 
@@ -432,8 +438,15 @@ namespace HR.Web.Controllers
                             .Where(x => x.BranchId == BRANCHID && x.EmployeeId == EMPLOYEEID
                             && x.LeaveType == EmployeeLeaveList.LeaveTypeId).OrderByDescending(x => x.CreatedOn).FirstOrDefault();
 
+                LeaveCalculator leaveCal = new LeaveCalculator();
+                decimal eligibleLeaves = leaveCal.GetLeavesCount(BRANCHID, EMPLOYEEID, EmployeeLeaveList.LeaveTypeId.Value,
+                                            EmployeeLeaveList.FromDate);
+
                 obj.IsLossOfPay = true;
-                obj.LossOfPayDays = EmployeeLeaveList.Days - leavetransaction.CurrentLeaves;
+                if (eligibleLeaves > 0)
+                    obj.LossOfPayDays = EmployeeLeaveList.Days - eligibleLeaves;
+                else
+                    obj.LossOfPayDays = EmployeeLeaveList.Days - leavetransaction.CurrentLeaves;
                 obj.BranchId = BRANCHID;
                 obj.FromDate = EmployeeLeaveList.FromDate;
                 obj.ToDate = EmployeeLeaveList.ToDate;
@@ -680,52 +693,52 @@ namespace HR.Web.Controllers
             ViewBag.RoleCode = ROLECODE;
             BranchLeaveVm leaveVm = new BranchLeaveVm();
             leaveVm.BranchId = Convert.ToInt32(leave.BranchId.Value);
-          
+
 
             List<LookUp> lookUpList = lookUpBo.GetListByProperty(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY).ToList();
 
             List<int> lookupIdList = otherLeaveBO.GetByAll().Select(x => x.LeaveTypeId.Value).ToList();
-           
 
-                leaveVm.otherLeave = otherLeaveBO.GetListById(Convert.ToInt32(leave.BranchId));
 
-                if (leaveVm.otherLeave.Count == 0)
+            leaveVm.otherLeave = otherLeaveBO.GetListById(Convert.ToInt32(leave.BranchId));
+
+            if (leaveVm.otherLeave.Count == 0)
+            {
+                foreach (LookUp lookUp in lookUpList)
                 {
-                    foreach (LookUp lookUp in lookUpList)
+                    OtherLeave otherleaves = new OtherLeave()
                     {
-                        OtherLeave otherleaves = new OtherLeave()
-                        {
-                            LeaveTypeId = lookUp.LookUpID,
-                            Description = lookUp.LookUpDescription,
-                            IsCarryForward = lookUp.IsCarryForward,
-                            //BranchId = BRANCHID
-                        };
-                        leaveVm.otherLeave.Add(otherleaves);
-                    }
+                        LeaveTypeId = lookUp.LookUpID,
+                        Description = lookUp.LookUpDescription,
+                        IsCarryForward = lookUp.IsCarryForward,
+                        //BranchId = BRANCHID
+                    };
+                    leaveVm.otherLeave.Add(otherleaves);
                 }
-                else
-                {
-
-                    lookUpList = lookUpList.Where(x => !lookupIdList.Contains(x.LookUpID)).ToList();
-                    foreach (LookUp lookUp in lookUpList)
-                    {
-
-                        OtherLeave otherleaves = new OtherLeave()
-                        {
-                            LeaveTypeId = lookUp.LookUpID,
-                            Description = lookUp.LookUpDescription,
-                            IsCarryForward = lookUp.IsCarryForward,
-                            BranchId = BRANCHID
-                        };
-                        leaveVm.otherLeave.Add(otherleaves);
-                    }
-                }
-
-
-               
-                return View("Leave", leaveVm);
             }
-          
+            else
+            {
+
+                lookUpList = lookUpList.Where(x => !lookupIdList.Contains(x.LookUpID)).ToList();
+                foreach (LookUp lookUp in lookUpList)
+                {
+
+                    OtherLeave otherleaves = new OtherLeave()
+                    {
+                        LeaveTypeId = lookUp.LookUpID,
+                        Description = lookUp.LookUpDescription,
+                        IsCarryForward = lookUp.IsCarryForward,
+                        BranchId = BRANCHID
+                    };
+                    leaveVm.otherLeave.Add(otherleaves);
+                }
+            }
+
+
+
+            return View("Leave", leaveVm);
+        }
+
 
 
         [HttpGet]
@@ -863,7 +876,7 @@ namespace HR.Web.Controllers
                 };
                 otherLeaveBO.Add(OtherLeave);
             }
-            
+
 
             if (ROLECODE == UTILITY.ROLE_ADMIN)
             {

@@ -31,6 +31,8 @@ namespace HR.Web.Controllers
             CompanyVm companyvm = new CompanyVm();
             using (HrDataContext dbContext = new HrDataContext())
             {
+                companyId = dbContext.Branches.Where(x => x.BranchID == SESSIONOBJ.BRANCHID).FirstOrDefault()==null?0
+                    : dbContext.Branches.Where(x => x.BranchID == SESSIONOBJ.BRANCHID).FirstOrDefault().CompanyId.Value;
                 Company company = dbContext.Companies.Where(x => x.CompanyId == companyId).FirstOrDefault();
 
                 if (company != null)

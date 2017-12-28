@@ -27,53 +27,34 @@
                                 <div class="row css5">
 
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">
-                                            <span class="pull-right">CompanyCode</span>
+                                        <label class="col-md-3 control-label">
+                                            <span class="pull-right">Company Code</span>
                                         </label>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             @Html.TextBoxFor(x => x.company.CompanyCode, new { @class = "form-control" })
                                         </div>
-                                        <label class="col-md-2 control-label">
-                                            <span class="pull-right">IsActive</span>
-                                        </label>
-                                        <div class="col-md-4">                                            
-                                            <div style="margin-top:20px;">
-                                                @Html.CheckBoxFor(x => x.company.IsActive)
-                                            </div>
-                                        </div>
-                                        @*<div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
-                                            <label class="ui-toggle-inline">
-                                                <label class="ui-toggle-inline">
-                                                    <input id="IsActive" name="IsActive.Value" type="checkbox">
-                                                   
-                                                    <span></span>
-                                                </label>
-                                            </label>
-                                        </div>*@
-                                    </div>
-                                </div>
-                                <div class="row css5">
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">
+                                        <label class="col-md-3 control-label">
                                             <span class="pull-right">Company Name</span>
                                         </label>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             @Html.TextBoxFor(x => x.company.CompanyName, new { @class = "form-control" })
                                         </div>
-                                        <label class="col-md-2 control-label">
-                                            <span class="pull-right">Registration No</span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.company.RegNo, new { @class = "form-control" })
-                                        </div>
+                                       
                                     </div>
                                 </div>
                                 <div class="row css5">
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">
+                                       
+                                        <label class="col-md-3 control-label">
+                                            <span class="pull-right">Registration No</span>
+                                        </label>
+                                        <div class="col-md-3">
+                                            @Html.TextBoxFor(x => x.company.RegNo, new { @class = "form-control" })
+                                        </div>
+                                        <label class="col-md-3 control-label">
                                             <span class="pull-right">InCorporate Date</span>
                                         </label>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="input-group date dtCss" id="CorporationDate">
                                                 @Html.TextBoxFor(x => x.company.InCorporationDate, new { @class = "form-control dtCssTxt" })
                                                 <span class="input-group-addon">
@@ -81,20 +62,15 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <label class="col-md-2 control-label">
-                                            <span class="pull-right">Tax ID</span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            @*@Html.TextBoxFor(x => x.Gst, new { @class = "form-control" })*@
-                                        </div>
                                     </div>
                                 </div>
+                               
                                 <div class="row css5">
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">
                                             <span class="pull-right">Logo</span>
                                         </label>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4" style="margin-top:10px;">
                                             @Html.TextBoxFor(x => x.company.Logo, new { type = "file" })
                                         </div>
                                     </div>

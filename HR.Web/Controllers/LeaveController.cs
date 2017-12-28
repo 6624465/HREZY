@@ -330,73 +330,75 @@ namespace HR.Web.Controllers
                                                 EmployeeLeaveList.FromDate);
                 }
 
-                if (!isPreviousLeaveExists || eligibleLeaves >= EmployeeLeaveList.Days)
+                if (!isPreviousLeaveExists)
                 {
-
-                    obj.BranchId = BRANCHID;
-                    obj.FromDate = EmployeeLeaveList.FromDate;
-                    obj.ToDate = EmployeeLeaveList.ToDate;
-                    obj.Days = EmployeeLeaveList.Days;
-                    obj.EmployeeId = EMPLOYEEID;
-                    obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
-                    obj.Remarks = EmployeeLeaveList.Remarks;
-                    obj.Reason = EmployeeLeaveList.Reason;
-                    obj.CreatedBy = USERID;
-                    obj.CreatedOn = UTILITY.SINGAPORETIME;
-                    obj.ModifiedBy = USERID;
-                    obj.ModifiedOn = UTILITY.SINGAPORETIME;
-                    obj.ApplyDate = UTILITY.SINGAPORETIME;
-                    //obj.ManagerId = 0;
-                    obj.ManagerId = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == EMPLOYEEID)
-                                        .FirstOrDefault() == null ? 0 : dbCntx.EmployeeHeaders
-                                        .Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault()
-                                        .ManagerId.Value;
-
-                    obj.Status = UTILITY.LEAVEPENDING;
-                    obj.Session = EmployeeLeaveList.Session;
-
-                    dbCntx.EmployeeLeaveLists.Add(obj);
-
-
-                    LeaveListCalc leaveListCalc = null;
-                    if (leavetransaction != null)
+                    if (eligibleLeaves >= EmployeeLeaveList.Days)
                     {
-                        leaveListCalc = new LeaveListCalc(leavetransaction.PreviousLeaves,
-                                                            leavetransaction.CurrentLeaves
-                         );
-                        CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
+                        obj.BranchId = BRANCHID;
+                        obj.FromDate = EmployeeLeaveList.FromDate;
+                        obj.ToDate = EmployeeLeaveList.ToDate;
+                        obj.Days = EmployeeLeaveList.Days;
+                        obj.EmployeeId = EMPLOYEEID;
+                        obj.LeaveTypeId = EmployeeLeaveList.LeaveTypeId;
+                        obj.Remarks = EmployeeLeaveList.Remarks;
+                        obj.Reason = EmployeeLeaveList.Reason;
+                        obj.CreatedBy = USERID;
+                        obj.CreatedOn = UTILITY.SINGAPORETIME;
+                        obj.ModifiedBy = USERID;
+                        obj.ModifiedOn = UTILITY.SINGAPORETIME;
+                        obj.ApplyDate = UTILITY.SINGAPORETIME;
+                        //obj.ManagerId = 0;
+                        obj.ManagerId = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == EMPLOYEEID)
+                                            .FirstOrDefault() == null ? 0 : dbCntx.EmployeeHeaders
+                                            .Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault()
+                                            .ManagerId.Value;
+
+                        obj.Status = UTILITY.LEAVEPENDING;
+                        obj.Session = EmployeeLeaveList.Session;
+
+                        dbCntx.EmployeeLeaveLists.Add(obj);
+
+
+                        LeaveListCalc leaveListCalc = null;
+                        if (leavetransaction != null)
+                        {
+                            leaveListCalc = new LeaveListCalc(leavetransaction.CurrentLeaves,
+                                                                leavetransaction.PreviousLeaves
+                             );
+                            CalculateLeavesTransaction.CalculateLeaveFromTransaction(leavetransaction, EmployeeLeaveList, leaveListCalc, true);
+                        }
+                        else
+                        {
+                            OtherLeave leave = dbCntx.OtherLeaves
+                                 .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId).FirstOrDefault();
+                            leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,
+                                                                leave.LeavesPerYear.Value
+                                                              );
+                            CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+
+
+                        }
+                        LeaveTran leaveTransaction = new LeaveTran()
+                        {
+                            BranchId = BRANCHID,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            CurrentLeaves = leaveListCalc.currentLeaves,
+                            PreviousLeaves = leaveListCalc.previousLeaves,
+
+                            EmployeeId = EMPLOYEEID,
+                            FromDt = obj.FromDate,
+                            ToDt = obj.ToDate,
+                            LeaveType = EmployeeLeaveList.LeaveTypeId,
+                            ModifiedBy = USERID,
+                            ModifiedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.LeaveTrans.Add(leaveTransaction);
+
+                        dbCntx.SaveChanges();
+
+                        return RedirectToAction("ViewLeavesList");
                     }
-                    else
-                    {
-                        OtherLeave leave = dbCntx.OtherLeaves
-                             .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId).FirstOrDefault();
-                        leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,
-                                                            leave.LeavesPerYear.Value
-                                                          );
-                        CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
-
-
-                    }
-                    LeaveTran leaveTransaction = new LeaveTran()
-                    {
-                        BranchId = BRANCHID,
-                        CreatedBy = USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        CurrentLeaves = leaveListCalc.currentLeaves,
-                        PreviousLeaves = leaveListCalc.previousLeaves,
-
-                        EmployeeId = EMPLOYEEID,
-                        FromDt = obj.FromDate,
-                        ToDt = obj.ToDate,
-                        LeaveType = EmployeeLeaveList.LeaveTypeId,
-                        ModifiedBy = USERID,
-                        ModifiedOn = UTILITY.SINGAPORETIME
-                    };
-                    dbCntx.LeaveTrans.Add(leaveTransaction);
-
-                    dbCntx.SaveChanges();
-
-                    return RedirectToAction("ViewLeavesList");
                 }
                 else
                 {
@@ -604,8 +606,8 @@ namespace HR.Web.Controllers
 
         public void Save(GrantLeaveListVm grantLeaveVm, EmployeeLeaveList empLeaveObj)
         {
-            LeaveTran leavetransaction = leaveTransBO.GetByProperty(x=>x.BranchId== empLeaveObj.BranchId &&
-            x.EmployeeId== empLeaveObj.EmployeeId && x.LeaveType == empLeaveObj.LeaveTypeId);
+            LeaveTran leavetransaction = leaveTransBO.GetByProperty(x => x.BranchId == empLeaveObj.BranchId &&
+            x.EmployeeId == empLeaveObj.EmployeeId && x.LeaveType == empLeaveObj.LeaveTypeId);
             LeaveListCalc leaveListCalc = null;
             if (leavetransaction != null)
             {
@@ -1036,7 +1038,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult CancelLeave(FormCollection collection)
         {
-            int employeeLeaveID =  Convert.ToInt32(collection["employeeLeaveID"]);
+            int employeeLeaveID = Convert.ToInt32(collection["employeeLeaveID"]);
             string remarks = collection["employeeRemarks"];
 
             employeeLeaveListBO.CancelLeave(employeeLeaveID, remarks);

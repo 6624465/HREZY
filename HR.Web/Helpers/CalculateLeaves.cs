@@ -18,8 +18,9 @@ namespace HR.Web.Helpers
             }
             else
             {
-                leaveListCalc.currentLeaves = leaveListCalc.currentLeaves + obj.Days.Value;
                 leaveListCalc.previousLeaves = leaveListCalc.currentLeaves;
+                leaveListCalc.currentLeaves = leaveListCalc.currentLeaves + obj.Days.Value;
+                //leaveListCalc.previousLeaves = leaveListCalc.currentLeaves;
             }
 
             /*No need to check for each leave*/

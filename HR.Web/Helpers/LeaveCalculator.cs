@@ -23,10 +23,16 @@ namespace HR.Web.Helpers
                                               .ThenByDescending(x => x.CreatedOn).FirstOrDefault();
                 if (leaveTransaction != null)
                 {
-                    
+
+                    if (LeaveType == UTILITY.SICKLEAVE)
+                    {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
-                        eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
-                    
+                        eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+                    }
+                    else { 
+                    appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
+                    eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                    }
                     //else if (LeaveType == UTILITY.PAIDLEAVE)
                     //{
                     //    appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;

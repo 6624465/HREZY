@@ -680,39 +680,12 @@ namespace HR.Web.Controllers
             ViewBag.RoleCode = ROLECODE;
             BranchLeaveVm leaveVm = new BranchLeaveVm();
             leaveVm.BranchId = Convert.ToInt32(leave.BranchId.Value);
-            leaveVm.leave = new Leave();
+          
 
             List<LookUp> lookUpList = lookUpBo.GetListByProperty(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY).ToList();
 
             List<int> lookupIdList = otherLeaveBO.GetByAll().Select(x => x.LeaveTypeId.Value).ToList();
-            //dbContext.OtherLeaves
-            //.Select(x => x.LeaveTypeId.Value).ToList();
-
-            if (leave.BranchId == -1)
-            {
-                if (leaveVm.leave == null)
-                    leaveVm.leave = new Leave();
-
-                leaveVm.weekendPolicy = new WeekendPolicy
-                {
-                    Monday = false,
-                    Tuesday = false,
-                    Wednesday = false,
-                    Thursday = false,
-                    Friday = false,
-                    Saturday = false,
-                    Sunday = false,
-                    IsMondayHalfDay = false,
-                    IsTuesdayHalfDay = false,
-                    IsWednesdayHalfDay = false,
-                    IsThursdayHalfDay = false,
-                    IsFridayHalfDay = false,
-                    IsSaturdayHalfDay = false,
-                    IsSundayHalfDay = false
-                };
-            }
-            else
-            {
+           
 
                 leaveVm.otherLeave = otherLeaveBO.GetListById(Convert.ToInt32(leave.BranchId));
 
@@ -749,34 +722,12 @@ namespace HR.Web.Controllers
                 }
 
 
-                leaveVm.weekendPolicy = weekendPolicyBO.GetById(Convert.ToInt32(leave.BranchId));
-
-                if (leaveVm.weekendPolicy == null)
-                {
-                    leaveVm.weekendPolicy = new WeekendPolicy
-                    {
-                        Monday = false,
-                        Tuesday = false,
-                        Wednesday = false,
-                        Thursday = false,
-                        Friday = false,
-                        Saturday = false,
-                        Sunday = false,
-                        IsMondayHalfDay = false,
-                        IsTuesdayHalfDay = false,
-                        IsWednesdayHalfDay = false,
-                        IsThursdayHalfDay = false,
-                        IsFridayHalfDay = false,
-                        IsSaturdayHalfDay = false,
-                        IsSundayHalfDay = false
-                    };
-                }
+               
                 return View("Leave", leaveVm);
             }
-            return View("Leave", leaveVm);
-        }
+          
 
-        //[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+
         [HttpGet]
         public ActionResult Leave(int leaveId = 0, int branchid = -1)
         {
@@ -784,7 +735,7 @@ namespace HR.Web.Controllers
             {
                 ViewBag.RoleCode = ROLECODE;
                 BranchLeaveVm leaveVm = new BranchLeaveVm();
-                leaveVm.leave = new Leave();
+
                 leaveVm.otherLeave = new List<OtherLeave>();
 
                 List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true).ToList();
@@ -795,7 +746,7 @@ namespace HR.Web.Controllers
                 if (ROLECODE != UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
                 {
 
-                    leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
+
                     leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == BRANCHID).ToList();
                     if (leaveVm.otherLeave.Count == 0)
                     {
@@ -846,28 +797,12 @@ namespace HR.Web.Controllers
                             };
                             leaveVm.otherLeave.Add(otherleaves);
                         }
-                        leaveVm.weekendPolicy = new WeekendPolicy
-                        {
-                            Monday = false,
-                            Tuesday = false,
-                            Wednesday = false,
-                            Thursday = false,
-                            Friday = false,
-                            Saturday = false,
-                            Sunday = false,
-                            IsMondayHalfDay = false,
-                            IsTuesdayHalfDay = false,
-                            IsWednesdayHalfDay = false,
-                            IsThursdayHalfDay = false,
-                            IsFridayHalfDay = false,
-                            IsSaturdayHalfDay = false,
-                            IsSundayHalfDay = false
-                        };
+
                     }
                     else
                     {
                         leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == branchid).ToList();
-                        leaveVm.weekendPolicy = weekendPolicyBO.GetById(branchid);
+
                         if (leaveVm.otherLeave.Count == 0)
                         {
                             foreach (LookUp lookUp in lookUpList)
@@ -903,46 +838,6 @@ namespace HR.Web.Controllers
                     return View(leaveVm);
                 }
 
-
-                //if (ROLECODE != UTILITY.ROLE_SUPERADMIN && ROLECODE != UTILITY.ROLE_EMPLOYEE)
-                //{
-                //    leaveVm.leave = dbContext.Leaves
-                //                .leaveWhere(BRANCHID, ROLECODE)
-                //                .FirstOrDefault();
-                //    leaveVm.weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
-                //    return View(leaveVm);
-                //}
-
-                //if (leaveId == 0 && branchid == -1)
-                //{
-                //    leaveVm.leave = new Models.Leave();
-                //    leaveVm.weekendPolicy = new WeekendPolicy
-                //    {
-                //        Monday = false,
-                //        Tuesday = false,
-                //        Wednesday = false,
-                //        Thursday = false,
-                //        Friday = false,
-                //        Saturday = false,
-                //        Sunday = false,
-                //        IsMondayHalfDay = false,
-                //        IsTuesdayHalfDay = false,
-                //        IsWednesdayHalfDay = false,
-                //        IsThursdayHalfDay = false,
-                //        IsFridayHalfDay = false,
-                //        IsSaturdayHalfDay = false,
-                //        IsSundayHalfDay = false
-                //    };
-                //    return View(leaveVm);
-                //}
-                //else
-                //{
-                //    leaveVm.leave = dbContext.Leaves.Where(x => x.BranchId == branchid)
-                //        .FirstOrDefault();
-                //    leaveVm.weekendPolicy = weekendPolicyBO.GetById(branchid);
-                //}
-
-                //return View(leaveVm);
             }
         }
         [HttpPost]
@@ -968,15 +863,11 @@ namespace HR.Web.Controllers
                 };
                 otherLeaveBO.Add(OtherLeave);
             }
-
-            Leave leave = vm.leave;
-            WeekendPolicy wekendPolicy = vm.weekendPolicy;
-            wekendPolicy.BranchId = Convert.ToInt32(vm.BranchId);
-            weekendPolicyBO.Add(wekendPolicy);
+            
 
             if (ROLECODE == UTILITY.ROLE_ADMIN)
             {
-                return RedirectToAction("Leave", new { leaveId = leave.LeaveId, branchid = wekendPolicy.BranchId });
+                return RedirectToAction("Leave", new { leaveId = 0, branchid = vm.BranchId });
             }
             return RedirectToAction("LeaveList");
             // return RedirectToAction("Leave", new { leaveId = leave.LeaveId, branchid = wekendPolicy.BranchId });

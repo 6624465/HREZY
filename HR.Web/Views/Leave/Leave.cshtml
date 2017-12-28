@@ -17,250 +17,124 @@
 }
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
-    @Html.HiddenFor(x => x.leave.LeaveId)
     <div class="page">
         <div class="panel panel-default panel-hovered panel-stacked mb10">
             <div class="panel-heading">
                 Leave Policy
             </div>
-        </div>
-        @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
-        {
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default panel-hovered panel-stacked mb10">
 
-                        <div class="panel-body">
-                            <div class="row css5">
-                                <div class="col-md-8">
-                                    <label class="col-md-2 control-label">
-                                        <span class="pull-right">Branch</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(x => x.BranchId,
+            @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default panel-hovered panel-stacked mb10">
+
+                            <div class="panel-body">
+                                <div class="row css5">
+                                    <div class="col-md-8">
+                                        <label class="col-md-2 control-label">
+                                            <span class="pull-right">Branch</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(x => x.BranchId,
                                          SelectListItemHelper.Branches(),
                                          "Select Branch",
                                          new { @class = "form-control input-sm", onchange = "GetBranchData(this)" })
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-        else
-        {
-            @Html.HiddenFor(x => x.BranchId)
-        }
-
-        <div class="panel panel-default panel-hovered panel-stacked mb10">
-            <div class="panel-heading">
-                WEEKEND POLICY
-            </div>
-            <div class="panel-body">
-                <div class="row">
-
-                    <div class="center-block width">
-                        <div class="row">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right" style="white-space:nowrap;">Monday</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.CheckBox("weekendPolicy.Monday", Model.weekendPolicy.Monday ?? false, new { @class = " input-sm" })
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right" style="white-space:nowrap;">Tuesday</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.CheckBox("weekendPolicy.Tuesday", Model.weekendPolicy.Tuesday ?? false, new { @class = " input-sm" })
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="row">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right" style="white-space:nowrap;">Wednesday</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.CheckBox("weekendPolicy.Wednesday", Model.weekendPolicy.Wednesday ?? false, new { @class = " input-sm" })
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right" style="white-space:nowrap;">Thursday</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.CheckBox("weekendPolicy.Thursday", Model.weekendPolicy.Thursday ?? false, new { @class = " input-sm" })
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right" style="white-space:nowrap;">Friday</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.CheckBox("weekendPolicy.Friday", Model.weekendPolicy.Friday ?? false, new { @class = " input-sm" })
-                            </div>
-                            <div id="IsFridayHalfDaySession">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
-                                </label>
-                                <div class="col-md-1">
-                                    @Html.CheckBox("weekendPolicy.IsFridayHalfDay", Model.weekendPolicy.IsFridayHalfDay ?? false, new { @class = " input-sm" })
-                                </div>
-                            </div>
-                            <div id="FridaySession">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
-                                </label>
-                                <div class="col-md-3">
-
-                                    @Html.DropDownListFor(x => x.weekendPolicy.FridaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right" style="white-space:nowrap;">Saturday</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.CheckBox("weekendPolicy.Saturday", Model.weekendPolicy.Saturday ?? false)
-                            </div>
-                            <div id="IsSaturdayHalfDaySession">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
-                                </label>
-                                <div class="col-md-1">
-                                    @Html.CheckBox("weekendPolicy.IsSaturdayHalfDay", Model.weekendPolicy.IsSaturdayHalfDay ?? false, new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                            <div id="SaturdaySession">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
-                                </label>
-                                <div class="col-md-3">
-
-
-                                    @Html.DropDownListFor(x => x.weekendPolicy.SaturdaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right" style="white-space:nowrap;">Sunday</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.CheckBox("weekendPolicy.Sunday", Model.weekendPolicy.Sunday ?? false, new { @class = "form-control input-sm" })
-                            </div>
-                            <div id="IsSundayHalfDaySession">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right" style="white-space:nowrap;">Half Day</span>
-                                </label>
-                                <div class="col-md-1">
-                                    @Html.CheckBox("weekendPolicy.IsSundayHalfDay", Model.weekendPolicy.IsSundayHalfDay ?? false, new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                            <div id="SundaySession">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right" style="white-space:nowrap;">Session</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(x => x.weekendPolicy.SundaySession, SelectListItemHelper.LeaveSession(), new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-        <div class="row">
-            @for (int i = 0; i < Model.otherLeave.Count; i++)
-                {
-
-                <div class="col-md-6">
-                    <div class="panel panel-default panel-hovered panel-stacked mb10">
-                        <div class="panel-heading">
-                            @Model.otherLeave[i].Description
-                        </div>
-                        @Html.HiddenFor(x => x.otherLeave[i].LeaveId)
-                        @Html.HiddenFor(x => x.otherLeave[i].LeaveTypeId)
-                        @Html.HiddenFor(x => x.otherLeave[i].BranchId)
-                        @Html.HiddenFor(x => x.otherLeave[i].Description)
-                        <div class="panel-body">
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="col-md-4 control-label">
-                                            <span class="pull-right">Per Year</span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerYear, new { @class = "form-control numCss input-sm", onblur = "calcCasualLeave(this," + i + ")", required = "required" })
-                                        </div>
-                                    </div>
-                                    <div class="row css5">
-                                        <label class="col-md-4 control-label">
-                                            <span class="pull-right">Per Month</span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerMonth,
-     new { @class = "form-control decimalCss input-sm", @readonly = "readonly" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @if (Model.otherLeave[i].IsCarryForward)
-                            {
-                                <div class="row css5">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label">
-                                            <span class="pull-right">Carry Forward</span>
-                                        </label>
-                                        <div class="col-md-2">
-                                            @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward, new { @class = "form-control " })
-                                        </div>
-
-                                        <div class="col-md-3 chkClass">
-                                            @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
-                                    new { @class = "form-control decimalCss input-sm", onblur = "CarryFardWard(this," + i + ")" })
-                                        </div>
-
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-
             }
-        </div>
+            else
+            {
+                @Html.HiddenFor(x => x.BranchId)
+            }
+            <div class="center-block width">
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Leave Type</th>
+                                <th>Per Year</th>
+                                <th>Per Month</th>
+                                <th class="nowrap">Carry Forward</th>
+                                <th class="nowrap">Carry Forward Days</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.otherLeave.Count; i++)
+                {
+                                @Html.HiddenFor(x => x.otherLeave[i].LeaveId)
+                                @Html.HiddenFor(x => x.otherLeave[i].LeaveTypeId)
+                                @Html.HiddenFor(x => x.otherLeave[i].BranchId)
+                                @Html.HiddenFor(x => x.otherLeave[i].Description)
+                                <tr>
+                                    <td>
+                                        @Model.otherLeave[i].Description
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerYear,
+                           new
+                           {
+                               @class = "form-control numCss input-sm",
+                               onblur = "calcCasualLeave(this," + i + ")",
+                               required = "required"
+                           })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerMonth,
+                                 new
+                                 {
+                                     @class = "form-control decimalCss input-sm",
+                                     @readonly = "readonly"
+                                 })
+                                    </td>
+                                    <td>
+                                        @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward,
+                              new { @class = "form-control " })
+                                    </td>
 
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                                    <td>
+                                        @if (Model.otherLeave[i].IsCarryForward)
+                                        {
+                                            @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
+new
+{
+    @class = "form-control decimalCss input-sm",
+    onblur = "CarryFardWard(this," + i + ")",
+    required = "required"
+})
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
+new
+{
+    @class = "form-control decimalCss input-sm",
+    onblur = "CarryFardWard(this," + i + ")"
+})
+                                        }
+
+
+                                    </td>
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary btn-sm pull-right" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                </div>
             </div>
         </div>
     </div>
-
-
-
 }
 
 @using (Html.BeginForm("GetLeaves", "Leave", FormMethod.Post, new { id = "frmGetLeaves", name = "frmGetLeaves" }))
@@ -272,57 +146,17 @@
 @section Scripts{
     <script type="text/javascript">
         $(function () {
+            @{
+                <text>
+            var count = @Model.otherLeave.Count;
+            </text>
+            }
+
+
+
             $('#li_Leave').addClass('open');
             $('#li_Leavepolicy').addClass('active');
             $('#li_empdir').addClass('active');
-
-            $.validator.addMethod("ValidatePaidLeave", function () {
-                if ((parseInt($('#PaidLeavesPerMonth').val()) == 0 && parseInt($('#PaidLeavesPerYear').val()) == 0) ||
-                    parseInt($('#PaidLeavesPerMonth').val()) < parseInt($('#PaidLeavesPerYear').val())) {
-                    return true;
-                } else
-                    return false;
-            }, "Please Paid Leaves Per Month should be less than Paid Leaves Per Year ");
-
-            $.validator.addMethod("ValidateSickLeave", function () {
-                if ((parseInt($('#SickLeavesPerMonth').val()) == 0 && parseInt($('#SickLeavesPerYear').val()) == 0)
-                    || parseInt($('#SickLeavesPerMonth').val()) < parseInt($('#SickLeavesPerYear').val())) {
-                    return true;
-                } else
-                    return false;
-            }, "Please Sick Leaves Per Month should be less than Sick Leaves Per Year ");
-
-            $.validator.addMethod("ValidateCasualLeave", function () {
-                if ((parseInt($('#CasualLeavesPerMonth').val()) == 0 && parseInt($('#CasualLeavesPerYear').val()) == 0)
-                    || parseInt($('#CasualLeavesPerMonth').val()) < parseInt($('#CasualLeavesPerYear').val())) {
-                    return true;
-                } else
-                    return false;
-            }, "Please Casual Leaves Per Month should be less than Casual Leaves Per Year ");
-
-            $.validator.addMethod("CarryForwardPaidLeave", function () {
-                if ((parseInt($('#CarryForwardPerYear').val()) == 0 && parseInt($('#PaidLeavesPerYear').val()) == 0)
-                    || parseInt($('#CarryForwardPerYear').val()) < parseInt($('#PaidLeavesPerYear').val())) {
-                    return true;
-                } else
-                    return false;
-            }, "Please CarryForward Leaves Per Month should be less than Paid Leaves Per Year ");
-
-
-            $.validator.addMethod("CarryForwardSickLeave", function () {
-                if ((parseInt($('#CarryForwardSickLeaves').val()) == 0 && parseInt($('#SickLeavesPerYear').val()) == 0)
-                    || parseInt($('#CarryForwardSickLeaves').val()) < parseInt($('#SickLeavesPerYear').val())) {
-                    return true;
-                } else
-                    return false;
-            }, "Please CarryForward Leaves Per Month should be less than Sick Leaves Per Year ");
-
-            //$.validator.addMethod("CarryForwardCasualLeave", function () {
-            //    if (parseInt($('#CarryForwardSickLeaves').val()) < parseInt($('#SickLeavesPerYear').val())) {
-            //        return true;
-            //    } else
-            //        return false;
-            //}, "Please CarryForward Leaves Per Month should be less than Sick Leaves Per Year ");
 
             $('#FridaySession').hide();
             $('#SaturdaySession').hide();
@@ -353,7 +187,7 @@
                 $('#FridaySession').hide();
                 $('#weekendPolicy_IsFridayHalfDay').removeProp('checked');
                 $('#weekendPolicy_IsFridayHalfDay').parent().removeClass('checked');
-                
+
             }
         });
 
@@ -369,7 +203,7 @@
                 $('#SaturdaySession').hide();
                 $('#weekendPolicy_IsSaturdayHalfDay').prop('checked', false);
                 $('#weekendPolicy_IsSaturdayHalfDay').parent().removeClass('checked');
-               
+
             }
         });
 
@@ -383,14 +217,14 @@
             else {
                 $('#IsSundayHalfDaySession').hide();
                 $('#SundaySession').hide();
-                $('#weekendPolicy_IsSundayHalfDay').prop('checked',false);
+                $('#weekendPolicy_IsSundayHalfDay').prop('checked', false);
                 $('#weekendPolicy_IsSundayHalfDay').parent().removeClass('checked');
-                
+
             }
         });
 
         $('#weekendPolicy_IsFridayHalfDay').on('ifChanged', function () {
-            debugger;
+
             if ($('#weekendPolicy_IsFridayHalfDay').prop('checked')) {
                 $('#FridaySession').show();
             }
@@ -433,26 +267,28 @@
             var PaidLeavesPerMonth = (peryear / 12).toFixed(2);
             $('#otherLeave_' + i + '__LeavesPerMonth').val(PaidLeavesPerMonth);
         }
+
+
         function CarryFardWard(obj, i) {
+            debugger;
             var carryfarward = $('#' + obj.id).val();
             var perYear = $('#otherLeave_' + i + '__LeavesPerYear').val();
-            if (parseInt(carryfarward)> parseInt(perYear)) 
-            {
-                //alert("CarrdFarward Leaves are not more than PerYear Leaves");
+            if (parseFloat(carryfarward) > parseFloat(perYear)) {
+
+                //$('#errMsg_'+i).show().fadeOut(5000);
                 $('#' + obj.id).val('');
-                return false;
+                swal(
+                  'Oops...',
+                  'Leaves Per Month should be less than Leaves Per Year',
+                  'error'
+                );
 
             }
-            else {
-                return true;
-            }
-
         }
 
 
         function SaveLeave() {
             $('#frmLeave').validate({
-
                 rules: {
                     CountryCode: {
                         required: true

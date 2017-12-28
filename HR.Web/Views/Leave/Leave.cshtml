@@ -436,8 +436,9 @@
         function CarryFardWard(obj, i) {
             var carryfarward = $('#' + obj.id).val();
             var perYear = $('#otherLeave_' + i + '__LeavesPerYear').val();
-            if (parseInt(carryfarward) > parseInt(perYear)) {
-                alert("CarrdFarward Leaves are not more than PerYear Leaves");
+            if (parseInt(carryfarward)> parseInt(perYear)) 
+            {
+                //alert("CarrdFarward Leaves are not more than PerYear Leaves");
                 $('#' + obj.id).val('');
                 return false;
 

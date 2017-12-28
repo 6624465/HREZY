@@ -180,11 +180,16 @@
         });
 
         $('#Friday').on('ifChanged', function () {
+            debugger;
             if ($('#Friday').prop('checked')) {
                 $('#IsFridayHalfDaySession').show();
-                $('#FridaySession').show();
+                if ($('#IsFridayHalfDay').prop('checked'))
+                    $('#FridaySession').show();
             }
-            else{
+            else {
+                
+                $('#IsFridayHalfDay').removeAttr('checked');
+                $('#IsFridayHalfDay').parent().removeClass('checked');
                 $('#IsFridayHalfDaySession').hide();
                 $('#FridaySession').hide();
             }
@@ -193,9 +198,13 @@
         $('#Saturday').on('ifChanged', function () {
             if ($('#Saturday').prop('checked')) {
                 $('#IsSaturdayHalfDaySession').show();
-                $('#SaturdaySession').show();
+                if ($('#IsSaturdayHalfDay').prop('checked'))
+                    $('#SaturdaySession').show();
             }
-            else{
+            else {
+               
+                $('#IsSaturdayHalfDay').removeAttr('checked');
+                $('#IsSaturdayHalfDay').parent().removeClass('checked');
                 $('#IsSaturdayHalfDaySession').hide();
                 $('#SaturdaySession').hide();
             }
@@ -205,11 +214,15 @@
         $('#Sunday').on('ifChanged', function () {
             if ($('#Sunday').prop('checked')) {
                 $('#IsSundayHalfDaySession').show();
+                if ($('#IsSundayHalfDay').prop('checked'))
                 $('#SundaySession').show();
             }
-            else{
+            else {
+               
+                $('#IsSundayHalfDay').removeAttr('checked');
+                $('#IsSundayHalfDay').parent().removeClass('checked');
                 $('#IsSundayHalfDaySession').hide();
-                $('#SundaySession').hide();               
+                $('#SundaySession').hide();
             }
         });
 

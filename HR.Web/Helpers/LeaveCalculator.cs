@@ -29,7 +29,12 @@ namespace HR.Web.Helpers
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
                     }
-                    else { 
+                    if (LeaveType == UTILITY.CASUALLEAVE)
+                    {
+                        appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
+                        eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+                    }
+                    if (LeaveType == UTILITY.PAIDLEAVE){ 
                     appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                     eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
                     }

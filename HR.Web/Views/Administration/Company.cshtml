@@ -25,7 +25,6 @@
                             @Html.HiddenFor(x => x.company.CompanyId)
                             <div class="panel-body">
                                 <div class="row css5">
-
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">
                                             <span class="pull-right">CompanyCode</span>
@@ -34,42 +33,29 @@
                                             @Html.TextBoxFor(x => x.company.CompanyCode, new { @class = "form-control" })
                                         </div>
                                         <label class="col-md-2 control-label">
+                                            <span class="pull-right">Company Name</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.company.CompanyName, new { @class = "form-control" })
+                                        </div>
+                                        @*<label class="col-md-2 control-label">
                                             <span class="pull-right">IsActive</span>
                                         </label>
                                         <div class="col-md-4">                                            
                                             <div style="margin-top:20px;">
                                                 @Html.CheckBoxFor(x => x.company.IsActive)
                                             </div>
-                                        </div>
-                                        @*<div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
-                                            <label class="ui-toggle-inline">
-                                                <label class="ui-toggle-inline">
-                                                    <input id="IsActive" name="IsActive.Value" type="checkbox">
-                                                   
-                                                    <span></span>
-                                                </label>
-                                            </label>
                                         </div>*@
                                     </div>
                                 </div>
                                 <div class="row css5">
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">
-                                            <span class="pull-right">Company Name</span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.company.CompanyName, new { @class = "form-control" })
-                                        </div>
-                                        <label class="col-md-2 control-label">
                                             <span class="pull-right">Registration No</span>
                                         </label>
                                         <div class="col-md-4">
                                             @Html.TextBoxFor(x => x.company.RegNo, new { @class = "form-control" })
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row css5">
-                                    <div class="form-group">
                                         <label class="col-md-2 control-label">
                                             <span class="pull-right">InCorporate Date</span>
                                         </label>
@@ -81,12 +67,6 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <label class="col-md-2 control-label">
-                                            <span class="pull-right">Tax ID</span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            @*@Html.TextBoxFor(x => x.Gst, new { @class = "form-control" })*@
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="row css5">
@@ -97,6 +77,12 @@
                                         <div class="col-md-4">
                                             @Html.TextBoxFor(x => x.company.Logo, new { type = "file" })
                                         </div>
+                                        @*<label class="col-md-2 control-label">
+                                            <span class="pull-right">Tax ID</span>
+                                        </label>*@
+                                        @*<div class="col-md-4">*@
+                                            @*@Html.TextBoxFor(x => x.Gst, new { @class = "form-control" })*@
+                                        @*</div>*@
                                     </div>
                                 </div>
                             </div>
@@ -180,6 +166,7 @@
                     },
                     'TelNo': {
                         required: true,
+                    
                     },
                     'FaxNo': {
                         required: true,

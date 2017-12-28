@@ -164,7 +164,7 @@ namespace HR.Web.Controllers
         {
             SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
 
-            List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).ToList();
+            List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).OrderBy(x=>x.Name).ToList();
             salaryStructureVm.structureEmployeeDeductionDetail = new List<SalaryStructureDetail>();
             salaryStructureVm.structureCompanyDeductionDetail = new List<SalaryStructureDetail>();
             if (structurId == 0)

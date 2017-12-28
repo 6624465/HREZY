@@ -1,4 +1,10 @@
 ﻿@model HR.Web.Models.LookUp
+<style>
+    #error {
+        display: none;
+        color: Red;
+    }
+</style>
 <div class="row">
     @Html.HiddenFor(x => x.LookUpID)
     @*@Html.HiddenFor(x => x.IsActive)*@
@@ -8,7 +14,8 @@
         </label>
         <div class="col-md-8">
             @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control" })
+            new { @class = "form-control", onblur = "checkType(this)" })
+            <label id="error">Employee Type Already Exists.</label>
         </div>
     </div>
 </div>
@@ -41,6 +48,27 @@
             increaseArea: '20%' // optional
         });
     });
+    function checkType(el) {
+        $.ajax({
+            url: '@Url.Content("~/Config/IsEmployeeTypeExist?EmployeeType=")' + $('#LookUpCode').val(),
+            method: 'get',
+            contentType: 'Json',
+            success: function (result) {
+                if (result == "True") {
+                    $('#error').show();
+                    $('#LookUpCode').val('');
+                    $('#error').fadeOut(5000);
+                }
+                else {
+                    $('#error').hide();
+                }
+            },
+            error: function (err) {
+                return result;
+            }
+
+        });
+    }
 </script>
 
 

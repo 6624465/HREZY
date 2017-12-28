@@ -236,12 +236,12 @@
                                         <div class="col-md-2">
                                             @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward, new { @class = "form-control " })
                                         </div>
-                                      
-                                            <div class="col-md-3 chkClass">
-                                                @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
-                                    new { @class = "form-control decimalCss input-sm",  onblur = "CarryFardWard(this," + i + ")" })
-                                            </div>
-                                       
+
+                                        <div class="col-md-3 chkClass">
+                                            @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
+                                    new { @class = "form-control decimalCss input-sm", onblur = "CarryFardWard(this," + i + ")" })
+                                        </div>
+
                                     </div>
                                 </div>
                             }
@@ -342,28 +342,34 @@
         });
 
         $('#weekendPolicy_Friday').on('ifChanged', function () {
+
             if ($('#weekendPolicy_Friday').prop('checked')) {
                 $('#IsFridayHalfDaySession').show();
-                $('#FridaySession').show();
-                //  $('.icheckbox_flat-blue').addClass('checked');
-                // $('#weekendPolicy_IsFridayHalfDay').attr('checked', 'checked');
+                if ($('#weekendPolicy_IsFridayHalfDay').prop('checked'))
+                    $('#FridaySession').show();
             }
             else {
                 $('#IsFridayHalfDaySession').hide();
                 $('#FridaySession').hide();
-                // $('#weekendPolicy_IsFridayHalfDay').removeAttr('checked');
-                //$('.icheckbox_flat-blue hover').removeClass('checked');
+                $('#weekendPolicy_IsFridayHalfDay').removeProp('checked');
+                $('#weekendPolicy_IsFridayHalfDay').parent().removeClass('checked');
+                
             }
         });
 
         $('#weekendPolicy_Saturday').on('ifChanged', function () {
+            debugger;
             if ($('#weekendPolicy_Saturday').prop('checked')) {
                 $('#IsSaturdayHalfDaySession').show();
-                $('#SaturdaySession').show();
+                if ($('#weekendPolicy_IsSaturdayHalfDay').prop('checked'))
+                    $('#SaturdaySession').show();
             }
             else {
                 $('#IsSaturdayHalfDaySession').hide();
                 $('#SaturdaySession').hide();
+                $('#weekendPolicy_IsSaturdayHalfDay').prop('checked', false);
+                $('#weekendPolicy_IsSaturdayHalfDay').parent().removeClass('checked');
+               
             }
         });
 
@@ -371,15 +377,20 @@
         $('#weekendPolicy_Sunday').on('ifChanged', function () {
             if ($('#weekendPolicy_Sunday').prop('checked')) {
                 $('#IsSundayHalfDaySession').show();
-                $('#SundaySession').show();
+                if ($('#weekendPolicy_IsSundayHalfDay').prop('checked'))
+                    $('#SundaySession').show();
             }
             else {
                 $('#IsSundayHalfDaySession').hide();
                 $('#SundaySession').hide();
+                $('#weekendPolicy_IsSundayHalfDay').prop('checked',false);
+                $('#weekendPolicy_IsSundayHalfDay').parent().removeClass('checked');
+                
             }
         });
 
         $('#weekendPolicy_IsFridayHalfDay').on('ifChanged', function () {
+            debugger;
             if ($('#weekendPolicy_IsFridayHalfDay').prop('checked')) {
                 $('#FridaySession').show();
             }
@@ -388,6 +399,7 @@
         });
 
         $('#weekendPolicy_IsSaturdayHalfDay').on('ifChanged', function () {
+            debugger;
             if ($('#weekendPolicy_IsSaturdayHalfDay').prop('checked')) {
                 $('#SaturdaySession').show();
             }
@@ -396,6 +408,7 @@
         });
 
         $('#weekendPolicy_IsSundayHalfDay').on('ifChanged', function () {
+            debugger;
             if ($('#weekendPolicy_IsSundayHalfDay').prop('checked')) {
                 $('#SundaySession').show();
             }
@@ -428,18 +441,18 @@
                 //alert("CarrdFarward Leaves are not more than PerYear Leaves");
                 $('#' + obj.id).val('');
                 return false;
-              
+
             }
             else {
                 return true;
             }
-            
+
         }
-       
-        
+
+
         function SaveLeave() {
-              $('#frmLeave').validate({
-               
+            $('#frmLeave').validate({
+
                 rules: {
                     CountryCode: {
                         required: true

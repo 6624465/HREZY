@@ -236,10 +236,12 @@
                                         <div class="col-md-2">
                                             @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward, new { @class = "form-control " })
                                         </div>
-                                        <div class="col-md-3 chkClass">
-                                            @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
-                                    new { @class = "form-control decimalCss input-sm" })
-                                        </div>
+                                      
+                                            <div class="col-md-3 chkClass">
+                                                @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
+                                    new { @class = "form-control decimalCss input-sm",  onblur = "CarryFardWard(this," + i + ")" })
+                                            </div>
+                                       
                                     </div>
                                 </div>
                             }
@@ -418,10 +420,26 @@
             var PaidLeavesPerMonth = (peryear / 12).toFixed(2);
             $('#otherLeave_' + i + '__LeavesPerMonth').val(PaidLeavesPerMonth);
         }
-
-
+        function CarryFardWard(obj, i) {
+            var carryfarward = $('#' + obj.id).val();
+            var perYear = $('#otherLeave_' + i + '__LeavesPerYear').val();
+            if (parseInt(carryfarward)> parseInt(perYear)) 
+            {
+                alert("CarrdFarward Leaves are not more than PerYear Leaves");
+                $('#' + obj.id).val('');
+                return false;
+              
+            }
+            else {
+                return true;
+            }
+            
+        }
+       
+        
         function SaveLeave() {
-            $('#frmLeave').validate({
+              $('#frmLeave').validate({
+               
                 rules: {
                     CountryCode: {
                         required: true
@@ -457,7 +475,7 @@
                     CasualLeavesPerMonth: {
                         required: true,
                         ValidateCasualLeave: true
-                    }
+                    },
                 }
             });
             if ($('#frmLeave').valid()) {

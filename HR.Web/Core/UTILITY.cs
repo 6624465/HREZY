@@ -87,6 +87,7 @@ namespace HR.Web
         public static int RESTRICTEDHOLIDAY = 1114;
         public static int HALFDAYLEAVE = 2440;
         public static int LOSSOFPAY = 2464;
+        public static int MEDICALTREATMENTLEAVE = 2489;
 
         /* Config Keys End */
 

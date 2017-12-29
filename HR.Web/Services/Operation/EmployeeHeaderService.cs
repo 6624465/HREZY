@@ -137,5 +137,22 @@ namespace HR.Web.Services.Operation
             }
         }
 
+        public EmployeeHeader GetByProperty(Func<EmployeeHeader, bool> predicate)
+        {
+
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.EmployeeHeaders.Where(predicate).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

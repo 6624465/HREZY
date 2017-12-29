@@ -28,6 +28,7 @@ namespace HR.Web.Controllers
         LeaveTrasactionBO leaveTransactionBO = null;
         LookUpBO lookUpBo = null;
         LeaveTransBO leaveTransBO = null;
+        EmployeeHeaderBO empHeaderBO = null;
         public LeaveController()
         {
             weekendPolicyBO = new WeekendPolicyBO(SESSIONOBJ);
@@ -39,6 +40,8 @@ namespace HR.Web.Controllers
             otherLeaveBO = new OtherLeaveBO(SESSIONOBJ);
             lookUpBo = new LookUpBO(SESSIONOBJ);
             leaveTransBO = new LeaveTransBO(SESSIONOBJ);
+            empHeaderBO = new EmployeeHeaderBO(SESSIONOBJ);
+
         }
 
         // GET: Leave
@@ -220,10 +223,18 @@ namespace HR.Web.Controllers
         public ActionResult EmployeeRequestFrom()
         {
             GetHolidayWeekends();
+
+            var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+            if (empHeader != null)
+            {
+                int managerId = empHeader.ManagerId.Value;
+                if (managerId == 0) {
+                    return View("Error");
+                }
+            }
+
             return View(new EmployeeLeaveList
             {
-                // FromDate = DateTime.Now,
-                //  ToDate = DateTime.Now
             });
         }
 
@@ -402,7 +413,7 @@ namespace HR.Web.Controllers
                     else
                     {
                         ViewData["IsLop"] = true;
-                        ViewData["Message"] = "You are not eligible for applied number of leaves";
+                        ViewData["Message"] = "You are not eligible for applied number of leaves,other leaves will be LOP";
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
                 }
@@ -443,10 +454,10 @@ namespace HR.Web.Controllers
                                             EmployeeLeaveList.FromDate);
 
                 obj.IsLossOfPay = true;
-                if (eligibleLeaves > 0)
+               // if (eligibleLeaves > 0)
                     obj.LossOfPayDays = EmployeeLeaveList.Days - eligibleLeaves;
-                else
-                    obj.LossOfPayDays = EmployeeLeaveList.Days - leavetransaction.CurrentLeaves;
+                //else
+                //    obj.LossOfPayDays = EmployeeLeaveList.Days - leavetransaction.CurrentLeaves;
                 obj.BranchId = BRANCHID;
                 obj.FromDate = EmployeeLeaveList.FromDate;
                 obj.ToDate = EmployeeLeaveList.ToDate;

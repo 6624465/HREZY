@@ -279,5 +279,18 @@ namespace HR.Web.BusinessObjects.Operation
                 throw ex;
             }
         }
+
+        public EmployeeHeader GetByProperty(Func<EmployeeHeader, bool> predicate)
+        {
+            try
+            {
+                return employeeHeaderService.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

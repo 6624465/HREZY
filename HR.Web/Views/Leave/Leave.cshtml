@@ -61,7 +61,7 @@
                                 <th>Per Year</th>
                                 <th>Per Month</th>
                                 <th class="nowrap">Carry Forward</th>
-                                <th class="nowrap">Carry Forward Days</th>
+                                <th class="nowrap">Carry Forward Days(Per Year)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,7 +94,7 @@
                                     </td>
                                     <td>
                                         @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward,
-                              new { @class = "form-control " , disabled = "disabled" })
+                              new { @class = "form-control " , @readonly = "readonly" })
                                     </td>
 
                                     <td>

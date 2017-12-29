@@ -27,16 +27,29 @@ namespace HR.Web.Helpers
                     if (LeaveType == UTILITY.SICKLEAVE)
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
-                        eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+                        if (leave.IsCarryForward)
+                            eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                        else
+                            eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+
                     }
                     if (LeaveType == UTILITY.CASUALLEAVE)
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
-                        eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+                        if (leave.IsCarryForward)
+                            eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                        else
+                            eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+
                     }
-                    if (LeaveType == UTILITY.PAIDLEAVE){ 
-                    appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
-                    eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                    if (LeaveType == UTILITY.PAIDLEAVE)
+                    {
+                        appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
+                        if (leave.IsCarryForward)
+                            eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                        else
+                            eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+
                     }
                     //else if (LeaveType == UTILITY.PAIDLEAVE)
                     //{

@@ -2057,6 +2057,7 @@
     <Content Include="Views\Leave\WeekEndPolicy.cshtml" />
     <Content Include="Views\PayRoll\SalaryStructureHeaderList.cshtml" />
     <Content Include="Views\PayRoll\EmpSalaryStructure.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

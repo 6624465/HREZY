@@ -109,24 +109,11 @@ namespace HR.Web.Services.OtherLeaveMaster
                 throw;
             }
         }
-        public void AddLookUP(LookUp entity)
+        public void AddFromLookUp(OtherLeave entity)
         {
             try
             {
-                using (var dbcntx = new HrDataContext())
-                {
-
-                    OtherLeave Leave = new OtherLeave
-                    {
-                        LeaveTypeId = entity.LookUpID,
-                        Description = entity.LookUpCode,
-                        IsCarryForward = entity.IsCarryForward,
-                    };
-                    dbcntx.OtherLeaves.Add(Leave);
-                    dbcntx.SaveChanges();
-
-                }
-
+                Add(entity);
             }
             catch (Exception)
             {

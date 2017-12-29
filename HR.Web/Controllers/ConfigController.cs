@@ -249,7 +249,7 @@ namespace HR.Web.Controllers
         {
             lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEELEAVETYPE;
             lookUpBO.Add(lookup);
-            otherLeaveBo.AddLookUP(lookup);
+            otherLeaveBo.AddLookUp(lookup);
             return RedirectToAction("LeaveList");
         }
         

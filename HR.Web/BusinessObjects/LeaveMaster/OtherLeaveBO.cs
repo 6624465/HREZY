@@ -100,11 +100,18 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 throw ex;
             }
         }
-        public void AddLookUP(LookUp lookup)
+        public void AddLookUp(LookUp lookup)
         {
             try
             {
-                OtherLeaveRepository.AddLookUP(lookup);
+                OtherLeave Leave = new OtherLeave
+                {
+                    LeaveTypeId = lookup.LookUpID,
+                    Description = lookup.LookUpCode,
+                    IsCarryForward = lookup.IsCarryForward,
+                    BranchId=sessionObj.BRANCHID
+                };
+                OtherLeaveRepository.AddFromLookUp(Leave);
             }
             catch (Exception ex)
             {

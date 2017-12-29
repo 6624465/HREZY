@@ -218,6 +218,7 @@
                 } else {
                     swal("Cancelled", "Your leave has been cancelled:)", "error");
                 }
+              
             });
             </text>
                 }
@@ -263,7 +264,6 @@
             }
         });
         var date = new Date('12/01/2017');
-        debugger;
          $('.dtCss').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',
@@ -341,7 +341,6 @@
         });
 
         var holiDayList=@Html.Raw(JsonConvert.SerializeObject(ViewBag.HoliDayList));
-        debugger;
         var holidaysArray = [];
         for(var i=0;i<holiDayList.length;i++){
             holidaysArray.push(moment(holiDayList[i], 'MM/DD/YYYY'));
@@ -355,7 +354,6 @@
             var to = moment(toDate, dateFormat);
 
             var days = moment.duration(to.diff(from)).asDays() + 1;
-            debugger;
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "")
             {
                 if(days>=1){
@@ -403,10 +401,10 @@
             // checkDates();
             isoWeekDayCalc();
         });
-        $("#FromDate").on("blur", function (e) {
-            //checkDates();
-            isoWeekDayCalc();
-        });
+        //$("#FromDate").on("blur", function (e) {
+        //    //checkDates();
+        //    isoWeekDayCalc();
+        //});
 
         function checkDates() {
             var fromDate = $('#FromDt').find('input').val();
@@ -417,7 +415,6 @@
                 var days = moment.duration(to.diff(from)).asDays() + 1;
                 $('#Days').val(days);
                 var daysCount=$('#Days').val();
-                debugger;
                 if (daysCount > 1) {
                     $('#Days').val(days);
                     $('#chkhalfday').removeAttr('checked');
@@ -443,8 +440,6 @@
 
 
         $('#chkhalfday').on("ifChanged", function () {
-            debugger;
-            //var fromDate = $('#FromDt').find('input').val();
             //var toDate = $('#ToDt').find('input').val();
             //var from = moment(fromDate, dateFormat);
             //var to = moment(toDate, dateFormat);

@@ -114,6 +114,7 @@
                     return false;
     });
     $('.validatenumber').keypress(function (e) {
+
         if (window.event)
             code = e.keyCode;
         else

@@ -1,4 +1,10 @@
 ﻿@model HR.Web.Models.Contribution
+<style>
+    #error {
+        display: none;
+        color: Red;
+    }
+</style>
 <link href="~/Css/sweetalert.css" rel="stylesheet" />
 @using (Html.BeginForm("ContributionSave", "PayRoll", FormMethod.Post, new { id = "contributionfrm", name = "contributionfrm" }))
 {
@@ -16,7 +22,8 @@
                             </label>
                             <div class="col-md-8">
                                 @Html.HiddenFor(x => x.ContributionId)
-                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", onblur = "checkComponent(this)" })
+                                <label id="error">Salary Component Already Exists.</label>
                             </div>
 
                         </div>
@@ -93,6 +100,27 @@
             $('#li_PayRollConfig').addClass('open');
             $('#li_ContributionRegisterList').addClass('active');
         });
+        function checkComponent(el) {
+            $.ajax({
+                url: '@Url.Content("~/PayRoll/IsSalaryComponentExists?component=")' + $('#Name').val(),
+                method: 'get',
+                contentType: 'Json',
+                success: function (result) {
+                    if (result == "True") {
+                        $('#error').show();
+                        $('#Name').val('');
+                        $('#error').fadeOut(5000);
+                    }
+                    else {
+                        $('#error').hide();
+                    }
+                },
+                error: function (err) {
+                    return result;
+                }
+
+            });
+        }
 
     </script>
 }

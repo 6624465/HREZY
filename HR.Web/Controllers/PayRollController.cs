@@ -462,5 +462,11 @@ namespace HR.Web.Controllers
             empSalaryStructureHeaderBO.SaveSalaryStructure(structureVm);
             return RedirectToAction("SalaryStructureHeaderList");
         }
+        public bool IsSalaryComponentExists(string component)
+        {
+            var list = contributionBO.GetListByProperty(x => x.Name.ToUpper() == component.ToUpper()).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
     }
 }

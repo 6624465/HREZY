@@ -1,4 +1,5 @@
 ﻿using HR.Web.BusinessObjects.LookUpMaster;
+using HR.Web.BusinessObjects.LeaveMaster;
 using HR.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,11 @@ namespace HR.Web.Controllers
     public class ConfigController : BaseController
     {
         LookUpBO lookUpBO = null;
+        OtherLeaveBO otherLeaveBo = null;
         public ConfigController()
         {
             lookUpBO = new LookUpBO(SESSIONOBJ);
+            otherLeaveBo = new OtherLeaveBO(SESSIONOBJ);
         }
 
         #region Designation
@@ -246,6 +249,7 @@ namespace HR.Web.Controllers
         {
             lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEELEAVETYPE;
             lookUpBO.Add(lookup);
+            otherLeaveBo.AddLookUP(lookup);
             return RedirectToAction("LeaveList");
         }
         

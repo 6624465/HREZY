@@ -10,7 +10,7 @@ namespace HR.Web.Services.OtherLeaveMaster
     {
         public OtherLeaveRepository()
         {
-
+           
         }
         public void Add(OtherLeave entity)
         {
@@ -108,6 +108,32 @@ namespace HR.Web.Services.OtherLeaveMaster
 
                 throw;
             }
+        }
+        public void AddLookUP(LookUp entity)
+        {
+            try
+            {
+                using (var dbcntx = new HrDataContext())
+                {
+
+                    OtherLeave Leave = new OtherLeave
+                    {
+                        LeaveTypeId = entity.LookUpID,
+                        Description = entity.LookUpCode,
+                        IsCarryForward = entity.IsCarryForward,
+                    };
+                    dbcntx.OtherLeaves.Add(Leave);
+                    dbcntx.SaveChanges();
+
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
         }
     }
 }

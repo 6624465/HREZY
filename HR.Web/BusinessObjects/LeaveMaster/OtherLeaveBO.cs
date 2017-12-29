@@ -12,6 +12,8 @@ namespace HR.Web.BusinessObjects.LeaveMaster
     public class OtherLeaveBO : BaseBO
     {
         OtherLeaveRepository OtherLeaveRepository = null;
+
+     
         public OtherLeaveBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
@@ -97,6 +99,18 @@ namespace HR.Web.BusinessObjects.LeaveMaster
 
                 throw ex;
             }
+        }
+        public void AddLookUP(LookUp lookup)
+        {
+            try
+            {
+                OtherLeaveRepository.AddLookUP(lookup);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

@@ -22,5 +22,6 @@ namespace HR.Web.Models
         public Nullable<decimal> CarryForward { get; set; }
         public Nullable<int> BranchId { get; set; }
         public string Description { get; set; }
+        public bool IsActive { get; set; }
     }
 }

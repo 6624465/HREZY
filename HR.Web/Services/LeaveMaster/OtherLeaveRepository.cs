@@ -10,7 +10,7 @@ namespace HR.Web.Services.OtherLeaveMaster
     {
         public OtherLeaveRepository()
         {
-           
+
         }
         public void Add(OtherLeave entity)
         {
@@ -32,7 +32,7 @@ namespace HR.Web.Services.OtherLeaveMaster
                         OtherLeave.LeavesPerMonth = entity.LeavesPerMonth;
                         OtherLeave.LeavesPerYear = entity.LeavesPerYear;
                         OtherLeave.LeaveTypeId = entity.LeaveTypeId;
-                      //  OtherLeave.
+                        //  OtherLeave.
                     }
                     dbContext.SaveChanges();
                 }
@@ -113,7 +113,19 @@ namespace HR.Web.Services.OtherLeaveMaster
         {
             try
             {
-                Add(entity);
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    OtherLeave otherLeave = dbContext.OtherLeaves.Where(x => x.LeaveTypeId == entity.LeaveTypeId).FirstOrDefault();
+                    if (otherLeave != null)
+                    {
+                        otherLeave.IsCarryForward = entity.IsCarryForward;
+                        otherLeave.Description = entity.Description;
+                     
+                        Add(otherLeave);
+                    }
+                    else
+                        Add(entity);
+                }
             }
             catch (Exception)
             {

@@ -104,6 +104,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
         {
             try
             {
+               
                 OtherLeave Leave = new OtherLeave
                 {
                     LeaveTypeId = lookup.LookUpID,

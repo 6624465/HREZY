@@ -109,6 +109,7 @@
           <Property Name="CarryForward" Type="decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="int" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -1152,6 +1153,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <Property Name="CarryForward" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="LeaveTran">
           <Key>
@@ -1712,6 +1714,7 @@ warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a pri
           <EntitySetMapping Name="OtherLeaves">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.OtherLeave">
               <MappingFragment StoreEntitySet="OtherLeave">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="CarryForward" ColumnName="CarryForward" />

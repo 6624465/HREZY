@@ -10,14 +10,26 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-1">
-                                <label class="control-label pull-left">
-                                    BranchName
-                                </label>
-                            </div>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control", onchange = "GetBranchPolicy(this)" })
+                                @if (ViewBag.ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                                {
+                                    <div class="col-md-1">
+                                        <label class="control-label pull-left">
+                                            BranchName
+                                        </label>
+                                    </div>
+
+                                    @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control", onchange = "GetBranchPolicy(this)" })
+                                }
+                                else
+                                {
+                                    var id = Model.BranchId;
+                                    <input type="hidden" id="BranchId" name ="BranchId" value="@Model.BranchId" />
+                                    
+
+                                }
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="col-md-2">
@@ -187,7 +199,7 @@
                     $('#FridaySession').show();
             }
             else {
-                
+
                 $('#IsFridayHalfDay').removeAttr('checked');
                 $('#IsFridayHalfDay').parent().removeClass('checked');
                 $('#IsFridayHalfDaySession').hide();
@@ -202,7 +214,7 @@
                     $('#SaturdaySession').show();
             }
             else {
-               
+
                 $('#IsSaturdayHalfDay').removeAttr('checked');
                 $('#IsSaturdayHalfDay').parent().removeClass('checked');
                 $('#IsSaturdayHalfDaySession').hide();
@@ -215,10 +227,10 @@
             if ($('#Sunday').prop('checked')) {
                 $('#IsSundayHalfDaySession').show();
                 if ($('#IsSundayHalfDay').prop('checked'))
-                $('#SundaySession').show();
+                    $('#SundaySession').show();
             }
             else {
-               
+
                 $('#IsSundayHalfDay').removeAttr('checked');
                 $('#IsSundayHalfDay').parent().removeClass('checked');
                 $('#IsSundayHalfDaySession').hide();

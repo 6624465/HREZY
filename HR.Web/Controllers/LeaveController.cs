@@ -1006,7 +1006,8 @@ namespace HR.Web.Controllers
                             IsSundayHalfDay = x.B.IsSundayHalfDay
                         }).ToList(); return View("WeekendPolicyList", list);
                 }
-                else {
+                else
+                {
                     var list = dbcntx.Branches
                         .Join(dbcntx.WeekendPolicies,
                         a => a.BranchID, b => b.BranchId,
@@ -1031,7 +1032,7 @@ namespace HR.Web.Controllers
                             IsSundayHalfDay = x.B.IsSundayHalfDay
                         }).ToList(); return View("WeekendPolicyList", list);
                 }
-                
+
             }
 
         }
@@ -1061,7 +1062,29 @@ namespace HR.Web.Controllers
             }
             else
             {
+                branchId = BRANCHID;
                 var _weekendPolicy = weekendPolicyBO.GetById(branchId);
+                if (_weekendPolicy == null)
+                {
+                    _weekendPolicy = new WeekendPolicy
+                    {
+                        Monday = false,
+                        Tuesday = false,
+                        Wednesday = false,
+                        Thursday = false,
+                        Friday = false,
+                        Saturday = false,
+                        Sunday = false,
+                        IsMondayHalfDay = false,
+                        IsTuesdayHalfDay = false,
+                        IsWednesdayHalfDay = false,
+                        IsThursdayHalfDay = false,
+                        IsFridayHalfDay = false,
+                        IsSaturdayHalfDay = false,
+                        IsSundayHalfDay = false,
+                        BranchId= BRANCHID
+                    };
+                }
                 return View(_weekendPolicy);
             }
 
@@ -1072,12 +1095,14 @@ namespace HR.Web.Controllers
         {
             if (weekendpolicy.BranchId == -1)
             {
+                
                 weekendPolicyBO.Add(weekendpolicy);
 
                 return WeekendPolicyList();
             }
             else
             {
+                weekendpolicy.BranchId = BRANCHID;
                 weekendPolicyBO.Update(weekendpolicy);
                 return WeekendPolicyList();
             }

@@ -17,7 +17,13 @@
                         @if (ViewBag.ROLECODE == UTILITY.ROLE_SUPERADMIN) { 
                         <button class="btn btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=-1")'">
                             <i class="fa fa-plus-square"></i>Add
-                        </button>}
+                        </button>
+                        }
+                        else { 
+                        <button class="btn btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=0")'">
+                            <i class="fa fa-plus-square"></i>Add
+                        </button>
+                        }
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">

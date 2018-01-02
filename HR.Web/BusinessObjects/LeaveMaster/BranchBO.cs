@@ -83,7 +83,9 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 ModifiedBy = sessionObj.USERID,
                 ModifiedOn = UTILITY.SINGAPORETIME,
                 CompanyCode = "EZY",
-                CompanyId = 1000
+                CompanyId = 1000,
+                IsActive = true,
+                BranchID = branchVm.branch.BranchID
             };
             Add(branch);
             Address branchAddress = new Address()
@@ -91,7 +93,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 Address1 = addressVm.Address1,
                 Address2 = addressVm.Address2,
 
-                AddressType = "Company",
+                AddressType = "Branch",
                 CityName = addressVm.CityName,
                 Contact = addressVm.Contact,
                 CountryCode = addressVm.CountryCode,

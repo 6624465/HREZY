@@ -110,17 +110,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <li id="li_weekendpolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/WeekendPolicyList")">Weekend Policy List</a></li>
             </ul>
         </li>
-        <li id="li_Admin">
-            <a href="javascript:;">
-                <i class="ion ion-monitor"></i>
-                <span class="text">Administration</span>
-                <i class="arrow ion-chevron-left"></i>
-            </a>
-            <ul class="inner-drop list-unstyled">
-                <li id="li_company"><a class="ajaxCss" href="@Url.Content("~/Administration/Company")">Company</a></li>
-
-            </ul>
-        </li>
+       
     </ul>
 }
 else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
@@ -172,6 +162,17 @@ else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
                 @*<li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>*@
                 @*<li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>*@
                 @*<li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>*@
+            </ul>
+        </li>
+        <li id="li_Admin">
+            <a href="javascript:;">
+                <i class="ion ion-monitor"></i>
+                <span class="text">Administration</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_company"><a class="ajaxCss" href="@Url.Content("~/Administration/Company")">Company</a></li>
+
             </ul>
         </li>
     </ul>

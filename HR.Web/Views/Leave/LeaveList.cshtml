@@ -52,7 +52,7 @@
                                                     <td>@Model.ElementAt(i).BranchName</td>
                                                     <td>
                                                         @*<button class="btn btn-primary btn-sm" type="button" data-toggle="popover_@(i)" data-trigger="focus" title="Leave Policy"><i class="fa fa-eye"></i>&nbsp;info</button>*@
-                                                        <button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")+ @Model.ElementAt(i).LeaveId &branchid=@Model.ElementAt(i).BranchId'"><i class="fa fa-pencil-square"></i>&nbsp;Edit</button>
+                                                        <button class="btn btn-primary btn-sm ajaxCss" onclick="location.href='@Url.Content("~/Leave/Leave?leaveId=")+ 0 &branchid=@Model.ElementAt(i).BranchId'"><i class="fa fa-pencil-square"></i>&nbsp;Edit</button>
                                                     </td>
                                                 </tr>
                                             }
@@ -72,7 +72,7 @@
 </div>
 @for (var i = 0; i < Model.Count(); i++)
 {
-     <div id="popover_@i" class="hide">
+     @*<div id="popover_@i" class="hide">
          <div class="row">
              <div class="col-md-12">
                  <div class="list-group" style="font-weight:Bold; font-size:15px;">
@@ -112,7 +112,7 @@
                  </div>
              </div>
          </div>
-    </div>
+    </div>*@
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="popover_@i"]').popover({

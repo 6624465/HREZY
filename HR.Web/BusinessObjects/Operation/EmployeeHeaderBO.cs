@@ -169,6 +169,7 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.address.LinkID = empVm.empHeader.EmployeeId;
                 empVm.address.AddressType = "Employee";
                 empVm.address.Contact = empVm.address.MobileNo;
+                empVm.address.Email = empVm.empHeader.UserEmailId;
                 addressBO.Add(empVm.address);
                 foreach (var item in empVm.empDocument)
                 {

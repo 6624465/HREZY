@@ -68,13 +68,18 @@ namespace HR.Web.Controllers
             return RedirectToAction("ContributionRegisterList");
         }
 
-        [HttpPost]
-        public JsonResult ContributionDelete(int contributionid)
+        //[HttpPost]
+        //public JsonResult ContributionDelete(int contributionid)
+        //{
+        //    contributionBO.Delete(contributionid);
+        //    return Json(new { message = "success" }, JsonRequestBehavior.AllowGet);
+        //}
+        [HttpGet]
+        public ActionResult ContributionDelete(int contributionid)
         {
             contributionBO.Delete(contributionid);
-            return Json(new { message = "success" }, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("ContributionRegisterList");
         }
-
         [HttpGet]
         public ActionResult SalaryRulesList(int? page = 1)
         {
@@ -464,7 +469,7 @@ namespace HR.Web.Controllers
         }
         public bool IsSalaryComponentExists(string component)
         {
-            var list = contributionBO.GetListByProperty(x => x.Name.ToUpper() == component.ToUpper()).ToList();
+            var list = contributionBO.GetListByProperty(x =>( x.Name.ToUpper() == component.ToUpper() && x.IsActive==true) ).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

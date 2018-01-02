@@ -32,32 +32,16 @@
                                         @Html.TextBoxFor(x => x.branch.BranchCode, new { @class = "form-control" })
                                     </div>
                                     <label class="col-md-2 control-label">
-                                        <span class="pull-right">IsActive</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <div style="margin-top:20px;">
-                                            @Html.CheckBoxFor(x => x.branch.IsActive)
-                                        </div>
-                                        
-                                    </div>
-                                    @*<div class="ui-toggle ui-toggle-sm ui-toggle-primary mb10">
-                                        <label class="ui-toggle-inline">
-                                            <label class="ui-toggle-inline">
-                                                <input id="IsActive" name="IsActive.Value" type="checkbox">
-                                                <span></span>
-                                            </label>
-                                        </label>
-                                    </div>*@
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">
                                         <span class="pull-right">Branch Name</span>
                                     </label>
                                     <div class="col-md-4">
                                         @Html.TextBoxFor(x => x.branch.BranchName, new { @class = "form-control" })
-                                    </div>
+                                    </div>                      
+                                </div>
+                            </div>
+                            <div class="row css5">
+                                <div class="form-group">
+                                   
                                     <label class="col-md-2 control-label">
                                         <span class="pull-right">Registration No</span>
                                     </label>

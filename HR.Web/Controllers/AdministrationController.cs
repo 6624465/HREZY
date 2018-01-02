@@ -31,8 +31,9 @@ namespace HR.Web.Controllers
             CompanyVm companyvm = new CompanyVm();
             using (HrDataContext dbContext = new HrDataContext())
             {
-                companyId = dbContext.Branches.Where(x => x.BranchID == SESSIONOBJ.BRANCHID).FirstOrDefault()==null?0
-                    : dbContext.Branches.Where(x => x.BranchID == SESSIONOBJ.BRANCHID).FirstOrDefault().CompanyId.Value;
+                //companyId = dbContext.Branches.Where(x => x.BranchID == SESSIONOBJ.BRANCHID).FirstOrDefault()==null?0
+                //    : dbContext.Branches.Where(x => x.BranchID == SESSIONOBJ.BRANCHID).FirstOrDefault().CompanyId.Value;
+                companyId = 1000;
                 Company company = dbContext.Companies.Where(x => x.CompanyId == companyId).FirstOrDefault();
 
                 if (company != null)
@@ -123,9 +124,40 @@ namespace HR.Web.Controllers
         public ActionResult AddBranch(int branchId = 0)
         {
             BranchVm branchVm = new BranchVm();
+            branchVm.address = new AddressVm();
             using (HrDataContext dbContext = new HrDataContext())
             {
-                
+                Branch branch = dbContext.Branches.Where(x => x.BranchID == branchId).FirstOrDefault();
+                branchVm.branch = branch;
+                Address address = dbContext.Addresses.Where(x => x.LinkID == branchId).FirstOrDefault();
+
+                if (branchId !=0 && address != null)
+                {
+                    branchVm.address.Address1 = address.Address1;
+                    branchVm.address.Address2 = address.Address2;
+                    branchVm.address.AddressId = address.AddressId;
+                    branchVm.address.AddressType = address.AddressType;
+                    branchVm.address.CityName = address.CityName;
+                    branchVm.address.Contact = address.Contact;
+                    branchVm.address.CountryCode = address.CountryCode;
+                    branchVm.address.CreatedBy = address.CreatedBy;
+                    branchVm.address.CreatedOn = address.CreatedOn;
+                    branchVm.address.Email = address.Email;
+                    branchVm.address.FaxNo = address.FaxNo;
+                    branchVm.address.IsActive = address.IsActive;
+                    branchVm.address.LinkID = address.LinkID;
+                    branchVm.address.MobileNo = address.MobileNo;
+                    branchVm.address.ModifiedBy = address.ModifiedBy;
+                    branchVm.address.ModifiedOn = address.ModifiedOn;
+                    branchVm.address.SeqNo = address.SeqNo;
+                    branchVm.address.StateName = address.StateName;
+                    branchVm.address.TelNo = address.TelNo;
+                    branchVm.address.WebSite = address.WebSite;
+                    branchVm.address.ZipCode = address.ZipCode;
+                }
+
+
+
                 var result = dbContext.Companies.GroupJoin(dbContext.Branches,
                     a => a.CompanyId, b => b.CompanyId,
                             (a, b) => new { A = a, B = b }).ToList();
@@ -163,9 +195,9 @@ namespace HR.Web.Controllers
 
                 throw ex;
             }
-            return RedirectToAction("AddBranch");
+            return RedirectToAction("Company");
         }
 
-      
+
     }
 }

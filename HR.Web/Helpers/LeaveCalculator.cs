@@ -26,9 +26,14 @@ namespace HR.Web.Helpers
                 var startDate = new DateTime(now.Year, now.Month, 1);
                 var endDate = startDate.AddMonths(1).AddDays(-1);
 
-                //EmployeeLeaveList leaveList = dbContext.EmployeeLeaveLists
-                //    .Where(x => x.EmployeeId == EmployeeID && x.BranchId == BranchID && x.LeaveTypeId == LeaveType).FirstOrDefault();
-                //leaveList = leaveList.Between(startDate, endDate).FirstOrDefault();
+                List<EmployeeLeaveList> leaveList = dbContext.EmployeeLeaveLists
+                    .Where(x => x.EmployeeId == EmployeeID && x.BranchId == BranchID && x.LeaveTypeId == LeaveType &&
+                    x.FromDate >= startDate && x.ToDate <= endDate && x.Status != UTILITY.LEAVECANCELLED).ToList();
+                decimal? DaysCount = 0;
+                foreach (EmployeeLeaveList item in leaveList)
+                {
+                    DaysCount += item.Days;
+                }
 
                 if (leaveTransaction != null)
                 {
@@ -47,6 +52,8 @@ namespace HR.Web.Helpers
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)
                             eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                        else if(DaysCount==0)
+                            eligibleLeaves = leave.LeavesPerMonth.Value;
                         else
                             eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
 

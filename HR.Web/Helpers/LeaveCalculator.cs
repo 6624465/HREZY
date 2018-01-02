@@ -21,6 +21,15 @@ namespace HR.Web.Helpers
                 LeaveTran leaveTransaction = dbContext.LeaveTrans.Where(x => x.EmployeeId == EmployeeID && x.BranchId == BranchID && x.LeaveType == LeaveType)
                                                     .OrderByDescending(x => x.TransactionId)
                                               .ThenByDescending(x => x.CreatedOn).FirstOrDefault();
+
+                DateTime now = date;
+                var startDate = new DateTime(now.Year, now.Month, 1);
+                var endDate = startDate.AddMonths(1).AddDays(-1);
+
+                //EmployeeLeaveList leaveList = dbContext.EmployeeLeaveLists
+                //    .Where(x => x.EmployeeId == EmployeeID && x.BranchId == BranchID && x.LeaveTypeId == LeaveType).FirstOrDefault();
+                //leaveList = leaveList.Between(startDate, endDate).FirstOrDefault();
+
                 if (leaveTransaction != null)
                 {
 

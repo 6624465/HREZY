@@ -228,7 +228,8 @@ namespace HR.Web.Controllers
             if (empHeader != null)
             {
                 int managerId = empHeader.ManagerId.Value;
-                if (managerId == 0) {
+                if (managerId == 0)
+                {
                     return View("Error");
                 }
             }
@@ -454,8 +455,8 @@ namespace HR.Web.Controllers
                                             EmployeeLeaveList.FromDate);
 
                 obj.IsLossOfPay = true;
-               // if (eligibleLeaves > 0)
-                    obj.LossOfPayDays = EmployeeLeaveList.Days - eligibleLeaves;
+                // if (eligibleLeaves > 0)
+                obj.LossOfPayDays = EmployeeLeaveList.Days - eligibleLeaves;
                 //else
                 //    obj.LossOfPayDays = EmployeeLeaveList.Days - leavetransaction.CurrentLeaves;
                 obj.BranchId = BRANCHID;
@@ -696,9 +697,11 @@ namespace HR.Web.Controllers
                 //    }).ToList();
                 List<Branch> Branches = dbContext.Branches.ToList();
                 List<LeavepolicyVm> leave = new List<LeavepolicyVm>();
-                foreach (Branch item in Branches) {
-                    LeavepolicyVm policy = new LeavepolicyVm() {
-                        BranchId= item.BranchID,
+                foreach (Branch item in Branches)
+                {
+                    LeavepolicyVm policy = new LeavepolicyVm()
+                    {
+                        BranchId = item.BranchID,
                         BranchName = item.BranchName,
                     };
                     leave.Add(policy);
@@ -976,30 +979,59 @@ namespace HR.Web.Controllers
             //var list = weekendPolicy.GetAll();
             using (var dbcntx = new HrDataContext())
             {
-                var list = dbcntx.Branches
-                    .Join(dbcntx.WeekendPolicies,
-                    a => a.BranchID, b => b.BranchId,
-                    (a, b) => new { A = a, B = b })
-                    .Select(x => new WeekendPolicyVm
-                    {
-                        BranchId = x.B.BranchId,
-                        BranchName = x.A.BranchName,
-                        Monday = x.B.Monday,
-                        Tuesday = x.B.Tuesday,
-                        Wednesday = x.B.Wednesday,
-                        Thursday = x.B.Thursday,
-                        Friday = x.B.Friday,
-                        Saturday = x.B.Saturday,
-                        Sunday = x.B.Sunday,
-                        IsMondayHalfDay = x.B.IsMondayHalfDay,
-                        IsTuesdayHalfDay = x.B.IsTuesdayHalfDay,
-                        IsWednesdayHalfDay = x.B.IsWednesdayHalfDay,
-                        IsThursdayHalfDay = x.B.IsThursdayHalfDay,
-                        IsFridayHalfDay = x.B.IsFridayHalfDay,
-                        IsSaturdayHalfDay = x.B.IsSaturdayHalfDay,
-                        IsSundayHalfDay = x.B.IsSundayHalfDay
-                    }).ToList();
-                return View("WeekendPolicyList", list);
+                ViewBag.ROLECODE = ROLECODE;
+                if (BRANCHID != -1)
+                {
+                    var list = dbcntx.Branches
+                        .Join(dbcntx.WeekendPolicies,
+                        a => a.BranchID, b => b.BranchId,
+                        (a, b) => new { A = a, B = b }).Where(x => x.A.BranchID == BRANCHID)
+                        .Select(x => new WeekendPolicyVm
+                        {
+                            BranchId = x.B.BranchId,
+                            BranchName = x.A.BranchName,
+                            Monday = x.B.Monday,
+                            Tuesday = x.B.Tuesday,
+                            Wednesday = x.B.Wednesday,
+                            Thursday = x.B.Thursday,
+                            Friday = x.B.Friday,
+                            Saturday = x.B.Saturday,
+                            Sunday = x.B.Sunday,
+                            IsMondayHalfDay = x.B.IsMondayHalfDay,
+                            IsTuesdayHalfDay = x.B.IsTuesdayHalfDay,
+                            IsWednesdayHalfDay = x.B.IsWednesdayHalfDay,
+                            IsThursdayHalfDay = x.B.IsThursdayHalfDay,
+                            IsFridayHalfDay = x.B.IsFridayHalfDay,
+                            IsSaturdayHalfDay = x.B.IsSaturdayHalfDay,
+                            IsSundayHalfDay = x.B.IsSundayHalfDay
+                        }).ToList(); return View("WeekendPolicyList", list);
+                }
+                else {
+                    var list = dbcntx.Branches
+                        .Join(dbcntx.WeekendPolicies,
+                        a => a.BranchID, b => b.BranchId,
+                        (a, b) => new { A = a, B = b }).Where(x => x.A.BranchID == BRANCHID)
+                        .Select(x => new WeekendPolicyVm
+                        {
+                            BranchId = x.B.BranchId,
+                            BranchName = x.A.BranchName,
+                            Monday = x.B.Monday,
+                            Tuesday = x.B.Tuesday,
+                            Wednesday = x.B.Wednesday,
+                            Thursday = x.B.Thursday,
+                            Friday = x.B.Friday,
+                            Saturday = x.B.Saturday,
+                            Sunday = x.B.Sunday,
+                            IsMondayHalfDay = x.B.IsMondayHalfDay,
+                            IsTuesdayHalfDay = x.B.IsTuesdayHalfDay,
+                            IsWednesdayHalfDay = x.B.IsWednesdayHalfDay,
+                            IsThursdayHalfDay = x.B.IsThursdayHalfDay,
+                            IsFridayHalfDay = x.B.IsFridayHalfDay,
+                            IsSaturdayHalfDay = x.B.IsSaturdayHalfDay,
+                            IsSundayHalfDay = x.B.IsSundayHalfDay
+                        }).ToList(); return View("WeekendPolicyList", list);
+                }
+                
             }
 
         }

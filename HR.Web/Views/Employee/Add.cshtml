@@ -1,12 +1,12 @@
 ﻿@model HR.Web.ViewModels.EmployeeVm
-    @section Styles{
-        <style>
-            #error{
-         display:none;        
-            color:Red;
-            }
-        </style>
+@section Styles{
+    <style>
+        #error {
+            display: none;
+            color: Red;
         }
+    </style>
+}
 @using (Html.BeginForm("SaveEmployee", "Employee", FormMethod.Post, new { id = "frmEmp", name = "frmEmp", enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(x => x.empHeader.EmployeeId)
@@ -47,7 +47,7 @@
                                     <span class="pull-right">First Name</span>
                                 </label>
                                 <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.empHeader.FirstName,
+                                    @Html.TextBoxFor(x => x.empHeader.FirstName,
         new { @class = "form-control validatename" })
                                 </div>
                                 <label class="col-md-2 control-label">
@@ -108,8 +108,8 @@
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Email</span>
                                 </label>
-                               
-                                
+
+
                                 @if (Model.empHeader.EmployeeId != -1)
                                 {
                                     <div class="col-md-4">
@@ -141,7 +141,9 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.address.MobileNo,
-      new { @class = "form-control validatenumber"
+      new
+      {
+          @class = "form-control numCssPlus"
       })
                                 </div>
                                 <label class="col-md-2 control-label">
@@ -168,7 +170,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-     new { @class = "form-control validatenumber" })
+     new { @class = "form-control numCssPlus" })
                                 </div>
                             </div>
                         </div>
@@ -240,7 +242,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.ZipCode,
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control numCss" })
                                 </div>
                             </div>
                         </div>
@@ -321,7 +323,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group date dtCss" id="ConfirmationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate,  new { @class = "form-control dtCssTxt" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control dtCssTxt" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -336,7 +338,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group date dtCss" id="ResignationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate,  new { @class = "form-control dtCssTxt" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control dtCssTxt" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -539,7 +541,7 @@
                         $('#loginEmail').val($('#empHeader_UserEmailId').val());
                     }
                 },
-                error: function(err){
+                error: function (err) {
                     return result;
                 }
 
@@ -557,7 +559,7 @@
                 'empHeader.FirstName': {
                     required: true,
                     maxlength: 30,
-                   
+
                 },
                 'empHeader.MiddleName': {
                     maxlength: 30
@@ -581,6 +583,7 @@
                 },
                 'address.MobileNo': {
                     required: true,
+                    maxlength: 15
                 },
                 'empHeader.Nationality': {
                     required: true
@@ -606,12 +609,16 @@
                 },
                 'empHeader.Password': {
                     required: true,
-                    maxlength: 30
+                    maxlength: 30,
+                    minlength:5
                 },
                 'empHeader.ConfirmPassword': {
                     required: true,
                     equalTo: '#empHeader_Password'
                 },
+                'empPersonalDetail.EmergencyContactNumber': {
+                   maxlength:15
+                }
             }
         });
         //$("#empHeader_FirstName").keypress(function (e) {
@@ -645,7 +652,7 @@
         //        return false;
         //});
 
-        
+
 
 
 

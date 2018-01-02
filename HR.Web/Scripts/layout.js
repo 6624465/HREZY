@@ -103,6 +103,13 @@
         else
             return false;
     });
+    $(document).on('keypress', '.numCssPlus', function (evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if ((charCode >= 48 && charCode <= 57) || charCode == 8 || charCode == 43)
+            return true;
+        else
+            return false;
+    });
     $('.validatename').keypress(function (e) {
         if (window.event)
                     code = e.keyCode;

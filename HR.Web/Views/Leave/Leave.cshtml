@@ -1,4 +1,17 @@
 ﻿@model HR.Web.ViewModels.BranchLeaveVm
+@{
+    if (Model.otherLeave != null)
+    {
+        for (var i = 0; i < Model.otherLeave.Count; i++)
+        {
+            if (!Model.otherLeave[i].IsCarryForward)
+            {
+                Model.otherLeave[i].CarryForward = null;
+            }
+        }
+    }
+
+}
 @section Styles{
     <style>
         .chkClass {
@@ -95,7 +108,7 @@
                                     <td>
                                         @Html.HiddenFor(x => x.otherLeave[i].IsCarryForward)
                                         @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward,
-                                            new { @class = "form-control " , @disabled = "disabled" })
+                                            new { @class = "form-control ", @disabled = "disabled" })
                                     </td>
 
                                     <td>
@@ -159,7 +172,6 @@ new
             $('#li_Leave').addClass('open');
             $('#li_Leavepolicy').addClass('active');
             $('#li_empdir').addClass('active');
-
 
         });
 
@@ -245,13 +257,13 @@ new
                     className: "blue-with-image-2",
                     content: '',
                 });
-              
+
                 $('#frmLeave').submit();
             }
 
         }
 
-      
+
 
 
         function GetBranchData(el) {

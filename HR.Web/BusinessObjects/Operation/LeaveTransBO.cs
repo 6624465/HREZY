@@ -74,7 +74,7 @@ namespace HR.Web.BusinessObjects.Operation
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                List<OtherLeave> leavelist = dbContext.OtherLeaves.Where(x => x.BranchId == sessionObj.BRANCHID).ToList();
+                List<OtherLeave> leavelist = dbContext.OtherLeaves.Where(x => x.BranchId == 10003/*sessionObj.BRANCHID*/).ToList();
 
                 foreach (OtherLeave leave in leavelist)
                 {

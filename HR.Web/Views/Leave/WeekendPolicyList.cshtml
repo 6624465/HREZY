@@ -14,9 +14,10 @@
                 <div class="center-block width">
                     <div class="box-header">
                         <h4>Weekend Policy List</h4>
+                        @if (ViewBag.ROLECODE == UTILITY.ROLE_SUPERADMIN) { 
                         <button class="btn btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/Leave/WeekEndPolicy?branchId=-1")'">
                             <i class="fa fa-plus-square"></i>Add
-                        </button>
+                        </button>}
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">

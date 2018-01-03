@@ -22,28 +22,55 @@ namespace HR.Web.BusinessObjects.LeaveMaster
 
         internal List<calendarVM> GetHolidayList()
         {
-
-            var obj = GetAll();
             List<calendarVM> holidayList = new List<calendarVM>();
-            foreach (HolidayList item in obj)
+            if (sessionObj.ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
-                calendarVM list = new calendarVM();
-                list.title = item.Description;
-                list.date = item.Date;
-               
-                var strHref = "";
-                if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                var obj = GetAll();
+                foreach (HolidayList item in obj)
                 {
-                    strHref = "#";
-                }
-                else
-                    strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+                    calendarVM list = new calendarVM();
+                    list.title = item.Description;
+                    list.date = item.Date;
 
-                var context = new HttpContextWrapper(System.Web.HttpContext.Current);
-                string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
-                list.url = hrefUrl;
-                holidayList.Add(list);
+                    var strHref = "";
+                    if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                    {
+                        strHref = "#";
+                    }
+                    else
+                        strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+
+                    var context = new HttpContextWrapper(System.Web.HttpContext.Current);
+                    string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
+                    list.url = hrefUrl;
+                    holidayList.Add(list);
+                }
             }
+            else if(sessionObj.ROLECODE == UTILITY.ROLE_ADMIN)
+            {
+               var obj = GetAll().Where(x => x.BranchID == sessionObj.BRANCHID).ToList();
+                foreach (HolidayList item in obj)
+                {
+                    calendarVM list = new calendarVM();
+                    list.title = item.Description;
+                    list.date = item.Date;
+
+                    var strHref = "";
+                    if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                    {
+                        strHref = "#";
+                    }
+                    else
+                        strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+
+                    var context = new HttpContextWrapper(System.Web.HttpContext.Current);
+                    string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
+                    list.url = hrefUrl;
+                    holidayList.Add(list);
+                }
+
+            }
+           
             return holidayList;
         }
 

@@ -280,22 +280,8 @@
             minDate: date
         });
 
-        //$('.dtCss').datetimepicker({
-        //    icons: {
-        //        time: 'fa fa-clock-o',
-        //        date: 'fa fa-calendar',
-        //        up: 'fa fa-arrow-up',
-        //        down: 'fa fa-arrow-down',
-        //        previous: 'fa fa-arrow-left',
-        //        next: 'fa fa-arrow-right',
-
-        //    },
-        //    format: dateFormat,
-        //    minDate: date
-        //});
-
+        
         $("#FromDt").on("dp.change", function (e) {
-            debugger;
             $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
@@ -325,7 +311,6 @@
         });
 
         $("#ToDate").on("change", function (e) {
-            debugger;
             $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             if (fromDate != undefined && fromDate != "") {
@@ -367,7 +352,6 @@
             var days = moment.duration(to.diff(from)).asDays() + 1;
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "")
             {
-                debugger;
                 if(days>=1){
                     var temp = moment().isoWeekdayCalc({
                         rangeStart: from,
@@ -395,12 +379,8 @@
                         $('#btnSave').removeAttr('disabled');
                     }
                     if (daysCount == 1) {
-
-                        // $('#chkhalfday').removeAttr('checked');
-                        //$('.icheckbox_flat-blue').removeClass('checked');
                         $('#chkhalfday').removeAttr('disabled', 'disabled');
                         $('#btnSave').removeAttr('disabled');
-                        // $('#isChecked').val('off');
                     }
                     else if(daysCount==""){
                         $('#noOfDays').text(0);

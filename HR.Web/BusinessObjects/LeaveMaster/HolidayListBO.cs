@@ -90,6 +90,16 @@ namespace HR.Web.BusinessObjects.LeaveMaster
         internal holidayVm SaveHolidayList(int HolidayId)
         {
             var obj = GetAll();
+
+            if (sessionObj.ROLECODE == UTILITY.ROLE_SUPERADMIN)
+            {
+                obj = GetAll().ToList();
+
+            }
+            else
+            {
+                obj = GetAll().Where(x => x.BranchID == sessionObj.BRANCHID).ToList();
+            }
             holidayVm holidayVm = new holidayVm();
             List<calendarVM> holidayList = new List<calendarVM>();
             foreach (HolidayList item in obj)

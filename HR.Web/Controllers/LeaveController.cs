@@ -50,12 +50,23 @@ namespace HR.Web.Controllers
         {
             ViewData["RoleCode"] = ROLECODE;
 
-            holidayVm holidayVm = new holidayVm()
+            if (ROLECODE == UTILITY.ROLE_ADMIN)
             {
-                calendarVM = holidayListBO.GetHolidayList(),
-                HolidayList = new HolidayList()
-            };
-            return View("HolidayList", holidayVm);
+                holidayVm holidayVm = new holidayVm()
+                {
+                    calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
+                    HolidayList = new HolidayList()
+                }; return View("HolidayList", holidayVm);
+            }
+            else
+            {
+                holidayVm holidayVm = new holidayVm()
+                {
+                    calendarVM = holidayListBO.GetHolidayList(),
+                    HolidayList = new HolidayList()
+                }; return View("HolidayList", holidayVm);
+            }
+            
         }
 
         public ActionResult HolidayListByBranch(int branchID)
@@ -241,7 +252,7 @@ namespace HR.Web.Controllers
             var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
             if (empHeader != null)
             {
-                int managerId = empHeader.ManagerId ==null ? 0 : empHeader.ManagerId.Value;
+                int managerId = empHeader.ManagerId == null ? 0 : empHeader.ManagerId.Value;
                 if (managerId == 0)
                 {
                     return View("Error");
@@ -1096,7 +1107,7 @@ namespace HR.Web.Controllers
                         IsFridayHalfDay = false,
                         IsSaturdayHalfDay = false,
                         IsSundayHalfDay = false,
-                        BranchId= BRANCHID
+                        BranchId = BRANCHID
                     };
                 }
                 return View(_weekendPolicy);
@@ -1109,7 +1120,7 @@ namespace HR.Web.Controllers
         {
             if (weekendpolicy.BranchId == -1)
             {
-                
+
                 weekendPolicyBO.Add(weekendpolicy);
 
                 return WeekendPolicyList();

@@ -44,16 +44,20 @@
 
                         }
                         <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                   @using (Html.BeginForm("HolidayListByBranch", "Leave", FormMethod.Post, new { id = "frmHolidayList", name = "frmHolidayList" }))
-                                   {
-                                    @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "--Select--",
-  new { @class = "form-control input-sm", onchange = "getHolidayBranch(this)" })
-                                    }
-                                </div>
+                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                            {
 
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @using (Html.BeginForm("HolidayListByBranch", "Leave", FormMethod.Post, new { id = "frmHolidayList", name = "frmHolidayList" }))
+                                        {
+                                            @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "--Select--",
+                            new { @class = "form-control input-sm", onchange = "getHolidayBranch(this)" })
+                                        }
+                                    </div>
+
+                                </div>
+                            }
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="calendar-toolbar mb20 text-center">

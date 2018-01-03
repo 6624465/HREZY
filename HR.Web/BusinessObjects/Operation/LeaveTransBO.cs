@@ -74,13 +74,13 @@ namespace HR.Web.BusinessObjects.Operation
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                List<OtherLeave> leavelist = dbContext.OtherLeaves.Where(x => x.BranchId == 10003/*sessionObj.BRANCHID*/).ToList();
+                List<OtherLeave> leavelist = dbContext.OtherLeaves.Where(x => x.BranchId ==sessionObj.BRANCHID).ToList();
 
                 foreach (OtherLeave leave in leavelist)
                 {
                     LeaveTran leavetrasaction = new LeaveTran()
                     {
-                        BranchId = sessionObj.BRANCHID,
+                        BranchId =  sessionObj.BRANCHID,
                         CreatedBy = sessionObj.USERID,
                         CreatedOn = UTILITY.SINGAPORETIME,
                         CurrentLeaves = leave.LeavesPerYear == null ? 0 : leave.LeavesPerYear.Value,

@@ -315,20 +315,20 @@ namespace HR.Web.Controllers
                     {
                         ViewData["Message"] = "You do not have enough casual leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
-                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                        return View("EmployeeRequestFrom", new EmployeeLeaveList());
                     }
                     else if (EmployeeLeaveList.LeaveTypeId == UTILITY.SICKLEAVE && leavetransaction.CurrentLeaves == 0)
                     {
 
                         ViewData["Message"] = "You do not have enough paid leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
-                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                        return View("EmployeeRequestFrom", new EmployeeLeaveList());
                     }
                     else if (EmployeeLeaveList.LeaveTypeId == UTILITY.PAIDLEAVE && leavetransaction.CurrentLeaves == 0)
                     {
                         ViewData["Message"] = "You do not have enough paid leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
-                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                        return View("EmployeeRequestFrom", new EmployeeLeaveList());
                     }
                 }
                 decimal eligibleLeaves = 0;
@@ -416,7 +416,7 @@ namespace HR.Web.Controllers
                     {
                         ViewData["IsLop"] = true;
                         ViewData["Message"] = "You are not eligible for applied number of leaves or applied leave,other leaves will be LOP";
-                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+                        return View("EmployeeRequestFrom", new EmployeeLeaveList());
                     }
                 }
                 else
@@ -426,7 +426,7 @@ namespace HR.Web.Controllers
                     if (eligibleLeaves >= EmployeeLeaveList.Days)
                         ViewData["Message"] = "You are not eligible for applied number of leaves";
 
-                    return View("EmployeeRequestFrom", EmployeeLeaveList);
+                    return View("EmployeeRequestFrom", new EmployeeLeaveList());
                 }
                 // return View("EmployeeRequestFrom", EmployeeLeaveList);
             }

@@ -26,6 +26,9 @@
         .icheckbox_flat-blue {
             margin-top: 10px;
         }
+        .icheckbox_flat-blue.checked.disabled {
+    background-position: -22px 0;
+}
     </style>
 }
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))

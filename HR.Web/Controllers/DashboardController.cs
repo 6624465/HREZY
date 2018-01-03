@@ -108,7 +108,7 @@ namespace HR.Web.Controllers
                         obj.totalCLs = currentCasualLeaves;
                         if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
                             remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
-                    }
+                    
                     DateTime now = DateTime.Now;
                     var startDate = new DateTime(now.Year, now.Month, 1);
                     var endDate = startDate.AddMonths(1).AddDays(-1);
@@ -123,7 +123,7 @@ namespace HR.Web.Controllers
                     obj.empLeaveDashBoard = empLeaveDetails;
                     obj.clPercent = remainingCasualLeavesPercent;
                     obj.plPercent = remainingPaidLeavesPercent;
-
+                        }
                     return View("employeedashboard", obj);
                 }
 

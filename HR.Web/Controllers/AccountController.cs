@@ -20,6 +20,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult Login(User user)
 
+
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
@@ -33,6 +34,8 @@ namespace HR.Web.Controllers
                     {
                         USERID = user.UserName,
                         BRANCHID = userObj.BranchId,
+                        BRANCHNAME = dbContext.Branches.Where(x=>x.BranchID== userObj.BranchId).FirstOrDefault()==null?"":
+                         dbContext.Branches.Where(x => x.BranchID == userObj.BranchId).FirstOrDefault().BranchName,
                         ROLECODE = userObj.RoleCode,
                         EMPLOYEEID = userObj.EmployeeId,
                         ISMANAGER = dbContext.EmployeeHeaders.Where(x => x.ManagerId == userObj.EmployeeId).Count() > 0

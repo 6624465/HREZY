@@ -13,7 +13,7 @@ namespace HR.Web.Controllers
         public int BRANCHID { get; set; }
         public string ROLECODE { get; set; }
         public bool ISMANAGER { get; set; }
-
+        public string BRANCHNAME { get; set; }
     }
 
     public class BaseController : Controller
@@ -87,6 +87,18 @@ namespace HR.Web.Controllers
             set
             {
                 Session[UTILITY.SSN_OBJECT] = value;
+            }
+        }
+
+        public string BRANCHNAME
+        {
+            get
+            {
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).BRANCHNAME;
+            }
+            set
+            {
+                Session[UTILITY.CONFIG_MANAGER] = value;
             }
         }
 

@@ -22,55 +22,37 @@ namespace HR.Web.BusinessObjects.LeaveMaster
 
         internal List<calendarVM> GetHolidayList()
         {
+            var obj=new List<HolidayList>();
             List<calendarVM> holidayList = new List<calendarVM>();
             if (sessionObj.ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
-                var obj = GetAll();
-                foreach (HolidayList item in obj)
-                {
-                    calendarVM list = new calendarVM();
-                    list.title = item.Description;
-                    list.date = item.Date;
-
-                    var strHref = "";
-                    if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
-                    {
-                        strHref = "#";
-                    }
-                    else
-                        strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
-
-                    var context = new HttpContextWrapper(System.Web.HttpContext.Current);
-                    string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
-                    list.url = hrefUrl;
-                    holidayList.Add(list);
-                }
+                obj = GetAll().ToList();
+                
             }
             else if(sessionObj.ROLECODE == UTILITY.ROLE_ADMIN)
             {
-               var obj = GetAll().Where(x => x.BranchID == sessionObj.BRANCHID).ToList();
-                foreach (HolidayList item in obj)
-                {
-                    calendarVM list = new calendarVM();
-                    list.title = item.Description;
-                    list.date = item.Date;
-
-                    var strHref = "";
-                    if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
-                    {
-                        strHref = "#";
-                    }
-                    else
-                        strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
-
-                    var context = new HttpContextWrapper(System.Web.HttpContext.Current);
-                    string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
-                    list.url = hrefUrl;
-                    holidayList.Add(list);
-                }
-
+               obj = GetAll().Where(x => x.BranchID == sessionObj.BRANCHID).ToList();
             }
-           
+            foreach (HolidayList item in obj)
+            {
+                calendarVM list = new calendarVM();
+                list.title = item.Description;
+                list.date = item.Date;
+
+                var strHref = "";
+                if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                {
+                    strHref = "#";
+                }
+                else
+                    strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+
+                var context = new HttpContextWrapper(System.Web.HttpContext.Current);
+                string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
+                list.url = hrefUrl;
+                holidayList.Add(list);
+            }
+
             return holidayList;
         }
 

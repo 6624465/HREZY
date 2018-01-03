@@ -24,7 +24,7 @@ namespace HR.Web.Services.Payroll
                     else
                     {
                         contribution.Description = entity.Description;
-                        contribution.IsActive = entity.IsActive;
+                        contribution.IsActive = true;
                         contribution.ModifiedBy = entity.ModifiedBy;
                         contribution.ModifiedOn = entity.ModifiedOn;
                         contribution.Name = entity.Name;

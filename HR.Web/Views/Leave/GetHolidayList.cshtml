@@ -1,5 +1,6 @@
 ﻿@model HR.Web.Models.HolidayList
 @Html.HiddenFor(x => x.HolidayId)
+@Html.HiddenFor(x=>x.BranchID)
 <div class="row">
     <div class="form-group">
         <label class="col-md-2 control-label">
@@ -27,7 +28,7 @@
         </div>
     </div>
 </div>
-<div class="row css10">
+@*<div class="row css10">
     <div class="form-group">
         <label class="col-md-2 control-label">
             <span class="pull-right">
@@ -42,7 +43,7 @@
                                      new { @class = "form-control" })
         </div>
     </div>
-</div>
+</div>*@
 <script type="text/javascript">
     $(function () {
         $('.dtCss').datetimepicker({

@@ -30,6 +30,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 calendarVM list = new calendarVM();
                 list.title = item.Description;
                 list.date = item.Date;
+               
                 var strHref = "";
                 if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
                 {
@@ -56,6 +57,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 calendarVM list = new calendarVM();
                 list.title = item.Description;
                 list.date = item.Date;
+               
 
                 var strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
 
@@ -79,6 +81,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             {
                 holidayList.CreatedBy = sessionObj.USERID;
                 holidayList.CreatedOn = UTILITY.SINGAPORETIME;
+                holidayList.BranchID = sessionObj.BRANCHID;
 
                 holidayListRepository.Add(holidayList);
 
@@ -100,14 +103,15 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 throw ex;
             }
         }
-        public void Delete(HolidayList holidayList)
+        public void Delete(int id)
         {
             try
             {
-                holidayListRepository.Delete(holidayList);
+                holidayListRepository.Delete(id);
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
         }

@@ -68,6 +68,7 @@ namespace HR.Web.Controllers
 
         public PartialViewResult GetHolidayList(int holidayId)
         {
+            ViewData["RoleCode"] = ROLECODE;
             if (holidayId != -1)
             {
                 using (var dbntx = new HrDataContext())

@@ -1,5 +1,6 @@
 ﻿@model HR.Web.Models.HolidayList
 @Html.HiddenFor(x => x.HolidayId)
+@Html.HiddenFor(x=>x.BranchID)
 <div class="row">
     <div class="form-group">
         <label class="col-md-2 control-label">
@@ -27,22 +28,26 @@
         </div>
     </div>
 </div>
+@if (ViewData["RoleCode"].ToString()==UTILITY.ROLE_SUPERADMIN)
+{
 <div class="row css10">
-    <div class="form-group">
-        <label class="col-md-2 control-label">
-            <span class="pull-right">
-                Location
-            </span>
-        </label>
-        <div class="col-md-10">
+        <div class="form-group">
+            <label class="col-md-2 control-label">
+                <span class="pull-right">
+                    Location
+                </span>
+            </label>
+            <div class="col-md-10">
 
-            @Html.DropDownListFor(x => x.CountryId,
-                                     SelectListItemHelper.CountryListById(),
-                                     "Select Location",
-                                     new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.CountryId,
+                                         SelectListItemHelper.CountryListById(),
+                                         "Select Location",
+                                         new { @class = "form-control" })
+            </div>
         </div>
     </div>
-</div>
+}
+
 <script type="text/javascript">
     $(function () {
         $('.dtCss').datetimepicker({

@@ -169,7 +169,9 @@
                             <div class="form-group">
                                 <div class="col-md-3">
                                     <span class="pull-right">
-                                        <button type="submit" class="btn btn-primary btn-sm" id="btnSave" onclick="SaveEmployeeLeaveForm()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                                        <button type="submit" class="btn btn-primary btn-sm" id="btnSave" onclick="SaveEmployeeLeaveForm()" disabled="disabled">
+                                            <i class="fa fa-floppy-o" aria-hidden="true"></i>Save
+                                        </button>
                                     </span>
                                     @*<button type="button" class="btn btn-default btn-sm" data-dismiss=""><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>*@
                                 </div>
@@ -218,7 +220,7 @@
                 } else {
                     swal("Cancelled", "Your leave has been cancelled:)", "error");
                 }
-              
+
             });
             </text>
                 }
@@ -264,7 +266,7 @@
             }
         });
         var date = new Date('12/01/2017');
-         $('.dtCss').datetimepicker({
+        $('.dtCss').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',
                 date: 'fa fa-calendar',
@@ -293,6 +295,8 @@
         //});
 
         $("#FromDt").on("dp.change", function (e) {
+            debugger;
+            $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
 
@@ -304,8 +308,12 @@
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
                     $('#Days').val('');
+                    $('#noOfDays').val('');
                 } else {
+                    $('#Days').val('');
+                    $('#noOfDays').val('');
                     $('#Days').val(days);
+                    $('#noOfDays').val(days);
                 }
             }
             if (fromDate != toDate) {
@@ -317,6 +325,8 @@
         });
 
         $("#ToDate").on("change", function (e) {
+            debugger;
+            $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             if (fromDate != undefined && fromDate != "") {
                 var toDate = $('#ToDt').find('input').val();
@@ -326,9 +336,10 @@
                 if (days < 0) {
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
-                    $('#Days').val('');
+                    $('#Days').val('');$('#noOfDays').val('');
                 } else {
                     $('#Days').val(days);
+                    $('#noOfDays').val(days);
                 }
             }
             if (fromDate != toDate) {
@@ -346,7 +357,7 @@
             holidaysArray.push(moment(holiDayList[i], 'MM/DD/YYYY'));
         }
         function isoWeekDayCalc() {
-
+            $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
 
@@ -356,6 +367,7 @@
             var days = moment.duration(to.diff(from)).asDays() + 1;
             if (fromDate != undefined && fromDate != "" && toDate != undefined && toDate != "")
             {
+                debugger;
                 if(days>=1){
                     var temp = moment().isoWeekdayCalc({
                         rangeStart: from,
@@ -378,17 +390,20 @@
                         $('#chkhalfday').removeAttr('checked');
                         $('.icheckbox_flat-blue').removeClass('checked');
                         $('#chkhalfday').attr('disabled', 'disabled');
-                        $('#isChecked').val('off'); 
+                        $('#isChecked').val('off');
                         $('#Session').hide();
+                        $('#btnSave').removeAttr('disabled');
                     }
                     if (daysCount == 1) {
 
                         // $('#chkhalfday').removeAttr('checked');
                         //$('.icheckbox_flat-blue').removeClass('checked');
                         $('#chkhalfday').removeAttr('disabled', 'disabled');
-                      
+                        $('#btnSave').removeAttr('disabled');
                         // $('#isChecked').val('off');
                     }
+                    else
+                        $('#noOfDays').val(temp);
                 }
                 else{
                     $('#FromDt').find('input').val('');
@@ -401,12 +416,14 @@
             // checkDates();
             isoWeekDayCalc();
         });
-        //$("#FromDate").on("blur", function (e) {
-        //    //checkDates();
-        //    isoWeekDayCalc();
-        //});
+        $("#FromDate").on("blur", function (e) {
+            //checkDates();
+            isoWeekDayCalc();
+        });
 
         function checkDates() {
+            $('#Days').val('');
+            $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
             var from = moment(fromDate,dateFormat);
@@ -445,7 +462,7 @@
             //var to = moment(toDate, dateFormat);
             //var days = moment.duration(to.diff(from)).asDays() + 1;
             if( $('#chkhalfday').prop('checked')){
-                $('#Session').show();               
+                $('#Session').show();
             }
             else{
                 $('#Session').hide();

@@ -115,13 +115,21 @@ namespace HR.Web.Services.OtherLeaveMaster
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    OtherLeave otherLeave = dbContext.OtherLeaves.Where(x => x.LeaveTypeId == entity.LeaveTypeId).FirstOrDefault();
-                    if (otherLeave != null)
+                    OtherLeave OtherLeave = dbContext.OtherLeaves
+                          .Where(x => x.BranchId == entity.BranchId && x.LeaveTypeId == entity.LeaveTypeId).FirstOrDefault();
+                    if (OtherLeave != null)
                     {
-                        otherLeave.IsCarryForward = entity.IsCarryForward;
-                        otherLeave.Description = entity.Description;
-                     
-                        Add(otherLeave);
+                        //otherLeave.IsCarryForward = entity.IsCarryForward;
+                       // otherLeave.Description = entity.Description;
+                        //otherLeave.BranchId = entity.BranchId;
+                        
+                       
+                            OtherLeave.BranchId = entity.BranchId;
+                            OtherLeave.IsCarryForward = entity.IsCarryForward;
+                            OtherLeave.LeaveTypeId = entity.LeaveTypeId;
+                            //  OtherLeave.
+                        
+                        dbContext.SaveChanges();
                     }
                     else
                         Add(entity);

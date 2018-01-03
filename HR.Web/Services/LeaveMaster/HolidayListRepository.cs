@@ -32,7 +32,25 @@ namespace HR.Web.Services.LeaveMaster
                         holidayList.CountryId = entity.CountryId;
                         holidayList.ModifiedBy = entity.ModifiedBy;
                         holidayList.ModifiedOn = entity.ModifiedOn;
+                       
                     }
+                    dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public void Delete(int id)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    var record = dbContext.HolidayLists.Where(x => x.HolidayId == id).FirstOrDefault();
+                    dbContext.HolidayLists.Remove(record);
                     dbContext.SaveChanges();
                 }
             }
@@ -45,19 +63,20 @@ namespace HR.Web.Services.LeaveMaster
 
         public void Delete(HolidayList entity)
         {
-            try
-            {
-                using (HrDataContext dbContext = new HrDataContext())
-                {
-                    dbContext.HolidayLists.Remove(entity);
-                    dbContext.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
+            //try
+            //{
+            //    using (HrDataContext dbContext = new HrDataContext())
+            //    {
+            //        dbContext.HolidayLists.Remove(entity);
+            //        dbContext.SaveChanges();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
 
-                throw ex;
-            }
+            //    throw ex;
+            //}
+            throw new NotImplementedException();
         }
 
         public IEnumerable<HolidayList> GetAll()

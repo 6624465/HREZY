@@ -34,28 +34,28 @@ namespace HR.Web.Controllers
                                             .ToList()
                                             .AsEnumerable();
 
-                    var query = dbCntx.EmployeeLeaveLists
-                                        .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
-                    var leaveStartTransactions = dbCntx.LeaveTransactions
-                                              .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
-                                              .OrderBy(x => x.TransactionId)
-                                              .FirstOrDefault();
-                    if (leaveStartTransactions != null)
-                    {
-                        obj.totalPLs = leaveStartTransactions.CurrentPaidLeaves;
-                        obj.totalCLs = leaveStartTransactions.CurrentCasualLeaves;
-                        DateTime now = DateTime.Now;
-                        var startDate = new DateTime(now.Year, now.Month, 1);
-                        var endDate = startDate.AddMonths(1).AddDays(-1);
+                    //var query = dbCntx.EmployeeLeaveLists
+                    //                    .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
+                    //var leaveStartTransactions = dbCntx.LeaveTrans
+                    //                          .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
+                    //                          .OrderBy(x => x.TransactionId)
+                    //                          .FirstOrDefault();
+                    //if (leaveStartTransactions != null)
+                    //{
+                    //    obj.totalPLs = leaveStartTransactions.CurrentLeaves;
+                    //    obj.totalCLs = leaveStartTransactions.CurrentLeaves;
+                    //    DateTime now = DateTime.Now;
+                    //    var startDate = new DateTime(now.Year, now.Month, 1);
+                    //    var endDate = startDate.AddMonths(1).AddDays(-1);
 
-                        var SLPerMonth = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault().SickLeavesPerMonth;
-                        var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == 1031).ToList();
-                        foreach (var item in CurrentMonthSLs)
-                        {
-                            obj.totalSLs += item.Days.Value;
-                        }
-                        obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
-                    }
+                    //    var SLPerMonth = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault().SickLeavesPerMonth;
+                    //    var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == 1031).ToList();
+                    //    foreach (var item in CurrentMonthSLs)
+                    //    {
+                    //        obj.totalSLs += item.Days.Value;
+                    //    }
+                    //    obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
+                    //}
                     return View("admindashboard", obj);
                 }
             }
@@ -81,49 +81,74 @@ namespace HR.Web.Controllers
                                             .ToList()
                                             .AsEnumerable();
 
-                    var leaveCurrentTransactions = dbCntx.LeaveTransactions
+                    List<LeaveTran> leaveCurrentTransactions = dbCntx.LeaveTrans
                                                 .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
                                                 .OrderByDescending(x => x.TransactionId)
-                                                .FirstOrDefault();
+                                                .ToList();
 
 
-                    var leaveStartTransactions = dbCntx.LeaveTransactions
+                    List<LeaveTran> leaveStartTransactions = dbCntx.LeaveTrans
                                                 .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
                                                 .OrderBy(x => x.TransactionId)
-                                                .FirstOrDefault();
+                                                .ToList();
 
                     decimal remainingPaidLeavesPercent = 0.0M;
                     decimal remainingCasualLeavesPercent = 0.0M;
                     if (leaveStartTransactions != null)
                     {
 
-                        var totalPaidLeaves = leaveStartTransactions.PreviousPaidLeaves;
-                        var currentPaidLeaves = leaveCurrentTransactions.CurrentPaidLeaves;
+                        LeaveTran PreveLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == UTILITY.PAIDLEAVE).OrderBy(x => x.TransactionId).FirstOrDefault();
+                        decimal totalPaidLeaves = 0;
+                        if (PreveLeaveTran != null)
+                            totalPaidLeaves = PreveLeaveTran.PreviousLeaves;
+
+                        var currentLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == UTILITY.PAIDLEAVE).OrderBy(x => x.TransactionId)
+                            .OrderByDescending(x => x.TransactionId).FirstOrDefault();
+                        decimal currentPaidLeaves = 0;
+                        if (currentLeaveTrans != null)
+                            currentPaidLeaves = currentLeaveTrans.CurrentLeaves;
                         obj.totalPLs = currentPaidLeaves;
+
+
                         if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
                             remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 
-                        var totalCasualLeaves = leaveStartTransactions.PreviousCasualLeaves;
-                        var currentCasualLeaves = leaveCurrentTransactions.CurrentCasualLeaves;
-                        obj.totalCLs = currentCasualLeaves;
+                        LeaveTran prevCasualLeaves = leaveStartTransactions.Where(x => x.LeaveType == UTILITY.CASUALLEAVE)
+                            .OrderBy(x => x.TransactionId).FirstOrDefault();
+
+                        LeaveTran curCasualLeaves = leaveCurrentTransactions.Where(x => x.LeaveType == UTILITY.CASUALLEAVE).OrderBy(x => x.TransactionId)
+                            .OrderByDescending(x => x.TransactionId).FirstOrDefault();
+
+
+                        decimal totalCasualLeaves = 0;
+
+                        if (prevCasualLeaves != null)
+                            totalCasualLeaves = prevCasualLeaves.PreviousLeaves;
+
+                        decimal currentCasualLeaves = 0;
+                        if (curCasualLeaves != null)
+                            currentCasualLeaves = curCasualLeaves.CurrentLeaves;
+
+                            obj.totalCLs = currentCasualLeaves;
                         if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
                             remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
-                    
-                    DateTime now = DateTime.Now;
-                    var startDate = new DateTime(now.Year, now.Month, 1);
-                    var endDate = startDate.AddMonths(1).AddDays(-1);
 
-                    var SLPerMonth = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault().SickLeavesPerMonth;
-                    var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == 1031).ToList();
-                    foreach (var item in CurrentMonthSLs)
-                    {
-                        obj.totalSLs += item.Days.Value;
-                    }
-                    obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
-                    obj.empLeaveDashBoard = empLeaveDetails;
-                    obj.clPercent = remainingCasualLeavesPercent;
-                    obj.plPercent = remainingPaidLeavesPercent;
+                        DateTime now = DateTime.Now;
+                        var startDate = new DateTime(now.Year, now.Month, 1);
+                        var endDate = startDate.AddMonths(1).AddDays(-1);
+
+                        var SLPerMonth = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == UTILITY.SICKLEAVE)
+                            .FirstOrDefault().LeavesPerMonth;
+                        var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == UTILITY.SICKLEAVE).ToList();
+                        foreach (var item in CurrentMonthSLs)
+                        {
+                            obj.totalSLs += item.Days.Value;
                         }
+                        obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
+                        obj.empLeaveDashBoard = empLeaveDetails;
+                        obj.clPercent = remainingCasualLeavesPercent;
+                        obj.plPercent = remainingPaidLeavesPercent;
+                    }
                     return View("employeedashboard", obj);
                 }
 

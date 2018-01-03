@@ -227,7 +227,7 @@ namespace HR.Web.Controllers
             var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
             if (empHeader != null)
             {
-                int managerId = empHeader.ManagerId.Value;
+                int managerId = empHeader.ManagerId ==null ? 0 : empHeader.ManagerId.Value;
                 if (managerId == 0)
                 {
                     return View("Error");

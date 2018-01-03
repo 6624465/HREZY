@@ -1119,6 +1119,12 @@ namespace HR.Web.Controllers
             }
 
         }
+        public ActionResult DeleteHoliday(int holidayid)
+        {
+            holidayListBO.Delete(holidayid);
+            return RedirectToAction("HolidayList");
+
+        }
     }
 
 

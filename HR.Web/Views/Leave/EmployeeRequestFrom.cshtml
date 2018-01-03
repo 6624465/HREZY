@@ -402,8 +402,11 @@
                         $('#btnSave').removeAttr('disabled');
                         // $('#isChecked').val('off');
                     }
-                    else
-                        $('#noOfDays').val(temp);
+                    else if(daysCount==""){
+                        $('#noOfDays').text(0);
+                        $('#Days').val(0);
+                        $('#btnSave').attr('disabled','disabled');
+                    }
                 }
                 else{
                     $('#FromDt').find('input').val('');

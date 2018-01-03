@@ -11,6 +11,11 @@
 {
     @Html.HiddenFor(x => x.empHeader.EmployeeId)
     @Html.HiddenFor(x => x.empHeader.BranchId)
+    @Html.HiddenFor(x=>x.address.AddressId)
+    @Html.HiddenFor(x => x.empWorkDetail.WorkDetailID)
+    @Html.HiddenFor(x=>x.empPersonalDetail.PersonalDetailID)
+  
+
     <div class="page">
         <div class="row">
             <div class="col-md-12">
@@ -464,6 +469,7 @@
                                                 @Html.HiddenFor(x => x.empDocument[i].DocumentType)
                                                 <td>
                                                     @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)" })
+                                                    
                                                 </td>
                                             </tr>
 

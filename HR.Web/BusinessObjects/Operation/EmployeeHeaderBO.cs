@@ -156,11 +156,13 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.empPersonalDetail.CreatedOn = UTILITY.SINGAPORETIME;
                 empVm.empPersonalDetail.ModifiedBy = sessionObj.USERID;
                 empVm.empPersonalDetail.ModifiedOn = UTILITY.SINGAPORETIME;
+                empVm.empPersonalDetail.BranchId = empVm.empHeader.BranchId;
                 empPersonalDetailBO.Add(empVm.empPersonalDetail);
                 empVm.empWorkDetail.CreatedBy = sessionObj.USERID;
                 empVm.empWorkDetail.CreatedOn = UTILITY.SINGAPORETIME;
                 empVm.empWorkDetail.ModifiedBy = sessionObj.USERID;
                 empVm.empWorkDetail.ModifiedOn = UTILITY.SINGAPORETIME;
+                empVm.empWorkDetail.BranchId = empVm.empHeader.BranchId;
                 empWorkDetailBO.Add(empVm.empWorkDetail);
                 empVm.address.CreatedBy = sessionObj.USERID;
                 empVm.address.CreatedOn = UTILITY.SINGAPORETIME;
@@ -170,6 +172,7 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.address.AddressType = "Employee";
                 empVm.address.Contact = empVm.address.MobileNo;
                 empVm.address.Email = empVm.empHeader.UserEmailId;
+                empVm.address.BranchId = empVm.empHeader.BranchId;
                 addressBO.Add(empVm.address);
                 foreach (var item in empVm.empDocument)
                 {

@@ -34,7 +34,7 @@ namespace HR.Web.Services.Operation
                         empPersonalDetail.DOB = entity.DOB;
                         empPersonalDetail.EmergencyContactName = entity.EmergencyContactName;
                         empPersonalDetail.EmergencyContactNumber = entity.EmergencyContactNumber;
-                        empPersonalDetail.EmployeeId = entity.EmployeeId;
+                       // empPersonalDetail.EmployeeId = entity.EmployeeId;
                         empPersonalDetail.FatherName = entity.FatherName;
                         empPersonalDetail.Gender = entity.Gender;
                         empPersonalDetail.MaritalStatus = entity.MaritalStatus;

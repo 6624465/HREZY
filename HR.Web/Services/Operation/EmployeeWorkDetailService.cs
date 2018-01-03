@@ -34,7 +34,7 @@ namespace HR.Web.Services.Operation
                         empWorkDetail.CreatedOn = entity.CreatedOn;
                         empWorkDetail.DepartmentId = entity.DepartmentId;
                         empWorkDetail.DesignationId = entity.DesignationId;
-                        empWorkDetail.EmployeeId = entity.EmployeeId;
+                        //empWorkDetail.EmployeeId = entity.EmployeeId;
                         empWorkDetail.JoiningDate = entity.JoiningDate;
                         empWorkDetail.ModifiedBy = entity.ModifiedBy;
                         empWorkDetail.ModifiedOn = entity.ModifiedOn;

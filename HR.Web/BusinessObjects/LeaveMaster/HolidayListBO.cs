@@ -29,7 +29,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 obj = GetAll().ToList();
                 
             }
-            else if(sessionObj.ROLECODE == UTILITY.ROLE_ADMIN || sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
+            else 
             {
                obj = GetAll().Where(x => x.BranchID == sessionObj.BRANCHID).ToList();
             }

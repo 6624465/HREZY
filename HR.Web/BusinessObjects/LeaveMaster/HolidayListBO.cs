@@ -24,12 +24,12 @@ namespace HR.Web.BusinessObjects.LeaveMaster
         {
             var obj=new List<HolidayList>();
             List<calendarVM> holidayList = new List<calendarVM>();
-            if (sessionObj.ROLECODE == UTILITY.ROLE_SUPERADMIN)
+            if (sessionObj.ROLECODE == UTILITY.ROLE_SUPERADMIN )
             {
                 obj = GetAll().ToList();
                 
             }
-            else if(sessionObj.ROLECODE == UTILITY.ROLE_ADMIN)
+            else if(sessionObj.ROLECODE == UTILITY.ROLE_ADMIN || sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
             {
                obj = GetAll().Where(x => x.BranchID == sessionObj.BRANCHID).ToList();
             }

@@ -19,8 +19,6 @@ namespace HR.Web.Controllers
 
         [HttpPost]
         public ActionResult Login(User user)
-
-
         {
             using (HrDataContext dbContext = new HrDataContext())
             {

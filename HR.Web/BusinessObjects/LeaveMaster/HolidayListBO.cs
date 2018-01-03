@@ -22,16 +22,16 @@ namespace HR.Web.BusinessObjects.LeaveMaster
 
         internal List<calendarVM> GetHolidayList()
         {
-            var obj=new List<HolidayList>();
+            var obj = new List<HolidayList>();
             List<calendarVM> holidayList = new List<calendarVM>();
-            if (sessionObj.ROLECODE == UTILITY.ROLE_SUPERADMIN )
+            if (sessionObj.ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
                 obj = GetAll().ToList();
-                
+
             }
-            else 
+            else
             {
-               obj = GetAll().Where(x => x.BranchID == sessionObj.BRANCHID).ToList();
+                obj = GetAll().Where(x => x.BranchID == sessionObj.BRANCHID).ToList();
             }
             foreach (HolidayList item in obj)
             {
@@ -56,6 +56,37 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             return holidayList;
         }
 
+        internal List<calendarVM> GetHolidayListByBranch(int branchId)
+        {
+            var obj = new List<HolidayList>();
+            List<calendarVM> holidayList = new List<calendarVM>();
+
+            obj = GetAll().Where(x => x.BranchID == branchId).ToList();
+
+            foreach (HolidayList item in obj)
+            {
+                calendarVM list = new calendarVM();
+                list.title = item.Description;
+                list.date = item.Date;
+
+                var strHref = "";
+                if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                {
+                    strHref = "#";
+                }
+                else
+                    strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
+
+                var context = new HttpContextWrapper(System.Web.HttpContext.Current);
+                string hrefUrl = UrlHelper.GenerateContentUrl(strHref, context);
+                list.url = hrefUrl;
+                holidayList.Add(list);
+            }
+
+            return holidayList;
+        }
+
+
         internal holidayVm SaveHolidayList(int HolidayId)
         {
             var obj = GetAll();
@@ -66,7 +97,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 calendarVM list = new calendarVM();
                 list.title = item.Description;
                 list.date = item.Date;
-               
+
 
                 var strHref = "~/Leave/AddHoliday" + "?HolidayId=" + item.HolidayId;
 
@@ -90,13 +121,14 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             {
                 holidayList.CreatedBy = sessionObj.USERID;
                 holidayList.CreatedOn = UTILITY.SINGAPORETIME;
-                holidayList.BranchID = sessionObj.BRANCHID;
+                if (sessionObj.BRANCHID != -1)
+                    holidayList.BranchID = sessionObj.BRANCHID;
 
                 holidayListRepository.Add(holidayList);
 
                 //if (holidayList.HolidayId != -1)
                 //{
-                  
+
                 //}
                 //else
                 //{
@@ -105,7 +137,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 //    holidayListRepository.Add(holidayList);
                 //}
 
-               
+
             }
             catch (Exception ex)
             {
@@ -148,7 +180,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             }
         }
 
-        public HolidayList GetByProperty(Func<HolidayList,bool> predicate)
+        public HolidayList GetByProperty(Func<HolidayList, bool> predicate)
         {
 
             try

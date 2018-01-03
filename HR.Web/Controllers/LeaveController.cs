@@ -58,6 +58,19 @@ namespace HR.Web.Controllers
             return View("HolidayList", holidayVm);
         }
 
+        public ActionResult HolidayListByBranch(int branchID)
+        {
+            ViewData["RoleCode"] = ROLECODE;
+
+            holidayVm holidayVm = new holidayVm()
+            {
+                calendarVM = holidayListBO.GetHolidayListByBranch(branchID),
+                HolidayList = new HolidayList()
+            };
+            return View("HolidayList", holidayVm);
+        }
+
+
         public ActionResult AddHoliday(int HolidayId)
         {
             ViewData["RoleCode"] = ROLECODE;
@@ -91,7 +104,7 @@ namespace HR.Web.Controllers
 
         public ActionResult SaveHoliday(HolidayList holidaylist)
         {
-
+            holidaylist.BranchID = holidaylist.CountryId;
             holidayListBO.Add(holidaylist);
 
 

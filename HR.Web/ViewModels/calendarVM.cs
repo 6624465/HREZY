@@ -18,6 +18,8 @@ namespace HR.Web.ViewModels
     public class holidayVm {
         public List<calendarVM> calendarVM { get; set; }
         public HolidayList HolidayList { get; set; }
+
+        public int BranchId { get; set; }
     }
 
 

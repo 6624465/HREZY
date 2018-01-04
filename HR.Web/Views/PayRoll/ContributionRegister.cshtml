@@ -16,12 +16,29 @@
                         Contribution registers
                     </div>
                     <div class="panel-body">
+                        @Html.HiddenFor(x => x.ContributionId)
+                        @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                        {
+                            <div class="row">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Branch</span>
+                                </label>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm" })
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(x => x.BranchId)
+                        }
+
                         <div class="row">
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Name</span>
                             </label>
                             <div class="col-md-8">
-                                @Html.HiddenFor(x => x.ContributionId)
                                 @Html.TextBoxFor(x => x.Name, new { @class = "form-control", onblur = "checkComponent(this)" })
                                 <label id="error">Salary Component Already Exists.</label>
                             </div>

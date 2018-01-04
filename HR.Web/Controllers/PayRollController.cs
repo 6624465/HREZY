@@ -165,12 +165,19 @@ namespace HR.Web.Controllers
 
 
         [HttpGet]
-        public ActionResult SalaryStructure(int structurId = 0)
+        public ActionResult SalaryStructure(int structurId = 0,int BranchId=0)
         {
             ViewData["RoleCode"] = ROLECODE;
             SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
+            List<Contribution> contributionList = new List<Contribution>();
+            if (ROLECODE == UTILITY.ROLE_SUPERADMIN) { 
+            contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId== BranchId)
+                .OrderBy(x => x.Name).ToList();
+            }
+            else
+                contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID)
+               .OrderBy(x => x.Name).ToList();
 
-            List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).OrderBy(x => x.Name).ToList();
             salaryStructureVm.structureEmployeeDeductionDetail = new List<SalaryStructureDetail>();
             salaryStructureVm.structureCompanyDeductionDetail = new List<SalaryStructureDetail>();
             if (structurId == 0)
@@ -178,6 +185,8 @@ namespace HR.Web.Controllers
                 salaryStructureVm.structureHeader = new SalaryStructureHeader();
                 if (ROLECODE != UTILITY.ROLE_SUPERADMIN)
                     salaryStructureVm.structureHeader.BranchId = BRANCHID;
+                else
+                    salaryStructureVm.structureHeader.BranchId = BranchId;
                 salaryStructureVm.structureEmployeeDeductionDetail = contributionList.Where(x => x.RegisterCode == UTILITY.EMPLOYEEDEDUCTION).Select(
                     item => new SalaryStructureDetail()
                     {
@@ -298,7 +307,7 @@ namespace HR.Web.Controllers
             salaryStructureHeaderBO.DeleteById(structurId.Value);
             return RedirectToAction("SalaryStructureHeaderList");
         }
-        public ViewResult SalaryStructureHeaderList(int? BranchId =0,int? page = 1)
+        public ViewResult SalaryStructureHeaderList(int? BranchId = 0, int? page = 1)
         {
             ViewData["RoleCode"] = ROLECODE;
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);

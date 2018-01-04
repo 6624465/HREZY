@@ -14,7 +14,7 @@
         </label>
         <div class="col-md-8">
             @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control",onblur= "checkDesignation(this)" })
+            new { @class = "form-control input-sm", onblur= "checkDesignation(this)" })
             <label id="error">Employee Designation Already Exists.</label>
         </div>
     </div>
@@ -26,7 +26,7 @@
         </label>
         <div class="col-md-8">
             @Html.TextAreaFor(x => x.LookUpDescription,
-            new { @class = "form-control" })
+            new { @class = "form-control input-sm" })
         </div>
     </div>
 </div>

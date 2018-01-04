@@ -22,7 +22,7 @@
                             </label>
                             <div class="col-md-8">
                                 @Html.HiddenFor(x => x.ContributionId)
-                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", onblur = "checkComponent(this)" })
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm", onblur = "checkComponent(this)" })
                                 <label id="error">Salary Component Already Exists.</label>
                             </div>
 
@@ -45,7 +45,7 @@
                                 <span class="pull-right">Description</span>
                             </label>
                             <div class="col-md-8">
-                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control input-sm" })
                             </div>
                         </div>
                         @*<div class="row css5">

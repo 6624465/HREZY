@@ -8,7 +8,7 @@
         </label>
         <div class="col-md-10">
             <div class="input-group date dtCss" id="Dt">
-                @Html.TextBoxFor(x => x.Date, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt", required = "required", onblur = "dtOnBlur();" })
+                @Html.TextBoxFor(x => x.Date, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt input-sm", required = "required", onblur = "dtOnBlur();" })
                 <span class="input-group-addon">
                     <i class="ion ion-calendar"></i>
                 </span>
@@ -24,7 +24,7 @@
             </span>
         </label>
         <div class="col-md-10">
-            @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+            @Html.TextBoxFor(x => x.Description, new { @class = "form-control input-sm" })
         </div>
     </div>
 </div>
@@ -42,7 +42,7 @@
                 @Html.DropDownListFor(x => x.CountryId,
                                          SelectListItemHelper.CountryListById(),
                                          "Select Location",
-                                         new { @class = "form-control" })
+                                         new { @class = "form-control input-sm" })
             </div>
         </div>
     </div>

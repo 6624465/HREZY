@@ -496,7 +496,7 @@
           <Property Name="SundaySession" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9F30C5_HRPRO.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />

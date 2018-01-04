@@ -184,20 +184,24 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult SalaryStructure(int structurId = 0)
         {
+            ViewData["RoleCode"] = ROLECODE;
             SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
 
-            List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).OrderBy(x=>x.Name).ToList();
+            List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).OrderBy(x => x.Name).ToList();
             salaryStructureVm.structureEmployeeDeductionDetail = new List<SalaryStructureDetail>();
             salaryStructureVm.structureCompanyDeductionDetail = new List<SalaryStructureDetail>();
             if (structurId == 0)
             {
                 salaryStructureVm.structureHeader = new SalaryStructureHeader();
+                if (ROLECODE != UTILITY.ROLE_SUPERADMIN)
+                    salaryStructureVm.structureHeader.BranchId = BRANCHID;
                 salaryStructureVm.structureEmployeeDeductionDetail = contributionList.Where(x => x.RegisterCode == UTILITY.EMPLOYEEDEDUCTION).Select(
                     item => new SalaryStructureDetail()
                     {
                         Code = item.Name,
                         Description = item.Description,
-                        PaymentType = item.RegisterCode
+                        PaymentType = item.RegisterCode,
+                        //BranchId=item.BranchId
                     }).ToList();
 
                 salaryStructureVm.structureCompanyDeductionDetail = contributionList.Where(x => x.RegisterCode == UTILITY.COMPANYDEDUCTION).Select(
@@ -230,7 +234,8 @@ namespace HR.Web.Controllers
                         ModifiedOn = salaryStructure.A.ModifiedOn,
                         Remarks = salaryStructure.A.Remarks,
                         StructureID = salaryStructure.A.StructureID,
-                        NetAmount = salaryStructure.A.NetAmount
+                        NetAmount = salaryStructure.A.NetAmount,
+                        BranchId = salaryStructure.A.BranchId
                     };
 
                     foreach (SalaryStructureDetail item in salaryStructure.B)
@@ -310,11 +315,17 @@ namespace HR.Web.Controllers
             salaryStructureHeaderBO.DeleteById(structurId.Value);
             return RedirectToAction("SalaryStructureHeaderList");
         }
-        public ViewResult SalaryStructureHeaderList(int? page = 1)
+        public ViewResult SalaryStructureHeaderList(int? BranchId =0,int? page = 1)
         {
+            ViewData["RoleCode"] = ROLECODE;
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skip = (page.Value - 1) * offset;
-            var list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true);
+            List<SalaryStructureHeader> list = new List<SalaryStructureHeader>();
+            if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BranchId).OrderBy(x => x.BranchId).ToList();
+            else
+                list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID).ToList();
+
             var count = list.Count();
             decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
             HtmlTblVm<SalaryStructureHeader> HtmlTblVm = new HtmlTblVm<SalaryStructureHeader>();
@@ -486,7 +497,7 @@ namespace HR.Web.Controllers
         }
         public bool IsSalaryComponentExists(string component)
         {
-            var list = contributionBO.GetListByProperty(x =>( x.Name.ToUpper() == component.ToUpper() && x.IsActive==true) ).ToList();
+            var list = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper() && x.IsActive == true)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

@@ -19,8 +19,8 @@
                         @Html.HiddenFor(x => x.ContributionId)
                         @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
                         {
-                            <div class="row">
-                                <label class="col-md-2 control-label">
+                        <div class="row">
+                            <label class="col-md-2 control-label">
                                     <span class="pull-right">Branch</span>
                                 </label>
                                 <div class="col-md-8">
@@ -62,7 +62,7 @@
                                 <span class="pull-right">Description</span>
                             </label>
                             <div class="col-md-8">
-                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control input-sm" })
                             </div>
                         </div>
                         @*<div class="row css5">

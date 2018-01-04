@@ -1,4 +1,5 @@
 ﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.Models.SalaryStructureHeader>
+@*@model HR.Web.ViewModels.HtmlTblVm <HR.Web.ViewModels.SalaryStructureHeaderTblVm>*@
 @section Styles{
     <style>
         .pagination {
@@ -22,12 +23,22 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-4">
+                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                            {
+                                using (Html.BeginForm("SalaryStructureHeaderList", "PayRoll", FormMethod.Get, new { id = "frmSalaryStructureList", name = "frmSalaryStructureList" }))
+                                {
+                                    @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "--Select--", new { @class = "form-control input-sm", onchange = "getStructureList(this)" })
+                                }
+                            }
+                        </div>
+
+                        <div class="col-md-8">
                             <button class="btn  btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/PayRoll/SalaryStructure")'"><i class="fa fa-plus-square"></i>Create</button>
                         </div>
                     </div>
 
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="margin-top:10px">
                         <thead>
                             <tr>
                                 <th>Code</th>
@@ -87,6 +98,10 @@
                 $(".content3").html("Page " + num); // or some ajax content loading...
             });
         });
+
+        function getStructureList(el){
+            $('#frmSalaryStructureList').submit();
+        }
 
         function deleteStructure(StructureID){
 

@@ -28,5 +28,6 @@ namespace HR.Web.Models
         public int StructureID { get; set; }
         public Nullable<decimal> Total { get; set; }
         public string PaymentType { get; set; }
+        public Nullable<int> BranchId { get; set; }
     }
 }

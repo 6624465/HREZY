@@ -37,16 +37,33 @@ namespace HR.Web.Controllers
         }
         public ActionResult ContributionRegister(int ContributionId)
         {
-            if (ContributionId != -1)
+            ViewData["RoleCode"] = ROLECODE;
+            if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
-                var contributionregisterobj = contributionBO.GetById(ContributionId);
-                return View(contributionregisterobj);
+                if (ContributionId != -1)
+                {
+                    var contributionregisterobj = contributionBO.GetById(ContributionId);
+                    return View(contributionregisterobj);
+                }
+                else
+                {
+                    return View(new Contribution());
+                }
+
             }
             else
             {
-                return View(new Contribution());
+                if (ContributionId != -1)
+                {
+                    var contributionregisterobj = contributionBO.GetById(ContributionId);
+                    contributionregisterobj.BranchId = BRANCHID;
+                    return View(contributionregisterobj);
+                }
+                else
+                {
+                    return View(new Contribution { BranchId = BRANCHID });
+                }
             }
-
         }
         public ActionResult ContributionRegisterList()
         {

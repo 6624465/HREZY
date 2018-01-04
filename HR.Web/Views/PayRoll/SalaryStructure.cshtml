@@ -29,14 +29,14 @@
                             </label>
                             <div class="col-md-4">
                                 @Html.HiddenFor(x => x.structureHeader.StructureID)
-                                @Html.TextBoxFor(x => x.structureHeader.Code, new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.structureHeader.Code, new { @class = "form-control input-sm" })
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Effective Date</span>
                             </label>
                             <div class="col-md-4">
                                 <div class="input-group date dtCss" id="EffectiveDate">
-                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt" })
+                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -48,7 +48,7 @@
                                 <span class="pull-right">Remarks</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextAreaFor(x => x.structureHeader.Remarks, new { @class = "form-control" })
+                                @Html.TextAreaFor(x => x.structureHeader.Remarks, new { @class = "form-control input-sm" })
                             </div>
 
                             <label class="col-md-2 control-label">
@@ -90,7 +90,7 @@
                                                     @Html.HiddenFor(x => x.structureCompanyDeductionDetail[i].StructureDetailID)
                                                     <tr class="trCss">
                                                         <td>
-                                                            @Html.CheckBoxFor(x => x.structureCompanyDeductionDetail[i].IsActive, new { @class = "form-control chkCss", data_index = i })
+                                                            @Html.CheckBoxFor(x => x.structureCompanyDeductionDetail[i].IsActive, new { @class = "form-control chkCss input-sm", data_index = i })
                                                         </td>
                                                         @Html.HiddenFor(x => x.structureCompanyDeductionDetail[i].Code)
                                                         <td>
@@ -158,7 +158,7 @@
                                                     @Html.HiddenFor(x => x.structureEmployeeDeductionDetail[i].StructureDetailID)
                                                     <tr class="trCssDeduct">
                                                         <td>
-                                                            @Html.CheckBoxFor(x => x.structureEmployeeDeductionDetail[i].IsActive, new { @class = "form-control chkCssDeduct", data_index = i })
+                                                            @Html.CheckBoxFor(x => x.structureEmployeeDeductionDetail[i].IsActive, new { @class = "form-control chkCssDeduct input-sm", data_index = i })
                                                         </td>
                                                         @Html.HiddenFor(x => x.structureEmployeeDeductionDetail[i].Code)
                                                         <td>

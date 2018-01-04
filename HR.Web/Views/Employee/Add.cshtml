@@ -31,14 +31,14 @@
                                     @Html.DropDownListFor(x => x.empHeader.IDType,
      SelectListItemHelper.EmployeeType(),
      "Select Type",
-     new { @class = "form-control" })
+     new { @class = "form-control input-sm" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">DOJ</span>
                                 </label>
                                 <div class="col-md-4">
                                     <div class="input-group date dtCss" id="JoiningDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCssTxt", required = "required" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -53,14 +53,14 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.FirstName,
-        new { @class = "form-control validatename" })
+        new { @class = "form-control validatename input-sm" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Last Name</span>
                                 </label>
                                 <div class="col-md-4 name">
                                     @Html.TextBoxFor(x => x.empHeader.LastName,
-          new { @class = "form-control validatename" })
+          new { @class = "form-control validatename input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 </label>
                                 <div class="col-md-4 name">
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
-      new { @class = "form-control validatename" })
+      new { @class = "form-control validatename input-sm" })
                                 </div>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-4">
@@ -93,7 +93,7 @@
                             </label>
                             <div class="col-md-4">
                                 <div class="input-group date dtCss" id="DOB">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control dtCssTxt" })
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -105,7 +105,7 @@
                             <div class="col-md-4">
                                 @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
         SelectListItemHelper.MaritalStatus(), "Select Marital Status",
-        new { @class = "form-control" })
+        new { @class = "form-control input-sm" })
                             </div>
                         </div>
                         <div class="row css5">
@@ -119,14 +119,14 @@
                                 {
                                     <div class="col-md-4">
                                         @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-                                           new { @class = "form-control", @readonly = "true" })
+                                           new { @class = "form-control input-sm", @readonly = "true" })
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="col-md-4">
                                         @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-                                new { @class = "form-control", onblur = "appendEmail(this)" })
+                                new { @class = "form-control input-sm", onblur = "appendEmail(this)" })
                                         <label id="error">Email Already Exists.</label>
                                     </div>
                                 }
@@ -135,7 +135,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
-       new { @class = "form-control" })
+       new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                                     @Html.TextBoxFor(x => x.address.MobileNo,
       new
       {
-          @class = "form-control numCssPlus"
+          @class = "form-control numCssPlus input-sm"
       })
                                 </div>
                                 <label class="col-md-2 control-label">
@@ -156,7 +156,7 @@
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
-     new { @class = "form-control" })
+     new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -168,14 +168,14 @@
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empHeader.Nationality,
           SelectListItemHelper.CountryList(), "Select Country",
-           new { @class = "form-control" })
+           new { @class = "form-control input-sm" })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Emg. Contact No</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-     new { @class = "form-control numCssPlus" })
+     new { @class = "form-control numCssPlus input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextAreaFor(x => x.address.Address1,
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextAreaFor(x => x.address.Address2,
-                                     new { @class = "form-control" })
+                                     new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -225,7 +225,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.CityName,
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -236,7 +236,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.StateName,
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -247,7 +247,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(x => x.address.ZipCode,
-                                    new { @class = "form-control numCss" })
+                                    new { @class = "form-control numCss input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -258,7 +258,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(x => x.address.CountryCode, SelectListItemHelper.CountryList(), "Select",
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -278,7 +278,7 @@
                                     @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
                                      SelectListItemHelper.Designation(),
                                      "Select Designation",
-                                     new { @class = "form-control" })
+                                     new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -291,7 +291,7 @@
                                     @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
                                      SelectListItemHelper.Department(),
                                      "Select Department",
-                                     new { @class = "form-control" })
+                                     new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -304,7 +304,7 @@
                                     @Html.DropDownListFor(x => x.empWorkDetail.NoticePeriod,
                                      SelectListItemHelper.NoticePeriod(),
                                      "Select NoticePeriod",
-                                     new { @class = "form-control" })
+                                     new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -317,7 +317,7 @@
                                     @Html.DropDownListFor(x => x.empWorkDetail.ProbationPeriod,
                                      SelectListItemHelper.ProhibationPeriod(),
                                      "Select Prohibation",
-                                     new { @class = "form-control" })
+                                     new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -328,7 +328,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group date dtCss" id="ConfirmationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control dtCssTxt" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control dtCssTxt input-sm" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -343,7 +343,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group date dtCss" id="ResignationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control dtCssTxt" })
+                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control dtCssTxt input-sm" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -366,7 +366,7 @@
 
                                     <div class="col-md-8">
                                         @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control input-sm" })
                                     </div>
                                 </div>
                             </div>
@@ -412,7 +412,7 @@
                                     <span class="pull-right">Email</span>
                                 </label>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" id="loginEmail" disabled="disabled">
+                                    <input type="text" class="form-control input-sm" id="loginEmail" disabled="disabled">
                                 </div>
 
                             </div>
@@ -424,14 +424,14 @@
                                 </label>
                                 <div class="col-md-3">
                                     @Html.PasswordFor(x => x.empHeader.Password,
-                                    new { @class = "form-control", value = Model.empHeader.Password })
+                                    new { @class = "form-control input-sm", value = Model.empHeader.Password })
                                 </div>
                                 <label class="col-md-2 control-label">
                                     <span class="pull-right">Confirm Password</span>
                                 </label>
                                 <div class="col-md-3">
                                     @Html.PasswordFor(x => x.empHeader.ConfirmPassword,
-                                    new { @class = "form-control", value = Model.empHeader.ConfirmPassword })
+                                    new { @class = "form-control input-sm", value = Model.empHeader.ConfirmPassword })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Status</span>

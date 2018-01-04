@@ -48,14 +48,14 @@
                                     <span class="pull-right">Name</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(x => x.empSearch.EmployeeName, new { @class = "form-control", placeholder = "fname/lname/mname" })
+                                    @Html.TextBoxFor(x => x.empSearch.EmployeeName, new { @class = "form-control input-sm", placeholder = "fname/lname/mname" })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">DOJ</span>
                                 </label>
                                 <div class="col-md-3">
                                     <div class="input-group input-sm date dtCss" id="DOJDt">
-                                        @Html.TextBoxFor(x => x.empSearch.DOJ, new { @class = "form-control dtCssTxt" })
+                                        @Html.TextBoxFor(x => x.empSearch.DOJ, new { @class = "form-control dtCssTxt input-sm" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -72,7 +72,7 @@
                                     @Html.DropDownListFor(x => x.empSearch.Designation,
                              SelectListItemHelper.Designation(),
                              "Select Designation",
-                             new { @class = "form-control" })
+                             new { @class = "form-control input-sm" })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Type</span>
@@ -81,7 +81,7 @@
                                     @Html.DropDownListFor(x => x.empSearch.EmployeeType,
                              SelectListItemHelper.EmployeeType(),
                              "Select Type",
-                             new { @class = "form-control" })
+                             new { @class = "form-control input-sm" })
                                 </div>
                                 <div class="col-md-2 col-md-offset-1">
                                     <button type="button" class="btn btn-info btn-raised waves-effect btn-sm" onclick="SearchEmployee()">Search</button>

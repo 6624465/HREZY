@@ -82,7 +82,7 @@
                                     </label>
                                     <div class="col-md-6">
                                         <div class="input-group date dtCss" id="FromDt">
-                                            @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCssTxt", required = "required" })
+                                            @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
                                             </span>
@@ -100,7 +100,7 @@
                                     </label>
                                     <div class="col-md-6">
                                         <div class="input-group date dtCss" id="ToDt">
-                                            @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCssTxt", required = "required" })
+                                            @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
                                             </span>
@@ -123,7 +123,7 @@
                                     @Html.DropDownListFor(x => x.LeaveTypeId,
                       SelectListItemHelper.EmployeeLeaveType(),
                       "Select Leave Type",
-                      new { @class = "form-control" })
+                      new { @class = "form-control input-sm" })
                                 </div>
                                 <div class="col-md-3">
                                     @{
@@ -139,7 +139,7 @@
                                         };
                                     }
 
-                                    @Html.DropDownListFor(x => x.Session, listItem, new { @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.Session, listItem, new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                             <div class="row css10">
@@ -147,7 +147,7 @@
                                     <span class="pull-right">Reason</span>
                                 </label>
                                 <div class="col-md-6">
-                                    @Html.TextAreaFor(x => x.Reason, new { @class = "form-control", maxlength = "500" })
+                                    @Html.TextAreaFor(x => x.Reason, new { @class = "form-control input-sm", maxlength = "500" })
                                 </div>
                                 <div class="col-md-3">
                                 </div>

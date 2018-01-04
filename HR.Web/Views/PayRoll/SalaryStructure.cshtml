@@ -32,7 +32,7 @@
                                 <div class="col-md-4">
 
                                     @Html.DropDownListFor(x => x.structureHeader.BranchId, SelectListItemHelper.Branches(), "--Select--",
-                                new { @class = "form-control input-sm" })
+                                new { @class = "form-control input-sm",onchange="getContribution(this)" })
                                 </div>
                             }
                             else
@@ -54,7 +54,7 @@
                             </label>
                             <div class="col-md-4">
                                 <div class="input-group date dtCss" id="EffectiveDate">
-                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:MM/dd/yyyy}", 
+                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:MM/dd/yyyy}",
                                    new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
@@ -170,7 +170,7 @@
                                                     @Html.HiddenFor(x => x.structureEmployeeDeductionDetail[i].StructureDetailID)
                                                     <tr class="trCssDeduct">
                                                         <td>
-                                                            @Html.CheckBoxFor(x => x.structureEmployeeDeductionDetail[i].IsActive, 
+                                                            @Html.CheckBoxFor(x => x.structureEmployeeDeductionDetail[i].IsActive,
                                                            new { @class = "form-control chkCssDeduct input-sm", data_index = i })
                                                         </td>
                                                         @Html.HiddenFor(x => x.structureEmployeeDeductionDetail[i].Code)
@@ -231,6 +231,10 @@
             </div>
         </div>
                                                     }
+    @using (Html.BeginForm("SalaryStructure", "PayRoll", FormMethod.Get, new { id = "frmPayRoll", name = "frmPayRoll" }))
+    {
+        <input type="hidden" id="BranchId" name="BranchId"/>
+    }
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-primary btn-sm" type="button" onclick="SaveStructure()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
@@ -239,6 +243,12 @@
 </div>
 @section Scripts{
     <script type="text/javascript">
+
+        function getContribution(el){
+            $('#BranchId').val(el.value);
+            $('#frmPayRoll').submit();
+        }
+
         @{
             <text>
         var percentage = '@UTILITY.PERCENTAGE';
@@ -262,208 +272,274 @@
 
         }
 
-        $(function () {
+            $(function () {
 
-            $('#li_PayRollConfig').addClass('open');
-            $('#li_SalaryStructures').addClass('active');
-            showHide();
-            var date = new Date();
-            $('.dtCss').datetimepicker({
-                icons: {
-                    time: 'fa fa-clock-o',
-                    date: 'fa fa-calendar',
-                    up: 'fa fa-arrow-up',
-                    down: 'fa fa-arrow-down',
-                    previous: 'fa fa-arrow-left',
-                    next: 'fa fa-arrow-right',
+                $('#li_PayRollConfig').addClass('open');
+                $('#li_SalaryStructures').addClass('active');
+                showHide();
+                var date = new Date();
+                $('.dtCss').datetimepicker({
+                    icons: {
+                        time: 'fa fa-clock-o',
+                        date: 'fa fa-calendar',
+                        up: 'fa fa-arrow-up',
+                        down: 'fa fa-arrow-down',
+                        previous: 'fa fa-arrow-left',
+                        next: 'fa fa-arrow-right',
 
-                },
-                format: dateFormat,
-                minDate: moment(date)
-            });
-
-            $('#frmSalary').validate({
-                rules: {
-                    'structureHeader.Code': {
-                        required: true
                     },
-                    'structureHeader.EffectiveDate': {
-                        required: true
-                    },
-                    'structureHeader.Remarks': {
-                        required: true
-                    }
-                }
-            });
-            $(".chkCss").trigger('ifChanged');
-
-            $(".chkCssDeduct").trigger('ifChanged');
-
-        });
-
-        function SaveStructure() {
-            if ($('#frmSalary').valid()){
-                $.loader({
-                    className: "blue-with-image-2",
-                    content: '',
+                    format: dateFormat,
+                    minDate: moment(date)
                 });
-                $('#frmSalary').submit();
-            }
 
-        }
+                $('#frmSalary').validate({
+                    rules: {
+                        'structureHeader.Code': {
+                            required: true
+                        },
+                        'structureHeader.EffectiveDate': {
+                            required: true
+                        },
+                        'structureHeader.Remarks': {
+                            required: true
+                        }
+                    }
+                });
+                $(".chkCss").trigger('ifChanged');
 
+                $(".chkCssDeduct").trigger('ifChanged');
 
-        $('.chkCss').on("ifChanged", function (event) {
-            var temp = this;
-            var index=$(this).data('index');
+            });
 
-            if($('#'+this.id).prop('checked')){
-
-
-
-                $('#structureCompanyDeductionDetail_' + index + '__ComputationCode').attr('required','required');
-                $('#structureCompanyDeductionDetail_' + index + '__RegisterCode').attr('required','required');
-                $('#structureCompanyDeductionDetail_' + index + '__Amount').attr('required','required');
-
-
-                $('#structureCompanyDeductionDetail_' + index + '__ComputationCode').removeAttr('disabled');
-                $('#structureCompanyDeductionDetail_' + index + '__RegisterCode').removeAttr('disabled');
-                $('#structureCompanyDeductionDetail_' + index + '__Amount').removeAttr('disabled');
-            }
-            else{
-                $('#structureCompanyDeductionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
-                $('#structureCompanyDeductionDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
-                $('#structureCompanyDeductionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
-
-
-                $('#structureEmployeeDeductionDetail_' + index + '__Total').val('')
-                $('#structureCompanyDeductionDetail_' + index + '__Total').val('')
-
-                $('#structureCompanyDeductionDetail_' + index + '__ComputationCode').removeAttr('required');
-                $('#structureCompanyDeductionDetail_' + index + '__RegisterCode').removeAttr('required');
-                $('#structureCompanyDeductionDetail_' + index + '__Amount').removeAttr('required');
-
-                calculateTotal();
-            }
-
-        });
-
-
-        $('.chkCssDeduct').on("ifChanged", function (event) {
-            var temp = this;
-            var index=$(this).data('index');
-
-            if($('#'+this.id).prop('checked')){
-
-                $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').attr('required','required');
-                $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').attr('required','required');
-                $('#structureEmployeeDeductionDetail_' + index + '__Amount').attr('required','required');
-
-                $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').removeAttr('disabled');
-                $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').removeAttr('disabled');
-                $('#structureEmployeeDeductionDetail_' + index + '__Amount').removeAttr('disabled');
-
-            }
-            else{
-
-                $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
-                $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
-                $('#structureEmployeeDeductionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
-
-                $('#structureEmployeeDeductionDetail_' + index + '__Total').val('')
-                $('#structureCompanyDeductionDetail_' + index + '__Total').val('')
-
-                $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').removeAttr('required');
-                $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').removeAttr('required');
-                $('#structureEmployeeDeductionDetail_' + index + '__Amount').removeAttr('required');
-
-                calculateTotal();
-            }
-
-        });
-
-        /* calculation */
-
-        function calculateTotalByCode(obj){
-            debugger;
-            var code=     $('#'+obj.id).val();
-            calculateTotal(code);
-        }
-
-
-        function calculateTotal(code){
-            var obj={};
-            validateAmount(obj,0,code);
-            validateDeductAmount(obj,0,code);
-        }
-        function validateAmount(el, index,code) {
-
-            code= $('#structureCompanyDeductionDetail_'+index+'__RegisterCode').val();
-            var rowCount=$('.trCss').length;
-            var TotalGross=0;
-
-            for(var i=0; i<rowCount;i++){
-                code= $('#structureCompanyDeductionDetail_'+i+'__RegisterCode').val();
-                var basicAmount=$('#structureCompanyDeductionDetail_' + 0 + '__Amount').val();
-
-                if(index == 0 && basicAmount!=""){
-                    basicAmount =parseFloat(basicAmount).toFixed(2);
-                    $('#structureCompanyDeductionDetail_' + 0 + '__Total').val(basicAmount);
+            function SaveStructure() {
+                if ($('#frmSalary').valid()){
+                    $.loader({
+                        className: "blue-with-image-2",
+                        content: '',
+                    });
+                    $('#frmSalary').submit();
                 }
 
-                if(!$('#structureCompanyDeductionDetail_' + i + '__IsActive').prop('checked'))
-                    continue;
+            }
 
-                var total = $('#structureCompanyDeductionDetail_' + i + '__Amount').val();
-                if(total!="")
-                    total=parseFloat(total).toFixed(2);
-                var ComputationCode = $('#structureCompanyDeductionDetail_' + i + '__ComputationCode').val();
-                debugger;
-                if (ComputationCode == percentage) {
 
-                    if(total>100){
-                        $('#structureCompanyDeductionDetail_' + i + '__Amount').val('');
-                        swal({
-                            title: "Alert!",
-                            text: "Percentage value should be less than 100",
-                            type: "warning"
-                        });
-                        return;
-                    }
-                    var grandTotal=(basicAmount* total)/100;
-                    grandTotal=parseFloat(grandTotal).toFixed(2);
-                    if(code =="EMPLOYEE DEDUCTION"){
-                        grandTotal= 0 - grandTotal
-                        $('#structureCompanyDeductionDetail_' + i + '__Total').val(grandTotal);
-                    }
-                    else
-                        $('#structureCompanyDeductionDetail_' + i + '__Total').val(grandTotal);
+            $('.chkCss').on("ifChanged", function (event) {
+                var temp = this;
+                var index=$(this).data('index');
+
+                if($('#'+this.id).prop('checked')){
+
+
+
+                    $('#structureCompanyDeductionDetail_' + index + '__ComputationCode').attr('required','required');
+                    $('#structureCompanyDeductionDetail_' + index + '__RegisterCode').attr('required','required');
+                    $('#structureCompanyDeductionDetail_' + index + '__Amount').attr('required','required');
+
+
+                    $('#structureCompanyDeductionDetail_' + index + '__ComputationCode').removeAttr('disabled');
+                    $('#structureCompanyDeductionDetail_' + index + '__RegisterCode').removeAttr('disabled');
+                    $('#structureCompanyDeductionDetail_' + index + '__Amount').removeAttr('disabled');
                 }
                 else{
-                    if(code =="EMPLOYEE DEDUCTION"){
-                        total=0-total;
-                        $('#structureCompanyDeductionDetail_' + i + '__Total').val(total);
-                    }
-                    else
-                        $('#structureCompanyDeductionDetail_' + i + '__Total').val(total);
+                    $('#structureCompanyDeductionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
+                    $('#structureCompanyDeductionDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
+                    $('#structureCompanyDeductionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
+
+
+                    $('#structureEmployeeDeductionDetail_' + index + '__Total').val('')
+                    $('#structureCompanyDeductionDetail_' + index + '__Total').val('')
+
+                    $('#structureCompanyDeductionDetail_' + index + '__ComputationCode').removeAttr('required');
+                    $('#structureCompanyDeductionDetail_' + index + '__RegisterCode').removeAttr('required');
+                    $('#structureCompanyDeductionDetail_' + index + '__Amount').removeAttr('required');
+
+                    calculateTotal();
                 }
 
-                /* Calculate Nett amount*/
-                var currentValue=$('#structureCompanyDeductionDetail_' + i + '__Total').val();
-                if(currentValue!="" && currentValue!=null){
-                    if(code !="EMPLOYEE DEDUCTION")
-                        TotalGross = parseFloat(TotalGross)+ parseFloat(currentValue);
-                    else{
-                        if(TotalGross!=0)
-                            TotalGross = parseFloat(TotalGross) + parseFloat(currentValue);
+            });
+
+
+            $('.chkCssDeduct').on("ifChanged", function (event) {
+                var temp = this;
+                var index=$(this).data('index');
+
+                if($('#'+this.id).prop('checked')){
+
+                    $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').attr('required','required');
+                    $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').attr('required','required');
+                    $('#structureEmployeeDeductionDetail_' + index + '__Amount').attr('required','required');
+
+                    $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').removeAttr('disabled');
+                    $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').removeAttr('disabled');
+                    $('#structureEmployeeDeductionDetail_' + index + '__Amount').removeAttr('disabled');
+
+                }
+                else{
+
+                    $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
+                    $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
+                    $('#structureEmployeeDeductionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
+
+                    $('#structureEmployeeDeductionDetail_' + index + '__Total').val('')
+                    $('#structureCompanyDeductionDetail_' + index + '__Total').val('')
+
+                    $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').removeAttr('required');
+                    $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').removeAttr('required');
+                    $('#structureEmployeeDeductionDetail_' + index + '__Amount').removeAttr('required');
+
+                    calculateTotal();
+                }
+
+            });
+
+            /* calculation */
+
+            function calculateTotalByCode(obj){
+                debugger;
+                var code=     $('#'+obj.id).val();
+                calculateTotal(code);
+            }
+
+
+            function calculateTotal(code){
+                var obj={};
+                validateAmount(obj,0,code);
+                validateDeductAmount(obj,0,code);
+            }
+            function validateAmount(el, index,code) {
+
+                code= $('#structureCompanyDeductionDetail_'+index+'__RegisterCode').val();
+                var rowCount=$('.trCss').length;
+                var TotalGross=0;
+
+                for(var i=0; i<rowCount;i++){
+                    code= $('#structureCompanyDeductionDetail_'+i+'__RegisterCode').val();
+                    var basicAmount=$('#structureCompanyDeductionDetail_' + 0 + '__Amount').val();
+
+                    if(index == 0 && basicAmount!=""){
+                        basicAmount =parseFloat(basicAmount).toFixed(2);
+                        $('#structureCompanyDeductionDetail_' + 0 + '__Total').val(basicAmount);
+                    }
+
+                    if(!$('#structureCompanyDeductionDetail_' + i + '__IsActive').prop('checked'))
+                        continue;
+
+                    var total = $('#structureCompanyDeductionDetail_' + i + '__Amount').val();
+                    if(total!="")
+                        total=parseFloat(total).toFixed(2);
+                    var ComputationCode = $('#structureCompanyDeductionDetail_' + i + '__ComputationCode').val();
+                    debugger;
+                    if (ComputationCode == percentage) {
+
+                        if(total>100){
+                            $('#structureCompanyDeductionDetail_' + i + '__Amount').val('');
+                            swal({
+                                title: "Alert!",
+                                text: "Percentage value should be less than 100",
+                                type: "warning"
+                            });
+                            return;
+                        }
+                        var grandTotal=(basicAmount* total)/100;
+                        grandTotal=parseFloat(grandTotal).toFixed(2);
+                        if(code =="EMPLOYEE DEDUCTION"){
+                            grandTotal= 0 - grandTotal
+                            $('#structureCompanyDeductionDetail_' + i + '__Total').val(grandTotal);
+                        }
                         else
-                            TotalGross =parseFloat(currentValue);
+                            $('#structureCompanyDeductionDetail_' + i + '__Total').val(grandTotal);
                     }
-                    TotalGross=TotalGross.toFixed(2);
-                    $('#structureHeader_TotalGross').val(TotalGross);
+                    else{
+                        if(code =="EMPLOYEE DEDUCTION"){
+                            total=0-total;
+                            $('#structureCompanyDeductionDetail_' + i + '__Total').val(total);
+                        }
+                        else
+                            $('#structureCompanyDeductionDetail_' + i + '__Total').val(total);
+                    }
+
+                    /* Calculate Nett amount*/
+                    var currentValue=$('#structureCompanyDeductionDetail_' + i + '__Total').val();
+                    if(currentValue!="" && currentValue!=null){
+                        if(code !="EMPLOYEE DEDUCTION")
+                            TotalGross = parseFloat(TotalGross)+ parseFloat(currentValue);
+                        else{
+                            if(TotalGross!=0)
+                                TotalGross = parseFloat(TotalGross) + parseFloat(currentValue);
+                            else
+                                TotalGross =parseFloat(currentValue);
+                        }
+                        TotalGross=TotalGross.toFixed(2);
+                        $('#structureHeader_TotalGross').val(TotalGross);
+
+                    }
+
+                    var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
+                    var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
+
+                    var netAmount=parseFloat(_totalGross)+ parseFloat(_totalDeductions);
+                    $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
 
                 }
+                validateDeductAmount(this, 0,code);
 
+            }
+
+            function validateDeductAmount(el, index,code){
+
+                var rowCount=$('.trCssDeduct').length;
+                var netAmount=0;
+
+                for(var i=0; i<rowCount;i++){
+
+                    code=$('#structureEmployeeDeductionDetail_'+i+'__RegisterCode').val();
+
+                    var basicAmount=$('#structureCompanyDeductionDetail_' + 0 + '__Amount').val();
+                    if(index == 0 && basicAmount!=""){
+                        basicAmount =parseFloat(basicAmount).toFixed(2);
+                        $('#structureCompanyDeductionDetail_' + 0 + '__Total').val(basicAmount);
+                    }
+
+                    var total = $('#structureEmployeeDeductionDetail_' + i + '__Amount').val();
+                    if(total!="")
+                        total=parseFloat(total).toFixed(2);
+                    var ComputationCode = $('#structureEmployeeDeductionDetail_' + i + '__ComputationCode').val();
+                    if (ComputationCode == percentage) {
+
+                        if(total>100){
+                            $('#structureEmployeeDeductionDetail_' + i + '__Amount').val('');
+                            swal({
+                                title: "Alert!",
+                                text: "Percentage value should be less than 100",
+                                type: "warning"
+                            });
+                            return;
+                        }
+                        var grandTotal=(basicAmount* total)/100;
+                        grandTotal=parseFloat(grandTotal).toFixed(2);
+                        $('#structureEmployeeDeductionDetail_' + i + '__Total').val(grandTotal);
+                    }else{
+                        $('#structureEmployeeDeductionDetail_' + i + '__Total').val(total);
+                    }
+
+                    /* Calculate Nett amount*/
+                    var currentValue=$('#structureEmployeeDeductionDetail_' + i + '__Total').val() == "" ? 0 :$('#structureEmployeeDeductionDetail_' + i + '__Total').val();
+
+                    if(code !="EMPLOYEE DEDUCTION")
+                        netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                    else
+                    {
+                        netAmount = parseFloat(netAmount) - parseFloat(currentValue);
+                        var currentVal=  $('#structureEmployeeDeductionDetail_' + i + '__Total').val();
+                        if(currentVal!="" && currentVal !=null && currentVal>0)
+                            currentValue =0- parseFloat(currentValue).toFixed(2);
+                        $('#structureEmployeeDeductionDetail_' + i + '__Total').val(currentValue);
+                    }
+
+                    netAmount=netAmount.toFixed(2);
+                    $('#structureHeader_TotalDeductions').val(netAmount);
+
+                }
                 var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
                 var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
@@ -471,71 +547,5 @@
                 $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
 
             }
-            validateDeductAmount(this, 0,code);
-
-        }
-
-        function validateDeductAmount(el, index,code){
-
-            var rowCount=$('.trCssDeduct').length;
-            var netAmount=0;
-
-            for(var i=0; i<rowCount;i++){
-
-                code=$('#structureEmployeeDeductionDetail_'+i+'__RegisterCode').val();
-
-                var basicAmount=$('#structureCompanyDeductionDetail_' + 0 + '__Amount').val();
-                if(index == 0 && basicAmount!=""){
-                    basicAmount =parseFloat(basicAmount).toFixed(2);
-                    $('#structureCompanyDeductionDetail_' + 0 + '__Total').val(basicAmount);
-                }
-
-                var total = $('#structureEmployeeDeductionDetail_' + i + '__Amount').val();
-                if(total!="")
-                    total=parseFloat(total).toFixed(2);
-                var ComputationCode = $('#structureEmployeeDeductionDetail_' + i + '__ComputationCode').val();
-                if (ComputationCode == percentage) {
-
-                    if(total>100){
-                        $('#structureEmployeeDeductionDetail_' + i + '__Amount').val('');
-                        swal({
-                            title: "Alert!",
-                            text: "Percentage value should be less than 100",
-                            type: "warning"
-                        });
-                        return;
-                    }
-                    var grandTotal=(basicAmount* total)/100;
-                    grandTotal=parseFloat(grandTotal).toFixed(2);
-                    $('#structureEmployeeDeductionDetail_' + i + '__Total').val(grandTotal);
-                }else{
-                    $('#structureEmployeeDeductionDetail_' + i + '__Total').val(total);
-                }
-
-                /* Calculate Nett amount*/
-                var currentValue=$('#structureEmployeeDeductionDetail_' + i + '__Total').val() == "" ? 0 :$('#structureEmployeeDeductionDetail_' + i + '__Total').val();
-
-                if(code !="EMPLOYEE DEDUCTION")
-                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
-                else
-                {
-                    netAmount = parseFloat(netAmount) - parseFloat(currentValue);
-                    var currentVal=  $('#structureEmployeeDeductionDetail_' + i + '__Total').val();
-                    if(currentVal!="" && currentVal !=null && currentVal>0)
-                        currentValue =0- parseFloat(currentValue).toFixed(2);
-                    $('#structureEmployeeDeductionDetail_' + i + '__Total').val(currentValue);
-                }
-
-                netAmount=netAmount.toFixed(2);
-                $('#structureHeader_TotalDeductions').val(netAmount);
-
-            }
-            var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
-            var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
-
-            var netAmount=parseFloat(_totalGross)+ parseFloat(_totalDeductions);
-            $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
-
-        }
     </script>
 }

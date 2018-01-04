@@ -24,6 +24,21 @@
                     </div>
                     <div class="panel-body">
                         <div class="row css5">
+                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                            {
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Branch</span>
+                                </label>
+                                <div class="col-md-4">
+
+                                    @Html.DropDownListFor(x => x.structureHeader.BranchId, SelectListItemHelper.Branches(), "--Select--",
+                                new { @class = "form-control input-sm" })
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(x => x.structureHeader.BranchId)
+                            }
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Code</span>
                             </label>
@@ -31,19 +46,21 @@
                                 @Html.HiddenFor(x => x.structureHeader.StructureID)
                                 @Html.TextBoxFor(x => x.structureHeader.Code, new { @class = "form-control input-sm" })
                             </div>
+
+                        </div>
+                        <div class="row css5">
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Effective Date</span>
                             </label>
                             <div class="col-md-4">
                                 <div class="input-group date dtCss" id="EffectiveDate">
-                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt input-sm" })
+                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:MM/dd/yyyy}", 
+                                   new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row css5">
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Remarks</span>
                             </label>
@@ -51,12 +68,6 @@
                                 @Html.TextAreaFor(x => x.structureHeader.Remarks, new { @class = "form-control input-sm" })
                             </div>
 
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Is Active</span>
-                            </label>
-                            <div class="col-md-4" style="margin-top:10px;">
-                                @Html.CheckBoxFor(x => x.structureHeader.IsActive, new { @class = "form-control" })
-                            </div>
                         </div>
                         <br />
                         <br />
@@ -100,7 +111,8 @@
                                                         <td style="width:250px;">@Html.DisplayFor(x => x.structureCompanyDeductionDetail[i].Description)</td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureCompanyDeductionDetail[i].RegisterCode,
-                                                                 new SelectList(ContributionRegister, "Value", "Text", Model.structureCompanyDeductionDetail[i].RegisterCode), "", new { @class = "form-control input-sm ", onchange = "calculateTotalByCode(this)" })
+                                                                 new SelectList(ContributionRegister, "Value", "Text", Model.structureCompanyDeductionDetail[i].RegisterCode), "",
+                                                                 new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureCompanyDeductionDetail[i].ComputationCode,
@@ -158,7 +170,8 @@
                                                     @Html.HiddenFor(x => x.structureEmployeeDeductionDetail[i].StructureDetailID)
                                                     <tr class="trCssDeduct">
                                                         <td>
-                                                            @Html.CheckBoxFor(x => x.structureEmployeeDeductionDetail[i].IsActive, new { @class = "form-control chkCssDeduct input-sm", data_index = i })
+                                                            @Html.CheckBoxFor(x => x.structureEmployeeDeductionDetail[i].IsActive, 
+                                                           new { @class = "form-control chkCssDeduct input-sm", data_index = i })
                                                         </td>
                                                         @Html.HiddenFor(x => x.structureEmployeeDeductionDetail[i].Code)
                                                         <td>
@@ -168,7 +181,8 @@
                                                         <td style="width:250px;">@Html.DisplayFor(x => x.structureEmployeeDeductionDetail[i].Description)</td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureEmployeeDeductionDetail[i].RegisterCode,
-                                                                 new SelectList(ContributionRegister, "Value", "Text", Model.structureEmployeeDeductionDetail[i].RegisterCode), "", new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
+                                                                 new SelectList(ContributionRegister, "Value", "Text", Model.structureEmployeeDeductionDetail[i].RegisterCode), "",
+                                                                 new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureEmployeeDeductionDetail[i].ComputationCode,
@@ -475,7 +489,7 @@
                     basicAmount =parseFloat(basicAmount).toFixed(2);
                     $('#structureCompanyDeductionDetail_' + 0 + '__Total').val(basicAmount);
                 }
-                
+
                 var total = $('#structureEmployeeDeductionDetail_' + i + '__Amount').val();
                 if(total!="")
                     total=parseFloat(total).toFixed(2);

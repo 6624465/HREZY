@@ -397,6 +397,7 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="RegisterCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchId" Type="int" />
         </EntityType>
         <EntityType Name="SalaryRuleDetail">
           <Key>
@@ -450,6 +451,7 @@
           <Property Name="StructureID" Type="int" Nullable="false" />
           <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
+          <Property Name="BranchId" Type="int" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -467,6 +469,7 @@
           <Property Name="NetAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalGross" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalDeductions" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BranchId" Type="int" />
         </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
@@ -1005,6 +1008,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchId" Type="Int32" />
         </EntityType>
         <EntityType Name="SalaryRuleDetail">
           <Key>
@@ -1085,6 +1089,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="StructureID" Type="Int32" Nullable="false" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BranchId" Type="Int32" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -1102,6 +1107,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="NetAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalGross" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalDeductions" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BranchId" Type="Int32" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureHeader">
           <Key>
@@ -1559,6 +1565,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="Contributions">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Contribution">
               <MappingFragment StoreEntitySet="Contribution">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1639,6 +1646,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="SalaryStructureDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureDetail">
               <MappingFragment StoreEntitySet="SalaryStructureDetail">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="StructureID" ColumnName="StructureID" />
@@ -1659,6 +1667,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="SalaryStructureHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureHeader">
               <MappingFragment StoreEntitySet="SalaryStructureHeader">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="TotalDeductions" ColumnName="TotalDeductions" />
                 <ScalarProperty Name="TotalGross" ColumnName="TotalGross" />
                 <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />

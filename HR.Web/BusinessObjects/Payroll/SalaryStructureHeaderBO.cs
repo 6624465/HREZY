@@ -109,13 +109,14 @@ namespace HR.Web.BusinessObjects.Payroll
                     StructureID = salaryStructureVm.structureHeader.StructureID,
                     Code = salaryStructureVm.structureHeader.Code,
                     EffectiveDate = salaryStructureVm.structureHeader.EffectiveDate,
-                    IsActive = salaryStructureVm.structureHeader.IsActive,
+                    IsActive = true,
                     Remarks = salaryStructureVm.structureHeader.Remarks,
                     CreatedBy = sessionObj.USERID,
                     CreatedOn = UTILITY.SINGAPORETIME,
                     NetAmount = salaryStructureVm.structureHeader.NetAmount,
                     TotalGross = salaryStructureVm.structureHeader.TotalGross,
-                    TotalDeductions = salaryStructureVm.structureHeader.TotalDeductions
+                    TotalDeductions = salaryStructureVm.structureHeader.TotalDeductions,
+                    BranchId= salaryStructureVm.structureHeader.BranchId
                 };
                 Add(structureHeader);
                 //salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
@@ -134,7 +135,8 @@ namespace HR.Web.BusinessObjects.Payroll
                         StructureID = structureHeader.StructureID,
                         StructureDetailID = item.StructureDetailID,
                         Total = item.Total,
-                        PaymentType = item.PaymentType
+                        PaymentType = item.PaymentType,
+                        BranchId= structureHeader.BranchId
                     };
                     if (item.StructureDetailID >0)
                         salaryStructureDetailBO.Delete(detail);
@@ -157,7 +159,8 @@ namespace HR.Web.BusinessObjects.Payroll
                         StructureID = structureHeader.StructureID,
                         StructureDetailID = item.StructureDetailID,
                         Total = item.Total,
-                        PaymentType = item.PaymentType
+                        PaymentType = item.PaymentType,
+                        BranchId = structureHeader.BranchId
                     };
                     if (item.StructureDetailID > 0)
                         salaryStructureDetailBO.Delete(detail);

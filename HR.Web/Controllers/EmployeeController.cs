@@ -241,6 +241,7 @@ namespace HR.Web.Controllers
                 else
                 {
                     empHeaderBO.SaveEmployeeVm(empVm);
+                    leaveTransBO.UpdateLeave(empVm.empHeader.EmployeeId);
                     return RedirectToAction("employeedirectory");
                 }
             }

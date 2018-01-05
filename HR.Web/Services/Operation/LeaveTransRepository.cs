@@ -50,6 +50,30 @@ namespace HR.Web.Services.Operation
             }
         }
 
+
+        public void Update(LeaveTran entity)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+
+                    LeaveTran LeaveTransaction = dbContext.LeaveTrans
+                        .Where(x => x.TransactionId == entity.EmployeeId).FirstOrDefault();
+                    if (LeaveTransaction == null)
+                    {
+                        dbContext.LeaveTrans.Add(entity);
+                                                dbContext.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public void Delete(LeaveTran entity)
         {
             try

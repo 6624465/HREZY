@@ -30,6 +30,19 @@ namespace HR.Web.BusinessObjects.Operation
                 throw ex;
             }
         }
+
+        public void Update(LeaveTran transaction)
+        {
+            try
+            {
+                leaveTrasactionRepository.Update(transaction);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public void Delete(LeaveTran transaction)
         {
             try
@@ -93,6 +106,35 @@ namespace HR.Web.BusinessObjects.Operation
                         LeaveType= leave.LeaveTypeId
                     };
                     Add(leavetrasaction);
+                }
+            }
+
+        }
+
+
+        internal void UpdateLeave(int empId)
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                List<OtherLeave> leavelist = dbContext.OtherLeaves.Where(x => x.BranchId == sessionObj.BRANCHID).ToList();
+
+                foreach (OtherLeave leave in leavelist)
+                {
+                    LeaveTran leavetrasaction = new LeaveTran()
+                    {
+                        BranchId = sessionObj.BRANCHID,
+                        CreatedBy = sessionObj.USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        CurrentLeaves = leave.LeavesPerYear == null ? 0 : leave.LeavesPerYear.Value,
+                        PreviousLeaves = leave.LeavesPerYear == null ? 0 : leave.LeavesPerYear.Value,
+                        EmployeeId = empId,
+                        FromDt = UTILITY.SINGAPORETIME,
+                        ToDt = UTILITY.SINGAPORETIME,
+                        ModifiedBy = sessionObj.USERID,
+                        ModifiedOn = UTILITY.SINGAPORETIME,
+                        LeaveType = leave.LeaveTypeId
+                    };
+                    Update(leavetrasaction);
                 }
             }
 

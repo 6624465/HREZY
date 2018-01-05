@@ -164,10 +164,7 @@
     $('.modal .modal-dialog').attr('class', 'modal-dialog  bounceIn  animated');
 
     $('.ajaxCss').click(function () {
-        $.loader({
-            className: "blue-with-image-2",
-            content: '',
-        });
+        LoadingAnimation();
     });
 
     $(".dtCss input.form-control").keypress(function (evt) {
@@ -190,6 +187,13 @@
     //})
     /* JS Utility Functions */
 });
+
+function LoadingAnimation() {
+    $.loader({
+        className: "blue-with-image-2",
+        content: '',
+    });
+}
 
 function createCookie(name, value, days) {
     var expires = "";

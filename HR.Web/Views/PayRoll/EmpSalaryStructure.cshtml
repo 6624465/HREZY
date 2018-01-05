@@ -53,7 +53,7 @@
                             </label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.StructureID, SelectListItemHelper.SalaryStructure(), "",
-                               new { @class = "form-control input-sm", onchange = "GetSalaryStructure(this)" })
+                               new { @class = "form-control input-sm ", onchange = "GetSalaryStructure(this);LoadingAnimation()" })
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Remarks:</span>

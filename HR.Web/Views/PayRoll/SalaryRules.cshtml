@@ -18,14 +18,14 @@
                                 <span class="pull-right">Name</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm" })
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Category</span>
                             </label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(x => x.Category, SelectListItemHelper.PayRollCategory(),
-                               "Select", new { @class = "form-control" })
+                               "Select", new { @class = "form-control input-sm" })
                             </div>
                         </div>
                         <div class="row css5">
@@ -33,13 +33,13 @@
                                 <span class="pull-right">Code</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.Code, new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.Code, new { @class = "form-control input-sm" })
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Sequence</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.SequenceNo, new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.SequenceNo, new { @class = "form-control input-sm" })
                             </div>
                         </div>
                         <div class="row css5">
@@ -48,7 +48,7 @@
                             </label>
                             <div class="col-md-4">
                                 <div style="margin-top:10px;">
-                                    @Html.CheckBoxFor(x => x.IsActive.Value, new { @class = "form-control" })
+                                    @Html.CheckBoxFor(x => x.IsActive.Value, new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                             <label class="col-md-2 control-label">
@@ -56,7 +56,7 @@
                             </label>
                             <div class="col-md-4">
                                 <div style="margin-top:10px;">
-                                    @Html.CheckBoxFor(x => x.IsOnPayslip.Value, new { @class = "form-control" })
+                                    @Html.CheckBoxFor(x => x.IsOnPayslip.Value, new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                                         </label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(x => x.salaryRuleDetailVm.ConditionBased,
-                                           SelectListItemHelper.PayRollCondition(), "Select", new { @class = "form-control" })
+                                           SelectListItemHelper.PayRollCondition(), "Select", new { @class = "form-control input-sm" })
 
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                                         </label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(x => x.salaryRuleDetailVm.AmountType,
-                                           SelectListItemHelper.PayRollAmount(), "Select", new { @class = "form-control" })
+                                           SelectListItemHelper.PayRollAmount(), "Select", new { @class = "form-control input-sm" })
 
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                             <span class="pull-right">Python Code</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.TextBoxFor(x => x.salaryRuleDetailVm.PythonCode, new { @class = "form-control" })
+                                            @Html.TextBoxFor(x => x.salaryRuleDetailVm.PythonCode, new { @class = "form-control input-sm" })
 
                                         </div>
                                     </div>
@@ -112,7 +112,7 @@
                                         </label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(x => x.salaryRuleDetailVm.ContributionRegister,
-                                           SelectListItemHelper.PayRollContribution(), "Select", new { @class = "form-control" })
+                                           SelectListItemHelper.PayRollContribution(), "Select", new { @class = "form-control input-sm" })
 
                                         </div>
                                     </div>

@@ -65,11 +65,25 @@ namespace HR.Web.Controllers
                 }
             }
         }
-        public ActionResult ContributionRegisterList()
+        public ActionResult ContributionRegisterList(int? BranchId = 0, int? page = 1)
         {
+            ViewData["RoleCode"] = ROLECODE;
+            var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+            int skip = (page.Value - 1) * offset;
+            List<Contribution> list = new List<Contribution>();
+            if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                list = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BranchId).OrderBy(x => x.BranchId).ToList();
+            else
+                list = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID).ToList();
 
-            var list = contributionBO.GetListByProperty(x => x.IsActive == true);
-            return View(list);
+            var count = list.Count();
+            decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+            HtmlTblVm<Contribution> HtmlTblVm = new HtmlTblVm<Contribution>();
+            HtmlTblVm.TableData = list.Skip(skip).Take(offset).ToList();
+            HtmlTblVm.TotalRows = count;
+            HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+            HtmlTblVm.CurrentPage = page.Value;
+            return View(HtmlTblVm);
         }
         public ActionResult ContributionSave(Contribution contribution)
         {

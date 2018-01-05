@@ -19,7 +19,7 @@
                                         </label>
                                     </div>
 
-                                    @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control", onchange = "GetBranchPolicy(this)" })
+                                    @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm", onchange = "GetBranchPolicy(this)" })
                                 }
                                 else
                                 {

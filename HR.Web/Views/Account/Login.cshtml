@@ -47,12 +47,12 @@
                         @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "frmLogin", name = "frmLogin" }))
                         {
                             <div class="md-input-container">
-                                @Html.TextBoxFor(x => x.UserName, new { @class = "md-input" })
+                                @Html.TextBoxFor(x => x.UserName, new { @class = "md-input input-sm" })
                                 <label>Email Id</label>
                             </div>
 
                             <div class="md-input-container">
-                                @Html.PasswordFor(x => x.Password, new { @class = "md-input" })
+                                @Html.PasswordFor(x => x.Password, new { @class = "md-input input-sm" })
                                 <label>Password</label>
                             </div>
 

@@ -53,13 +53,13 @@
                             </label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.StructureID, SelectListItemHelper.SalaryStructure(), "",
-                               new { @class = "form-control", onchange = "GetSalaryStructure(this)" })
+                               new { @class = "form-control input-sm", onchange = "GetSalaryStructure(this)" })
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Remarks:</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextAreaFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Remarks, new { @class = "form-control", rows = 2, cols = 3 })
+                                @Html.TextAreaFor(x => x.employeeSalaryStructure.empSalaryStructureHeader.Remarks, new { @class = "form-control input-sm", rows = 2, cols = 3 })
                             </div>
                         </div>
                         <div class="row css10">
@@ -90,7 +90,7 @@
                                                         @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].EmployeeId)
                                                         @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].BranchId)
                                                         @Html.CheckBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].IsActive,
-                                                        new { @class = "form-control chkCss", data_index = i })
+                                                        new { @class = "form-control chkCss input-sm", data_index = i })
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Code)

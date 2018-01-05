@@ -25,7 +25,7 @@ namespace HR.Web.Services.Security
                     }
                     if (user == null)
                     {
-                       
+
                         dbContext.Users.Add(entity);
                     }
                     else
@@ -44,6 +44,48 @@ namespace HR.Web.Services.Security
                         user.UserId = entity.UserId;
                         user.UserName = entity.UserName;
                     }
+                    dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void Update(User entity)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    User user = null;
+                    
+                        user = dbContext.Users.Where(x => x.EmployeeId == entity.EmployeeId).FirstOrDefault();
+                    
+                    if (user == null)
+                    {
+
+                        dbContext.Users.Add(entity);
+                    }
+                    else
+                    {
+                        user.BranchId = entity.BranchId;
+                        user.CreatedBy = UTILITY.SSN_USERID;
+                        user.CreatedOn = UTILITY.SINGAPORETIME;
+                        user.Email = entity.Email;
+                        user.EmployeeId = entity.EmployeeId;
+                        user.IsActive = entity.IsActive;
+                        user.MobileNumber = entity.MobileNumber;
+                        user.ModifiedBy = UTILITY.SSN_USERID;
+                        user.ModifiedOn = UTILITY.SINGAPORETIME;
+                        user.Password = entity.Password;
+                        user.RoleCode = entity.RoleCode;
+                       // user.UserId = entity.UserId;
+                        user.UserName = entity.UserName;
+                    }
+
                     dbContext.SaveChanges();
                 }
             }

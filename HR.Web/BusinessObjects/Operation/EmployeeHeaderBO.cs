@@ -174,6 +174,8 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.address.Email = empVm.empHeader.UserEmailId;
                 empVm.address.BranchId = empVm.empHeader.BranchId;
                 addressBO.Add(empVm.address);
+
+
                 foreach (var item in empVm.empDocument)
                 {
                     if (item.Document != null && item.Document.ContentLength > 0)

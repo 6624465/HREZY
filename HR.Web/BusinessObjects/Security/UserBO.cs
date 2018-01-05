@@ -34,6 +34,19 @@ namespace HR.Web.BusinessObjects.Security
             }
         }
 
+
+        public void Update(User user)
+        {
+            try
+            {
+                userRepository.Update(user);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public void Delete(User user)
         {
             try
@@ -90,6 +103,26 @@ namespace HR.Web.BusinessObjects.Security
                 RoleCode = "Employee"
             };
             Add(user);
+        }
+
+        internal void UpdateUserVm(EmployeeVm empVm)
+        {
+            User user = new User()
+            {
+                BranchId = sessionObj.BRANCHID,
+                CreatedBy = sessionObj.USERID,
+                CreatedOn = UTILITY.SINGAPORETIME,
+                ModifiedBy = sessionObj.USERID,
+                ModifiedOn = UTILITY.SINGAPORETIME,
+                Email = empVm.empHeader.UserEmailId,
+                EmployeeId = empVm.empHeader.EmployeeId,
+                IsActive = true,
+                MobileNumber = empVm.address.MobileNo,
+                UserName = empVm.empHeader.UserEmailId,
+                Password = empVm.empHeader.Password,
+                RoleCode = "Employee"
+            };
+            Update(user);
         }
     }
 }

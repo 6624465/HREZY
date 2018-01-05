@@ -390,9 +390,10 @@
                                 </label>
                                 @if (Model.empHeader.EmployeeId != -1)
                                 {
-                                    <div class="col-md-9">
-                                        <div class="pull-right ajaxCss"><button type="button" onclick="location.href = '@Url.Content("~/PayRoll/EmpSalaryStructure?employeeId=" + Model.empHeader.EmployeeId)'" class="btn btn-success btn-sm"><i class="fa fa-gears"></i>&nbsp;Apply Salary Structure</button></div>
-                                    </div>
+                                    @*<div class="col-md-9">
+                                        <div class="pull-right ajaxCss"><button type="button" onclick="location.href = '@Url.Content("~/PayRoll/EmpSalaryStructure?employeeId=" + Model.empHeader.EmployeeId)'" class="btn btn-success btn-sm">
+                                            <i class="fa fa-gears"></i>&nbsp;Apply Salary Structure</button></div>
+                                    </div>*@
 
                                 }
                             </div>

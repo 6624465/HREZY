@@ -38,11 +38,20 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Name</span>
                             </label>
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm", onblur = "checkComponent(this)" })
-                                <label id="error">Salary Component Already Exists.</label>
-                            </div>
+                            @if (Model.ContributionId != 0)
+                            {
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm" })
+                                </div>
 
+                            }
+                            else
+                            {
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm", onblur = "checkComponent(this)" })
+                                    <label id="error">Salary Component Already Exists.</label>
+                                </div>
+                            }
                         </div>
                         <div class="row css5">
                             <label class="col-md-2 control-label">
@@ -121,6 +130,7 @@
             $('#li_ContributionRegisterList').addClass('active');
         });
         function checkComponent(el) {
+     
             $.ajax({
                 url: '@Url.Content("~/PayRoll/IsSalaryComponentExists?component=")' + $('#Name').val(),
                 method: 'get',

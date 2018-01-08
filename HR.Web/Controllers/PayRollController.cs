@@ -530,7 +530,7 @@ namespace HR.Web.Controllers
         }
         public bool IsSalaryComponentExists(string component)
         {
-            var list = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper() && x.IsActive == true)).ToList();
+            var list = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper())&& x.IsActive == true).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

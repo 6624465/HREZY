@@ -313,12 +313,20 @@
         });
 
         function SaveStructure() {
+            debugger;
             if ($('#frmSalary').valid()){
-                $.loader({
-                    className: "blue-with-image-2",
-                    content: '',
-                });
-                $('#frmSalary').submit();
+               
+                if($('#structureCompanyDeductionDetail_0__IsActive').prop('checked')){
+                    $.loader({
+                        className: "blue-with-image-2",
+                        content: '',
+                    });
+                    $('#frmSalary').submit();
+                }
+                else
+                {
+                    swal("Message!", "Please enter values for BASIC component")
+                }
             }
 
         }

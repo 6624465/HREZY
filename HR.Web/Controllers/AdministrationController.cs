@@ -189,6 +189,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult AddBranch(BranchVm branchVm, AddressVm addressVm)
         {
+
             try
             {
                 branchBO.SaveBranch(branchVm, addressVm);

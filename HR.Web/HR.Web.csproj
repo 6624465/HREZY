@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1769,6 +1770,7 @@
     <Compile Include="Helpers\LeaveCalculator.cs" />
     <Compile Include="Helpers\LinqFuncs.cs" />
     <Compile Include="Helpers\MyDateTimeModelBinder.cs" />
+    <Compile Include="Helpers\MyStringModelBinder.cs" />
     <Compile Include="Helpers\SelectHelpers.cs" />
     <Compile Include="Helpers\WebGridExtensions.cs" />
     <Compile Include="Models\Address.cs">

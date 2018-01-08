@@ -204,11 +204,11 @@ namespace HR.Web.Controllers
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
                 contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BranchId)
-                    .OrderBy(x => x.Name).ToList();
+                    .OrderBy(x => x.SortBy).ToList();
             }
             else
                 contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID)
-               .OrderBy(x => x.Name).ToList();
+               .OrderBy(x => x.SortBy).ToList();
 
             salaryStructureVm.structureEmployeeDeductionDetail = new List<SalaryStructureDetail>();
             salaryStructureVm.structureCompanyDeductionDetail = new List<SalaryStructureDetail>();
@@ -216,6 +216,8 @@ namespace HR.Web.Controllers
             {
                 salaryStructureVm.structureHeader = new SalaryStructureHeader();
 
+                if (BranchId == 0 && BRANCHID != -1)
+                    BranchId = BRANCHID;
                 var structureCount = salaryStructureHeaderBO.GetCount(BranchId);
 
                 string headerCode = "EZYPR";
@@ -265,7 +267,7 @@ namespace HR.Web.Controllers
                         StructureID = salaryStructure.A.StructureID,
                         NetAmount = salaryStructure.A.NetAmount,
                         BranchId = salaryStructure.A.BranchId,
-                        TotalDeductions= salaryStructure.A.TotalDeductions,
+                        TotalDeductions = salaryStructure.A.TotalDeductions,
                         TotalGross = salaryStructure.A.TotalGross,
                     };
 

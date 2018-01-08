@@ -30,6 +30,7 @@ namespace HR.Web.Services.Payroll
                         contribution.Name = entity.Name;
                         contribution.RegisterCode = entity.RegisterCode;
                         contribution.BranchId = entity.BranchId;
+                        contribution.SortBy = entity.SortBy;
                     }
                     dbContext.SaveChanges();
                 }

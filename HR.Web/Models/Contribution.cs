@@ -24,5 +24,6 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string RegisterCode { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public Nullable<short> SortBy { get; set; }
     }
 }

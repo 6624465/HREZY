@@ -510,9 +510,9 @@ namespace HR.Web.Controllers
                     CodeEmpList = empsalaryobj.employeeSalaryStructure.structureEmployeeDeductionDetail.Select(x => x.Code).ToList();
 
                     empsalaryobj.employeeSalaryStructure.structureCompanyDeductionDetail
-                        .AddRange(structureDetail.Where(x => !CodeList.Contains(x.Code) && x.PaymentType == UTILITY.COMPANYDEDUCTION));
+                        .AddRange(structureDetail.Where(x => !CodeList.Contains(x.Code.ToUpper()) && x.PaymentType == UTILITY.COMPANYDEDUCTION));
                     empsalaryobj.employeeSalaryStructure.structureEmployeeDeductionDetail
-                        .AddRange(structureDetail.Where(x => !CodeEmpList.Contains(x.Code) && x.PaymentType == UTILITY.EMPLOYEEDEDUCTION));//(remainingSalStructure.empSalaryStructureDetail);
+                        .AddRange(structureDetail.Where(x => !CodeEmpList.Contains(x.Code.ToUpper()) && x.PaymentType == UTILITY.EMPLOYEEDEDUCTION));//(remainingSalStructure.empSalaryStructureDetail);
                     if(structureId!=0)
                     empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader.StructureID = structureId;
 

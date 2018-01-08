@@ -48,6 +48,7 @@
     });
 
     $(document).on('keypress', '.decimalCss', function (evt) {
+        
         //
         //alert(evt.keyCode);
         //alert(evt.charCode);
@@ -77,7 +78,7 @@
            return false;
 
        return true;*/
-
+        debugger;
         if (navigator.appName == "Netscape")
             Key = evt.charCode; //or e.which; (standard method)
         else

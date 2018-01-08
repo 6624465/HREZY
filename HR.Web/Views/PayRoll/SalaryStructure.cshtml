@@ -313,7 +313,7 @@
         });
 
         function SaveStructure() {
-            debugger;
+            //debugger;
             if ($('#frmSalary').valid()){
                
                 if($('#structureCompanyDeductionDetail_0__IsActive').prop('checked')){
@@ -404,7 +404,7 @@
         /* calculation */
 
         function calculateTotalByCode(obj){
-            debugger;
+            //debugger;
             var code=     $('#'+obj.id).val();
             calculateTotal(code);
         }
@@ -437,7 +437,7 @@
                 if(total!="")
                     total=parseFloat(total).toFixed(2);
                 var ComputationCode = $('#structureCompanyDeductionDetail_' + i + '__ComputationCode').val();
-                debugger;
+                //debugger;
                 if (ComputationCode == percentage) {
 
                     if(total>100){

@@ -86,31 +86,32 @@
                                             {
 
                                                 <tr class="trCss">
-                                                    <td>@Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].PaymentType)
-                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].EmployeeId)
-                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].BranchId)
-                                                        @Html.CheckBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].IsActive,
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].PaymentType)
+                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].EmployeeId)
+                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].BranchId)
+                                                    @Html.CheckBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].IsActive,
                                                         new { @class = "form-control chkCss input-sm", data_index = i })
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Code)
-                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Code)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DropDownListFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].ContributionRegister,
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Code)
+                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Code)
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownListFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].ContributionRegister,
                                                     new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.structureCompanyDeductionDetail[i].ContributionRegister), "", new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
-                                                    </td>
-                                                    <td>
-                                                        @Html.DropDownListFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Computation,
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownListFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Computation,
                                                     new SelectList(Computation, "Value", "Text", Model.employeeSalaryStructure.structureCompanyDeductionDetail[i].Computation), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateAmount(this," + i + ")" })
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
-                                                    </td>
-                                                </tr>
+                                                </td>
+                                                <td>
+                                                    @Html.TextBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateAmount(this," + i + ")" })
+                                                </td>
+                                                <td>
+                                                    @Html.TextBoxFor(x => x.employeeSalaryStructure.structureCompanyDeductionDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
+                                                </td>
+                                            </tr>
 
                                             }
 
@@ -151,31 +152,32 @@
                                             {
 
                                                 <tr class="trCssDeduct">
-                                                    <td>@Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].PaymentType)
-                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].EmployeeId)
-                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].BranchId)
-                                                        @Html.CheckBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].IsActive,
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].PaymentType)
+                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].EmployeeId)
+                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].BranchId)
+                                                    @Html.CheckBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].IsActive,
                                                         new { @class = "form-control chkCssDeduct", data_index = i })
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Code)
-                                                        @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Code)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DropDownListFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].ContributionRegister,
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Code)
+                                                    @Html.HiddenFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Code)
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownListFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].ContributionRegister,
                                                     new SelectList(ContributionRegister, "Value", "Text", Model.employeeSalaryStructure.structureEmployeeDeductionDetail[i].ContributionRegister), "", new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
-                                                    </td>
-                                                    <td>
-                                                        @Html.DropDownListFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Computation,
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownListFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Computation,
                                                     new SelectList(Computation, "Value", "Text", Model.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Computation), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateDeductAmount(this," + i + ")" })
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
-                                                    </td>
-                                                </tr>
+                                                </td>
+                                                <td>
+                                                    @Html.TextBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateDeductAmount(this," + i + ")" })
+                                                </td>
+                                                <td>
+                                                    @Html.TextBoxFor(x => x.employeeSalaryStructure.structureEmployeeDeductionDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
+                                                </td>
+                                            </tr>
                                             }
 
                                         </tbody>
@@ -275,7 +277,7 @@
         $('.chkCss').on("ifChanged", function (event) {
             var temp = this;
             var index=$(this).data('index');
-
+            debugger;
             if($('#'+this.id).prop('checked')){
 
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__ContributionRegister').attr('required','required');
@@ -291,13 +293,19 @@
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Computation').val('').attr('disabled', 'disabled');
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
 
-                // $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Total').val('')
+                $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Total').val('')
 
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__ContributionRegister').removeAttr('required');
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#employeeSalaryStructure_structureCompanyDeductionDetail_' + index + '__Amount').removeAttr('required');
 
-                calculateTotal();
+                if(index==0){
+                    $('#employeeSalaryStructure.empSalaryStructureHeader.TotalGross').val('');
+                    $('#employeeSalaryStructure.empSalaryStructureHeader.TotalDeductions').val('');
+                    $('#employeeSalaryStructure_empSalaryStructureHeader_Salary').val('');
+                }
+                else
+                    calculateTotal();
             }
 
         });
@@ -338,11 +346,17 @@
 
         function SaveEmployeeStructure(){
             if( $('#frmEmpSalary').valid()){
-                $.loader({
-                    className: "blue-with-image-2",
-                    content: '',
-                });
-                $('#frmEmpSalary').submit();
+                if($('#employeeSalaryStructure_structureCompanyDeductionDetail_0__IsActive').prop('checked')){
+                    $.loader({
+                        className: "blue-with-image-2",
+                        content: '',
+                    });
+                    $('#frmEmpSalary').submit();
+                }
+                else
+                {
+                    swal("Message!", "Please enter values for BASIC component")
+                }
             }
 
         }
@@ -418,7 +432,7 @@
                             TotalGross = parseFloat(TotalGross) + parseFloat(currentValue);
                         else
                             TotalGross =parseFloat(currentValue);
-                      
+
                     }
                     $('#employeeSalaryStructure_empSalaryStructureHeader_TotalGross').val(TotalGross);
 
@@ -476,7 +490,7 @@
                 /* Calculate Nett amount*/
                 var currentValue=$('#employeeSalaryStructure_structureEmployeeDeductionDetail_' + i + '__Total').val() == "" ?
                      0 : $('#employeeSalaryStructure_structureEmployeeDeductionDetail_' + i + '__Total').val();
-               
+
                 //netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
                 if(code !="EMPLOYEE DEDUCTION")
                     netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
@@ -491,7 +505,7 @@
 
                 netAmount=netAmount.toFixed(2);
                 $('#employeeSalaryStructure_empSalaryStructureHeader_TotalDeductions').val(netAmount);
-              
+
 
 
             }

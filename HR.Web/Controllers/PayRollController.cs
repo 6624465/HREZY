@@ -219,9 +219,8 @@ namespace HR.Web.Controllers
                 if (BranchId == 0 && BRANCHID != -1)
                     BranchId = BRANCHID;
                 var structureCount = salaryStructureHeaderBO.GetCount(BranchId);
-
-                string headerCode = "EZYPR";
-                salaryStructureVm.structureHeader.Code = headerCode + structureCount.ToString("D4");
+                
+                salaryStructureVm.structureHeader.Code = "EZYPR" + structureCount.ToString("D4");
                 if (ROLECODE != UTILITY.ROLE_SUPERADMIN)
                     salaryStructureVm.structureHeader.BranchId = BRANCHID;
                 else

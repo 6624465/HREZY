@@ -24,6 +24,8 @@ namespace HR.Web.BusinessObjects.Payroll
             {
                 input.CreatedBy = sessionObj.USERID;
                 input.CreatedOn = UTILITY.SINGAPORETIME;
+                if (input.SortBy == null)
+                    input.SortBy = 0;
                 contributionRepository.Add(input);
             }
             catch (Exception ex)
@@ -84,7 +86,7 @@ namespace HR.Web.BusinessObjects.Payroll
             }
         }
 
-        public IEnumerable<Contribution> GetListByProperty(Func<Contribution,bool> predicate)
+        public IEnumerable<Contribution> GetListByProperty(Func<Contribution, bool> predicate)
         {
             try
             {

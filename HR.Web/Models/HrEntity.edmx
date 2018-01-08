@@ -398,6 +398,7 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="RegisterCode" Type="nvarchar" MaxLength="50" />
           <Property Name="BranchId" Type="int" />
+          <Property Name="SortBy" Type="smallint" />
         </EntityType>
         <EntityType Name="SalaryRuleDetail">
           <Key>
@@ -1009,6 +1010,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BranchId" Type="Int32" />
+          <Property Name="SortBy" Type="Int16" />
         </EntityType>
         <EntityType Name="SalaryRuleDetail">
           <Key>
@@ -1565,6 +1567,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="Contributions">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Contribution">
               <MappingFragment StoreEntitySet="Contribution">
+                <ScalarProperty Name="SortBy" ColumnName="SortBy" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />

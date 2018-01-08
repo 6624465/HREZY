@@ -65,14 +65,14 @@
                                 @Html.TextAreaFor(x => x.Description, new { @class = "form-control input-sm" })
                             </div>
                         </div>
-                        @*<div class="row css5">
+                        <div class="row css5">
                             <label class="col-md-2 control-label">
-                                <span class="pull-right">Status</span>
+                                <span class="pull-right">Sort Order</span>
                             </label>
-                            <div style="margin-top:10px">
-                                @Html.CheckBox(nameof(Model.IsActive), Model.IsActive)
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.SortBy, new { @class = "form-control input-sm numCss" })
                             </div>
-                        </div>*@
+                        </div>
                         <div class="row css10">
                             <div class="form-group ">
                                 <div class="col-md-8"></div>

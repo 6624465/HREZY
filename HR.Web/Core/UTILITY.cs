@@ -89,6 +89,8 @@ namespace HR.Web
         public static int LOSSOFPAY = 2464;
         public static int MEDICALTREATMENTLEAVE = 2489;
 
+        public static string BASICSALARYCOMPONENT = "BASIC";
+
         /* Config Keys End */
 
         public static DateTime SINGAPORETIME

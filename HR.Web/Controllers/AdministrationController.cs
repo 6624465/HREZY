@@ -1,5 +1,6 @@
 ﻿using HR.Web.BusinessObjects.LeaveMaster;
 using HR.Web.BusinessObjects.Operation;
+using HR.Web.BusinessObjects.Payroll;
 using HR.Web.Models;
 using HR.Web.ViewModels;
 using System;
@@ -18,11 +19,13 @@ namespace HR.Web.Controllers
         AddressBO addressBO = null;
         CompanyBO companyBO = null;
         BranchBO branchBO = null;
+        ContributionBO contributionBO = null;
         public AdministrationController()
         {
             addressBO = new AddressBO(SESSIONOBJ);
             companyBO = new CompanyBO(SESSIONOBJ);
             branchBO = new BranchBO(SESSIONOBJ);
+            contributionBO = new ContributionBO(SESSIONOBJ);
         }
         // GET: Administration
         [HttpGet]
@@ -186,9 +189,30 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult AddBranch(BranchVm branchVm, AddressVm addressVm)
         {
+
             try
             {
                 branchBO.SaveBranch(branchVm, addressVm);
+                var list = contributionBO.GetListByProperty(x => (x.BranchId == branchVm.branch.BranchID) && (x.Name==UTILITY.BASICSALARYCOMPONENT)).ToList();
+                var count = list.Count();
+                if (count == 0)
+                {
+                    Contribution contribution = new Contribution
+                    {
+                        Name = UTILITY.BASICSALARYCOMPONENT,
+                        Description = UTILITY.BASICSALARYCOMPONENT,
+                        IsActive = true,
+                        CreatedBy = SESSIONOBJ.USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        RegisterCode = "PAYMENTS",
+                        BranchId = branchVm.branch.BranchID,
+                        SortBy = -1
+                    };
+                    contributionBO.Add(contribution);
+
+                }
+
+
             }
             catch (Exception ex)
             {

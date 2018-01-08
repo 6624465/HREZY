@@ -57,7 +57,7 @@ namespace HR.Web.Controllers
         }
         public bool IsEmployeeDesignationExist(string Designation)
         {
-            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == Designation.ToUpper()).ToList();
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == Designation.ToUpper()) && x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEEDESIGNATION)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }
@@ -104,7 +104,7 @@ namespace HR.Web.Controllers
         }
         public bool IsEmployeeTypeExist(string EmployeeType)
         {
-            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == EmployeeType.ToUpper()).ToList();
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == EmployeeType.ToUpper()) && x.IsActive==true &&(x.LookUpCategory==UTILITY.CONFIG_EMPLOYEETYPE)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }
@@ -144,7 +144,7 @@ namespace HR.Web.Controllers
         }
         public bool IsEmployeeDepartmentExist(string Department)
         {
-            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == Department.ToUpper()).ToList();
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == Department.ToUpper())&& x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEEDEPARTMENT)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }
@@ -182,7 +182,7 @@ namespace HR.Web.Controllers
         }
         public bool IsEmployeeStatusExist(string Status)
         {
-            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == Status.ToUpper()).ToList();
+            var list = lookUpBO.GetListByProperty(x =>( x.LookUpCode.ToUpper() == Status.ToUpper()) && x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEESTATUS)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }
@@ -222,7 +222,7 @@ namespace HR.Web.Controllers
         }
         public bool IsMaritalStatusExist(string MaritalStatus)
         {
-            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == MaritalStatus.ToUpper()).ToList();
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == MaritalStatus.ToUpper())&& x.IsActive==true&&(x.LookUpCategory== UTILITY.CONFIG_EMPLOYEEMARITALSTATUS)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }
@@ -261,7 +261,7 @@ namespace HR.Web.Controllers
         }
         public bool IsLeaveTypeExist(string LeaveType)
         {
-            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == LeaveType.ToUpper()).ToList();
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == LeaveType.ToUpper()) && x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEELEAVETYPE)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }
@@ -299,7 +299,7 @@ namespace HR.Web.Controllers
         }
         public bool IsPaymentTypeExist(string PaymentType)
         {
-            var list = lookUpBO.GetListByProperty(x => x.LookUpCode.ToUpper() == PaymentType.ToUpper()).ToList();
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == PaymentType.ToUpper()) && x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEEPAYMENTTYPE)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

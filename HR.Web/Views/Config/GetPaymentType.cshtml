@@ -12,11 +12,22 @@
         <label class="col-md-4 control-label">
             <span class="pull-right"> Payment Type</span>
         </label>
-        <div class="col-md-8">
-            @Html.TextBoxFor(x => x.LookUpCode,
+        @if (Model.LookUpID==-1)
+        {
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.LookUpCode,
             new { @class = "form-control input-sm", onblur = "checkPaymentType(this)" })
-            <label id="error">Payment Type Already Exists.</label>
-        </div>
+                <label id="error">Payment Type Already Exists.</label>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.LookUpCode,
+            new { @class = "form-control input-sm"})
+            </div>
+        }
+
     </div>
 </div>
 <div class="row css10">

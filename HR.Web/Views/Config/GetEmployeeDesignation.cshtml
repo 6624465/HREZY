@@ -12,11 +12,23 @@
         <label class="col-md-4 control-label">
             <span class="pull-right">Designation</span>
         </label>
-        <div class="col-md-8">
+        @if (Model.LookUpID == -1)
+        {
+            <div class="col-md-8">
+                @Html.TextBoxFor(x => x.LookUpCode,
+            new { @class = "form-control input-sm", onblur = "checkDesignation(this)" })
+                <label id="error">Employee Designation Already Exists.</label>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-8">
             @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", onblur= "checkDesignation(this)" })
-            <label id="error">Employee Designation Already Exists.</label>
+            new { @class = "form-control input-sm"})
+            @*<label id="error">Employee Designation Already Exists.</label>*@
         </div>
+        }
+        
     </div>
 </div>
 <div class="row css10">

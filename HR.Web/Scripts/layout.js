@@ -167,8 +167,7 @@
         LoadingAnimation();
     });
 
-    $(".dtCss input.form-control").keypress(function (evt) {
-        debugger;
+    $(".dtCss input.form-control").keypress(function (evt) {        
         evt.preventDefault();
         return false;
     });

@@ -196,14 +196,15 @@ namespace HR.Web.Controllers
 
 
         [HttpGet]
-        public ActionResult SalaryStructure(int structurId = 0,int BranchId=0)
+        public ActionResult SalaryStructure(int structurId = 0, int BranchId = 0)
         {
             ViewData["RoleCode"] = ROLECODE;
             SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
             List<Contribution> contributionList = new List<Contribution>();
-            if (ROLECODE == UTILITY.ROLE_SUPERADMIN) { 
-            contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId== BranchId)
-                .OrderBy(x => x.Name).ToList();
+            if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+            {
+                contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BranchId)
+                    .OrderBy(x => x.Name).ToList();
             }
             else
                 contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID)
@@ -214,6 +215,11 @@ namespace HR.Web.Controllers
             if (structurId == 0)
             {
                 salaryStructureVm.structureHeader = new SalaryStructureHeader();
+
+                var structureCount = salaryStructureHeaderBO.GetCount(BranchId);
+
+                string headerCode = "EZYPR";
+                salaryStructureVm.structureHeader.Code = headerCode + structureCount.ToString("D4");
                 if (ROLECODE != UTILITY.ROLE_SUPERADMIN)
                     salaryStructureVm.structureHeader.BranchId = BRANCHID;
                 else
@@ -258,7 +264,9 @@ namespace HR.Web.Controllers
                         Remarks = salaryStructure.A.Remarks,
                         StructureID = salaryStructure.A.StructureID,
                         NetAmount = salaryStructure.A.NetAmount,
-                        BranchId = salaryStructure.A.BranchId
+                        BranchId = salaryStructure.A.BranchId,
+                        TotalDeductions= salaryStructure.A.TotalDeductions,
+                        TotalGross = salaryStructure.A.TotalGross,
                     };
 
                     foreach (SalaryStructureDetail item in salaryStructure.B)

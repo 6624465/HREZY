@@ -133,7 +133,7 @@ namespace HR.Web.Services.Payroll
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    SalaryStructureHeader structureHeader= dbContext.SalaryStructureHeaders.Where(x=>x.StructureID== structurId).FirstOrDefault();
+                    SalaryStructureHeader structureHeader = dbContext.SalaryStructureHeaders.Where(x => x.StructureID == structurId).FirstOrDefault();
                     structureHeader.IsActive = false;
                     dbContext.SaveChanges();
 
@@ -143,6 +143,22 @@ namespace HR.Web.Services.Payroll
             {
 
                 throw ex;
+            }
+        }
+
+        internal int GetCount(int branchId)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.SalaryStructureHeaders.Where(x => x.BranchId == branchId).Count();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
     }

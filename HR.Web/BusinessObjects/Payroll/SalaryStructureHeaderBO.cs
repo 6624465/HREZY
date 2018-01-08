@@ -179,5 +179,10 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             salaryStructureHeaderRepository.DeleteById(structurId);
         }
+
+        internal int GetCount(int branchId)
+        {
+           return salaryStructureHeaderRepository.GetCount(branchId);
+        }
     }
 }

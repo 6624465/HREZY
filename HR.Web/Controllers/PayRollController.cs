@@ -72,9 +72,9 @@ namespace HR.Web.Controllers
             int skip = (page.Value - 1) * offset;
             List<Contribution> list = new List<Contribution>();
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
-                list = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BranchId).OrderBy(x => x.BranchId).ToList();
+                list = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BranchId && x.SortBy != -1).OrderBy(x => x.BranchId).ToList();
             else
-                list = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID).ToList();
+                list = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID && x.SortBy != -1).ToList();
 
             var count = list.Count();
             decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
@@ -310,7 +310,7 @@ namespace HR.Web.Controllers
                                         .ToList();
                     }
 
-                    var structureCompanyDeductionDetail = contributionList.Where(x => !CodeList.Contains(x.Name)).Select(
+                    var structureCompanyDeductionDetail = contributionList.Where(x => !CodeList.Contains(x.Name.ToUpper())).Select(
                                                    item => new SalaryStructureDetail()
                                                    {
                                                        Code = item.Name,
@@ -319,7 +319,7 @@ namespace HR.Web.Controllers
                                                    }).Where(x => x.PaymentType == UTILITY.COMPANYDEDUCTION).ToList();//
 
                     salaryStructureVm.structureCompanyDeductionDetail.AddRange(structureCompanyDeductionDetail);
-                    var structureEmployeeDeductionDetail = contributionList.Where(x => !employeeCodeList.Contains(x.Name)).Select(
+                    var structureEmployeeDeductionDetail = contributionList.Where(x => !employeeCodeList.Contains(x.Name.ToUpper())).Select(
                                                   item => new SalaryStructureDetail()
                                                   {
                                                       Code = item.Name,
@@ -466,7 +466,8 @@ namespace HR.Web.Controllers
                         IsActive = salaryStructure.salaryStructureHeader.IsActive,
                         Remarks = salaryStructure.salaryStructureHeader.Remarks,
                         Salary = 0M,
-                        StructureID = salaryStructure.salaryStructureHeader.StructureID
+                        StructureID = salaryStructure.salaryStructureHeader.StructureID,
+                        
                     };
                     remainingSalStructure.structureCompanyDeductionDetail = salaryStructure.salaryStructureDetail
                         .Select(y => new EmpSalaryStructureDetail
@@ -512,7 +513,7 @@ namespace HR.Web.Controllers
                         .AddRange(structureDetail.Where(x => !CodeList.Contains(x.Code) && x.PaymentType == UTILITY.COMPANYDEDUCTION));
                     empsalaryobj.employeeSalaryStructure.structureEmployeeDeductionDetail
                         .AddRange(structureDetail.Where(x => !CodeEmpList.Contains(x.Code) && x.PaymentType == UTILITY.EMPLOYEEDEDUCTION));//(remainingSalStructure.empSalaryStructureDetail);
-
+                    if(structureId!=0)
                     empsalaryobj.employeeSalaryStructure.empSalaryStructureHeader.StructureID = structureId;
 
                 }
@@ -526,7 +527,7 @@ namespace HR.Web.Controllers
         public ActionResult EmpSalaryStructure(EmpSalaryStructureVm structureVm)
         {
             empSalaryStructureHeaderBO.SaveSalaryStructure(structureVm);
-            return RedirectToAction("SalaryStructureHeaderList");
+            return RedirectToAction("employeedirectory", "Employee");
         }
         public bool IsSalaryComponentExists(string component)
         {

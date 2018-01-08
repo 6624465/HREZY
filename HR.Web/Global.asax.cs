@@ -20,6 +20,8 @@ namespace HR.Web
 
             ModelBinders.Binders.Add(typeof(DateTime), new MyDateTimeModelBinder());
             ModelBinders.Binders.Add(typeof(DateTime?), new MyDateTimeModelBinder());
+
+            ModelBinders.Binders.Add(typeof(string), new MyStringModelBinder());
         }
         /*
         private void Application_BeginRequest(Object source, EventArgs e)

@@ -35,4 +35,6 @@ namespace HR.Web.Helpers
             return base.BindModel(controllerContext, bindingContext);
         }
     }
+
+    
 }

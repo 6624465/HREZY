@@ -1,11 +1,21 @@
 ﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.Models.Contribution>
-    @section Styles{
+@section Styles{
          <style>
-              .width {
-            width:60%;
+    .pagination {
+            display: table;
+            margin: 15px auto;
+            position: relative;
+            float: right;
         }
-         </style>
+
+        .width {
+            width: 60%;
         }
+    </style>
+}
+
+
+    
 
 <div class="page">
     <div class="page-wrap">
@@ -30,8 +40,6 @@
                         <button class="btn btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'"><i class="fa fa-plus-square"></i>&nbsp;Create</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
                         <table class="table table-conden table-bordered">
                             <thead>
                                 <tr>
@@ -70,15 +78,11 @@
                                 </tbody>
                             }
                         </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="pagination"></div>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="pagination"></div>
                     </div>
                 </div>
-
-
                 </div>
             </div>
         </div>
@@ -89,8 +93,8 @@
 <link href="~/Css/sweetalert.css" rel="stylesheet" />
 <script src="~/Scripts/Core/sweetalert.js"></script>
 @section Scripts{
-  
-    <script type="text/javascript">
+<script src="~/Scripts/Core/jquery.bootpag.min.js"></script>  
+      <script type="text/javascript">
         $(function () {
             $('#li_PayRollConfig').addClass('open');
             $('#li_ContributionRegisterList').addClass('active');
@@ -98,7 +102,7 @@
                 total: @Model.PageLength,
                 page: @Model.CurrentPage,
                 maxVisible: 10,
-                href: '@Url.Content("~/PayRoll/ContributionRegisterList?page="){{number}}', 
+                href: '@Url.Content("~/PayRoll/ContributionRegisterList?page="){{number}}',  //"#pro-page-{{number}}",
                 leaps: false,
                 next: 'Next',
                 prev: 'Prev',

@@ -219,7 +219,7 @@ namespace HR.Web.Controllers
                 if (BranchId == 0 && BRANCHID != -1)
                     BranchId = BRANCHID;
                 var structureCount = salaryStructureHeaderBO.GetCount(BranchId);
-
+                structureCount = structureCount + 1;
                 salaryStructureVm.structureHeader.Code = "EZYPR" + structureCount.ToString("D4");
                 if (ROLECODE != UTILITY.ROLE_SUPERADMIN)
                     salaryStructureVm.structureHeader.BranchId = BRANCHID;
@@ -427,14 +427,14 @@ namespace HR.Web.Controllers
                     .Where(x => x.empSalaryStructureHeader.EmployeeId == employeeId
                     && x.empSalaryStructureHeader.BranchId == BRANCHID
                     && x.empSalaryStructureHeader.StructureID == structureId
-                    && x.empSalaryStructureHeader.IsActive==true)
+                    && x.empSalaryStructureHeader.IsActive == true)
                     .FirstOrDefault();
 
 
 
                 List<string> CodeList = new List<string>();
                 List<string> CodeEmpList = new List<string>();
-                List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId==BRANCHID).OrderBy(x => x.SortBy).ToList();
+                List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID).OrderBy(x => x.SortBy).ToList();
                 var structureDetail = contributionList.Select(
                                               y => new EmpSalaryStructureDetail()
                                               {
@@ -457,7 +457,7 @@ namespace HR.Web.Controllers
                             {
                                 salaryStructureHeader = a,
                                 salaryStructureDetail = b.ToList() //b.Where(y => !CodeList.Contains(y.Code)).ToList()
-                            }).Where(x=>x.salaryStructureHeader.IsActive==true && x.salaryStructureHeader.BranchId== BRANCHID)
+                            }).Where(x => x.salaryStructureHeader.IsActive == true && x.salaryStructureHeader.BranchId == BRANCHID)
                             .FirstOrDefault();
                     }
                     else
@@ -470,7 +470,7 @@ namespace HR.Web.Controllers
                                salaryStructureHeader = a,
                                salaryStructureDetail = b.Where(y => !CodeList.Contains(y.Code)).ToList()
                            })
-                           .Where(x => x.salaryStructureHeader.StructureID == structureId && x.salaryStructureHeader.IsActive== true
+                           .Where(x => x.salaryStructureHeader.StructureID == structureId && x.salaryStructureHeader.IsActive == true
                            && x.salaryStructureHeader.BranchId == BRANCHID)
                            .FirstOrDefault();
 
@@ -553,7 +553,7 @@ namespace HR.Web.Controllers
         }
         public bool IsSalaryComponentExists(string component)
         {
-            var list = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.BranchId==BRANCHID)).ToList();
+            var list = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.BranchId == BRANCHID)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

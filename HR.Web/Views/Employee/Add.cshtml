@@ -460,6 +460,7 @@
                                         <tr>
                                             <th>Document Name</th>
                                             <th>Document Type</th>
+                                            @*<th>File</th>*@
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -472,6 +473,10 @@
                                                     @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)" })
                                                     
                                                 </td>
+                                                @*<td>
+                                                    @if(Model.empDocument[i].fileName != null) { 
+                                                    <img src="@Url.Content("~/Uploads/"+Model.empHeader.EmployeeId+"/"+Model.empDocument[i].DocumentDetailId +"/" + Model.empDocument[i].fileName)" alt="image" height="50" width="50" />
+                                                    }</td>*@
                                             </tr>
 
                                         }

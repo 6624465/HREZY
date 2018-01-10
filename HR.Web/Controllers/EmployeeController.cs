@@ -194,7 +194,7 @@ namespace HR.Web.Controllers
         public ActionResult add(int? EmployeeId)
         {
             ViewData["BranchId"] = BRANCHID;
-            var count = salaryStructureHeaderBO.GetListByProperty(x=>x.BranchId ==BRANCHID && x.IsActive==true).Count();
+            var count = salaryStructureHeaderBO.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true).Count();
             ViewData["IsEnable"] = false;
             if (count > 0)
             {
@@ -209,16 +209,39 @@ namespace HR.Web.Controllers
                 empObj.empPersonalDetail = empPersonalDetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
                 empObj.empWorkDetail = empWorkDetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
                 empObj.address = addressBO.GetByProperty(x => x.LinkID == EmployeeId.Value);
+                List<EmployeeDocumentDetail> empDocumentDetList = empDocDetailBO.GetAll().ToList();
+
+                empDocumentDetList = empDocumentDetList.Where(x => x.EmployeeId == EmployeeId.Value).ToList();
+
+
                 if (empObj != null)
                 {
-
+                    //if (empDocumentDetList.Count > 0)
+                    //{
+                    //    List<EmployeeDocumentVm> docVmList = new List<EmployeeDocumentVm>();
+                    //    foreach (EmployeeDocumentDetail item in empDocumentDetList)
+                    //    {
+                    //        EmployeeDocumentVm docVm = new EmployeeDocumentVm()
+                    //        {
+                    //            DocumentType = item.DocumentType,
+                    //            DocumentDescription = lookUpBO
+                    //            .GetByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE && y.LookUpID == item.DocumentType)
+                    //            .LookUpDescription,
+                    //            fileName = item.FileName,
+                    //            DocumentDetailId = item.DocumentDetailID
+                    //        };
+                    //        docVmList.Add(docVm);
+                    //    }
+                    //    empObj.empDocument = docVmList;
+                    //}
+                    //else { 
                     empObj.empDocument = lookUpBO.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
                         .Select(y => new EmployeeDocumentVm
                         {
                             DocumentType = y.LookUpID,
                             DocumentDescription = y.LookUpDescription
                         }).ToList();
-
+                    //}
                 }
                 return View(empObj);
             }

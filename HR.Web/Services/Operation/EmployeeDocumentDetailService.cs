@@ -18,7 +18,9 @@ namespace HR.Web.Services.Operation
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    EmployeeDocumentDetail empDetail = dbContext.EmployeeDocumentDetails.Add(entity);
+                    EmployeeDocumentDetail empDetail = dbContext.EmployeeDocumentDetails
+                        .Where(x => x.EmployeeId == entity.EmployeeId && x.DocumentType==entity.DocumentType)
+                        .FirstOrDefault();
                     if (empDetail == null)
                     {
                         dbContext.EmployeeDocumentDetails.Add(entity);
@@ -28,7 +30,7 @@ namespace HR.Web.Services.Operation
                         empDetail.BranchId = entity.BranchId;
                         empDetail.CreatedBy = entity.CreatedBy;
                         empDetail.CreatedOn = entity.CreatedOn;
-                        empDetail.DocumentDetailID = entity.DocumentDetailID;
+                        //empDetail.DocumentDetailID = entity.DocumentDetailID;
                         empDetail.DocumentType = entity.DocumentType;
                         empDetail.FileName = entity.FileName;
                         empDetail.EmployeeId = entity.EmployeeId;

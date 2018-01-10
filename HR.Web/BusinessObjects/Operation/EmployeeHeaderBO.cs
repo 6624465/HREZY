@@ -52,7 +52,7 @@ namespace HR.Web.BusinessObjects.Operation
                     IsReportingAuthority = empVm.empHeader.IsReportingAuthority,
 
                 };
-              
+
                 Add(empHeader);
                 empVm.empHeader.EmployeeId = empHeader.EmployeeId;
                 var empPersonalDetail = new EmployeePersonalDetail

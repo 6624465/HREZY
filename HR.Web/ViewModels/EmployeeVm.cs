@@ -17,6 +17,7 @@ namespace HR.Web.ViewModels
 
         public List<EmployeeDocumentVm> empDocument { get; set; }
 
+        public List<Documents> documents { get; set; }
         //public HttpPostedFileBase UIDCard { get; set; }
         //public HttpPostedFileBase EducationDocument { get; set; }
         //public HttpPostedFileBase ExperienceLetters { get; set; }
@@ -34,6 +35,12 @@ namespace HR.Web.ViewModels
         public decimal PagerLength { get; set; }
     }
 
+
+    public class Documents
+    {
+       public string fileName { get; set; }
+    }
+
     public class EmpDirectoryVm
     {
         public IEnumerable<EmployeeListVm> employeeVm { get; set; }
@@ -49,6 +56,7 @@ namespace HR.Web.ViewModels
         public int DocumentType { get; set; } 
         public string DocumentDescription { get; set; }
         public HttpPostedFileBase Document { get; set; }
+        public string fileName { get; set; }
     }
 
     public class EmpSearch

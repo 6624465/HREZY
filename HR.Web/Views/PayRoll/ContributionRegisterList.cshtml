@@ -1,7 +1,7 @@
 ﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.Models.Contribution>
 @section Styles{
-         <style>
-    .pagination {
+    <style>
+        .pagination {
             display: table;
             margin: 15px auto;
             position: relative;
@@ -15,75 +15,74 @@
 }
 
 
-    
+
 
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
             <div class="center-block width">
-            <div class="panel-heading">
-                Salary Components
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
-                        {
-                            using (Html.BeginForm("ContributionRegisterList", "PayRoll", FormMethod.Get, new { id = "frmcontributionlist", name = "frmcontributionlist" }))
-                            {
-                                @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm", onchange = "getcontributionlist(this)" })
-                            }
-                        }
-                    </div>
-
-                    <div class="col-md-12">
-                        <button class="btn btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'"><i class="fa fa-plus-square"></i>&nbsp;Create</button>
-                    </div>
+                <div class="panel-heading">
+                    Salary Components
                 </div>
-                        <table class="table table-conden table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        #Action
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            @for (var i = 0; i < Model.TableData.Count(); i++)
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
                             {
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            @Model.TableData[i].Name
-                                        </td>
-                                        <td>
-                                            @Model.TableData[i].Description
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
-                                                    onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.TableData[i].ContributionId)'">
-                                                <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                            </button>
-                                            @*<button class="btn btn-xs btn-danger waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteRecord(@Model.TableData[i].ContributionId)">
+                                using (Html.BeginForm("ContributionRegisterList", "PayRoll", FormMethod.Get, new { id = "frmcontributionlist", name = "frmcontributionlist" }))
+                                {
+                                    @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm", onchange = "getcontributionlist(this)" })
+                                }
+                            }
+                        </div>
+
+                        <div class="col-md-12">
+                            <button class="btn btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'"><i class="fa fa-plus-square"></i>&nbsp;Create</button>
+                        </div>
+                    </div>
+                    <table class="table table-conden table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th>
+                                    #Action
+                                </th>
+                            </tr>
+                        </thead>
+
+                        @for (var i = 0; i < Model.TableData.Count(); i++)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Model.TableData[i].Name
+                                    </td>
+                                    <td>
+                                        @Model.TableData[i].Description
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
+                                                onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.TableData[i].ContributionId)'">
+                                            <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                        </button>
+                                        @*<button class="btn btn-xs btn-danger waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteRecord(@Model.TableData[i].ContributionId)">
                                                 <i class="fa fa-trash-o" style="padding-left: 5px;" aria-hidden="true"> </i>
                                             </button>*@
-                                            @*test*@
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            }
-                        </table>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="pagination"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="pagination"></div>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -94,8 +93,8 @@
 <link href="~/Css/sweetalert.css" rel="stylesheet" />
 <script src="~/Scripts/Core/sweetalert.js"></script>
 @section Scripts{
-<script src="~/Scripts/Core/jquery.bootpag.min.js"></script>  
-      <script type="text/javascript">
+    <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
+    <script type="text/javascript">
         $(function () {
             $('#li_PayRollConfig').addClass('open');
             $('#li_ContributionRegisterList').addClass('active');
@@ -145,6 +144,6 @@
         }
 
 
-   </script>
+    </script>
 
 }

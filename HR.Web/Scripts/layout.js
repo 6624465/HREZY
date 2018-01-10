@@ -47,8 +47,15 @@
             return false;
     });
 
-    $(document).on('keypress', '.decimalCss', function (evt) {
+    //$(document).on('keypress', '.decimalCss', function (evt) {
         
+        $(".decimalCss").on("input", function (evt) {
+            var self = $(this);
+            self.val(self.val().replace(/[^0-9\.]/g, ''));
+            if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                evt.preventDefault();
+            }
+        });
         //
         //alert(evt.keyCode);
         //alert(evt.charCode);
@@ -78,24 +85,24 @@
            return false;
 
        return true;*/
-        debugger;
-        if (navigator.appName == "Netscape")
-            Key = evt.charCode; //or e.which; (standard method)
-        else
-            Key = evt.keyCode;
-        var character = String.fromCharCode(Key);
-        //console.log(Key);
+    //    debugger;
+        //if (navigator.appName == "Netscape")
+        //    Key = evt.charCode; //or e.which; (standard method)
+        //else
+        //    Key = evt.keyCode;
+        //var character = String.fromCharCode(Key);
+        ////console.log(Key);
 
-        if (Key == 0)
-            return true;
+        //if (Key == 0)
+        //    return true;
 
-        var newValue = this.value + character;
-        if (isNaN(newValue) || parseFloat(newValue) * 10000 % 1 > 0) {
-            evt.preventDefault();
-            return false;
-        }
+        //var newValue = this.value + character;
+        //if (isNaN(newValue) || parseFloat(newValue) * 10000 % 1 > 0) {
+        //    evt.preventDefault();
+        //    return false;
+        //}
 
-    });
+    //});
 
     $(document).on('keypress', '.numCss', function (evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -233,11 +240,3 @@ function onNavBarClick() {
         createCookie('NavBarCookie', 'close', 300);
     }    
 }
-/*
-createCookie('ppkcookie','testcookie',7);
-
-var x = readCookie('ppkcookie')
-if (x) {
-    [do something with x]
-}
-*/

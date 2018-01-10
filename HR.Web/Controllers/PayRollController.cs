@@ -426,14 +426,15 @@ namespace HR.Web.Controllers
                     })
                     .Where(x => x.empSalaryStructureHeader.EmployeeId == employeeId
                     && x.empSalaryStructureHeader.BranchId == BRANCHID
-                    && x.empSalaryStructureHeader.StructureID == structureId)
+                    && x.empSalaryStructureHeader.StructureID == structureId
+                    && x.empSalaryStructureHeader.IsActive==true)
                     .FirstOrDefault();
 
 
 
                 List<string> CodeList = new List<string>();
                 List<string> CodeEmpList = new List<string>();
-                List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true).ToList();
+                List<Contribution> contributionList = contributionBO.GetListByProperty(x => x.IsActive == true && x.BranchId==BRANCHID).OrderBy(x => x.SortBy).ToList();
                 var structureDetail = contributionList.Select(
                                               y => new EmpSalaryStructureDetail()
                                               {
@@ -456,7 +457,7 @@ namespace HR.Web.Controllers
                             {
                                 salaryStructureHeader = a,
                                 salaryStructureDetail = b.ToList() //b.Where(y => !CodeList.Contains(y.Code)).ToList()
-                            })
+                            }).Where(x=>x.salaryStructureHeader.IsActive==true && x.salaryStructureHeader.BranchId== BRANCHID)
                             .FirstOrDefault();
                     }
                     else
@@ -469,7 +470,8 @@ namespace HR.Web.Controllers
                                salaryStructureHeader = a,
                                salaryStructureDetail = b.Where(y => !CodeList.Contains(y.Code)).ToList()
                            })
-                           .Where(x => x.salaryStructureHeader.StructureID == structureId)
+                           .Where(x => x.salaryStructureHeader.StructureID == structureId && x.salaryStructureHeader.IsActive== true
+                           && x.salaryStructureHeader.BranchId == BRANCHID)
                            .FirstOrDefault();
 
 

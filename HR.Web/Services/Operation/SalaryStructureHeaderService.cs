@@ -12,17 +12,30 @@ namespace HR.Web.Services.Operation
         {
             using (var dbCntx = new HrDataContext())
             {
-                var obj = GetByProperty(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId);
+                var obj = dbCntx.EmpSalaryStructureHeaders
+                    .Where(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId)
+                    .FirstOrDefault();
 
-                if(obj != null)
+                //GetByProperty(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId);
+
+                if (obj == null)
                 {
-                    Update(entity);
+                    dbCntx.EmpSalaryStructureHeaders.Add(entity);
+
+                    //Update(entity);
                 }
                 else
                 {
-                    dbCntx.EmpSalaryStructureHeaders.Add(entity);
-                    dbCntx.SaveChanges();
+                    obj.IsActive = entity.IsActive;
+                    obj.ModifiedBy = entity.ModifiedBy;
+                    obj.ModifiedOn = entity.ModifiedOn;
+                    obj.Remarks = entity.Remarks;
+                    obj.Salary = entity.Salary;
+                    obj.TotalDeductions = entity.TotalDeductions;
+                    obj.TotalGross = entity.TotalGross;
+
                 }
+                dbCntx.SaveChanges();
             }
         }
 

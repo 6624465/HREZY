@@ -124,9 +124,9 @@
                        url:'@Url.Content("~/PayRoll/CheckSalaryStructure/?structurId=")'+ StructureID,
                        contentTyepe:'application/json',
                        success:function(data){
-                           debugger;
+                          
                            if(data){
-                               swal("Message!", "You can not delete this salary structre.", "error");
+                               swal("Message!", "Cannot Delete, Already assigned to an Employee", "error");
                            }
                            else
                            {

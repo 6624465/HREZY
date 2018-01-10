@@ -388,7 +388,7 @@
                                 <label class="col-md-3 control-label">
                                     <span class="pull-right"></span>
                                 </label>
-                                @if (Model.empHeader.EmployeeId != -1)
+                                @if (Model.empHeader.EmployeeId != -1 && Convert.ToBoolean(ViewData["IsEnable"]))
                                 {
                                     <div class="col-md-9">
                                         <div class="pull-right ajaxCss"><button type="button" onclick="location.href = '@Url.Content("~/PayRoll/EmpSalaryStructure?employeeId=" + Model.empHeader.EmployeeId)'" class="btn btn-success btn-sm">

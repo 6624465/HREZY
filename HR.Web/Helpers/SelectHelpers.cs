@@ -345,7 +345,7 @@ namespace HR.Web.Helpers
         {
             using (HrDataContext dbcntx = new HrDataContext())
             {
-                return dbcntx.SalaryStructureHeaders.Select(x => new SelectListItem
+                return dbcntx.SalaryStructureHeaders.Where(x=>x.IsActive==true).Select(x => new SelectListItem
                 {
                     Value = x.StructureID.ToString(),
                     Text = x.Code

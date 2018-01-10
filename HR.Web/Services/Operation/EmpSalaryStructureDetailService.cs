@@ -13,16 +13,21 @@ namespace HR.Web.Services.Operation
         {
             using (var dbCntx = new HrDataContext())
             {
-                var obj = GetByProperty(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId && x.Code == entity.Code);
-                if (obj != null)
-                {
-                    Update(entity);
-                }
-                else
-                {
-                    dbCntx.EmpSalaryStructureDetails.Add(entity);
-                    dbCntx.SaveChanges();
-                }
+                List<EmpSalaryStructureDetail> detailList = dbCntx.EmpSalaryStructureDetails
+                    .Where(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId && x.Code == entity.Code)
+                    .ToList();
+                
+                if (detailList.Count > 0)
+                    dbCntx.EmpSalaryStructureDetails.RemoveRange(detailList);
+
+                //EmpSalaryStructureDetail obj = dbCntx.EmpSalaryStructureDetails
+                //    .Where(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId && x.Code == entity.Code)
+                //    .FirstOrDefault();
+
+                dbCntx.EmpSalaryStructureDetails.Add(entity);
+                dbCntx.SaveChanges();
+                
+
             }
         }
 

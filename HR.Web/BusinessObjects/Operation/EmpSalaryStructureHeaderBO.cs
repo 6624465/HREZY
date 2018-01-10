@@ -81,7 +81,7 @@ namespace HR.Web.BusinessObjects.Operation
                 CreatedBy = sessionObj.USERID,
                 CreatedOn = UTILITY.SINGAPORETIME,
                 EmployeeId = structureVm.employeeSalaryStructure.empSalaryStructureHeader.EmployeeId,
-                IsActive = structureVm.employeeSalaryStructure.empSalaryStructureHeader.IsActive,
+                IsActive = true,
                 Remarks = structureVm.employeeSalaryStructure.empSalaryStructureHeader.Remarks,
                 Salary = structureVm.employeeSalaryStructure.empSalaryStructureHeader.Salary,
                 StructureID = structureVm.employeeSalaryStructure.empSalaryStructureHeader.StructureID,

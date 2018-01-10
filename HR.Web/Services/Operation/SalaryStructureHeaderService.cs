@@ -12,30 +12,30 @@ namespace HR.Web.Services.Operation
         {
             using (var dbCntx = new HrDataContext())
             {
-                var obj = dbCntx.EmpSalaryStructureHeaders
+                EmpSalaryStructureHeader obj = dbCntx.EmpSalaryStructureHeaders
                     .Where(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId)
                     .FirstOrDefault();
 
-                //GetByProperty(x => x.EmployeeId == entity.EmployeeId && x.BranchId == entity.BranchId);
-
-                if (obj == null)
-                {
-                    dbCntx.EmpSalaryStructureHeaders.Add(entity);
-
-                    //Update(entity);
-                }
-                else
-                {
-                    obj.IsActive = entity.IsActive;
-                    obj.ModifiedBy = entity.ModifiedBy;
-                    obj.ModifiedOn = entity.ModifiedOn;
-                    obj.Remarks = entity.Remarks;
-                    obj.Salary = entity.Salary;
-                    obj.TotalDeductions = entity.TotalDeductions;
-                    obj.TotalGross = entity.TotalGross;
-
-                }
+                if (obj != null)
+                    dbCntx.EmpSalaryStructureHeaders.Remove(obj);
+                dbCntx.EmpSalaryStructureHeaders.Add(entity);
                 dbCntx.SaveChanges();
+
+                //if (obj == null)
+                //{
+                //    //Update(entity);
+                //}
+                //else
+                //{
+                //    obj.IsActive = entity.IsActive;
+                //    obj.ModifiedBy = entity.ModifiedBy;
+                //    obj.ModifiedOn = entity.ModifiedOn;
+                //    obj.Remarks = entity.Remarks;
+                //    obj.Salary = entity.Salary;
+                //    obj.TotalDeductions = entity.TotalDeductions;
+                //    obj.TotalGross = entity.TotalGross;
+                //}
+
             }
         }
 

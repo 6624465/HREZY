@@ -143,6 +143,17 @@ namespace HR.Web.BusinessObjects.Operation
                 throw ex;
             }
         }
+        public EmpSalaryStructureHeader GetByPropertyFunc(Func<EmpSalaryStructureHeader,bool> predicate)
+        {
+            try
+            {
+                return salaryStructureHeaderRepository.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
     }
 }

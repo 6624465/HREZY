@@ -13,6 +13,7 @@ using System.Linq.Expressions;
 using HR.Web.BusinessObjects.Operation;
 using HR.Web.BusinessObjects.Security;
 using HR.Web.BusinessObjects.LookUpMaster;
+using HR.Web.BusinessObjects.Payroll;
 
 namespace HR.Web.Controllers
 {
@@ -29,6 +30,7 @@ namespace HR.Web.Controllers
         LeaveTrasactionBO leaveTransactionBO = null;
         LookUpBO lookUpBO = null;
         LeaveTransBO leaveTransBO = null;
+        SalaryStructureHeaderBO salaryStructureHeaderBO = null;
         public EmployeeController()
         {
 
@@ -41,6 +43,7 @@ namespace HR.Web.Controllers
             leaveTransactionBO = new LeaveTrasactionBO(SESSIONOBJ);
             lookUpBO = new LookUpBO(SESSIONOBJ);
             leaveTransBO = new LeaveTransBO(SESSIONOBJ);
+            salaryStructureHeaderBO = new SalaryStructureHeaderBO(SESSIONOBJ);
         }
         [HttpGet]
         public ViewResult employeedirectory()
@@ -191,6 +194,12 @@ namespace HR.Web.Controllers
         public ActionResult add(int? EmployeeId)
         {
             ViewData["BranchId"] = BRANCHID;
+            var count = salaryStructureHeaderBO.GetListByProperty(x=>x.BranchId ==BRANCHID && x.IsActive==true).Count();
+            ViewData["IsEnable"] = false;
+            if (count > 0)
+            {
+                ViewData["IsEnable"] = true;
+            }
             if (EmployeeId != null)
             {
 
@@ -252,7 +261,7 @@ namespace HR.Web.Controllers
                 throw ex;
             }
         }
-       public bool IsEmailExists(string Email)
+        public bool IsEmailExists(string Email)
         {
             var list = empHeaderBO.GetListByProperty(x => x.UserEmailId == Email.ToLower()).ToList();
             int count = list.Count();

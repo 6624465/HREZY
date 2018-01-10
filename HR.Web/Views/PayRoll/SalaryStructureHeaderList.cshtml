@@ -117,9 +117,28 @@
                 closeOnCancel: false
             },
            function (isConfirm) {
+               debugger;
                if (isConfirm) {
-                   location.href='@Url.Content("~/PayRoll/DeleteSalaryStructure/?structurId=")'+StructureID;
-                   swal("Applied!", "You have successfully applied the leave.", "success");
+                   $.ajax({
+                       type:'GET',
+                       url:'@Url.Content("~/PayRoll/CheckSalaryStructure/?structurId=")'+ StructureID,
+                       contentTyepe:'application/json',
+                       success:function(data){
+                          
+                           if(data){
+                               swal("Message!", "Cannot Delete, Already assigned to an Employee", "error");
+                           }
+                           else
+                           {
+                               location.href='@Url.Content("~/PayRoll/DeleteSalaryStructure/?structurId=")'+StructureID;
+                               swal("Message!", "You have successfully deleted the salary structure.", "success");
+                           }
+                       },
+                       error:function(err){
+                           debugger;
+                       }
+                   });
+                  
                } else {
                    swal("Cancelled", "", "error");
                }

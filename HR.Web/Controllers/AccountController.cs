@@ -32,11 +32,17 @@ namespace HR.Web.Controllers
                     {
                         USERID = user.UserName,
                         BRANCHID = userObj.BranchId,
-                        BRANCHNAME = dbContext.Branches.Where(x=>x.BranchID== userObj.BranchId).FirstOrDefault()==null?"":
+                        BRANCHNAME = dbContext.Branches.Where(x => x.BranchID == userObj.BranchId).FirstOrDefault() == null ? "" :
                          dbContext.Branches.Where(x => x.BranchID == userObj.BranchId).FirstOrDefault().BranchName,
                         ROLECODE = userObj.RoleCode,
                         EMPLOYEEID = userObj.EmployeeId,
-                        ISMANAGER = dbContext.EmployeeHeaders.Where(x => x.ManagerId == userObj.EmployeeId).Count() > 0
+                        ISMANAGER = dbContext.EmployeeHeaders.Where(x => x.ManagerId == userObj.EmployeeId).Count() > 0,
+                       // FILENAME = dbContext.EmployeeDocumentDetails
+                       //.Where(x => x.EmployeeId == userObj.EmployeeId && x.DocumentType == UTILITY.FILEID).FirstOrDefault() == null ? "" :
+                       //dbContext.EmployeeDocumentDetails
+                       //.Where(x => x.EmployeeId == userObj.EmployeeId).FirstOrDefault().FileName
+
+
                     };
                     SESSIONOBJ = sessionObj;
 

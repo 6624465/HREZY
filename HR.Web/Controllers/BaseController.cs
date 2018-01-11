@@ -14,6 +14,8 @@ namespace HR.Web.Controllers
         public string ROLECODE { get; set; }
         public bool ISMANAGER { get; set; }
         public string BRANCHNAME { get; set; }
+
+        public string FILENAME { get; set; }
     }
 
     public class BaseController : Controller
@@ -30,7 +32,17 @@ namespace HR.Web.Controllers
                 Session[UTILITY.SSN_USERID] = value;
             }
         }
-
+        public string FILENAME
+        {
+            get
+            {
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).FILENAME;
+            }
+            set
+            {
+                Session[UTILITY.SSN_USERID] = value;
+            }
+        }
         public int EMPLOYEEID
         {
             get

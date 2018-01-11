@@ -88,7 +88,7 @@ namespace HR.Web
         public static int HALFDAYLEAVE = 2440;
         public static int LOSSOFPAY = 2464;
         public static int MEDICALTREATMENTLEAVE = 2489;
-
+        public static int FILEID = 1112;
         public static string BASICSALARYCOMPONENT = "BASIC";
 
         /* Config Keys End */

@@ -70,19 +70,6 @@ namespace HR.Web.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDateOfJoiningDate_Result>("usp_EmployeeDateOfJoiningDate", currentDtParameter, branchIdParameter);
         }
     
-        public virtual ObjectResult<usp_EmployeeDetail_Result> usp_EmployeeDetail(Nullable<int> branchId, string role)
-        {
-            var branchIdParameter = branchId.HasValue ?
-                new ObjectParameter("branchId", branchId) :
-                new ObjectParameter("branchId", typeof(int));
-    
-            var roleParameter = role != null ?
-                new ObjectParameter("role", role) :
-                new ObjectParameter("role", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDetail_Result>("usp_EmployeeDetail", branchIdParameter, roleParameter);
-        }
-    
         public virtual int usp_EmployeeDetailSearch(Nullable<int> branchId, string employeeName, Nullable<System.DateTime> dOJ, Nullable<int> designation, Nullable<int> type)
         {
             var branchIdParameter = branchId.HasValue ?
@@ -106,6 +93,19 @@ namespace HR.Web.Models
                 new ObjectParameter("Type", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_EmployeeDetailSearch", branchIdParameter, employeeNameParameter, dOJParameter, designationParameter, typeParameter);
+        }
+    
+        public virtual ObjectResult<usp_EmployeeDetail_Result3> usp_EmployeeDetail(Nullable<int> branchId, string role)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("branchId", branchId) :
+                new ObjectParameter("branchId", typeof(int));
+    
+            var roleParameter = role != null ?
+                new ObjectParameter("role", role) :
+                new ObjectParameter("role", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDetail_Result3>("usp_EmployeeDetail", branchIdParameter, roleParameter);
         }
     }
 }

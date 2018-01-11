@@ -170,7 +170,7 @@
                                 <div class="col-md-3">
                                     <span class="pull-right">
                                         <button type="submit" class="btn btn-primary btn-sm" id="btnSave" onclick="SaveEmployeeLeaveForm()" disabled="disabled">
-                                            <i class="fa fa-floppy-o" aria-hidden="true"></i>Save
+                                            <i class="fa fa-floppy-o" aria-hidden="true"></i>Apply
                                         </button>
                                     </span>
                                     @*<button type="button" class="btn btn-default btn-sm" data-dismiss=""><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>*@
@@ -265,7 +265,8 @@
             </text>
             }
         });
-        var date = new Date('12/01/2017');
+        //var date = new Date('12/01/2017');
+        var date = new Date();
         $('.dtCss').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',

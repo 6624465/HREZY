@@ -643,10 +643,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="Leaves" EntityType="DB_9F30C5_HRDBModel.Leave" />
           <EntitySet Name="LeaveTransactions" EntityType="DB_9F30C5_HRDBModel.LeaveTransaction" />
           <EntitySet Name="EmployeeLeaveLists" EntityType="DB_9F30C5_HRDBModel.EmployeeLeaveList" />
-          <FunctionImport Name="usp_EmployeeDetail" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDetail_Result)">
-            <Parameter Name="branchId" Mode="In" Type="Int32" />
-            <Parameter Name="role" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="usp_EmployeeDetailSearch">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeName" Mode="In" Type="String" />
@@ -665,6 +661,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="EmpSalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureDetail" />
           <EntitySet Name="OtherLeaves" EntityType="DB_9F30C5_HRDBModel.OtherLeave" />
           <EntitySet Name="LeaveTrans" EntityType="DB_9F30C5_HRDBModel.LeaveTran" />
+          <FunctionImport Name="usp_EmployeeDetail" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeeDetail_Result3)">
+            <Parameter Name="branchId" Mode="In" Type="Int32" />
+            <Parameter Name="role" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -984,18 +984,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="IsLossOfPay" Type="Boolean" Nullable="false" />
           <Property Name="Session" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
-        <ComplexType Name="usp_EmployeeDetail_Result">
-          <Property Type="Int32" Name="EmployeeId" Nullable="false" />
-          <Property Type="String" Name="EmployeeNo" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="101" />
-          <Property Type="DateTime" Name="JoiningDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="JobTitle" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="PersonalEmailId" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="OfficialEmailId" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" Precision="23" />
-          <Property Type="String" Name="ProfilePic" Nullable="true" MaxLength="100" />
-        </ComplexType>
         <EntityType Name="Contribution">
           <Key>
             <PropertyRef Name="ContributionId" />
@@ -1180,6 +1168,19 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="LeaveType" Type="Int32" />
         </EntityType>
+        <ComplexType Name="usp_EmployeeDetail_Result3">
+          <Property Type="Int32" Name="EmployeeId" Nullable="false" />
+          <Property Type="String" Name="EmployeeNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="JoiningDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="JobTitle" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PersonalEmailId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OfficialEmailId" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DocumentDetailID" Nullable="true" />
+          <Property Type="String" Name="ProfilePic" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1547,22 +1548,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_EmployeeDetail" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDetail">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeeDetail_Result">
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-                <ScalarProperty Name="PersonalEmailId" ColumnName="PersonalEmailId" />
-                <ScalarProperty Name="OfficialEmailId" ColumnName="OfficialEmailId" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_EmployeeDetailSearch" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDetailSearch" />
           <EntitySetMapping Name="Contributions">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Contribution">
@@ -1756,6 +1741,23 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_EmployeeDetail" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeeDetail_Result3">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="PersonalEmailId" ColumnName="PersonalEmailId" />
+                <ScalarProperty Name="OfficialEmailId" ColumnName="OfficialEmailId" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="DocumentDetailID" ColumnName="DocumentDetailID" />
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

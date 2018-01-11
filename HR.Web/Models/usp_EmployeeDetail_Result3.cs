@@ -11,7 +11,7 @@ namespace HR.Web.Models
 {
     using System;
     
-    public partial class usp_EmployeeDetail_Result
+    public partial class usp_EmployeeDetail_Result3
     {
         public int EmployeeId { get; set; }
         public string EmployeeNo { get; set; }
@@ -22,6 +22,7 @@ namespace HR.Web.Models
         public string PersonalEmailId { get; set; }
         public string OfficialEmailId { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public Nullable<int> DocumentDetailID { get; set; }
         public string ProfilePic { get; set; }
     }
 }

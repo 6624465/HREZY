@@ -1876,7 +1876,7 @@
     <Compile Include="Models\usp_EmployeeDateOfJoiningDate_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\usp_EmployeeDetail_Result.cs">
+    <Compile Include="Models\usp_EmployeeDetail_Result3.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WeekendPolicy.cs">

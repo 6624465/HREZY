@@ -196,10 +196,10 @@
                         <div class="right">
                             <img height="60" width="60"
                                  src="${imgPath + EmployeeId + '/' + ProfilePic}"
+                                 onerror="this.src='@Url.Content("~/Images/user.png")'"
                                  class="img-circle"
                                  alt=""
                                  style="cursor:pointer">
-                         
                             @*<button><i class="fa fa-user" aria-hidden="true"></i></button>*@
                         </div>
                         <div class="left-side">

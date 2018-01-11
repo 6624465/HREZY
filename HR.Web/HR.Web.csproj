@@ -1654,6 +1654,7 @@
     <Content Include="Images\sort_desc.png" />
     <Content Include="Images\sort_desc_disabled.png" />
     <Content Include="Images\sri.png" />
+    <Content Include="Images\user.png" />
     <Content Include="Images\user2-160x160.jpg" />
     <Content Include="Images\VIETNAM.png" />
     <Content Include="Models\HrEntity.Context.tt">

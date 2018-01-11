@@ -17,7 +17,41 @@ namespace HR.Web.Controllers
             DateTime startDayOfYear = new DateTime(UTILITY.SINGAPORETIME.Year, 01, 01);
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
-                return View("index");
+                using (var dbCntx = new HrDataContext())
+                {
+                    List<Branch> branches = dbCntx.Branches.ToList();
+                    List<EmployeeDataVm> superadminGenderCount = new List<EmployeeDataVm>();
+                    foreach (Branch branch in branches)
+                    {
+                        var count = dbCntx.EmployeePersonalDetails
+                               .Where(x => x.BranchId == branch.BranchID).Count();
+                        if (count > 0)
+                        {
+                            EmployeeDataVm employeeDataVm = new EmployeeDataVm();
+
+                            employeeDataVm.genderCount = new List<GenderCount>();
+                            employeeDataVm.branchName = branch.BranchName;
+
+                            GenderCount malecount = new GenderCount();
+                            malecount.name = "Male";
+                            malecount.y = dbCntx.EmployeePersonalDetails
+                                 .Where(x => x.Gender == 1 && x.BranchId == branch.BranchID).Count();
+                            malecount.custom = malecount.y;
+                            employeeDataVm.genderCount.Add(malecount);
+                            
+                            GenderCount femalecount = new GenderCount();
+                            femalecount.name = "Female";
+                            femalecount.y = dbCntx.EmployeePersonalDetails
+                                 .Where(x => x.Gender == 0 && x.BranchId == branch.BranchID).Count();
+                            femalecount.custom = femalecount.y;
+                            employeeDataVm.genderCount.Add(femalecount);
+
+                            superadminGenderCount.Add(employeeDataVm);
+                        }
+                    }
+
+                    return View("index", superadminGenderCount);
+                }
             }
             else if (ROLECODE == UTILITY.ROLE_ADMIN)
             {
@@ -33,6 +67,30 @@ namespace HR.Web.Controllers
                     obj.lineChartData = dbCntx.usp_EmployeeDateOfJoiningDate(UTILITY.SINGAPORETIME, BRANCHID)
                                             .ToList()
                                             .AsEnumerable();
+
+                    Branch branch = dbCntx.Branches.Where(x => x.BranchID == BRANCHID).FirstOrDefault();
+                    //List<EmployeeDataVm> employeeDataVm = new List<EmployeeDataVm>();
+
+                    obj.employeeDataVm = new EmployeeDataVm();
+                    obj.employeeDataVm.genderCount = new List<GenderCount>();
+                    obj.employeeDataVm.branchName = branch.BranchName;
+
+                    GenderCount malecount = new GenderCount();
+                    malecount.name = "Male";
+                    malecount.y = dbCntx.EmployeePersonalDetails
+                         .Where(x => x.Gender == 1 && x.BranchId == branch.BranchID).Count();
+                    malecount.custom = malecount.y;
+                    obj.employeeDataVm.genderCount.Add(malecount);
+
+                    GenderCount femalecount = new GenderCount();
+                    femalecount.name = "Female";
+                    femalecount.y = dbCntx.EmployeePersonalDetails
+                         .Where(x => x.Gender == 0 && x.BranchId == branch.BranchID).Count();
+                    femalecount.custom = femalecount.y;
+                    obj.employeeDataVm.genderCount.Add(femalecount);
+
+
+
 
                     //var query = dbCntx.EmployeeLeaveLists
                     //                    .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
@@ -129,7 +187,7 @@ namespace HR.Web.Controllers
                         if (curCasualLeaves != null)
                             currentCasualLeaves = curCasualLeaves.CurrentLeaves;
 
-                            obj.totalCLs = currentCasualLeaves;
+                        obj.totalCLs = currentCasualLeaves;
                         if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
                             remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
 

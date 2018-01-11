@@ -36,48 +36,48 @@
                 </div>
             </div>
             @*<div class="col-md-3 col-sm-6">
-                <div class="panel panel-default mb20 mini-box panel-hovered">
-                    <div class="panel-body">
-                        <div class="clearfix">
-                            <div class="info left">
-                                <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalSLs.ToString("##.#0")<span>&nbsp;&nbsp;in this month</span></b></h4>
+                    <div class="panel panel-default mb20 mini-box panel-hovered">
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                <div class="info left">
+                                    <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalSLs.ToString("##.#0")<span>&nbsp;&nbsp;in this month</span></b></h4>
+                                </div>
                             </div>
                         </div>
+                        <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                            <p class="mt0 mb0 left"><span style="font-weight:bold;">Sick Leaves</span></p>
+                        </div>
                     </div>
-                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
-                        <p class="mt0 mb0 left"><span style="font-weight:bold;">Sick Leaves</span></p>
-                    </div>
-                </div>
 
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="panel panel-default mb20 mini-box panel-hovered">
-                    <div class="panel-body">
-                        <div class="clearfix">
-                            <div class="info left">
-                                <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalPLs.ToString("##.#0")<span>&nbsp;&nbsp;in this year</span></b></h4>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="panel panel-default mb20 mini-box panel-hovered">
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                <div class="info left">
+                                    <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalPLs.ToString("##.#0")<span>&nbsp;&nbsp;in this year</span></b></h4>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
-                        <p class="mt0 mb0 left"><span style="font-weight:bold;">Paid Leaves</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="panel panel-default mb20 mini-box panel-hovered">
-                    <div class="panel-body">
-                        <div class="clearfix">
-                            <div class="info left">
-                                <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalCLs.ToString("#0.#0")<span>&nbsp;&nbsp;in this year</span></b></h4>
-                            </div>
+                        <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                            <p class="mt0 mb0 left"><span style="font-weight:bold;">Paid Leaves</span></p>
                         </div>
                     </div>
-                    <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
-                        <p class="mt0 mb0 left"><span style="font-weight:bold;">Casual Leaves</span></p>
-                    </div>
                 </div>
-            </div>*@
+                <div class="col-md-3 col-sm-6">
+                    <div class="panel panel-default mb20 mini-box panel-hovered">
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                <div class="info left">
+                                    <h4 class="text-light mb0"><b class="mt0 mb0 left">@Model.totalCLs.ToString("#0.#0")<span>&nbsp;&nbsp;in this year</span></b></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+                            <p class="mt0 mb0 left"><span style="font-weight:bold;">Casual Leaves</span></p>
+                        </div>
+                    </div>
+                </div>*@
             <div class="col-md-3 col-sm-6">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="panel-body">
@@ -97,67 +97,123 @@
             </div>
         </div>
         <div class="row css10">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div id="container"></div>
             </div>
+            <div class="col-md-6">
+                <div id="gendercontainer"></div>
+            </div>
+        </div>
+        <div class="row css10">
+
         </div>
     </div>
 </div>
 @section Scripts{
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script type= "text/javascript">
-            var dataArray = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.lineChartData))');
-            var xAxisData = new Array();
-            var yAxisData = new Array();
-
-            for (var i = 0; i < dataArray.length; i++) {
-                xAxisData.push(dataArray[i].Month);
-                yAxisData.push(dataArray[i].Count);
-            }
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript">
+        var dataArray = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.lineChartData))');
 
 
-            Highcharts.chart('container', {
+        var xAxisData = new Array();
+        var yAxisData = new Array();
+
+        for (var i = 0; i < dataArray.length; i++) {
+            xAxisData.push(dataArray[i].Month);
+            yAxisData.push(dataArray[i].Count);
+        }
+
+
+        Highcharts.chart('container', {
+            title: {
+                text: 'Employees Data'
+            },
+            xAxis: {
+                categories: xAxisData
+            },
+            yAxis: {
                 title: {
-                    text: 'Employees Data'
-                },                
-                xAxis: {
-                    categories: xAxisData
-                },
-                yAxis: {
-                    title: {
-                        text: 'Number of Employees'
-                    }
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },                
-                series: [{
-                    name: 'Employees',
-                    data: yAxisData
-                }],
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
+                    text: 'Number of Employees'
                 }
-            });
-            $(function () {
-                $('#li_Dashboard').addClass('active');
-            });
-</script>
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            series: [{
+                name: 'Employees',
+                data: yAxisData
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+
+        /*Gender Count*/
+        var arrayByGender = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.employeeDataVm))');
+        debugger;
+        var arr = new Array();
+        arr = arrayByGender.genderCount;
+        Highcharts.chart('gendercontainer', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+            },
+            "colors": [
+       "#2f6e91",
+       "#ff9332",
+       "#6a2329",
+       "#092f46",
+       "#d95c1f",
+       "#33765e",
+       "#845285",
+       "#70bde8",
+       "#12484f",
+       "#4d3d5a"],
+            title: {
+                text: 'Male and Female Count in ' + arrayByGender.branchName
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}% </b> <br> Count: {point.custom}'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+
+                    }
+                }
+            },
+            series: [{
+                name: arrayByGender.branchName,
+                colorByPoint: true,
+                data: arrayByGender.genderCount
+            }]
+        });
+
+        $(function () {
+            $('#li_Dashboard').addClass('active');
+        });
+    </script>
 }
 
 

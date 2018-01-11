@@ -14,6 +14,8 @@ namespace HR.Web.ViewModels
         public decimal totalCLs { get; set; }
         public decimal totalPLs { get; set; }
         public decimal totalSLs { get; set; }
+
+        public EmployeeDataVm employeeDataVm { get; set; }
     }
 
     public class EmployeeDashBoardVm
@@ -36,5 +38,21 @@ namespace HR.Web.ViewModels
         public string LeaveTypeDesc { get; set; }
         public string Status { get; set; }
         public decimal Days { get; set; }
+    }
+
+
+    public class EmployeeDataVm
+    {
+        public string branchName { get; set; }
+        public List<GenderCount> genderCount { get; set; }
+        public int TotalEmployeeCount { get; set; }
+    }
+
+    public class GenderCount
+    {
+        public string name { get; set; }
+
+        public int y { get; set; }
+        public int custom { get; set; }
     }
 }

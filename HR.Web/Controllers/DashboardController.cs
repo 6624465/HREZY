@@ -218,8 +218,8 @@ namespace HR.Web.Controllers
 
         public ActionResult LeaveTransaction(LeaveListVm leaveObj)
         {
-            //int branchId = 0, int year = 0, int month = 1
-            //leaveListVm.Year
+
+            ViewData["ROLECODE"] = ROLECODE;
             using (var dbCntx = new HrDataContext())
             {
                 var leaveList = dbCntx.EmployeeLeaveLists.ToList();
@@ -237,6 +237,7 @@ namespace HR.Web.Controllers
                 List<LeaveListVm> leaveListVm = new List<LeaveListVm>();
                 if (ROLECODE == UTILITY.ROLE_ADMIN)
                 {
+
                     LeaveListVm leave = new LeaveListVm();
                     leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
                     var leavesByCountry = leaveList

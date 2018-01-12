@@ -37,15 +37,27 @@
                                     <span class="pull-right">Year</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.DropDownListFor(x => x.FirstOrDefault().Year, Enumerable.Range(2014, 14).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
+                                    @Html.DropDownListFor(x => x.FirstOrDefault().BranchId, SelectListItemHelper.Branches(), new { @class = "form-control input-sm", onchange = "GetData();", @style = "width:60%" })
+                                </div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Year</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.FirstOrDefault().Year, Enumerable.Range(2014, 14).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "GetData();", @style = "width:60%" })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Month</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.DropDownListFor(x => x.FirstOrDefault().Month, listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:70%" })
+                                    @Html.DropDownListFor(x => x.FirstOrDefault().Month, listMonths, new { @class = "form-control input-sm", onchange = "GetData();", @style = "width:70%" })
                                 </div>
 
+                            </div>
+
+                            <div class="row css10">
+                                <div class="col-md-6">
+                                    <div id="container"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -54,11 +66,7 @@
         </div>
     </div>
 </form>
-<div class="row css10">
-    <div class="col-md-6">
-        <div id="container"></div>
-    </div>
-</div>
+
 
 @section Scripts{
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -112,7 +120,7 @@
         });
 
 
-        function ChangeMonth() {
+        function GetData() {
             $('#leavetransaction').submit();
         }
     </script>

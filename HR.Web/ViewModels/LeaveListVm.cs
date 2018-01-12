@@ -12,5 +12,7 @@ namespace HR.Web.ViewModels
         public Int16 Year { get; set; }
 
         public short Month { get; set; }
+
+        public short BranchId { get; set; }
     }
 }

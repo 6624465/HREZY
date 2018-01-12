@@ -66,12 +66,12 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script type="text/javascript">
         var dataArray = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
-
+        debugger;
         var xAxisData = new Array();
         var yAxisData = new Array();
 
         for (var i = 0; i < dataArray.length; i++) {
-            xAxisData.push(dataArray[i].Month);
+            xAxisData.push(dataArray[i].MonthName);
             yAxisData.push(dataArray[i].Count);
         }
         Highcharts.chart('container', {

@@ -36,7 +36,7 @@
                                 @if (ViewData["ROLECODE"].ToString() == UTILITY.ROLE_SUPERADMIN)
                                 {
                                     <label class="col-md-1 control-label">
-                                        <span class="pull-right">Year</span>
+                                        <span class="pull-right">Country</span>
                                     </label>
                                     <div class="col-md-2">
                                         @Html.DropDownListFor(x => x.FirstOrDefault().BranchId, SelectListItemHelper.Branches(), new { @class = "form-control input-sm", onchange = "GetData();", @style = "width:60%" })

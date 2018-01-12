@@ -21,37 +21,46 @@
     };
 }
 
-<div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default">
-            <div class="box">
-                <div class="center-block width">
-                    <div class="box-header">
-                        <h4>Leave Transaction</h4>
-                    </div>
-                    <div class="box-body">
-                        <div class="row">
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right">Year</span>
-                            </label>
-                            <div class="col-md-2">
-                                @Html.DropDownListFor(x => x.FirstOrDefault().Year, Enumerable.Range(2014, 14).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
-                            </div>
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right">Month</span>
-                            </label>
-                            <div class="col-md-2">
-                                @Html.DropDownListFor(x => x.FirstOrDefault().Month, listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth(this);", @style = "width:70%" })
-                            </div>
+<form id="leavetransaction" name="leavetransaction">
+    <div class="page">
+        <div class="page-wrap">
+            <div class="panel panel-default">
+                <div class="box">
+                    <div class="center-block width">
+                        <div class="box-header">
+                            <h4>Leave Transaction</h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Year</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.FirstOrDefault().Year, Enumerable.Range(2014, 14).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
+                                </div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Month</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.FirstOrDefault().Month, listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:70%" })
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
+@section scripts{
 
-
+    <script type="text/javascript">
+        function ChangeMonth()
+        {
+            $('#leavetransaction').submit();
+        }
+    </script>
+}
 

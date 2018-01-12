@@ -231,8 +231,8 @@ namespace HR.Web.Controllers
                     leaveObj.Month = 1;
                 }
 
-                DateTime _FromDate = new DateTime(Convert.ToInt32(leaveObj.Year), 1, 1);
-                DateTime _toDate = new DateTime(Convert.ToInt32(leaveObj.Year), leaveObj., DateTime.DaysInMonth(leaveObj.Year, leaveObj.));
+                DateTime _FromDate = new DateTime(Convert.ToInt32(leaveObj.Year), leaveObj.Month, 1);
+                DateTime _toDate = new DateTime(Convert.ToInt32(leaveObj.Year), leaveObj.Month, DateTime.DaysInMonth(leaveObj.Year, leaveObj.Month));
 
                 List<LeaveListVm> leaveListVm = new List<LeaveListVm>();
                 if (ROLECODE == UTILITY.ROLE_ADMIN)

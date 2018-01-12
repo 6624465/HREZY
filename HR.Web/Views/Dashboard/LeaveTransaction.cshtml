@@ -54,16 +54,11 @@
         </div>
     </div>
 </form>
-
-@section scripts{
-
-    <script type="text/javascript">
-        function ChangeMonth()
-        {
-            $('#leavetransaction').submit();
-        }
-    </script>
-}
+<div class="row css10">
+    <div class="col-md-6">
+        <div id="container"></div>
+    </div>
+</div>
 
 @section Scripts{
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -79,6 +74,46 @@
             xAxisData.push(dataArray[i].Month);
             yAxisData.push(dataArray[i].Count);
         }
+        Highcharts.chart('container', {
+            title: {
+                text: 'Employees Data'
+            },
+            xAxis: {
+                categories: xAxisData
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Employees'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            series: [{
+                name: 'Leaves',
+                data: yAxisData
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
 
+
+        function ChangeMonth() {
+            $('#leavetransaction').submit();
+        }
     </script>
 }

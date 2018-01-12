@@ -216,23 +216,29 @@ namespace HR.Web.Controllers
             return View();
         }
 
-        public ActionResult LeaveTransaction(int branchId = 0, int year = 0, int month = 1)
+        public ActionResult LeaveTransaction(LeaveListVm leaveObj)
         {
+            //int branchId = 0, int year = 0, int month = 1
+            //leaveListVm.Year
             using (var dbCntx = new HrDataContext())
             {
                 var leaveList = dbCntx.EmployeeLeaveLists.ToList();
 
-                if (year == 0)
-                    year = DateTime.Now.Year;
+                if (leaveObj.Year == 0)
+                    leaveObj.Year = Convert.ToInt16(DateTime.Now.Year);
+                if (leaveObj.Month == 0)
+                {
+                    leaveObj.Month = 1;
+                }
 
-                DateTime _FromDate = new DateTime(Convert.ToInt32(year), 1, 1);
-                DateTime _toDate = new DateTime(Convert.ToInt32(year), month, DateTime.DaysInMonth(year, month));
+                DateTime _FromDate = new DateTime(Convert.ToInt32(leaveObj.Year), 1, 1);
+                DateTime _toDate = new DateTime(Convert.ToInt32(leaveObj.Year), leaveObj., DateTime.DaysInMonth(leaveObj.Year, leaveObj.));
 
                 List<LeaveListVm> leaveListVm = new List<LeaveListVm>();
                 if (ROLECODE == UTILITY.ROLE_ADMIN)
                 {
                     LeaveListVm leave = new LeaveListVm();
-                    leave.Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
+                    leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
                     var leavesByCountry = leaveList
                         .Where(x => x.BranchId == BRANCHID && x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
                     leave.Count = leavesByCountry.Sum(x => x.Days).Value;
@@ -243,7 +249,7 @@ namespace HR.Web.Controllers
                 else if (ROLECODE == UTILITY.ROLE_ADMIN)
                 {
                     LeaveListVm leave = new LeaveListVm();
-                    leave.Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
+                    leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
                     var leavesByCountry = leaveList
                         .Where(x => x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
                     leave.Count = leavesByCountry.Sum(x => x.Days).Value;

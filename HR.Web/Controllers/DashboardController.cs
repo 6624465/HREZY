@@ -235,9 +235,9 @@ namespace HR.Web.Controllers
                 DateTime _toDate = new DateTime(Convert.ToInt32(leaveObj.Year), leaveObj.Month, DateTime.DaysInMonth(leaveObj.Year, leaveObj.Month));
 
                 List<LeaveListVm> leaveListVm = new List<LeaveListVm>();
-                if (ROLECODE == UTILITY.ROLE_ADMIN)
-                {
-
+                //if (ROLECODE == UTILITY.ROLE_ADMIN)
+                //{
+                    var BranchId = leaveObj.BranchId == 0 ? BRANCHID : leaveObj.BranchId;
                     LeaveListVm leave = new LeaveListVm();
                     leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
                     var leavesByCountry = leaveList
@@ -246,17 +246,17 @@ namespace HR.Web.Controllers
 
                     leaveListVm.Add(leave);
 
-                }
-                else if (ROLECODE == UTILITY.ROLE_ADMIN)
-                {
-                    LeaveListVm leave = new LeaveListVm();
-                    leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
-                    var leavesByCountry = leaveList
-                        .Where(x => x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
-                    leave.Count = leavesByCountry.Sum(x => x.Days).Value;
+               // }
+                //else if (ROLECODE == UTILITY.ROLE_ADMIN)
+                //{
+                //    LeaveListVm leave = new LeaveListVm();
+                //    leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
+                //    var leavesByCountry = leaveList
+                //        .Where(x => x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
+                //    leave.Count = leavesByCountry.Sum(x => x.Days).Value;
 
-                    leaveListVm.Add(leave);
-                }
+                //    leaveListVm.Add(leave);
+                //}
                 return View(leaveListVm);
             }
         }

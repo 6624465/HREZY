@@ -36,14 +36,14 @@ namespace HR.Web.Controllers
                             GenderCount malecount = new GenderCount();
                             malecount.name = "Male";
                             malecount.y = dbCntx.EmployeePersonalDetails
-                                 .Where(x => x.Gender == 1 && x.BranchId == branch.BranchID).Count();
+                                 .Where(x => x.Gender == 101 && x.BranchId == branch.BranchID).Count();
                             malecount.custom = malecount.y;
                             employeeDataVm.genderCount.Add(malecount);
 
                             GenderCount femalecount = new GenderCount();
                             femalecount.name = "Female";
                             femalecount.y = dbCntx.EmployeePersonalDetails
-                                 .Where(x => x.Gender == 0 && x.BranchId == branch.BranchID).Count();
+                                 .Where(x => x.Gender == 102 && x.BranchId == branch.BranchID).Count();
                             femalecount.custom = femalecount.y;
                             employeeDataVm.genderCount.Add(femalecount);
 
@@ -245,13 +245,7 @@ namespace HR.Web.Controllers
 
                 leaveListVm.Add(leave);
 
-                leave.empDataVm = new List<EmployeeCountVm>();
-
-                EmployeeCountVm activeEmpVm = new EmployeeCountVm();
-                var activeEmployees = dbCntx.EmployeeHeaders.Where(x => x.IsActive == true && x.BranchId == BranchId).ToList();
-                activeEmpVm.BranchName = dbCntx.Branches.Where(x => x.BranchID == BranchId).FirstOrDefault().BranchName;
-                activeEmpVm.count = new List<int>() { activeEmployees.Count };
-                leave.empDataVm.Add(activeEmpVm);
+              
                 return View(leaveListVm);
             }
         }

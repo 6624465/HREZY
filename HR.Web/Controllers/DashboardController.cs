@@ -235,28 +235,23 @@ namespace HR.Web.Controllers
                 DateTime _toDate = new DateTime(Convert.ToInt32(leaveObj.Year), leaveObj.Month, DateTime.DaysInMonth(leaveObj.Year, leaveObj.Month));
 
                 List<LeaveListVm> leaveListVm = new List<LeaveListVm>();
-                //if (ROLECODE == UTILITY.ROLE_ADMIN)
-                //{
-                    var BranchId = leaveObj.BranchId == 0 ? BRANCHID : leaveObj.BranchId;
-                    LeaveListVm leave = new LeaveListVm();
-                    leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
-                    var leavesByCountry = leaveList
-                        .Where(x => x.BranchId == BRANCHID && x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
-                    leave.Count = leavesByCountry.Sum(x => x.Days).Value;
 
-                    leaveListVm.Add(leave);
+                var BranchId = leaveObj.BranchId == 0 ? BRANCHID : leaveObj.BranchId;
+                LeaveListVm leave = new LeaveListVm();
+                leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
+                var leavesByCountry = leaveList
+                    .Where(x => x.BranchId == BRANCHID && x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
+                leave.Count = leavesByCountry.Sum(x => x.Days).Value;
 
-               // }
-                //else if (ROLECODE == UTILITY.ROLE_ADMIN)
-                //{
-                //    LeaveListVm leave = new LeaveListVm();
-                //    leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
-                //    var leavesByCountry = leaveList
-                //        .Where(x => x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
-                //    leave.Count = leavesByCountry.Sum(x => x.Days).Value;
+                leaveListVm.Add(leave);
 
-                //    leaveListVm.Add(leave);
-                //}
+                leave.empDataVm = new List<EmployeeCountVm>();
+
+                EmployeeCountVm activeEmpVm = new EmployeeCountVm();
+                var activeEmployees = dbCntx.EmployeeHeaders.Where(x => x.IsActive == true && x.BranchId == BranchId).ToList();
+                activeEmpVm.BranchName = dbCntx.Branches.Where(x => x.BranchID == BranchId).FirstOrDefault().BranchName;
+                activeEmpVm.count = new List<int>() { activeEmployees.Count };
+                leave.empDataVm.Add(activeEmpVm);
                 return View(leaveListVm);
             }
         }

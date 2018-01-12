@@ -14,5 +14,13 @@ namespace HR.Web.ViewModels
         public short Month { get; set; }
 
         public short BranchId { get; set; }
+
+        public List<EmployeeCountVm> empDataVm { get; set; }
+    }
+
+    public class EmployeeCountVm
+    {
+        public string BranchName { get; set; }
+        public List<int> count { get; set; }
     }
 }

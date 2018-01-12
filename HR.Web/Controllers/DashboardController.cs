@@ -2,6 +2,7 @@
 using HR.Web.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -215,12 +216,31 @@ namespace HR.Web.Controllers
             return View();
         }
 
-        public ActionResult LeaveTransaction()
+        public ActionResult LeaveTransaction(int branchId = 0, int year = 0, int month = 1)
         {
+            using (var dbCntx = new HrDataContext())
+            {
+                var leaveList = dbCntx.EmployeeLeaveLists.ToList();
 
-            return View();
+                if (year == 0)
+                    year = DateTime.Now.Year;
+
+                DateTime _FromDate = new DateTime(Convert.ToInt32(year), 1, 1);
+                DateTime _toDate = new DateTime(Convert.ToInt32(year), month, DateTime.DaysInMonth(year, month));
+
+                LeaveListVm leave = new LeaveListVm();
+                if (ROLECODE == UTILITY.ROLE_ADMIN)
+                {
+                    leave.Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
+                    var leavesByCountry = leaveList
+                        .Where(x => x.BranchId == BRANCHID && x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
+                    leave.Count = leavesByCountry.Sum(x => x.Days).Value;
+
+
+                }
+                return View(leave);
+            }
         }
-
 
         public JsonResult GetData()
         {

@@ -5,8 +5,9 @@ using System.Web;
 
 namespace HR.Web.ViewModels
 {
-    public class LeaveTransactionVm
+    public class LeaveListVm
     {
-
+        public decimal? Count { get; set; }
+        public string Month { get; set; }
     }
 }

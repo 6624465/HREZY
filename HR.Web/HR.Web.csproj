@@ -1924,7 +1924,7 @@
     <Compile Include="ViewModels\EmpSalaryStructureVm.cs" />
     <Compile Include="ViewModels\HtmlTblVm.cs" />
     <Compile Include="ViewModels\LeaveAdminVM.cs" />
-    <Compile Include="ViewModels\LeaveTransactionVm.cs" />
+    <Compile Include="ViewModels\LeaveListVm.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
     <Compile Include="ViewModels\SalaryRuleHeaderVm.cs" />
     <Compile Include="ViewModels\SalaryStructureHeaderTblVm.cs" />

@@ -1,5 +1,10 @@
 ﻿@model HR.Web.Controllers.LayoutController.LayOutVM
 
+@{
+    int month = Convert.ToInt16(DateTime.Now.Month.ToString());
+    int year = Convert.ToInt16(DateTime.Now.Year.ToString());
+}
+
 @if (Model.RoleCode == UTILITY.ROLE_EMPLOYEE)
 {
     <ul class="list-unstyled clearfix nav-list mb15">
@@ -31,6 +36,7 @@
 }
 else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
 {
+
     <ul class="list-unstyled clearfix nav-list mb15">
         <li id="li_Dashboard">
             <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
@@ -40,7 +46,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
             </a>
             <ul class="inner-drop list-unstyled">
                 <li>
-                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction")">Leave Transaction Reports</a>
+                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
                 </li>
             </ul>
         </li>

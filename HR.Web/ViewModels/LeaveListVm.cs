@@ -9,5 +9,6 @@ namespace HR.Web.ViewModels
     {
         public decimal? Count { get; set; }
         public string Month { get; set; }
+        public Int16 Year { get; set; }
     }
 }

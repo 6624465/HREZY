@@ -1,7 +1,57 @@
-﻿
+﻿@model HR.Web.ViewModels.LeaveListVm
 @{
     ViewBag.Title = "LeaveTransaction";
 }
 
-<h2>LeaveTransaction</h2>
+@{
+    var listMonths = new List<SelectListItem>()
+    {
+    new SelectListItem {Text = "January",   Value = "1"},
+    new SelectListItem {Text = "February", Value = "2"},
+    new SelectListItem {Text = "March", Value = "3"},
+    new SelectListItem {Text = "April",   Value = "4"},
+    new SelectListItem {Text = "May", Value = "5"},
+    new SelectListItem {Text = "June", Value = "6"},
+    new SelectListItem {Text = "July",   Value = "7"},
+    new SelectListItem {Text = "August", Value = "8"},
+    new SelectListItem {Text = "September", Value = "9"},
+    new SelectListItem {Text = "October",   Value = "10"},
+    new SelectListItem {Text = "November", Value = "11"},
+    new SelectListItem {Text = "December", Value = "12"}
+    };
+}
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="box">
+                <div class="center-block width">
+                    <div class="box-header">
+                        <h4>Leave Transaction</h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Year</span>
+                            </label>
+                            <div class="col-md-2">
+                                @Html.DropDownListFor(x => x.Year, Enumerable.Range(2014, 14).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
+                            </div>
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Month</span>
+                            </label>
+                            <div class="col-md-2">
+                                @Html.DropDownListFor(x => x.Month, listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth(this);", @style = "width:70%" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 

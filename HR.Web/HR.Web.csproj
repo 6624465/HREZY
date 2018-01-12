@@ -1924,6 +1924,7 @@
     <Compile Include="ViewModels\EmpSalaryStructureVm.cs" />
     <Compile Include="ViewModels\HtmlTblVm.cs" />
     <Compile Include="ViewModels\LeaveAdminVM.cs" />
+    <Compile Include="ViewModels\LeaveTransactionVm.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
     <Compile Include="ViewModels\SalaryRuleHeaderVm.cs" />
     <Compile Include="ViewModels\SalaryStructureHeaderTblVm.cs" />
@@ -2062,6 +2063,7 @@
     <Content Include="Views\PayRoll\SalaryStructureHeaderList.cshtml" />
     <Content Include="Views\PayRoll\EmpSalaryStructure.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Dashboard\LeaveTransaction.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

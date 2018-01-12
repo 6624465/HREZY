@@ -38,7 +38,7 @@ namespace HR.Web.Controllers
                                  .Where(x => x.Gender == 1 && x.BranchId == branch.BranchID).Count();
                             malecount.custom = malecount.y;
                             employeeDataVm.genderCount.Add(malecount);
-                            
+
                             GenderCount femalecount = new GenderCount();
                             femalecount.name = "Female";
                             femalecount.y = dbCntx.EmployeePersonalDetails
@@ -78,14 +78,14 @@ namespace HR.Web.Controllers
                     GenderCount malecount = new GenderCount();
                     malecount.name = "Male";
                     malecount.y = dbCntx.EmployeePersonalDetails
-                         .Where(x => x.Gender == 1 && x.BranchId == branch.BranchID).Count();
+                         .Where(x => x.Gender == 101 && x.BranchId == branch.BranchID).Count();
                     malecount.custom = malecount.y;
                     obj.employeeDataVm.genderCount.Add(malecount);
 
                     GenderCount femalecount = new GenderCount();
                     femalecount.name = "Female";
                     femalecount.y = dbCntx.EmployeePersonalDetails
-                         .Where(x => x.Gender == 0 && x.BranchId == branch.BranchID).Count();
+                         .Where(x => x.Gender == 102 && x.BranchId == branch.BranchID).Count();
                     femalecount.custom = femalecount.y;
                     obj.employeeDataVm.genderCount.Add(femalecount);
 
@@ -214,6 +214,13 @@ namespace HR.Web.Controllers
 
             return View();
         }
+
+        public ActionResult LeaveTransaction()
+        {
+
+            return View();
+        }
+
 
         public JsonResult GetData()
         {

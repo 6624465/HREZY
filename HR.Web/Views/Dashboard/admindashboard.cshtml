@@ -189,9 +189,15 @@
             title: {
                 text: 'Male and Female Count in ' + arrayByGender.branchName
             },
+            //tooltip: {
+            //    pointFormat: '{series.name}: <b>{point.percentage:.1f}% </b> <br> Count: {point.custom}'
+            //},
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}% </b> <br> Count: {point.custom}'
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' + '<b>' + this.point.name + '</b> is <b>' + this.point.custom + '</b>';
+                }
             },
+
             plotOptions: {
                 pie: {
                     allowPointSelect: true,

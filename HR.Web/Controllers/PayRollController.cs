@@ -95,7 +95,7 @@ namespace HR.Web.Controllers
             {
                 contributionBO.Add(contribution);
             }
-            var list = contributionBO.GetListByProperty(x => (x.BranchId == BRANCHID) && (x.Name == UTILITY.BASICSALARYCOMPONENT)).ToList();
+            var list = contributionBO.GetListByProperty(x => (x.BranchId == contribution.BranchId) && (x.Name == UTILITY.BASICSALARYCOMPONENT)).ToList();
             var count = list.Count();
             if (count == 0)
             {
@@ -107,7 +107,7 @@ namespace HR.Web.Controllers
                     CreatedBy = SESSIONOBJ.USERID,
                     CreatedOn = UTILITY.SINGAPORETIME,
                     RegisterCode = "PAYMENTS",
-                    BranchId = BRANCHID,
+                    BranchId = contribution.BranchId,
                     SortBy = -1
                 };
                 contributionBO.Add(contributionBasic);

@@ -47,7 +47,7 @@ namespace HR.Web.Controllers
         // GET: Leave
         #region HolidayList
         public ActionResult HolidayList()
-        {
+       {
             ViewData["RoleCode"] = ROLECODE;
 
             if (ROLECODE == UTILITY.ROLE_ADMIN)
@@ -69,7 +69,7 @@ namespace HR.Web.Controllers
             
         }
 
-        public ActionResult HolidayListByBranch(int branchID)
+        public ActionResult HolidayListByBranch(int branchID=0)
         {
             ViewData["RoleCode"] = ROLECODE;
 

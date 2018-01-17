@@ -240,7 +240,7 @@ namespace HR.Web.Controllers
                 LeaveListVm leave = new LeaveListVm();
                 leave.MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(_FromDate.Month);
                 var leavesByCountry = leaveList
-                    .Where(x => x.BranchId == BRANCHID && x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
+                    .Where(x => x.BranchId == BranchId && x.CreatedOn >= _FromDate && x.CreatedOn <= _toDate).ToList();
                 leave.Count = leavesByCountry.Sum(x => x.Days).Value;
 
                 leaveListVm.Add(leave);

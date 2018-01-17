@@ -95,7 +95,24 @@ namespace HR.Web.Controllers
             {
                 contributionBO.Add(contribution);
             }
+            var list = contributionBO.GetListByProperty(x => (x.BranchId == BRANCHID) && (x.Name == UTILITY.BASICSALARYCOMPONENT)).ToList();
+            var count = list.Count();
+            if (count == 0)
+            {
+                Contribution contributionBasic = new Contribution
+                {
+                    Name = UTILITY.BASICSALARYCOMPONENT,
+                    Description = UTILITY.BASICSALARYCOMPONENT,
+                    IsActive = true,
+                    CreatedBy = SESSIONOBJ.USERID,
+                    CreatedOn = UTILITY.SINGAPORETIME,
+                    RegisterCode = "PAYMENTS",
+                    BranchId = BRANCHID,
+                    SortBy = -1
+                };
+                contributionBO.Add(contributionBasic);
 
+            }
             return RedirectToAction("ContributionRegisterList");
         }
 

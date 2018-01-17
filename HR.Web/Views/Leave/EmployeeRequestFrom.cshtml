@@ -400,10 +400,12 @@
         $("#ToDate").on("blur", function (e) {
             // checkDates();
             isoWeekDayCalc();
+            $('#chkhalfday').trigger("ifChanged");
         });
         $("#FromDate").on("blur", function (e) {
             //checkDates();
             isoWeekDayCalc();
+            $('#chkhalfday').trigger("ifChanged");
         });
 
         function checkDates() {

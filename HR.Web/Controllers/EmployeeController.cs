@@ -253,7 +253,8 @@ namespace HR.Web.Controllers
                                             DocumentType = x.LookUpID,
                                             DocumentDescription = x.LookUpDescription
                                         }).ToList();
-                return View(new EmployeeVm { empHeader = new EmployeeHeader { EmployeeId = -1, IsActive = true }, empDocument = documentTypes });
+                return View(new EmployeeVm { empHeader = new EmployeeHeader
+                { EmployeeId = -1, IsActive = true }, empDocument = documentTypes,empPersonalDetail = new EmployeePersonalDetail() { Gender=101} });
             }
         }
 

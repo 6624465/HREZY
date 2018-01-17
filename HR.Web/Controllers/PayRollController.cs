@@ -199,7 +199,8 @@ namespace HR.Web.Controllers
         public ActionResult SalaryStructure(int structurId = 0, int BranchId = 0)
         {
             ViewData["RoleCode"] = ROLECODE;
-            SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
+
+                SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
             List<Contribution> contributionList = new List<Contribution>();
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {

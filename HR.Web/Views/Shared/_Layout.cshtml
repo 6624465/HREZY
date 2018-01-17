@@ -156,6 +156,10 @@
             <li class="profile-drop hidden-xs dropdown">
                 <a href="javascript:;" data-toggle="dropdown">
                     <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
+                    @*@if (UTILITY.ROLE_EMPLOYEE == baseObj.ROLECODE)
+                    {
+                        <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
+                    }*@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     @*<li><a href="javascript:;"><span class="ion ion-person">&nbsp;&nbsp;</span>Profile</a></li>

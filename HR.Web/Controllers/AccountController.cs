@@ -37,10 +37,10 @@ namespace HR.Web.Controllers
                         ROLECODE = userObj.RoleCode,
                         EMPLOYEEID = userObj.EmployeeId,
                         ISMANAGER = dbContext.EmployeeHeaders.Where(x => x.ManagerId == userObj.EmployeeId).Count() > 0,
-                       // FILENAME = dbContext.EmployeeDocumentDetails
-                       //.Where(x => x.EmployeeId == userObj.EmployeeId && x.DocumentType == UTILITY.FILEID).FirstOrDefault() == null ? "" :
-                       //dbContext.EmployeeDocumentDetails
-                       //.Where(x => x.EmployeeId == userObj.EmployeeId).FirstOrDefault().FileName
+                        FILENAME = dbContext.EmployeeDocumentDetails
+                       .Where(x => x.EmployeeId == userObj.EmployeeId && x.DocumentType == UTILITY.FILEID).FirstOrDefault() == null ? "" :
+                       dbContext.EmployeeDocumentDetails
+                       .Where(x => x.EmployeeId == userObj.EmployeeId).FirstOrDefault().FileName
 
 
                     };

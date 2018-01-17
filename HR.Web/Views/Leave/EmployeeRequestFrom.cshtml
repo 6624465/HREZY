@@ -214,6 +214,7 @@
             },
             function (isConfirm) {
                 if (isConfirm) {
+                    debugger;
                     swal("Applied!", "You have successfully applied the leave.", "success");
                     $('#frmLeave').attr('action', '@Url.Content("~/Leave/SaveLOP")');
                     $('#frmLeave').submit();

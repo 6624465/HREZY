@@ -33,6 +33,8 @@ namespace HR.Web
         public static string ROLE_SUPERADMIN = "SuperAdmin";
         public static string ROLE_ADMIN = "Admin";
         public static string ROLE_EMPLOYEE = "Employee";
+        public static string SSN_FILENAME = "SSN_FILENAME";
+        public static string SSN_DOCUMENTDETAILID = "SSN_DOCUMENTDETAILID";
 
 
 
@@ -54,6 +56,7 @@ namespace HR.Web
         public static string CONFIG_DOCUMENTTYPE = "DocumentType";
         public static string CONFIG_ROLECODE = "ROLECODE";
         public static string CONFIG_MANAGER = "MANAGER";
+        public static string CONFIG_TRAVELCLAIM = "TravelClaim";
 
         public static string LEAVEAPPROVED = "Approved";
         public static string LEAVEREJECTED = "Rejected";

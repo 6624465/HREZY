@@ -213,35 +213,36 @@ namespace HR.Web.Controllers
 
                 empDocumentDetList = empDocumentDetList.Where(x => x.EmployeeId == EmployeeId.Value).ToList();
 
+                var codeList = empDocumentDetList.Select(x => x.DocumentType).ToList();
 
                 if (empObj != null)
                 {
-                    //if (empDocumentDetList.Count > 0)
-                    //{
-                    //    List<EmployeeDocumentVm> docVmList = new List<EmployeeDocumentVm>();
-                    //    foreach (EmployeeDocumentDetail item in empDocumentDetList)
-                    //    {
-                    //        EmployeeDocumentVm docVm = new EmployeeDocumentVm()
-                    //        {
-                    //            DocumentType = item.DocumentType,
-                    //            DocumentDescription = lookUpBO
-                    //            .GetByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE && y.LookUpID == item.DocumentType)
-                    //            .LookUpDescription,
-                    //            fileName = item.FileName,
-                    //            DocumentDetailId = item.DocumentDetailID
-                    //        };
-                    //        docVmList.Add(docVm);
-                    //    }
-                    //    empObj.empDocument = docVmList;
-                    //}
-                    //else { 
-                    empObj.empDocument = lookUpBO.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+                    if (empDocumentDetList.Count > 0)
+                    {
+                        List<EmployeeDocumentVm> docVmList = new List<EmployeeDocumentVm>();
+                        foreach (EmployeeDocumentDetail item in empDocumentDetList)
+                        {
+                            EmployeeDocumentVm docVm = new EmployeeDocumentVm()
+                            {
+                                DocumentType = item.DocumentType,
+                                DocumentDescription = lookUpBO
+                                .GetByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE && y.LookUpID == item.DocumentType)
+                                .LookUpDescription,
+                                fileName = item.FileName,
+                                DocumentDetailId = item.DocumentDetailID
+                            };
+                            docVmList.Add(docVm);
+                        }
+                        
+                  
+                        empObj.empDocument = lookUpBO.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
                         .Select(y => new EmployeeDocumentVm
                         {
                             DocumentType = y.LookUpID,
                             DocumentDescription = y.LookUpDescription
-                        }).ToList();
-                    //}
+                        }).Where(x=>!codeList.Contains(x.DocumentType)).ToList();
+                        empObj.empDocument.AddRange(docVmList);
+                    }
                 }
                 return View(empObj);
             }
@@ -262,6 +263,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult saveemployee(EmployeeVm empVm)
         {
+
             try
             {
                 if (empVm.empHeader.EmployeeId == -1)

@@ -40,7 +40,8 @@ namespace HR.Web.Controllers
                         FILENAME = dbContext.EmployeeDocumentDetails
                        .Where(x => x.EmployeeId == userObj.EmployeeId && x.DocumentType == UTILITY.FILEID).FirstOrDefault() == null ? "" :
                        dbContext.EmployeeDocumentDetails
-                       .Where(x => x.EmployeeId == userObj.EmployeeId).FirstOrDefault().FileName
+                       .Where(x => x.EmployeeId == userObj.EmployeeId).FirstOrDefault().FileName,
+                        DocumentDetailID = dbContext.EmployeeDocumentDetails.Where(x => x.EmployeeId == userObj.EmployeeId && x.DocumentType == UTILITY.FILEID).FirstOrDefault()==null? 0:dbContext.EmployeeDocumentDetails.Where(x=>x.EmployeeId==userObj.EmployeeId && x.DocumentType==UTILITY.FILEID).FirstOrDefault().DocumentDetailID
 
 
                     };

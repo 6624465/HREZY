@@ -2079,6 +2079,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Dashboard\LeaveTransaction.cshtml" />
     <Content Include="Views\PayRoll\TravelClaim.cshtml" />
+    <Content Include="Views\Config\TravelClaimList.cshtml" />
+    <Content Include="Views\Config\GetTravelClaim.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

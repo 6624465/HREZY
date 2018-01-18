@@ -274,6 +274,19 @@ namespace HR.Web.Helpers
             }
         }
 
+        public static IEnumerable<SelectListItem> TravelExpenses()
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM)
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.LookUpCode,
+                        Text = x.LookUpDescription
+                    }).ToList().AsEnumerable();
+            }
+        }
+
         public static IEnumerable<SelectListItem> PayRollCondition()
         {
 

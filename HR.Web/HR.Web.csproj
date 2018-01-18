@@ -1942,6 +1942,7 @@
     <Compile Include="ViewModels\SalaryRuleHeaderVm.cs" />
     <Compile Include="ViewModels\SalaryStructureHeaderTblVm.cs" />
     <Compile Include="ViewModels\SalaryStructureVm.cs" />
+    <Compile Include="ViewModels\TravelClaimVm.cs" />
     <Compile Include="ViewModels\WeekendPolicyVm.cs" />
   </ItemGroup>
   <ItemGroup>

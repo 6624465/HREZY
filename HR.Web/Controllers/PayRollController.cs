@@ -20,6 +20,8 @@ namespace HR.Web.Controllers
         SalaryStructureHeaderBO salaryStructureHeaderBO = null;
         SalaryStructureDetailBO salaryStructureDetailBO = null;
         EmpSalaryStructureHeaderBO empSalaryStructureHeaderBO = null;
+        TravelClaimHeaderBO travelClaimHeaderBO = null;
+        TravelClaimDetailBO travelClaimDetailBO = null;
         public PayRollController()
         {
             salaryRuleBO = new SalaryRuleBO(SESSIONOBJ);
@@ -29,6 +31,8 @@ namespace HR.Web.Controllers
             salaryStructureHeaderBO = new SalaryStructureHeaderBO(SESSIONOBJ);
             salaryStructureDetailBO = new SalaryStructureDetailBO(SESSIONOBJ);
             empSalaryStructureHeaderBO = new EmpSalaryStructureHeaderBO(SESSIONOBJ);
+            travelClaimHeaderBO = new TravelClaimHeaderBO(SESSIONOBJ);
+            travelClaimDetailBO = new TravelClaimDetailBO(SESSIONOBJ);
         }
         // GET: PayRoll
         public ActionResult PayRollInfo()
@@ -217,7 +221,7 @@ namespace HR.Web.Controllers
         {
             ViewData["RoleCode"] = ROLECODE;
 
-                SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
+            SalaryStructureVm salaryStructureVm = new SalaryStructureVm();
             List<Contribution> contributionList = new List<Contribution>();
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
@@ -575,11 +579,35 @@ namespace HR.Web.Controllers
             int count = list.Count();
             return (count > 0 ? true : false);
         }
+        [HttpGet]
+        public ActionResult TravelClaim(int travelClaimId = 0)
+        {
+            TravelClaimVm travelClaimVm = new TravelClaimVm();
+            travelClaimVm.claimHeader = new TravelClaimHeader();
+            travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
-        public ActionResult TravelClaim() {
+            TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+            {
 
-            return View();
+            };
+            travelClaimVm.claimDetail.Add(travelClaimDetail);
+            return View(travelClaimVm);
         }
 
+        [HttpPost]
+        public ActionResult TravelClaim(TravelClaimVm travelClaimVm)
+        {
+            travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
+            foreach (TravelClaimDetail item in travelClaimVm.claimDetail)
+            {
+                item.TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
+                travelClaimDetailBO.Add(item);
+            }
+
+            TravelClaimVm travelClaimNewObj = new TravelClaimVm();
+
+
+            return View("TravelClaim", travelClaimNewObj);
+        }
     }
 }

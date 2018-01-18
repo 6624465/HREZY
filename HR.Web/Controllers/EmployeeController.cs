@@ -243,6 +243,15 @@ namespace HR.Web.Controllers
                         }).Where(x=>!codeList.Contains(x.DocumentType)).ToList();
                         empObj.empDocument.AddRange(docVmList);
                     }
+                    else
+                    {
+                        empObj.empDocument = lookUpBO.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+                        .Select(y => new EmployeeDocumentVm
+                        {
+                            DocumentType = y.LookUpID,
+                            DocumentDescription = y.LookUpDescription
+                        }).ToList();
+                    }
                 }
                 return View(empObj);
             }

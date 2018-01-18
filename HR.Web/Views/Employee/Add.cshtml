@@ -11,12 +11,12 @@
 {
     @Html.HiddenFor(x => x.empHeader.EmployeeId)
     @Html.HiddenFor(x => x.empHeader.BranchId)
-    @Html.HiddenFor(x=>x.address.AddressId)
+    @Html.HiddenFor(x => x.address.AddressId)
     @Html.HiddenFor(x => x.empWorkDetail.WorkDetailID)
-    @Html.HiddenFor(x=>x.empPersonalDetail.PersonalDetailID)
-    for(var i=0; i<Model.empDocument.Count();i++)
+    @Html.HiddenFor(x => x.empPersonalDetail.PersonalDetailID)
+    for (var i = 0; i < Model.empDocument.Count(); i++)
     {
-        @Html.HiddenFor(x=>x.empDocument[i].DocumentDetailId)
+        @Html.HiddenFor(x => x.empDocument[i].DocumentDetailId)
     }
 
 
@@ -396,8 +396,11 @@
                                 @if (Model.empHeader.EmployeeId != -1 && Convert.ToBoolean(ViewData["IsEnable"]))
                                 {
                                     <div class="col-md-9">
-                                        <div class="pull-right ajaxCss"><button type="button" onclick="location.href = '@Url.Content("~/PayRoll/EmpSalaryStructure?employeeId=" + Model.empHeader.EmployeeId)'" class="btn btn-success btn-sm">
-                                            <i class="fa fa-gears"></i>&nbsp;Apply Salary Structure</button></div>
+                                        <div class="pull-right ajaxCss">
+                                            <button type="button" onclick="location.href = '@Url.Content("~/PayRoll/EmpSalaryStructure?employeeId=" + Model.empHeader.EmployeeId)'" class="btn btn-success btn-sm">
+                                                <i class="fa fa-gears"></i>&nbsp;Apply Salary Structure
+                                            </button>
+                                        </div>
                                     </div>
 
                                 }
@@ -476,10 +479,10 @@
                                                 @Html.HiddenFor(x => x.empDocument[i].DocumentType)
                                                 <td>
                                                     @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)" })
-                                                    
+
                                                 </td>
                                                 @*<td>
-                                                    @if(Model.empDocument[i].fileName != null) { 
+                                                    @if(Model.empDocument[i].fileName != null) {
                                                     <img src="@Url.Content("~/Uploads/"+Model.empHeader.EmployeeId+"/"+Model.empDocument[i].DocumentDetailId +"/" + Model.empDocument[i].fileName)" alt="image" height="50" width="50" />
                                                     }</td>*@
                                             </tr>
@@ -626,15 +629,15 @@
                 },
                 'empHeader.Password': {
                     required: true,
-                    maxlength:15,
-                    minlength:5
+                    maxlength: 15,
+                    minlength: 5
                 },
                 'empHeader.ConfirmPassword': {
                     required: true,
                     equalTo: '#empHeader_Password'
                 },
                 'empPersonalDetail.EmergencyContactNumber': {
-                   maxlength:15
+                    maxlength: 15
                 }
             }
         });

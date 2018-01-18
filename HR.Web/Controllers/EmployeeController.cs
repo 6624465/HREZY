@@ -243,6 +243,15 @@ namespace HR.Web.Controllers
                         }).Where(x=>!codeList.Contains(x.DocumentType)).ToList();
                         empObj.empDocument.AddRange(docVmList);
                     }
+                    else
+                    {
+                        empObj.empDocument = lookUpBO.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+                        .Select(y => new EmployeeDocumentVm
+                        {
+                            DocumentType = y.LookUpID,
+                            DocumentDescription = y.LookUpDescription
+                        }).ToList();
+                    }
                 }
                 return View(empObj);
             }
@@ -289,7 +298,7 @@ namespace HR.Web.Controllers
         }
         public bool IsEmailExists(string Email)
         {
-            var list = empHeaderBO.GetListByProperty(x => x.UserEmailId == Email.ToLower()).ToList();
+            var list = empHeaderBO.GetListByProperty(x => x.UserEmailId.ToLower() == Email.ToLower()).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

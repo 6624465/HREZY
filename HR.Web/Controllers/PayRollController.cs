@@ -605,9 +605,37 @@ namespace HR.Web.Controllers
             }
 
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
+            travelClaimNewObj.claimHeader = travelClaimHeaderBO
+                .GetByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId);
 
+            travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId).ToList();
+
+            TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+            {
+
+            };
+            travelClaimNewObj.claimDetail.Add(travelClaimDetail);
 
             return View("TravelClaim", travelClaimNewObj);
         }
+
+        //public ActionResult DeleteTravelClaim(TravelClaimVm travelClaimVm)
+        //{
+
+        //    travelClaimDetailBO.Delete(travelClaimVm.claimDetail);
+        //    TravelClaimVm travelClaimNewObj = new TravelClaimVm();
+        //    travelClaimNewObj.claimHeader = travelClaimHeaderBO
+        //        .GetByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId);
+
+        //    travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId).ToList();
+
+        //    TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+        //    {
+
+        //    };
+        //    travelClaimNewObj.claimDetail.Add(travelClaimDetail);
+
+        //    return View("TravelClaim", travelClaimNewObj);
+        //}
     }
 }

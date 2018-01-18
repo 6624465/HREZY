@@ -18,8 +18,8 @@ namespace HR.Web.Services.Payroll
                         .Where(x => x.TravelClaimId == entity.TravelClaimId).FirstOrDefault();
                     if (travelClaimHeader == null)
                     {
-                        travelClaimHeader.CreatedBy = entity.CreatedBy;
-                        travelClaimHeader.CreatedOn = entity.CreatedOn;
+                        //travelClaimHeader.CreatedBy = entity.CreatedBy;
+                        //travelClaimHeader.CreatedOn = entity.CreatedOn;
                         dbContext.TravelClaimHeaders.Add(entity);
                     }
                     else

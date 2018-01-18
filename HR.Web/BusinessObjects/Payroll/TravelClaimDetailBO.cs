@@ -81,5 +81,18 @@ namespace HR.Web.BusinessObjects.Payroll
             }
         }
 
+        public void Delete(TravelClaimDetail entity)
+        {
+            try
+            {
+                TravelClaimDetailRepository.Delete(entity);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

@@ -1,0 +1,159 @@
+﻿@model IEnumerable<HR.Web.Models.LookUp>
+
+@{
+    int offSet = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+    WebGrid grid = new WebGrid(Model, rowsPerPage: offSet, ajaxUpdateContainerId: "grid");
+    grid.Pager(WebGridPagerModes.All);
+
+}
+@section Styles {
+    <style type="text/css">
+        .pagination {
+            display: table;
+            margin: 15px auto;
+            position: relative;
+            float: right;
+        }
+
+        .width {
+            width: 60%;
+        }
+    </style>
+}
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="center-block width">
+                <div class="box" id="grid">
+                    <div class="box-header">
+                        <h4>Travel Claim</h4>
+                        <div class="box-tools">
+                            <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="edittravelclaim(-1)" ><i class="fa fa-plus"></i> Add</button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @grid.GetHtml(
+                columns: grid.Columns(
+                grid.Column("LookUpCode", "TravelClaim Type", canSort: true),
+                grid.Column("LookUpDescription", "TravelClaim Description", canSort: true),
+                @*grid.Column("IsActive", "Status",format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
+                grid.Column("", "#Action", canSort: false, format:
+                @<text>
+                    <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="edittravelclaim(@item.LookUpID)">
+                        <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                    </button>
+                    <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="travelclaimdelete(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button></text>)),
+                tableStyle: "table table-condensed table-bordered")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div>@grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("SaveTravelClaim", "Config", FormMethod.Post, new { id = "frm", name = "frm" }))
+{
+    <div id="TravelClaimModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Travel Claim</h4>
+                </div>
+                <div class="modal-body" id="modalContent1">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="SaveTravelClaim()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#li_Master').addClass('open');
+            $('#li_travelclaim').addClass('active');
+        });
+
+        function edittravelclaim(lookUpID){
+            $.ajax({
+                url: '@Url.Content("~/Config/GetTravelClaim?lookUpID=")' + lookUpID,
+                contenttype: 'text/html',
+                method: 'GET',
+                success:function(data)
+                {
+                    $('#TravelClaimModal').modal('show');
+                    $('#modalContent1').html('');
+                    $('#modalContent1').html(data);
+                },
+                error: function (err) {
+
+                }
+            })
+
+        }
+
+
+        function SaveTravelClaim() {
+            if ($('#frm').valid()) {
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
+                $('#frm').submit();
+            }
+        }
+
+        $('#frm').validate({
+            rules: {
+                LookUpCode: {
+                    required: true,
+                    maxlength: 50
+                },
+                LookUpDescription: {
+                    required: true,
+                    maxlength: 50
+                }
+            }
+        });
+
+        function travelclaimdelete(LookUpID) {
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this Record?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Delete",
+                confirmButtonClass: "btn-danger"
+            },
+            function (isConfirm) {
+
+                if (isConfirm) {
+                    location.href = '@Url.Content("~/Config/TravelClaimDelete?lookupid=")' + LookUpID;
+                    swal("Deleted!", "You have successfully Deleted", "success");
+                }
+                else {
+                    swal("Cancelled", "", "error");
+                }
+            }
+
+
+            )
+        }
+    </script>
+    
+    }
+

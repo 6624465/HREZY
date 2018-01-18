@@ -304,5 +304,46 @@ namespace HR.Web.Controllers
             return (count > 0 ? true : false);
         }
         #endregion
+
+        #region Travel Claim
+        
+        public ViewResult TravelClaimList()
+        {
+            var TravelClaim = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIM && x.IsActive == true).ToList().AsEnumerable();
+            return View(TravelClaim);
+        }
+
+        public PartialViewResult GetTravelClaim(int lookUpID)
+        {
+            if (lookUpID == -1)
+            {
+                return PartialView(new LookUp { LookUpID = -1});
+            }
+            else
+            {
+                var tarvelclaim_data = lookUpBO.GetByProperty(x => x.LookUpID == lookUpID && x.IsActive == true);
+                return PartialView(tarvelclaim_data);
+            }
+               
+        }
+        [HttpPost]
+        public ActionResult SaveTravelClaim(LookUp lookup)
+        {
+            lookup.LookUpCategory = UTILITY.CONFIG_TRAVELCLAIM;
+            lookUpBO.Add(lookup);
+            return RedirectToAction("TravelClaimList");
+        }
+        public ActionResult TravelClaimDelete(int lookupid)
+        {
+            lookUpBO.Delete(lookupid);
+            return RedirectToAction("TravelClaimList");
+        }
+        public bool IsTravelClaimExist(string travelclaim)
+        {
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == travelclaim.ToUpper()) && x.IsActive == true && (x.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIM)).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
+        #endregion
     }
 }

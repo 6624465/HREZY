@@ -576,7 +576,10 @@ namespace HR.Web.Controllers
             return (count > 0 ? true : false);
         }
 
+        public ActionResult TravelClaim() {
 
+            return View();
+        }
 
     }
 }

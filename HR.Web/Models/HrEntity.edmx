@@ -481,7 +481,6 @@
           <Property Name="Category" Type="nvarchar" MaxLength="100" />
           <Property Name="TravelDate" Type="datetime" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
-          <Property Name="Receipts" Type="bit" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Currency" Type="nvarchar" MaxLength="10" />
           <Property Name="ExchangeRate" Type="decimal" Precision="18" Scale="2" />
@@ -490,6 +489,7 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Receipts" Type="bit" />
         </EntityType>
         <EntityType Name="TravelClaimHeader">
           <Key>

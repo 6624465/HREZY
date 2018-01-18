@@ -163,7 +163,15 @@
 
                     @if (UTILITY.ROLE_EMPLOYEE == baseObj.ROLECODE)
                     {
-                        <img src="@Url.Content("~/Uploads/"+ baseObj.EMPLOYEEID + "/" + baseObj.DocumentDetailID + "/" + baseObj.FILENAME)" alt="admin-pic">
+                        if (baseObj.DocumentDetailID != 0)
+                        {
+                            <img src="@Url.Content("~/Uploads/"+ baseObj.EMPLOYEEID + "/" + baseObj.DocumentDetailID + "/" + baseObj.FILENAME)" alt="admin-pic">
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
+                        }
+
                     }
                     else
                     {

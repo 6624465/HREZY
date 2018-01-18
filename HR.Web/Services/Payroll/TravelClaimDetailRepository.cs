@@ -18,8 +18,8 @@ namespace HR.Web.Services.Payroll
                         .Where(x => x.TravelClaimId == entity.TravelClaimId).FirstOrDefault();
                     if (travelClaimDetail == null)
                     {
-                        travelClaimDetail.CreatedBy = entity.CreatedBy;
-                        travelClaimDetail.CreatedOn = entity.CreatedOn;
+                        //travelClaimDetail.CreatedBy = entity.CreatedBy;
+                        //travelClaimDetail.CreatedOn = entity.CreatedOn;
                         dbContext.TravelClaimDetails.Add(entity);
                     }
                     else
@@ -57,6 +57,7 @@ namespace HR.Web.Services.Payroll
                     TravelClaimDetail travelClaimDetail = dbContext.TravelClaimDetails
                         .Where(x => x.TravelClaimDetailId == entity.TravelClaimDetailId).FirstOrDefault();
                     // travelClaimHeader.IsActive = false;
+                    dbContext.TravelClaimDetails.Remove(travelClaimDetail);
                     dbContext.SaveChanges();
                 }
             }

@@ -155,11 +155,21 @@
             <!-- profile drop -->
             <li class="profile-drop hidden-xs dropdown">
                 <a href="javascript:;" data-toggle="dropdown">
-                    <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
-                    @*@if (UTILITY.ROLE_EMPLOYEE == baseObj.ROLECODE)
+                   
+                    @*@if (UTILITY.ROLE_ADMIN == baseObj.ROLECODE)
                     {
                         <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
                     }*@
+
+                    @if (UTILITY.ROLE_EMPLOYEE == baseObj.ROLECODE)
+                    {
+                        <img style="height:90px;width:90px" src="@Url.Content("~/Uploads/"+ baseObj.EMPLOYEEID + "/" + baseObj.DocumentDetailID + "/" + baseObj.FILENAME)" alt="admin-pic">
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
+                    }
+                       
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     @*<li><a href="javascript:;"><span class="ion ion-person">&nbsp;&nbsp;</span>Profile</a></li>

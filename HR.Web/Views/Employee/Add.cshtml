@@ -14,7 +14,12 @@
     @Html.HiddenFor(x=>x.address.AddressId)
     @Html.HiddenFor(x => x.empWorkDetail.WorkDetailID)
     @Html.HiddenFor(x=>x.empPersonalDetail.PersonalDetailID)
-  
+    for(var i=0; i<Model.empDocument.Count();i++)
+    {
+        @Html.HiddenFor(x=>x.empDocument[i].DocumentDetailId)
+    }
+
+
 
     <div class="page">
         <div class="row">

@@ -184,6 +184,7 @@ namespace HR.Web.BusinessObjects.Operation
                         {
                             EmployeeId = empVm.empHeader.EmployeeId,
                             BranchId = sessionObj.BRANCHID,
+                            DocumentDetailID=item.DocumentDetailId,
                             DocumentType = item.DocumentType,
                             FileName = item.Document.FileName,
                             CreatedBy = sessionObj.USERID,

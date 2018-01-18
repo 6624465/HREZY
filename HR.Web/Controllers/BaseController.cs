@@ -16,6 +16,7 @@ namespace HR.Web.Controllers
         public string BRANCHNAME { get; set; }
 
         public string FILENAME { get; set; }
+        public int DocumentDetailID { get; set; }
     }
 
     public class BaseController : Controller
@@ -40,7 +41,19 @@ namespace HR.Web.Controllers
             }
             set
             {
-                Session[UTILITY.SSN_USERID] = value;
+                Session[UTILITY.SSN_FILENAME] = value;
+            }
+        }
+
+        public int DocumentDetailID
+        {
+            get
+            {
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).DocumentDetailID;
+            }
+            set
+            {
+                Session[UTILITY.SSN_DOCUMENTDETAILID]= value;
             }
         }
         public int EMPLOYEEID

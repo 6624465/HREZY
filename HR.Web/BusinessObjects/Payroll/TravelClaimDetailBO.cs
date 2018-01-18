@@ -25,7 +25,7 @@ namespace HR.Web.BusinessObjects.Payroll
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
         }
 

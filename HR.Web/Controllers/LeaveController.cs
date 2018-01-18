@@ -62,7 +62,8 @@ namespace HR.Web.Controllers
             {
                 holidayVm holidayVm = new holidayVm()
                 {
-                    calendarVM = holidayListBO.GetHolidayList(),
+                    calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
+                    //holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList()
                     HolidayList = new HolidayList()
                 }; return View("HolidayList", holidayVm);
             }
@@ -202,7 +203,7 @@ namespace HR.Web.Controllers
             List<int> weekEnd = new List<int>();
 
             WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
-            List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList();
+            List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.BranchID == BRANCHID).ToList();
             string[] holidaysList = new string[holidayList.Count];
             for (int i = 0; i < holidayList.Count; i++)
             {
@@ -270,7 +271,7 @@ namespace HR.Web.Controllers
 
             GetHolidayWeekends();
             WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
-            List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList();
+            List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.BranchID == BRANCHID).ToList();
             EmployeeLeaveList.Days = (decimal)CalculateLeavesTransaction
                 .GetBusinessDays(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate, weekendPolicy, holidayList);
             bool ishalfday = false;

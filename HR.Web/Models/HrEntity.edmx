@@ -472,6 +472,42 @@
           <Property Name="TotalDeductions" Type="decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="int" />
         </EntityType>
+        <EntityType Name="TravelClaimDetail">
+          <Key>
+            <PropertyRef Name="TravelClaimDetailId" />
+          </Key>
+          <Property Name="TravelClaimDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TravelClaimId" Type="int" />
+          <Property Name="Category" Type="nvarchar" MaxLength="100" />
+          <Property Name="TravelDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Receipts" Type="bit" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Currency" Type="nvarchar" MaxLength="10" />
+          <Property Name="ExchangeRate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalInSGD" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TravelClaimHeader">
+          <Key>
+            <PropertyRef Name="TravelClaimId" />
+          </Key>
+          <Property Name="TravelClaimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryVisited" Type="nvarchar" MaxLength="100" />
+          <Property Name="FromDate" Type="datetime" />
+          <Property Name="ToDate" Type="datetime" />
+          <Property Name="NoOfDays" Type="int" />
+          <Property Name="GrossTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
             <PropertyRef Name="BranchId" />
@@ -574,6 +610,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="SalaryRuleInput" EntityType="Self.SalaryRuleInput" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryStructureDetail" EntityType="Self.SalaryStructureDetail" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryStructureHeader" EntityType="Self.SalaryStructureHeader" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="TravelClaimDetail" EntityType="Self.TravelClaimDetail" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="TravelClaimHeader" EntityType="Self.TravelClaimHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="WeekendPolicy" EntityType="Self.WeekendPolicy" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
@@ -665,6 +703,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <Parameter Name="branchId" Mode="In" Type="Int32" />
             <Parameter Name="role" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="TravelClaimDetails" EntityType="DB_9F30C5_HRDBModel.TravelClaimDetail" />
+          <EntitySet Name="TravelClaimHeaders" EntityType="DB_9F30C5_HRDBModel.TravelClaimHeader" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1181,6 +1221,42 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Type="Int32" Name="DocumentDetailID" Nullable="true" />
           <Property Type="String" Name="ProfilePic" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <EntityType Name="TravelClaimDetail">
+          <Key>
+            <PropertyRef Name="TravelClaimDetailId" />
+          </Key>
+          <Property Name="TravelClaimDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TravelClaimId" Type="Int32" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TravelDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Receipts" Type="Boolean" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Currency" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ExchangeRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalInSGD" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TravelClaimHeader">
+          <Key>
+            <PropertyRef Name="TravelClaimId" />
+          </Key>
+          <Property Name="TravelClaimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryVisited" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <Property Name="NoOfDays" Type="Int32" />
+          <Property Name="GrossTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1758,6 +1834,44 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="TravelClaimDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TravelClaimDetail">
+              <MappingFragment StoreEntitySet="TravelClaimDetail">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TotalInSGD" ColumnName="TotalInSGD" />
+                <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Receipts" ColumnName="Receipts" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TravelDate" ColumnName="TravelDate" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="TravelClaimId" ColumnName="TravelClaimId" />
+                <ScalarProperty Name="TravelClaimDetailId" ColumnName="TravelClaimDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TravelClaimHeaders">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TravelClaimHeader">
+              <MappingFragment StoreEntitySet="TravelClaimHeader">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="GrossTotal" ColumnName="GrossTotal" />
+                <ScalarProperty Name="NoOfDays" ColumnName="NoOfDays" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="CountryVisited" ColumnName="CountryVisited" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TravelClaimId" ColumnName="TravelClaimId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

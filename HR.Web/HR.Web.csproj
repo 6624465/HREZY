@@ -1751,6 +1751,8 @@
     <Compile Include="BusinessObjects\Payroll\SalaryRuleDetailBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleInputBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryStructureDetailBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\TravelClaimDetailBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\TravelClaimHeaderBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryStructureHeaderBO.cs" />
     <Compile Include="BusinessObjects\Security\UserBO.cs" />
     <Compile Include="BusinessObjects\WeekendPolicyBO.cs" />
@@ -1873,6 +1875,12 @@
     <Compile Include="Models\SalaryStructureHeader.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TravelClaimDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TravelClaimHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1913,6 +1921,8 @@
     <Compile Include="Services\Payroll\SalaryRuleInputRepository.cs" />
     <Compile Include="Services\Payroll\SalaryStructureDetailRepository.cs" />
     <Compile Include="Services\Payroll\SalaryStructureHeaderRepository.cs" />
+    <Compile Include="Services\Payroll\TravelClaimDetailRepository.cs" />
+    <Compile Include="Services\Payroll\TravelClaimHeaderRepository.cs" />
     <Compile Include="Services\Security\UserRepository.cs" />
     <Compile Include="Services\WeekenPolicyService.cs" />
     <Compile Include="ViewModels\AddressVm.cs" />
@@ -2067,6 +2077,7 @@
     <Content Include="Views\PayRoll\EmpSalaryStructure.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Dashboard\LeaveTransaction.cshtml" />
+    <Content Include="Views\PayRoll\TravelClaim.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

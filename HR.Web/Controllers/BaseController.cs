@@ -17,6 +17,8 @@ namespace HR.Web.Controllers
 
         public string FILENAME { get; set; }
         public int DocumentDetailID { get; set; }
+
+        public string FIRSTNAME { get; set; }
     }
 
     public class BaseController : Controller
@@ -31,6 +33,18 @@ namespace HR.Web.Controllers
             set
             {
                 Session[UTILITY.SSN_USERID] = value;
+            }
+        }
+
+        public string FIRSTNAME
+        {
+            get
+            {
+                return ((SessionObj)System.Web.HttpContext.Current.Session[UTILITY.SSN_OBJECT]).FIRSTNAME;
+            }
+            set
+            {
+                Session[UTILITY.SSN_FIRSTNAME] = value;
             }
         }
         public string FILENAME

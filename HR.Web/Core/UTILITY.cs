@@ -35,6 +35,7 @@ namespace HR.Web
         public static string ROLE_EMPLOYEE = "Employee";
         public static string SSN_FILENAME = "SSN_FILENAME";
         public static string SSN_DOCUMENTDETAILID = "SSN_DOCUMENTDETAILID";
+        public static string SSN_FIRSTNAME = "SSN_FIRSTNAME";
 
 
 

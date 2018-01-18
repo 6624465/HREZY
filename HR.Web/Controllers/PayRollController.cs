@@ -584,6 +584,7 @@ namespace HR.Web.Controllers
         {
             TravelClaimVm travelClaimVm = new TravelClaimVm();
             travelClaimVm.claimHeader = new TravelClaimHeader();
+            travelClaimVm.claimHeader.Name = FIRSTNAME;
             travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
             TravelClaimDetail travelClaimDetail = new TravelClaimDetail()

@@ -13,17 +13,13 @@
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">
-                        Travel Expenses Claim Form
+                        Travel Expenses Claim Form - @Model.claimHeader.Name
                     </div>
                     <div class="panel-body">
                         @Html.HiddenFor(x => x.claimHeader.TravelClaimId)
+                        @Html.HiddenFor(x => x.claimHeader.Name)
                         <div class="row css5">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Name</span>
-                            </label>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.claimHeader.Name, new { @class = "form-control input-sm" })
-                            </div>
+                           
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">From Date</span>
                             </label>
@@ -36,14 +32,6 @@
                                     </span>
                                 </div>
 
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Country Visited</span>
-                            </label>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">To Date</span>
@@ -59,6 +47,13 @@
                             </div>
                         </div>
                         <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Country Visited</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })
+                            </div>
+                         
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">No Of Days</span>
                             </label>
@@ -172,6 +167,8 @@
             </div>
         </div>
     }
+
+
 </div>
 @section Scripts{
     <script type="text/javascript">

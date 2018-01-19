@@ -585,6 +585,7 @@ namespace HR.Web.Controllers
             TravelClaimVm travelClaimVm = new TravelClaimVm();
             travelClaimVm.claimHeader = new TravelClaimHeader();
             travelClaimVm.claimHeader.Name = FIRSTNAME;
+            travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
             travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
             TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
@@ -601,8 +602,10 @@ namespace HR.Web.Controllers
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             foreach (TravelClaimDetail item in travelClaimVm.claimDetail)
             {
+                if(item.Amount != null) { 
                 item.TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
                 travelClaimDetailBO.Add(item);
+                }
             }
 
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();

@@ -4,6 +4,16 @@
 }
 @section Styles{
     <style>
+        .multiselect-container {
+            position: absolute;
+            /* list-style-type: none; */
+            margin: 0;
+            padding: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            /* overflow-y: scroll; */
+            /* overflow: auto; */
+        }
     </style>
 }
 <div class="page">
@@ -16,10 +26,12 @@
                         Travel Expenses Claim Form - @Model.claimHeader.Name
                     </div>
                     <div class="panel-body">
-                        @Html.HiddenFor(x => x.claimHeader.TravelClaimId)
+                        @*@Html.HiddenFor(x => x.claimHeader.TravelClaimId)*@
+                        <input type="hidden" id="claimHeader_TravelClaimId" name="claimHeader.TravelClaimId" value="@Model.claimHeader.TravelClaimId" />
                         @Html.HiddenFor(x => x.claimHeader.Name)
+                        @Html.HiddenFor(x => x.claimHeader.EmployeeId)
                         <div class="row css5">
-                           
+
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">From Date</span>
                             </label>
@@ -52,9 +64,9 @@
                             </label>
                             <div class="col-md-4">
                                 @*@Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })*@
-                                @Html.DropDownListFor(x=>x.claimHeader.CountryVisited,SelectListItemHelper.Branches(),new { @multiple="multiple",@class="form-control input-sm"})
+                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @multiple = "multiple", @class = "form-control input-sm" })
                             </div>
-                         
+
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">No Of Days</span>
                             </label>
@@ -89,9 +101,11 @@
                                             <tbody>
                                                 @for (int i = 0; i < Model.claimDetail.Count; i++)
                                                 {
-                                                    @Html.HiddenFor(x => x.claimDetail[i].TravelClaimDetailId)
-                                                    <tr>
+                                                   
+                                                    <tr id="tr_@i">
                                                         <td>
+                                                            <input id="claimDetail_@(i)__TravelClaimDetailId" 
+                                                                   name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
                                                             @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm" })
                                                         </td>
                                                         <td>
@@ -124,7 +138,7 @@
                                                        })
                                                         </td>
                                                         <td>
-                                                            <select class="form-control input-sm" data-val="true" id="currency" name="currency" onchange="CalculateByCurrency(this)" data-index=@i>
+                                                            <select class="form-control input-sm cssLength" data-val="true" id="currency" name="currency" onchange="CalculateByCurrency(this)" data-index=@i>
                                                                 <option value="INR">INR</option>
                                                                 <option selected="selected" value="USD">USD</option>
 
@@ -138,7 +152,7 @@
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect"
-                                                                    style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail()">
+                                                                    style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetail[i].TravelClaimDetailId,@i)">
                                                                 <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                             </button>
                                                         </td>
@@ -172,6 +186,10 @@
 
 </div>
 @section Scripts{
+    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+          rel="stylesheet" type="text/css" />
+    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+            type="text/javascript"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -208,7 +226,7 @@
                 }
             });
 
-            $('#lstFruits').multiselect({
+            $('#claimHeader_CountryVisited').multiselect({
                 includeSelectAllOption: true
             });
 
@@ -226,7 +244,10 @@
             var Total = amount * exchangeRate;
 
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
-            $('#claimHeader_GrossTotal').val(Total);
+
+            var grossVal = $('#claimHeader_GrossTotal').val();
+            var grossTotal = parseFloat(Total + grossVal);
+            $('#claimHeader_GrossTotal').val(grossTotal);
         }
 
         function CalculateByCurrency(obj) {
@@ -236,25 +257,46 @@
             var Total = amount * exchangeRate;
 
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
-            $('#claimHeader_GrossTotal').val(Total);
+            var grossVal = $('#claimHeader_GrossTotal').val();
+
+            var grossTotal = parseFloat(Total + grossVal);
+
+            $('#claimHeader_GrossTotal').val(grossTotal);
         }
 
         function CalculateByRate(obj) {
+            debugger;
+
+
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
             var Total = amount * exchangeRate;
 
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
-            $('#claimHeader_GrossTotal').val(Total);
+
+            var length = $('.cssLength').length;
+            var grossTotal = 0;
+            for (var i = 0; i < length; i++) {
+
+                var grossVal = $('#claimDetail_' + i + '__TotalInSGD').val();
+
+                grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+
+                $('#claimHeader_GrossTotal').val(grossTotal);
+            }
+
         }
 
-        function deleteClaimDetail(detailId) {
+        function deleteClaimDetail(detailId,index) {
             debugger;
             if (detailId != undefined && detailId != null && detailId != 0) {
                 $('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim")');
                 // $('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim?detailId=")' + detailId)
                 $('#frmClaim').submit();
+            }
+            else {
+                $('#tr_'+index).remove();
             }
         }
 

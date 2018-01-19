@@ -507,6 +507,7 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
@@ -1256,6 +1257,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1857,6 +1859,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="TravelClaimHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TravelClaimHeader">
               <MappingFragment StoreEntitySet="TravelClaimHeader">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

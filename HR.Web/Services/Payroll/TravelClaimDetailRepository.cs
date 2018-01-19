@@ -15,7 +15,7 @@ namespace HR.Web.Services.Payroll
                 using (HrDataContext dbContext = new HrDataContext())
                 {
                     TravelClaimDetail travelClaimDetail = dbContext.TravelClaimDetails
-                        .Where(x => x.TravelClaimId == entity.TravelClaimId).FirstOrDefault();
+                        .Where(x => x.TravelClaimDetailId == entity.TravelClaimDetailId).FirstOrDefault();
                     if (travelClaimDetail == null)
                     {
                         //travelClaimDetail.CreatedBy = entity.CreatedBy;

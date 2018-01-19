@@ -21,6 +21,9 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             try
             {
+                entity.IsActive = true;
+                entity.CreatedBy = sessionObj.USERID;
+                entity.CreatedOn = UTILITY.SINGAPORETIME;
                 travelClaimHeaderRepository.Add(entity);
             }
             catch (Exception ex)

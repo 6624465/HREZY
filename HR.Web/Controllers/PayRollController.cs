@@ -641,7 +641,7 @@ namespace HR.Web.Controllers
             var total = (amount * exrate);
             item.TotalInSGD = total;
         }
-        public ActionResult DeleteTravelClaim(int detailId,int headerId)
+        public ActionResult DeleteTravelClaim(int detailId =0,int headerId=0)
         {
 
             TravelClaimDetail detail = travelClaimDetailBO.GetByProperty(x => x.TravelClaimDetailId == detailId);

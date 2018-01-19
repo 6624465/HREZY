@@ -45,7 +45,7 @@ namespace HR.Web.Controllers
 
 
                     };
-                    if (ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                    if (sessionObj.ROLECODE == UTILITY.ROLE_EMPLOYEE)
                         sessionObj.FIRSTNAME = dbContext.EmployeeHeaders.Where(x => x.EmployeeId == userObj.EmployeeId)
                            .FirstOrDefault().FirstName;
 

@@ -52,7 +52,7 @@
                             </label>
                             <div class="col-md-4">
                                 @*@Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })*@
-                                @Html.DropDownListFor(x=>x.claimHeader.CountryVisited,SelectListItemHelper.Branches(),new { @multiple="multiple"})
+                                @Html.DropDownListFor(x=>x.claimHeader.CountryVisited,SelectListItemHelper.Branches(),new { @multiple="multiple",@class="form-control input-sm"})
                             </div>
                          
                             <label class="col-md-2 control-label">
@@ -206,6 +206,10 @@
                         required: true
                     }
                 }
+            });
+
+            $('#lstFruits').multiselect({
+                includeSelectAllOption: true
             });
 
         });

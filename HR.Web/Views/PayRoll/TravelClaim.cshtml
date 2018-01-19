@@ -101,10 +101,10 @@
                                             <tbody>
                                                 @for (int i = 0; i < Model.claimDetail.Count; i++)
                                                 {
-                                                   
+
                                                     <tr id="tr_@i">
                                                         <td>
-                                                            <input id="claimDetail_@(i)__TravelClaimDetailId" 
+                                                            <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                    name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
                                                             @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm" })
                                                         </td>
@@ -182,7 +182,12 @@
             </div>
         </div>
     }
-
+    @using (Html.BeginForm("DeleteTravelClaim", "Payroll", FormMethod.Post, new { @id = "frmClaimDelete", name = "frmClaimDelete" }))
+    {
+        <input type="hidden" id="detailId" name="detailId" />
+        <input type="hidden" id="headerId" name="headerId" />
+       
+    }
 
 </div>
 @section Scripts{
@@ -240,16 +245,16 @@
         function CalculateTotal(obj) {
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
-            if(isNaN(amount)){
-                amount=0;
+            if (isNaN(amount)) {
+                amount = 0;
             }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
-            if(isNaN(exchangeRate)){
-                exchangeRate=0;
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 0;
             }
             var Total = amount * exchangeRate;
-           
-            
+
+
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
 
             var length = $('.cssLength').length;
@@ -284,15 +289,15 @@
         }
 
         function CalculateByRate(obj) {
-           
+
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
-            if(isNaN(amount)){
-                amount=0;
+            if (isNaN(amount)) {
+                amount = 0;
             }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
-            if(isNaN(exchangeRate)){
-                exchangeRate=0;
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 0;
             }
             var Total = amount * exchangeRate;
 
@@ -311,16 +316,19 @@
 
         }
 
-        function deleteClaimDetail(detailId,index) {
+        function deleteClaimDetail(detailId, index) {
             debugger;
             var headerId = $('#claimHeader_TravelClaimId').val();
+
+
             if (detailId != undefined && detailId != null && detailId != 0) {
-                //$('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim")');
-                $('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim?detailId=")' + detailId + "&headerId=" + headerId)
-                $('#frmClaim').submit();
+                $('#headerId').val(headerId);
+                $('#detailId').val(detailId);
+
+                $('#frmClaimDelete').submit();
             }
             else {
-                $('#tr_'+index).remove();
+                $('#tr_' + index).remove();
             }
         }
 

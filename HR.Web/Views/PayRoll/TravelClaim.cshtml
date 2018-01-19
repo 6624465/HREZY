@@ -276,7 +276,13 @@
             debugger;
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
+            if (isNaN(amount)) {
+                amount = 0;
+            }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 1;
+            }
             var Total = amount * exchangeRate;
 
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);

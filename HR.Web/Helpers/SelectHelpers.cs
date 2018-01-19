@@ -278,7 +278,20 @@ namespace HR.Web.Helpers
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM)
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM && x.IsActive==true)
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.LookUpCode,
+                        Text = x.LookUpDescription
+                    }).ToList().AsEnumerable();
+            }
+        }
+
+        public static IEnumerable<SelectListItem> CurrnyList()
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CURRENCY && x.IsActive == true)
                     .Select(x => new SelectListItem
                     {
                         Value = x.LookUpCode,

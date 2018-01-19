@@ -64,7 +64,7 @@
                             </label>
                             <div class="col-md-4">
                                 @*@Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })*@
-                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @multiple = "multiple", @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm" })
                             </div>
 
                             <label class="col-md-2 control-label">
@@ -102,11 +102,16 @@
                                                 @for (int i = 0; i < Model.claimDetail.Count; i++)
                                                 {
 
-                                                    <tr id="tr_@i">
+                                                    <tr id="tr_@i" class="cssLength">
                                                         <td>
                                                             <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                    name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
                                                             @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm" })
+                                                            <script>
+                                                                $(document).ready(function () {
+                                                                    $('#claimDetail_' + '@i' + '__Category').val('@Model.claimDetail[i].Category');
+                                                                });
+                                                            </script>
                                                         </td>
                                                         <td>
 
@@ -138,11 +143,7 @@
                                                        })
                                                         </td>
                                                         <td>
-                                                            <select class="form-control input-sm cssLength" data-val="true" id="currency" name="currency" onchange="CalculateByCurrency(this)" data-index=@i>
-                                                                <option value="INR">INR</option>
-                                                                <option selected="selected" value="USD">USD</option>
-
-                                                            </select>
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control" })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @required = "required", @onblur = "CalculateByRate(this)", data_index = i })
@@ -186,15 +187,15 @@
     {
         <input type="hidden" id="detailId" name="detailId" />
         <input type="hidden" id="headerId" name="headerId" />
-       
+
     }
 
 </div>
 @section Scripts{
-    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
-          rel="stylesheet" type="text/css" />
-    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
-            type="text/javascript"></script>
+    @*<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+              rel="stylesheet" type="text/css" />
+        <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+                type="text/javascript"></script>*@
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -231,9 +232,9 @@
                 }
             });
 
-            $('#claimHeader_CountryVisited').multiselect({
-                includeSelectAllOption: true
-            });
+            //$('#claimHeader_CountryVisited').multiselect({
+            //    includeSelectAllOption: true
+            //});
 
         });
         function SaveAndGetData() {
@@ -244,14 +245,15 @@
         }
 
         function CalculateTotal(obj) {
+            debugger;
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
             if (isNaN(amount)) {
                 amount = 0;
             }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
-            if(isNaN(exchangeRate)){
-                exchangeRate=1;
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 1;
             }
             var Total = amount * exchangeRate;
 
@@ -263,14 +265,15 @@
             for (var i = 0; i < length; i++) {
 
                 var grossVal = $('#claimDetail_' + i + '__TotalInSGD').val();
-
-                grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
-
+                if (grossVal != null && grossVal != "") {
+                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                }
                 $('#claimHeader_GrossTotal').val(grossTotal);
             }
         }
 
         function CalculateByCurrency(obj) {
+            debugger;
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
@@ -282,9 +285,9 @@
             for (var i = 0; i < length; i++) {
 
                 var grossVal = $('#claimDetail_' + i + '__TotalInSGD').val();
-
-                grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
-
+                if (grossVal != null && grossVal != "") {
+                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                }
                 $('#claimHeader_GrossTotal').val(grossTotal);
             }
         }
@@ -297,8 +300,8 @@
                 amount = 0;
             }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
-            if(isNaN(exchangeRate)){
-                exchangeRate=1;
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 1;
             }
             var Total = amount * exchangeRate;
 
@@ -309,9 +312,9 @@
             for (var i = 0; i < length; i++) {
 
                 var grossVal = $('#claimDetail_' + i + '__TotalInSGD').val();
-
-                grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
-
+                if (grossVal != null && grossVal != "") {
+                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                }
                 $('#claimHeader_GrossTotal').val(grossTotal);
             }
 

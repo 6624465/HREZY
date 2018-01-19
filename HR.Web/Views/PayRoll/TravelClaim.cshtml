@@ -300,9 +300,10 @@
 
         function deleteClaimDetail(detailId,index) {
             debugger;
+            var headerId = $('#claimHeader_TravelClaimId').val();
             if (detailId != undefined && detailId != null && detailId != 0) {
                 //$('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim")');
-                 $('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim?detailId=")' + detailId)
+                $('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim?detailId=")' + detailId + "&headerId=" + headerId)
                 $('#frmClaim').submit();
             }
             else {

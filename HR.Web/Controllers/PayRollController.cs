@@ -626,23 +626,22 @@ namespace HR.Web.Controllers
             return View("TravelClaim", travelClaimNewObj);
         }
 
-        public ActionResult DeleteTravelClaim(TravelClaimVm travelClaimVm)
+        public ActionResult DeleteTravelClaim(int detailId,int headerId)
         {
 
-            // travelClaimDetailBO.Delete(travelClaimVm.claimDetail);
+            TravelClaimDetail detail = travelClaimDetailBO.GetByProperty(x => x.TravelClaimDetailId == detailId);
+             travelClaimDetailBO.Delete(detail);
+
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
             travelClaimNewObj.claimHeader = travelClaimHeaderBO
-                .GetByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId);
+                .GetByProperty(x => x.TravelClaimId == headerId);
 
-            travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId).ToList();
+            travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == headerId).ToList();
 
-            TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
-            {
-
-            };
-            travelClaimNewObj.claimDetail.Add(travelClaimDetail);
+           
 
             return View("TravelClaim", travelClaimNewObj);
+           // return View("TravelClaim");
         }
     }
 }

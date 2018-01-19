@@ -71,7 +71,7 @@
                                 <span class="pull-right">No Of Days</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm" })
+                                @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
                             </div>
 
                         </div>
@@ -130,7 +130,7 @@
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetail[i].Amount, new
                                                        {
-                                                           @class = "form-control input-sm",
+                                                           @class = "form-control input-sm decimalCss",
                                                            @required = "required",
                                                            @style = "width:80px;",
                                                            @onblur = "CalculateTotal(this)",
@@ -145,7 +145,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm", @required = "required", @onblur = "CalculateByRate(this)", data_index = i })
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @required = "required", @onblur = "CalculateByRate(this)", data_index = i })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm", @required = "required", @readonly = "readolny" })
@@ -240,9 +240,16 @@
         function CalculateTotal(obj) {
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
+            if(isNaN(amount)){
+                amount=0;
+            }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
+            if(isNaN(exchangeRate)){
+                exchangeRate=0;
+            }
             var Total = amount * exchangeRate;
-
+           
+            
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
 
             var length = $('.cssLength').length;
@@ -280,7 +287,13 @@
            
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
+            if(isNaN(amount)){
+                amount=0;
+            }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
+            if(isNaN(exchangeRate)){
+                exchangeRate=0;
+            }
             var Total = amount * exchangeRate;
 
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);

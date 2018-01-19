@@ -250,8 +250,8 @@
                 amount = 0;
             }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 0;
+            if(isNaN(exchangeRate)){
+                exchangeRate=1;
             }
             var Total = amount * exchangeRate;
 
@@ -297,8 +297,8 @@
                 amount = 0;
             }
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 0;
+            if(isNaN(exchangeRate)){
+                exchangeRate=1;
             }
             var Total = amount * exchangeRate;
 

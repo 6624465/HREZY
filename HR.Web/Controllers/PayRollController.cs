@@ -602,14 +602,23 @@ namespace HR.Web.Controllers
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
-                foreach (TravelClaimDetail item in travelClaimVm.claimDetail)
+                for(var i = 0; i < travelClaimVm.claimDetail.Count; i++)
                 {
-                    if (item.Amount != null)
+                    if(travelClaimVm.claimDetail[i].Amount != null)
                     {
-                        item.TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
-                        travelClaimDetailBO.Add(item);
+                        //CalculateAmount(ref travelClaimVm.claimDetail[i]);
+
+                        var amount = travelClaimVm.claimDetail[i].Amount;
+                        var exrate = travelClaimVm.claimDetail[i].ExchangeRate;
+                        var total = (amount * exrate);
+
+                        travelClaimVm.claimDetail[i].TotalInSGD = total;
+                        travelClaimVm.claimDetail[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
+                        travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
+                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x=>x.TotalInSGD);
+
             }
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
             travelClaimNewObj.claimHeader = travelClaimHeaderBO
@@ -625,7 +634,13 @@ namespace HR.Web.Controllers
 
             return View("TravelClaim", travelClaimNewObj);
         }
-
+        public void CalculateAmount(ref TravelClaimDetail item)
+        {
+            var amount = item.Amount;
+            var exrate = item.ExchangeRate;
+            var total = (amount * exrate);
+            item.TotalInSGD = total;
+        }
         public ActionResult DeleteTravelClaim(int detailId,int headerId)
         {
 
@@ -638,7 +653,28 @@ namespace HR.Web.Controllers
 
             travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == headerId).ToList();
 
-           
+            if (travelClaimNewObj.claimDetail != null && travelClaimNewObj.claimDetail.Count > 0)
+            {
+                for (var i = 0; i < travelClaimNewObj.claimDetail.Count; i++)
+                {
+                    if (travelClaimNewObj.claimDetail[i].Amount != null)
+                    {
+                        //CalculateAmount(ref travelClaimVm.claimDetail[i]);
+
+                        var amount = travelClaimNewObj.claimDetail[i].Amount;
+                        var exrate = travelClaimNewObj.claimDetail[i].ExchangeRate;
+                        var total = (amount * exrate);
+
+                        travelClaimNewObj.claimDetail[i].TotalInSGD = total;
+                        travelClaimNewObj.claimDetail[i].TravelClaimId = travelClaimNewObj.claimHeader.TravelClaimId;
+                        travelClaimDetailBO.Add(travelClaimNewObj.claimDetail[i]);
+                    }
+                }
+
+                travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x=>x.TotalInSGD);
+
+
+            }
 
             return View("TravelClaim", travelClaimNewObj);
            // return View("TravelClaim");

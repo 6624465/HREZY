@@ -637,9 +637,7 @@ namespace HR.Web.Controllers
                 .GetByProperty(x => x.TravelClaimId == headerId);
 
             travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == headerId).ToList();
-
-           
-
+                       
             return View("TravelClaim", travelClaimNewObj);
            // return View("TravelClaim");
         }

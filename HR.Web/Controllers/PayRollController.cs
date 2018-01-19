@@ -600,14 +600,17 @@ namespace HR.Web.Controllers
         public ActionResult TravelClaim(TravelClaimVm travelClaimVm)
         {
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
-            foreach (TravelClaimDetail item in travelClaimVm.claimDetail)
+            if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
-                if(item.Amount != null) { 
-                item.TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
-                travelClaimDetailBO.Add(item);
+                foreach (TravelClaimDetail item in travelClaimVm.claimDetail)
+                {
+                    if (item.Amount != null)
+                    {
+                        item.TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
+                        travelClaimDetailBO.Add(item);
+                    }
                 }
             }
-
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
             travelClaimNewObj.claimHeader = travelClaimHeaderBO
                 .GetByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId);
@@ -623,23 +626,22 @@ namespace HR.Web.Controllers
             return View("TravelClaim", travelClaimNewObj);
         }
 
-        //public ActionResult DeleteTravelClaim(TravelClaimVm travelClaimVm)
-        //{
+        public ActionResult DeleteTravelClaim(int detailId,int headerId)
+        {
 
-        //    travelClaimDetailBO.Delete(travelClaimVm.claimDetail);
-        //    TravelClaimVm travelClaimNewObj = new TravelClaimVm();
-        //    travelClaimNewObj.claimHeader = travelClaimHeaderBO
-        //        .GetByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId);
+            TravelClaimDetail detail = travelClaimDetailBO.GetByProperty(x => x.TravelClaimDetailId == detailId);
+             travelClaimDetailBO.Delete(detail);
 
-        //    travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId).ToList();
+            TravelClaimVm travelClaimNewObj = new TravelClaimVm();
+            travelClaimNewObj.claimHeader = travelClaimHeaderBO
+                .GetByProperty(x => x.TravelClaimId == headerId);
 
-        //    TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
-        //    {
+            travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == headerId).ToList();
 
-        //    };
-        //    travelClaimNewObj.claimDetail.Add(travelClaimDetail);
+           
 
-        //    return View("TravelClaim", travelClaimNewObj);
-        //}
+            return View("TravelClaim", travelClaimNewObj);
+           // return View("TravelClaim");
+        }
     }
 }

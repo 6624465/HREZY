@@ -245,9 +245,16 @@
 
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
 
-            var grossVal = $('#claimHeader_GrossTotal').val();
-            var grossTotal = parseFloat(Total + grossVal);
-            $('#claimHeader_GrossTotal').val(grossTotal);
+            var length = $('.cssLength').length;
+            var grossTotal = 0;
+            for (var i = 0; i < length; i++) {
+
+                var grossVal = $('#claimDetail_' + i + '__TotalInSGD').val();
+
+                grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+
+                $('#claimHeader_GrossTotal').val(grossTotal);
+            }
         }
 
         function CalculateByCurrency(obj) {
@@ -257,17 +264,20 @@
             var Total = amount * exchangeRate;
 
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
-            var grossVal = $('#claimHeader_GrossTotal').val();
+            var length = $('.cssLength').length;
+            var grossTotal = 0;
+            for (var i = 0; i < length; i++) {
 
-            var grossTotal = parseFloat(Total + grossVal);
+                var grossVal = $('#claimDetail_' + i + '__TotalInSGD').val();
 
-            $('#claimHeader_GrossTotal').val(grossTotal);
+                grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+
+                $('#claimHeader_GrossTotal').val(grossTotal);
+            }
         }
 
         function CalculateByRate(obj) {
-            debugger;
-
-
+           
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
             var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
@@ -290,9 +300,10 @@
 
         function deleteClaimDetail(detailId,index) {
             debugger;
+            var headerId = $('#claimHeader_TravelClaimId').val();
             if (detailId != undefined && detailId != null && detailId != 0) {
-                $('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim")');
-                // $('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim?detailId=")' + detailId)
+                //$('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim")');
+                $('#frmClaim').attr('action', '@Url.Content("~/Payroll/DeleteTravelClaim?detailId=")' + detailId + "&headerId=" + headerId)
                 $('#frmClaim').submit();
             }
             else {

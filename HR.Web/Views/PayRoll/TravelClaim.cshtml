@@ -186,7 +186,7 @@
     {
         <input type="hidden" id="detailId" name="detailId" />
         <input type="hidden" id="headerId" name="headerId" />
-       
+
     }
 
 </div>
@@ -196,6 +196,25 @@
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
             type="text/javascript"></script>
     <script type="text/javascript">
+
+        @{
+            if(Model.claimHeader.TravelClaimId!=0)
+            {
+                var varArr = Model.claimHeader.CountryVisited;
+                var result = varArr.Split(',');
+
+
+                for (var i=0; i < result.Length; i++)
+                {
+                    <text>
+                    debugger;
+                    $options = $('#claimHeader_CountryVisited option');
+                    $options.filter('[value="@result[i]"]').prop('selected', true);
+                     </text>
+                }
+            }
+
+        }
 
         $(document).ready(function () {
             $('.dtCss').datetimepicker({

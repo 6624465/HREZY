@@ -345,5 +345,45 @@ namespace HR.Web.Controllers
             return (count > 0 ? true : false);
         }
         #endregion
+
+            #region Currency
+            public ViewResult CurrencyList()
+        {
+            var currencylist = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_CURRENCY && x.IsActive == true).ToList().AsEnumerable();
+            return View(currencylist);
+        }
+        public PartialViewResult GetCurrency(int lookupID)
+        {
+            if (lookupID == -1)
+            {
+                return PartialView(new LookUp { LookUpID = -1 });
+            }
+            else
+            {
+                var currency_data = lookUpBO.GetByProperty(x => x.LookUpID == lookupID && x.IsActive == true);
+                return PartialView(currency_data);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SaveCurrency(LookUp lookup)
+        {
+            lookup.LookUpCategory = UTILITY.CONFIG_CURRENCY;
+            lookUpBO.Add(lookup);
+            return RedirectToAction("CurrencyList");
+        }
+        public ActionResult CurrencyDelete(int lookupid)
+        {
+            lookUpBO.Delete(lookupid);
+            return RedirectToAction("CurrencyList");
+        }
+        public bool IsCurrencyExists(string currency)
+        {
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == currency.ToUpper()) && x.IsActive == true && (x.LookUpCategory == UTILITY.CONFIG_CURRENCY)).ToList();
+            int count = list.Count();
+            return (count > 0 ? true : false);
+        }
+
+        #endregion
     }
 }

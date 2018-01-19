@@ -2081,6 +2081,8 @@
     <Content Include="Views\PayRoll\TravelClaim.cshtml" />
     <Content Include="Views\Config\TravelClaimList.cshtml" />
     <Content Include="Views\Config\GetTravelClaim.cshtml" />
+    <Content Include="Views\Config\CurrencyList.cshtml" />
+    <Content Include="Views\Config\GetCurrency.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

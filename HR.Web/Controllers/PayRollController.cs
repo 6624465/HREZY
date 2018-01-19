@@ -602,9 +602,9 @@ namespace HR.Web.Controllers
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
-                for(var i = 0; i < travelClaimVm.claimDetail.Count; i++)
+                for (var i = 0; i < travelClaimVm.claimDetail.Count; i++)
                 {
-                    if(travelClaimVm.claimDetail[i].Amount != null)
+                    if (travelClaimVm.claimDetail[i].Amount != null)
                     {
                         //CalculateAmount(ref travelClaimVm.claimDetail[i]);
 
@@ -617,7 +617,7 @@ namespace HR.Web.Controllers
                         travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
-                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x=>x.TotalInSGD);
+                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
 
             }
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
@@ -641,11 +641,11 @@ namespace HR.Web.Controllers
             var total = (amount * exrate);
             item.TotalInSGD = total;
         }
-        public ActionResult DeleteTravelClaim(int detailId =0,int headerId=0)
+        public ActionResult DeleteTravelClaim(int detailId = 0, int headerId = 0)
         {
 
             TravelClaimDetail detail = travelClaimDetailBO.GetByProperty(x => x.TravelClaimDetailId == detailId);
-             travelClaimDetailBO.Delete(detail);
+            travelClaimDetailBO.Delete(detail);
 
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
             travelClaimNewObj.claimHeader = travelClaimHeaderBO
@@ -671,13 +671,20 @@ namespace HR.Web.Controllers
                     }
                 }
 
-                travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x=>x.TotalInSGD);
+                travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x => x.TotalInSGD);
 
-
+               
             }
+            if (travelClaimNewObj.claimDetail.Count == 0)
+            {
+                TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+                {
 
+                };
+                travelClaimNewObj.claimDetail.Add(travelClaimDetail);
+            }
             return View("TravelClaim", travelClaimNewObj);
-           // return View("TravelClaim");
+            // return View("TravelClaim");
         }
     }
 }

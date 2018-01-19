@@ -42,9 +42,13 @@ namespace HR.Web.Controllers
                        dbContext.EmployeeDocumentDetails
                        .Where(x => x.EmployeeId == userObj.EmployeeId).FirstOrDefault().FileName,
                         DocumentDetailID = dbContext.EmployeeDocumentDetails.Where(x => x.EmployeeId == userObj.EmployeeId && x.DocumentType == UTILITY.FILEID).FirstOrDefault() == null ? 0 : dbContext.EmployeeDocumentDetails.Where(x => x.EmployeeId == userObj.EmployeeId && x.DocumentType == UTILITY.FILEID).FirstOrDefault().DocumentDetailID,
-                        FIRSTNAME = dbContext.EmployeeHeaders.Where(x => x.EmployeeId == userObj.EmployeeId).FirstOrDefault().FirstName
+
 
                     };
+                    if (ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                        sessionObj.FIRSTNAME = dbContext.EmployeeHeaders.Where(x => x.EmployeeId == userObj.EmployeeId)
+                           .FirstOrDefault().FirstName;
+
                     SESSIONOBJ = sessionObj;
 
                     //if (ROLECODE == UTILITY.ROLE_ADMIN || ROLECODE == UTILITY.ROLE_SUPERADMIN)

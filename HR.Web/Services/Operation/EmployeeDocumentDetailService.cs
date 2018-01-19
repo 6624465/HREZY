@@ -28,14 +28,13 @@ namespace HR.Web.Services.Operation
                     else
                     {
                         empDetail.BranchId = entity.BranchId;
-                        empDetail.CreatedBy = entity.CreatedBy;
-                        empDetail.CreatedOn = entity.CreatedOn;
+                        
                         //empDetail.DocumentDetailID = entity.DocumentDetailID;
                         empDetail.DocumentType = entity.DocumentType;
                         empDetail.FileName = entity.FileName;
                         empDetail.EmployeeId = entity.EmployeeId;
-                        empDetail.ModifiedBy = entity.ModifiedBy;
-                        empDetail.ModifiedOn = entity.ModifiedOn;
+                        empDetail.ModifiedBy = entity.CreatedBy;
+                        empDetail.ModifiedOn = UTILITY.SINGAPORETIME;
                     }
                     dbContext.SaveChanges();
                 }

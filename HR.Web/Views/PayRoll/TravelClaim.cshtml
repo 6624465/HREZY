@@ -11,12 +11,30 @@
             padding: 0;
             max-height: 200px;
             overflow-y: auto;
+            overflow-x: visible;
             /* overflow-y: scroll; */
             /* overflow: auto; */
         }
+        .top > th{
+           background:#ccc !important;
+           
+        }
+
+        .table tr th {
+            background-color: #fff;
+            color: #000;
+        }
+
+            .table tr th a {
+                color: #000;
+            }
+            .ui-datepicker-div { z-index: 999; }
+                              
+          
+        
     </style>
 }
-<div class="page">
+<div class="page" style="overflow:visible;">
     @using (Html.BeginForm("TravelClaim", "Payroll", FormMethod.Post, new { id = "frmClaim", name = "frmClaim" }))
     {
         <div class="row">
@@ -64,7 +82,7 @@
                             </label>
                             <div class="col-md-4">
                                 @*@Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })*@
-                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @multiple= "multiple", @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm",@multiple="multiple" })
                             </div>
 
                             <label class="col-md-2 control-label">
@@ -86,16 +104,16 @@
                                     <div class="table-responsive">
                                         <table class="table table-condensed table-bordered" style="margin-top:10px">
                                             <thead>
-                                                <tr>
-                                                    <th>Category</th>
-                                                    <th style="width:40px;">Date</th>
-                                                    <th>Description</th>
-                                                    <th style="white-space:nowrap">Receipts (Y/N)</th>
-                                                    <th>Amount</th>
-                                                    <th style="white-space:nowrap">Currency</th>
-                                                    <th>Exchange Rate</th>
-                                                    <th>Total</th>
-                                                    <th>Action</th>
+                                                <tr style="background:#3f51b5;">
+                                                    <th style="background:#3f51b5; color:#fff;">Category</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Description</th>
+                                                    <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                    <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -106,7 +124,7 @@
                                                         <td>
                                                             <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                    name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
-                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm" })
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", @style="width:100px;" })
                                                             <script>
                                                                 $(document).ready(function () {
                                                                     $('#claimDetail_' + '@i' + '__Category').val('@Model.claimDetail[i].Category');
@@ -116,28 +134,28 @@
                                                         <td>
 
                                                             <div class="input-group date dtCss" id="TravelDate">
-                                                                @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", @required = "required", @style = "width:80px;" })
+                                                                @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", @required = "required", @style = "width:100px;" })
                                                                 <span class="input-group-addon">
                                                                     <i class="ion ion-calendar"></i>
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @Html.TextAreaFor(x => x.claimDetail[i].Description, new { @class = "form-control input-sm", @style = "width:80px;" })
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].Description, new { @class = "form-control input-sm", @style = "width:100px;" })
                                                         </td>
                                                         <td style="width:80px;">
 
                                                             @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, 0, "Yes")
-                                                            <span>Yes</span>
+                                                            <span>Y</span>
                                                             @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, 1, "No")
-                                                            <span>No</span>
+                                                            <span>N</span>
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetail[i].Amount, new
                                                        {
                                                            @class = "form-control input-sm decimalCss",
                                                            @required = "required",
-                                                           @style = "width:80px;",
+                                                           @style = "width:100px;",
                                                            @onblur = "CalculateTotal(this)",
                                                            data_index = i
                                                        })
@@ -149,7 +167,7 @@
                                                             @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @required = "required",@readonly=true })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm", @required = "required", @readonly = "readolny" })
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm",@style="width:100px", @required = "required", @readonly = "readolny" })
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect"
@@ -228,6 +246,8 @@
                 },
                 format: dateFormat
             });
+
+            
 
             $('#frmClaim').validate({
                 rules: {

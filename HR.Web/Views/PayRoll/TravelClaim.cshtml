@@ -82,7 +82,7 @@
                             </label>
                             <div class="col-md-4">
                                 @*@Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })*@
-                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm",@multiple="multiple" })
                             </div>
 
                             <label class="col-md-2 control-label">
@@ -271,9 +271,9 @@
                 }
             });
 
-            //$('#claimHeader_CountryVisited').multiselect({
-            //    includeSelectAllOption: true
-            //});
+            $('#claimHeader_CountryVisited').multiselect({
+                includeSelectAllOption: true
+            });
 
         });
         function SaveAndGetData() {

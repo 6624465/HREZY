@@ -58,6 +58,7 @@ namespace HR.Web
         public static string CONFIG_ROLECODE = "ROLECODE";
         public static string CONFIG_MANAGER = "MANAGER";
         public static string CONFIG_TRAVELCLAIM = "TravelClaim";
+        public static string CONFIG_CURRENCY = "Currency";
 
         public static string LEAVEAPPROVED = "Approved";
         public static string LEAVEREJECTED = "Rejected";

@@ -691,6 +691,34 @@ namespace HR.Web.Controllers
 
             return View("TravelClaim", travelClaimNewObj);
         }
+        [HttpPost]
+        public ActionResult TravelClaimSave(TravelClaimVm travelClaimVm)
+        {
+            travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
+            if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
+            {
+                for (var i = 0; i < travelClaimVm.claimDetail.Count; i++)
+                {
+                    if (travelClaimVm.claimDetail[i].Amount != null)
+                    {
+                        var amount = travelClaimVm.claimDetail[i].Amount;
+                        var exrate = travelClaimVm.claimDetail[i].ExchangeRate;
+                        var total = (amount * exrate);
+
+                        travelClaimVm.claimDetail[i].TotalInSGD = total;
+                        travelClaimVm.claimDetail[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
+                        travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
+                    }
+                }
+                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
+
+            }
+          
+
+            return RedirectToAction("TravelClaimList","Payroll");
+        }
+
+
         public void CalculateAmount(ref TravelClaimDetail item)
         {
             var amount = item.Amount;

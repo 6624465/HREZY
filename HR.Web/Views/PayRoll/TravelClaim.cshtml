@@ -15,9 +15,9 @@
             /* overflow-y: scroll; */
             /* overflow: auto; */
         }
-        .top > th{
-           background:#ccc !important;
-           
+
+        .top > th {
+            background: #ccc !important;
         }
 
         .table tr th {
@@ -28,10 +28,10 @@
             .table tr th a {
                 color: #000;
             }
-            .ui-datepicker-div { z-index: 999; }
-                              
-          
-        
+
+        .ui-datepicker-div {
+            z-index: 999;
+        }
     </style>
 }
 <div class="page" style="overflow:visible;">
@@ -82,7 +82,7 @@
                             </label>
                             <div class="col-md-4">
                                 @*@Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })*@
-                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm",@multiple="multiple" })
+                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm", @multiple = "multiple" })
                             </div>
 
                             <label class="col-md-2 control-label">
@@ -124,7 +124,7 @@
                                                         <td>
                                                             <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                    name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
-                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", @style="width:100px;" })
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", @style = "width:100px;" })
                                                             <script>
                                                                 $(document).ready(function () {
                                                                     $('#claimDetail_' + '@i' + '__Category').val('@Model.claimDetail[i].Category');
@@ -162,13 +162,13 @@
                                                        })
                                                         </td>
                                                         <td>
-                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control" , @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i })
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @required = "required", @style = "width:100px;", @readonly =true })
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @required = "required", @style = "width:100px;", @readonly = true })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm",@style="width:100px", @required = "required", @readonly = "readolny" })
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @required = "required", @readonly = "readolny" })
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect"
@@ -197,10 +197,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div><button type="button" class="btn btn-xs btn-primary btn-sm waves-effect"
+                                  style="padding-left: 5px;margin-left: 6px;" onclick="SaveTravelClaim()">
+                        Save
+                    </button>
                 </div>
             </div>
         </div>
+
     }
     @using (Html.BeginForm("DeleteTravelClaim", "Payroll", FormMethod.Post, new { @id = "frmClaimDelete", name = "frmClaimDelete" }))
     {
@@ -212,9 +216,9 @@
 </div>
 @section Scripts{
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
-              rel="stylesheet" type="text/css" />
-        <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
-                type="text/javascript"></script>
+          rel="stylesheet" type="text/css" />
+    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+            type="text/javascript"></script>
     <script type="text/javascript">
 
         @{
@@ -225,10 +229,10 @@
                 for (var i=0; i < result.Length; i++)
                 {
                     <text>
-                    debugger;
-                    $options = $('#claimHeader_CountryVisited option');
-                    $options.filter('[value="@result[i]"]').prop('selected', true);
-                     </text>
+        debugger;
+        $options = $('#claimHeader_CountryVisited option');
+        $options.filter('[value="@result[i]"]').prop('selected', true);
+        </text>
                 }
             }
 
@@ -248,7 +252,7 @@
                 format: dateFormat
             });
 
-            
+
 
             $('#frmClaim').validate({
                 rules: {
@@ -282,12 +286,19 @@
             }
         }
 
+        function SaveTravelClaim() {
+            if ($('#frmClaim').valid()) {
+                $('#frmClaim').attr('action','@Url.Content("~/Payroll/TravelClaimSave")');
+                $('#frmClaim').submit();
+            }
+        }
+
         function CalculateTotal(obj) {
             debugger;
             var index = $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
-            var exrate =isNaN($('select#claimDetail_' + index + '__Currency option:selected').val())?1: parseFloat($('select#claimDetail_' + index + '__Currency option:selected').val());
-             $('#claimDetail_' + index + '__ExchangeRate').val(exrate);
+            var exrate = isNaN($('select#claimDetail_' + index + '__Currency option:selected').val()) ? 1 : parseFloat($('select#claimDetail_' + index + '__Currency option:selected').val());
+            $('#claimDetail_' + index + '__ExchangeRate').val(exrate);
             if (isNaN(amount)) {
                 amount = 0;
             }

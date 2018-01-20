@@ -332,7 +332,7 @@
                 exchangeRate = 1;
             }
             var Total = amount * exchangeRate;
-            $('#claimDetail_' + index + '__TotalInSGD').val(Total);
+            $('#claimDetail_' + index + '__TotalInSGD').val(Total.toFixed(2));
 
             var length = $('.cssLength').length;
             var grossTotal = 0;
@@ -342,7 +342,7 @@
                 if (grossVal != null && grossVal != "") {
                     grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
                 }
-                $('#claimHeader_GrossTotal').val(grossTotal);
+                $('#claimHeader_GrossTotal').val(grossTotal.toFixed(2));
             }
         }
 

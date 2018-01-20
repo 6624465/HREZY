@@ -583,8 +583,6 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult TravelClaimList(int? page = 1)
         {
-
-
             ViewData["RoleCode"] = ROLECODE;
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skip = (page.Value - 1) * offset;
@@ -597,8 +595,6 @@ namespace HR.Web.Controllers
             HtmlTblVm.TotalRows = count;
             HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
             HtmlTblVm.CurrentPage = page.Value;
-
-
             return View(HtmlTblVm);
         }
 
@@ -656,6 +652,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult TravelClaim(TravelClaimVm travelClaimVm)
         {
+            travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
@@ -674,7 +671,7 @@ namespace HR.Web.Controllers
                         travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
-                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
+
 
             }
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
@@ -694,6 +691,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult TravelClaimSave(TravelClaimVm travelClaimVm)
         {
+            travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
@@ -710,12 +708,10 @@ namespace HR.Web.Controllers
                         travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
-                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
-
             }
-          
 
-            return RedirectToAction("TravelClaimList","Payroll");
+
+            return RedirectToAction("TravelClaimList", "Payroll");
         }
 
 
@@ -731,45 +727,9 @@ namespace HR.Web.Controllers
 
             TravelClaimDetail detail = travelClaimDetailBO.GetByProperty(x => x.TravelClaimDetailId == detailId);
             travelClaimDetailBO.Delete(detail);
-
-            TravelClaimVm travelClaimNewObj = new TravelClaimVm();
-            travelClaimNewObj.claimHeader = travelClaimHeaderBO
-                .GetByProperty(x => x.TravelClaimId == headerId);
-
-            travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == headerId).ToList();
-
-            if (travelClaimNewObj.claimDetail != null && travelClaimNewObj.claimDetail.Count > 0)
-            {
-                for (var i = 0; i < travelClaimNewObj.claimDetail.Count; i++)
-                {
-                    if (travelClaimNewObj.claimDetail[i].Amount != null)
-                    {
-                        //CalculateAmount(ref travelClaimVm.claimDetail[i]);
-
-                        var amount = travelClaimNewObj.claimDetail[i].Amount;
-                        var exrate = travelClaimNewObj.claimDetail[i].ExchangeRate;
-                        var total = (amount * exrate);
-
-                        travelClaimNewObj.claimDetail[i].TotalInSGD = total;
-                        travelClaimNewObj.claimDetail[i].TravelClaimId = travelClaimNewObj.claimHeader.TravelClaimId;
-                        travelClaimDetailBO.Add(travelClaimNewObj.claimDetail[i]);
-                    }
-                }
-
-                travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x => x.TotalInSGD);
-
-
-            }
-            if (travelClaimNewObj.claimDetail.Count == 0)
-            {
-                TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
-                {
-                    Receipts = false
-                };
-                travelClaimNewObj.claimDetail.Add(travelClaimDetail);
-            }
-            return View("TravelClaim", travelClaimNewObj);
-            // return View("TravelClaim");
+            
+            return RedirectToAction("TravelClaim", "Payroll", new { travelClaimId = headerId });
+            
         }
     }
 }

@@ -656,6 +656,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult TravelClaim(TravelClaimVm travelClaimVm)
         {
+            travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
@@ -674,7 +675,7 @@ namespace HR.Web.Controllers
                         travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
-                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
+               
 
             }
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
@@ -694,6 +695,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult TravelClaimSave(TravelClaimVm travelClaimVm)
         {
+            travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
@@ -710,8 +712,6 @@ namespace HR.Web.Controllers
                         travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
-                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
-
             }
           
 

@@ -727,46 +727,9 @@ namespace HR.Web.Controllers
 
             TravelClaimDetail detail = travelClaimDetailBO.GetByProperty(x => x.TravelClaimDetailId == detailId);
             travelClaimDetailBO.Delete(detail);
-
-            //TravelClaimVm travelClaimNewObj = new TravelClaimVm();
-            //travelClaimNewObj.claimHeader = travelClaimHeaderBO
-            //    .GetByProperty(x => x.TravelClaimId == headerId);
-
-            //travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == headerId).ToList();
-
-            //if (travelClaimNewObj.claimDetail != null && travelClaimNewObj.claimDetail.Count > 0)
-            //{
-            //    for (var i = 0; i < travelClaimNewObj.claimDetail.Count; i++)
-            //    {
-            //        if (travelClaimNewObj.claimDetail[i].Amount != null)
-            //        {
-            //            //CalculateAmount(ref travelClaimVm.claimDetail[i]);
-
-            //            var amount = travelClaimNewObj.claimDetail[i].Amount;
-            //            var exrate = travelClaimNewObj.claimDetail[i].ExchangeRate;
-            //            var total = (amount * exrate);
-
-            //            travelClaimNewObj.claimDetail[i].TotalInSGD = total;
-            //            travelClaimNewObj.claimDetail[i].TravelClaimId = travelClaimNewObj.claimHeader.TravelClaimId;
-            //            travelClaimDetailBO.Add(travelClaimNewObj.claimDetail[i]);
-            //        }
-            //    }
-
-            //    travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x => x.TotalInSGD);
-
-
-            //}
-            //if (travelClaimNewObj.claimDetail.Count == 0)
-            //{
-            //    TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
-            //    {
-            //        Receipts = false
-            //    };
-            //    travelClaimNewObj.claimDetail.Add(travelClaimDetail);
-            //}
+            
             return RedirectToAction("TravelClaim", "Payroll", new { travelClaimId = headerId });
-            //return View("TravelClaim", travelClaimNewObj);
-            // return View("TravelClaim");
+            
         }
     }
 }

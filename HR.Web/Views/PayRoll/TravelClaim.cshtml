@@ -310,7 +310,7 @@
 
         function CalculateTotal(obj) {
             debugger;
-            var index = $(obj).data('index');
+            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
             var exrate = isNaN($('select#claimDetail_' + index + '__Currency option:selected').val()) ? 1 : parseFloat($('select#claimDetail_' + index + '__Currency option:selected').val());
             $('#claimDetail_' + index + '__ExchangeRate').val(exrate);
@@ -350,6 +350,7 @@
                 }
                 else {
                     $('#tr_' + index).remove();
+                    CalculateTotal(index);
                    // $('#claimHeader_GrossTotal').val('');
                 }
             }

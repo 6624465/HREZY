@@ -24,14 +24,20 @@
             background-color: #fff;
             color: #000;
         }
-
+        .cal-icon{
+            display:initial;
+        }
             .table tr th a {
                 color: #000;
             }
-            .ui-datepicker-div { z-index: 999; }
-                              
-          
-        
+            @@media screen and (min-width: 1600px) {
+        .cal-cal-icon{
+        display:table;
+        }
+        }
+         
+
+            .datepicker table { position:relative;z-index: 9999; }
     </style>
 }
 <div class="page" style="overflow:visible;">
@@ -135,7 +141,7 @@
 
                                                             <div class="input-group date dtCss" id="TravelDate">
                                                                 @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", @required = "required", @style = "width:100px;" })
-                                                                <span class="input-group-addon">
+                                                                <span class="input-group-addon cal-cal-icon">
                                                                     <i class="ion ion-calendar"></i>
                                                                 </span>
                                                             </div>
@@ -143,7 +149,7 @@
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetail[i].Description, new { @class = "form-control input-sm", @style = "width:100px;" })
                                                         </td>
-                                                        <td style="width:80px;">
+                                                        <td>
 
                                                             @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, 0, "Yes")
                                                             <span>Y</span>
@@ -381,5 +387,8 @@
             }
         }
 
+       
+
     </script>
+  
 }

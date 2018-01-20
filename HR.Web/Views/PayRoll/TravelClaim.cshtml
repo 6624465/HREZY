@@ -88,7 +88,7 @@
                                 <span class="pull-right">To Date</span>
                             </label>
                             <div class="col-md-4">
-                                <div class="input-group date dtCss" id="FromDate">
+                                <div class="input-group date dtCss" id="ToDate">
                                     @Html.TextBoxFor(x => x.claimHeader.ToDate,
                                    new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
@@ -272,6 +272,11 @@
                 },
                 format: dateFormat
             });
+
+            $("#FromDate").on("dp.change", function (e) {
+                $('#ToDate').data("DateTimePicker").minDate(e.date);
+            });
+           
 
 
 

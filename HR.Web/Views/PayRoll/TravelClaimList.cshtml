@@ -20,20 +20,22 @@
         <div class="panel panel-default">
             <div class="center-block width">
                 <div class="panel-heading">
-                   Travel Claim List
+                    Travel Claim List
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-primary btn-sm ajaxCss pull-right"
-                                     onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=0")'"><i class="fa fa-plus-square"></i>&nbsp;Create</button>
+                                    onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=0")'">
+                                <i class="fa fa-plus-square"></i>&nbsp;Create
+                            </button>
                         </div>
                     </div>
                     <table class="table table-conden table-bordered">
                         <thead>
                             <tr>
                                 <th>
-                                   Employee Name
+                                    Employee Name
                                 </th>
                                 <th>
                                     No Of Days
@@ -55,12 +57,12 @@
                                         @Model.TableData[i].NoOfDays
                                     </td>
                                     <td>
-                                        <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" 
+                                        <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss"
                                                 style="padding-left: 5px;margin-left: 6px;"
                                                 onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=" + Model.TableData[i].TravelClaimId)'">
                                             <i class="fa fa-pencil" style="padding-left: 5px;"></i>
                                         </button>
-                                       
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -77,3 +79,24 @@
 
     </div>
 </div>
+@section Scripts{
+    <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#li_PayRollConfig').addClass('open');
+            $('#li_ContributionRegisterList').addClass('active');
+            $('#pagination').bootpag({
+                total: @Model.PageLength,
+                page: @Model.CurrentPage,
+                maxVisible: 10,
+                href: '@Url.Content("~/PayRoll/TravelClaimList?page="){{number}}',  //"#pro-page-{{number}}",
+                leaps: false,
+                next: 'Next',
+                prev: 'Prev',
+                wrapClass: 'pagination pagination-sm'
+            }).on('page', function (event, num) {
+                $(".content3").html("Page " + num); // or some ajax content loading...
+            });
+        });
+    </script>
+}

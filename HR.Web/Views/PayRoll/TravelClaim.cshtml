@@ -24,30 +24,36 @@
             background-color: #fff;
             color: #000;
         }
-        .cal-icon{
-            display:initial;
+
+        .cal-icon {
+            display: initial;
         }
-            .table tr th a {
-                color: #000;
+
+        .table tr th a {
+            color: #000;
+        }
+
+        .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus {
+            color: #333333;
+            background: none;
+        }
+
+            .dropdown-menu > .active > a:hover {
+                background: #f5f5f5;
+                color: #333333;
             }
-            .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus{
-                color:#333333;
-                background:none;
+
+        @@media screen and (min-width: 1600px) {
+            .cal-cal-icon {
+                display: table;
             }
-             .dropdown-menu > .active > a:hover{
-                 background:#f5f5f5;
-                 color:#333333;
-
-             }
-
-            @@media screen and (min-width: 1600px) {
-        .cal-cal-icon{
-        display:table;
         }
-        }
-         
 
-            .datepicker table { position:relative;z-index: 9999; }
+
+        .datepicker table {
+            position: relative;
+            z-index: 9999;
+        }
     </style>
 }
 <div class="page" style="overflow:visible;">
@@ -60,7 +66,6 @@
                         Travel Expenses Claim Form - @Model.claimHeader.Name
                     </div>
                     <div class="panel-body">
-                        @*@Html.HiddenFor(x => x.claimHeader.TravelClaimId)*@
                         <input type="hidden" id="claimHeader_TravelClaimId" name="claimHeader.TravelClaimId" value="@Model.claimHeader.TravelClaimId" />
                         @Html.HiddenFor(x => x.claimHeader.Name)
                         @Html.HiddenFor(x => x.claimHeader.EmployeeId)
@@ -97,8 +102,7 @@
                                 <span class="pull-right">Country Visited</span>
                             </label>
                             <div class="col-md-4">
-                                @*@Html.TextBoxFor(x => x.claimHeader.CountryVisited, new { @class = "form-control input-sm" })*@
-                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm", @multiple = "multiple" , @required = "required" })
+                                @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
                             </div>
 
                             <label class="col-md-2 control-label">
@@ -140,7 +144,7 @@
                                                         <td>
                                                             <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                    name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
-                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category,SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", @style = "width:100px;",@required = "required" })
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", @style = "width:100px;", @required = "required" })
                                                             <script>
                                                                 $(document).ready(function () {
                                                                     $('#claimDetail_' + '@i' + '__Category').val('@Model.claimDetail[i].Category');
@@ -178,7 +182,7 @@
                                                        })
                                                         </td>
                                                         <td>
-                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(),new { @class = "form-control", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i,@required="required" })
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
@@ -218,7 +222,7 @@
                             Save
                         </button>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -247,7 +251,6 @@
                 for (var i=0; i < result.Length; i++)
                 {
                     <text>
-        debugger;
         $options = $('#claimHeader_CountryVisited option');
         $options.filter('[value="@result[i]"]').prop('selected', true);
         </text>
@@ -305,7 +308,6 @@
 
         });
         function SaveAndGetData() {
-            debugger;
             if ($('#frmClaim').valid()) {
                 $('#frmClaim').submit();
             }
@@ -313,13 +315,12 @@
 
         function SaveTravelClaim() {
             if ($('#frmClaim').valid()) {
-                $('#frmClaim').attr('action','@Url.Content("~/Payroll/TravelClaimSave")');
+                $('#frmClaim').attr('action', '@Url.Content("~/Payroll/TravelClaimSave")');
                 $('#frmClaim').submit();
             }
         }
 
         function CalculateTotal(obj) {
-            debugger;
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
             var exrate = isNaN($('select#claimDetail_' + index + '__Currency option:selected').val()) ? 1 : parseFloat($('select#claimDetail_' + index + '__Currency option:selected').val());
@@ -347,11 +348,9 @@
         }
 
         function deleteClaimDetail(detailId, index) {
-            debugger;
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssLength').length;
-            if (length > 1)
-            {
+            if (length > 1) {
                 if (detailId != undefined && detailId != null && detailId != 0) {
                     $('#headerId').val(headerId);
                     $('#detailId').val(detailId);
@@ -361,18 +360,12 @@
                 else {
                     $('#tr_' + index).remove();
                     CalculateTotal(index);
-                   // $('#claimHeader_GrossTotal').val('');
                 }
             }
             else {
-                swal("Message!", "You cannot delete because one row should be mandatory");
+                swal("Message!", "You can not delete because one row should be mandatory");
             }
-
-           
         }
-
-       
-
     </script>
-  
+
 }

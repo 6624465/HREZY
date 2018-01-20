@@ -26,13 +26,13 @@ namespace HR.Web.Services.Payroll
                     {
                         travelClaimDetail.Amount = entity.Amount;
                         travelClaimDetail.Category = entity.Category;
-                        travelClaimDetail.CreatedBy = entity.CreatedBy;
-                        travelClaimDetail.CreatedOn = entity.CreatedOn;
+                        //travelClaimDetail.CreatedBy = entity.CreatedBy;
+                        //travelClaimDetail.CreatedOn = entity.CreatedOn;
                         travelClaimDetail.Currency = entity.Currency;
                         travelClaimDetail.Description = entity.Description;
                         travelClaimDetail.ExchangeRate = entity.ExchangeRate;
-                        travelClaimDetail.ModifiedBy = entity.ModifiedBy;
-                        travelClaimDetail.ModifiedOn = entity.ModifiedOn;
+                        travelClaimDetail.ModifiedBy = entity.CreatedBy;
+                        travelClaimDetail.ModifiedOn = UTILITY.SINGAPORETIME;
                         travelClaimDetail.Receipts = entity.Receipts;
                         travelClaimDetail.TotalInSGD = entity.TotalInSGD;
                         travelClaimDetail.TravelClaimId = entity.TravelClaimId;

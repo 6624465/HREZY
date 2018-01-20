@@ -21,6 +21,10 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             try
             {
+
+                entity.CreatedBy = sessionObj.USERID;
+                entity.CreatedOn = UTILITY.SINGAPORETIME;
+                entity.BranchId = sessionObj.BRANCHID;
                 TravelClaimDetailRepository.Add(entity);
             }
             catch (Exception ex)

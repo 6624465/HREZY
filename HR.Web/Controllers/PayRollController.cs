@@ -579,21 +579,78 @@ namespace HR.Web.Controllers
             int count = list.Count();
             return (count > 0 ? true : false);
         }
+
+        [HttpGet]
+        public ActionResult TravelClaimList(int? page = 1)
+        {
+
+
+            ViewData["RoleCode"] = ROLECODE;
+            var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+            int skip = (page.Value - 1) * offset;
+            List<TravelClaimHeader> claimHeaderList = travelClaimHeaderBO
+               .GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true && x.EmployeeId == EMPLOYEEID).ToList();
+            var count = claimHeaderList.Count();
+            decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+            HtmlTblVm<TravelClaimHeader> HtmlTblVm = new HtmlTblVm<TravelClaimHeader>();
+            HtmlTblVm.TableData = claimHeaderList.Skip(skip).Take(offset).ToList();
+            HtmlTblVm.TotalRows = count;
+            HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+            HtmlTblVm.CurrentPage = page.Value;
+
+
+            return View(HtmlTblVm);
+        }
+
         [HttpGet]
         public ActionResult TravelClaim(int travelClaimId = 0)
         {
-            TravelClaimVm travelClaimVm = new TravelClaimVm();
-            travelClaimVm.claimHeader = new TravelClaimHeader();
-            travelClaimVm.claimHeader.Name = FIRSTNAME;
-            travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
-            travelClaimVm.claimDetail = new List<TravelClaimDetail>();
-
-            TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+            if (travelClaimId == 0)
             {
+                TravelClaimVm travelClaimVm = new TravelClaimVm();
+                travelClaimVm.claimHeader = new TravelClaimHeader();
+                travelClaimVm.claimHeader.Name = FIRSTNAME;
+                travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
+                travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
-            };
-            travelClaimVm.claimDetail.Add(travelClaimDetail);
-            return View(travelClaimVm);
+                TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+                {
+                    Receipts = false
+                };
+                travelClaimVm.claimDetail.Add(travelClaimDetail);
+                return View(travelClaimVm);
+            }
+            else
+            {
+                TravelClaimVm travelClaimNewObj = new TravelClaimVm();
+                travelClaimNewObj.claimHeader = travelClaimHeaderBO
+                    .GetByProperty(x => x.TravelClaimId == travelClaimId);
+
+                travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimId).ToList();
+
+                if (travelClaimNewObj.claimDetail != null && travelClaimNewObj.claimDetail.Count > 0)
+                {
+                    for (var i = 0; i < travelClaimNewObj.claimDetail.Count; i++)
+                    {
+                        if (travelClaimNewObj.claimDetail[i].Amount != null)
+                        {
+                            var amount = travelClaimNewObj.claimDetail[i].Amount;
+                            var exrate = travelClaimNewObj.claimDetail[i].ExchangeRate;
+                            var total = (amount * exrate);
+
+                            travelClaimNewObj.claimDetail[i].TotalInSGD = total;
+                            travelClaimNewObj.claimDetail[i].TravelClaimId = travelClaimNewObj.claimHeader.TravelClaimId;
+                            travelClaimDetailBO.Add(travelClaimNewObj.claimDetail[i]);
+                        }
+                    }
+
+                    travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x => x.TotalInSGD);
+
+
+                }
+                return View(travelClaimNewObj);
+            }
+
         }
 
         [HttpPost]
@@ -628,12 +685,40 @@ namespace HR.Web.Controllers
 
             TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
             {
-
+                Receipts = false
             };
             travelClaimNewObj.claimDetail.Add(travelClaimDetail);
 
             return View("TravelClaim", travelClaimNewObj);
         }
+        [HttpPost]
+        public ActionResult TravelClaimSave(TravelClaimVm travelClaimVm)
+        {
+            travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
+            if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
+            {
+                for (var i = 0; i < travelClaimVm.claimDetail.Count; i++)
+                {
+                    if (travelClaimVm.claimDetail[i].Amount != null)
+                    {
+                        var amount = travelClaimVm.claimDetail[i].Amount;
+                        var exrate = travelClaimVm.claimDetail[i].ExchangeRate;
+                        var total = (amount * exrate);
+
+                        travelClaimVm.claimDetail[i].TotalInSGD = total;
+                        travelClaimVm.claimDetail[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
+                        travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
+                    }
+                }
+                travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
+
+            }
+          
+
+            return RedirectToAction("TravelClaimList","Payroll");
+        }
+
+
         public void CalculateAmount(ref TravelClaimDetail item)
         {
             var amount = item.Amount;
@@ -673,13 +758,13 @@ namespace HR.Web.Controllers
 
                 travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x => x.TotalInSGD);
 
-               
+
             }
             if (travelClaimNewObj.claimDetail.Count == 0)
             {
                 TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                 {
-
+                    Receipts = false
                 };
                 travelClaimNewObj.claimDetail.Add(travelClaimDetail);
             }

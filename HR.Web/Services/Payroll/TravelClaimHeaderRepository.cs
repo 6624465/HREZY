@@ -25,12 +25,12 @@ namespace HR.Web.Services.Payroll
                     else
                     {
                         travelClaimHeader.CountryVisited = entity.CountryVisited;
-                        travelClaimHeader.CreatedBy = entity.CreatedBy;
-                        travelClaimHeader.CreatedOn = entity.CreatedOn;
+                        //travelClaimHeader.CreatedBy = entity.CreatedBy;
+                        //travelClaimHeader.CreatedOn = entity.CreatedOn;
                         travelClaimHeader.FromDate = entity.FromDate;
                         travelClaimHeader.GrossTotal = entity.GrossTotal;
-                        travelClaimHeader.ModifiedBy = entity.ModifiedBy;
-                        travelClaimHeader.ModifiedOn = entity.ModifiedOn;
+                        travelClaimHeader.ModifiedBy = entity.CreatedBy;
+                        travelClaimHeader.ModifiedOn = UTILITY.SINGAPORETIME;
                         travelClaimHeader.Name = entity.Name;
                         travelClaimHeader.NoOfDays = entity.NoOfDays;
                         travelClaimHeader.ToDate = entity.ToDate;

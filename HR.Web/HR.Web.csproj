@@ -2083,6 +2083,7 @@
     <Content Include="Views\Config\GetTravelClaim.cshtml" />
     <Content Include="Views\Config\CurrencyList.cshtml" />
     <Content Include="Views\Config\GetCurrency.cshtml" />
+    <Content Include="Views\PayRoll\TravelClaimList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

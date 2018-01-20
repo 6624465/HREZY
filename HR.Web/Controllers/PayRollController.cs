@@ -579,6 +579,14 @@ namespace HR.Web.Controllers
             int count = list.Count();
             return (count > 0 ? true : false);
         }
+
+        [HttpGet]
+        public ActionResult TravelClaimList()
+        {
+            List<TravelClaimHeader> claimHeaderList = travelClaimHeaderBO.GetListByProperty(x=>x.BranchId== BRANCHID && x.IsActive==true).ToList();
+            return View(claimHeaderList);
+        }
+
         [HttpGet]
         public ActionResult TravelClaim(int travelClaimId = 0)
         {
@@ -673,7 +681,7 @@ namespace HR.Web.Controllers
 
                 travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x => x.TotalInSGD);
 
-               
+
             }
             if (travelClaimNewObj.claimDetail.Count == 0)
             {

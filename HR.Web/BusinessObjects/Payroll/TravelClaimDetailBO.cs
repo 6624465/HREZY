@@ -21,6 +21,7 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             try
             {
+                entity.BranchId = sessionObj.BRANCHID;
                 TravelClaimDetailRepository.Add(entity);
             }
             catch (Exception ex)

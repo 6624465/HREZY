@@ -22,6 +22,7 @@ namespace HR.Web.BusinessObjects.Payroll
             try
             {
                 entity.IsActive = true;
+                entity.BranchId = sessionObj.BRANCHID;
                 entity.CreatedBy = sessionObj.USERID;
                 entity.CreatedOn = UTILITY.SINGAPORETIME;
                 travelClaimHeaderRepository.Add(entity);

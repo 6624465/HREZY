@@ -615,7 +615,7 @@ namespace HR.Web.Controllers
 
                 TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                 {
-
+                    Receipts = false
                 };
                 travelClaimVm.claimDetail.Add(travelClaimDetail);
                 return View(travelClaimVm);
@@ -685,7 +685,7 @@ namespace HR.Web.Controllers
 
             TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
             {
-
+                Receipts = false
             };
             travelClaimNewObj.claimDetail.Add(travelClaimDetail);
 
@@ -764,7 +764,7 @@ namespace HR.Web.Controllers
             {
                 TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                 {
-
+                    Receipts = false
                 };
                 travelClaimNewObj.claimDetail.Add(travelClaimDetail);
             }

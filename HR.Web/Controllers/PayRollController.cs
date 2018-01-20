@@ -581,27 +581,76 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult TravelClaimList()
+        public ActionResult TravelClaimList(int? page = 1)
         {
-            List<TravelClaimHeader> claimHeaderList = travelClaimHeaderBO.GetListByProperty(x=>x.BranchId== BRANCHID && x.IsActive==true).ToList();
-            return View(claimHeaderList);
+
+
+            ViewData["RoleCode"] = ROLECODE;
+            var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+            int skip = (page.Value - 1) * offset;
+            List<TravelClaimHeader> claimHeaderList = travelClaimHeaderBO
+               .GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true && x.EmployeeId == EMPLOYEEID).ToList();
+            var count = claimHeaderList.Count();
+            decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+            HtmlTblVm<TravelClaimHeader> HtmlTblVm = new HtmlTblVm<TravelClaimHeader>();
+            HtmlTblVm.TableData = claimHeaderList.Skip(skip).Take(offset).ToList();
+            HtmlTblVm.TotalRows = count;
+            HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+            HtmlTblVm.CurrentPage = page.Value;
+
+
+            return View(HtmlTblVm);
         }
 
         [HttpGet]
         public ActionResult TravelClaim(int travelClaimId = 0)
         {
-            TravelClaimVm travelClaimVm = new TravelClaimVm();
-            travelClaimVm.claimHeader = new TravelClaimHeader();
-            travelClaimVm.claimHeader.Name = FIRSTNAME;
-            travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
-            travelClaimVm.claimDetail = new List<TravelClaimDetail>();
-
-            TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+            if (travelClaimId == 0)
             {
+                TravelClaimVm travelClaimVm = new TravelClaimVm();
+                travelClaimVm.claimHeader = new TravelClaimHeader();
+                travelClaimVm.claimHeader.Name = FIRSTNAME;
+                travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
+                travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
-            };
-            travelClaimVm.claimDetail.Add(travelClaimDetail);
-            return View(travelClaimVm);
+                TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+                {
+
+                };
+                travelClaimVm.claimDetail.Add(travelClaimDetail);
+                return View(travelClaimVm);
+            }
+            else
+            {
+                TravelClaimVm travelClaimNewObj = new TravelClaimVm();
+                travelClaimNewObj.claimHeader = travelClaimHeaderBO
+                    .GetByProperty(x => x.TravelClaimId == travelClaimId);
+
+                travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimId).ToList();
+
+                if (travelClaimNewObj.claimDetail != null && travelClaimNewObj.claimDetail.Count > 0)
+                {
+                    for (var i = 0; i < travelClaimNewObj.claimDetail.Count; i++)
+                    {
+                        if (travelClaimNewObj.claimDetail[i].Amount != null)
+                        {
+                            var amount = travelClaimNewObj.claimDetail[i].Amount;
+                            var exrate = travelClaimNewObj.claimDetail[i].ExchangeRate;
+                            var total = (amount * exrate);
+
+                            travelClaimNewObj.claimDetail[i].TotalInSGD = total;
+                            travelClaimNewObj.claimDetail[i].TravelClaimId = travelClaimNewObj.claimHeader.TravelClaimId;
+                            travelClaimDetailBO.Add(travelClaimNewObj.claimDetail[i]);
+                        }
+                    }
+
+                    travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x => x.TotalInSGD);
+
+
+                }
+                return View(travelClaimNewObj);
+            }
+
         }
 
         [HttpPost]

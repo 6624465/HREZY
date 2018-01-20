@@ -171,10 +171,10 @@
                                                             @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(),new { @class = "form-control", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i,@required="required" })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @required = "required", @style = "width:100px;", @readonly = true })
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @required = "required", @readonly = "readolny" })
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect"
@@ -310,7 +310,7 @@
 
         function CalculateTotal(obj) {
             debugger;
-            var index = $(obj).data('index');
+            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
             var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
             var exrate = isNaN($('select#claimDetail_' + index + '__Currency option:selected').val()) ? 1 : parseFloat($('select#claimDetail_' + index + '__Currency option:selected').val());
             $('#claimDetail_' + index + '__ExchangeRate').val(exrate);
@@ -350,6 +350,7 @@
                 }
                 else {
                     $('#tr_' + index).remove();
+                    CalculateTotal(index);
                    // $('#claimHeader_GrossTotal').val('');
                 }
             }

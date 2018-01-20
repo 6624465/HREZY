@@ -583,8 +583,6 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult TravelClaimList(int? page = 1)
         {
-
-
             ViewData["RoleCode"] = ROLECODE;
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skip = (page.Value - 1) * offset;
@@ -597,8 +595,6 @@ namespace HR.Web.Controllers
             HtmlTblVm.TotalRows = count;
             HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
             HtmlTblVm.CurrentPage = page.Value;
-
-
             return View(HtmlTblVm);
         }
 
@@ -675,7 +671,7 @@ namespace HR.Web.Controllers
                         travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
-               
+
 
             }
             TravelClaimVm travelClaimNewObj = new TravelClaimVm();
@@ -713,9 +709,9 @@ namespace HR.Web.Controllers
                     }
                 }
             }
-          
 
-            return RedirectToAction("TravelClaimList","Payroll");
+
+            return RedirectToAction("TravelClaimList", "Payroll");
         }
 
 

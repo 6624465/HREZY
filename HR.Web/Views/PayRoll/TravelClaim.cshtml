@@ -146,9 +146,9 @@
                                                         </td>
                                                         <td style="width:80px;">
 
-                                                            @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, false, "Yes")
+                                                            @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, true, "Yes")
                                                             <span>Y</span>
-                                                            @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, true, "No")
+                                                            @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, false, "No")
                                                             <span>N</span>
                                                         </td>
                                                         <td>

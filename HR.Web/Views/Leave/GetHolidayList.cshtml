@@ -8,7 +8,7 @@
         </label>
         <div class="col-md-10">
             <div class="input-group date dtCss" id="Dt">
-                @Html.TextBoxFor(x => x.Date, "{0:MM/dd/yyyy}", new { @class = "form-control dtCssTxt input-sm", required = "required", onblur = "dtOnBlur();" })
+                @Html.TextBoxFor(x => x.Date, new { @class = "form-control dtCssTxt input-sm", required = "required", onblur = "dtOnBlur();" })
                 <span class="input-group-addon">
                     <i class="ion ion-calendar"></i>
                 </span>

@@ -12,5 +12,7 @@ namespace HR.Web.ViewModels
         public  List<SalaryStructureDetail> structureCompanyDeductionDetail { get; set; }
 
         public List<SalaryStructureDetail> structureEmployeeDeductionDetail { get; set; }
+
+        public List<SalaryStructureDetail> structureEmployeeTaxDetail { get; set; }
     }
 }

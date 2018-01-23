@@ -75,9 +75,9 @@ namespace HR.Web
         public static string TRAVELCLAIM = "TRAVELCLAIM";
         public static string CURRENCY = "CURRENCY";
 
-        public static string EMPLOYEEDEDUCTION = "DEDUCTIONS";
-        public static string COMPANYDEDUCTION = "PAYMENTS";
-        public static string TAX = "TAX";
+        public static string EMPLOYEECONTRIBUTION = "EMPLOYEE CONTRIBUTION";
+        public static string SALARYPAYMENTS = "SALARY PAYMENTS";
+        public static string EMPLOYERCONTRIBUTION = "EMPLOYER CONTRIBUTION";     
 
         public static string LOOKUPCATEGORY = "LeaveType";
 

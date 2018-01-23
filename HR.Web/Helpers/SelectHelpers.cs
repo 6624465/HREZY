@@ -345,12 +345,12 @@ namespace HR.Web.Helpers
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONTRIBUTIONREGISTER)
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CONTRIBUTIONREGISTER && x.IsActive == true)
                     .Select(x => new SelectListItem()
                     {
                         Value = x.LookUpCode,
                         Text = x.LookUpDescription
-                    }).ToList().AsEnumerable();
+                    }).ToList().AsEnumerable().OrderBy(x=>x.Text);
             }
         }
 

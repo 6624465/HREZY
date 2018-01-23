@@ -348,7 +348,7 @@
         $(function () {
 
             $('#li_PayRollConfig').addClass('open');
-            $('#li_SalaryStructures').addClass('active');
+            $('#li_SalaryStructureHeaderList').addClass('active');
             showHide();
             var date = new Date();
             $('.dtCss').datetimepicker({
@@ -364,7 +364,7 @@
                 format: dateFormat,
                 minDate: moment(date)
             });
-
+           
             $('#frmSalary').validate({
                 rules: {
                     'structureHeader.Code': {

@@ -401,13 +401,17 @@ namespace HR.Web.Helpers
             {
                 List<SelectListItem> listItem = new List<SelectListItem>() {
                                             new SelectListItem() {
-                                                Text="PAYMENTS",
-                                                Value="PAYMENTS"
+                                                Text="SALARY PAYMENTS",
+                                                Value="SALARY PAYMENTS"
                                             },
                                              new SelectListItem() {
-                                                Text="DEDUCTIONS",
-                                                Value="DEDUCTIONS"
+                                                Text="EMPLOYER CONTRIBUTION",
+                                                Value="EMPLOYER CONTRIBUTION"
                                             },
+                                             new SelectListItem() {
+                                                 Text="EMPLOYEE CONTRIBUTION",
+                                                 Value="EMPLOYEE CONTRIBUTION"
+                                             }
                                         };
                 return listItem;
             }

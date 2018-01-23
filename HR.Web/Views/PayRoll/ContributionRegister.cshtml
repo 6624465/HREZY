@@ -135,7 +135,7 @@
         function checkComponent(el) {
      
             $.ajax({
-                url: '@Url.Content("~/PayRoll/IsSalaryComponentExists?component=")' + $('#Name').val() + '&regCode=' + $('#RegisterCode').val(),
+                url: '@Url.Content("~/PayRoll/IsSalaryComponentExists?component=")' + $('#Name').val() + '&regCode=' + $('#RegisterCode').val() + '&BranchId=' + $('#BranchId').val(),
                 method: 'get',
                 contentType: 'Json',
                 success: function (result) {

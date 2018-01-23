@@ -38,20 +38,10 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Name</span>
                             </label>
-                            @if (Model.ContributionId != 0)
-                            {
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm" })
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm",  })
+                                  
                                 </div>
-
-                            }
-                            else
-                            {
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm", onblur = "checkComponent(this)" })
-                                    <label id="error">Salary Component Already Exists.</label>
-                                </div>
-                            }
                         </div>
                         <div class="row css5">
                             <label class="col-md-2 control-label">
@@ -60,11 +50,24 @@
                             @{
                                 var ContributionRegister = SelectListItemHelper.Deductions();
                             }
-                            <div class="col-md-8">
-                                @Html.DropDownListFor(x => x.RegisterCode,
+                            @if (Model.ContributionId != 0)
+                            {
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.RegisterCode,
                                                                     new SelectList(ContributionRegister,
-                                                                    "Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm" })
-                            </div>
+                                                                    "Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm"})
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.RegisterCode,
+                                                                    new SelectList(ContributionRegister,
+                                                                    "Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm", onchange = "checkComponent(this)" })
+                                    <label id="error">Salary Component Already Exists.</label>
+                                </div>
+                            }
+                            
                         </div>
                         <div class="row css5">
                             <label class="col-md-2 control-label">
@@ -132,13 +135,14 @@
         function checkComponent(el) {
      
             $.ajax({
-                url: '@Url.Content("~/PayRoll/IsSalaryComponentExists?component=")' + $('#Name').val(),
+                url: '@Url.Content("~/PayRoll/IsSalaryComponentExists?component=")' + $('#Name').val() + '&regCode=' + $('#RegisterCode').val(),
                 method: 'get',
                 contentType: 'Json',
                 success: function (result) {
                     if (result == "True") {
                         $('#error').show();
                         $('#Name').val('');
+                        $('#RegisterCode').val('');
                         $('#error').fadeOut(5000);
                     }
                     else {

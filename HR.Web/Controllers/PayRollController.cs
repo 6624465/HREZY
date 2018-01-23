@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HR.Web.Helpers;
 
 namespace HR.Web.Controllers
 {
@@ -573,9 +574,9 @@ namespace HR.Web.Controllers
             empSalaryStructureHeaderBO.SaveSalaryStructure(structureVm);
             return RedirectToAction("employeedirectory", "Employee");
         }
-        public bool IsSalaryComponentExists(string component)
+        public bool IsSalaryComponentExists(string component,string regCode)
         {
-            var list = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.BranchId == BRANCHID)).ToList();
+            var list = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.BranchId == BRANCHID) && (x.RegisterCode.ToUpper()== regCode.ToUpper())).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

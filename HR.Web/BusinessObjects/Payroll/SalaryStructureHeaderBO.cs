@@ -120,7 +120,7 @@ namespace HR.Web.BusinessObjects.Payroll
                 };
                 Add(structureHeader);
                 //salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
-                foreach (SalaryStructureDetail item in salaryStructureVm.structureCompanyDeductionDetail)
+                foreach (SalaryStructureDetail item in salaryStructureVm.structureSalaryPaymentDetail)
                 {
                     SalaryStructureDetail detail = new SalaryStructureDetail()
                     {
@@ -144,7 +144,7 @@ namespace HR.Web.BusinessObjects.Payroll
                         salaryStructureDetailBO.Add(detail);
                 }
 
-                foreach (SalaryStructureDetail item in salaryStructureVm.structureEmployeeDeductionDetail)
+                foreach (SalaryStructureDetail item in salaryStructureVm.structureEmployerContributionDetail)
                 {
                     SalaryStructureDetail detail = new SalaryStructureDetail()
                     {

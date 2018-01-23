@@ -73,7 +73,7 @@
                         <br />
                         <br />
                         <div class="clearfix">
-
+                            <h4><b>PAYMENTS</b></h4>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
@@ -147,7 +147,79 @@
 
                                 </div>
                             </div>
-                            <h4>Deductions</h4>
+                            <h4><b>TAX</b></h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Code</th>
+                                                    <th>Description</th>
+                                                    <th class="no-wrap">Contribution Register</th>
+                                                    <th>Computation</th>
+                                                    <th>Amount</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @for (int i = 0; i < Model.structureEmployeeTaxDetail.Count; i++)
+                                                {
+                                                    @Html.HiddenFor(x => x.structureEmployeeTaxDetail[i].PaymentType)
+                                                    @Html.HiddenFor(x => x.structureEmployeeTaxDetail[i].StructureDetailID)
+                                                    <tr class="trCssTax">
+                                                        <td>
+                                                            @Html.CheckBoxFor(x => x.structureEmployeeTaxDetail[i].IsActive,
+                                                           new { @class = "form-control chkCssTax input-sm", data_index = i })
+                                                        </td>
+                                                        @Html.HiddenFor(x => x.structureEmployeeTaxDetail[i].Code)
+                                                        <td>
+                                                            @Html.DisplayFor(x => x.structureEmployeeTaxDetail[i].Code)
+                                                            @Html.HiddenFor(x => x.structureEmployeeTaxDetail[i].Description)
+                                                        </td>
+                                                        <td style="width:250px;">@Html.DisplayFor(x => x.structureEmployeeTaxDetail[i].Description)</td>
+                                                        <td>
+                                                            @Html.DropDownListFor(x => x.structureEmployeeTaxDetail[i].RegisterCode,
+                                                                 new SelectList(ContributionRegister, "Value", "Text", Model.structureEmployeeTaxDetail[i].RegisterCode), "",
+                                                                 new { @class = "form-control input-sm", onchange = "calculateTotalByCode(this)" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.DropDownListFor(x => x.structureEmployeeTaxDetail[i].ComputationCode,
+                                                                 new SelectList(Computation, "Value", "Text", Model.structureEmployeeTaxDetail[i].ComputationCode), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.structureEmployeeTaxDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateTaxAmount(this," + i + ")" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.structureEmployeeTaxDetail[i].Total, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
+                                                        </td>
+
+
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td style="text-align:right;">Total Tax</td>
+                                                    <td>@Html.TextBoxFor(x => x.structureHeader.TotalTax, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
+                                                </tr>
+                                              
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <h4><b>DEDUCTIONS</b></h4>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
@@ -309,6 +381,7 @@
             $(".chkCss").trigger('ifChanged');
 
             $(".chkCssDeduct").trigger('ifChanged');
+            $('.chkCssTax').trigger('ifChanged');
 
         });
 
@@ -395,6 +468,39 @@
                 $('#structureEmployeeDeductionDetail_' + index + '__ComputationCode').removeAttr('required');
                 $('#structureEmployeeDeductionDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#structureEmployeeDeductionDetail_' + index + '__Amount').removeAttr('required');
+
+                calculateTotal();
+            }
+
+        });
+
+        $('.chkCssTax').on("ifChanged", function (event) {
+            var temp = this;
+            var index=$(this).data('index');
+
+            if($('#'+this.id).prop('checked')){
+
+                $('#structureEmployeeTaxDetail_' + index + '__ComputationCode').attr('required','required');
+                $('#structureEmployeeTaxDetail_' + index + '__RegisterCode').attr('required','required');
+                $('#structureEmployeeTaxDetail_' + index + '__Amount').attr('required','required');
+
+                $('#structureEmployeeTaxDetail_' + index + '__ComputationCode').removeAttr('disabled');
+                $('#structureEmployeeTaxDetail_' + index + '__RegisterCode').removeAttr('disabled');
+                $('#structureEmployeeTaxDetail_' + index + '__Amount').removeAttr('disabled');
+
+            }
+            else{
+
+                $('#structureEmployeeTaxDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
+                $('#structureEmployeeTaxDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
+                $('#structureEmployeeTaxDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
+
+                $('#structureEmployeeTaxDetail_' + index + '__Total').val('')
+                $('#structureEmployeeTaxDetail_' + index + '__Total').val('')
+
+                $('#structureEmployeeTaxDetail_' + index + '__ComputationCode').removeAttr('required');
+                $('#structureEmployeeTaxDetail_' + index + '__RegisterCode').removeAttr('required');
+                $('#structureEmployeeTaxDetail_' + index + '__Amount').removeAttr('required');
 
                 calculateTotal();
             }
@@ -555,6 +661,63 @@
             var netAmount=parseFloat(_totalGross)+ parseFloat(_totalDeductions);
             $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
 
+        }
+
+        function validateTaxAmount(obj,index,code){
+            debugger;
+            var rowCount=$('.trCssTax').length;
+            var netAmount=0;
+
+            for(var i=0; i<rowCount;i++){
+
+                code=$('#structureEmployeeTaxDetail_'+i+'__RegisterCode').val();
+
+                var totalGross=$('#structureHeader_TotalGross').val();
+                if(index == 0 && totalGross!=""){
+                    totalGross =parseFloat(totalGross).toFixed(2);
+                    $('#structureEmployeeTaxDetail_' + 0 + '__Total').val(totalGross);
+                }
+
+                var total = $('#structureEmployeeTaxDetail_' + i + '__Amount').val();
+                if(total!="")
+                    total=parseFloat(total).toFixed(2);
+                var ComputationCode = $('#structureEmployeeTaxDetail_' + i + '__ComputationCode').val();
+                if (ComputationCode == percentage) {
+
+                    if(total>100){
+                        $('#structureEmployeeTaxDetail_' + i + '__Amount').val('');
+                        swal({
+                            title: "Alert!",
+                            text: "Percentage value should be less than 100",
+                            type: "warning"
+                        });
+                        return;
+                    }
+                    var grandTotal=(totalGross* total)/100;
+                    grandTotal=parseFloat(grandTotal).toFixed(2);
+                    $('#structureEmployeeTaxDetail_' + i + '__Total').val(grandTotal);
+                }else{
+                    $('#structureEmployeeTaxDetail_' + i + '__Total').val(total);
+                }
+
+                /* Calculate Nett amount*/
+                var currentValue=$('#structureEmployeeTaxDetail_' + i + '__Total').val() == "" ? 0 :$('#structureEmployeeTaxDetail_' + i + '__Total').val();
+
+                if(code !="EMPLOYEE DEDUCTION")
+                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                else
+                {
+                    netAmount = parseFloat(netAmount) - parseFloat(currentValue);
+                    var currentVal=  $('#structureEmployeeTaxDetail_' + i + '__Total').val();
+                    if(currentVal!="" && currentVal !=null && currentVal>0)
+                        currentValue =0- parseFloat(currentValue).toFixed(2);
+                    $('#structureEmployeeTaxDetail_' + i + '__Total').val(currentValue);
+                }
+
+                netAmount=netAmount.toFixed(2);
+                $('#structureHeader_TotalTax').val(netAmount);
+
+            }
         }
     </script>
 }

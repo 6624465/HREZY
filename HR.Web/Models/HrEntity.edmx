@@ -471,6 +471,7 @@
           <Property Name="TotalGross" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalDeductions" Type="decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="int" />
+          <Property Name="TotalTax" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="TravelClaimDetail">
           <Key>
@@ -1141,6 +1142,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="TotalGross" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalDeductions" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="Int32" />
+          <Property Name="TotalTax" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureHeader">
           <Key>
@@ -1737,6 +1739,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="SalaryStructureHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureHeader">
               <MappingFragment StoreEntitySet="SalaryStructureHeader">
+                <ScalarProperty Name="TotalTax" ColumnName="TotalTax" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="TotalDeductions" ColumnName="TotalDeductions" />
                 <ScalarProperty Name="TotalGross" ColumnName="TotalGross" />

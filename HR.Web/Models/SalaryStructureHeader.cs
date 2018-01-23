@@ -27,5 +27,6 @@ namespace HR.Web.Models
         public Nullable<decimal> TotalGross { get; set; }
         public Nullable<decimal> TotalDeductions { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public Nullable<decimal> TotalTax { get; set; }
     }
 }

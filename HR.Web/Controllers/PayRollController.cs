@@ -263,6 +263,13 @@ namespace HR.Web.Controllers
                        Description = item.Description,
                        PaymentType = item.RegisterCode
                    }).ToList();
+                salaryStructureVm.structureEmployeeTaxDetail = contributionList.Where(x => x.RegisterCode == UTILITY.TAX).Select(
+                 item => new SalaryStructureDetail()
+                 {
+                     Code = item.Name,
+                     Description = item.Description,
+                     PaymentType = item.RegisterCode
+                 }).ToList();
             }
             else
             {

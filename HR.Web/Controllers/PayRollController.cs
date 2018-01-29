@@ -587,11 +587,22 @@ namespace HR.Web.Controllers
             empSalaryStructureHeaderBO.SaveSalaryStructure(structureVm);
             return RedirectToAction("employeedirectory", "Employee");
         }
-        public bool IsSalaryComponentExists(string component,string regCode)
+        public bool IsSalaryComponentExists(string component,string regCode,int BranchId)
         {
-            var list = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.BranchId == BRANCHID) && (x.RegisterCode.ToUpper()== regCode.ToUpper())).ToList();
-            int count = list.Count();
+            List<Contribution> List = new List<Contribution>();
+            ViewData["RoleCode"] = ROLECODE;
+            if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+            {
+                List = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.RegisterCode.ToUpper() == regCode.ToUpper())&& (x.BranchId== BranchId)).ToList();
+               
+            }
+            else
+            {
+                List = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.BranchId == BRANCHID) && (x.RegisterCode.ToUpper() == regCode.ToUpper())).ToList();
+            }
+            int count = List.Count();
             return (count > 0 ? true : false);
+
         }
 
         [HttpGet]

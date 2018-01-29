@@ -282,7 +282,8 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td style="text-align:right;">Total Deductions</td>
-                                                    <td>@Html.TextBoxFor(x => x.structureHeader.TotalDeductions, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
+                                                    <td>@Html.TextBoxFor(x => x.structureHeader.TotalDeductions, 
+                                                       new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
@@ -291,7 +292,8 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td style="text-align:right;">Total Payable</td>
-                                                    <td>@Html.TextBoxFor(x => x.structureHeader.NetAmount, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                    <td>@Html.TextBoxFor(x => x.structureHeader.NetAmount,
+                                                       new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                                 </tr>
                                             </tfoot>
                                         </table>

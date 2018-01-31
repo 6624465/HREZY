@@ -1766,6 +1766,7 @@
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\PayrollBatchController.cs" />
     <Compile Include="Controllers\PayRollController.cs" />
     <Compile Include="Controllers\RoleRightsController.cs" />
     <Compile Include="Core\UTILITY.cs" />
@@ -2085,6 +2086,7 @@
     <Content Include="Views\Config\GetCurrency.cshtml" />
     <Content Include="Views\PayRoll\TravelClaimList.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
+    <Content Include="Views\PayrollBatch\ProcessPayroll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

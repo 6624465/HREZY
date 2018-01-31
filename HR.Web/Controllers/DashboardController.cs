@@ -6,10 +6,12 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HR.Web.Helpers;
 
 namespace HR.Web.Controllers
 {
     [SessionFilter]
+    [ErrorHandler]
     public class DashboardController : BaseController
     {
         // GET: Dashboard

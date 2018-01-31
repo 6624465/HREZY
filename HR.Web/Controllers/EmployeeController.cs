@@ -14,11 +14,13 @@ using HR.Web.BusinessObjects.Operation;
 using HR.Web.BusinessObjects.Security;
 using HR.Web.BusinessObjects.LookUpMaster;
 using HR.Web.BusinessObjects.Payroll;
+using HR.Web.Helpers;
 
 namespace HR.Web.Controllers
 {
 
     [SessionFilter]
+    [ErrorHandler]
     public class EmployeeController : BaseController
     {
         EmployeeHeaderBO empHeaderBO = null;

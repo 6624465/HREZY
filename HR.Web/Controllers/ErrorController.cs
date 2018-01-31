@@ -7,12 +7,11 @@ using HR.Web.Helpers;
 
 namespace HR.Web.Controllers
 {
-    [SessionFilter]
-    [ErrorHandler]
-    public class MasterController : BaseController
+   [ErrorHandler]
+    public class ErrorController : Controller
     {
-        // GET: Master
-        public ActionResult List()
+        // GET: Error
+        public ActionResult NotFound()
         {
             return View();
         }

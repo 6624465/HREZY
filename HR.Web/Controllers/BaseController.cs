@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using HR.Web.Helpers;
 namespace HR.Web.Controllers
 {
+
     public class SessionObj
     {
         public string USERID { get; set; }
@@ -20,6 +21,7 @@ namespace HR.Web.Controllers
 
         public string FIRSTNAME { get; set; }
     }
+    [ErrorHandler]
 
     public class BaseController : Controller
     {

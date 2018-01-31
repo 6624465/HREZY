@@ -1720,7 +1720,9 @@
     <Content Include="Scripts\treeview\bootstrap.css" />
     <Content Include="Scripts\treeview\jquery.js" />
     <Content Include="Scripts\ui-bootstrap.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
@@ -1762,6 +1764,7 @@
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
@@ -1774,6 +1777,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CalculateLeaves.cs" />
+    <Compile Include="Helpers\ErrorHandler.cs" />
     <Compile Include="Helpers\LeaveCalculator.cs" />
     <Compile Include="Helpers\LinqFuncs.cs" />
     <Compile Include="Helpers\MyDateTimeModelBinder.cs" />
@@ -2086,6 +2090,7 @@
     <Content Include="Views\Config\GetCurrency.cshtml" />
     <Content Include="Views\PayRoll\TravelClaimList.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\PayrollBatch\ProcessPayroll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2097,6 +2102,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Error\" />
     <Folder Include="Views\Layout\" />
     <Folder Include="Views\Master\" />
     <Folder Include="Views\WeekendPolicyVm\" />

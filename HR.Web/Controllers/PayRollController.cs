@@ -12,7 +12,7 @@ using HR.Web.Helpers;
 namespace HR.Web.Controllers
 {
     [SessionFilter]
-    [ErrorHandler]
+    //[ErrorHandler]
     public class PayRollController : BaseController
     {
         SalaryRuleBO salaryRuleBO = null;
@@ -258,6 +258,7 @@ namespace HR.Web.Controllers
                         Description = item.Description,
                         PaymentType = item.RegisterCode,
                         //BranchId=item.BranchId
+                        RegisterCode= UTILITY.SALARYPAYMENTS
                     }).ToList();
 
                 salaryStructureVm.structureEmployerContributionDetail = contributionList
@@ -266,14 +267,16 @@ namespace HR.Web.Controllers
                    {
                        Code = item.Name,
                        Description = item.Description,
-                       PaymentType = item.RegisterCode
+                       PaymentType = item.RegisterCode,
+                       RegisterCode = UTILITY.EMPLOYERCONTRIBUTION
                    }).ToList();
                 salaryStructureVm.structureEmployeeContributionDetail = contributionList.Where(x => x.RegisterCode == UTILITY.EMPLOYEECONTRIBUTION).Select(
                  item => new SalaryStructureDetail()
                  {
                      Code = item.Name,
                      Description = item.Description,
-                     PaymentType = item.RegisterCode
+                     PaymentType = item.RegisterCode,
+                     RegisterCode = UTILITY.EMPLOYEECONTRIBUTION
                  }).ToList();
             }
             else

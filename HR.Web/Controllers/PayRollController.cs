@@ -12,6 +12,7 @@ using HR.Web.Helpers;
 namespace HR.Web.Controllers
 {
     [SessionFilter]
+    [ErrorHandler]
     public class PayRollController : BaseController
     {
         SalaryRuleBO salaryRuleBO = null;

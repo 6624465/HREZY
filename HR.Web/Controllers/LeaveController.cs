@@ -17,6 +17,7 @@ using System.Web.Routing;
 namespace HR.Web.Controllers
 {
     [SessionFilter]
+    [ErrorHandler]
     public class LeaveController : BaseController
     {
         WeekendPolicyBO weekendPolicyBO = null;

@@ -5,9 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using HR.Web.Helpers;
 
 namespace HR.Web.Controllers
 {
+    [ErrorHandler]
     public class AccountController : BaseController
     {
 

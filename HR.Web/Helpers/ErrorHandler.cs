@@ -18,9 +18,11 @@ namespace HR.Web.Helpers
             filterContext.Result = new ViewResult()
             {
                 ViewName = "NotFound",
-                ViewData = new ViewDataDictionary(model)
+                ViewData = new ViewDataDictionary(model),
+                
             };
-            filterContext.Result = new RedirectResult("~/Account/Login");
+
+            filterContext.Result = new RedirectResult("~/Error/NotFound");
         }
     }
 

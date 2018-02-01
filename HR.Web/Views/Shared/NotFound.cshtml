@@ -1,28 +1,15 @@
-﻿
+﻿@{
+    ViewBag.Title = "NotFound";
+}
 
 <div class="page">
-    <div class="panel">
+    <div class="panel panel-default panel-hovered panel-stacked mb10">
         <div class="panel-heading">
-            Error Page
-        </div>
-        <div class="panel-body">
-            <div style="padding:20px;">
-                <h3>
-                    Application Error:
-                </h3>
-                <h4>
-                    Sorry, The Page, You are Looking for is not found.
-                </h4>
-                <button onclick="location.href='@Url.Content("~/Account/Login")'">Back to Login</button>
-                <br />
-                <br />
-            </div>
+            Sorry, Something Error has happened while processing.
+            So click the button to continue.
 
+            <button type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Content("~/Dashboard/Index")'">Back to DashBoard</button>
         </div>
     </div>
-  </div>
 
-
-
-    
-
+</div>

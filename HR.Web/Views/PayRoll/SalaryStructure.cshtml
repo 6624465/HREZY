@@ -1,7 +1,7 @@
 ﻿@model HR.Web.ViewModels.SalaryStructureVm
 
 @section Styles{
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
     <style>
         .table tfoot {
             display: table-footer-group;
@@ -9,6 +9,15 @@
 
         .no-wrap {
             white-space: nowrap;
+        }
+
+        span.error {
+            outline: none;
+            border-bottom-color: #ff0000 !important;
+        }
+
+        .select2-selection select2-selection--single {
+                border-radius: 0px !important;
         }
     </style>
 }
@@ -362,6 +371,7 @@
     </div>
 </div>
 @section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
     <script type="text/javascript">
 
         function getContribution(el){
@@ -411,6 +421,9 @@
                 format: dateFormat,
                 minDate: moment(date)
             });
+            $("#structureHeader_EmployeeId").select2().on("change", function (e) {
+                $(this).valid()
+            });;
 
             $('#frmSalary').validate({
                 rules: {
@@ -426,8 +439,31 @@
                     'structureHeader.Description':{
                         required:true
                     },
-                    'structureHeader.EmployeeId':{
-                        required:true
+                    'structureHeader.EmployeeId':'required'
+                },
+                highlight: function (element, errorClass, validClass) {
+                    var elem = $(element);
+                    if (elem.hasClass("select2-hidden-accessible")) {
+                        $("#select2-" + elem.attr("id") + "-container").parent().addClass(errorClass);
+                    } else {
+                        elem.addClass(errorClass);
+                    }
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    var elem = $(element);
+                    if (elem.hasClass("select2-hidden-accessible")) {
+                        $("#select2-" + elem.attr("id") + "-container").parent().removeClass(errorClass);
+                    } else {
+                        elem.removeClass(errorClass);
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    var elem = $(element);
+                    if (elem.hasClass("select2-hidden-accessible")) {
+                        element = $("#select2-" + elem.attr("id") + "-container").parent();
+                        error.insertAfter(element);
+                    } else {
+                        error.insertAfter(element);
                     }
                 }
             });

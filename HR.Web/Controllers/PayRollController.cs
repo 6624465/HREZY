@@ -367,7 +367,15 @@ namespace HR.Web.Controllers
                                                       Description = item.Description,
                                                       PaymentType = item.RegisterCode
                                                   }).Where(x => x.PaymentType == UTILITY.EMPLOYERCONTRIBUTION).ToList();
-                    salaryStructureVm.structureEmployerContributionDetail.AddRange(structureEmployeeDeductionDetail);
+                    salaryStructureVm.structureEmployeeContributionDetail.AddRange(structureEmployeeDeductionDetail);
+                    var structureEmployerDeductionDetail = contributionList.Where(x => !employeeCodeList.Contains(x.Name.ToUpper())).Select(
+                                                  item => new SalaryStructureDetail()
+                                                  {
+                                                      Code = item.Name,
+                                                      Description = item.Description,
+                                                      PaymentType = item.RegisterCode
+                                                  }).Where(x => x.PaymentType == UTILITY.EMPLOYEECONTRIBUTION).ToList();
+                    salaryStructureVm.structureEmployerContributionDetail.AddRange(structureEmployerDeductionDetail);
 
                 };
 

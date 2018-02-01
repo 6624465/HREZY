@@ -17,7 +17,7 @@
         }
 
         .select2-selection select2-selection--single {
-                border-radius: 0px !important;
+            border-radius: 0px !important;
         }
     </style>
 }
@@ -128,6 +128,7 @@
                                                 @for (int i = 0; i < Model.structureSalaryPaymentDetail.Count; i++)
                                                 {
                                                     @Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].PaymentType)
+                                                    //@Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].RegisterCode)
                                                     @Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].StructureDetailID)
                                                     <tr class="trCssSalaryPayment">
                                                         <td>
@@ -139,9 +140,11 @@
                                                             @Html.DisplayFor(x => x.structureSalaryPaymentDetail[i].Code)
                                                             @Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].Description)
                                                         </td>
-                                                        <td style="width:250px;">@Html.DisplayFor(x => x.structureSalaryPaymentDetail[i].Description)</td>
+                                                        <td style="width:250px;">
+                                                            @Html.DisplayFor(x => x.structureSalaryPaymentDetail[i].Description)
+                                                        </td>
                                                         <td>
-                                                            @Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].RegisterCode)
+
                                                             @Html.CheckBoxFor(x => x.structureSalaryPaymentDetail[i].IsVariablePay)
                                                         </td>
                                                         <td>
@@ -197,6 +200,7 @@
                                                 @for (int i = 0; i < Model.structureEmployerContributionDetail.Count; i++)
                                                 {
                                                     @Html.HiddenFor(x => x.structureEmployerContributionDetail[i].PaymentType)
+                                                    // @Html.HiddenFor(x => x.structureEmployerContributionDetail[i].RegisterCode)
                                                     @Html.HiddenFor(x => x.structureEmployerContributionDetail[i].StructureDetailID)
                                                     <tr class="trCssEmployerContribution">
                                                         <td>
@@ -210,7 +214,6 @@
                                                         </td>
                                                         <td style="width:250px;">@Html.DisplayFor(x => x.structureEmployerContributionDetail[i].Description)</td>
                                                         <td>
-                                                            @Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].RegisterCode)
                                                             @Html.CheckBoxFor(x => x.structureSalaryPaymentDetail[i].IsVariablePay)
                                                         </td>
                                                         <td>
@@ -268,6 +271,7 @@
                                                 @for (int i = 0; i < Model.structureEmployeeContributionDetail.Count; i++)
                                                 {
                                                     @Html.HiddenFor(x => x.structureEmployeeContributionDetail[i].PaymentType)
+                                                    // @Html.HiddenFor(x => x.structureEmployeeContributionDetail[i].RegisterCode)
                                                     @Html.HiddenFor(x => x.structureEmployeeContributionDetail[i].StructureDetailID)
                                                     <tr class="trCssEmployeeContribution">
                                                         <td>
@@ -281,7 +285,6 @@
                                                         </td>
                                                         <td style="width:250px;">@Html.DisplayFor(x => x.structureEmployeeContributionDetail[i].Description)</td>
                                                         <td>
-                                                            @Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].RegisterCode)
                                                             @Html.CheckBoxFor(x => x.structureSalaryPaymentDetail[i].IsVariablePay)
                                                         </td>
                                                         <td>
@@ -566,9 +569,9 @@
         });
 
         function disableEmployeeFields(index){
-            $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
-            $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').attr('disabled','disabled');
-            $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('disabled','disabled');
+            //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
+            $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').attr('readonly','readonly');
+            $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('readonly','readonly');
 
         }
 
@@ -576,16 +579,18 @@
         function calculateByEmployeeCode(code,index){
 
             if(code=="SSS"){
-                disableEmployeeFields(index);
-                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
 
-                $('#structureEmployeeContributionDetail_' + index + '__Amount').val(582.00);
-                $('#structureEmployeeContributionDetail_' + index + '__Total').val(582.00);
-                //structureEmployerContributionDetail_0__Total
+                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+                var amountVal=582.00;
+                $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
+                $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
             }
             if(code=="PHIL-HEALTH"){
-                disableEmployeeFields(index);
-                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+
+
+                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('disabled','disabled');
 
 
@@ -596,17 +601,21 @@
                     $('#structureEmployeeContributionDetail_' + index + '__Total').val(total);
                 }
                 else{
-                    $('#structureEmployeeContributionDetail_' + index + '__Amount').val(550.00);
-                    $('#structureEmployeeContributionDetail_' + index + '__Total').val(550.00);
+                    var amountVal=550.00;
+                    $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
+                    $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
                 }
 
             }
             if(code=="PAG-IBIG"){
-                disableEmployeeFields(index);
-                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
-                $('#structureEmployeeContributionDetail_' + index + '__Amount').val(100.00);
-                $('#structureEmployeeContributionDetail_' + index + '__Total').val(100.00);
+
+                // $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+                var amountVal=100.00
+                $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
+                $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
             }
+            disableEmployeeFields(index);
             var obj={};
             validateDeductAmount(obj,0,code);
             validateTaxAmount(obj,0,code);
@@ -649,11 +658,11 @@
             }
 
         });
-        //find(city).attr("selected", "selected");
+
         function disableFields(index){
-            $('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
-            $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').attr('disabled','disabled');
-            $('#structureEmployerContributionDetail_' + index + '__Amount').attr('disabled','disabled');
+            //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
+            $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').attr('readonly','readonly');
+            $('#structureEmployerContributionDetail_' + index + '__Amount').attr('readonly','readonly');
 
         }
 
@@ -661,16 +670,19 @@
         function calculateByEmpoyerCode(code,index){
 
             if(code=="SSS"){
-                disableFields(index);
-                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
 
-                $('#structureEmployerContributionDetail_' + index + '__Amount').val(1178.00);
-                $('#structureEmployerContributionDetail_' + index + '__Total').val(1178.00);
-                //structureEmployerContributionDetail_0__Total
+                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+                var amountVal=1178.00;
+                $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
+                $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
+
+                disableFields(index);
             }
             if(code=="PHIL-HEALTH"){
-                disableFields(index);
-                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+
+                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').attr('disabled','disabled');
 
 
@@ -681,16 +693,20 @@
                     $('#structureEmployerContributionDetail_' + index + '__Total').val(total);
                 }
                 else{
-                    $('#structureEmployerContributionDetail_' + index + '__Amount').val(550.00);
-                    $('#structureEmployerContributionDetail_' + index + '__Total').val(550.00);
+                    var amountVal=550.00;
+                    $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
+                    $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
                 }
-
+                disableFields(index);
             }
             if(code=="PAG-IBIG"){
+
+                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+                // $('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+                var amountVal=100.00;
+                $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
+                $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
                 disableFields(index);
-                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
-                $('#structureEmployerContributionDetail_' + index + '__Amount').val(100.00);
-                $('#structureEmployerContributionDetail_' + index + '__Total').val(100.00);
             }
             var obj={};
             validateDeductAmount(obj,0,code);

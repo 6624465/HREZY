@@ -451,7 +451,7 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="StructureID" Type="int" Nullable="false" />
           <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
           <Property Name="BranchId" Type="int" />
           <Property Name="IsVariablePay" Type="bit" Nullable="false" />
         </EntityType>
@@ -1125,7 +1125,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="StructureID" Type="Int32" Nullable="false" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BranchId" Type="Int32" />
           <Property Name="IsVariablePay" Type="Boolean" Nullable="false" />
         </EntityType>

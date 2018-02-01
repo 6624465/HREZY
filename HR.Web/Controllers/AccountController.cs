@@ -21,12 +21,17 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult Login(User user)
         {
+            try
+            {
+
+           
                 using (HrDataContext dbContext = new HrDataContext())
                 {
                     User userObj = dbContext.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
 
                     if (userObj != null)
                     {
+                        //userObj = null;
                         FormsAuthentication.SetAuthCookie(userObj.UserName, false);
 
                         SessionObj sessionObj = new SessionObj()
@@ -59,7 +64,12 @@ namespace HR.Web.Controllers
                         return RedirectToAction("Index", "Dashboard");
                     }
                 }
-            
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("LogOut", "Account");
+            }
             return View();
         }
 

@@ -472,7 +472,7 @@
           <Property Name="TotalGross" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalDeductions" Type="decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="int" />
-          <Property Name="TotalTax" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EmpContribution" Type="decimal" Precision="18" Scale="2" />
           <Property Name="EmployeeId" Type="int" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
@@ -1146,9 +1146,9 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="TotalGross" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalDeductions" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="Int32" />
-          <Property Name="TotalTax" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="EmployeeId" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EmpContribution" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureHeader">
           <Key>
@@ -1746,9 +1746,9 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="SalaryStructureHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureHeader">
               <MappingFragment StoreEntitySet="SalaryStructureHeader">
+                <ScalarProperty Name="EmpContribution" ColumnName="EmpContribution" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="TotalTax" ColumnName="TotalTax" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="TotalDeductions" ColumnName="TotalDeductions" />
                 <ScalarProperty Name="TotalGross" ColumnName="TotalGross" />

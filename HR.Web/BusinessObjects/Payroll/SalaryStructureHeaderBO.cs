@@ -116,7 +116,10 @@ namespace HR.Web.BusinessObjects.Payroll
                     NetAmount = salaryStructureVm.structureHeader.NetAmount,
                     TotalGross = salaryStructureVm.structureHeader.TotalGross,
                     TotalDeductions = salaryStructureVm.structureHeader.TotalDeductions,
-                    BranchId= salaryStructureVm.structureHeader.BranchId
+                    BranchId= salaryStructureVm.structureHeader.BranchId,
+                    Description= salaryStructureVm.structureHeader.Description,
+                    EmpContribution = salaryStructureVm.structureHeader.EmpContribution,
+                    EmployeeId = salaryStructureVm.structureHeader.EmployeeId,
                 };
                 Add(structureHeader);
                 //salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
@@ -136,7 +139,8 @@ namespace HR.Web.BusinessObjects.Payroll
                         StructureDetailID = item.StructureDetailID,
                         Total = item.Total,
                         PaymentType = item.PaymentType,
-                        BranchId= structureHeader.BranchId
+                        BranchId= structureHeader.BranchId,
+                        IsVariablePay=item.IsVariablePay
                     };
                     if (item.StructureDetailID >0)
                         salaryStructureDetailBO.Delete(detail);
@@ -160,7 +164,32 @@ namespace HR.Web.BusinessObjects.Payroll
                         StructureDetailID = item.StructureDetailID,
                         Total = item.Total,
                         PaymentType = item.PaymentType,
-                        BranchId = structureHeader.BranchId
+                        BranchId = structureHeader.BranchId,
+                        IsVariablePay = item.IsVariablePay
+                    };
+                    if (item.StructureDetailID > 0)
+                        salaryStructureDetailBO.Delete(detail);
+                    if (item.IsActive)
+                        salaryStructureDetailBO.Add(detail);
+                }
+                foreach (SalaryStructureDetail item in salaryStructureVm.structureEmployeeContributionDetail)
+                {
+                    SalaryStructureDetail detail = new SalaryStructureDetail()
+                    {
+                        Amount = item.Amount,
+                        Code = item.Code,
+                        ComputationCode = item.ComputationCode,
+                        CreatedBy = sessionObj.USERID,
+                        CreatedOn = UTILITY.SINGAPORETIME,
+                        Description = item.Description,
+                        IsActive = item.IsActive,
+                        RegisterCode = item.RegisterCode,
+                        StructureID = structureHeader.StructureID,
+                        StructureDetailID = item.StructureDetailID,
+                        Total = item.Total,
+                        PaymentType = item.PaymentType,
+                        BranchId = structureHeader.BranchId,
+                        IsVariablePay = item.IsVariablePay
                     };
                     if (item.StructureDetailID > 0)
                         salaryStructureDetailBO.Delete(detail);

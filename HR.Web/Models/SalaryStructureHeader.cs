@@ -27,8 +27,8 @@ namespace HR.Web.Models
         public Nullable<decimal> TotalGross { get; set; }
         public Nullable<decimal> TotalDeductions { get; set; }
         public Nullable<int> BranchId { get; set; }
-        public Nullable<decimal> TotalTax { get; set; }
         public Nullable<int> EmployeeId { get; set; }
         public string Description { get; set; }
+        public Nullable<decimal> EmpContribution { get; set; }
     }
 }

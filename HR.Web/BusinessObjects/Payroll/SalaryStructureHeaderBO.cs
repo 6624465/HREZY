@@ -123,83 +123,97 @@ namespace HR.Web.BusinessObjects.Payroll
                 };
                 Add(structureHeader);
                 //salaryStructureVm.structureDetail = salaryStructureVm.structureDetail.Where(x => x.IsActive == true).ToList();
-                foreach (SalaryStructureDetail item in salaryStructureVm.structureSalaryPaymentDetail)
+                if (salaryStructureVm.structureSalaryPaymentDetail != null)
                 {
-                    SalaryStructureDetail detail = new SalaryStructureDetail()
+                    foreach (SalaryStructureDetail item in salaryStructureVm.structureSalaryPaymentDetail)
                     {
-                        Amount = item.Amount,
-                        Code = item.Code,
-                        ComputationCode = item.ComputationCode,
-                        CreatedBy = sessionObj.USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        Description = item.Description,
-                        IsActive = item.IsActive,
-                        RegisterCode = item.RegisterCode,
-                        StructureID = structureHeader.StructureID,
-                        StructureDetailID = item.StructureDetailID,
-                        Total = item.Total,
-                        PaymentType = item.PaymentType,
-                        BranchId= structureHeader.BranchId,
-                        IsVariablePay=item.IsVariablePay
-                    };
-                    if (item.StructureDetailID >0)
-                        salaryStructureDetailBO.Delete(detail);
-                    if (item.IsActive)
-                        salaryStructureDetailBO.Add(detail);
+                        SalaryStructureDetail detail = new SalaryStructureDetail()
+                        {
+                            Amount = item.Amount,
+                            Code = item.Code,
+                            ComputationCode = item.ComputationCode,
+                            CreatedBy = sessionObj.USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            Description = item.Description,
+                            IsActive = item.IsActive,
+                            RegisterCode = item.RegisterCode,
+                            StructureID = structureHeader.StructureID,
+                            StructureDetailID = item.StructureDetailID,
+                            Total = item.Total,
+                            PaymentType = item.PaymentType,
+                            BranchId = structureHeader.BranchId,
+                            IsVariablePay = item.IsVariablePay
+                        };
+                        if (item.StructureDetailID > 0)
+                            salaryStructureDetailBO.Delete(detail);
+                        if (item.IsActive)
+                            salaryStructureDetailBO.Add(detail);
+                    }
+
                 }
 
-                foreach (SalaryStructureDetail item in salaryStructureVm.structureEmployerContributionDetail)
+                if (salaryStructureVm.structureEmployerContributionDetail != null)
                 {
-                    SalaryStructureDetail detail = new SalaryStructureDetail()
+                    foreach (SalaryStructureDetail item in salaryStructureVm.structureEmployerContributionDetail)
                     {
-                        Amount = item.Amount,
-                        Code = item.Code,
-                        ComputationCode = item.ComputationCode,
-                        CreatedBy = sessionObj.USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        Description = item.Description,
-                        IsActive = item.IsActive,
-                        RegisterCode = item.RegisterCode,
-                        StructureID = structureHeader.StructureID,
-                        StructureDetailID = item.StructureDetailID,
-                        Total = item.Total,
-                        PaymentType = item.PaymentType,
-                        BranchId = structureHeader.BranchId,
-                        IsVariablePay = item.IsVariablePay
-                    };
-                    if (item.StructureDetailID > 0)
-                        salaryStructureDetailBO.Delete(detail);
-                    if (item.IsActive)
-                        salaryStructureDetailBO.Add(detail);
+                        SalaryStructureDetail detail = new SalaryStructureDetail()
+                        {
+                            Amount = item.Amount,
+                            Code = item.Code,
+                            ComputationCode = item.ComputationCode,
+                            CreatedBy = sessionObj.USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            Description = item.Description,
+                            IsActive = item.IsActive,
+                            RegisterCode = item.RegisterCode,
+                            StructureID = structureHeader.StructureID,
+                            StructureDetailID = item.StructureDetailID,
+                            Total = item.Total,
+                            PaymentType = item.PaymentType,
+                            BranchId = structureHeader.BranchId,
+                            IsVariablePay = item.IsVariablePay
+                        };
+                        if (item.StructureDetailID > 0)
+                            salaryStructureDetailBO.Delete(detail);
+                        if (item.IsActive)
+                            salaryStructureDetailBO.Add(detail);
+                    }
+
                 }
-                foreach (SalaryStructureDetail item in salaryStructureVm.structureEmployeeContributionDetail)
+
+                if (salaryStructureVm.structureEmployeeContributionDetail != null)
                 {
-                    SalaryStructureDetail detail = new SalaryStructureDetail()
+                    foreach (SalaryStructureDetail item in salaryStructureVm.structureEmployeeContributionDetail)
                     {
-                        Amount = item.Amount,
-                        Code = item.Code,
-                        ComputationCode = item.ComputationCode,
-                        CreatedBy = sessionObj.USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        Description = item.Description,
-                        IsActive = item.IsActive,
-                        RegisterCode = item.RegisterCode,
-                        StructureID = structureHeader.StructureID,
-                        StructureDetailID = item.StructureDetailID,
-                        Total = item.Total,
-                        PaymentType = item.PaymentType,
-                        BranchId = structureHeader.BranchId,
-                        IsVariablePay = item.IsVariablePay
-                    };
-                    if (item.StructureDetailID > 0)
-                        salaryStructureDetailBO.Delete(detail);
-                    if (item.IsActive)
-                        salaryStructureDetailBO.Add(detail);
+                        SalaryStructureDetail detail = new SalaryStructureDetail()
+                        {
+                            Amount = item.Amount,
+                            Code = item.Code,
+                            ComputationCode = item.ComputationCode,
+                            CreatedBy = sessionObj.USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            Description = item.Description,
+                            IsActive = item.IsActive,
+                            RegisterCode = item.RegisterCode,
+                            StructureID = structureHeader.StructureID,
+                            StructureDetailID = item.StructureDetailID,
+                            Total = item.Total,
+                            PaymentType = item.PaymentType,
+                            BranchId = structureHeader.BranchId,
+                            IsVariablePay = item.IsVariablePay
+                        };
+                        if (item.StructureDetailID > 0)
+                            salaryStructureDetailBO.Delete(detail);
+                        if (item.IsActive)
+                            salaryStructureDetailBO.Add(detail);
+                    }
                 }
+
             }
+
+
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }

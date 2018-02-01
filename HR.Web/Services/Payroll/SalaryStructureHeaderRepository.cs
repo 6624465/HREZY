@@ -34,6 +34,8 @@ namespace HR.Web.Services.Payroll
                         salaryStructureHeader.NetAmount = entity.NetAmount;
                         salaryStructureHeader.TotalDeductions = entity.TotalDeductions;
                         salaryStructureHeader.TotalGross = entity.TotalGross;
+                        salaryStructureHeader.Description = entity.Description;
+                        salaryStructureHeader.EmployeeId = entity.EmployeeId;
                     }
 
                     dbContext.SaveChanges();

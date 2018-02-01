@@ -305,6 +305,8 @@ namespace HR.Web.Controllers
                         BranchId = salaryStructure.A.BranchId,
                         TotalDeductions = salaryStructure.A.TotalDeductions,
                         TotalGross = salaryStructure.A.TotalGross,
+                        Description = salaryStructure.A.Description,
+                        EmployeeId=salaryStructure.A.EmployeeId
                     };
 
                     foreach (SalaryStructureDetail item in salaryStructure.B)

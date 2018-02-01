@@ -31,7 +31,6 @@ namespace HR.Web.Controllers
 
                     if (userObj != null)
                     {
-                        //userObj = null;
                         FormsAuthentication.SetAuthCookie(userObj.UserName, false);
 
                         SessionObj sessionObj = new SessionObj()

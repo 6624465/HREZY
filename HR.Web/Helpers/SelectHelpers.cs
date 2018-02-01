@@ -260,6 +260,17 @@ namespace HR.Web.Helpers
             }
         }
 
+        public static IEnumerable<SelectListItem> EmployeeList(int BranchId)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                return dbCntx.EmployeeHeaders.Where(x=>x.BranchId == BranchId).Select(x => new SelectListItem
+                {
+                    Value = x.EmployeeId.ToString(),
+                    Text = x.FirstName
+                }).OrderBy(x=>x.Text).ToList().AsEnumerable();
+            }
+        }
 
         public static IEnumerable<SelectListItem> PayRollCategory()
         {
@@ -278,7 +289,7 @@ namespace HR.Web.Helpers
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM && x.IsActive==true)
+                return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM && x.IsActive == true)
                     .Select(x => new SelectListItem
                     {
                         Value = x.LookUpCode,
@@ -350,7 +361,7 @@ namespace HR.Web.Helpers
                     {
                         Value = x.LookUpCode,
                         Text = x.LookUpDescription
-                    }).ToList().AsEnumerable().OrderBy(x=>x.Text);
+                    }).ToList().AsEnumerable().OrderBy(x => x.Text);
             }
         }
 

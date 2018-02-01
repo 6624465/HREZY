@@ -453,6 +453,7 @@
           <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PaymentType" Type="nvarchar" MaxLength="20" />
           <Property Name="BranchId" Type="int" />
+          <Property Name="IsVariablePay" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -472,6 +473,8 @@
           <Property Name="TotalDeductions" Type="decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="int" />
           <Property Name="TotalTax" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="TravelClaimDetail">
           <Key>
@@ -1124,6 +1127,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="BranchId" Type="Int32" />
+          <Property Name="IsVariablePay" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -1143,6 +1147,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="TotalDeductions" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="BranchId" Type="Int32" />
           <Property Name="TotalTax" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureHeader">
           <Key>
@@ -1718,6 +1724,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="SalaryStructureDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureDetail">
               <MappingFragment StoreEntitySet="SalaryStructureDetail">
+                <ScalarProperty Name="IsVariablePay" ColumnName="IsVariablePay" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
@@ -1739,6 +1746,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="SalaryStructureHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureHeader">
               <MappingFragment StoreEntitySet="SalaryStructureHeader">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="TotalTax" ColumnName="TotalTax" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="TotalDeductions" ColumnName="TotalDeductions" />

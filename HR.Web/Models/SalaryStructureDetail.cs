@@ -29,5 +29,6 @@ namespace HR.Web.Models
         public Nullable<decimal> Total { get; set; }
         public string PaymentType { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public bool IsVariablePay { get; set; }
     }
 }

@@ -304,22 +304,45 @@
                                                        new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style="text-align:right;">Total Payable</td>
-                                                    <td>
-                                                        @Html.TextBoxFor(x => x.structureHeader.NetAmount,
-                                                       new { @class = "form-control input-sm", @readonly = "readonly" })
-                                                    </td>
-                                                </tr>
+                                               
                                             </tfoot>
                                         </table>
                                     </div>
 
+                                    <h4><b>NET SALARY</b></h4>
+                                    <div>
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-condensed table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td style="text-align:right;">Amount</td>
+                                                            <td>
+                                                                @Html.TextBoxFor(x => x.structureHeader.NetAmount,
+                                                       new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -720,7 +743,7 @@
                 var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
                 var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
-                var netAmount=parseFloat(_totalGross)+ parseFloat(_totalDeductions);
+                var netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions);
                 $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
 
             }
@@ -786,7 +809,7 @@
             var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
             var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
-            var netAmount=parseFloat(_totalGross)+ parseFloat(_totalDeductions);
+            var netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions);
             $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
 
         }

@@ -73,7 +73,9 @@ namespace HR.Web.BusinessObjects.Operation
                     CreatedBy = sessionObj.USERID,
                     CreatedOn = UTILITY.SINGAPORETIME,
                     ModifiedBy = sessionObj.USERID,
-                    ModifiedOn = UTILITY.SINGAPORETIME
+                    ModifiedOn = UTILITY.SINGAPORETIME,
+                    EPFNO=empVm.empPersonalDetail.EPFNO,
+                    PasspostNo=empVm.empPersonalDetail.PasspostNo
                 };
                 empPersonalDetailBO.Add(empPersonalDetail);
                 var empWorkDetail = new EmployeeWorkDetail

@@ -190,13 +190,8 @@
                                     <TextBox class="form-control input-sm"></TextBox>
                                 </div>
                                 </div>
-                                @*<label class="col-md-2 control-label">
-                                    <span class="pull-right">Emg. Contact No</span>
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-     new { @class = "form-control numCssPlus input-sm" })
-                                </div>*@
+                              
+                                
                             </div>
                         <div class="row css5">
                             <div class="form-group" style="white-space:nowrap">
@@ -227,17 +222,6 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="row css5">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">
-                                    <span class="pull-right">Address 2</span>
-                                </label>
-                                <div class="col-md-9">
-                                    @Html.TextAreaFor(x => x.address.Address2,
-                                     new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                        </div>*@
                         <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
@@ -285,6 +269,7 @@
                     </div>
                 </div>
             </div>
+           
             <div class="col-md-6">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">Position</div>
@@ -436,38 +421,29 @@
                                     <span class="pull-right">Email</span>
                                 </label>
                                 <div class="col-md-9">
-                                   <textBox class="form-control input-sm"></textBox>
+                                    <input type="text" class="form-control input-sm" id="loginEmail" disabled="disabled">
                                 </div>
                             </div>
                         </div>
-                        @*<div class="row css5">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">
-                                    <span class="pull-right">Address 2</span>
-                                </label>
-                                <div class="col-md-9">
-                                    @Html.TextAreaFor(x => x.address.Address2,
-                                     new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                        </div>*@
                         <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
                                     <span class="pull-right">Password</span>
                                 </label>
                                 <div class="col-md-9">
-                                    <textBox class="form-control input-sm"></textBox>
+                                    @Html.PasswordFor(x => x.empHeader.Password,
+                                    new { @class = "form-control input-sm", value = Model.empHeader.Password })
                                 </div>
                             </div>
                         </div>
                         <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
-                                    <span class="pull-right">confirm password</span>
+                                    <span class="pull-right">Confirm Password</span>
                                 </label>
                                 <div class="col-md-9">
-                                    <textBox class="form-control input-sm"></textBox>
+                                    @Html.PasswordFor(x => x.empHeader.ConfirmPassword,
+                                    new { @class = "form-control input-sm", value = Model.empHeader.ConfirmPassword })
                                 </div>
                             </div>
                         </div>
@@ -477,15 +453,20 @@
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">Status</span>
                             </label>
-                            <div class="col-md-1" style="margin-top:10px">
-                                @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
-
+                            <div class="col-md-2">
+                                <div style="margin-top:10px">
+                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value)
+                                </div>
                             </div>
                             </div>
+                        <div class="row"></div>
+                        <div class="row"></div>
+                        <div class="row"></div>
+                        </div>
                         </div>
                     </div>
                 </div>
-            </div>
+          
             <div class="col-md-6">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">Bank Details</div>
@@ -536,46 +517,14 @@
                                     <span class="pull-right">Shift Code</span>
                                 </label>
                                 <div class="col-md-9">
-                                    <<textBox class="form-control input-sm"></textBox>
+                                    <textBox class="form-control input-sm"></textBox>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row css5">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">
-                                    <span class="pull-right">Resigned Date</span>
-                                </label>
-                                <div class="col-md-9">
-                                    <div class="input-group date dtCss" id="ResignationDate">
-                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control dtCssTxt input-sm" })
-                                        <span class="input-group-addon">
-                                            <i class="ion ion-calendar"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="row css5">
-                            <div class="form-group" style="white-space:nowrap">
-                                <div class="col-md-2">
-                                </div>
-                                <label class="col-md-1 control-label">
-                                    <span class="pull-right">Reporting To</span>
-                                </label>
-                                <div class="col-md-1" style="margin-top:10px">
-                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
-
-                                </div>
-                                <div id="isReportingTo">
-
-                                    <div class="col-md-8">
-                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
-                                    new { @class = "form-control input-sm" })
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+            </div>
                         <div class="row css5">
                             @*<div class="form-group">
                                 <label class="col-md-3 control-label">
@@ -606,70 +555,11 @@
                                 }
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*<div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default panel-hovered panel-stacked mb10">
-                    <div class="panel-heading">Login Info</div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">Email</span>
-                                </label>
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control input-sm" id="loginEmail" disabled="disabled">
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">Password</span>
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.PasswordFor(x => x.empHeader.Password,
-                                    new { @class = "form-control input-sm", value = Model.empHeader.Password })
-                                </div>
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">Confirm Password</span>
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.PasswordFor(x => x.empHeader.ConfirmPassword,
-                                    new { @class = "form-control input-sm", value = Model.empHeader.ConfirmPassword })
-                                </div>
-                                <label class="col-md-1 control-label">
-                                    <span class="pull-right">Status</span>
-                                </label>
-                                <div class="col-md-2">
-                                    <div style="margin-top:10px">
-                                        @Html.CheckBoxFor(x => x.empHeader.IsActive.Value)
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">Bank Name</span>
-                                </label>
-                                <div class="col-md-4">
-                                    <TextBox class="form-control input-sm"></TextBox>
-                                </div>
-                                <label class="col-md-2 control-label">
-                                    <span class="pull-right">Account No</span>
-                                </label>
-                                <div class="col-md-4">
-                                    <TextBox class="form-control input-sm"></TextBox>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
+                   
+            
+            
+  
+       
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">

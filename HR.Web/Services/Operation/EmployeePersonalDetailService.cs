@@ -34,7 +34,7 @@ namespace HR.Web.Services.Operation
                         empPersonalDetail.DOB = entity.DOB;
                         empPersonalDetail.EmergencyContactName = entity.EmergencyContactName;
                         empPersonalDetail.EmergencyContactNumber = entity.EmergencyContactNumber;
-                       // empPersonalDetail.EmployeeId = entity.EmployeeId;
+                        // empPersonalDetail.EmployeeId = entity.EmployeeId;
                         empPersonalDetail.FatherName = entity.FatherName;
                         empPersonalDetail.Gender = entity.Gender;
                         empPersonalDetail.MaritalStatus = entity.MaritalStatus;
@@ -44,6 +44,8 @@ namespace HR.Web.Services.Operation
                         empPersonalDetail.PersonalDetailID = entity.PersonalDetailID;
                         empPersonalDetail.ResidentialStatus = entity.ResidentialStatus;
                         empPersonalDetail.SpouseName = entity.SpouseName;
+                        empPersonalDetail.EPFNO = entity.EPFNO;
+                        empPersonalDetail.PasspostNo = entity.PasspostNo;
                     }
                     dbContext.SaveChanges();
                 }
@@ -122,13 +124,13 @@ namespace HR.Web.Services.Operation
             }
         }
 
-        public EmployeePersonalDetail GetByProperty(Func<EmployeePersonalDetail,bool> predicate)
+        public EmployeePersonalDetail GetByProperty(Func<EmployeePersonalDetail, bool> predicate)
         {
             try
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                  return  dbContext.EmployeePersonalDetails.Where(predicate).FirstOrDefault();
+                    return dbContext.EmployeePersonalDetails.Where(predicate).FirstOrDefault();
                 }
             }
             catch (Exception ex)

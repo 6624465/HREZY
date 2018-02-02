@@ -17,6 +17,7 @@ namespace HR.Web.BusinessObjects.Operation
         EmployeeDocumentDetailBO empDocDetailBO = null;
         EmployeeWorkDetailBO empWorkDetailBO = null;
         AddressBO addressBO = null;
+        EmployeeBankDetailBO empbankdetailBO = null;
         public EmployeeHeaderBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
@@ -25,6 +26,7 @@ namespace HR.Web.BusinessObjects.Operation
             empDocDetailBO = new EmployeeDocumentDetailBO(sessionObj);
             empWorkDetailBO = new EmployeeWorkDetailBO(sessionObj);
             addressBO = new AddressBO(sessionObj);
+            empbankdetailBO = new EmployeeBankDetailBO(sessionObj);
         }
 
         public void SaveEmployeeVm(EmployeeVm empVm)
@@ -118,6 +120,17 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedOn = UTILITY.SINGAPORETIME
                 };
                 addressBO.Add(empAddress);
+                var empbankdetail = new EmployeeBankdetail
+                {
+                    EmployeeId = empVm.empbankdetail.EmployeeId,
+                    BranchId = empVm.empbankdetail.BranchId,
+                    BankName = empVm.empbankdetail.BankName,
+                    AccountNo = empVm.empbankdetail.AccountNo,
+                    AccountType = empVm.empbankdetail.AccountType,
+                    BankBranchCode = empVm.empbankdetail.BankBranchCode,
+                    SwiftCode = empVm.empbankdetail.SwiftCode
+                };
+                empbankdetailBO.Add(empbankdetail);
 
                 foreach (var item in empVm.empDocument)
                 {
@@ -176,6 +189,7 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.address.Email = empVm.empHeader.UserEmailId;
                 empVm.address.BranchId = empVm.empHeader.BranchId;
                 addressBO.Add(empVm.address);
+
 
 
                 foreach (var item in empVm.empDocument)

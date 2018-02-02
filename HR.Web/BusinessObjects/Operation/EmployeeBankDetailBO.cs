@@ -61,5 +61,21 @@ namespace HR.Web.BusinessObjects.Operation
             }
         }
 
+        public EmployeeBankdetail GetByProperty(Func<EmployeeBankdetail, bool> predicate)
+        {
+
+            try
+            {
+
+                return empbankdetailservice.GetByProperty(predicate);
+               
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 } 

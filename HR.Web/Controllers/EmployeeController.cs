@@ -33,7 +33,7 @@ namespace HR.Web.Controllers
         LookUpBO lookUpBO = null;
         LeaveTransBO leaveTransBO = null;
         SalaryStructureHeaderBO salaryStructureHeaderBO = null;
-        EmployeeBankDetailBO empbankdetail = null;
+        EmployeeBankDetailBO empbankdetailBO = null;
         public EmployeeController()
         {
 
@@ -47,7 +47,7 @@ namespace HR.Web.Controllers
             lookUpBO = new LookUpBO(SESSIONOBJ);
             leaveTransBO = new LeaveTransBO(SESSIONOBJ);
             salaryStructureHeaderBO = new SalaryStructureHeaderBO(SESSIONOBJ);
-            empbankdetail = new EmployeeBankDetailBO(SESSIONOBJ);
+            empbankdetailBO = new EmployeeBankDetailBO(SESSIONOBJ);
         }
         [HttpGet]
         public ViewResult employeedirectory()
@@ -213,6 +213,7 @@ namespace HR.Web.Controllers
                 empObj.empPersonalDetail = empPersonalDetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
                 empObj.empWorkDetail = empWorkDetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
                 empObj.address = addressBO.GetByProperty(x => x.LinkID == EmployeeId.Value);
+                empObj.empBankdetail = empbankdetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
                 List<EmployeeDocumentDetail> empDocumentDetList = empDocDetailBO.GetAll().ToList();
 
                 empDocumentDetList = empDocumentDetList.Where(x => x.EmployeeId == EmployeeId.Value).ToList();

@@ -86,6 +86,22 @@ namespace HR.Web.Services.Operation
                 throw ex;
             }
         }
+        public EmployeeBankdetail GetByProperty(Func<EmployeeBankdetail, bool> predicate)
+        {
+
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.EmployeeBankdetails.Where(predicate).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
     }
 }

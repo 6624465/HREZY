@@ -52,6 +52,7 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedOn = UTILITY.SINGAPORETIME,
                     ManagerId = empVm.empHeader.ManagerId,
                     IsReportingAuthority = empVm.empHeader.IsReportingAuthority,
+                   
 
                 };
 
@@ -132,16 +133,6 @@ namespace HR.Web.BusinessObjects.Operation
                 };
                 empbankdetailBO.Add(empbankdetail);
 
-                var bankDetail = new EmployeeBankdetail()
-                {
-                    AccountNo = empVm.empBankdetail.AccountNo,
-                    AccountType = empVm.empBankdetail.AccountType,
-                    BankBranchCode = empVm.empBankdetail.BankBranchCode,
-                    BankName = empVm.empBankdetail.BankName,
-                    SwiftCode = empVm.empBankdetail.SwiftCode,
-                    BranchId = sessionObj.BRANCHID,
-                    EmployeeId = empHeader.EmployeeId
-                };
 
                 foreach (var item in empVm.empDocument)
                 {

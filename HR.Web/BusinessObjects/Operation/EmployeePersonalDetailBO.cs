@@ -35,6 +35,8 @@ namespace HR.Web.BusinessObjects.Operation
                 EmergencyContactNumber = empPerDetail.EmergencyContactNumber,
                 MarriageDate = empPerDetail.MarriageDate, //
                 ResidentialStatus = empPerDetail.ResidentialStatus, //
+                EPFNO = empPerDetail.EPFNO,
+                PasspostNo = empPerDetail.PasspostNo,                
                 CreatedBy = sessionObj.USERID,
                 CreatedOn = UTILITY.SINGAPORETIME,
                 ModifiedBy = sessionObj.USERID,

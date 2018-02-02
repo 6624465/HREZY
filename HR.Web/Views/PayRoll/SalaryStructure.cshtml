@@ -527,6 +527,7 @@
                 $('#structureSalaryPaymentDetail_' + index + '__ComputationCode').removeAttr('required');
                 $('#structureSalaryPaymentDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#structureSalaryPaymentDetail_' + index + '__Amount').removeAttr('required');
+                $('#structureSalaryPaymentDetail_' + index + '__IsVariablePay').parent().removeClass('checked');
                 calculateTotal();
             }
 

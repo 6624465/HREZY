@@ -19,7 +19,7 @@ namespace HR.Web.Services.Operation
                 using(var dbcntx=new HrDataContext())
                 {
                     EmployeeBankdetail employeebankdetail = dbcntx.EmployeeBankdetails.
-                                                            Where(x => x.EmployeeId == entity.EmployeeId).FirstOrDefault();
+                                                            Where(x => x.BankDetailId == entity.BankDetailId).FirstOrDefault();
                     if (employeebankdetail == null)
                     {
                         dbcntx.EmployeeBankdetails.Add(entity);

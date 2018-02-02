@@ -200,9 +200,9 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.empBankdetail.BankBranchCode = empVm.empBankdetail.BankBranchCode;
                 empVm.empBankdetail.BankName = empVm.empBankdetail.BankName;
                 empVm.empBankdetail.SwiftCode = empVm.empBankdetail.SwiftCode;
-                //empVm.empBankdetail.EmployeeId = empVm.empBankdetail.EmployeeId;
-                //empVm.empBankdetail.BranchId = empVm.empBankdetail.BranchId;
-                //empbankdetailBO.Add(empVm.empBankdetail);
+                empVm.empBankdetail.EmployeeId = empVm.empHeader.EmployeeId;
+                empVm.empBankdetail.BranchId = empVm.empHeader.BranchId;
+                empbankdetailBO.Add(empVm.empBankdetail);
 
 
                 foreach (var item in empVm.empDocument)

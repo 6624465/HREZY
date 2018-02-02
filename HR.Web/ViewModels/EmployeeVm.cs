@@ -14,8 +14,9 @@ namespace HR.Web.ViewModels
         public EmployeeWorkDetail empWorkDetail { get; set; }
         //public IEnumerable<EmployeeDocumentVm> empDocumentDetail { get; set; }
         public Address address { get; set; }
-
+        public EmployeeBankdetail empBankdetail { get; set; }
         public List<EmployeeDocumentVm> empDocument { get; set; }
+        public EmployeeBankdetail empbankdetail { get; set; }
 
         public List<Documents> documents { get; set; }
         //public HttpPostedFileBase UIDCard { get; set; }

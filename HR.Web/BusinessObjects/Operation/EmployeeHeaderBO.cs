@@ -17,6 +17,7 @@ namespace HR.Web.BusinessObjects.Operation
         EmployeeDocumentDetailBO empDocDetailBO = null;
         EmployeeWorkDetailBO empWorkDetailBO = null;
         AddressBO addressBO = null;
+        EmployeeBankDetailBO empbankdetailBO = null;
         public EmployeeHeaderBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
@@ -25,6 +26,7 @@ namespace HR.Web.BusinessObjects.Operation
             empDocDetailBO = new EmployeeDocumentDetailBO(sessionObj);
             empWorkDetailBO = new EmployeeWorkDetailBO(sessionObj);
             addressBO = new AddressBO(sessionObj);
+            empbankdetailBO = new EmployeeBankDetailBO(sessionObj);
         }
 
         public void SaveEmployeeVm(EmployeeVm empVm)
@@ -50,6 +52,7 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedOn = UTILITY.SINGAPORETIME,
                     ManagerId = empVm.empHeader.ManagerId,
                     IsReportingAuthority = empVm.empHeader.IsReportingAuthority,
+                   
 
                 };
 
@@ -73,7 +76,9 @@ namespace HR.Web.BusinessObjects.Operation
                     CreatedBy = sessionObj.USERID,
                     CreatedOn = UTILITY.SINGAPORETIME,
                     ModifiedBy = sessionObj.USERID,
-                    ModifiedOn = UTILITY.SINGAPORETIME
+                    ModifiedOn = UTILITY.SINGAPORETIME,
+                    EPFNO = empVm.empPersonalDetail.EPFNO,
+                    PasspostNo = empVm.empPersonalDetail.PasspostNo
                 };
                 empPersonalDetailBO.Add(empPersonalDetail);
                 var empWorkDetail = new EmployeeWorkDetail
@@ -116,6 +121,18 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedOn = UTILITY.SINGAPORETIME
                 };
                 addressBO.Add(empAddress);
+                var empbankdetail = new EmployeeBankdetail
+                {
+                    EmployeeId = empVm.empbankdetail.EmployeeId,
+                    BranchId = empVm.empbankdetail.BranchId,
+                    BankName = empVm.empbankdetail.BankName,
+                    AccountNo = empVm.empbankdetail.AccountNo,
+                    AccountType = empVm.empbankdetail.AccountType,
+                    BankBranchCode = empVm.empbankdetail.BankBranchCode,
+                    SwiftCode = empVm.empbankdetail.SwiftCode
+                };
+                empbankdetailBO.Add(empbankdetail);
+
 
                 foreach (var item in empVm.empDocument)
                 {
@@ -152,18 +169,21 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.empHeader.ModifiedBy = sessionObj.USERID;
                 empVm.empHeader.ModifiedOn = UTILITY.SINGAPORETIME;
                 Add(empVm.empHeader);
+
                 empVm.empPersonalDetail.CreatedBy = sessionObj.USERID;
                 empVm.empPersonalDetail.CreatedOn = UTILITY.SINGAPORETIME;
                 empVm.empPersonalDetail.ModifiedBy = sessionObj.USERID;
                 empVm.empPersonalDetail.ModifiedOn = UTILITY.SINGAPORETIME;
                 empVm.empPersonalDetail.BranchId = empVm.empHeader.BranchId;
                 empPersonalDetailBO.Add(empVm.empPersonalDetail);
+
                 empVm.empWorkDetail.CreatedBy = sessionObj.USERID;
                 empVm.empWorkDetail.CreatedOn = UTILITY.SINGAPORETIME;
                 empVm.empWorkDetail.ModifiedBy = sessionObj.USERID;
                 empVm.empWorkDetail.ModifiedOn = UTILITY.SINGAPORETIME;
                 empVm.empWorkDetail.BranchId = empVm.empHeader.BranchId;
                 empWorkDetailBO.Add(empVm.empWorkDetail);
+
                 empVm.address.CreatedBy = sessionObj.USERID;
                 empVm.address.CreatedOn = UTILITY.SINGAPORETIME;
                 empVm.address.ModifiedBy = sessionObj.USERID;
@@ -175,6 +195,12 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.address.BranchId = empVm.empHeader.BranchId;
                 addressBO.Add(empVm.address);
 
+                empVm.empBankdetail.AccountNo = empVm.empBankdetail.AccountNo;
+                empVm.empBankdetail.AccountType = empVm.empBankdetail.AccountType;
+                empVm.empBankdetail.BankBranchCode = empVm.empBankdetail.BankBranchCode;
+                empVm.empBankdetail.BankName = empVm.empBankdetail.BankName;
+                empVm.empBankdetail.SwiftCode = empVm.empBankdetail.SwiftCode;
+
 
                 foreach (var item in empVm.empDocument)
                 {
@@ -184,7 +210,7 @@ namespace HR.Web.BusinessObjects.Operation
                         {
                             EmployeeId = empVm.empHeader.EmployeeId,
                             BranchId = sessionObj.BRANCHID,
-                            DocumentDetailID=item.DocumentDetailId,
+                            DocumentDetailID = item.DocumentDetailId,
                             DocumentType = item.DocumentType,
                             FileName = item.Document.FileName,
                             CreatedBy = sessionObj.USERID,

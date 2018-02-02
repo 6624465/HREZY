@@ -258,7 +258,7 @@ namespace HR.Web.Controllers
                         Description = item.Description,
                         PaymentType = item.RegisterCode,
                         //BranchId=item.BranchId
-                        RegisterCode= UTILITY.SALARYPAYMENTS
+                        RegisterCode= UTILITY.SALARYPAYMENTS,
                     }).ToList();
 
                 salaryStructureVm.structureEmployerContributionDetail = contributionList
@@ -327,7 +327,8 @@ namespace HR.Web.Controllers
                             StructureDetailID = item.StructureDetailID,
                             StructureID = item.StructureID,
                             Total = item.Total,
-                            PaymentType = item.PaymentType
+                            PaymentType = item.PaymentType,
+                            IsVariablePay = item.IsVariablePay,
                         };
                         if (item.PaymentType == UTILITY.SALARYPAYMENTS)
                             salaryStructureVm.structureSalaryPaymentDetail.Add(salaryDetail);

@@ -200,7 +200,7 @@ namespace HR.Web.BusinessObjects.Payroll
                             Total = item.Total,
                             PaymentType = item.PaymentType,
                             BranchId = structureHeader.BranchId,
-                            IsVariablePay = item.IsVariablePay
+                            IsVariablePay = item.IsVariablePay,
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);

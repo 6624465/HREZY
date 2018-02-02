@@ -36,6 +36,7 @@ namespace HR.Web.Services.Payroll
                         SalaryStructureDetail.ModifiedOn = entity.ModifiedOn;
                         SalaryStructureDetail.IsActive = entity.IsActive;
                         SalaryStructureDetail.Total = entity.Total;
+                        SalaryStructureDetail.IsVariablePay = entity.IsVariablePay;
                     }
 
                     dbContext.SaveChanges();

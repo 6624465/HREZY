@@ -235,14 +235,14 @@ namespace HR.Web.Controllers
                             };
                             docVmList.Add(docVm);
                         }
-                        
-                  
+
+
                         empObj.empDocument = lookUpBO.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
                         .Select(y => new EmployeeDocumentVm
                         {
                             DocumentType = y.LookUpID,
                             DocumentDescription = y.LookUpDescription
-                        }).Where(x=>!codeList.Contains(x.DocumentType)).ToList();
+                        }).Where(x => !codeList.Contains(x.DocumentType)).ToList();
                         empObj.empDocument.AddRange(docVmList);
                     }
                     else
@@ -265,8 +265,13 @@ namespace HR.Web.Controllers
                                             DocumentType = x.LookUpID,
                                             DocumentDescription = x.LookUpDescription
                                         }).ToList();
-                return View(new EmployeeVm { empHeader = new EmployeeHeader
-                { EmployeeId = -1, IsActive = true }, empDocument = documentTypes,empPersonalDetail = new EmployeePersonalDetail() { Gender=101} });
+                return View(new EmployeeVm
+                {
+                    empHeader = new EmployeeHeader
+                    { EmployeeId = -1, IsActive = true },
+                    empDocument = documentTypes,
+                    empPersonalDetail = new EmployeePersonalDetail() { Gender = 101 }
+                });
             }
         }
 

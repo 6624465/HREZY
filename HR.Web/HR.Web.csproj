@@ -1736,6 +1736,7 @@
     <Compile Include="BusinessObjects\LeaveMaster\LookUpBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\HolidayListBO.cs" />
     <Compile Include="BusinessObjects\LeaveMaster\LeaveBO.cs" />
+    <Compile Include="BusinessObjects\Operation\EmployeeBankDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeDocumentDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeLeaveListBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeePersonalDetailBO.cs" />
@@ -1912,6 +1913,7 @@
     <Compile Include="Services\LeaveMaster\LeaveRepository.cs" />
     <Compile Include="Services\LeaveMaster\LookUpRepository.cs" />
     <Compile Include="Services\Operation\AddressService.cs" />
+    <Compile Include="Services\Operation\EmployeeBankDetailService.cs" />
     <Compile Include="Services\Operation\EmployeeDocumentDetailService.cs" />
     <Compile Include="Services\Operation\EmployeeHeaderService.cs" />
     <Compile Include="Services\Operation\EmployeeLeaveListService.cs" />

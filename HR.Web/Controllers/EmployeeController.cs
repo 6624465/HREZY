@@ -20,7 +20,7 @@ namespace HR.Web.Controllers
 {
 
     [SessionFilter]
-    [ErrorHandler]
+    //[ErrorHandler]
     public class EmployeeController : BaseController
     {
         EmployeeHeaderBO empHeaderBO = null;
@@ -33,6 +33,7 @@ namespace HR.Web.Controllers
         LookUpBO lookUpBO = null;
         LeaveTransBO leaveTransBO = null;
         SalaryStructureHeaderBO salaryStructureHeaderBO = null;
+        EmployeeBankDetailBO empbankdetail = null;
         public EmployeeController()
         {
 
@@ -46,6 +47,7 @@ namespace HR.Web.Controllers
             lookUpBO = new LookUpBO(SESSIONOBJ);
             leaveTransBO = new LeaveTransBO(SESSIONOBJ);
             salaryStructureHeaderBO = new SalaryStructureHeaderBO(SESSIONOBJ);
+            empbankdetail = new EmployeeBankDetailBO(SESSIONOBJ);
         }
         [HttpGet]
         public ViewResult employeedirectory()

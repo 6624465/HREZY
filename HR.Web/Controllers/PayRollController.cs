@@ -340,6 +340,7 @@ namespace HR.Web.Controllers
 
                     var CodeList = new List<string>();
                     var employeeCodeList = new List<string>();
+                    var employerCodeList = new List<string>();
                     if (salaryStructureVm != null && salaryStructureVm.structureSalaryPaymentDetail != null
                         && salaryStructureVm.structureSalaryPaymentDetail.Count > 0)
                     {
@@ -347,9 +348,12 @@ namespace HR.Web.Controllers
                                         .Select(x => x.Code)
                                         .ToList();
 
-                        employeeCodeList = salaryStructureVm.structureEmployerContributionDetail
-                                        .Select(x => x.Code)
-                                        .ToList();
+                        employerCodeList = salaryStructureVm.structureEmployerContributionDetail
+                                       .Select(x => x.Code)
+                                       .ToList();
+                        employeeCodeList = salaryStructureVm.structureEmployeeContributionDetail
+                                       .Select(x => x.Code)
+                                       .ToList();
                     }
 
                     var structureCompanyDeductionDetail = contributionList.Where(x => !CodeList.Contains(x.Name.ToUpper())).Select(
@@ -367,15 +371,15 @@ namespace HR.Web.Controllers
                                                       Code = item.Name,
                                                       Description = item.Description,
                                                       PaymentType = item.RegisterCode
-                                                  }).Where(x => x.PaymentType == UTILITY.EMPLOYERCONTRIBUTION).ToList();
+                                                  }).Where(x => x.PaymentType == UTILITY.EMPLOYEECONTRIBUTION).ToList();
                     salaryStructureVm.structureEmployeeContributionDetail.AddRange(structureEmployeeDeductionDetail);
-                    var structureEmployerDeductionDetail = contributionList.Where(x => !employeeCodeList.Contains(x.Name.ToUpper())).Select(
+                    var structureEmployerDeductionDetail = contributionList.Where(x => !employerCodeList.Contains(x.Name.ToUpper())).Select(
                                                   item => new SalaryStructureDetail()
                                                   {
                                                       Code = item.Name,
                                                       Description = item.Description,
                                                       PaymentType = item.RegisterCode
-                                                  }).Where(x => x.PaymentType == UTILITY.EMPLOYEECONTRIBUTION).ToList();
+                                                  }).Where(x => x.PaymentType == UTILITY.EMPLOYERCONTRIBUTION).ToList();
                     salaryStructureVm.structureEmployerContributionDetail.AddRange(structureEmployerDeductionDetail);
 
                 };

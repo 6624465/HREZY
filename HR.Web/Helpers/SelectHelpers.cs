@@ -405,7 +405,22 @@ namespace HR.Web.Helpers
 
             return listItem;
         }
+        public static IEnumerable<SelectListItem> AccountType()
+        {
 
+            List<SelectListItem> listItem = new List<SelectListItem>() {
+                                            new SelectListItem() {
+                                                Text="SAVINGS",
+                                                Value="SAVINGS"
+                                            },
+                                             new SelectListItem() {
+                                                Text="CURRENT",
+                                                Value="CURRENT"
+                                            },
+                                        };
+
+            return listItem;
+        }
         public static IEnumerable<SelectListItem> Deductions()
         {
             using (HrDataContext dbContext = new HrDataContext())

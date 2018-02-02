@@ -169,8 +169,6 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9F30C5_HRDB.Operation.EmployeeBankdetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeBankdetail">
           <Key>
             <PropertyRef Name="BankDetailId" />
@@ -617,6 +615,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="OtherLeave" EntityType="Self.OtherLeave" Schema="Master" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeAddress" EntityType="Self.EmployeeAddress" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="EmployeeBankdetail" EntityType="Self.EmployeeBankdetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeDocumentDetail" EntityType="Self.EmployeeDocumentDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeHeader" EntityType="Self.EmployeeHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeLeaveList" EntityType="Self.EmployeeLeaveList" Schema="Operation" store:Type="Tables" />
@@ -638,18 +637,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="TravelClaimHeader" EntityType="Self.TravelClaimHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="WeekendPolicy" EntityType="Self.WeekendPolicy" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
-          <EntitySet Name="EmployeeBankdetail" EntityType="Self.EmployeeBankdetail" store:Type="Tables" store:Schema="Operation">
-            <DefiningQuery>SELECT 
-    [EmployeeBankdetail].[BankDetailId] AS [BankDetailId], 
-    [EmployeeBankdetail].[EmployeeId] AS [EmployeeId], 
-    [EmployeeBankdetail].[BranchId] AS [BranchId], 
-    [EmployeeBankdetail].[BankName] AS [BankName], 
-    [EmployeeBankdetail].[AccountNo] AS [AccountNo], 
-    [EmployeeBankdetail].[AccountType] AS [AccountType], 
-    [EmployeeBankdetail].[BankBranchCode] AS [BankBranchCode], 
-    [EmployeeBankdetail].[SwiftCode] AS [SwiftCode]
-    FROM [Operation].[EmployeeBankdetail] AS [EmployeeBankdetail]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
             <DefiningQuery>SELECT 
     [Role].[RoleId] AS [RoleId], 

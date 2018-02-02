@@ -32,5 +32,7 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string EmergencyContactNumber { get; set; }
         public string EmergencyContactName { get; set; }
+        public string EPFNO { get; set; }
+        public string PasspostNo { get; set; }
     }
 }

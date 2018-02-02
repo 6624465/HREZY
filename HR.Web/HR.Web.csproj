@@ -1802,6 +1802,9 @@
     <Compile Include="Models\EmployeeAddress.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeBankdetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeeDocumentDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

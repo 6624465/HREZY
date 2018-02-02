@@ -527,6 +527,7 @@
                 $('#structureSalaryPaymentDetail_' + index + '__ComputationCode').removeAttr('required');
                 $('#structureSalaryPaymentDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#structureSalaryPaymentDetail_' + index + '__Amount').removeAttr('required');
+                $('#structureSalaryPaymentDetail_' + index + '__IsVariablePay').parent().removeClass('checked');
                 calculateTotal();
             }
 
@@ -564,7 +565,7 @@
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').removeAttr('required');
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').removeAttr('required');
-
+                $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').parent().removeClass('checked');
                 calculateTotal();
             }
 
@@ -653,7 +654,7 @@
                 $('#structureEmployerContributionDetail_' + index + '__ComputationCode').removeAttr('required');
                 $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').removeAttr('required');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').removeAttr('required');
-
+                $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').parent().removeClass('checked');
                 calculateTotal();
             }
 

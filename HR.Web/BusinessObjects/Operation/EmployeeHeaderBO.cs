@@ -123,8 +123,8 @@ namespace HR.Web.BusinessObjects.Operation
                 addressBO.Add(empAddress);
                 var empbankdetail = new EmployeeBankdetail
                 {
-                    EmployeeId = empVm.empbankdetail.EmployeeId,
-                    BranchId = empVm.empbankdetail.BranchId,
+                    EmployeeId = empHeader.EmployeeId,
+                    BranchId = sessionObj.BRANCHID,
                     BankName = empVm.empbankdetail.BankName,
                     AccountNo = empVm.empbankdetail.AccountNo,
                     AccountType = empVm.empbankdetail.AccountType,

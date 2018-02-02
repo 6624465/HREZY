@@ -220,7 +220,7 @@
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureEmployerContributionDetail[i].ComputationCode,
-                                                                 new SelectList(Computation, "Value", "Text", Model.structureEmployerContributionDetail[i].ComputationCode), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
+                                                                 new SelectList( Computation.Where(x=>x.Text=="AMOUNT"), "Value", "Text", Model.structureEmployerContributionDetail[i].ComputationCode),new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.structureEmployerContributionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateTaxAmount(this," + i + ")" })
@@ -291,7 +291,7 @@
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureEmployeeContributionDetail[i].ComputationCode,
-                                                                 new SelectList(Computation, "Value", "Text", Model.structureEmployeeContributionDetail[i].ComputationCode), "", new { @class = "form-control input-sm", onchange = "calculateTotal()" })
+                                                                 new SelectList(Computation.Where(x => x.Text == "AMOUNT"), "Value", "Text", Model.structureEmployeeContributionDetail[i].ComputationCode), new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.structureEmployeeContributionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateDeductAmount(this," + i + ")" })
@@ -495,6 +495,8 @@
                 {
                     swal("Message!", "Please enter values for BASIC component")
                 }
+                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
+               $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
             }
 
         }
@@ -539,13 +541,15 @@
             var index=$(this).data('index');
 
             if($('#'+this.id).prop('checked')){
-
+                
+                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val("AMOUNT");
+                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('required','required');
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').attr('required','required');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('required','required');
                 $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').removeAttr('disabled');
 
-                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
+            
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').removeAttr('disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').removeAttr('disabled');
                 var code=  $('#structureEmployeeContributionDetail_' + index + '__Code').val();
@@ -553,7 +557,6 @@
                
             }
             else{
-
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
@@ -631,18 +634,20 @@
             var index=$(this).data('index');
 
             if($('#'+this.id).prop('checked')){
-
+                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
+                $('#structureEmployerContributionDetail_' + index + '__Amount').attr('disabled','disabled');
+                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').val("AMOUNT");
                 $('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('required','required');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').attr('required','required');
 
-                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
+                
                 $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').removeAttr('disabled');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').removeAttr('disabled');
                 var code=  $('#structureEmployerContributionDetail_' + index + '__Code').val();
                 calculateByEmpoyerCode(code,index);
             }
             else{
-
+                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('');
                 $('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
                 $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').val('').attr('disabled', 'disabled');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');

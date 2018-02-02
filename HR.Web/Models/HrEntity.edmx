@@ -169,6 +169,21 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_9F30C5_HRDB.Operation.EmployeeBankdetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmployeeBankdetail">
+          <Key>
+            <PropertyRef Name="BankDetailId" />
+          </Key>
+          <Property Name="BankDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="BranchId" Type="int" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="200" />
+          <Property Name="AccountNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountType" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankBranchCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="SwiftCode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="EmployeeDocumentDetail">
           <Key>
             <PropertyRef Name="DocumentDetailID" />
@@ -256,6 +271,8 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="EmergencyContactNumber" Type="nvarchar" MaxLength="20" />
           <Property Name="EmergencyContactName" Type="nvarchar" MaxLength="250" />
+          <Property Name="EPFNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasspostNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EmployeeWorkDetail">
           <Key>
@@ -621,6 +638,18 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="TravelClaimHeader" EntityType="Self.TravelClaimHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="WeekendPolicy" EntityType="Self.WeekendPolicy" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
+          <EntitySet Name="EmployeeBankdetail" EntityType="Self.EmployeeBankdetail" store:Type="Tables" store:Schema="Operation">
+            <DefiningQuery>SELECT 
+    [EmployeeBankdetail].[BankDetailId] AS [BankDetailId], 
+    [EmployeeBankdetail].[EmployeeId] AS [EmployeeId], 
+    [EmployeeBankdetail].[BranchId] AS [BranchId], 
+    [EmployeeBankdetail].[BankName] AS [BankName], 
+    [EmployeeBankdetail].[AccountNo] AS [AccountNo], 
+    [EmployeeBankdetail].[AccountType] AS [AccountType], 
+    [EmployeeBankdetail].[BankBranchCode] AS [BankBranchCode], 
+    [EmployeeBankdetail].[SwiftCode] AS [SwiftCode]
+    FROM [Operation].[EmployeeBankdetail] AS [EmployeeBankdetail]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
             <DefiningQuery>SELECT 
     [Role].[RoleId] AS [RoleId], 
@@ -712,6 +741,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           </FunctionImport>
           <EntitySet Name="TravelClaimDetails" EntityType="DB_9F30C5_HRDBModel.TravelClaimDetail" />
           <EntitySet Name="TravelClaimHeaders" EntityType="DB_9F30C5_HRDBModel.TravelClaimHeader" />
+          <EntitySet Name="EmployeeBankdetails" EntityType="DB_9F30C5_HRDBModel.EmployeeBankdetail" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -778,6 +808,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="EmergencyContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="EmergencyContactName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EPFNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasspostNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EmployeeWorkDetail">
           <Key>
@@ -1271,6 +1303,19 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="BranchId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="EmployeeBankdetail">
+          <Key>
+            <PropertyRef Name="BankDetailId" />
+          </Key>
+          <Property Name="BankDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="BankName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AccountNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankBranchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SwiftCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1352,6 +1397,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="EmployeePersonalDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeePersonalDetail">
               <MappingFragment StoreEntitySet="EmployeePersonalDetail">
+                <ScalarProperty Name="PasspostNo" ColumnName="PasspostNo" />
+                <ScalarProperty Name="EPFNO" ColumnName="EPFNO" />
                 <ScalarProperty Name="EmergencyContactName" ColumnName="EmergencyContactName" />
                 <ScalarProperty Name="EmergencyContactNumber" ColumnName="EmergencyContactNumber" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
@@ -1890,6 +1937,20 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="CountryVisited" ColumnName="CountryVisited" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TravelClaimId" ColumnName="TravelClaimId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeBankdetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeBankdetail">
+              <MappingFragment StoreEntitySet="EmployeeBankdetail">
+                <ScalarProperty Name="SwiftCode" ColumnName="SwiftCode" />
+                <ScalarProperty Name="BankBranchCode" ColumnName="BankBranchCode" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="BankDetailId" ColumnName="BankDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

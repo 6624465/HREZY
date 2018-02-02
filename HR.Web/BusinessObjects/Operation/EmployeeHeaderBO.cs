@@ -123,13 +123,13 @@ namespace HR.Web.BusinessObjects.Operation
                 addressBO.Add(empAddress);
                 var empbankdetail = new EmployeeBankdetail
                 {
-                    EmployeeId = empVm.empbankdetail.EmployeeId,
-                    BranchId = empVm.empbankdetail.BranchId,
-                    BankName = empVm.empbankdetail.BankName,
-                    AccountNo = empVm.empbankdetail.AccountNo,
-                    AccountType = empVm.empbankdetail.AccountType,
-                    BankBranchCode = empVm.empbankdetail.BankBranchCode,
-                    SwiftCode = empVm.empbankdetail.SwiftCode
+                    EmployeeId = empVm.empBankdetail.EmployeeId,
+                    BranchId = empVm.empBankdetail.BranchId,
+                    BankName = empVm.empBankdetail.BankName,
+                    AccountNo = empVm.empBankdetail.AccountNo,
+                    AccountType = empVm.empBankdetail.AccountType,
+                    BankBranchCode = empVm.empBankdetail.BankBranchCode,
+                    SwiftCode = empVm.empBankdetail.SwiftCode
                 };
                 empbankdetailBO.Add(empbankdetail);
 
@@ -200,6 +200,9 @@ namespace HR.Web.BusinessObjects.Operation
                 empVm.empBankdetail.BankBranchCode = empVm.empBankdetail.BankBranchCode;
                 empVm.empBankdetail.BankName = empVm.empBankdetail.BankName;
                 empVm.empBankdetail.SwiftCode = empVm.empBankdetail.SwiftCode;
+                //empVm.empBankdetail.EmployeeId = empVm.empBankdetail.EmployeeId;
+                //empVm.empBankdetail.BranchId = empVm.empBankdetail.BranchId;
+                //empbankdetailBO.Add(empVm.empBankdetail);
 
 
                 foreach (var item in empVm.empDocument)

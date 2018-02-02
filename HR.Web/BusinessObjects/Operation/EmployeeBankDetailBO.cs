@@ -76,6 +76,19 @@ namespace HR.Web.BusinessObjects.Operation
                 throw ex;
             }
         }
+        public void Update(EmployeeBankdetail entity)
+        {
+            try
+            {
+                empbankdetailservice.Update(entity);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
 
     }
 } 

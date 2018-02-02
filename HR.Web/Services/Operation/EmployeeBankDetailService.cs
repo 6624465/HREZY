@@ -102,6 +102,20 @@ namespace HR.Web.Services.Operation
                 throw ex;
             }
         }
+        public void Update(EmployeeBankdetail entity)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
     }
 }

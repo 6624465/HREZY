@@ -157,31 +157,35 @@
       })
                                 </div>
                                 <label class="col-md-2 control-label">
-                                    <span class="pull-right">Emg. Contact Name</span>
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
-     new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">
                                     <span class="pull-right">Nationality</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.empHeader.Nationality,
           SelectListItemHelper.CountryList(), "Select Country",
            new { @class = "form-control input-sm" })
+                                    @*<label class="col-md-2 control-label">
+                                           <span class="pull-right">Emg. Contact Name</span>
+                                       </label>
+                                       <div class="col-md-4">
+                                           @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
+            new { @class = "form-control input-sm" })
+                                       </div>*@
                                 </div>
-                                <label class="col-md-2 control-label">
+                        </div>
+                        <div class="row css5">
+                            <div class="form-group">
+                                       @*@Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
+        new { @class = "form-control numCssPlus input-sm" })*@
+                                   </div>
+
+                                </div>
+                                @*<label class="col-md-2 control-label">
                                     <span class="pull-right">Emg. Contact No</span>
                                 </label>
                                 <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
      new { @class = "form-control numCssPlus input-sm" })
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                         <div class="row css5">
@@ -208,11 +212,12 @@
                                 </label>
                                 <div class="col-md-9">
                                     @Html.TextAreaFor(x => x.address.Address1,
-                                    new { @class = "form-control input-sm" })
+                                    new { @class = "form-control input-sm",@style= "margin: 0px 1.64063px 0px 0px; width: 574px; height: 148px;"
+                                    })
                                 </div>
                             </div>
                         </div>
-                        <div class="row css5">
+                        @*<div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
                                     <span class="pull-right">Address 2</span>
@@ -222,7 +227,7 @@
                                      new { @class = "form-control input-sm" })
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="row css5">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">

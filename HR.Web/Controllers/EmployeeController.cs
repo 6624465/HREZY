@@ -308,7 +308,7 @@ namespace HR.Web.Controllers
         }
         public bool IsEmailExists(string Email)
         {
-            var list = empHeaderBO.GetListByProperty(x => x.UserEmailId.ToLower() == Email.ToLower()).ToList();
+            var list = empHeaderBO.GetListByProperty(x => (x.UserEmailId.ToLower() == Email.ToLower()) && (x.BranchId==BRANCHID)).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

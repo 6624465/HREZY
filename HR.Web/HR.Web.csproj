@@ -2094,7 +2094,6 @@
     <Content Include="Views\Config\CurrencyList.cshtml" />
     <Content Include="Views\Config\GetCurrency.cshtml" />
     <Content Include="Views\PayRoll\TravelClaimList.cshtml" />
-    <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\PayrollBatch\ProcessPayroll.cshtml" />
     <None Include="Web.Debug.config">

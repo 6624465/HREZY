@@ -60,7 +60,7 @@
         }
         .t-height{
            
-            height:325px;
+            height:305px;
         }
         .fa{
             font-size:12px;
@@ -403,8 +403,14 @@
         })
 
         $(function () {
-            $('.date').datepicker({
-                orientation: "top auto"
+            $(".dtcss").datepicker({
+                dateFormat: "mm/dd/yy",
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                autoclose: true,
+                changeMonth: true,
+                changeYear: true,
+                //gotoCurrent: true,
             });
         });
     </script>

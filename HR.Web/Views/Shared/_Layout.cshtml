@@ -165,17 +165,17 @@
                     {
                         if (baseObj.DocumentDetailID != 0)
                         {
-                            <img src="@Url.Content("~/Uploads/"+ baseObj.EMPLOYEEID + "/" + baseObj.DocumentDetailID + "/" + baseObj.FILENAME)" alt="admin-pic">
+                            <img src="@Url.Content("~/Uploads/"+ baseObj.EMPLOYEEID + "/" + baseObj.DocumentDetailID + "/" + baseObj.FILENAME)"   onerror="this.src='@Url.Content("~/Images/user.png")'">
                         }
                         else
                         {
-                            <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
+                            <img src="@Url.Content("~/Images/user.png")" onerror="this.src='@Url.Content("~/images/admin.jpg")'" >
                         }
 
                     }
                     else
                     {
-                        <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
+                        <img src="@Url.Content("~/images/admin.jpg")"   onerror="this.src='@Url.Content("~/images/user.jpg")'">
                     }
                        
                 </a>

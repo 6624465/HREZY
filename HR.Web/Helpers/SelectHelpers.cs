@@ -264,11 +264,12 @@ namespace HR.Web.Helpers
         {
             using (var dbCntx = new HrDataContext())
             {
-                return dbCntx.EmployeeHeaders.Where(x=>x.BranchId == BranchId).Select(x => new SelectListItem
-                {
-                    Value = x.EmployeeId.ToString(),
-                    Text = x.FirstName
-                }).OrderBy(x=>x.Text).ToList().AsEnumerable();
+                return dbCntx.EmployeeHeaders.Where(x => x.BranchId == BranchId && x.IsActive == true)
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.EmployeeId.ToString(),
+                        Text = x.FirstName
+                    }).OrderBy(x => x.Text).ToList().AsEnumerable();
             }
         }
 

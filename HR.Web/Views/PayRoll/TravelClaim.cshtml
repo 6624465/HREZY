@@ -116,7 +116,7 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">No Of Days</span>
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-4" id="noofdays">
                                 @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
                             </div>
 
@@ -282,12 +282,14 @@
             });
 
             $("#FromDate").on("dp.change", function (e) {
+                $('#claimHeader_ToDate').val('');
                 $('#ToDate').data("DateTimePicker").minDate(e.date);
-                //$('#TravelDate').data("DateTimePicker").minDate(e.date);
+                $('#claimHeader_NoOfDays').val('');
+                $('#TravelDate').data("DateTimePicker").minDate(e.date);
             });
-            //$("#ToDate").on("dp.change",function(e){
-            //    $('#TravelDate').data("DateTimePicker").maxDate(e.date);
-            //})
+            $("#ToDate").on("dp.change",function(e){
+                $('#TravelDate').data("DateTimePicker").maxDate(e.date);
+            })
            
 
 
@@ -383,10 +385,20 @@
                 swal("Message!", "You can not delete because one row should be mandatory");
             }
         }
-        //$('.on-click').click(function(){
-        //    $(".t-height").animate({height:'350'})
-        //})
-        
+
+        $('#claimHeader_ToDate').on('blur',function(e){
+            $('#claimHeader_NoOfDays').val('');
+            var fromDate = $('#FromDate').find('input').val();
+            var toDate = $('#ToDate').find('input').val();
+
+            var from = moment(fromDate, dateFormat);
+
+            var to = moment(toDate, dateFormat);
+
+            var days = moment.duration(to.diff(from)).asDays() + 1;
+             $('#claimHeader_NoOfDays').val(days);
+        })
+
     </script>
 
 }

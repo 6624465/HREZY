@@ -276,12 +276,12 @@
             $("#FromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
                 $('#ToDate').data("DateTimePicker").minDate(e.date);
-              
-                //$('#TravelDate').data("DateTimePicker").minDate(e.date);
+                $('#claimHeader_NoOfDays').val('');
+                $('#TravelDate').data("DateTimePicker").minDate(e.date);
             });
-            //$("#ToDate").on("dp.change",function(e){
-            //    $('#TravelDate').data("DateTimePicker").maxDate(e.date);
-            //})
+            $("#ToDate").on("dp.change",function(e){
+                $('#TravelDate').data("DateTimePicker").maxDate(e.date);
+            })
            
 
 

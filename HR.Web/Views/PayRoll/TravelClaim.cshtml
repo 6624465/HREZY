@@ -50,9 +50,17 @@
         }
 
 
-        .datepicker table {
-            position: relative;
-            z-index: 9999;
+        .bootstrap-datetimepicker-widget{
+            position:absolute;
+            overflow: hidden;
+        }
+        .panel-body{
+            position:relative;
+             overflow: hidden;
+        }
+        .t-height{
+           
+            height:335px;
         }
     </style>
 }
@@ -121,7 +129,7 @@
                         <div class="clearfix">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive t-height">
                                         <table class="table table-condensed table-bordered" style="margin-top:10px">
                                             <thead>
                                                 <tr style="background:#3f51b5;">
@@ -156,7 +164,7 @@
 
                                                             <div class="input-group date dtCss" id="TravelDate">
                                                                 @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", @required = "required", @style = "width:100px;" })
-                                                                <span class="input-group-addon cal-cal-icon">
+                                                                <span class="input-group-addon on-click cal-cal-icon">
                                                                     <i class="ion ion-calendar"></i>
                                                                 </span>
                                                             </div>
@@ -375,6 +383,10 @@
                 swal("Message!", "You can not delete because one row should be mandatory");
             }
         }
+        //$('.on-click').click(function(){
+        //    $(".t-height").animate({height:'350'})
+        //})
+        
     </script>
 
 }

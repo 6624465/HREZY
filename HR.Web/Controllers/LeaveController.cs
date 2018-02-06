@@ -947,7 +947,7 @@ namespace HR.Web.Controllers
 
                 var Query = dbcntx.EmployeeLeaveLists
                                         .Join(dbcntx.EmployeeHeaders,
-                                        a => a.ManagerId, b => b.EmployeeId,
+                                        a => a.ManagerId, b => b.ManagerId,
                                         (a, b) => new { A = a, B = b })
                                         .Where(x => x.A.EmployeeId == EMPLOYEEID)
                                         .Select(x => new ViewLeaveVm

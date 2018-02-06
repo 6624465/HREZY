@@ -384,6 +384,7 @@
             var toDate = $('#ToDate').find('input').val();
 
             var from = moment(fromDate, dateFormat);
+
             var to = moment(toDate, dateFormat);
 
             var days = moment.duration(to.diff(from)).asDays() + 1;

@@ -258,7 +258,7 @@ namespace HR.Web.Controllers
                         Description = item.Description,
                         PaymentType = item.RegisterCode,
                         //BranchId=item.BranchId
-                        RegisterCode= UTILITY.SALARYPAYMENTS,
+                        RegisterCode = UTILITY.SALARYPAYMENTS,
                     }).ToList();
 
                 salaryStructureVm.structureEmployerContributionDetail = contributionList
@@ -306,7 +306,7 @@ namespace HR.Web.Controllers
                         TotalDeductions = salaryStructure.A.TotalDeductions,
                         TotalGross = salaryStructure.A.TotalGross,
                         Description = salaryStructure.A.Description,
-                        EmployeeId=salaryStructure.A.EmployeeId
+                        EmployeeId = salaryStructure.A.EmployeeId
                     };
 
                     foreach (SalaryStructureDetail item in salaryStructure.B)
@@ -332,9 +332,9 @@ namespace HR.Web.Controllers
                         };
                         if (item.PaymentType == UTILITY.SALARYPAYMENTS)
                             salaryStructureVm.structureSalaryPaymentDetail.Add(salaryDetail);
-                        else if(item.PaymentType == UTILITY.EMPLOYERCONTRIBUTION)
+                        else if (item.PaymentType == UTILITY.EMPLOYERCONTRIBUTION)
                             salaryStructureVm.structureEmployerContributionDetail.Add(salaryDetail);
-                        else if(item.PaymentType == UTILITY.EMPLOYEECONTRIBUTION)
+                        else if (item.PaymentType == UTILITY.EMPLOYEECONTRIBUTION)
                             salaryStructureVm.structureEmployeeContributionDetail.Add(salaryDetail);
                     }
 
@@ -606,14 +606,14 @@ namespace HR.Web.Controllers
             empSalaryStructureHeaderBO.SaveSalaryStructure(structureVm);
             return RedirectToAction("employeedirectory", "Employee");
         }
-        public bool IsSalaryComponentExists(string component,string regCode,int BranchId)
+        public bool IsSalaryComponentExists(string component, string regCode, int BranchId)
         {
             List<Contribution> List = new List<Contribution>();
             ViewData["RoleCode"] = ROLECODE;
             if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
             {
-                List = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.RegisterCode.ToUpper() == regCode.ToUpper())&& (x.BranchId== BranchId)).ToList();
-               
+                List = contributionBO.GetListByProperty(x => (x.Name.ToUpper() == component.ToUpper()) && x.IsActive == true && (x.RegisterCode.ToUpper() == regCode.ToUpper()) && (x.BranchId == BranchId)).ToList();
+
             }
             else
             {
@@ -696,7 +696,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult TravelClaim(TravelClaimVm travelClaimVm)
         {
-            travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
+           
             //travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
@@ -723,13 +723,22 @@ namespace HR.Web.Controllers
             //    .GetByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId);
 
             //travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId).ToList();
-
-            TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+            var addOrDelVal = Request["addOrDelete"];
+            if (!string.IsNullOrEmpty(addOrDelVal))
             {
-                Receipts = false
-            };
-            travelClaimVm.claimDetail.Add(travelClaimDetail);
+                travelClaimVm.claimDetail.RemoveAt(Convert.ToInt32(addOrDelVal));
+            }
+            else
+            {
+                TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+                {
+                    Receipts = false
+                };
 
+                travelClaimVm.claimDetail.Add(travelClaimDetail);
+            }
+            travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
+            ModelState.Clear();
             return View("TravelClaim", travelClaimVm);
         }
         [HttpPost]
@@ -771,9 +780,9 @@ namespace HR.Web.Controllers
 
             TravelClaimDetail detail = travelClaimDetailBO.GetByProperty(x => x.TravelClaimDetailId == detailId);
             travelClaimDetailBO.Delete(detail);
-            
+
             return RedirectToAction("TravelClaim", "Payroll", new { travelClaimId = headerId });
-            
+
         }
     }
 }

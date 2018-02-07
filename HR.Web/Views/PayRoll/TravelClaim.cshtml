@@ -76,6 +76,7 @@
     </style>
 }
 <div class="page" style="overflow:visible;">
+
     @using (Html.BeginForm("TravelClaim", "Payroll", FormMethod.Post, new { id = "frmClaim", name = "frmClaim" }))
     {
         <div class="row">
@@ -163,7 +164,7 @@
                                                         <td>
                                                             <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                    name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
-                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", @style = "width:100px;", @required = "required" })
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", style = "width:100px;", required = "required" })
                                                             <script>
                                                                 $(document).ready(function () {
                                                                     $('#claimDetail_' + '@i' + '__Category').val('@Model.claimDetail[i].Category');
@@ -174,14 +175,14 @@
                                                         <td>
 
                                                             <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", @required = "required", @style = "width:100px;" })
+                                                                @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
                                                                 <span class="input-group-addon on-click cal-cal-icon">
                                                                     <i class="ion ion-calendar"></i>
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDetail[i].Description, new { @class = "form-control input-sm", @style = "width:100px;" })
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].Description, new { @class = "form-control input-sm", style = "width:100px;" })
                                                         </td>
                                                         <td>
 
@@ -194,9 +195,9 @@
                                                             @Html.TextBoxFor(x => x.claimDetail[i].Amount, new
                                                        {
                                                            @class = "form-control input-sm decimalCss",
-                                                           @required = "required",
-                                                           @style = "width:100px;",
-                                                           @onblur = "CalculateTotal(this)",
+                                                           required = "required",
+                                                           style = "width:100px;",
+                                                           onblur = "CalculateTotal(this)",
                                                            data_index = i
                                                        })
                                                         </td>
@@ -210,7 +211,7 @@
                                                             @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect"
+                                                            <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
                                                                     style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetail[i].TravelClaimDetailId,@i)">
                                                                 <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                             </button>
@@ -245,7 +246,7 @@
                 </div>
             </div>
         </div>
-
+        <input type="hidden" id="addOrDelete" name="addOrDelete" />
     }
     @using (Html.BeginForm("DeleteTravelClaim", "Payroll", FormMethod.Post, new { @id = "frmClaimDelete", name = "frmClaimDelete" }))
     {
@@ -276,6 +277,10 @@
                 }
             }
 
+            <text>
+        $('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal);
+        </text>
+
         }
 
         $(document).ready(function () {
@@ -292,7 +297,7 @@
                 format: dateFormat
             });
 
-            debugger;
+            //  debugger;
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
                 $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
@@ -401,9 +406,9 @@
                 exchangeRate = 1;
             }
             var Total = amount * exchangeRate;
-            Total=parseFloat(Total).toFixed(2);
+            Total = parseFloat(Total).toFixed(2);
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
-
+            debugger;
             var length = $('.cssLength').length;
             var grossTotal = 0;
             for (var i = 0; i < length; i++) {
@@ -427,8 +432,14 @@
                     $('#frmClaimDelete').submit();
                 }
                 else {
-                    $('#tr_' + index).remove();
-                    CalculateTotal(index);
+                    $('#addOrDelete').val(index);
+                    $('#claimDetail_'+index+'__Category').removeAttr('required');
+                    $('#claimDetail_'+index+'__Amount').removeAttr('required');
+                    $('#claimDetail_'+index+'__Currency').removeAttr('required');
+                    $('#frmClaim').attr({'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate'});
+                    $('#frmClaim').submit();
+                    // $('#tr_' + index).remove();
+                    //CalculateTotal(index);
                 }
             }
             else {

@@ -384,7 +384,8 @@
                 exchangeRate = 1;
             }
             var Total = amount * exchangeRate;
-            $('#claimDetail_' + index + '__TotalInSGD').val(Total.toFixed(2));
+            Total=parseFloat(Total).toFixed(2);
+            $('#claimDetail_' + index + '__TotalInSGD').val(Total);
 
             var length = $('.cssLength').length;
             var grossTotal = 0;

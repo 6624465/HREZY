@@ -474,13 +474,22 @@
 
         function SaveStructure() {
             if ($('#frmSalary').valid()){
-
                 if($('#structureSalaryPaymentDetail_0__IsActive').prop('checked')){
-                    $.loader({
-                        className: "blue-with-image-2",
-                        content: '',
-                    });
                     $('#frmSalary').submit();
+                    swal({
+                        title: "Saved Successfully",
+                        text: "",
+                        closeOnConfirm: true,
+                        confirmButtonText: "Ok",
+                        confirmButtonClass: "btn-primary",
+                        timer: 5000
+                    },
+                       function () {
+                           $.loader({
+                               className: "blue-with-image-2",
+                               content: '',
+                           });
+                       })
                 }
                 else
                 {
@@ -488,6 +497,9 @@
                 }
                 $('#structureEmployerContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
+            }
+            else{
+                swal("Incorrect Inputs");
             }
 
         }

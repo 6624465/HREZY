@@ -795,7 +795,20 @@ new { @class = "form-control input-sm" })
         function SaveEmployee() {
             if ($('#frmEmp').valid()) {
                 $('#frmEmp').submit();
-                swal("Saved Successfully");
+                swal({
+                    title: "Saved Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                       function () {
+                           $.loader({
+                               className: "blue-with-image-2",
+                               content: '',
+                           });
+                       })
             }
             else {
                 swal("Incorrect Inputs");

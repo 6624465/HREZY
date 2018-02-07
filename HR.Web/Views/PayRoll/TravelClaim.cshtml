@@ -408,13 +408,13 @@
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssLength').length;
             if (length > 1) {
-                if (detailId != undefined && detailId != null && detailId != 0) {
-                    $('#headerId').val(headerId);
-                    $('#detailId').val(detailId);
+                //if (detailId != undefined && detailId != null && detailId != 0) {
+                //    $('#headerId').val(headerId);
+                //    $('#detailId').val(detailId);
 
-                    $('#frmClaimDelete').submit();
-                }
-                else {
+                //    $('#frmClaimDelete').submit();
+                //}
+                //else {
                     $('#addOrDelete').val(index);
                     $('#claimDetail_'+index+'__Category').removeAttr('required');
                     $('#claimDetail_'+index+'__Amount').removeAttr('required');
@@ -423,7 +423,7 @@
                     $('#frmClaim').submit();
                     // $('#tr_' + index).remove();
                     //CalculateTotal(index);
-                }
+                //}
             }
             else {
                 swal("Message!", "You can not delete because one row should be mandatory");

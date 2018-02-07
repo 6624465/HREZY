@@ -50,26 +50,29 @@
         }
 
 
-        .bootstrap-datetimepicker-widget{
-            position:absolute;
+        .bootstrap-datetimepicker-widget {
+            position: absolute;
             overflow: hidden;
         }
-        .panel-body{
-            position:relative;
-             overflow: hidden;
+
+        .panel-body {
+            position: relative;
+            overflow: hidden;
         }
-        .t-height{
-           
-            height:340px;
+
+        .t-height {
+            height: 340px;
         }
-        .fa{
-            font-size:12px;
+
+        .fa {
+            font-size: 12px;
         }
+
         .bootstrap-datetimepicker-widget {
-        bottom: auto !important;
-        position: absolute !important;
-        z-index: 5000 !important;
-    }
+            bottom: auto !important;
+            position: absolute !important;
+            z-index: 5000 !important;
+        }
     </style>
 }
 <div class="page" style="overflow:visible;">
@@ -91,7 +94,7 @@
                                 <span class="pull-right">From Date</span>
                             </label>
                             <div class="col-md-4">
-                                <div class="input-group date dtCss" id="FromDate">
+                                <div class="input-group date dtCss dtCssFromDate" id="FromDate">
                                     @Html.TextBoxFor(x => x.claimHeader.FromDate,
                                    new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
@@ -104,7 +107,7 @@
                                 <span class="pull-right">To Date</span>
                             </label>
                             <div class="col-md-4">
-                                <div class="input-group date dtCss" id="ToDate">
+                                <div class="input-group date dtCss dtCssToDate" id="ToDate">
                                     @Html.TextBoxFor(x => x.claimHeader.ToDate,
                                    new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
@@ -170,7 +173,7 @@
                                                         </td>
                                                         <td>
 
-                                                            <div class="input-group date dtCss" id="TravelDate">
+                                                            <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
                                                                 @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", @required = "required", @style = "width:100px;" })
                                                                 <span class="input-group-addon on-click cal-cal-icon">
                                                                     <i class="ion ion-calendar"></i>
@@ -198,7 +201,7 @@
                                                        })
                                                         </td>
                                                         <td>
-                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
@@ -289,51 +292,72 @@
                 format: dateFormat
             });
 
-            $("#FromDate").on("dp.change", function (e) {
+            debugger;
+            $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
-                $('#ToDate').data("DateTimePicker").minDate(e.date);
+                $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
                 $('#claimHeader_NoOfDays').val('');
-                $('#TravelDate').data("DateTimePicker").minDate(e.date);
+                $('.travelDateCss').data("DateTimePicker").minDate(e.date);
             });
-            $("#ToDate").on("dp.change",function(e){
-                $('#TravelDate').data("DateTimePicker").maxDate(e.date);
-            })
-           
-
-
-
-            $('#frmClaim').validate({
-                rules: {
-                    'claimHeader.Name': {
-                        required: true
-                    },
-
-                    'claimHeader.FromDate': {
-                        required: true
-                    },
-                    'claimHeader.ToDate': {
-                        required: true
-                    },
-                    'claimHeader.CountryVisited': {
-                        required: true
-                    },
-                    'claimHeader.NoOfDays': {
-                        required: true
-                    },
-                    'claimDetail.Category': {
-                        required: true
-                    },
-                    'claimDetail.Currency': {
-                        required: true
-                    }
-                }
+            $(".dtCssToDate").on("dp.change", function (e) {
+                $('.travelDateCss').data("DateTimePicker").maxDate(e.date);
             });
+
+            //if ($('#claimHeader_FromDate').val() != null && $('#claimHeader_FromDate').val() != "")
+            //    $('.travelDateCss').data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
+
+            //if ($('#claimHeader_ToDate').val() != null && $('#claimHeader_ToDate').val() != "")
+            //    $('.travelDateCss').data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+
+            if ($('#claimHeader_FromDate').val() != null && $('#claimHeader_FromDate').val() != "") {
+                $('.travelDateCss').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
+                });
+
+            }
+
+            if ($('#claimHeader_ToDate').val() != null && $('#claimHeader_ToDate').val() != "") {
+                $('.travelDateCss').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+                });
+            }
+
 
             $('#claimHeader_CountryVisited').multiselect({
                 includeSelectAllOption: true
             });
 
         });
+
+
+
+        $('#frmClaim').validate({
+            rules: {
+                'claimHeader.Name': {
+                    required: true
+                },
+
+                'claimHeader.FromDate': {
+                    required: true
+                },
+                'claimHeader.ToDate': {
+                    required: true
+                },
+                'claimHeader.CountryVisited': {
+                    required: true
+                },
+                'claimHeader.NoOfDays': {
+                    required: true
+                },
+                'claimDetail.Category': {
+                    required: true
+                },
+                'claimDetail.Currency': {
+                    required: true
+                }
+            }
+        });
+
         function SaveAndGetData() {
             if ($('#frmClaim').valid()) {
                 $('#frmClaim').submit();
@@ -394,7 +418,7 @@
             }
         }
 
-        $('#claimHeader_ToDate').on('blur',function(e){
+        $('#claimHeader_ToDate').on('blur', function (e) {
             $('#claimHeader_NoOfDays').val('');
             var fromDate = $('#FromDate').find('input').val();
             var toDate = $('#ToDate').find('input').val();
@@ -404,10 +428,10 @@
             var to = moment(toDate, dateFormat);
 
             var days = moment.duration(to.diff(from)).asDays() + 1;
-             $('#claimHeader_NoOfDays').val(days);
+            $('#claimHeader_NoOfDays').val(days);
         })
 
-        
+
     </script>
 
 }

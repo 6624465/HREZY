@@ -130,7 +130,24 @@
         function SaveBranch()
         {
             if ($('#frmBranch').valid()) {
-                $('#frmBranch').submit()
+                $('#frmBranch').submit();
+                swal({
+                    title: "Saved Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                                        function () {
+                                            $.loader({
+                                                className: "blue-with-image-2",
+                                                content: '',
+                                            });
+                                        })
+            }
+            else {
+                swal("Incorrect Inputs");
             }
 
         }

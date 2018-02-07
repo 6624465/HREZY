@@ -142,11 +142,25 @@
 
         function SaveDesignation() {
             if ($('#frm').valid()) {
-                $.loader({
-                    className: "blue-with-image-2",
-                    content: '',
-                });
                 $('#frm').submit();
+                swal({
+                    title: "Saved Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer:5000
+                },
+                function () {
+                        $.loader({
+                            className: "blue-with-image-2",
+                            content: '',
+                        });
+                    })
+                //swal("Saved Successfully");
+            }
+            else {
+                swal("Incorrect Inputs");
             }
         }
 

@@ -88,8 +88,8 @@
                             <div class="form-group ">
                                 <div class="col-md-8"></div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary btn-sm" onclick="ContributionSave()">Save</button>
-                                    <button class="btn btn-primary btn-sm ajaxCss" type="reset" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegisterList/")'">Discard</button>
+                                    <button class="btn btn-primary btn-sm" onclick="ContributionSave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                                    <button class="btn btn-primary btn-sm ajaxCss" type="reset" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegisterList/")'"><i class="fa fa-times" aria-hidden="true"></i>Discard</button>
                                 </div>
                             </div>
                         </div>
@@ -105,11 +105,24 @@
     <script type="text/javascript">
         function ContributionSave() {
             if ($('#contributionfrm').valid()) {
-                $.loader({
-                    className: "blue-with-image-2",
-                    content: '',
-                });
                 $('#contributionfrm').submit();
+                swal({
+                    title: "Saved Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                       function () {
+                           $.loader({
+                               className: "blue-with-image-2",
+                               content: '',
+                           });
+                       })
+            }
+            else {
+                swal("Incorrect Inputs");
             }
         }
         $('#contributionfrm').validate({

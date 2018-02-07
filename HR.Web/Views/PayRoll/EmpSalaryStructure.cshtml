@@ -347,16 +347,29 @@
         function SaveEmployeeStructure(){
             if( $('#frmEmpSalary').valid()){
                 if($('#employeeSalaryStructure_structureCompanyDeductionDetail_0__IsActive').prop('checked')){
-                    $.loader({
-                        className: "blue-with-image-2",
-                        content: '',
-                    });
                     $('#frmEmpSalary').submit();
+                    swal({
+                        title: "Saved Successfully",
+                        text: "",
+                        closeOnConfirm: true,
+                        confirmButtonText: "Ok",
+                        confirmButtonClass: "btn-primary",
+                        timer: 5000
+                    },
+                      function () {
+                          $.loader({
+                              className: "blue-with-image-2",
+                              content: '',
+                          });
+                      })
                 }
                 else
                 {
                     swal("Message!", "Please enter values for BASIC component")
                 }
+            }
+            else{
+                swal("Incorrect Inputs");
             }
 
         }

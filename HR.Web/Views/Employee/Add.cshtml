@@ -735,15 +735,15 @@ new { @class = "form-control input-sm" })
                 'empPersonalDetail.PasspostNo': {
                     required: true
                 },
-                'empBankdetail.BankName': {
-                    required: true
-                },
-                'empBankdetail.AccountNo': {
-                    required: true
-                },
-                'empBankdetail.AccountType': {
-                    required: true
-                }
+                //'empBankdetail.BankName': {
+                //    required: true
+                //},
+                //'empBankdetail.AccountNo': {
+                //    required: true
+                //},
+                //'empBankdetail.AccountType': {
+                //    required: true
+                //}
             }
         });
         //$("#empHeader_FirstName").keypress(function (e) {
@@ -795,7 +795,12 @@ new { @class = "form-control input-sm" })
         function SaveEmployee() {
             if ($('#frmEmp').valid()) {
                 $('#frmEmp').submit();
+                swal("Saved Successfully");
             }
+            else {
+                swal("Incorrect Inputs");
+            }
+            
         }
     </script>
 }

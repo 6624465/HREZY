@@ -71,6 +71,18 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
+        public IEnumerable<EmployeeWorkDetail> GetListByProperty(Func<EmployeeWorkDetail, bool> predicate)
+        {
+            try
+            {
+                return employeeWorkDetailService.GetListByProperty(predicate).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
         internal EmployeeWorkDetail GetByProperty(Func<EmployeeWorkDetail, bool> predicate)
         {
@@ -84,5 +96,6 @@ namespace HR.Web.BusinessObjects.Operation
                 throw ex;
             }
         }
+
     }
 }

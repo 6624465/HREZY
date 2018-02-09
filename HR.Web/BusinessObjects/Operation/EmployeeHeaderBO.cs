@@ -95,7 +95,8 @@ namespace HR.Web.BusinessObjects.Operation
                     CreatedOn = UTILITY.SINGAPORETIME,
                     ModifiedBy = sessionObj.USERID,
                     ModifiedOn = UTILITY.SINGAPORETIME,
-                    EmployeeId = empVm.empHeader.EmployeeId
+                    EmployeeId = empVm.empHeader.EmployeeId,
+                    SendMailsTo=empVm.empWorkDetail.SendMailsTo
                 };
                 empWorkDetailBO.Add(empWorkDetail);
 

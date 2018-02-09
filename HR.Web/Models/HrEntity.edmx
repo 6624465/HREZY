@@ -290,6 +290,7 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="SendMailsTo" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="EmpSalaryStructureDetail">
           <Key>
@@ -816,6 +817,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="SendMailsTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LookUp">
           <Key>
@@ -1410,6 +1412,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="EmployeeWorkDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeWorkDetail">
               <MappingFragment StoreEntitySet="EmployeeWorkDetail">
+                <ScalarProperty Name="SendMailsTo" ColumnName="SendMailsTo" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />

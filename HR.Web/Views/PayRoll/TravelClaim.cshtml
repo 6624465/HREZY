@@ -423,14 +423,15 @@
                 //    $('#frmClaimDelete').submit();
                 //}
                 //else {
-                $('#addOrDelete').val(index);
-                $('#claimDetail_' + index + '__Category').removeAttr('required');
-                $('#claimDetail_' + index + '__Amount').removeAttr('required');
-                $('#claimDetail_' + index + '__Currency').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
-                // $('#tr_' + index).remove();
-                //CalculateTotal(index);
+                    $('#addOrDelete').val(index);
+                    $('#claimDetail_'+index+'__Category').removeAttr('required');
+                    $('#claimDetail_'+index+'__Amount').removeAttr('required');
+                    $('#claimDetail_'+index+'__Currency').removeAttr('required');
+                    $('#claimDetail_'+index+'__TravelDate').removeAttr('required');
+                    $('#frmClaim').attr({'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate'});
+                    $('#frmClaim').submit();
+                    // $('#tr_' + index).remove();
+                    //CalculateTotal(index);
                 //}
             }
             else {

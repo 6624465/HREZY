@@ -651,13 +651,19 @@ namespace HR.Web.Controllers
                 travelClaimVm.claimHeader = new TravelClaimHeader();
                 travelClaimVm.claimHeader.Name = FIRSTNAME;
                 travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
-                travelClaimVm.claimDetail = new List<TravelClaimDetail>();
+                travelClaimVm.claimDetailVm = new List<TravelClaimDetailVm>();
 
-                TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+                LookupObj lookUpObj = new LookupObj();
+                for (int i = 0; i < lookUpObj.Code.Count; i++)
                 {
-                    Receipts = false
-                };
-                travelClaimVm.claimDetail.Add(travelClaimDetail);
+                    TravelClaimDetailVm travelClaimDetail = new TravelClaimDetailVm()
+                    {
+                        LookUpCode = lookUpObj.Code[i],
+                        Receipts = false
+                    };
+                    travelClaimVm.claimDetailVm.Add(travelClaimDetail);
+                }
+
                 return View(travelClaimVm);
             }
             else
@@ -696,7 +702,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult TravelClaim(TravelClaimVm travelClaimVm)
         {
-           
+
             //travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {

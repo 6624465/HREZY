@@ -12,6 +12,7 @@ using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Mail;
 using System.Web.Routing;
 
 namespace HR.Web.Controllers
@@ -30,6 +31,7 @@ namespace HR.Web.Controllers
         LookUpBO lookUpBo = null;
         LeaveTransBO leaveTransBO = null;
         EmployeeHeaderBO empHeaderBO = null;
+        EmployeeWorkDetailBO empworkdetailsBo = null;
         public LeaveController()
         {
             weekendPolicyBO = new WeekendPolicyBO(SESSIONOBJ);
@@ -42,6 +44,7 @@ namespace HR.Web.Controllers
             lookUpBo = new LookUpBO(SESSIONOBJ);
             leaveTransBO = new LeaveTransBO(SESSIONOBJ);
             empHeaderBO = new EmployeeHeaderBO(SESSIONOBJ);
+            empworkdetailsBo = new EmployeeWorkDetailBO(SESSIONOBJ);
 
         }
 
@@ -269,8 +272,27 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
+        //    if (ModelState.IsValid)
+        //    {
+        //        EmployeeWorkDetail workdetails = empworkdetailsBo.GetByProperty(x=>x.EmployeeId==EMPLOYEEID);
+        //        MailMessage mail = new MailMessage();
+        //        mail.To.Add(workdetails.SendMailsTo);
+        //        mail.From = new MailAddress(USERID);
+        //        mail.Subject ="Employee leave";
+        //        string Body = "Sick Leave";
+        //        mail.Body = Body;
+        //        mail.IsBodyHtml = true;
+        //        SmtpClient smtp = new SmtpClient();
+        //        smtp.Host = "smtp.gmail.com";
+        //        smtp.Port = 587;
+        //        smtp.UseDefaultCredentials = false;
+        //        smtp.Credentials = new System.Net.NetworkCredential(USERID, "password");
+        //        smtp.EnableSsl = true;
+        //        smtp.Send(mail);
+        //    }
 
-            GetHolidayWeekends();
+
+                GetHolidayWeekends();
             WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
             List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.BranchID == BRANCHID).ToList();
             EmployeeLeaveList.Days = (decimal)CalculateLeavesTransaction

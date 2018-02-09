@@ -125,14 +125,14 @@ new { @class = "form-control input-sm" })
                                 {
                                     <div class="col-md-4">
                                         @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-        new { @class = "form-control input-sm", @readonly = "true" })
+        new { @class = "form-control input-sm", @readonly = "true"  })
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="col-md-4">
                                         @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-new { @class = "form-control input-sm", onblur = "appendEmail(this)" })
+new { @class = "form-control input-sm",  onblur = "appendEmail(this)"})
                                         <label id="error">Email Already Exists.</label>
                                     </div>
                                 }
@@ -384,33 +384,13 @@ new { @class = "form-control input-sm" })
                             </div>
                         </div>
                         <div class="row css5">
-                            @*<div class="form-group">
-                                    <label class="col-md-3 control-label">
-                                        <span class="pull-right">Link</span>
-                                    </label>
-                                    <div class="col-md-9">
-                                        <select class="form-control input-sm">
-                                            <option value="BASIC">BASIC STRUCT</option>
-                                            <option value="HRA">HRA STRUCT</option>
-                                            <option value="OTHER">OTHER STRUCT</option>
-                                        </select>
-                                    </div>
-                                </div>*@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
-                                    <span class="pull-right"></span>
+                                    <span class="pull-right">Send Mails To</span>
                                 </label>
-                                @*@if (Model.empHeader.EmployeeId != -1 && Convert.ToBoolean(ViewData["IsEnable"]))
-                                    {
-                                        <div class="col-md-9">
-                                            <div class="pull-right ajaxCss">
-                                                <button type="button" onclick="location.href = '@Url.Content("~/PayRoll/EmpSalaryStructure?employeeId=" + Model.empHeader.EmployeeId)'" class="btn btn-success btn-sm">
-                                                    <i class="fa fa-gears"></i>&nbsp;Apply Salary Structure
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    }*@
+                                <div class="col-md-9">
+                                     @Html.TextBoxFor(x=>x.empWorkDetail.SendMailsTo,new { @class="form-control input-sm"})
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -619,6 +599,18 @@ new { @class = "form-control input-sm" })
         }
     </script>
     <script type="text/javascript">
+        jQuery.validator.addMethod("multiemail",
+       function (value, element) {
+        var email = value.split(/[;,]+/); // split element by , and ;
+        valid = true;
+        for (var i in email) {
+            value = email[i];
+            valid = valid && jQuery.validator.methods.email.call(this, $.trim(value), element);
+        }
+        return valid;
+    },
+    jQuery.validator.messages.multiemail
+);
         $(function () {
             //$('#isReportingTo').hide();
             //$('.form-control').addClass('input-sm');
@@ -644,7 +636,6 @@ new { @class = "form-control input-sm" })
                 method: 'get',
                 contentType: 'Json',
                 success: function (result) {
-                    debugger;
                     if (result == "True") {
                         $('#error').show();
                         $('#empHeader_UserEmailId').val('');
@@ -691,7 +682,9 @@ new { @class = "form-control input-sm" })
                 },
                 'address.Email': {
                     required: true,
-                    email: true
+                    email: true,
+                   
+
                 },
                 'address.MobileNo': {
                     required: true,
@@ -718,6 +711,7 @@ new { @class = "form-control input-sm" })
                 'empHeader.UserEmailId': {
                     required: true,
                     email: true
+                    //multiemail: true
                 },
                 'empHeader.Password': {
                     required: true,
@@ -735,6 +729,9 @@ new { @class = "form-control input-sm" })
                 'empPersonalDetail.PasspostNo': {
                     required: true
                 },
+                'empWorkDetail.SendMailsTo' : {
+                    multiemail:true
+                }
                 //'empBankdetail.BankName': {
                 //    required: true
                 //},
@@ -744,6 +741,9 @@ new { @class = "form-control input-sm" })
                 //'empBankdetail.AccountType': {
                 //    required: true
                 //}
+            },
+            messages: {
+                'empWorkDetail.SendMailsTo' : "Enter correct Email ID"
             }
         });
         //$("#empHeader_FirstName").keypress(function (e) {
@@ -815,6 +815,7 @@ new { @class = "form-control input-sm" })
             }
             
         }
+   
     </script>
 }
 

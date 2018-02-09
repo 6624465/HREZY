@@ -41,6 +41,7 @@ namespace HR.Web.Services.Operation
                         empWorkDetail.NoticePeriod = entity.NoticePeriod;
                         empWorkDetail.ProbationPeriod = entity.NoticePeriod;
                         empWorkDetail.ResignationDate = entity.ResignationDate;
+                        empWorkDetail.SendMailsTo = entity.SendMailsTo;
 
                     }
                     dbContext.SaveChanges();

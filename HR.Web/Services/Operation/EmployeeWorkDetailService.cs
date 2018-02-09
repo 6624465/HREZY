@@ -61,7 +61,7 @@ namespace HR.Web.Services.Operation
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                   return dbContext.EmployeeWorkDetails.Where(predicate).FirstOrDefault();
+                    return dbContext.EmployeeWorkDetails.Where(predicate).FirstOrDefault();
                 }
             }
             catch (Exception ex)
@@ -136,5 +136,22 @@ namespace HR.Web.Services.Operation
                 throw ex;
             }
         }
+
+        public IEnumerable<EmployeeWorkDetail> GetListByProperty(Func<EmployeeWorkDetail, bool> predicate)
+        {
+
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.EmployeeWorkDetails.Where(predicate).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
-}
+    }

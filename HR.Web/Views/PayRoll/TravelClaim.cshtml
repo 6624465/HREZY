@@ -73,9 +73,10 @@
             position: absolute !important;
             z-index: 5000 !important;
         }
-        .btns .btn{
-            display:inline;
-        } 
+
+        .btns .btn {
+            display: inline;
+        }
     </style>
 }
 <div class="page" style="overflow:visible;">
@@ -153,8 +154,19 @@
                                             <table class="table table-condensed table-bordered" style="margin-top:10px">
                                                 <thead>
                                                     <tr style="background:#3f51b5;">
-                                                        <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                        @if (Model.claimDetailVm[i].LookUpCode != "ACCOMDATION")
+                                                        {
+                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                        }
+                                                        @if (Model.claimDetailVm[i].LookUpCode == "ACCOMDATION")
+                                                        {
+                                                            <th style="background:#3f51b5; color:#fff;">FromDate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">ToDate</th>
+                                                        }
+@if (Model.claimDetailVm[i].LookUpCode == "AIRFARE")
+{
                                                         <th style="background:#3f51b5; color:#fff;">Departure time</th>
+}
                                                         <th style="background:#3f51b5; color:#fff;">Perticulars</th>
                                                         <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
                                                         <th style="background:#3f51b5; color:#fff;">Amount</th>
@@ -166,18 +178,48 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
+                                                        @if (Model.claimDetailVm[i].LookUpCode != "ACCOMDATION")
+                                                        {
+                                                            <td>
 
-                                                            <div class="input-group date dtCss" id="TravelDate_@i">
-                                                                @Html.TextBoxFor(x => x.claimDetailVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                <span class="input-group-addon on-click cal-cal-icon">
-                                                                    <i class="ion ion-calendar"></i>
-                                                                </span>
-                                                            </div>
-                                                        </td>
+                                                                <div class="input-group date dtCss" id="TravelDate_@i">
+                                                                    @Html.TextBoxFor(x => x.claimDetailVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                    <span class="input-group-addon on-click cal-cal-icon">
+                                                                        <i class="ion ion-calendar"></i>
+                                                                    </span>
+                                                                </div>
+
+                                                            </td>
+                                                        }
+                                                        @if (Model.claimDetailVm[i].LookUpCode == "ACCOMDATION")
+                                                        {
+                                                            <td>
+
+                                                                <div class="input-group date dtCss" id="fromDate_@i">
+                                                                    @Html.TextBoxFor(x => x.claimDetailVm[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                    <span class="input-group-addon on-click cal-cal-icon">
+                                                                        <i class="ion ion-calendar"></i>
+                                                                    </span>
+                                                                </div>
+
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="input-group date dtCss" id="toDate_@i">
+                                                                    @Html.TextBoxFor(x => x.claimDetailVm[i].ToDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                    <span class="input-group-addon on-click cal-cal-icon">
+                                                                        <i class="ion ion-calendar"></i>
+                                                                    </span>
+                                                                </div>
+
+                                                            </td>
+                                                        }
+@if (Model.claimDetailVm[i].LookUpCode == "AIRFARE")
+{
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDetailVm[i].DepartureTime,new { @class="form-control input-sm"})
+                                                            @Html.TextBoxFor(x => x.claimDetailVm[i].DepartureTime, new { @class = "form-control input-sm" })
                                                         </td>
+}
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetailVm[i].Perticulars, new { @class = "form-control input-sm" })
                                                         </td>
@@ -212,8 +254,8 @@
                                                                     style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetailVm[i].TravelClaimDetailId,@i)">
                                                                 <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                             </button>
-                                                       
-                                                            <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" 
+
+                                                            <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect"
                                                                     style="padding-left: 5px;margin-left: 6px;" onclick="AddClaimDetail(@Model.claimDetailVm[i].LookUpCode,@i)">
                                                                 <i class="fa fa-plus" style="padding-left: 5px;"></i>
                                                             </button>
@@ -423,15 +465,15 @@
                 //    $('#frmClaimDelete').submit();
                 //}
                 //else {
-                    $('#addOrDelete').val(index);
-                    $('#claimDetail_'+index+'__Category').removeAttr('required');
-                    $('#claimDetail_'+index+'__Amount').removeAttr('required');
-                    $('#claimDetail_'+index+'__Currency').removeAttr('required');
-                    $('#claimDetail_'+index+'__TravelDate').removeAttr('required');
-                    $('#frmClaim').attr({'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate'});
-                    $('#frmClaim').submit();
-                    // $('#tr_' + index).remove();
-                    //CalculateTotal(index);
+                $('#addOrDelete').val(index);
+                $('#claimDetail_' + index + '__Category').removeAttr('required');
+                $('#claimDetail_' + index + '__Amount').removeAttr('required');
+                $('#claimDetail_' + index + '__Currency').removeAttr('required');
+                $('#claimDetail_' + index + '__TravelDate').removeAttr('required');
+                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+                $('#frmClaim').submit();
+                // $('#tr_' + index).remove();
+                //CalculateTotal(index);
                 //}
             }
             else {

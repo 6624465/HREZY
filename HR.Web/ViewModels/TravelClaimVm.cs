@@ -10,7 +10,7 @@ namespace HR.Web.ViewModels
     {
         public TravelClaimHeader claimHeader { get; set; }
         public List<TravelClaimDetail> claimDetail { get; set; }
-        
+
         public List<TravelClaimDetailVm> claimDetailVm { get; set; }
     }
 
@@ -38,11 +38,16 @@ namespace HR.Web.ViewModels
         public int DepartureTime { get; set; }
     }
 
-    public class LookupObj {
-      public  List<string> Code = new List<string>() {
+    public class LookupObj
+    {
+        public List<string> Code = new List<string>() {
             "AIRFARE",
             "VISA",
-            "ACCOMDATION"
+            "ACCOMDATION",
+            "TAXIFARE-LOCAL",
+            "FOOD EXPENCES-LOCAL",
+              "FOOD EXPENCES-OVERSEAS",
+              "OTHER EXPENSES"
         };
     }
 

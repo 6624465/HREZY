@@ -292,6 +292,7 @@ namespace HR.Web.Controllers
         //    }
 
 
+
                 GetHolidayWeekends();
             WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
             List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.BranchID == BRANCHID).ToList();

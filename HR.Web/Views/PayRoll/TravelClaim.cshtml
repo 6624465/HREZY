@@ -1,10 +1,6 @@
 ﻿@model HR.Web.ViewModels.TravelClaimVm
 @{
     ViewBag.Title = "TravelClaim";
-
-    var modalObj = Model.claimDetailVm.GroupJoin(Model.claimDetailVm,
-        a => a.LookUpCode, b => b.LookUpCode,
-        (a, b) => new { A = a, B = b.ToList() }).ToList();
 }
 @section Styles{
     <style>
@@ -64,9 +60,9 @@
             overflow: hidden;
         }
 
-        /*.t-height {
+        .t-height {
             height: 340px;
-        }*/
+        }
 
         .fa {
             font-size: 12px;
@@ -76,20 +72,6 @@
             bottom: auto !important;
             position: absolute !important;
             z-index: 5000 !important;
-        }
-
-        .btns .btn {
-            display: inline;
-            padding-left: 0px !important;
-            margin-left: 0px !important;
-        }
-
-        @@media screen and (max-width: 1300px) {
-            .btns {
-                padding-left: 10px !important;
-                padding-right: 0px !important;
-                margin-left: 0px !important;
-            }
         }
     </style>
 }
@@ -113,9 +95,9 @@
                                 <span class="pull-right">From Date</span>
                             </label>
                             <div class="col-md-4">
-                                <div class="input-group date dtCss dtCssFromDate travelDateCss" id="FromDate">
+                                <div class="input-group date dtCss dtCssFromDate" id="FromDate">
                                     @Html.TextBoxFor(x => x.claimHeader.FromDate,
-                                         new { @class = "form-control dtCssTxt input-sm" })
+                                   new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -126,9 +108,9 @@
                                 <span class="pull-right">To Date</span>
                             </label>
                             <div class="col-md-4">
-                                <div class="input-group date dtCss dtCssToDate travelDateCss" id="ToDate">
+                                <div class="input-group date dtCss dtCssToDate" id="ToDate">
                                     @Html.TextBoxFor(x => x.claimHeader.ToDate,
-                                         new { @class = "form-control dtCssTxt input-sm" })
+                                   new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -152,144 +134,112 @@
 
                         </div>
 
-                        @*<button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                <i class="fa fa-plus"></i><span>Add</span>
-                            </button>*@
-
+                        <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
+                            <i class="fa fa-plus"></i><span>Add</span>
+                        </button>
 
                         <div class="clearfix">
                             <div class="row">
-
-                                @for (int i = 0; i < modalObj.Count; i++)
-                                {
-                                    <h4>@Html.DisplayFor(x => modalObj[i].A.LookUpCode)</h4>                                 
-                                    @Html.HiddenFor(x => modalObj[i].A.LookUpCode)
-                                    <div class="col-md-12">
-                                        <div class="table-responsive t-height">
-                                            <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                <thead>
-                                                    <tr style="background:#3f51b5;">
-                                                        @if (modalObj[i].A.LookUpCode != "ACCOMDATION")
-                                                        {
-                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
-                                                        }
-                                                        @if (modalObj[i].A.LookUpCode == "ACCOMDATION")
-                                                        {
-                                                            <th style="background:#3f51b5; color:#fff;">FromDate</th>
-                                                            <th style="background:#3f51b5; color:#fff;">ToDate</th>
-                                                        }
-                                                        @if (modalObj[i].A.LookUpCode == "AIRFARE")
-                                                        {
-                                                            <th style="background:#3f51b5; color:#fff;">Departure time</th>
-                                                        }
-                                                        <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                        <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                        <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                        <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                        <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                        <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                        <th style="background:#3f51b5; color:#fff;">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @for (int j = 0; j < modalObj[i].B.Count(); j++)
-    {
-                                                <tr>
-                                                    @if (modalObj[i].A.LookUpCode != "ACCOMDATION")
-    {
-                                                <td>
-
-                                                    <div class="input-group date dtCss" id="TravelDate_@i">
-                                                        @Html.TextBoxFor(x => modalObj[i].B[j].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                        <span class="input-group-addon on-click cal-cal-icon">
-                                                            <i class="ion ion-calendar"></i>
-                                                        </span>
-                                                    </div>
-
-                                                </td>
-}
-                                                    @if (modalObj[i].A.LookUpCode == "ACCOMDATION")
-    {
-                                                <td>
-
-                                                    <div class="input-group date dtCss" id="fromDate_@i">
-                                                        @Html.TextBoxFor(x => modalObj[i].B[j].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                        <span class="input-group-addon on-click cal-cal-icon">
-                                                            <i class="ion ion-calendar"></i>
-                                                        </span>
-                                                    </div>
-
-                                                </td>
-                                                <td>
-
-                                                    <div class="input-group date dtCss" id="toDate_@i">
-                                                        @Html.TextBoxFor(x => modalObj[i].B[j].ToDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                        <span class="input-group-addon on-click cal-cal-icon">
-                                                            <i class="ion ion-calendar"></i>
-                                                        </span>
-                                                    </div>
-
-                                                </td>
-}
-                                                    @if (modalObj[i].A.LookUpCode == "AIRFARE")
-    {
-                                                <td>
-                                                    @Html.TextBoxFor(x => modalObj[i].B[j].DepartureTime, new { @class = "form-control input-sm" })
-                                                </td>
-}
-                                                    <td>
-                                                        @Html.TextBoxFor(x => modalObj[i].B[j].Perticulars, new { @class = "form-control input-sm" })
-                                                    </td>
-                                                    <td>
-
-                                                        @Html.RadioButtonFor(x => modalObj[i].B[j].Receipts, true, "Yes")
-                                                        <span>Y</span>
-                                                        @Html.RadioButtonFor(x => modalObj[i].B[j].Receipts, false, "No")
-                                                        <span>N</span>
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(x => modalObj[i].B[j].Amount, new
-                                                   {
-                                                       @class = "form-control input-sm decimalCss",
-                                                       required = "required",
-                                                       style = "width:100px;",
-                                                       onblur = "CalculateTotal(this)",
-                                                       data_index = i
-                                                   })
-                                                    </td>
-                                                    <td>
-                                                        @Html.DropDownListFor(x => modalObj[i].B[j].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(x => modalObj[i].B[j].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(x => modalObj[i].B[j].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                    </td>
-                                                    <td class="btns">
-                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail( @modalObj[i].B[j].TravelClaimDetailId,@i)">
-                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                        </button>
-
-                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect"
-                                                                style="padding-left: 5px;margin-left: 6px;" onclick="AddClaimDetail('@modalObj[i].B[j].LookUpCode',@i)">
-                                                            <i class="fa fa-plus" style="padding-left: 5px;"></i>
-                                                        </button>
-                                                    </td>
+                                <div class="col-md-12">
+                                    <div class="table-responsive t-height">
+                                        <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                            <thead>
+                                                <tr style="background:#3f51b5;">
+                                                    <th style="background:#3f51b5; color:#fff;">Category</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                    <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                    <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Action</th>
                                                 </tr>
-}
-                                                </tbody>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.claimDetail.Count; i++)
+                                                {
 
-                                            </table>
-                                        </div>
+                                                    <tr id="tr_@i" class="cssLength">
+                                                        <td>
+                                                            <input id="claimDetail_@(i)__TravelClaimDetailId"
+                                                                   name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", style = "width:100px;", required = "required" })
+                                                            <script>
+                                                                $(document).ready(function () {
+                                                                    $('#claimDetail_' + '@i' + '__Category').val('@Model.claimDetail[i].Category');
+                                                                    $('#claimDetail_' + '@i' + '__Currency').val('@Model.claimDetail[i].Currency');
+                                                                });
+                                                            </script>
+                                                        </td>
+                                                        <td>
+
+                                                            <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                <span class="input-group-addon on-click cal-cal-icon">
+                                                                    <i class="ion ion-calendar"></i>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
+                                                        </td>
+                                                        <td>
+
+                                                            @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, true, "Yes")
+                                                            <span>Y</span>
+                                                            @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, false, "No")
+                                                            <span>N</span>
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].Amount, new
+                                                       {
+                                                           @class = "form-control input-sm decimalCss",
+                                                           required = "required",
+                                                           style = "width:100px;",
+                                                           onblur = "CalculateTotal(this)",
+                                                           data_index = i
+                                                       })
+                                                        </td>
+                                                        <td>
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                    style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetail[i].TravelClaimDetailId,@i)">
+                                                                <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                    <td><span class="pull-right"><b>Total  </b></span></td>
+                                                    <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                    <td></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
                                     </div>
-                                }
+                                </div>
                             </div>
                         </div>
-
-                        <button type="button" class="btn btn-xs btn-primary btn-sm waves-effect"
-                                style="padding-left: 5px;margin-top: 20px;" onclick="SaveTravelClaim()">
+                        <button type="button" class="btn btn-primary btn-sm"
+                                onclick="SaveTravelClaim()">
+                            <i class="fa fa-floppy-o"></i>
                             Save
                         </button>
                     </div>
@@ -298,7 +248,6 @@
             </div>
         </div>
         <input type="hidden" id="addOrDelete" name="addOrDelete" />
-        <input type="hidden" id="code" name="code" />
     }
     @using (Html.BeginForm("DeleteTravelClaim", "Payroll", FormMethod.Post, new { @id = "frmClaimDelete", name = "frmClaimDelete" }))
     {
@@ -388,37 +337,38 @@
 
 
 
-        //$('#frmClaim').validate({
-        //    rules: {
-        //        'claimHeader.Name': {
-        //            required: true
-        //        },
+        $('#frmClaim').validate({
+            rules: {
+                'claimHeader.Name': {
+                    required: true
+                },
 
-        //        'claimHeader.FromDate': {
-        //            required: true
-        //        },
-        //        'claimHeader.ToDate': {
-        //            required: true
-        //        },
-        //        'claimHeader.CountryVisited': {
-        //            required: true
-        //        },
-        //        'claimHeader.NoOfDays': {
-        //            required: true
-        //        },
-        //        'claimDetail.Category': {
-        //            required: true
-        //        },
-        //        'claimDetail.Currency': {
-        //            required: true
-        //        }
-        //    }
-        //});
+                'claimHeader.FromDate': {
+                    required: true
+                },
+                'claimHeader.ToDate': {
+                    required: true
+                },
+                'claimHeader.CountryVisited': {
+                    required: true
+                },
+                'claimHeader.NoOfDays': {
+                    required: true
+                },
+                'claimDetail.Category': {
+                    required: true
+                },
+                'claimDetail.Currency': {
+                    required: true
+                }
+            }
+        });
 
         function SaveAndGetData() {
-            //if ($('#frmClaim').valid()) {
+            if ($('#frmClaim').valid()) {
+                //$('#addOrDelete').val('addOrDelete');
                 $('#frmClaim').submit();
-          //  }
+            }
         }
 
         function SaveTravelClaim() {
@@ -447,25 +397,25 @@
 
         function CalculateTotal(obj) {
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailVm_' + index + '__Currency option:selected').val()) ? 1 : parseFloat($('select#claimDetailVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailVm_' + index + '__ExchangeRate').val(exrate);
+            var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
+            var exrate = isNaN($('select#claimDetail_' + index + '__Currency option:selected').val()) ? 1 : parseFloat($('select#claimDetail_' + index + '__Currency option:selected').val());
+            $('#claimDetail_' + index + '__ExchangeRate').val(exrate);
             if (isNaN(amount)) {
                 amount = 0;
             }
-            var exchangeRate = parseFloat($('#claimDetailVm_' + index + '__ExchangeRate').val());
+            var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
             if (isNaN(exchangeRate)) {
                 exchangeRate = 1;
             }
             var Total = amount * exchangeRate;
             Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailVm_' + index + '__TotalInSGD').val(Total);
+            $('#claimDetail_' + index + '__TotalInSGD').val(Total);
             debugger;
             var length = $('.cssLength').length;
             var grossTotal = 0;
             for (var i = 0; i < length; i++) {
 
-                var grossVal = $('#claimDetailVm_' + i + '__TotalInSGD').val();
+                var grossVal = $('#claimDetail_' + i + '__TotalInSGD').val();
                 if (grossVal != null && grossVal != "") {
                     grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
                 }
@@ -484,15 +434,15 @@
                 //    $('#frmClaimDelete').submit();
                 //}
                 //else {
-                $('#addOrDelete').val(index);
-                $('#claimDetailVm_' + index + '__Category').removeAttr('required');
-                $('#claimDetailVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
-                // $('#tr_' + index).remove();
-                //CalculateTotal(index);
+                    $('#addOrDelete').val(index);
+                    $('#claimDetail_'+index+'__Category').removeAttr('required');
+                    $('#claimDetail_'+index+'__Amount').removeAttr('required');
+                    $('#claimDetail_'+index+'__Currency').removeAttr('required');
+                    $('#claimDetail_'+index+'__TravelDate').removeAttr('required');
+                    $('#frmClaim').attr({'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate'});
+                    $('#frmClaim').submit();
+                    // $('#tr_' + index).remove();
+                    //CalculateTotal(index);
                 //}
             }
             else {
@@ -513,12 +463,6 @@
             $('#claimHeader_NoOfDays').val(days);
         })
 
-
-        function AddClaimDetail(code, index) {
-            $('#code').val(code);
-            $('#frmClaim').attr('action', '@Url.Content("~/Payroll/TravelClaim")');
-            $('#frmClaim').submit();
-        }
 
     </script>
 

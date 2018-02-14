@@ -746,6 +746,7 @@ namespace HR.Web.Controllers
         {
             travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
             travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
+            travelClaimDetailBO.DeleteAll(travelClaimVm.claimHeader.TravelClaimId);
             if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             {
                 for (var i = 0; i < travelClaimVm.claimDetail.Count; i++)
@@ -758,6 +759,7 @@ namespace HR.Web.Controllers
 
                         travelClaimVm.claimDetail[i].TotalInSGD = total;
                         travelClaimVm.claimDetail[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
+                      
                         travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }

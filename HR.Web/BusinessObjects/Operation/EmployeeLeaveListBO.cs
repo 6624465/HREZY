@@ -137,5 +137,17 @@ namespace HR.Web.BusinessObjects.Operation
                 throw ex;
             }
         }
+        public EmployeeLeaveList GetByProperty(Func<EmployeeLeaveList, bool> predicate)
+        {
+            try
+            {
+                return employeeLeaveListService.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

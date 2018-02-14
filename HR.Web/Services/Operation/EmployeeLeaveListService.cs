@@ -104,5 +104,20 @@ namespace HR.Web.Services.Operation
                 throw ex;
             }
         }
+       public EmployeeLeaveList GetByProperty(Func<EmployeeLeaveList, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.EmployeeLeaveLists.Where(predicate).OrderByDescending(x=>x.EmployeeLeaveID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

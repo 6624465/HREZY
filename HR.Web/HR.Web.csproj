@@ -1778,6 +1778,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CalculateLeaves.cs" />
+    <Compile Include="Helpers\EmailGenerator.cs" />
     <Compile Include="Helpers\ErrorHandler.cs" />
     <Compile Include="Helpers\LeaveCalculator.cs" />
     <Compile Include="Helpers\LinqFuncs.cs" />

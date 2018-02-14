@@ -19,6 +19,7 @@
                         <div class="form-group">
                             @Html.HiddenFor(x => x.EmployeeId)
                             @Html.HiddenFor(x => x.EmployeeLeaveID)
+                            @Html.HiddenFor(x => x.useremailid)
                             <div class="col-md-3">
                                 <label class="control-label pull-right">Employee Name:</label>
                             </div>
@@ -158,7 +159,7 @@
 
     }
     function Close() {
-    $('[data-toggle="popover"]').popover('hide')
+        $('#popover').popover('hide')
         }
    
 </script>

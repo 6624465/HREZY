@@ -674,13 +674,13 @@ namespace HR.Web.Controllers
                     {
                         if (travelClaimNewObj.claimDetail[i].Amount != null)
                         {
-                            var amount = travelClaimNewObj.claimDetail[i].Amount;
-                            var exrate = travelClaimNewObj.claimDetail[i].ExchangeRate;
-                            var total = (amount * exrate);
+                            decimal? amount = travelClaimNewObj.claimDetail[i].Amount;
+                            decimal? exrate = travelClaimNewObj.claimDetail[i].ExchangeRate;
+                            decimal total = (amount.Value * exrate.Value);
 
                             travelClaimNewObj.claimDetail[i].TotalInSGD = total;
                             travelClaimNewObj.claimDetail[i].TravelClaimId = travelClaimNewObj.claimHeader.TravelClaimId;
-                            travelClaimDetailBO.Add(travelClaimNewObj.claimDetail[i]);
+                            //travelClaimDetailBO.Add(travelClaimNewObj.claimDetail[i]);
                         }
                     }
 

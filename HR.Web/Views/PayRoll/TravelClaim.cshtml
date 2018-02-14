@@ -279,7 +279,7 @@
             }
 
             <text>
-        $('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal);
+        parseFloat($('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal)).toFixed(2);
         </text>
 
         }
@@ -407,9 +407,9 @@
             if (isNaN(exchangeRate)) {
                 exchangeRate = 1;
             }
-            var Total = amount * exchangeRate;
+            var Total =parseFloat( amount * exchangeRate).toFixed(2);
             Total = parseFloat(Total).toFixed(2);
-            $('#claimDetail_' + index + '__TotalInSGD').val(Total);
+            $('#claimDetail_' + index + '__TotalInSGD').val(Total.toFixed(2));
             debugger;
             var length = $('.cssLength').length;
             var grossTotal = 0;

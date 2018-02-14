@@ -80,6 +80,28 @@ namespace HR.Web.Services.Payroll
             }
         }
 
+        public void DeleteAll(int? TravelClaimId)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    var travelClaimDetails = dbContext.TravelClaimDetails
+                        .Where(x => x.TravelClaimId == TravelClaimId).ToList();
+                    foreach (var item in travelClaimDetails)
+                    {
+                        dbContext.TravelClaimDetails.Remove(item);
+                        dbContext.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public IEnumerable<TravelClaimDetail> GetAll()
         {
             try

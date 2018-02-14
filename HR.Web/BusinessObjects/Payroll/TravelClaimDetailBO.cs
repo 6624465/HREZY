@@ -21,7 +21,7 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             try
             {
-
+                TravelClaimDetailRepository.DeleteAll(entity.TravelClaimId);
                 entity.CreatedBy = sessionObj.USERID;
                 entity.CreatedOn = UTILITY.SINGAPORETIME;
                 entity.BranchId = sessionObj.BRANCHID;

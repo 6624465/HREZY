@@ -500,7 +500,7 @@
           <Property Name="TravelClaimId" Type="int" />
           <Property Name="Category" Type="nvarchar" MaxLength="100" />
           <Property Name="TravelDate" Type="datetime" />
-          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Perticulars" Type="nvarchar" MaxLength="250" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Currency" Type="nvarchar" MaxLength="10" />
           <Property Name="ExchangeRate" Type="decimal" Precision="18" Scale="2" />
@@ -511,6 +511,9 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="Receipts" Type="bit" />
           <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="datetime" />
+          <Property Name="TODate" Type="datetime" />
+          <Property Name="DepartureTime" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="TravelClaimHeader">
           <Key>
@@ -1261,7 +1264,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="TravelClaimId" Type="Int32" />
           <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TravelDate" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Receipts" Type="Boolean" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Currency" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -1272,6 +1274,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="Perticulars" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="TODate" Type="DateTime" Precision="3" />
+          <Property Name="DepartureTime" Type="Time" Precision="7" />
         </EntityType>
         <EntityType Name="TravelClaimHeader">
           <Key>
@@ -1892,6 +1898,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="TravelClaimDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TravelClaimDetail">
               <MappingFragment StoreEntitySet="TravelClaimDetail">
+                <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+                <ScalarProperty Name="TODate" ColumnName="TODate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="Perticulars" ColumnName="Perticulars" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1902,7 +1912,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="Currency" ColumnName="Currency" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Receipts" ColumnName="Receipts" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TravelDate" ColumnName="TravelDate" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="TravelClaimId" ColumnName="TravelClaimId" />

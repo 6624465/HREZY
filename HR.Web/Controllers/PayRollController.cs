@@ -651,19 +651,13 @@ namespace HR.Web.Controllers
                 travelClaimVm.claimHeader = new TravelClaimHeader();
                 travelClaimVm.claimHeader.Name = FIRSTNAME;
                 travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
-                travelClaimVm.claimDetailVm = new List<TravelClaimDetailVm>();
+                travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
-                LookupObj lookUpObj = new LookupObj();
-                for (int i = 0; i < lookUpObj.Code.Count; i++)
+                TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                 {
-                    TravelClaimDetailVm travelClaimDetail = new TravelClaimDetailVm()
-                    {
-                        LookUpCode = lookUpObj.Code[i],
-                        Receipts = false
-                    };
-                    travelClaimVm.claimDetailVm.Add(travelClaimDetail);
-                }
-
+                    Receipts = false
+                };
+                travelClaimVm.claimDetail.Add(travelClaimDetail);
                 return View(travelClaimVm);
             }
             else

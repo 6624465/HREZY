@@ -1,6 +1,7 @@
 ﻿using HR.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -10,42 +11,53 @@ namespace HR.Web.Services.Payroll
     {
         public void Add(TravelClaimDetail entity)
         {
-            try
+
+            using (HrDataContext dbContext = new HrDataContext())
             {
-                using (HrDataContext dbContext = new HrDataContext())
+                using (DbContextTransaction transaction = dbContext.Database.BeginTransaction())
                 {
-                    TravelClaimDetail travelClaimDetail = dbContext.TravelClaimDetails
+                    try
+                    {
+
+                        TravelClaimDetail travelClaimDetail = dbContext.TravelClaimDetails
                         .Where(x => x.TravelClaimDetailId == entity.TravelClaimDetailId).FirstOrDefault();
-                    if (travelClaimDetail == null)
-                    {
-                        //travelClaimDetail.CreatedBy = entity.CreatedBy;
-                        //travelClaimDetail.CreatedOn = entity.CreatedOn;
-                        dbContext.TravelClaimDetails.Add(entity);
+                        if (travelClaimDetail == null)
+                        {
+                            //travelClaimDetail.CreatedBy = entity.CreatedBy;
+                            //travelClaimDetail.CreatedOn = entity.CreatedOn;
+                            dbContext.TravelClaimDetails.Add(entity);
+                        }
+                        else
+                        {
+                            travelClaimDetail.Amount = entity.Amount;
+                            travelClaimDetail.Category = entity.Category;
+                            //travelClaimDetail.CreatedBy = entity.CreatedBy;
+                            //travelClaimDetail.CreatedOn = entity.CreatedOn;
+                            travelClaimDetail.Currency = entity.Currency;
+                            travelClaimDetail.Perticulars = entity.Perticulars;
+                            travelClaimDetail.ExchangeRate = entity.ExchangeRate;
+                            travelClaimDetail.ModifiedBy = entity.CreatedBy;
+                            travelClaimDetail.ModifiedOn = UTILITY.SINGAPORETIME;
+                            travelClaimDetail.Receipts = entity.Receipts;
+                            travelClaimDetail.TotalInSGD = entity.TotalInSGD;
+                            travelClaimDetail.TravelClaimId = entity.TravelClaimId;
+                            travelClaimDetail.TravelDate = entity.TravelDate;
+                            travelClaimDetail.FromDate = entity.FromDate;
+                            travelClaimDetail.TODate = entity.TODate;
+                            travelClaimDetail.DepartureTime = entity.DepartureTime;
+                        }
+                        dbContext.SaveChanges();
+                        transaction.Commit();
                     }
-                    else
+
+                    catch (Exception ex)
                     {
-                        travelClaimDetail.Amount = entity.Amount;
-                        travelClaimDetail.Category = entity.Category;
-                        //travelClaimDetail.CreatedBy = entity.CreatedBy;
-                        //travelClaimDetail.CreatedOn = entity.CreatedOn;
-                        travelClaimDetail.Currency = entity.Currency;
-                        travelClaimDetail.Description = entity.Description;
-                        travelClaimDetail.ExchangeRate = entity.ExchangeRate;
-                        travelClaimDetail.ModifiedBy = entity.CreatedBy;
-                        travelClaimDetail.ModifiedOn = UTILITY.SINGAPORETIME;
-                        travelClaimDetail.Receipts = entity.Receipts;
-                        travelClaimDetail.TotalInSGD = entity.TotalInSGD;
-                        travelClaimDetail.TravelClaimId = entity.TravelClaimId;
-                        travelClaimDetail.TravelDate = entity.TravelDate;
+                        transaction.Rollback();
+                        throw ex;
                     }
-                    dbContext.SaveChanges();
                 }
             }
-            catch (Exception ex)
-            {
 
-                throw ex;
-            }
         }
 
         public void Delete(TravelClaimDetail entity)

@@ -11,7 +11,7 @@ namespace HR.Web.ViewModels
         public TravelClaimHeader claimHeader { get; set; }
         public List<TravelClaimDetail> claimDetail { get; set; }
 
-        public List<TravelClaimDetailVm> claimDetailVm { get; set; }
+      //  public List<TravelClaimDetailVm> claimDetailVm { get; set; }
     }
 
     public class TravelClaimDetailVm

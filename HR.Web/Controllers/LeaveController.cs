@@ -458,7 +458,16 @@ namespace HR.Web.Controllers
                         dbCntx.LeaveTrans.Add(leaveTransaction);
 
                         dbCntx.SaveChanges();
-
+                        //EmployeeWorkDetail workdetail = empworkdetailsBo.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+                        EmployeeLeaveList empleavelist = employeeLeaveListBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+                        var strbody = string.Empty;
+                        strbody = "Leave Applied:" + "<BR>" 
+                            + "Leave Applied From:" + empleavelist.FromDate.ToShortDateString() + "to"  + empleavelist.ToDate.ToShortDateString() + "<BR>" 
+                            + "Reason:" + empleavelist.Reason;
+                        var subject = string.Empty;
+                        subject = "Leave Applied";
+                        //EmailGenerator emailgenerator = new EmailGenerator();
+                        //emailgenerator.ConfigMail(true, subject, strbody);
                         return RedirectToAction("ViewLeavesList");
                     }
                     else
@@ -566,6 +575,15 @@ namespace HR.Web.Controllers
                 dbCntx.LeaveTrans.Add(leaveTransaction);
 
                 dbCntx.SaveChanges();
+                EmployeeLeaveList empleavelist = employeeLeaveListBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+                var strbody = string.Empty;
+                strbody = "Leave Applied:" + "<BR>"
+                    + "Leave Applied From:"  + empleavelist.FromDate.ToShortDateString()  + "to"  + empleavelist.ToDate.ToShortDateString() + "<BR>"
+                    + "Reason:" + empleavelist.Reason;
+                var subject = string.Empty;
+                subject = "Leave Applied";
+                //EmailGenerator emailgenerator = new EmailGenerator();
+                //emailgenerator.ConfigMail(true, subject, strbody);
 
                 return RedirectToAction("ViewLeavesList");
             }
@@ -643,7 +661,8 @@ namespace HR.Web.Controllers
                          Remarks = x.B.Remarks,
                          Reason = x.B.Reason,
                          EmployeeLeaveID = x.B.EmployeeLeaveID,
-                         Status = x.B.Status
+                         Status = x.B.Status,
+                         useremailid = x.A.UserEmailId
                      }).FirstOrDefault();
 
                     return View(Leavestatus);
@@ -660,6 +679,13 @@ namespace HR.Web.Controllers
         public ActionResult ApproveLeave(GrantLeaveListVm grantLeaveVm)
         {
             employeeLeaveListBO.ApproveLeave(grantLeaveVm);
+            var mail = grantLeaveVm.useremailid;
+            var subject = string.Empty;
+            subject = "Leave Approved";
+            var strbody = string.Empty;
+            strbody = "Leave Approved:" + "<BR>" + "Your Leave Has Been Approved";
+            //EmailGenerator emailgenerator = new EmailGenerator();
+            //emailgenerator.ConfigMail(mail, true, subject,strbody);
             return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
         }
 
@@ -670,6 +696,13 @@ namespace HR.Web.Controllers
             {
                 var empLeaveObj = employeeLeaveListBO.RejectLeave(grantLeaveVm);
                 Save(grantLeaveVm, empLeaveObj);
+                var email = grantLeaveVm.useremailid;
+                var subject = string.Empty;
+                subject = "Leave Rejected";
+                var strbody = string.Empty;
+                strbody = "Leave Rejected:" + "<BR>" + "Your Leave Has Been Rejected. Please Discuss";
+                //EmailGenerator emailgenerator = new EmailGenerator();
+                //emailgenerator.ConfigMail(email, true,subject,strbody);
                 return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
 
             }

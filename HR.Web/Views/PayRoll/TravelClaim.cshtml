@@ -147,6 +147,8 @@
                                                 <tr style="background:#3f51b5;">
                                                     <th style="background:#3f51b5; color:#fff;">Category</th>
                                                     <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                    <th style="background:#3f51b5; color:#fff;">From Date</th>
+                                                    <th style="background:#3f51b5; color:#fff;">To Date</th>
                                                     <th style="background:#3f51b5; color:#fff;">Perticulars</th>
                                                     <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
                                                     <th style="background:#3f51b5; color:#fff;">Amount</th>
@@ -164,7 +166,7 @@
                                                         <td>
                                                             <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                    name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
-                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", style = "width:100px;", required = "required" })
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Category, SelectListItemHelper.TravelExpenses(), new { @class = "form-control input-sm", style = "width:100px;", required = "required", onchange = "showAccomdation(this)", data_index = i })
                                                             <script>
                                                                 $(document).ready(function () {
                                                                     $('#claimDetail_' + '@i' + '__Category').val('@Model.claimDetail[i].Category');
@@ -181,6 +183,24 @@
                                                                 </span>
                                                             </div>
                                                         </td>
+
+                                                        <td class="accomdation" id="accfromDate_@i">
+                                                            <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
+                                                                @Html.TextBoxFor(x => x.claimDetail[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
+                                                                <span class="input-group-addon on-click cal-cal-icon">
+                                                                    <i class="ion ion-calendar"></i>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="accomdation" id="acctoDate_@i">
+                                                            <div class="input-group date dtCss travelDateCss" id="TODate_@i">
+                                                                @Html.TextBoxFor(x => x.claimDetail[i].TODate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
+                                                                <span class="input-group-addon on-click cal-cal-icon">
+                                                                    <i class="ion ion-calendar"></i>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDetail[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
                                                         </td>
@@ -225,7 +245,8 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-
+                                                    <td></td>
+                                                    <td></td>
                                                     <td><span class="pull-right"><b>Total  </b></span></td>
                                                     <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                                     <td></td>
@@ -281,10 +302,46 @@
             <text>
         parseFloat($('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal)).toFixed(2);
         </text>
+            <text>
+        var detailCount = @Model.claimDetail.Count;
 
+        </text>
+        }
+
+        function showAccomdation(obj) {
+          
+            var value = $('#' + obj.id).val() ==undefined ? $('#claimDetail_'+obj+'__Category').val() : $('#' + obj.id).val() ;
+            debugger; 
+            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+            if (value == "ACCOMMODATION") {
+                $('.accomdationCss').show();
+                $('#claimDetail_' + index + '__TravelDate').val('');
+                $('#claimDetail_' + index + '__TravelDate').attr("readonly", "readonly");
+                $('#claimDetail_' + index + '__TravelDate').removeAttr("required");
+                $('#claimDetail_' + index + '__FromDate').removeAttr("readonly");
+                $('#claimDetail_' + index + '__TODate').removeAttr("readonly");
+                $('#accfromDate_' + index).show();
+                $('#acctoDate_' + index).show();
+            }
+                //$('.accomdation').show();
+            else {
+                $('#claimDetail_' + index + '__FromDate').attr("readonly", "readonly");
+                $('#claimDetail_' + index + '__TODate').attr("readonly", "readonly");
+                $('#claimDetail_' + index + '__FromDate').val('');
+                $('#claimDetail_' + index + '__TODate').val('');
+                $('#claimDetail_' + index + '__TravelDate').removeAttr("readonly");
+                $('#claimDetail_' + index + '__TravelDate').attr("required", "required");
+            }
         }
 
         $(document).ready(function () {
+
+            for (var i = 0; i < detailCount; i++) {
+                showAccomdation(i);
+            }
+
+            //$('.accomdation').hide();
+            // $('.accomdationCss').hide();
             $('.dtCss').datetimepicker({
                 icons: {
                     time: 'fa fa-clock-o',
@@ -407,7 +464,7 @@
             if (isNaN(exchangeRate)) {
                 exchangeRate = 1;
             }
-            var Total =parseFloat( amount * exchangeRate).toFixed(2);
+            var Total = parseFloat(amount * exchangeRate).toFixed(2);
             Total = parseFloat(Total).toFixed(2);
             $('#claimDetail_' + index + '__TotalInSGD').val(Total);
             debugger;
@@ -434,15 +491,15 @@
                 //    $('#frmClaimDelete').submit();
                 //}
                 //else {
-                    $('#addOrDelete').val(index);
-                    $('#claimDetail_'+index+'__Category').removeAttr('required');
-                    $('#claimDetail_'+index+'__Amount').removeAttr('required');
-                    $('#claimDetail_'+index+'__Currency').removeAttr('required');
-                    $('#claimDetail_'+index+'__TravelDate').removeAttr('required');
-                    $('#frmClaim').attr({'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate'});
-                    $('#frmClaim').submit();
-                    // $('#tr_' + index).remove();
-                    //CalculateTotal(index);
+                $('#addOrDelete').val(index);
+                $('#claimDetail_' + index + '__Category').removeAttr('required');
+                $('#claimDetail_' + index + '__Amount').removeAttr('required');
+                $('#claimDetail_' + index + '__Currency').removeAttr('required');
+                $('#claimDetail_' + index + '__TravelDate').removeAttr('required');
+                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+                $('#frmClaim').submit();
+                // $('#tr_' + index).remove();
+                //CalculateTotal(index);
                 //}
             }
             else {

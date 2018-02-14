@@ -18,7 +18,6 @@ namespace HR.Web.Models
         public Nullable<int> TravelClaimId { get; set; }
         public string Category { get; set; }
         public Nullable<System.DateTime> TravelDate { get; set; }
-        public string Description { get; set; }
         public Nullable<bool> Receipts { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string Currency { get; set; }
@@ -29,5 +28,9 @@ namespace HR.Web.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public int BranchId { get; set; }
+        public string Perticulars { get; set; }
+        public Nullable<System.DateTime> FromDate { get; set; }
+        public Nullable<System.DateTime> TODate { get; set; }
+        public Nullable<System.TimeSpan> DepartureTime { get; set; }
     }
 }

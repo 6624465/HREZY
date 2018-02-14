@@ -663,7 +663,31 @@ namespace HR.Web.Controllers
                     };
                     travelClaimVm.claimDetailVm.Add(travelClaimDetail);
                 }
+                var details = travelClaimVm.claimDetailVm.GroupJoin(travelClaimVm.claimDetailVm,
+                a => a.LookUpCode, b => b.LookUpCode,
+               (a, b) => new { A = a, B = b.ToList() }).ToList();
 
+                List<TravelClaimDetailVm> travelClaimDetailHeaderList = new List<TravelClaimDetailVm>();
+                for (int i = 0; i < details.Count; i++)
+                {
+
+                    TravelClaimDetailVm travelClaimDetailHeader = new TravelClaimDetailVm()
+                    {
+                        LookUpCode = details[i].A.LookUpCode,
+                        Receipts = false
+                    };
+                    for (int j = 0; i < details[i].B.Count; j++)
+                    {
+                        TravelClaimDetailVm TravelClaimDetailVmDetail = new TravelClaimDetailVm() {
+                            LookUpCode = details[i].A.LookUpCode,
+                            Receipts = false
+                        };
+                        travelClaimVm.claimDetailVm.Add(TravelClaimDetailVmDetail);
+                    }
+                    travelClaimDetailHeaderList.Add(travelClaimDetailHeader);
+                    travelClaimVm.travelClaimDetailHeader.AddRange(travelClaimDetailHeaderList);
+                }
+              
                 return View(travelClaimVm);
             }
             else
@@ -704,20 +728,20 @@ namespace HR.Web.Controllers
         {
 
             //travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
-            if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
+            if (travelClaimVm.claimDetailVm != null && travelClaimVm.claimDetailVm.Count > 0)
             {
-                for (var i = 0; i < travelClaimVm.claimDetail.Count; i++)
+                for (var i = 0; i < travelClaimVm.claimDetailVm.Count; i++)
                 {
-                    if (travelClaimVm.claimDetail[i].Amount != null)
+                    if (travelClaimVm.claimDetailVm[i].Amount != null)
                     {
                         //CalculateAmount(ref travelClaimVm.claimDetail[i]);
 
-                        var amount = travelClaimVm.claimDetail[i].Amount;
-                        var exrate = travelClaimVm.claimDetail[i].ExchangeRate;
+                        var amount = travelClaimVm.claimDetailVm[i].Amount;
+                        var exrate = travelClaimVm.claimDetailVm[i].ExchangeRate;
                         var total = (amount * exrate);
 
-                        travelClaimVm.claimDetail[i].TotalInSGD = total;
-                        travelClaimVm.claimDetail[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
+                        travelClaimVm.claimDetailVm[i].TotalInSGD = total;
+                        travelClaimVm.claimDetailVm[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
                         //travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
@@ -730,20 +754,22 @@ namespace HR.Web.Controllers
 
             //travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimVm.claimHeader.TravelClaimId).ToList();
             var addOrDelVal = Request["addOrDelete"];
+            var lookupCode = Request["code"];
             if (!string.IsNullOrEmpty(addOrDelVal))
             {
-                travelClaimVm.claimDetail.RemoveAt(Convert.ToInt32(addOrDelVal));
+                travelClaimVm.claimDetailVm.RemoveAt(Convert.ToInt32(addOrDelVal));
             }
             else
             {
-                TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+                TravelClaimDetailVm travelClaimDetail = new TravelClaimDetailVm()
                 {
+                    LookUpCode = lookupCode,
                     Receipts = false
                 };
 
-                travelClaimVm.claimDetail.Add(travelClaimDetail);
+                travelClaimVm.claimDetailVm.Add(travelClaimDetail);
             }
-            travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
+            travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetailVm.Sum(x => x.TotalInSGD);
             ModelState.Clear();
             return View("TravelClaim", travelClaimVm);
         }

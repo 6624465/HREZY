@@ -11,6 +11,7 @@ namespace HR.Web.ViewModels
         public TravelClaimHeader claimHeader { get; set; }
         public List<TravelClaimDetail> claimDetail { get; set; }
 
+        public List<TravelClaimDetailVm> travelClaimDetailHeader { get; set; }
         public List<TravelClaimDetailVm> claimDetailVm { get; set; }
     }
 
@@ -35,11 +36,41 @@ namespace HR.Web.ViewModels
         public DateTime FromDate { get; set; }
         public int BranchId { get; set; }
 
-        public int DepartureTime { get; set; }
+        public TimeSpan DepartureTime { get; set; }
     }
 
     public class LookupObj
     {
+
+      public  List<LooKUpList> lookUplist = new List<LooKUpList>() {
+            new LooKUpList(){
+                code="AIRFARE",
+                description="AIRFARE"
+            },
+            new LooKUpList(){
+                code="VISA",
+                description="VISA"
+            },
+            new LooKUpList(){
+                code="ACCOMDATION",
+                description="ACCOMDATION"
+            },
+            new LooKUpList(){
+                code="TAXIFARE-LOCAL",
+                description="TAXIFARE-LOCAL"
+            },new LooKUpList(){
+                code="FOOD EXPENCES-LOCAL",
+                description="FOOD EXPENCES-LOCAL"
+            },
+            new LooKUpList(){
+                code="FOOD EXPENCES-OVERSEAS",
+                description="FOOD EXPENCES-OVERSEAS"
+            },
+            new LooKUpList(){
+                code="OTHER EXPENSES",
+                description="OTHER EXPENSES"
+            }
+        };
         public List<string> Code = new List<string>() {
             "AIRFARE",
             "VISA",
@@ -49,6 +80,12 @@ namespace HR.Web.ViewModels
               "FOOD EXPENCES-OVERSEAS",
               "OTHER EXPENSES"
         };
+    }
+
+    public class LooKUpList
+    {
+        public string description { get; set; }
+        public string code { get; set; }
     }
 
 }

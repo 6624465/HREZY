@@ -8,33 +8,16 @@
 @if (Model.RoleCode == UTILITY.ROLE_EMPLOYEE)
 {
     <ul class="list-unstyled clearfix nav-list mb15">
-        <li id="li_EmpProfile">
-            <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
-                <i class="ion ion-monitor"></i>
-                <span class="text">Employee Profile</span>
-                <i class="arrow ion-chevron-left"></i>
-            </a>
-            <ul class="inner-drop list-unstyled">
-                <li><a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">Travel Claim</a></li>
-            </ul>
-        </li>
-        <li id="li_Leave">
-            <a href="javascript:;">
-                <i class="ion ion-ionic"></i>
-                <span class="text">Leave</span>
-                <i class="arrow ion-chevron-left"></i>
-            </a>
-            <ul class="inner-drop list-unstyled">
-                <li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
-                @*<li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>*@
-                <li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>
-                <li id="li_emprequestleave"><a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
-                @if (Model.IsManager)
+        <li><a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">Employee Profile</a></li>
+        <li><a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">Travel Claim</a></li>
+        <li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">Holiday List</a></li>
+        <li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>
+        <li id="li_emprequestleave"><a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>
+        @if (Model.IsManager)
                 {
-                    <li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>
-                }
-            </ul>
-        </li>
+            <li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>
+        }
+        
     </ul>
 }
 else if (Model.RoleCode == UTILITY.ROLE_ADMIN)

@@ -21,6 +21,17 @@ namespace HR.Web.Services.Payroll
                         dbContext.PayslipBatchHeaders.Add(entity);
                         dbContext.SaveChanges();
                     }
+                    else
+                    {
+                        payslipBatchHeader.BatchHeaderId = entity.BatchHeaderId;
+                        payslipBatchHeader.BatchNo = entity.BatchNo;
+                        payslipBatchHeader.Month = entity.Month;
+                        payslipBatchHeader.Year = entity.Year;
+                        payslipBatchHeader.TotalSalary = entity.TotalSalary;
+                        payslipBatchHeader.ProcessDate = entity.ProcessDate;
+                        dbContext.SaveChanges();
+
+                    }
                     
                 }
             }

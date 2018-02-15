@@ -22,6 +22,7 @@ namespace HR.Web.BusinessObjects.Payroll
             {
                 input.CreateBy = sessionObj.USERID;
                 input.CreatedOn = UTILITY.SINGAPORETIME;
+                input.BranchId = sessionObj.BRANCHID;
                 PayslipBatchHeaderRepository.Add(input);
             }
             catch (Exception ex)

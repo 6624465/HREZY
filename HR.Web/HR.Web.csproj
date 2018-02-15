@@ -1750,6 +1750,8 @@
     <Compile Include="BusinessObjects\Operation\LeaveTransBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveTrasactionBO.cs" />
     <Compile Include="BusinessObjects\Payroll\ContributionBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\PayslipBatchHeaderBo.cs" />
+    <Compile Include="BusinessObjects\Payroll\PayslipBatchDetailBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleDetailBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleInputBO.cs" />
@@ -1933,6 +1935,7 @@
     <Compile Include="Services\Operation\LeaveTrasactionRepository.cs" />
     <Compile Include="Services\Operation\SalaryStructureHeaderService.cs" />
     <Compile Include="Services\Payroll\ContributionRepository.cs" />
+    <Compile Include="Services\Payroll\PayslipBatchDetailRepository.cs" />
     <Compile Include="Services\Payroll\PayslipBatchHeaderRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleDetailRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleHeaderRepository.cs" />

@@ -46,8 +46,6 @@ namespace HR.Web.Services.Payroll
             {
                 using(var dbcntx=new HrDataContext())
                 {
-                    PayslipBatchDetail payslipbatchdetail = dbcntx.PayslipBatchDetails
-                        .Where(x => x.BatchDetailId == entity.BatchDetailId).FirstOrDefault();
                     dbcntx.PayslipBatchDetails.Remove(entity);
                     dbcntx.SaveChanges();
                 }

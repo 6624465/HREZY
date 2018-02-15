@@ -30,7 +30,18 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
-       
+        public void Delete(PayslipBatchHeader entity)
+        {
+            try
+            {
+                PayslipBatchHeaderRepository.Delete(entity);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public PayslipBatchHeader GetById(int id)
         {
             try
@@ -49,6 +60,29 @@ namespace HR.Web.BusinessObjects.Payroll
                 return PayslipBatchHeaderRepository.GetAll();
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public PayslipBatchHeader GetByProperty(Func<PayslipBatchHeader, bool> predicate)
+        {
+            try
+            {
+                return PayslipBatchHeaderRepository.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<PayslipBatchHeader> GetListByProperty(Func<PayslipBatchHeader, bool> predicate)
+        {
+            try
+            {
+                return PayslipBatchHeaderRepository.GetListByProperty(predicate);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

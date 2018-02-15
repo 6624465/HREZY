@@ -73,6 +73,9 @@
             position: absolute !important;
             z-index: 5000 !important;
         }
+        .multiselecterr{
+           border-bottom:1px solid red;
+        }
     </style>
 }
 <div class="page" style="overflow:visible;">
@@ -117,7 +120,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row css5">
+                        <div class="row css5">  
+                            
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Country Visited</span>
                             </label>
@@ -339,9 +343,6 @@
             for (var i = 0; i < detailCount; i++) {
                 showAccomdation(i);
             }
-
-            //$('.accomdation').hide();
-            // $('.accomdationCss').hide();
             $('.dtCss').datetimepicker({
                 icons: {
                     time: 'fa fa-clock-o',
@@ -355,7 +356,7 @@
                 format: dateFormat
             });
 
-            //  debugger;
+           
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
                 $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
@@ -365,12 +366,6 @@
             $(".dtCssToDate").on("dp.change", function (e) {
                 $('.travelDateCss').data("DateTimePicker").maxDate(e.date);
             });
-
-            //if ($('#claimHeader_FromDate').val() != null && $('#claimHeader_FromDate').val() != "")
-            //    $('.travelDateCss').data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
-
-            //if ($('#claimHeader_ToDate').val() != null && $('#claimHeader_ToDate').val() != "")
-            //    $('.travelDateCss').data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
 
             if ($('#claimHeader_FromDate').val() != null && $('#claimHeader_FromDate').val() != "") {
                 $('.travelDateCss').each(function (index, item) {
@@ -392,7 +387,11 @@
 
         });
 
-
+        $('#claimHeader_CountryVisited').on('change',function(e){
+            debugger;
+            $('.multiselect').removeClass('multiselecterr');
+           // var title =$('.multiselect-selected-text').text();
+        });
 
         $('#frmClaim').validate({
             rules: {
@@ -426,6 +425,15 @@
                 //$('#addOrDelete').val('addOrDelete');
                 $('#frmClaim').submit();
             }
+            else
+            {
+                
+                var title =$('.multiselect').attr('title');
+                if(title=='None selected')
+                    $('.multiselect').addClass('multiselecterr');
+                else
+                    $('.multiselect').removeClass('multiselecterr');
+            }
         }
 
         function SaveTravelClaim() {
@@ -448,6 +456,7 @@
                     })
             }
             else {
+                $('.multiselect').addClass('multiselecterr');
                 swal("Incorrect Inputs");
             }
         }

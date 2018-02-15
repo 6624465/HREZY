@@ -631,7 +631,8 @@ namespace HR.Web.Controllers
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skip = (page.Value - 1) * offset;
             List<TravelClaimHeader> claimHeaderList = travelClaimHeaderBO
-               .GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true && x.EmployeeId == EMPLOYEEID).ToList();
+               .GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true && x.EmployeeId == EMPLOYEEID)
+               .OrderByDescending(x => x.CreatedOn).ToList();
             var count = claimHeaderList.Count();
             decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
             HtmlTblVm<TravelClaimHeader> HtmlTblVm = new HtmlTblVm<TravelClaimHeader>();

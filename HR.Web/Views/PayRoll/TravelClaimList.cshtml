@@ -41,6 +41,9 @@
                                     No Of Days
                                 </th>
                                 <th>
+   Created On
+</th>
+                                <th>
                                     #Action
                                 </th>
                             </tr>
@@ -55,6 +58,9 @@
                                     </td>
                                     <td>
                                         @Model.TableData[i].NoOfDays
+                                    </td>
+                                    <td>
+                                        @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
                                     </td>
                                     <td>
                                         <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss"

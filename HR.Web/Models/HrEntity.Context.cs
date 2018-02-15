@@ -59,6 +59,8 @@ namespace HR.Web.Models
         public virtual DbSet<TravelClaimDetail> TravelClaimDetails { get; set; }
         public virtual DbSet<TravelClaimHeader> TravelClaimHeaders { get; set; }
         public virtual DbSet<EmployeeBankdetail> EmployeeBankdetails { get; set; }
+        public virtual DbSet<PayslipBatchDetail> PayslipBatchDetails { get; set; }
+        public virtual DbSet<PayslipBatchHeader> PayslipBatchHeaders { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)
         {

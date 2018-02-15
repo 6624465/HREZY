@@ -1,258 +1,96 @@
-﻿
-<div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default">
-            <div class="center-block width">
+﻿@model HR.Web.ViewModels.PayrollBatchVm
+
+@{
+    var listMonths = new List<SelectListItem>()
+    {
+    new SelectListItem {Text = "January",   Value = "1"},
+    new SelectListItem {Text = "February", Value = "2"},
+    new SelectListItem {Text = "March", Value = "3"},
+    new SelectListItem {Text = "April",   Value = "4"},
+    new SelectListItem {Text = "May", Value = "5"},
+    new SelectListItem {Text = "June", Value = "6"},
+    new SelectListItem {Text = "July",   Value = "7"},
+    new SelectListItem {Text = "August", Value = "8"},
+    new SelectListItem {Text = "September", Value = "9"},
+    new SelectListItem {Text = "October",   Value = "10"},
+    new SelectListItem {Text = "November", Value = "11"},
+    new SelectListItem {Text = "December", Value = "12"}
+    };
+}
+
+@using (Html.BeginForm("", "PayrollBatch", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-hovered panel-stacked mb10">
                 <div class="panel-heading">
-                    Payslips Batches
+                    Payslip Batch
                 </div>
                 <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        CODE
-                                    </th>
-                                    <th>
-                                        NAME
-                                    </th>
-                                    <th>
-                                        BASIC
-                                    </th>
-                                    <th style="white-space:nowrap">
-                                        CPF EMPLOYER
-                                    </th>
-                                    <th>
-                                        INCENTIVE
-                                    </th>
-                                    <th>
-                                        BONUS
-                                    </th>
-                                    <th>
-                                        CPF EMPLOYEE
-                                    </th>
-                                    <th>
-                                        MBMF
-                                    </th>
-                                    <th>
-                                        SINDA
-                                    </th>
-                                    <th>
-                                        CDAC
-                                    </th>
-                                    <th style="white-space:nowrap">
-                                        CPF DEDUCTIONS
-                                    </th>
-                                    <th>
-                                        ETC
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        EZYPR0001
-                                    </td>
-                                    <td>
-                                        MRUNAL
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        15.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                </tr>
+                    @Html.HiddenFor(x => x.payslipBatchHeader.BatchHeaderId)
+                    <div class="row css5">
 
-                                <tr>
-                                    <td>
-                                        EZYPR0002
-                                    </td>
-                                    <td>
-                                        SHARFAZ
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        15.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        EZYPR0003
-                                    </td>
-                                    <td>
-                                        KAVITHA
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        15.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        EZYPR0004
-                                    </td>
-                                    <td>
-                                        SUBRAMANIAM
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        15.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        EZYPR0005
-                                    </td>
-                                    <td>
-                                        SYED TALEEB
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        15.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1500.00
-                                    </td>
-                                    <td>
-                                        500.00
-                                    </td>
-                                    <td>
-                                        17.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                    <td>
-                                        1000.00
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        </table>
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Batch No</span>
+                        </label>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm" })
+                        </div>
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Process Date</span>
+                        </label>
+                        <div class="col-md-3">
+                            <div class="input-group date dtCss" id="ProcessDate">
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.ProcessDate, new { @class = "form-control input-sm" })
+                                <span class="input-group-addon">
+                                    <i class="ion ion-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="pagination"></div>
+                    <div class="row css5">
+
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Month</span>
+                        </label>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(x => x.payslipBatchHeader.Month,  listMonths,new { @class = "form-control input-sm" })
+                        </div>
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Year</span>
+                        </label>
+                        <div class="col-md-3">
+                           @Html.DropDownListFor(x => x.payslipBatchHeader.Year, Enumerable.Range(2014, 14).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm" })
+ </div>
+                    </div>
+                    <div class="row css5">
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Total Salary</span>
+                        </label>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dtCss').datetimepicker({
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-arrow-left',
+                    next: 'fa fa-arrow-right',
+
+                },
+                format: dateFormat
+            });
+        });
+    </script>
+}

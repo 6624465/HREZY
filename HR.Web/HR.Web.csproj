@@ -1750,6 +1750,8 @@
     <Compile Include="BusinessObjects\Operation\LeaveTransBO.cs" />
     <Compile Include="BusinessObjects\Operation\LeaveTrasactionBO.cs" />
     <Compile Include="BusinessObjects\Payroll\ContributionBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\PayslipBatchHeaderBo.cs" />
+    <Compile Include="BusinessObjects\Payroll\PayslipBatchDetailBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleDetailBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleInputBO.cs" />
@@ -1867,6 +1869,12 @@
     <Compile Include="Models\OtherLeave.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PayslipBatchDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PayslipBatchHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1927,6 +1935,8 @@
     <Compile Include="Services\Operation\LeaveTrasactionRepository.cs" />
     <Compile Include="Services\Operation\SalaryStructureHeaderService.cs" />
     <Compile Include="Services\Payroll\ContributionRepository.cs" />
+    <Compile Include="Services\Payroll\PayslipBatchDetailRepository.cs" />
+    <Compile Include="Services\Payroll\PayslipBatchHeaderRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleDetailRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleHeaderRepository.cs" />
     <Compile Include="Services\Payroll\SalaryRuleInputRepository.cs" />
@@ -1950,6 +1960,7 @@
     <Compile Include="ViewModels\LeaveAdminVM.cs" />
     <Compile Include="ViewModels\LeaveListVm.cs" />
     <Compile Include="ViewModels\LeaveVm.cs" />
+    <Compile Include="ViewModels\PayrollBatchVm.cs" />
     <Compile Include="ViewModels\SalaryRuleHeaderVm.cs" />
     <Compile Include="ViewModels\SalaryStructureHeaderTblVm.cs" />
     <Compile Include="ViewModels\SalaryStructureVm.cs" />

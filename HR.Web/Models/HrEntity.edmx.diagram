@@ -37,6 +37,8 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.TravelClaimDetail" Width="1.5" PointX="9.375" PointY="18.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.TravelClaimHeader" Width="1.5" PointX="18.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.EmployeeBankdetail" Width="1.5" PointX="18.375" PointY="18.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.PayslipBatchDetail" Width="1.5" PointX="19.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.PayslipBatchHeader" Width="1.5" PointX="19.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

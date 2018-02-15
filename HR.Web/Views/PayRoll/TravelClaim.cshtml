@@ -315,7 +315,6 @@
         function showAccomdation(obj) {
           
             var value = $('#' + obj.id).val() ==undefined ? $('#claimDetail_'+obj+'__Category').val() : $('#' + obj.id).val() ;
-            debugger; 
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
             if (value == "ACCOMMODATION") {
                 $('.accomdationCss').show();
@@ -433,6 +432,7 @@
                     $('.multiselect').addClass('multiselecterr');
                 else
                     $('.multiselect').removeClass('multiselecterr');
+                
             }
         }
 
@@ -456,7 +456,11 @@
                     })
             }
             else {
-                $('.multiselect').addClass('multiselecterr');
+                var title =$('.multiselect').attr('title');
+                if(title=='None selected')
+                    $('.multiselect').addClass('multiselecterr');
+                else
+                    $('.multiselect').removeClass('multiselecterr');
                 swal("Incorrect Inputs");
             }
         }

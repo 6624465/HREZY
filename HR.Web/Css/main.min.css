@@ -4138,6 +4138,7 @@ fieldset[disabled] .btn-youtube.active {
 }
 .main-container .nav-wrap .site-nav .nav-list > li {
   position: relative;
+  box-shadow: 10px 0px 1px #ccc;
 }
 .main-container .nav-wrap .site-nav .nav-list > li.open a > .arrow {
   -webkit-transform: rotate(-90deg);
@@ -4148,7 +4149,8 @@ fieldset[disabled] .btn-youtube.active {
 .main-container .nav-wrap .site-nav .nav-list > li a {
   color: #464646;
   padding: 7px 15px;
-  padding-left: 12px;
+  padding-left: 20px;
+  line-height:2.5;
   display: table;
   width: 100%;
   white-space: nowrap;
@@ -5967,4 +5969,12 @@ button.md-no-style {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   opacity: .8;
+}
+.mr-left{
+   margin-left:10px;
+}
+ul>li>a .fa{
+    font-size:16px;
+    padding: 12px 21px 12px 5px;
+    vertical-align:middle;
 }

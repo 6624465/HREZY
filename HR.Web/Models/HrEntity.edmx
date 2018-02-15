@@ -416,6 +416,36 @@
           <Property Name="BranchId" Type="int" />
           <Property Name="SortBy" Type="smallint" />
         </EntityType>
+        <EntityType Name="PayslipBatchDetail">
+          <Key>
+            <PropertyRef Name="BatchDetailId" />
+          </Key>
+          <Property Name="BatchDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BatchHeaderId" Type="int" />
+          <Property Name="BatchNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchId" Type="int" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="RegisterCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContributionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PayslipBatchHeader">
+          <Key>
+            <PropertyRef Name="BatchHeaderId" />
+          </Key>
+          <Property Name="BatchHeaderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BatchNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchId" Type="int" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="Month" Type="tinyint" />
+          <Property Name="Year" Type="int" />
+          <Property Name="ProcessDate" Type="datetime" />
+          <Property Name="TotalSalary" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="SalaryRuleDetail">
           <Key>
             <PropertyRef Name="RuleDetailId" />
@@ -632,6 +662,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="LeaveTrans" EntityType="Self.LeaveTrans" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="LeaveTransaction" EntityType="Self.LeaveTransaction" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="Contribution" EntityType="Self.Contribution" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="PayslipBatchDetail" EntityType="Self.PayslipBatchDetail" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="PayslipBatchHeader" EntityType="Self.PayslipBatchHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryRuleDetail" EntityType="Self.SalaryRuleDetail" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryRuleHeader" EntityType="Self.SalaryRuleHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryRuleInput" EntityType="Self.SalaryRuleInput" Schema="Payroll" store:Type="Tables" />
@@ -733,6 +765,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="TravelClaimDetails" EntityType="DB_9F30C5_HRDBModel.TravelClaimDetail" />
           <EntitySet Name="TravelClaimHeaders" EntityType="DB_9F30C5_HRDBModel.TravelClaimHeader" />
           <EntitySet Name="EmployeeBankdetails" EntityType="DB_9F30C5_HRDBModel.EmployeeBankdetail" />
+          <EntitySet Name="PayslipBatchDetails" EntityType="DB_9F30C5_HRDBModel.PayslipBatchDetail" />
+          <EntitySet Name="PayslipBatchHeaders" EntityType="DB_9F30C5_HRDBModel.PayslipBatchHeader" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1310,6 +1344,36 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="AccountType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BankBranchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="SwiftCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PayslipBatchDetail">
+          <Key>
+            <PropertyRef Name="BatchDetailId" />
+          </Key>
+          <Property Name="BatchDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BatchHeaderId" Type="Int32" />
+          <Property Name="BatchNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContributionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PayslipBatchHeader">
+          <Key>
+            <PropertyRef Name="BatchHeaderId" />
+          </Key>
+          <Property Name="BatchHeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BatchNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="Month" Type="Byte" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="ProcessDate" Type="DateTime" Precision="3" />
+          <Property Name="TotalSalary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1950,6 +2014,38 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="BankDetailId" ColumnName="BankDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayslipBatchDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.PayslipBatchDetail">
+              <MappingFragment StoreEntitySet="PayslipBatchDetail">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ContributionCode" ColumnName="ContributionCode" />
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
+                <ScalarProperty Name="BatchHeaderId" ColumnName="BatchHeaderId" />
+                <ScalarProperty Name="BatchDetailId" ColumnName="BatchDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayslipBatchHeaders">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.PayslipBatchHeader">
+              <MappingFragment StoreEntitySet="PayslipBatchHeader">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="TotalSalary" ColumnName="TotalSalary" />
+                <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
+                <ScalarProperty Name="BatchHeaderId" ColumnName="BatchHeaderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -35,6 +35,7 @@ namespace HR.Web.Services.Payroll
         {
             throw new NotImplementedException();
         }
+        
 
         public IEnumerable<PayslipBatchHeader> GetAll()
         {

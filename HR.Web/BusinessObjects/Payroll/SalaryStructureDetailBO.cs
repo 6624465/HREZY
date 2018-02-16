@@ -24,6 +24,14 @@ namespace HR.Web.BusinessObjects.Payroll
             {
                 entity.CreatedBy = sessionObj.USERID;
                 entity.CreatedOn = UTILITY.SINGAPORETIME;
+                if (entity.PaymentType == UTILITY.SALARYPAYMENTS)
+                {
+                    entity.ComputationCode = entity.ComputationCode;
+                }
+                else
+                {
+                    entity.ComputationCode = UTILITY.AMOUNT;
+                }
                 salaryStructureDetailRepository.Add(entity);
             }
             catch (Exception ex)

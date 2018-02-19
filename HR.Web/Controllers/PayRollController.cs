@@ -760,7 +760,7 @@ namespace HR.Web.Controllers
 
                         travelClaimVm.claimDetail[i].TotalInSGD = total;
                         travelClaimVm.claimDetail[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
-                      
+
                         travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
                     }
                 }
@@ -786,6 +786,11 @@ namespace HR.Web.Controllers
 
             return RedirectToAction("TravelClaim", "Payroll", new { travelClaimId = headerId });
 
+        }
+
+        public ActionResult ProcessTravelClaim()
+        {
+            return View();
         }
     }
 }

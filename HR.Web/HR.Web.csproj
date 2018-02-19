@@ -2112,6 +2112,7 @@
     <Content Include="Views\PayRoll\TravelClaimList.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\PayrollBatch\ProcessPayroll.cshtml" />
+    <Content Include="Views\PayRoll\ProcessTravelClaim.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

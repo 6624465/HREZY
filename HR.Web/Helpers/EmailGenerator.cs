@@ -26,16 +26,16 @@ namespace HR.Web.Helpers
         public bool SendMail(MailMessage msg)
         {
             //var settings = new EmailSettingsBO().GetList().FirstOrDefault();
-            msg.From = new MailAddress("guntimaheshyadav1@gmail.com");
+            msg.From = new MailAddress("cit.dc@ezy-corp.com");
             
             SmtpClient client = new SmtpClient();
-            client.Host = "smtp.gmail.com";
+            client.Host = "smtp.office365.com";
             client.Port = 587;
             client.EnableSsl = true;
             client.Timeout = 900000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("guntimaheshyadav1@gmail.com", "password");
+            client.Credentials = new NetworkCredential("cit.dc@ezy-corp.com", "Say33125");
             try
             {
                 client.Send(msg);

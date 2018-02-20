@@ -466,8 +466,8 @@ namespace HR.Web.Controllers
                             + "Reason:" + empleavelist.Reason;
                         var subject = string.Empty;
                         subject = "Leave Applied";
-                        //EmailGenerator emailgenerator = new EmailGenerator();
-                        //emailgenerator.ConfigMail(true, subject, strbody);
+                        EmailGenerator emailgenerator = new EmailGenerator();
+                        emailgenerator.ConfigMail(true, subject, strbody);
                         return RedirectToAction("ViewLeavesList");
                     }
                     else
@@ -582,8 +582,8 @@ namespace HR.Web.Controllers
                     + "Reason:" + empleavelist.Reason;
                 var subject = string.Empty;
                 subject = "Leave Applied";
-                //EmailGenerator emailgenerator = new EmailGenerator();
-                //emailgenerator.ConfigMail(true, subject, strbody);
+                EmailGenerator emailgenerator = new EmailGenerator();
+                emailgenerator.ConfigMail(true, subject, strbody);
 
                 return RedirectToAction("ViewLeavesList");
             }
@@ -684,8 +684,8 @@ namespace HR.Web.Controllers
             subject = "Leave Approved";
             var strbody = string.Empty;
             strbody = "Leave Approved:" + "<BR>" + "Your Leave Has Been Approved";
-            //EmailGenerator emailgenerator = new EmailGenerator();
-            //emailgenerator.ConfigMail(mail, true, subject,strbody);
+            EmailGenerator emailgenerator = new EmailGenerator();
+            emailgenerator.ConfigMail(mail, true, subject, strbody);
             return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
         }
 
@@ -701,8 +701,8 @@ namespace HR.Web.Controllers
                 subject = "Leave Rejected";
                 var strbody = string.Empty;
                 strbody = "Leave Rejected:" + "<BR>" + "Your Leave Has Been Rejected. Please Discuss";
-                //EmailGenerator emailgenerator = new EmailGenerator();
-                //emailgenerator.ConfigMail(email, true,subject,strbody);
+                EmailGenerator emailgenerator = new EmailGenerator();
+                emailgenerator.ConfigMail(email, true, subject, strbody);
                 return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
 
             }

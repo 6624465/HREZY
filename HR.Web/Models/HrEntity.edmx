@@ -563,6 +563,7 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
@@ -1331,6 +1332,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeBankdetail">
           <Key>
@@ -1986,6 +1988,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="TravelClaimHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TravelClaimHeader">
               <MappingFragment StoreEntitySet="TravelClaimHeader">
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />

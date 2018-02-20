@@ -28,5 +28,6 @@ namespace HR.Web.Models
         public Nullable<bool> IsActive { get; set; }
         public int EmployeeId { get; set; }
         public int BranchId { get; set; }
+        public bool IsApproved { get; set; }
     }
 }

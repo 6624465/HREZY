@@ -178,14 +178,20 @@
                         </div>
                         <div class="clearfix"></div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="col-md-6">
-                                    <div class="btn-apply">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-6">
                                         <button type="submit" class="btn btn-primary btn-sm" id="btnSave" onclick="SaveEmployeeLeaveForm()" disabled="disabled">
                                             <i class="fa fa-floppy-o" aria-hidden="true"></i>Apply
                                         </button>
                                     </div>
-                                </div>
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="location.href='@Url.Content("~/Leave/ViewLeavesList")'">
+                                            <i class="fa fa-close" aria-hidden="true"></i>Back
+                                        </button>
+                                        </div>
+                                    </div>
+                                
                             </div>
                         </div>
                         

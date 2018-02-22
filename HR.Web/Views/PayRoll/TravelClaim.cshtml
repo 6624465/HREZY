@@ -97,7 +97,7 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">From Date</span>
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="input-group date dtCss dtCssFromDate" id="FromDate">
                                     @Html.TextBoxFor(x => x.claimHeader.FromDate,
                                    new { @class = "form-control dtCssTxt input-sm" })
@@ -110,7 +110,7 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">To Date</span>
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="input-group date dtCss dtCssToDate" id="ToDate">
                                     @Html.TextBoxFor(x => x.claimHeader.ToDate,
                                    new { @class = "form-control dtCssTxt input-sm" })
@@ -125,14 +125,14 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Country Visited</span>
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
                             </div>
 
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">No Of Days</span>
                             </label>
-                            <div class="col-md-4" id="noofdays">
+                            <div class="col-md-2" id="noofdays">
                                 @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
                             </div>
 

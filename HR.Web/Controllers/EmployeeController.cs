@@ -158,48 +158,7 @@ namespace HR.Web.Controllers
 
             }
         }
-
-        [HttpPost]
-        public ActionResult empsearch(EmpSearch empSearch)
-        {
-            using (var dbCntx = new HrDataContext())
-            {
-                var list = dbCntx.EmployeeHeaders.AdvSearchEmpHeaderWhere(empSearch.EmployeeName, empSearch.EmployeeType)
-                            .Join(dbCntx.EmployeePersonalDetails,
-                            a => a.EmployeeId, b => b.EmployeeId,
-                            (a, b) => new { A = a, B = b })
-                            .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation, BRANCHID, ROLECODE),
-                            c => c.A.EmployeeId, d => d.EmployeeId,
-                            (c, d) => new { C = c, D = d })
-                            .Join(dbCntx.Addresses,
-                            e => e.C.A.EmployeeId, f => f.LinkID,
-                            (e, f) => new { E = e, F = f })
-                            .Select(x => new EmployeeListVm
-                            {
-                                EmployeeId = x.E.C.A.EmployeeId,
-                                EmployeeNo = x.E.C.A.IDNumber,
-                                EmployeeName = x.E.C.A.FirstName + " " + x.E.C.A.LastName + " " + x.E.C.A.MiddleName,
-                                JoiningDate = x.E.D.JoiningDate,
-                                JobTitle = dbCntx.LookUps
-                                            .Where(y => y.LookUpID == x.E.D.DesignationId)
-                                            .FirstOrDefault().LookUpDescription,
-                                ContactNo = x.F.Contact,
-                                PersonalEmailId = x.F.Email,
-                                OfficialEmailId = x.F.Email,
-                                DateOfBirth = x.E.C.B.DOB
-                            }).ToList().AsEnumerable();
-
-                var empDirectoryVm = new EmpDirectoryVm
-                {
-                    employeeVm = list,
-                    empSearch = empSearch
-                };
-
-                return View("employeedirectory", empDirectoryVm);
-
-            }
-        }
-
+             
         [HttpGet]
         public ActionResult add(int? EmployeeId)
         {

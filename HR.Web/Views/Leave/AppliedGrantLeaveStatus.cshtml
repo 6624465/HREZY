@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="control-label pull-left">@Model.FromDate.ToString("MM/dd/yyyy")</label>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="row css10">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="control-label pull-left">@Model.ToDate.ToString("MM/dd/yyyy")</label>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="row css10">
@@ -57,7 +57,7 @@
                                 <label class="control-label pull-left">@Model.Reason</label>
                             </div>
                         </div>
-                    </div>   
+                    </div>
                     @if (Model.Status == UTILITY.LEAVEPENDING)
                     {
                         <div class="row css10">
@@ -65,10 +65,10 @@
                             <div class="col-md-9">
                                 <button class="btn btn-primary btn-sm"><i class="fa fa-check"></i>Approve</button>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="popover" title="Remarks"><i class="fa fa-times"></i>Reject</button>
-                            </div>                        
+                            </div>
                         </div>
                     }
-                    else if(Model.Status == UTILITY.LEAVEREJECTED)
+                    else if (Model.Status == UTILITY.LEAVEREJECTED)
                     {
                         <div class="row css10">
                             <div class="form-group">
@@ -95,6 +95,16 @@
                         </div>
                     }
                 </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary btn-sm pull-right"
+                        onclick="location.href='@Url.Content("~/Leave/GrantLeaveFormList")'">
+                    <i class="fa fa-close"></i>
+                    Back
+                </button>
             </div>
         </div>
     </div>

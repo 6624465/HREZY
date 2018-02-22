@@ -364,7 +364,7 @@
                 data: JSON.stringify(empObj),
                 success: function (obj) {
                     debugger;
-                    if (obj.PagerLength == 1) {
+                    if (obj.PagerLength == 1 || obj.PagerLength == 0) {
                         $('#pagination').hide();
                         getDataCallBack(obj);
                     }

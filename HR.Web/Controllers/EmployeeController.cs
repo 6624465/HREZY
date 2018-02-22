@@ -138,12 +138,10 @@ namespace HR.Web.Controllers
                 var emplist = list.Where(x => x.branchid == BRANCHID).ToList();
                 var query = emplist.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(offSet).ToList().AsEnumerable();
 
-
                 var totalCount = emplist.Count();
 
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalCount), Convert.ToDecimal(offSet));
                 decimal pagnationRound = Math.Ceiling(Convert.ToDecimal(pagerLength));
-
 
                 var empDirectoryVm = new EmpDirectoryVm
                 {
@@ -152,8 +150,6 @@ namespace HR.Web.Controllers
                     count = totalCount,
                     PagerLength = pagnationRound
                 };
-
-
                 return Json(empDirectoryVm, JsonRequestBehavior.AllowGet);
 
             }

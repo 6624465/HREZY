@@ -144,7 +144,7 @@ namespace HR.Web.Controllers
                         (a, b) => new { A = a, B = b })
                         .Select(x => new EmpLeaveListVm {
                             EmployeeId = x.B.EmployeeId,
-                            EmployeeName = x.A.FirstName + "" + x.A.LastName,
+                            EmployeeName = x.A.FirstName + " " + x.A.LastName,
                             FromDate = x.B.FromDate,
                             ToDate = x.B.ToDate,
                             Status = x.B.Status,

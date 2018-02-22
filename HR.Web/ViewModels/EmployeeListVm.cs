@@ -17,5 +17,7 @@ namespace HR.Web.ViewModels
         public string OfficialEmailId { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePic { get; set; }
+        public int DocumentDetailID { get; set; }
+
     }
 }

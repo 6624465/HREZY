@@ -1,11 +1,5 @@
 ﻿@model HR.Web.ViewModels.EmpDirectoryVm
 
-
-
-@{
-    WebGrid grid = new WebGrid(Model.employeeVm, rowsPerPage: 3, ajaxUpdateContainerId: "ajaxgrid");
-}
-
 @section Styles{
 
     <style>
@@ -301,7 +295,6 @@
             }
             else
                 promise = SearchEmployee();
-            //var promise1 = SearchEmployee();
             $.when(promise).done(function (data) {
 
                 getDataCallBack(data);
@@ -336,6 +329,7 @@
             location.reload();
         });
         function showTile() {
+            debugger;
             $("#tiles").html('');
             $("#tileTmplate").tmpl(Arr.employeeVm).appendTo("#tiles");
             $('#btnTile').addClass('active');
@@ -375,7 +369,9 @@
                         getDataCallBack(obj);
                     }
                     else {
-                        $('#pagination').show();
+                        if (obj.PagerLength > 1)
+                            $('#pagination').show();
+                        getDataCallBack(obj);
                     }
 
                     deffered.resolve(obj);

@@ -2063,7 +2063,7 @@ fieldset[disabled] .btn-youtube.active {
   }
 }
 .caret {
-  margin-left: 4px!important;
+  margin-left: 4px;
   margin-top: -1px;
 }
 .dropdown-header {

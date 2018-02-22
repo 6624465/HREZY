@@ -28,12 +28,11 @@
         .panl-height{
             height:250px;
         }
-        p>span{
-            display: inline-block;
-            white-space: nowrap;
-            position: relative;
-            top: 7px;
-        }
+       
+        #email {
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
     </style>
 }
 
@@ -214,7 +213,7 @@
 
                             <h3 class="text-light mt0">${EmployeeName}</h3>
                             <p><strong>Designation:&nbsp;</strong>${JobTitle}</p>
-                            <p><strong>Email:&nbsp;</strong><span>${PersonalEmailId}</span></p>
+                            <p id="email"><strong>Email:&nbsp;</strong><span>${PersonalEmailId}</span></p>
                             <p><strong>Contact No: </strong>${ContactNo}</p>
                         </div>
 

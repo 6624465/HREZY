@@ -29,6 +29,8 @@
         .icheckbox_flat-blue.checked.disabled {
     background-position: -22px 0;
 }
+        
+       
     </style>
 }
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
@@ -148,10 +150,10 @@ new
 
                     <div class="row">
                         <div class="col-md-6">
-                            <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                            <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i><b>Save</b></button>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-primary btn-sm pull-right" type="button" onclick="location.href='@Url.Content("~/Leave/LeaveList")'"><i class="fa fa-close" aria-hidden="true"></i>Back</button>
+                            <button class="btn btn-primary btn-sm pull-right" type="button" onclick="location.href='@Url.Content("~/Leave/LeaveList")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
                         </div>
                     </div>
                 </div>

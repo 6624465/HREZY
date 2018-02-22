@@ -87,11 +87,12 @@
         $(function () {
             $('#li_PayRollConfig').addClass('open');
             $('#li_SalaryStructureHeaderList').addClass('active');
+            var branchid=$('#BranchId').val();
             $('#pagination').bootpag({
                 total: @Model.PageLength,
                 page: @Model.CurrentPage,
                 maxVisible: 10,
-                href: '@Url.Content("~/PayRoll/SalaryStructureHeaderList?page="){{number}}', //"#pro-page-{{number}}",
+                href: '@Url.Content("~/PayRoll/SalaryStructureHeaderList?BranchId=")' + branchid +'&page={{number}}', //"#pro-page-{{number}}",
                 leaps: false,
                 next: 'Next',
                 prev: 'Prev',
@@ -151,7 +152,6 @@
         }
 
         function getSalaryStrucure(StructureID){
-            debugger;
             var branchId=$('#BranchId').val();
             location.href='@Url.Content("~/PayRoll/SalaryStructure?structurId=")'+StructureID+"&BranchId="+branchId;
             

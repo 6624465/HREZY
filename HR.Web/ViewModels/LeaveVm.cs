@@ -12,6 +12,7 @@ namespace HR.Web.ViewModels
         public string BranchName { get; set; }
         public int BranchID { get; set; }
         public IEnumerable<EmpLeaveListVm> employeeLeaveList { get; set; }
+
     }
     public class LeaveVm
     {
@@ -29,6 +30,7 @@ namespace HR.Web.ViewModels
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public string Status { get; set; }
+        public int Branchid { get; set; }
     }
     public class LeaveHeaderVm
     {

@@ -101,14 +101,15 @@
 @section Scripts{
     <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
-        $(function () {
-            $('#li_PayRollConfig').addClass('open');
-            $('#li_ContributionRegisterList').addClass('active');
-            $('#pagination').bootpag({
-                total: @Model.PageLength,
-                page: @Model.CurrentPage,
-                maxVisible: 10,
-                href: '@Url.Content("~/PayRoll/ContributionRegisterList?page="){{number}}',  //"#pro-page-{{number}}",
+    $(function () {
+        $('#li_PayRollConfig').addClass('open');
+        $('#li_ContributionRegisterList').addClass('active');
+        var branchid=$('#BranchId').val();
+        $('#pagination').bootpag({
+            total: @Model.PageLength,
+            page: @Model.CurrentPage,
+            maxVisible: 10,
+            href: '@Url.Content("~/PayRoll/ContributionRegisterList?branchid=")' +branchid+'&page={{number}}',  //"#pro-page-{{number}}",
                 leaps: false,
                 next: 'Next',
                 prev: 'Prev',

@@ -1,130 +1,140 @@
-﻿@model IEnumerable<HR.Web.ViewModels.AppliedLeaveListVm>
+﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.ViewModels.EmpLeaveListVm>
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@section Styles{
+    <style>
+        .pagination {
+            display: table;
+            margin: 15px auto;
+            position: relative;
+            float: right;
+        }
 
-@section Styles {
-    <style type="text/css">
-        .width{
-            width:40%;
+        .width {
+            width: 60%;
         }
     </style>
 }
+
 <div class="page">
     <div class="page-wrap">
-        <div class="panel panel-default panel-hovered panel-stacked mb10">
-           
-            <div class="panel-heading">
-                Applied Leave List
-            </div>
-        </div>
-            <div class="">
-                <div class="panel-group" id="accordionDemo">
-                    @for (var i = 0; i < Model.Count(); i++)
-                    {
-                        <div class="panel panel-default">
-                          
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        <a href="#collapse@(i)"
-                                           data-toggle="collapse"
-                                           class="collapsed"
-                                           data-parent="#accordionDemo">
-                                            <b style="font-weight:bold;">@Model.ElementAt(i).BranchName</b>
-                                            <span class="pull-right clearfix"><i class="fa fa-plus"></i></span>
-                                        </a>
-                                    </h3>
-                                </div>
-                                <div class="panel-collapse collapse" id="collapse@(i)">
-                                    <div class="center-block width">
-                                        <div class="panel-body">
-                                            <div>
-                                                @if (Model.ElementAt(i) != null && Model.ElementAt(i).employeeLeaveList.Count() > 0)
-                                                {
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>EmployeeName</th>
-                                                                <th>From Date</th>
-                                                                <th>To Date</th>
-                                                                <th>Status</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
-                                                            {
-                                                                <tr>
-                                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeName</td>
-                                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate.Date.ToString("dd/MM/yyyy")</td>
-                                                                    <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate.ToString("dd/MM/yyyy")</td>
-                                                                    @if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEAPPROVED)
-                                                                    {
-                                                                        <td class="control-label">
-                                                                            <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
-                                                                        </td>
-                                                                    }
-                                                                    else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEREJECTED)
-                                                                    {
-                                                                        <td class="control-label">
-                                                                            <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
-                                                                        </td>
-                                                                    }
-                                                                    else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVECANCELLED)
-                                                                    {
-                                                                        <td class="control-label">
-                                                                            <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
-                                                                        </td>
-                                                                    }
-                                                                    else if (string.IsNullOrWhiteSpace(Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status))
-                                                                    {
-                                                                        <td class="control-label">
-                                                                            <span class="label label-info" style="font-weight:bold;font-size:12px;">Pending</span>
-                                                                        </td>
-                                                                    }
-                                                                    else if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEPENDING)
-                                                                    {
-                                                                        <td class="control-label">
-                                                                            <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status</span>
-                                                                        </td>
-                                                                    }
-                                                                </tr>
-                                                            }
-                                                            @*@for (var j = 0; j < Model.ElementAt(i).employeeLeaveList.Count(); j++)
+        <div class="panel panel-default">
+            <div class="center-block width">
+                <div class="panel-heading">
+                    Applied LeaveList Status
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                            {
+                                using (Html.BeginForm("AppliedLeaveList", "Leave", FormMethod.Get, new { id = "appliedleavelist", name = "appliedleavelist" }))
                                 {
-                                        WebGrid grid = new WebGrid(Model.ElementAt(i).employeeLeaveList);
-                                        grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-sm");
-                                @grid.GetHtml(
-                                              columns: grid.Columns(
-                                              grid.Column("EmployeeId", "EmployeeId", canSort: true),
-                                              grid.Column("FromDate", "From Date", canSort: true),
-                                              grid.Column("ToDate", "To Date", canSort: true)),
-                                              tableStyle: "table table-condensed")
-                                    }*@
+                                    @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm", onchange = "getappliedlist(this)" })
+                                }
+                            }
+                        </div>
+                    </div>
+                    <table class="table table-conden table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Employee Name
+                                </th>
+                                <th>
+                                    From Date
+                                </th>
+                                <th>
+                                    To Date
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
 
-                                                        </tbody>
-                                                    </table>
-                                                }
-                                                else
-                                                {
-                                                    <div><p>No records found..</p></div>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                            </div>
-                    }
-                </div>
+                        @for (var i = 0; i < Model.TableData.Count(); i++)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Model.TableData[i].EmployeeName
+                                    </td>
+                                    <td>
+                                        @Model.TableData[i].FromDate.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>
+                                        @Model.TableData[i].ToDate.ToString("dd/MM/yyyy")
+                                    </td>
+                                        @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
+                                        {
+                                            <td class="control-label">
+                                                <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                            </td>
+                                        }
+                                        else if(Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
+                                        {
+                                        <td class="control-label">
+                                            <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                        </td>
+                                        }
+                                        else if (Model.TableData[i].Status == UTILITY.LEAVEPENDING)
+                                        {
+                                            <td class="control-label">
+                                                <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                            </td>
+                                        }
+                                        else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
+                                        {
+                                            <td class="control-label">
+                                                <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                            </td>
+                                        }
+                                        else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
+                                        {
+                                            <td class="control-label">
+                                                <span class="label label-info" style="font-weight:bold;font-size:12px;">Pending</span>
+                                            </td>
+                                        }
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="pagination"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-@section scripts{
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            $('#li_Leave').addClass('open');
-            $('#li_appliedleavelist').addClass('active');
-        })
+            $('#li_PayRollConfig').addClass('open');
+            $('#li_ContributionRegisterList').addClass('active');
+            var branchid=$('#BranchId').val();
+            $('#pagination').bootpag({
+                total: @Model.PageLength,
+                page: @Model.CurrentPage,
+                maxVisible: 10,
+                href: '@Url.Content("~/Leave/AppliedLeaveList?page="){{number}}' + '&branchid=' +branchid,  //"#pro-page-{{number}}",
+                leaps: false,
+                next: 'Next',
+                prev: 'Prev',
+                wrapClass: 'pagination pagination-sm'
+            }).on('page', function (event, num) {
+                $(".content3").html("Page " + num); // or some ajax content loading...
+            });
+        });
+       
+        function getappliedlist(el) {
+            $('#appliedleavelist').submit();
+        }
+
+
     </script>
     }

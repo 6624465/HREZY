@@ -129,45 +129,45 @@ namespace HR.Web.Controllers
         }
 
         #endregion
-        public ViewResult AppliedLeaveList()
+        public ViewResult AppliedLeaveList(int page=1,int branchid=0)
         {
-            string viewName = string.Empty;
-            using (var dbCntx = new HrDataContext())
+            ViewData["RoleCode"] = ROLECODE;
+            var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+            int skip = (page - 1) * offset;
+            List<EmpLeaveListVm> list = new List<EmpLeaveListVm>();
+            using (var dbcntx=new HrDataContext())
             {
-                IQueryable<Branch> branchList = null;
+               
+                    var query = dbcntx.EmployeeHeaders.Join(
+                        dbcntx.EmployeeLeaveLists,
+                        a => a.EmployeeId, b => b.EmployeeId,
+                        (a, b) => new { A = a, B = b })
+                        .Select(x => new EmpLeaveListVm {
+                            EmployeeId = x.B.EmployeeId,
+                            EmployeeName = x.A.FirstName + "" + x.A.LastName,
+                            FromDate = x.B.FromDate,
+                            ToDate = x.B.ToDate,
+                            Status = x.B.Status,
+                            Branchid=x.B.BranchId,
+                        }).ToList();
                 if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {
-                    branchList = dbCntx.Branches;
+                    list = query.Where(x => x.Branchid == branchid).OrderBy(x=>x.Branchid).ToList();
                 }
-                else if (ROLECODE == UTILITY.ROLE_ADMIN)
+                else
                 {
-                    branchList = dbCntx.Branches.Where(x => x.BranchID == BRANCHID);
+                    list = query.Where(x => x.Branchid == BRANCHID).ToList();
                 }
-
-                var empLeaveList = branchList.GroupJoin(dbCntx.EmployeeLeaveLists.
-                    empLeaveListWhere(ROLECODE, BRANCHID, EMPLOYEEID, ref viewName),
-                        a => a.BranchID, b => b.BranchId, (a, b) => new { A = a, B = b.AsEnumerable() })
-
-                        .Select(x => new AppliedLeaveListVm
-                        {
-                            BranchID = x.A.BranchID,
-                            BranchName = x.A.BranchName,
-                            employeeLeaveList = x.B.Select(y => new EmpLeaveListVm
-                            {
-                                EmployeeName = dbCntx.EmployeeHeaders.Where(m => m.EmployeeId == y.EmployeeId).Select(z => new
-                                {
-                                    EmployeeFullName = z.FirstName + " " + z.LastName,
-
-                                }).FirstOrDefault().EmployeeFullName,
-                                EmployeeId = y.EmployeeId,
-                                FromDate = y.FromDate,
-                                ToDate = y.ToDate,
-                                Status = y.Status
-                            })
-                        }).ToList();
-
-                return View(viewName, empLeaveList);
             }
+
+            var count = list.Count();
+            decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+            HtmlTblVm<EmpLeaveListVm> HtmlTblVm = new HtmlTblVm<EmpLeaveListVm>();
+            HtmlTblVm.TableData = list.Skip(skip).Take(offset).ToList();
+            HtmlTblVm.TotalRows = count;
+            HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+            HtmlTblVm.CurrentPage = page;
+            return View(HtmlTblVm);
         }
 
         public JsonResult GetBranchLeaveData(int branchId, int pageNo)

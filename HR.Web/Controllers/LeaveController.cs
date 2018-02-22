@@ -759,25 +759,6 @@ namespace HR.Web.Controllers
 
             using (HrDataContext dbContext = new HrDataContext())
             {
-                //var leaves = dbContext.Leaves.Join(dbContext.Branches,
-                //    a => a.BranchId, b => b.BranchID,
-                //    (a, b) => new { A = a, B = b }).Select(x => new LeavepolicyVm
-                //    {
-                //        LeaveId = x.A.LeaveId,
-                //        PaidLeavesPerYear = x.A.PaidLeavesPerYear,
-                //        PaidLeavesPerMonth = x.A.PaidLeavesPerMonth,
-                //        IsPaidLeaveCarryForward = x.A.IsPaidLeaveCarryForward,
-                //        CarryFarwardPerYear = x.A.CarryForwardPerYear,
-                //        SickLeavesPerYear = x.A.SickLeavesPerYear,
-                //        SickLeavesPerMonth = x.A.SickLeavesPerMonth,
-                //        IsSickLeaveCarryFarward = x.A.IsSickLeaveCarryForward,
-                //        CarryFarwardSickLeaves = x.A.CarryForwardSickLeaves,
-                //        CasualLeavesPerYear = x.A.CasualLeavesPerYear,
-                //        CasualLeavesPerMonth = x.A.CasualLeavesPerMonth,
-                //        IsCasualLeaveCarryFarward = x.A.IsCasualLeaveCarryForward,
-                //        BranchId = x.A.BranchId,
-                //        BranchName = x.B.BranchName
-                //    }).ToList();
                 List<Branch> Branches = dbContext.Branches.ToList();
                 List<LeavepolicyVm> leave = new List<LeavepolicyVm>();
                 foreach (Branch item in Branches)

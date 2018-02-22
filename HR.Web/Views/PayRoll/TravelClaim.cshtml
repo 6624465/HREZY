@@ -73,8 +73,9 @@
             position: absolute !important;
             z-index: 5000 !important;
         }
-        .multiselecterr{
-           border-bottom:1px solid red;
+
+        .multiselecterr {
+            border-bottom: 1px solid red;
         }
     </style>
 }
@@ -97,7 +98,7 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">From Date</span>
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="input-group date dtCss dtCssFromDate" id="FromDate">
                                     @Html.TextBoxFor(x => x.claimHeader.FromDate,
                                    new { @class = "form-control dtCssTxt input-sm" })
@@ -110,7 +111,7 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">To Date</span>
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="input-group date dtCss dtCssToDate" id="ToDate">
                                     @Html.TextBoxFor(x => x.claimHeader.ToDate,
                                    new { @class = "form-control dtCssTxt input-sm" })
@@ -120,19 +121,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row css5">  
-                            
+                        <div class="row css5">
+
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Country Visited</span>
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
                             </div>
 
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">No Of Days</span>
                             </label>
-                            <div class="col-md-4" id="noofdays">
+                            <div class="col-md-2" id="noofdays">
                                 @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
                             </div>
 
@@ -324,7 +325,7 @@
         }
 
         function showAccomdation(obj) {
-          
+
             var value = $('#' + obj.id).val() ==undefined ? $('#claimDetail_'+obj+'__Category').val() : $('#' + obj.id).val() ;
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
             if (value == "ACCOMMODATION") {
@@ -366,7 +367,7 @@
                 format: dateFormat
             });
 
-           
+
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
                 $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
@@ -400,7 +401,7 @@
         $('#claimHeader_CountryVisited').on('change',function(e){
             debugger;
             $('.multiselect').removeClass('multiselecterr');
-           // var title =$('.multiselect-selected-text').text();
+            // var title =$('.multiselect-selected-text').text();
         });
 
         $('#frmClaim').validate({
@@ -437,13 +438,13 @@
             }
             else
             {
-                
+
                 var title =$('.multiselect').attr('title');
                 if(title=='None selected')
                     $('.multiselect').addClass('multiselecterr');
                 else
                     $('.multiselect').removeClass('multiselecterr');
-                
+
             }
         }
 

@@ -119,7 +119,7 @@ namespace HR.Web.Controllers
                             (e, f) => new { E = e, F = f })
                             .Join(dbCntx.EmployeeDocumentDetails,
                             g=>g.E.C.A.EmployeeId,h=>h.EmployeeId,
-                            (g,h)=> new { G=g,H=h})
+                            (g,h)=> new { G=g,H=h}).Where(y=>y.H.DocumentType==UTILITY.FILEID)
                             .Select(x => new EmployeeListVm
                             {
                                 EmployeeId = x.G.E.C.A.EmployeeId,
@@ -133,12 +133,14 @@ namespace HR.Web.Controllers
                                 PersonalEmailId = x.G.F.Email,
                                 OfficialEmailId = x.G.F.Email,
                                 DocumentDetailID = x.H.DocumentDetailID,
-                                DateOfBirth = x.G.E.C.B.DOB
+                                DateOfBirth = x.G.E.C.B.DOB,
+                                branchid=x.G.E.C.A.BranchId
                             });
-                var query = list.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(offSet).ToList().AsEnumerable();
+                var emplist = list.Where(x => x.branchid == BRANCHID).ToList();
+                var query = emplist.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(offSet).ToList().AsEnumerable();
 
 
-                var totalCount = list.Count();
+                var totalCount = emplist.Count();
 
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalCount), Convert.ToDecimal(offSet));
                 decimal pagnationRound = Math.Ceiling(Convert.ToDecimal(pagerLength));

@@ -18,6 +18,6 @@ namespace HR.Web.ViewModels
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePic { get; set; }
         public int DocumentDetailID { get; set; }
-
+        public int branchid { get; set; }
     }
 }

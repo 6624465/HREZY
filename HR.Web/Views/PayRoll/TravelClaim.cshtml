@@ -73,8 +73,9 @@
             position: absolute !important;
             z-index: 5000 !important;
         }
-        .multiselecterr{
-           border-bottom:1px solid red;
+
+        .multiselecterr {
+            border-bottom: 1px solid red;
         }
         .btn .caret{
            
@@ -139,8 +140,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row css5">  
-                            
+                        <div class="row css5">
+
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Country Visited</span>
                             </label>
@@ -343,7 +344,7 @@
         }
 
         function showAccomdation(obj) {
-          
+
             var value = $('#' + obj.id).val() ==undefined ? $('#claimDetail_'+obj+'__Category').val() : $('#' + obj.id).val() ;
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
             if (value == "ACCOMMODATION") {
@@ -385,7 +386,7 @@
                 format: dateFormat
             });
 
-           
+
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
                 $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
@@ -419,7 +420,7 @@
         $('#claimHeader_CountryVisited').on('change',function(e){
             debugger;
             $('.multiselect').removeClass('multiselecterr');
-           // var title =$('.multiselect-selected-text').text();
+            // var title =$('.multiselect-selected-text').text();
         });
 
         $('#frmClaim').validate({
@@ -456,13 +457,13 @@
             }
             else
             {
-                
+
                 var title =$('.multiselect').attr('title');
                 if(title=='None selected')
                     $('.multiselect').addClass('multiselecterr');
                 else
                     $('.multiselect').removeClass('multiselecterr');
-                
+
             }
         }
 

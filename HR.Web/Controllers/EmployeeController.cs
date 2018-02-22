@@ -133,7 +133,8 @@ namespace HR.Web.Controllers
                                 OfficialEmailId = x.G.F.Email,
                                 DocumentDetailID = x.H.DocumentDetailID,
                                 DateOfBirth = x.G.E.C.B.DOB,
-                                branchid=x.G.E.C.A.BranchId
+                                branchid=x.G.E.C.A.BranchId,
+                                ProfilePic=x.H.FileName
                             });
                 var emplist = list.Where(x => x.branchid == BRANCHID).ToList();
                 var query = emplist.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(offSet).ToList().AsEnumerable();

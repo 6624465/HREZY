@@ -296,7 +296,7 @@
             else
                 promise = SearchEmployee();
             $.when(promise).done(function (data) {
-
+                debugger;
                 getDataCallBack(data);
                 $('#pagination').bootpag({
                     total: data.PagerLength,

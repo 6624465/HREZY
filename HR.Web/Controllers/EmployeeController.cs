@@ -132,15 +132,15 @@ namespace HR.Web.Controllers
                                 PersonalEmailId = x.F.Email,
                                 OfficialEmailId = x.F.Email,
                                 DocumentDetailID = dbCntx.EmployeeDocumentDetails
-                                .Where(z => z.DocumentType == UTILITY.FILEID).FirstOrDefault() == null ? 0 :
+                                .Where(z => z.DocumentType == UTILITY.FILEID && z.EmployeeId== x.E.C.A.EmployeeId).FirstOrDefault() == null ? 0 :
                                 dbCntx.EmployeeDocumentDetails
-                                .Where(z => z.DocumentType == UTILITY.FILEID).FirstOrDefault().DocumentDetailID,//x.H.DocumentDetailID,
+                                .Where(z => z.DocumentType == UTILITY.FILEID && z.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().DocumentDetailID,//x.H.DocumentDetailID,
                                 DateOfBirth = x.E.C.B.DOB,
                                 branchid = x.E.C.A.BranchId,
                                 ProfilePic = dbCntx.EmployeeDocumentDetails
-                                .Where(a => a.DocumentType == UTILITY.FILEID).FirstOrDefault() == null ?  "" :
+                                .Where(a => a.DocumentType == UTILITY.FILEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault() == null ?  "" :
                                 dbCntx.EmployeeDocumentDetails
-                                .Where(a=> a.DocumentType == UTILITY.FILEID).FirstOrDefault().FileName
+                                .Where(a=> a.DocumentType == UTILITY.FILEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().FileName
                             });
                 var emplist = list.Where(x => x.branchid == BRANCHID).ToList();
                 var query = emplist.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(offSet).ToList().AsEnumerable();

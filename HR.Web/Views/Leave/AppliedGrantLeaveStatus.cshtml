@@ -148,9 +148,6 @@
                 $('#popover').find('input[id=txtContent]').attr('value', anchorText);
                 return $('#popover').html();
             },
-           
-            
-        
         });
        
     });
@@ -161,14 +158,13 @@
         
    
     function RejectLeave() {
-        debugger;
         $('#frmLeaveStatus').attr('action', '@Url.Content("~/Leave/RejectLeave")')
 
         $('#frmLeaveStatus').submit();
 
     }
     function Close() {
-        $('#popover').popover('hide')
+        $('[data-toggle="popover"]').popover('hide');
         }
    
 </script>

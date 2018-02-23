@@ -18,14 +18,14 @@
         {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", onblur = "checkStatus(this)" })
+            new { @class = "form-control input-sm", onblur = "checkStatus(this)", @maxlength = "50" })
                 <label id="error">Employee Status Already Exists.</label>
             </div>
         }
         else {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm"})
+            new { @class = "form-control input-sm", @maxlength = "50" })
             </div>
         }
        
@@ -38,7 +38,7 @@
         </label>
         <div class="col-md-8">
             @Html.TextAreaFor(x => x.LookUpDescription,
-            new { @class = "form-control input-sm" })
+            new { @class = "form-control input-sm", @maxlength = "50" })
         </div>
     </div>
 </div>

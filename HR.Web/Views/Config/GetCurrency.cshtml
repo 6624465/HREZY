@@ -15,7 +15,7 @@
         {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", onblur = "checkCurrency(this)" })
+            new { @class = "form-control input-sm", onblur = "checkCurrency(this)", @maxlength = "50" })
                 <label id="error">Currency Already Exists.</label>
             </div>
         }
@@ -23,7 +23,7 @@
         {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm decimalCss" })
+            new { @class = "form-control input-sm decimalCss", @maxlength = "50" })
             </div>
 
         }
@@ -38,7 +38,7 @@
         <div class="col-md-8">
             @Html.TextAreaFor(x => x.LookUpDescription,
 
-            new { @class = "form-control input-sm" })
+            new { @class = "form-control input-sm", @maxlength = "50" })
         </div>
     </div>
 </div>

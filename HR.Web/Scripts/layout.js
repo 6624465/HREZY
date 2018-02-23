@@ -151,9 +151,6 @@
             return false;
     })
 
-    
-   
-
    
     $.ajaxSetup({
         error: function (x, e) {
@@ -240,3 +237,17 @@ function onNavBarClick() {
         createCookie('NavBarCookie', 'close', 300);
     }    
 }
+//$('.maxlength').keypress(function (e) {
+//    debugger;
+//    var maxLength = $('.maxlength').attr('maxlength');
+    
+//    var Value = e.target.value;
+//    var length = Value.length;
+//    if (length >= 30) {
+//        e.preventDefault();
+//        return false;
+//    }
+//    else {
+//        return true;
+//    }
+//});

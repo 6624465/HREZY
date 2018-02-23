@@ -16,7 +16,7 @@
         {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", onblur = "checkPaymentType(this)" })
+            new { @class = "form-control input-sm", onblur = "checkPaymentType(this)", @maxlength = "50" })
                 <label id="error">Payment Type Already Exists.</label>
             </div>
         }
@@ -24,7 +24,7 @@
         {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm"})
+            new { @class = "form-control input-sm", @maxlength = "50" })
             </div>
         }
 
@@ -37,7 +37,7 @@
         </label>
         <div class="col-md-8">
             @Html.TextAreaFor(x => x.LookUpDescription,
-            new { @class = "form-control input-sm" })
+            new { @class = "form-control input-sm", @maxlength="50" })
         </div>
     </div>
 </div>

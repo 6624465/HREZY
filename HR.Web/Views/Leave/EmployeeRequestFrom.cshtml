@@ -160,7 +160,7 @@
                                     <span class="pull-right">Reason</span>
                                 </label>
                                 <div class="col-md-6">
-                                    @Html.TextAreaFor(x => x.Reason, new { @class = "form-control input-sm", maxlength = "500" })
+                                    @Html.TextAreaFor(x => x.Reason, new { @class = "form-control input-sm", @maxlength = "500" })
                                 </div>
                                 <div class="col-md-3">
                                 </div>
@@ -287,6 +287,9 @@
         });
         //var date = new Date('12/01/2017');
         var date = new Date();
+        var year =(new Date()).getFullYear();
+        var month=(new Date()).getMonth();
+        var daet=(new Date()).getDate();
         $('.dtCss').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',
@@ -298,7 +301,8 @@
 
             },
             format: dateFormat,
-            minDate: date
+            minDate: date,
+            maxDate: new Date(year+1,month,daet)
         });
 
         

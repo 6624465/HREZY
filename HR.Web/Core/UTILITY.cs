@@ -100,6 +100,16 @@ namespace HR.Web
         public static int FILEID = 1112;
         public static string BASICSALARYCOMPONENT = "BASIC";
 
+        // Travel Claim Categories
+        public static string AIRFARE = "AIRFARE";
+        public static string VISA = "VISA";
+        public static string ACCOMMODATION = "ACCOMMODATION";
+        public static string TAXILOCAL = "TAXILOCAL";
+        public static string TAXIOVERSEAS = "TAXIOVERSEAS";
+        public static string FOODBILLSLOCAL = "FOODBILLSLOCAL";
+        public static string FOODBILLSOVERSEAS = "FOODBILLSOVERSEAS";
+        public static string OTHEREXPENSES = "OTHEREXPENSES";
+
         /* Config Keys End */
 
         public static DateTime SINGAPORETIME

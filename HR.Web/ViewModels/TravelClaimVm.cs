@@ -9,12 +9,17 @@ namespace HR.Web.ViewModels
     public class TravelClaimVm
     {
         public TravelClaimHeader claimHeader { get; set; }
-        public List<TravelClaimDetail> claimDetail { get; set; }
-
-      //  public List<TravelClaimDetailVm> claimDetailVm { get; set; }
+        public List<TravelDetailAirfareVm> claimDetailAirfareVm { get; set; }
+        public List<TravelDetailVisaVm> claimDetailVisaVm { get; set; }
+        public List<TravelDetailAccomdationVm> claimDetailAccomdationVm { get; set; }
+        public List<TravelDetailTaxiLocalVm> claimDetailTaxiLocalVm { get; set; }
+        public List<TravelDetailTaxiOverseasVm> claimDetailTaxiOverseasVm { get; set; }
+        public List<TravelDetailFoodLocalVm> claimDetailFoodLocalVm { get; set; }
+        public List<TravelDetailFoodOverseasVm> claimDetailFoodOverseasVm { get; set; }
+        public List<TravelDetailOtherExpensesVm> claimDetailOtherExpensesVm { get; set; }
     }
 
-    public class TravelClaimDetailVm
+    public class TravelDetailAirfareVm
     {
         public string LookUpCode { get; set; }
         public int TravelClaimDetailId { get; set; }
@@ -38,6 +43,173 @@ namespace HR.Web.ViewModels
         public int DepartureTime { get; set; }
     }
 
+    public class TravelDetailVisaVm
+    {
+        public string LookUpCode { get; set; }
+        public int TravelClaimDetailId { get; set; }
+        public int? TravelClaimId { get; set; }
+        public string Category { get; set; }
+        public DateTime? TravelDate { get; set; }
+        public string Perticulars { get; set; }
+        public bool? Receipts { get; set; }
+        public decimal? Amount { get; set; }
+        public string Currency { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public decimal? TotalInSGD { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public int BranchId { get; set; }
+
+        public int DepartureTime { get; set; }
+    }
+
+    public class TravelDetailAccomdationVm
+    {
+        public string LookUpCode { get; set; }
+        public int TravelClaimDetailId { get; set; }
+        public int? TravelClaimId { get; set; }
+        public string Category { get; set; }
+        public DateTime? TravelDate { get; set; }
+        public string Perticulars { get; set; }
+        public bool? Receipts { get; set; }
+        public decimal? Amount { get; set; }
+        public string Currency { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public decimal? TotalInSGD { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public int BranchId { get; set; }
+
+        public int DepartureTime { get; set; }
+    }
+
+    public class TravelDetailTaxiLocalVm
+    {
+        public string LookUpCode { get; set; }
+        public int TravelClaimDetailId { get; set; }
+        public int? TravelClaimId { get; set; }
+        public string Category { get; set; }
+        public DateTime? TravelDate { get; set; }
+        public string Perticulars { get; set; }
+        public bool? Receipts { get; set; }
+        public decimal? Amount { get; set; }
+        public string Currency { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public decimal? TotalInSGD { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public int BranchId { get; set; }
+
+        public int DepartureTime { get; set; }
+    }
+
+    public class TravelDetailTaxiOverseasVm
+    {
+        public string LookUpCode { get; set; }
+        public int TravelClaimDetailId { get; set; }
+        public int? TravelClaimId { get; set; }
+        public string Category { get; set; }
+        public DateTime? TravelDate { get; set; }
+        public string Perticulars { get; set; }
+        public bool? Receipts { get; set; }
+        public decimal? Amount { get; set; }
+        public string Currency { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public decimal? TotalInSGD { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public int BranchId { get; set; }
+
+        public int DepartureTime { get; set; }
+    }
+
+    public class TravelDetailFoodLocalVm
+    {
+        public string LookUpCode { get; set; }
+        public int TravelClaimDetailId { get; set; }
+        public int? TravelClaimId { get; set; }
+        public string Category { get; set; }
+        public DateTime? TravelDate { get; set; }
+        public string Perticulars { get; set; }
+        public bool? Receipts { get; set; }
+        public decimal? Amount { get; set; }
+        public string Currency { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public decimal? TotalInSGD { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public int BranchId { get; set; }
+
+        public int DepartureTime { get; set; }
+    }
+
+    public class TravelDetailFoodOverseasVm
+    {
+        public string LookUpCode { get; set; }
+        public int TravelClaimDetailId { get; set; }
+        public int? TravelClaimId { get; set; }
+        public string Category { get; set; }
+        public DateTime? TravelDate { get; set; }
+        public string Perticulars { get; set; }
+        public bool? Receipts { get; set; }
+        public decimal? Amount { get; set; }
+        public string Currency { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public decimal? TotalInSGD { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public int BranchId { get; set; }
+
+        public int DepartureTime { get; set; }
+    }
+
+    public class TravelDetailOtherExpensesVm
+    {
+        public string LookUpCode { get; set; }
+        public int TravelClaimDetailId { get; set; }
+        public int? TravelClaimId { get; set; }
+        public string Category { get; set; }
+        public DateTime? TravelDate { get; set; }
+        public string Perticulars { get; set; }
+        public bool? Receipts { get; set; }
+        public decimal? Amount { get; set; }
+        public string Currency { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public decimal? TotalInSGD { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public int BranchId { get; set; }
+
+        public int DepartureTime { get; set; }
+    }
     public class LookupObj
     {
         public List<string> Code = new List<string>() {

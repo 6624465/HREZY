@@ -35,13 +35,13 @@
                         <thead>
                             <tr>
                                 <th>
-                                    No Of Days
+                                    Submitted On
                                 </th>
                                 <th>
-                                    Created On
+                                    Status
                                 </th>
                                 <th>
-                                    #Action
+                                   #Action
                                 </th>
                             </tr>
                         </thead>
@@ -51,7 +51,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Model.TableData[i].NoOfDays
+                                        @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
                                     </td>
                                     <td>
                                         @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
@@ -61,6 +61,9 @@
                                                 style="padding-left: 5px;margin-left: 6px;"
                                                 onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=" + Model.TableData[i].TravelClaimId)'">
                                             <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                        </button>
+                                        <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" >
+                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                         </button>
 
                                     </td>

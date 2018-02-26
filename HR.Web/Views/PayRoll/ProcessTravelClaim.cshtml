@@ -1,110 +1,77 @@
-﻿
-@{
-    ViewBag.Title = "ProcessTravelClaim";
-}
+﻿@model IEnumerable<HR.Web.Models.TravelClaimHeader>
 
-<h2>ProcessTravelClaim</h2>
 
-@using (Html.BeginForm("ProcessTravelClaim", "PayRoll", FormMethod.Get,
-                new { id = "frmProcessTravelClaim", name = "frmProcessTravelClaim" }))
-{
-    <div class="page">
-        <div class="page-wrap">
-            <div class="panel panel-default panel-hovered panel-stacked mb10">
-               
-                    <div class="panel-heading">
-                        Process Travel Claim
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered" style="margin-top:10px">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th style="white-space:nowrap">Employee Name</th>
-                                    <th style="white-space:nowrap">From Date</th>
-                                    <th>To Date</th>
-                                    <th>Gross Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" />
-                                    </td>
-                                    <td>
-                                        REUBEN
-                                    </td>
-                                    <td>
-                                        10/02/2018
-                                    </td>
-                                    <td>
-                                        07/02/2018
-                                    </td>
-                                    <td>
-                                        100000.00
-                                    </td>
-                                </tr>
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="center-block width">
+                <div class="panel-heading">
+                    Process Travel Claim
+                </div>
+                <div class="panel-body">
+                    <table class="table table-conden table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                   
+                                </th>
+                                <th>
+                                   TravelClaim No
+                                </th>
+                                <th>
+                                   Employee Name
+                                </th>
+                                <th>Submission Date</th>
+                                <th>Total Claim</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < Model.Count(); i++)
+                            {
+                                @Html.HiddenFor(x=>x.ElementAt(i).BranchId)
+                                
                                 <tr>
                                     <td>
                                         <input type="checkbox" />
                                     </td>
                                     <td>
-                                        JOHN
+                                        @Model.ElementAt(i).TravelClaimId
+                                    </td>
+                                    <td>@Model.ElementAt(i).Name</td>
+                                    <td>@Model.ElementAt(i).CreatedOn.Value.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        @Model.ElementAt(i).GrossTotal
                                     </td>
                                     <td>
-                                        15/02/2018
-                                    </td>
-                                    <td>
-                                        07/02/2018
-                                    </td>
-                                    <td>
-                                        75000.00
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-eye"></i>
+                                            View
+                                        </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" />
-                                    </td>
-                                    <td>
-                                        PETER
-                                    </td>
-                                    <td>
-                                        12/02/2018
-                                    </td>
-                                    <td>
-                                        07/02/2018
-                                    </td>
-                                    <td>
-                                        50000.00
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" />
-                                    </td>
-                                    <td>
-                                        ALEX
-                                    </td>
-                                    <td>
-                                        07/02/2018
-                                    </td>
-                                    <td>
-                                        20/02/2018
-                                    </td>
-                                    <td>
-                                        20000.00
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-primary btn-sm">
-                            <i class="fa fa-floppy-o"></i>
-                            Approve
-                        </button>
-                    </div>
-                   
+                            }
+                            
+                        </tbody>
+                       
+                    </table>
+               <div class="row">
+                   <div class="col-md-12">
+                       <button class="btn btn-primary btn-sm">
+                           <i class="fa fa-floppy-o"></i>
+                           Approve
+                       </button>
+                       <button class="btn btn-primary btn-sm">
+                           <i class="fa fa-trash-o"></i>
+                           Reject
+                       </button>
+                   </div>
+               </div>
                 </div>
             </div>
         </div>
-  
-}
+
+    </div>
+</div>
+
+   

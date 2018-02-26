@@ -29,5 +29,6 @@ namespace HR.Web.Models
         public int EmployeeId { get; set; }
         public int BranchId { get; set; }
         public bool IsApproved { get; set; }
+        public string Status { get; set; }
     }
 }

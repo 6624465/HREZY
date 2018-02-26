@@ -35,13 +35,13 @@
                         <thead>
                             <tr>
                                 <th>
-                                    No Of Days
+                                    Submitted On
                                 </th>
                                 <th>
-                                    Created On
+                                    Status
                                 </th>
                                 <th>
-                                    #Action
+                                   #Action
                                 </th>
                             </tr>
                         </thead>
@@ -51,16 +51,42 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Model.TableData[i].NoOfDays
-                                    </td>
-                                    <td>
                                         @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
                                     </td>
+                                       <td>
+                                           @if (Model.TableData[i].Status==UTILITY.TRAVELCLAIMSAVED)
+                                           {
+                                               <label class="control-label">
+                                                    <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                               </label>
+                                           }
+                                           else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED)
+                                           {
+                                            <label class="control-label">
+                                                <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                            </label>
+                                           }
+                                           else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMAPPROVED)
+                                           {
+                                            <label class="control-label">
+                                                <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                            </label>
+                                           }
+                                           else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMREJECTED)
+                                           {
+                                            <label class="control-label">
+                                                <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                            </label>
+                                           }
+                                       </td>
                                     <td>
                                         <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss"
                                                 style="padding-left: 5px;margin-left: 6px;"
                                                 onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=" + Model.TableData[i].TravelClaimId)'">
                                             <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                        </button>
+                                        <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" >
+                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                         </button>
 
                                     </td>

@@ -34,6 +34,7 @@ namespace HR.Web.Services.Payroll
                         travelClaimHeader.Name = entity.Name;
                         travelClaimHeader.NoOfDays = entity.NoOfDays;
                         travelClaimHeader.ToDate = entity.ToDate;
+                        travelClaimHeader.Status = entity.Status;
                     }
                     dbContext.SaveChanges();
                 }

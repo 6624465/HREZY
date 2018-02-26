@@ -100,6 +100,12 @@ namespace HR.Web
         public static int FILEID = 1112;
         public static string BASICSALARYCOMPONENT = "BASIC";
 
+
+        public static string TRAVELCLAIMSAVED = "SAVED";
+        public static string TRAVELCLAIMSUBMITTED = "SUBMITTED";
+        public static string TRAVELCLAIMAPPROVED = "APPROVED";
+        public static string TRAVELCLAIMREJECTED = "REJECTED";
+
         /* Config Keys End */
 
         public static DateTime SINGAPORETIME

@@ -790,7 +790,8 @@ namespace HR.Web.Controllers
 
         public ActionResult ProcessTravelClaim()
         {
-            return View();
+            var travelobj = travelClaimHeaderBO.GetListByProperty(x=>x.BranchId == BRANCHID);
+            return View(travelobj);
         }
     }
 }

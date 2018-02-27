@@ -831,5 +831,15 @@ namespace HR.Web.Controllers
             var travelobj = travelClaimHeaderBO.GetListByProperty(x=>x.BranchId == BRANCHID);
             return View(travelobj);
         }
+        public ActionResult ApproveTravelClaim(TravelClaimHeader travelclaim)
+        {
+            travelClaimHeaderBO.ApproveTravelClaim(travelclaim);
+            return RedirectToAction("ProcessTravelClaim");
+        }
+        public ActionResult RejectTravelClaim(TravelClaimHeader TravelClaim)
+        {
+            travelClaimHeaderBO.RejectTravelClaim(TravelClaim);
+            return RedirectToAction("ProcessTravelClaim");
+        }
     }
 }

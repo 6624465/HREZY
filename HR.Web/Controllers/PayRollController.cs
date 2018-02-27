@@ -712,22 +712,21 @@ namespace HR.Web.Controllers
                         Receipts = false
                     }
                 };
-                using (var dbcntx = new HrDataContext())
-                {
-                    //List<LookUp> lookUpList = new List<LookUp>();
-                    //lookUpList = dbcntx.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM && x.IsActive == true).ToList();
-                    //foreach (var item in lookUpList)
-                    //{
-                    //    TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
-                    //    {
-                    //        Category = item.LookUpDescription,
-                    //        Receipts = false
-                    //    };
-                    //    // travelClaimVm.claimDetail.Add(travelClaimDetail);
-                    //}
 
-                    return View(travelClaimVm);
-                }
+                //List<LookUp> lookUpList = new List<LookUp>();
+                //lookUpList = dbcntx.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM && x.IsActive == true).ToList();
+                //foreach (var item in lookUpList)
+                //{
+                //    TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+                //    {
+                //        Category = item.LookUpDescription,
+                //        Receipts = false
+                //    };
+                //    // travelClaimVm.claimDetail.Add(travelClaimDetail);
+                //}
+
+                return View(travelClaimVm);
+
             }
             else
             {
@@ -774,7 +773,7 @@ namespace HR.Web.Controllers
                 case UTILITY.AIRFARE:
                     TravelDetailAirfareVm travelDetailAirfareVm = new TravelDetailAirfareVm()
                     {
-                        Receipts = false                    
+                        Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                         travelClaimVm.claimDetailAirfareVm.RemoveAt(Convert.ToInt32(addOrDelVal));

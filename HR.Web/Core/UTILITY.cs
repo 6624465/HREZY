@@ -112,6 +112,12 @@ namespace HR.Web
 
         /* Config Keys End */
 
+        public static string TRAVELCLAIMSAVED = "SAVED";
+        public static string TRAVELCLAIMSUBMITTED = "SUBMITTED";
+        public static string TRAVELCLAIMAPPROVED = "APPROVED";
+        public static string TRAVELCLAIMREJECTED = "REJECTED";
+
+
         public static DateTime SINGAPORETIME
         {
             get

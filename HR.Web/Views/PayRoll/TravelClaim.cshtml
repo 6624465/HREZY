@@ -889,7 +889,7 @@
                                                         @for (int i = 0; i < Model.claimDetailFoodOverseasVm.Count; i++)
                                                         {
 
-                                                            <tr id="tr_@i" class="cssLength">
+                                                            <tr id="tr_@i" class="cssfoodbillsoverseasLength">
 
                                                                 <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                        name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailFoodOverseasVm[i].TravelClaimDetailId">
@@ -920,12 +920,12 @@
                                                                    @class = "form-control input-sm decimalCss",
                                                                    required = "required",
                                                                    style = "width:100px;",
-                                                                   onblur = "CalculateTotal(this)",
+                                                                   onblur = "CalculatefoodbillsoverseasTotal(this)",
                                                                    data_index = i
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculatefoodbillsoverseasTotal(this)", data_index = i, @required = "required" })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
@@ -936,7 +936,7 @@
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
                                                                             style="padding-left: 5px;margin-left: 6px;"
-                                                                            onclick="deleteClaimDetail(@Model.claimDetailFoodOverseasVm[i].TravelClaimDetailId,@i,'FOODBILLSOVERSEAS')">
+                                                                            onclick="deletefoodbillsoverseasDetail(@Model.claimDetailFoodOverseasVm[i].TravelClaimDetailId,@i,'FOODBILLSOVERSEAS')">
                                                                         <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                                     </button>
                                                                 </td>
@@ -949,7 +949,7 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td><span class="pull-right"><b>Total  </b></span></td>
-                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.claimDetailFoodOverseasTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                                             <td></td>
                                                         </tr>
 
@@ -990,7 +990,7 @@
                                                         @for (int i = 0; i < Model.claimDetailOtherExpensesVm.Count; i++)
                                                         {
 
-                                                            <tr id="tr_@i" class="cssLength">
+                                                            <tr id="tr_@i" class="cssOtherExpensesLength">
 
                                                                 <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                        name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailOtherExpensesVm[i].TravelClaimDetailId">
@@ -1021,7 +1021,7 @@
                                                                    @class = "form-control input-sm decimalCss",
                                                                    required = "required",
                                                                    style = "width:100px;",
-                                                                   onblur = "CalculateTotal(this)",
+                                                                   onblur = "CalculateOtherExpensesTotal(this)",
                                                                    data_index = i
                                                                })
                                                                 </td>
@@ -1031,7 +1031,7 @@
                                                                        {
                                                                            @class = "form-control input-sm",
                                                                            @style = "width:100px;",
-                                                                           @onchange = "CalculateTotal(this)",
+                                                                           @onchange = "CalculateOtherExpensesTotal(this)",
                                                                            data_index = i,
                                                                            @required = "required"
                                                                        })
@@ -1047,7 +1047,7 @@
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
                                                                             style="padding-left: 5px;margin-left: 6px;"
-                                                                            onclick="deleteClaimDetail(@Model.claimDetailOtherExpensesVm[i].TravelClaimDetailId,@i,'OTHEREXPENSES')">
+                                                                            onclick="deleteOtherExpensesDetail(@Model.claimDetailOtherExpensesVm[i].TravelClaimDetailId,@i,'OTHEREXPENSES')">
                                                                         <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                                     </button>
                                                                 </td>
@@ -1060,7 +1060,7 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td><span class="pull-right"><b>Total  </b></span></td>
-                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.claimDetailOtherExpensesTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                                             <td></td>
                                                         </tr>
 
@@ -1682,6 +1682,107 @@
             }
         }
         //calculations for Food Bills Local:end
+        //calculations for Food Bills overseas:end
+        function CalculatefoodbillsoverseasTotal(obj) {
+            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+            var amount = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__Amount').val());
+            var exrate = isNaN($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
+                parseFloat($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val());
+            $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
+            if (isNaN(amount)) {
+                amount = 0;
+            }
+            var exchangeRate = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val());
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 1;
+            }
+            var Total = parseFloat(amount * exchangeRate).toFixed(2);
+            Total = parseFloat(Total).toFixed(2);
+            $('#claimDetailFoodOverseasVm_' + index + '__TotalInSGD').val(Total);
+            debugger;
+            var length = $('.cssfoodbillsoverseasLength').length;
+            var grossTotal = 0;
+            for (var i = 0; i < length; i++) {
+
+                var grossVal = $('#claimDetailFoodOverseasVm_' + i + '__TotalInSGD').val();
+                if (grossVal != null && grossVal != "") {
+                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                }
+                $('#claimHeader_claimDetailFoodOverseasTotal').val(grossTotal.toFixed(2));
+            }
+        }
+
+        function deletefoodbillsoverseasDetail(detailId, index,category){
+            var headerId = $('#claimHeader_TravelClaimId').val();
+            var length = $('.cssfoodbillsoverseasLength').length;
+            if (length > 1) {
+
+                $('#addNewClaim').val(category);
+                $('#addOrDelete').val(index);
+                $('#claimDetailFoodOverseasVm_' + index + '__Perticulars').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__TravelDate').removeAttr('required');
+                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+                $('#frmClaim').submit();
+
+            }
+            else {
+                swal("Message!", "You can not delete because one row should be mandatory");
+            }
+        }
+        //calculations for Food Bills overseas:end
+        //calculations for OtherExpenses:start
+        function  CalculateOtherExpensesTotal(obj) {
+            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+            var amount = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__Amount').val());
+            var exrate = isNaN($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
+                parseFloat($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val());
+            $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
+            if (isNaN(amount)) {
+                amount = 0;
+            }
+            var exchangeRate = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val());
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 1;
+            }
+            var Total = parseFloat(amount * exchangeRate).toFixed(2);
+            Total = parseFloat(Total).toFixed(2);
+            $('#claimDetailFoodOverseasVm_' + index + '__TotalInSGD').val(Total);
+            debugger;
+            var length = $('.cssfoodbillsoverseasLength').length;
+            var grossTotal = 0;
+            for (var i = 0; i < length; i++) {
+
+                var grossVal = $('#claimDetailFoodOverseasVm_' + i + '__TotalInSGD').val();
+                if (grossVal != null && grossVal != "") {
+                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                }
+                $('#claimHeader_claimDetailFoodOverseasTotal').val(grossTotal.toFixed(2));
+            }
+        }
+
+        function deletefoodbillsoverseasDetail(detailId, index,category){
+            var headerId = $('#claimHeader_TravelClaimId').val();
+            var length = $('.cssfoodbillsoverseasLength').length;
+            if (length > 1) {
+
+                $('#addNewClaim').val(category);
+                $('#addOrDelete').val(index);
+                $('#claimDetailFoodOverseasVm_' + index + '__Perticulars').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__TravelDate').removeAttr('required');
+                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+                $('#frmClaim').submit();
+
+            }
+            else {
+                swal("Message!", "You can not delete because one row should be mandatory");
+            }
+        }
+        //calculations for OtherExpenses:end
+       
 
         $('#claimHeader_ToDate').on('blur', function (e) {
             $('#claimHeader_NoOfDays').val('');

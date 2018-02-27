@@ -48,8 +48,8 @@ namespace HR.Web.ViewModels
         public DateTime? CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public DateTime ToDate { get; set; }
-        public DateTime FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
 
         public int DepartureTime { get; set; }

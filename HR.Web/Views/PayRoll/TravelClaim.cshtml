@@ -670,7 +670,7 @@
                                                         @for (int i = 0; i < Model.claimDetailTaxiOverseasVm.Count; i++)
                                                         {
 
-                                                            <tr id="tr_@i" class="cssLength">
+                                                            <tr id="tr_@i" class="csstaxioverseaLength">
 
                                                                 <input id="claimDetail_@(i)__TravelClaimDetailId"
                                                                        name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailTaxiOverseasVm[i].TravelClaimDetailId">
@@ -702,12 +702,12 @@
                                                                    @class = "form-control input-sm decimalCss",
                                                                    required = "required",
                                                                    style = "width:100px;",
-                                                                   onblur = "CalculateTotal(this)",
+                                                                   onblur = "CalculatetaxioverseaTotal(this)",
                                                                    data_index = i
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculatetaxioverseaTotal(this)", data_index = i, @required = "required" })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
@@ -718,7 +718,7 @@
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
                                                                             style="padding-left: 5px;margin-left: 6px;"
-                                                                            onclick="deleteClaimDetail(@Model.claimDetailTaxiOverseasVm[i].TravelClaimDetailId,@i,'TAXIOVERSEAS')">
+                                                                            onclick="deletetaxioverseaDetail(@Model.claimDetailTaxiOverseasVm[i].TravelClaimDetailId,@i,'TAXIOVERSEAS')">
                                                                         <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                                     </button>
                                                                 </td>
@@ -731,7 +731,7 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td><span class="pull-right"><b>Total  </b></span></td>
-                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.claimDetailTaxiOverseasTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                                             <td></td>
                                                         </tr>
 
@@ -1563,7 +1563,57 @@
             }
         }
         //calculations for TaxiFares local:end
+        //calculations for TaxiFares oversea:start
+        function CalculatetaxioverseaTotal(obj) {
+            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+            var amount = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__Amount').val());
+            var exrate = isNaN($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
+                parseFloat($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val());
+            $('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val(exrate);
+            if (isNaN(amount)) {
+                amount = 0;
+            }
+            var exchangeRate = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val());
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 1;
+            }
+            var Total = parseFloat(amount * exchangeRate).toFixed(2);
+            Total = parseFloat(Total).toFixed(2);
+            $('#claimDetailTaxiOverseasVm_' + index + '__TotalInSGD').val(Total);
+            debugger;
+            var length = $('.csstaxioverseaLength').length;
+            var grossTotal = 0;
+            for (var i = 0; i < length; i++) {
 
+                var grossVal = $('#claimDetailTaxiOverseasVm_' + i + '__TotalInSGD').val();
+                if (grossVal != null && grossVal != "") {
+                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                }
+                $('#claimHeader_claimDetailTaxiOverseasTotal').val(grossTotal.toFixed(2));
+            }
+        }
+
+        function deletetaxioverseaDetail(detailId, index,category){
+            var headerId = $('#claimHeader_TravelClaimId').val();
+            var length = $('.csstaxioverseaLength').length;
+            if (length > 1) {
+
+                $('#addNewClaim').val(category);
+                $('#addOrDelete').val(index);
+                $('#claimDetailTaxiOverseasVm_' + index + '__Perticulars').removeAttr('required');
+                $('#claimDetailTaxiOverseasVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailTaxiOverseasVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailTaxiOverseasVm_' + index + '__TravelDate').removeAttr('required');
+                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+                $('#frmClaim').submit();
+
+            }
+            else {
+                swal("Message!", "You can not delete because one row should be mandatory");
+            }
+        }
+
+        //calculations for TaxiFares oversea:end
 
         $('#claimHeader_ToDate').on('blur', function (e) {
             $('#claimHeader_NoOfDays').val('');

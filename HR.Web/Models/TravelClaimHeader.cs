@@ -30,5 +30,6 @@ namespace HR.Web.Models
         public int BranchId { get; set; }
         public bool IsApproved { get; set; }
         public string Status { get; set; }
+        public string ClaimNo { get; set; }
     }
 }

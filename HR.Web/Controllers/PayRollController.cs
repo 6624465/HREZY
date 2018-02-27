@@ -652,6 +652,9 @@ namespace HR.Web.Controllers
                 travelClaimVm.claimHeader = new TravelClaimHeaderVm();
                 travelClaimVm.claimHeader.Name = FIRSTNAME;
                 travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
+                var travelCount = travelClaimHeaderBO.GetCount(BRANCHID);
+                travelCount = travelCount + 1;
+                travelClaimVm.claimHeader.ClaimNo = "TRC" + travelCount.ToString("D4");
                 //travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
                 travelClaimVm.claimDetailAccomdationVm = new List<TravelDetailAccomdationVm>()

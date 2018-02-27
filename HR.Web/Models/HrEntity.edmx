@@ -565,6 +565,7 @@
           <Property Name="BranchId" Type="int" Nullable="false" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="20" />
+          <Property Name="ClaimNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
@@ -1335,6 +1336,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="BranchId" Type="Int32" Nullable="false" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EmployeeBankdetail">
           <Key>
@@ -1990,6 +1992,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="TravelClaimHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TravelClaimHeader">
               <MappingFragment StoreEntitySet="TravelClaimHeader">
+                <ScalarProperty Name="ClaimNo" ColumnName="ClaimNo" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />

@@ -100,6 +100,9 @@ namespace HR.Web.BusinessObjects.Payroll
             Add(travelclaimobj);
             return travelclaimobj;
         }
-
+        internal int GetCount(int branchId)
+        {
+            return travelClaimHeaderRepository.GetCount(branchId);
+        }
     }
 }

@@ -138,6 +138,17 @@
                         <div class="row css5">
                             <div class="col-md-4">
                                 <label class="col-md-5 control-label">
+                                    <span>Claim No</span>
+                                </label>
+                                <div class="col-md-6">                                   
+                                        @Html.TextBoxFor(x => x.claimHeader.ClaimNo,
+                                   new { @class = "form-control input-sm", @readonly= "readonly" })                                      
+                                </div>
+                            </div>
+                        </div>
+                            <div class="row css5">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">
                                     <span>From Date</span>
                                 </label>
                                 <div class="col-md-6">
@@ -296,7 +307,8 @@
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TotalInSGD, new
-                                                           { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                               { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny"
+                                                               })
                                                                 </td>
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
@@ -574,7 +586,8 @@
 
                                                                     <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TravelDate, new
-                                                                   { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                   { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;"
+                                                                   })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
                                                                         </span>
@@ -605,7 +618,8 @@
                                                                 <td>
                                                                     @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency,
                                                                        SelectListItemHelper.CurrnyList(), new
-                                                                       { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTaxilocalTotal(this)", data_index = i, @required = "required" })
+                                                                       { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTaxilocalTotal(this)", data_index = i, @required = "required"
+                                                                       })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ExchangeRate,
@@ -613,7 +627,8 @@
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TotalInSGD, new
-                                                               { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                               { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny"
+                                                               })
                                                                 </td>
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
@@ -679,7 +694,8 @@
 
                                                                     <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].TravelDate, new
-                                                                   { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                   { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;"
+                                                                   })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
                                                                         </span>
@@ -687,7 +703,8 @@
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].Perticulars, new
-                                                               { @class = "form-control input-sm", style = "width:100px;" })
+                                                               { @class = "form-control input-sm", style = "width:100px;"
+                                                               })
                                                                 </td>
                                                                 <td>
 
@@ -1021,7 +1038,8 @@
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].ExchangeRate, new
-                                                               { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                               { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true
+                                                               })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })

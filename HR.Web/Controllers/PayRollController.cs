@@ -649,7 +649,7 @@ namespace HR.Web.Controllers
             if (travelClaimId == 0)
             {
                 TravelClaimVm travelClaimVm = new TravelClaimVm();
-                travelClaimVm.claimHeader = new TravelClaimHeader();
+                travelClaimVm.claimHeader = new TravelClaimHeaderVm();
                 travelClaimVm.claimHeader.Name = FIRSTNAME;
                 travelClaimVm.claimHeader.EmployeeId = EMPLOYEEID;
                 //travelClaimVm.claimDetail = new List<TravelClaimDetail>();
@@ -687,17 +687,17 @@ namespace HR.Web.Controllers
                 };
                 using (var dbcntx = new HrDataContext())
                 {
-                    List<LookUp> lookUpList = new List<LookUp>();
-                    lookUpList = dbcntx.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM && x.IsActive == true).ToList();
-                    foreach (var item in lookUpList)
-                    {
-                        TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
-                        {
-                            Category = item.LookUpDescription,
-                            Receipts = false
-                        };
-                        // travelClaimVm.claimDetail.Add(travelClaimDetail);
-                    }
+                    //List<LookUp> lookUpList = new List<LookUp>();
+                    //lookUpList = dbcntx.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM && x.IsActive == true).ToList();
+                    //foreach (var item in lookUpList)
+                    //{
+                    //    TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
+                    //    {
+                    //        Category = item.LookUpDescription,
+                    //        Receipts = false
+                    //    };
+                    //    // travelClaimVm.claimDetail.Add(travelClaimDetail);
+                    //}
 
                     return View(travelClaimVm);
                 }
@@ -705,8 +705,8 @@ namespace HR.Web.Controllers
             else
             {
                 TravelClaimVm travelClaimNewObj = new TravelClaimVm();
-                travelClaimNewObj.claimHeader = travelClaimHeaderBO
-                    .GetByProperty(x => x.TravelClaimId == travelClaimId);
+                //travelClaimNewObj.claimHeader = travelClaimHeaderBO
+                 //   .GetByProperty(x => x.TravelClaimId == travelClaimId);
 
                 // travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimId).ToList();
 
@@ -740,6 +740,98 @@ namespace HR.Web.Controllers
         public ActionResult TravelClaim(TravelClaimVm travelClaimVm)
         {
 
+            var addNewClaim = Request["addNewClaim"];
+            var addOrDelVal = Request["addOrDelete"];
+            switch (addNewClaim)
+            {
+                case UTILITY.AIRFARE:
+                    TravelDetailAirfareVm travelDetailAirfareVm = new TravelDetailAirfareVm()
+                    {
+
+                    };
+                    if (!string.IsNullOrEmpty(addOrDelVal))
+                        travelClaimVm.claimDetailAirfareVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    else
+                        travelClaimVm.claimDetailAirfareVm.Add(travelDetailAirfareVm);
+                    travelClaimVm.claimHeader.claimDetailAirfareTotal = travelClaimVm.claimDetailAirfareVm.Sum(x => x.TotalInSGD);
+                    break;
+                case UTILITY.VISA:
+                    TravelDetailVisaVm travelDetailVisaVm = new TravelDetailVisaVm()
+                    {
+
+                    };
+                    if (!string.IsNullOrEmpty(addOrDelVal))
+                        travelClaimVm.claimDetailVisaVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    else
+                        travelClaimVm.claimDetailVisaVm.Add(travelDetailVisaVm);
+                    break;
+
+                case UTILITY.ACCOMMODATION:
+                    TravelDetailAccomdationVm travelDetailAccomdationVm = new TravelDetailAccomdationVm()
+                    {
+
+                    };
+                    if (!string.IsNullOrEmpty(addOrDelVal))
+                        travelClaimVm.claimDetailAccomdationVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    else
+                        travelClaimVm.claimDetailAccomdationVm.Add(travelDetailAccomdationVm);
+                    break;
+                case UTILITY.TAXILOCAL:
+                    TravelDetailTaxiLocalVm travelDetailTaxiLocalVm = new TravelDetailTaxiLocalVm()
+                    {
+
+                    };
+                    if (!string.IsNullOrEmpty(addOrDelVal))
+                        travelClaimVm.claimDetailTaxiLocalVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    else
+                        travelClaimVm.claimDetailTaxiLocalVm.Add(travelDetailTaxiLocalVm);
+                    break;
+
+                case UTILITY.TAXIOVERSEAS:
+
+                    TravelDetailTaxiOverseasVm travelDetailTaxiOverseasVm = new TravelDetailTaxiOverseasVm()
+                    {
+
+                    };
+                    if (!string.IsNullOrEmpty(addOrDelVal))
+                        travelClaimVm.claimDetailTaxiOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    else
+                        travelClaimVm.claimDetailTaxiOverseasVm.Add(travelDetailTaxiOverseasVm);
+                    break;
+
+                case UTILITY.FOODBILLSLOCAL:
+                    TravelDetailFoodLocalVm travelDetailFoodLocalVm = new TravelDetailFoodLocalVm()
+                    {
+
+                    };
+                    if (!string.IsNullOrEmpty(addOrDelVal))
+                        travelClaimVm.claimDetailFoodLocalVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    else
+                        travelClaimVm.claimDetailFoodLocalVm.Add(travelDetailFoodLocalVm);
+                    break;
+
+                case UTILITY.FOODBILLSOVERSEAS:
+                    TravelDetailFoodOverseasVm travelDetailFoodOverseasVm = new TravelDetailFoodOverseasVm()
+                    {
+
+                    };
+                    if (!string.IsNullOrEmpty(addOrDelVal))
+                        travelClaimVm.claimDetailFoodOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    else
+                        travelClaimVm.claimDetailFoodOverseasVm.Add(travelDetailFoodOverseasVm);
+                    break;
+                case UTILITY.OTHEREXPENSES:
+                    TravelDetailOtherExpensesVm travelDetailOtherExpensesVm = new TravelDetailOtherExpensesVm()
+                    {
+
+                    };
+                    if (!string.IsNullOrEmpty(addOrDelVal))
+                        travelClaimVm.claimDetailOtherExpensesVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    else
+                        travelClaimVm.claimDetailOtherExpensesVm.Add(travelDetailOtherExpensesVm);
+                    break;
+            }
+
             //travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
             //if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
             //{
@@ -762,7 +854,7 @@ namespace HR.Web.Controllers
 
             //}
 
-            var addOrDelVal = Request["addOrDelete"];
+
             //if (!string.IsNullOrEmpty(addOrDelVal))
             //{
             //    travelClaimVm.claimDetail.RemoveAt(Convert.ToInt32(addOrDelVal));
@@ -828,7 +920,7 @@ namespace HR.Web.Controllers
 
         public ActionResult ProcessTravelClaim()
         {
-            var travelobj = travelClaimHeaderBO.GetListByProperty(x=>x.BranchId == BRANCHID);
+            var travelobj = travelClaimHeaderBO.GetListByProperty(x => x.BranchId == BRANCHID);
             return View(travelobj);
         }
     }

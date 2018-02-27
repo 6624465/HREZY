@@ -101,14 +101,14 @@ namespace HR.Web
         public static string BASICSALARYCOMPONENT = "BASIC";
 
         // Travel Claim Categories
-        public static string AIRFARE = "AIRFARE";
-        public static string VISA = "VISA";
-        public static string ACCOMMODATION = "ACCOMMODATION";
-        public static string TAXILOCAL = "TAXILOCAL";
-        public static string TAXIOVERSEAS = "TAXIOVERSEAS";
-        public static string FOODBILLSLOCAL = "FOODBILLSLOCAL";
-        public static string FOODBILLSOVERSEAS = "FOODBILLSOVERSEAS";
-        public static string OTHEREXPENSES = "OTHEREXPENSES";
+        public const string AIRFARE = "AIRFARE";
+        public const string VISA = "VISA";
+        public const string ACCOMMODATION = "ACCOMMODATION";
+        public const string TAXILOCAL = "TAXILOCAL";
+        public const string TAXIOVERSEAS = "TAXIOVERSEAS";
+        public const string FOODBILLSLOCAL = "FOODBILLSLOCAL";
+        public const string FOODBILLSOVERSEAS = "FOODBILLSOVERSEAS";
+        public const string OTHEREXPENSES = "OTHEREXPENSES";
 
         /* Config Keys End */
 

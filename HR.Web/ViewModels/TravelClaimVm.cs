@@ -8,7 +8,7 @@ namespace HR.Web.ViewModels
 {
     public class TravelClaimVm
     {
-        public TravelClaimHeader claimHeader { get; set; }
+        public TravelClaimHeaderVm claimHeader { get; set; }
         public List<TravelDetailAirfareVm> claimDetailAirfareVm { get; set; }
         public List<TravelDetailVisaVm> claimDetailVisaVm { get; set; }
         public List<TravelDetailAccomdationVm> claimDetailAccomdationVm { get; set; }
@@ -17,6 +17,18 @@ namespace HR.Web.ViewModels
         public List<TravelDetailFoodLocalVm> claimDetailFoodLocalVm { get; set; }
         public List<TravelDetailFoodOverseasVm> claimDetailFoodOverseasVm { get; set; }
         public List<TravelDetailOtherExpensesVm> claimDetailOtherExpensesVm { get; set; }
+    }
+
+    public class TravelClaimHeaderVm : TravelClaimHeader {
+        public decimal? claimDetailAirfareTotal { get; set; }
+        public decimal? claimDetailVisaTotal { get; set; }
+        public decimal? claimDetailAccomdationTotal { get; set; }
+        public decimal? claimDetailTaxiLocalTotal { get; set; }
+        public decimal? claimDetailTaxiOverseasTotal { get; set; }
+        public decimal? claimDetailFoodLocalTotal { get; set; }
+
+        public decimal? claimDetailFoodOverseasTotal { get; set; }
+        public decimal? claimDetailOtherExpensesTotal { get; set; }
     }
 
     public class TravelDetailAirfareVm

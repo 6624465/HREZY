@@ -1,10 +1,11 @@
 ﻿@model HR.Web.ViewModels.TravelClaimVm
 @{
     ViewBag.Title = "TravelClaim";
+    var model = Model;
 }
 @section Styles{
-<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
-      rel="stylesheet" type="text/css" />
+    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+          rel="stylesheet" type="text/css" />
     <style>
         .multiselect-container {
             position: absolute;
@@ -80,7 +81,7 @@
             border-bottom: 1px solid red;
         }
 
-       
+
 
         .btn-group > .btn, .btn-group-vertical > .btn {
             width: 150px;
@@ -97,20 +98,25 @@
             text-overflow: ellipsis;
             display: inline-flex;
         }
-        .nav > li > a{
-            padding:12px 12px;
+
+        .nav > li > a {
+            padding: 12px 12px;
         }
-        #exTab1{
-            margin-top:45px;
+
+        #exTab1 {
+            margin-top: 45px;
         }
-        .mr-top{
-            margin-top:20px;
+
+        .mr-top {
+            margin-top: 20px;
         }
+
         input[type="file"] {
             margin-bottom: 10px;
         }
-        .uplaod-label{
-            display:inline;
+
+        .uplaod-label {
+            display: inline;
         }
     </style>
 }
@@ -125,23 +131,24 @@
                         Travel Expenses Claim Form - @Model.claimHeader.Name
                     </div>
                     <div class="panel-body">
-                        <input type="hidden" id="claimHeader_TravelClaimId" name="claimHeader.TravelClaimId" value="@Model.claimHeader.TravelClaimId" />
+                        <input type="hidden" id="claimHeader_TravelClaimId" name="claimHeader.TravelClaimId"
+                               value="@Model.claimHeader.TravelClaimId" />
                         @Html.HiddenFor(x => x.claimHeader.Name)
                         @Html.HiddenFor(x => x.claimHeader.EmployeeId)
                         <div class="row css5">
-                        <div class="col-md-4">
-                            <label class="col-md-5 control-label">
-                                <span>From Date</span>
-                            </label>
-                            <div class="col-md-6">
-                                <div class="input-group date dtCss dtCssFromDate" id="FromDate">
-                                    @Html.TextBoxFor(x => x.claimHeader.FromDate,
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">
+                                    <span>From Date</span>
+                                </label>
+                                <div class="col-md-6">
+                                    <div class="input-group date dtCss dtCssFromDate" id="FromDate">
+                                        @Html.TextBoxFor(x => x.claimHeader.FromDate,
                                    new { @class = "form-control dtCssTxt input-sm" })
-                                    <span class="input-group-addon">
-                                        <i class="ion ion-calendar"></i>
-                                    </span>
+                                        <span class="input-group-addon">
+                                            <i class="ion ion-calendar"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                             <div class="col-md-4">
                                 <label class="col-md-5 control-label">
@@ -157,14 +164,15 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                         <div class="row css5">
                             <div class="col-md-4">
                                 <label class="col-md-5 control-label">
                                     <span>Country Visited</span>
                                 </label>
                                 <div class="col-md-6">
-                                    @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(), new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
+                                    @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(),
+                                   new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -175,93 +183,612 @@
                                     @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
                                 </div>
                             </div>
-                            </div>
+                        </div>
                         <div id="exTab1">
                             <ul class="nav nav-pills">
                                 <li class="active">
-                                    <a href="#0a" data-toggle="tab">Airfare</a>
+                                    <a href="#Airfare" data-toggle="tab">Airfare</a>
                                 </li>
                                 <li>
-                                    <a href="#1a" data-toggle="tab">Visa</a>
+                                    <a href="#Visa" data-toggle="tab">Visa</a>
                                 </li>
                                 <li>
-                                    <a href="#2a" data-toggle="tab">Accommodation</a>
+                                    <a href="#Accommodation" data-toggle="tab">Accommodation</a>
                                 </li>
                                 <li>
-                                    <a href="#3a" data-toggle="tab">Taxi Fares Local</a>
+                                    <a href="#TaxiLocal" data-toggle="tab">Taxi Fares Local</a>
                                 </li>
                                 <li>
-                                    <a href="#4a" data-toggle="tab">Taxi Fares Overseas</a>
+                                    <a href="#TaxiOverseas" data-toggle="tab">Taxi Fares Overseas</a>
                                 </li>
                                 <li>
-                                    <a href="#6a" data-toggle="tab">Food Bills Local</a>
-                                </li>
-
-                                <li>
-                                    <a href="#8a" data-toggle="tab">Other Expences</a>
+                                    <a href="#FoodBillsLocal" data-toggle="tab">Food Bills Local</a>
                                 </li>
                                 <li>
-                                    <a href="#5a" data-toggle="tab">Upload Files</a>
+                                    <a href="#FoodBillsOverseas" data-toggle="tab">Food Bills Overseas</a>
+                                </li>
+                                <li>
+                                    <a href="#OtherExpences" data-toggle="tab">Other Expences</a>
+                                </li>
+                                <li>
+                                    <a href="#UploadFiles" data-toggle="tab">Upload Files</a>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="tab-content clearfix">
 
-                            <div class="tab-content clearfix">
-                                
-                                <div class="tab-pane active" id="0a">
-                                    <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                        <i class="fa fa-plus"></i><span>Add</span>
-                                    </button>
+                            <div class="tab-pane active" id="Airfare">
+                                <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData('AIRFARE')">
+                                    <i class="fa fa-plus"></i><span>Add</span>
+                                </button>
 
-                                    <div class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive t-height">
-                                                    <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                        <thead>
-                                                            <tr style="background:#3f51b5;">
-                                                                <th style="background:#3f51b5; color:#fff;">Category</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Action</th>
+                                <div class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive t-height">
+                                                <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                    <thead>
+                                                        <tr style="background:#3f51b5;">
+                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">
+                                                                Receipts (Y/N)
+                                                            </th>
+                                                            <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">
+                                                                Currency
+                                                            </th>
+                                                            <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @for (int i = 0; i < Model.claimDetailAirfareVm.Count; i++)
+                                                        {
+
+                                                            <tr id="tr_@i" class="cssAirfareLength">
+
+                                                                <td>
+
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
+                                                                </td>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.claimDetailAirfareVm[i].Receipts, true, "Yes")
+                                                                    <span>Y</span>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailAirfareVm[i].Receipts, false, "No")
+                                                                    <span>N</span>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].Amount, new
+                                                               {
+                                                                   @class = "form-control input-sm decimalCss",
+                                                                   required = "required",
+                                                                   style = "width:100px;",
+                                                                   onblur = "CalculateAirFareTotal(this)",
+                                                                   data_index = i
+                                                               })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DropDownListFor(x => x.claimDetailAirfareVm[i].Currency,
+                                                                       SelectListItemHelper.CurrnyList(), new
+                                                                       {
+                                                                           @class = "form-control input-sm",
+                                                                           @style = "width:100px;",
+                                                                           @onchange = "CalculateAirFareTotal(this)",
+                                                                           data_index = i,
+                                                                           @required = "required"
+                                                                       })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].ExchangeRate,
+                                                                       new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TotalInSGD, new
+                                                               { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteAirfareClaimDetail(@Model.claimDetailAirfareVm[i].TravelClaimDetailId,@i,'AIRFARE')">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                        }
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><span class="pull-right"><b>Total  </b></span></td>
+                                                            <td>
+                                                                 @Html.TextBoxFor(x => x.claimHeader.claimDetailAirfareTotal,
+                                                                new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            @*<td>
+                                                                <input type="text" id="claimDetailAirfareTotal" 
+                                                                       name="claimDetailAirfareTotal" class = "form-control input-sm" readonly = "readonly"/>
+                                                            </td>*@
 
-                                                            @for (int i = 0; i < Model.claimDetailAirfareVm.Count; i++)
-                                                            {
+                                                            <td></td>
+                                                        </tr>
 
-                                                                <tr id="tr_@i" class="cssLength">
-                                                                    <td>
-                                                                        <input id="claimDetail_@(i)__TravelClaimDetailId"
-                                                                               name="claimDetail[@(i)].TravelClaimDetailId" 
-                                                                               type="hidden" value="@Model.claimDetailAirfareVm[i].TravelClaimDetailId">  
-                                                                    </td>
-                                                                    <td>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
 
-                                                                        <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
-                                                                    </td>
-                                                                    <td>
+                            </div>
+                            <div class="tab-pane" id="Visa">
+                                <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData('VISA')">
+                                    <i class="fa fa-plus"></i><span>Add</span>
+                                </button>
 
-                                                                        @Html.RadioButtonFor(x => x.claimDetailAirfareVm[i].Receipts, true, "Yes")
-                                                                        <span>Y</span>
-                                                                        @Html.RadioButtonFor(x => x.claimDetailAirfareVm[i].Receipts, false, "No")
-                                                                        <span>N</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].Amount, new
+                                <div class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive t-height">
+                                                <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                    <thead>
+                                                        <tr style="background:#3f51b5;">
+                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int i = 0; i < Model.claimDetailVisaVm.Count; i++)
+                                                        {
+
+                                                            <tr id="tr_@i" class="cssLength">
+
+                                                                <td>
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailVisaVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailVisaVm[i].Receipts, true, "Yes")
+                                                                    <span>Y</span>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailVisaVm[i].Receipts, false, "No")
+                                                                    <span>N</span>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Amount, new
+                                                               {
+                                                                   @class = "form-control input-sm decimalCss",
+                                                                   required = "required",
+                                                                   style = "width:100px;",
+                                                                   onblur = "CalculateTotal(this)",
+                                                                   data_index = i
+                                                               })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DropDownListFor(x => x.claimDetailVisaVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteClaimDetail(@Model.claimDetailVisaVm[i].TravelClaimDetailId,@i,'VISA')">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><span class="pull-right"><b>Total  </b></span></td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+
+                            </div>
+                            <div class="tab-pane" id="Accommodation">
+                                <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData('ACCOMMODATION')">
+                                    <i class="fa fa-plus"></i><span>Add</span>
+                                </button>
+
+                                <div class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive t-height">
+                                                <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                    <thead>
+                                                        <tr style="background:#3f51b5;">
+                                                            <th style="background:#3f51b5; color:#fff;">From Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">To Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int i = 0; i < Model.claimDetailAccomdationVm.Count; i++)
+                                                        {
+
+                                                            <tr id="tr_@i" class="cssLength">
+                                                                <td class="accomdation" id="accfromDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="accomdation" id="acctoDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="TODate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ToDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
+                                                                </td>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.claimDetailAccomdationVm[i].Receipts, true, "Yes")
+                                                                    <span>Y</span>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailAccomdationVm[i].Receipts, false, "No")
+                                                                    <span>N</span>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].Amount, new
+                                                               {
+                                                                   @class = "form-control input-sm decimalCss",
+                                                                   required = "required",
+                                                                   style = "width:100px;",
+                                                                   onblur = "CalculateTotal(this)",
+                                                                   data_index = i
+                                                               })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DropDownListFor(x => x.claimDetailAccomdationVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteClaimDetail(@Model.claimDetailAccomdationVm[i].TravelClaimDetailId,@i,'ACCOMMODATION')">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><span class="pull-right"><b>Total  </b></span></td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+
+                            </div>
+                            <div class="tab-pane" id="TaxiLocal">
+
+
+                                <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData('TAXILOCAL')">
+                                    <i class="fa fa-plus"></i><span>Add</span>
+                                </button>
+
+                                <div class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive t-height">
+                                                <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                    <thead>
+                                                        <tr style="background:#3f51b5;">
+                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int i = 0; i < Model.claimDetailTaxiLocalVm.Count; i++)
+                                                        {
+
+                                                            <tr id="tr_@i" class="cssLength">
+
+                                                                <td>
+
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TravelDate, new
+                                                                   { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Perticulars,
+                                                                       new { @class = "form-control input-sm", style = "width:100px;" })
+                                                                </td>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.claimDetailTaxiLocalVm[i].Receipts, true, "Yes")
+                                                                    <span>Y</span>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailTaxiLocalVm[i].Receipts, false, "No")
+                                                                    <span>N</span>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Amount, new
+                                                               {
+                                                                   @class = "form-control input-sm decimalCss",
+                                                                   required = "required",
+                                                                   style = "width:100px;",
+                                                                   onblur = "CalculateTotal(this)",
+                                                                   data_index = i
+                                                               })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency,
+                                                                       SelectListItemHelper.CurrnyList(), new
+                                                                       { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ExchangeRate,
+                                                                       new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TotalInSGD, new
+                                                               { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteClaimDetail(@Model.claimDetailTaxiLocalVm[i].TravelClaimDetailId,@i,'TAXILOCAL')">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><span class="pull-right"><b>Total  </b></span></td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+
+                            </div>
+                            <div class="tab-pane" id="TaxiOverseas">
+                                <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData('TAXIOVERSEAS')">
+                                    <i class="fa fa-plus"></i><span>Add</span>
+                                </button>
+
+                                <div class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive t-height">
+                                                <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                    <thead>
+                                                        <tr style="background:#3f51b5;">
+                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int i = 0; i < Model.claimDetailTaxiOverseasVm.Count; i++)
+                                                        {
+
+                                                            <tr id="tr_@i" class="cssLength">
+
+                                                                <input id="claimDetail_@(i)__TravelClaimDetailId"
+                                                                       name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailTaxiOverseasVm[i].TravelClaimDetailId">
+
+                                                                <td>
+
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].TravelDate, new
+                                                                   { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].Perticulars, new
+                                                               { @class = "form-control input-sm", style = "width:100px;" })
+                                                                </td>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.claimDetailTaxiOverseasVm[i].Receipts, true, "Yes")
+                                                                    <span>Y</span>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailTaxiOverseasVm[i].Receipts, false, "No")
+                                                                    <span>N</span>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].Amount, new
+                                                               {
+                                                                   @class = "form-control input-sm decimalCss",
+                                                                   required = "required",
+                                                                   style = "width:100px;",
+                                                                   onblur = "CalculateTotal(this)",
+                                                                   data_index = i
+                                                               })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteClaimDetail(@Model.claimDetailTaxiOverseasVm[i].TravelClaimDetailId,@i,'TAXIOVERSEAS')">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><span class="pull-right"><b>Total  </b></span></td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+
+                            </div>
+
+                            <div class="tab-pane" id="FoodBillsLocal">
+                                <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData('FOODBILLSLOCAL')">
+                                    <i class="fa fa-plus"></i><span>Add</span>
+                                </button>
+
+                                <div class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive t-height">
+                                                <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                    <thead>
+                                                        <tr style="background:#3f51b5;">
+                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int i = 0; i < Model.claimDetailFoodLocalVm.Count; i++)
+                                                        {
+
+                                                            <tr id="tr_@i" class="cssLength">
+
+                                                                <input id="claimDetail_@(i)__TravelClaimDetailId"
+                                                                       name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailFoodLocalVm[i].TravelClaimDetailId">
+
+                                                                <td>
+
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
+                                                                </td>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.claimDetailFoodLocalVm[i].Receipts, true, "Yes")
+                                                                    <span>Y</span>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailFoodLocalVm[i].Receipts, false, "No")
+                                                                    <span>N</span>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].Amount, new
                                                                    {
                                                                        @class = "form-control input-sm decimalCss",
                                                                        required = "required",
@@ -269,225 +796,100 @@
                                                                        onblur = "CalculateTotal(this)",
                                                                        data_index = i
                                                                    })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DropDownListFor(x => x.claimDetailAirfareVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetailAirfareVm[i].TravelClaimDetailId,@i)">
-                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><span class="pull-right"><b>Total  </b></span></td>
-                                                                <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                                                <td></td>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DropDownListFor(x => x.claimDetailFoodLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteClaimDetail(@Model.claimDetailFoodLocalVm[i].TravelClaimDetailId,@i,'FOODBILLSLOCAL')">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
                                                             </tr>
+                                                        }
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><span class="pull-right"><b>Total  </b></span></td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td></td>
+                                                        </tr>
 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
-                                    <br />
-
                                 </div>
-                                <div class="tab-pane" id="1a">
-                                    <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                        <i class="fa fa-plus"></i><span>Add</span>
-                                    </button>
+                                <br />
 
-                                    <div class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive t-height">
-                                                    <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                        <thead>
-                                                            <tr style="background:#3f51b5;">
-                                                                <th style="background:#3f51b5; color:#fff;">Category</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Date</th>                                                           
-                                                                <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @for (int i = 0; i < Model.claimDetailVisaVm.Count; i++)
-                                                            {
+                            </div>
+                            <div class="tab-pane" id="FoodBillsOverseas">
 
-                                                                <tr id="tr_@i" class="cssLength">
-                                                                    <td>
-                                                                        <input id="claimDetail_@(i)__TravelClaimDetailId"
-                                                                               name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailVisaVm[i].TravelClaimDetailId">
-                                                                       
-                                                                    </td>
-                                                                    <td>
 
-                                                                        <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailVisaVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
-                                                                    </td>
-                                                                    <td>
+                                <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData('FOODBILLSOVERSEAS')">
+                                    <i class="fa fa-plus"></i><span>Add</span>
+                                </button>
 
-                                                                        @Html.RadioButtonFor(x => x.claimDetailVisaVm[i].Receipts, true, "Yes")
-                                                                        <span>Y</span>
-                                                                        @Html.RadioButtonFor(x => x.claimDetailVisaVm[i].Receipts, false, "No")
-                                                                        <span>N</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Amount, new
-                                                       {
-                                                           @class = "form-control input-sm decimalCss",
-                                                           required = "required",
-                                                           style = "width:100px;",
-                                                           onblur = "CalculateTotal(this)",
-                                                           data_index = i
-                                                       })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DropDownListFor(x => x.claimDetailVisaVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailVisaVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailVisaVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetail[i].TravelClaimDetailId,@i)">
-                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><span class="pull-right"><b>Total  </b></span></td>
-                                                                <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                                                <td></td>
-                                                            </tr>
+                                <div class="clearfix">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive t-height">
+                                                <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                    <thead>
+                                                        <tr style="background:#3f51b5;">
+                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int i = 0; i < Model.claimDetailFoodOverseasVm.Count; i++)
+                                                        {
 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    
-                                </div>
-                                <div class="tab-pane" id="2a">
-                                   
+                                                            <tr id="tr_@i" class="cssLength">
 
-                                    <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                        <i class="fa fa-plus"></i><span>Add</span>
-                                    </button>
+                                                                <input id="claimDetail_@(i)__TravelClaimDetailId"
+                                                                       name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailFoodOverseasVm[i].TravelClaimDetailId">
 
-                                    <div class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive t-height">
-                                                    <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                        <thead>
-                                                            <tr style="background:#3f51b5;">
-                                                                <th style="background:#3f51b5; color:#fff;">Category</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">From Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">To Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @for (int i = 0; i < Model.claimDetailAccomdationVm.Count; i++)
-                                                            {
 
-                                                                <tr id="tr_@i" class="cssLength">
-                                                                    <td>
-                                                                        <input id="claimDetail_@(i)__TravelClaimDetailId"
-                                                                               name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailAccomdationVm[i].TravelClaimDetailId">
-                                                                        
-                                                                    </td>
-                                                                    <td>
+                                                                <td>
 
-                                                                        <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
+                                                                </td>
+                                                                <td>
 
-                                                                    <td class="accomdation" id="accfromDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="accomdation" id="acctoDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="TODate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ToDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
-                                                                    </td>
-                                                                    <td>
-
-                                                                        @Html.RadioButtonFor(x => x.claimDetailAccomdationVm[i].Receipts, true, "Yes")
-                                                                        <span>Y</span>
-                                                                        @Html.RadioButtonFor(x => x.claimDetailAccomdationVm[i].Receipts, false, "No")
-                                                                        <span>N</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].Amount, new
+                                                                    @Html.RadioButtonFor(x => x.claimDetailFoodOverseasVm[i].Receipts, true, "Yes")
+                                                                    <span>Y</span>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailFoodOverseasVm[i].Receipts, false, "No")
+                                                                    <span>N</span>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].Amount, new
                                                                    {
                                                                        @class = "form-control input-sm decimalCss",
                                                                        required = "required",
@@ -495,455 +897,100 @@
                                                                        onblur = "CalculateTotal(this)",
                                                                        data_index = i
                                                                    })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DropDownListFor(x => x.claimDetailAccomdationVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetailAccomdationVm[i].TravelClaimDetailId,@i)">
-                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><span class="pull-right"><b>Total  </b></span></td>
-                                                                <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                                                <td></td>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteClaimDetail(@Model.claimDetailFoodOverseasVm[i].TravelClaimDetailId,@i,'FOODBILLSOVERSEAS')">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
                                                             </tr>
+                                                        }
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><span class="pull-right"><b>Total  </b></span></td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td></td>
+                                                        </tr>
 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
-                                    <br />
-                                    
                                 </div>
-                                <div class="tab-pane" id="3a">
-                                    
+                                <br />
 
-                                    <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                        <i class="fa fa-plus"></i><span>Add</span>
-                                    </button>
+                            </div>
+                            <div class="tab-pane" id="OtherExpences">
 
-                                    <div class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive t-height">
-                                                    <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                        <thead>
-                                                            <tr style="background:#3f51b5;">
-                                                                <th style="background:#3f51b5; color:#fff;">Category</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">From Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">To Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @for (int i = 0; i < Model.claimDetailTaxiLocalVm.Count; i++)
-                                                            {
 
-                                                                <tr id="tr_@i" class="cssLength">
-                                                                    <td>
-                                                                        <input id="claimDetail_@(i)__TravelClaimDetailId"
-                                                                               name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailTaxiLocalVm[i].TravelClaimDetailId">
-                                                                      
-                                                                    <td>
+                                <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData('OTHEREXPENSES')">
+                                    <i class="fa fa-plus"></i><span>Add</span>
+                                </button>
 
-                                                                        <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td class="accomdation" id="accfromDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="accomdation" id="acctoDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="TODate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ToDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
-                                                                    </td>
-                                                                    <td>
-
-                                                                        @Html.RadioButtonFor(x => x.claimDetailTaxiLocalVm[i].Receipts, true, "Yes")
-                                                                        <span>Y</span>
-                                                                        @Html.RadioButtonFor(x => x.claimDetailTaxiLocalVm[i].Receipts, false, "No")
-                                                                        <span>N</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Amount, new
-                                                       {
-                                                           @class = "form-control input-sm decimalCss",
-                                                           required = "required",
-                                                           style = "width:100px;",
-                                                           onblur = "CalculateTotal(this)",
-                                                           data_index = i
-                                                       })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetailTaxiLocalVm[i].TravelClaimDetailId,@i)">
-                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><span class="pull-right"><b>Total  </b></span></td>
-                                                                <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                                                <td></td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                   
-                                </div>
-                                <div class="tab-pane" id="4a">
-                                   
-
-                                    <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                        <i class="fa fa-plus"></i><span>Add</span>
-                                    </button>
-
-                                    <div class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive t-height">
-                                                    <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                        <thead>
-                                                            <tr style="background:#3f51b5;">
-                                                                <th style="background:#3f51b5; color:#fff;">Category</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">From Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">To Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @for (int i = 0; i < Model.claimDetailTaxiOverseasVm.Count; i++)
-                                                            {
-
-                                                                <tr id="tr_@i" class="cssLength">
-                                                                    
-                                                                        <input id="claimDetail_@(i)__TravelClaimDetailId"
-                                                                               name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailTaxiOverseasVm[i].TravelClaimDetailId">
-                                                                                                                                          
-                                                                    <td>
-
-                                                                        <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td class="accomdation" id="accfromDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="accomdation" id="acctoDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="TODate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].ToDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
-                                                                    </td>
-                                                                    <td>
-
-                                                                        @Html.RadioButtonFor(x => x.claimDetailTaxiOverseasVm[i].Receipts, true, "Yes")
-                                                                        <span>Y</span>
-                                                                        @Html.RadioButtonFor(x => x.claimDetailTaxiOverseasVm[i].Receipts, false, "No")
-                                                                        <span>N</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].Amount, new
-                                                       {
-                                                           @class = "form-control input-sm decimalCss",
-                                                           required = "required",
-                                                           style = "width:100px;",
-                                                           onblur = "CalculateTotal(this)",
-                                                           data_index = i
-                                                       })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetail[i].TravelClaimDetailId,@i)">
-                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><span class="pull-right"><b>Total  </b></span></td>
-                                                                <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                                                <td></td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                   
-                                </div>
-                                <div class="tab-pane" id="5a">
-
-                                <form>
+                                <div class="clearfix">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="myFile">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                            <div class="col-md-6">
-                                                <input type="file" id="choose-btn">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                        <div class="col-md-12">
+                                            <div class="table-responsive t-height">
+                                                <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                    <thead>
+                                                        <tr style="background:#3f51b5;">
+                                                            <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                            <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                            <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int i = 0; i < Model.claimDetailOtherExpensesVm.Count; i++)
+                                                        {
 
-                                </div>
-                                <div class="tab-pane" id="6a">
+                                                            <tr id="tr_@i" class="cssLength">
+
+                                                                <input id="claimDetail_@(i)__TravelClaimDetailId"
+                                                                       name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailOtherExpensesVm[i].TravelClaimDetailId">
 
 
-                                    <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                        <i class="fa fa-plus"></i><span>Add</span>
-                                    </button>
+                                                                <td>
 
-                                    <div class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive t-height">
-                                                    <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                        <thead>
-                                                            <tr style="background:#3f51b5;">
-                                                                <th style="background:#3f51b5; color:#fff;">Category</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">From Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">To Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @for (int i = 0; i < Model.claimDetailFoodLocalVm.Count; i++)
-                                                            {
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                        @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+                                                                        <span class="input-group-addon on-click cal-cal-icon">
+                                                                            <i class="ion ion-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
+                                                                </td>
+                                                                <td>
 
-                                                                <tr id="tr_@i" class="cssLength">
-                                                                    <td>
-                                                                        <input id="claimDetail_@(i)__TravelClaimDetailId"
-                                                                               name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailFoodLocalVm[i].TravelClaimDetailId">
-                                                                      
-                                                                    </td>
-                                                                    <td>
-
-                                                                        <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td class="accomdation" id="accfromDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="accomdation" id="acctoDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="TODate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].TODate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
-                                                                    </td>
-                                                                    <td>
-
-                                                                        @Html.RadioButtonFor(x => x.claimDetailFoodLocalVm[i].Receipts, true, "Yes")
-                                                                        <span>Y</span>
-                                                                        @Html.RadioButtonFor(x => x.claimDetailFoodLocalVm[i].Receipts, false, "No")
-                                                                        <span>N</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].Amount, new
+                                                                    @Html.RadioButtonFor(x => x.claimDetailOtherExpensesVm[i].Receipts, true, "Yes")
+                                                                    <span>Y</span>
+                                                                    @Html.RadioButtonFor(x => x.claimDetailOtherExpensesVm[i].Receipts, false, "No")
+                                                                    <span>N</span>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].Amount, new
                                                                    {
                                                                        @class = "form-control input-sm decimalCss",
                                                                        required = "required",
@@ -951,301 +998,139 @@
                                                                        onblur = "CalculateTotal(this)",
                                                                        data_index = i
                                                                    })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DropDownListFor(x => x.claimDetailFoodLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetailFoodLocalVm[i].TravelClaimDetailId,@i)">
-                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><span class="pull-right"><b>Total  </b></span></td>
-                                                                <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                                                <td></td>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DropDownListFor(x => x.claimDetailOtherExpensesVm[i].Currency,
+                                                                       SelectListItemHelper.CurrnyList(), new
+                                                                       {
+                                                                           @class = "form-control input-sm",
+                                                                           @style = "width:100px;",
+                                                                           @onchange = "CalculateTotal(this)",
+                                                                           data_index = i,
+                                                                           @required = "required"
+                                                                       })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].ExchangeRate, new
+                                                                   { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteClaimDetail(@Model.claimDetailOtherExpensesVm[i].TravelClaimDetailId,@i,'OTHEREXPENSES')">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
                                                             </tr>
+                                                        }
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><span class="pull-right"><b>Total  </b></span></td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td></td>
+                                                        </tr>
 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
-                                    <br />
-
                                 </div>
-                                <div class="tab-pane" id="7a">
+                                <br />
 
+                            </div>
 
-                                    <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                        <i class="fa fa-plus"></i><span>Add</span>
-                                    </button>
-
-                                    <div class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive t-height">
-                                                    <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                        <thead>
-                                                            <tr style="background:#3f51b5;">
-                                                                <th style="background:#3f51b5; color:#fff;">Category</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">From Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">To Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @for (int i = 0; i < Model.claimDetailFoodOverseasVm.Count; i++)
-                                                            {
-
-                                                                <tr id="tr_@i" class="cssLength">
-                                                                    <td>
-                                                                        <input id="claimDetail_@(i)__TravelClaimDetailId"
-                                                                               name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailFoodOverseasVm[i].TravelClaimDetailId">
-                                                                      
-                                                                    </td>
-                                                                    <td>
-
-                                                                        <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td class="accomdation" id="accfromDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="accomdation" id="acctoDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="TODate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].ToDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
-                                                                    </td>
-                                                                    <td>
-
-                                                                        @Html.RadioButtonFor(x => x.claimDetailFoodOverseasVm[i].Receipts, true, "Yes")
-                                                                        <span>Y</span>
-                                                                        @Html.RadioButtonFor(x => x.claimDetailFoodOverseasVm[i].Receipts, false, "No")
-                                                                        <span>N</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].Amount, new
-                                                                   {
-                                                                       @class = "form-control input-sm decimalCss",
-                                                                       required = "required",
-                                                                       style = "width:100px;",
-                                                                       onblur = "CalculateTotal(this)",
-                                                                       data_index = i
-                                                                   })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetailFoodOverseasVm[i].TravelClaimDetailId,@i)">
-                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><span class="pull-right"><b>Total  </b></span></td>
-                                                                <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                                                <td></td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                            <div class="tab-pane" id="UploadFiles">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
                                         </div>
                                     </div>
-                                    <br />
-
                                 </div>
-                                <div class="tab-pane" id="8a">
-
-
-                                    <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                        <i class="fa fa-plus"></i><span>Add</span>
-                                    </button>
-
-                                    <div class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive t-height">
-                                                    <table class="table table-condensed table-bordered" style="margin-top:10px">
-                                                        <thead>
-                                                            <tr style="background:#3f51b5;">
-                                                                <th style="background:#3f51b5; color:#fff;">Category</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">From Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">To Date</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Perticulars</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Amount</th>
-                                                                <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Total</th>
-                                                                <th style="background:#3f51b5; color:#fff;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @for (int i = 0; i < Model.claimDetailOtherExpensesVm.Count; i++)
-                                                            {
-
-                                                                <tr id="tr_@i" class="cssLength">
-                                                                    <td>
-                                                                        <input id="claimDetail_@(i)__TravelClaimDetailId"
-                                                                               name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetailOtherExpensesVm[i].TravelClaimDetailId">
-                                                                       
-                                                                    </td>
-                                                                    <td>
-
-                                                                        <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td class="accomdation" id="accfromDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].FromDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="accomdation" id="acctoDate_@i">
-                                                                        <div class="input-group date dtCss travelDateCss" id="TODate_@i">
-                                                                            @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].ToDate, new { @class = "form-control input-sm dtCssTxt wdCss", style = "width:100px;", @readonly = "readonly" })
-                                                                            <span class="input-group-addon on-click cal-cal-icon">
-                                                                                <i class="ion ion-calendar"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:100px;" })
-                                                                    </td>
-                                                                    <td>
-
-                                                                        @Html.RadioButtonFor(x => x.claimDetailOtherExpensesVm[i].Receipts, true, "Yes")
-                                                                        <span>Y</span>
-                                                                        @Html.RadioButtonFor(x => x.claimDetailOtherExpensesVm[i].Receipts, false, "No")
-                                                                        <span>N</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].Amount, new
-                                                                   {
-                                                                       @class = "form-control input-sm decimalCss",
-                                                                       required = "required",
-                                                                       style = "width:100px;",
-                                                                       onblur = "CalculateTotal(this)",
-                                                                       data_index = i
-                                                                   })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DropDownListFor(x => x.claimDetailOtherExpensesVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
-                                                                                style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetailOtherExpensesVm[i].TravelClaimDetailId,@i)">
-                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><span class="pull-right"><b>Total  </b></span></td>
-                                                                <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
-                                                                <td></td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
                                         </div>
                                     </div>
-                                    <br />
-
                                 </div>
-                                
-                              
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="myFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
+                                        <div class="col-md-6">
+                                            <input type="file" id="choose-btn">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-
+                        
                         <div class="row mr-top">
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary btn-sm"
@@ -1258,15 +1143,16 @@
                                     <i class="fa fa-arrow-left"></i><b>Back</b>
                                 </button>
                             </div>
-                            
+
                         </div>
-                        
+
                     </div>
 
                 </div>
             </div>
         </div>
         <input type="hidden" id="addOrDelete" name="addOrDelete" />
+        <input type="hidden" id="addNewClaim" name="addNewClaim" />
     }
     @using (Html.BeginForm("DeleteTravelClaim", "Payroll", FormMethod.Post, new { @id = "frmClaimDelete", name = "frmClaimDelete" }))
     {
@@ -1277,7 +1163,7 @@
 
 </div>
 @section Scripts{
-    
+
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
             type="text/javascript"></script>
     <script type="text/javascript">
@@ -1385,36 +1271,38 @@
             // var title =$('.multiselect-selected-text').text();
         });
 
-        $('#frmClaim').validate({
-            rules: {
-                'claimHeader.Name': {
-                    required: true
-                },
+        //$('#frmClaim').validate({
+        //    rules: {
+        //        'claimHeader.Name': {
+        //            required: true
+        //        },
 
-                'claimHeader.FromDate': {
-                    required: true
-                },
-                'claimHeader.ToDate': {
-                    required: true
-                },
-                'claimHeader.CountryVisited': {
-                    required: true
-                },
-                'claimHeader.NoOfDays': {
-                    required: true
-                },
-                'claimDetail.Category': {
-                    required: true
-                },
-                'claimDetail.Currency': {
-                    required: true
-                }
-            }
-        });
+        //        'claimHeader.FromDate': {
+        //            required: true
+        //        },
+        //        'claimHeader.ToDate': {
+        //            required: true
+        //        },
+        //        'claimHeader.CountryVisited': {
+        //            required: true
+        //        },
+        //        'claimHeader.NoOfDays': {
+        //            required: true
+        //        },
+        //        'claimDetail.Category': {
+        //            required: true
+        //        },
+        //        'claimDetail.Currency': {
+        //            required: true
+        //        }
+        //    }
+        //});
 
-        function SaveAndGetData() {
-            if ($('#frmClaim').valid()) {
-                //$('#addOrDelete').val('addOrDelete');
+        function SaveAndGetData(category) {
+
+            // if ($('#frmClaim').valid()) {
+            if (true) {
+                $('#addNewClaim').val(category);
                 $('#frmClaim').submit();
             }
             else
@@ -1457,61 +1345,77 @@
                 swal("Incorrect Inputs");
             }
         }
-
-        function CalculateTotal(obj) {
+        // Calculations for AirFare : Start
+        function CalculateAirFareTotal(obj) {
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetail_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetail_' + index + '__Currency option:selected').val()) ? 1 : parseFloat($('select#claimDetail_' + index + '__Currency option:selected').val());
-            $('#claimDetail_' + index + '__ExchangeRate').val(exrate);
+            var amount = parseFloat($('#claimDetailAirfareVm_' + index + '__Amount').val());
+            var exrate = isNaN($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val()) ? 1 :
+                parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
+            $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
             if (isNaN(amount)) {
                 amount = 0;
             }
-            var exchangeRate = parseFloat($('#claimDetail_' + index + '__ExchangeRate').val());
+            var exchangeRate = parseFloat($('#claimDetailAirfareVm_' + index + '__ExchangeRate').val());
             if (isNaN(exchangeRate)) {
                 exchangeRate = 1;
             }
             var Total = parseFloat(amount * exchangeRate).toFixed(2);
             Total = parseFloat(Total).toFixed(2);
-            $('#claimDetail_' + index + '__TotalInSGD').val(Total);
+            $('#claimDetailAirfareVm_' + index + '__TotalInSGD').val(Total);
             debugger;
-            var length = $('.cssLength').length;
+            var length = $('.cssAirfareLength').length;
             var grossTotal = 0;
             for (var i = 0; i < length; i++) {
 
-                var grossVal = $('#claimDetail_' + i + '__TotalInSGD').val();
+                var grossVal = $('#claimDetailAirfareVm_' + i + '__TotalInSGD').val();
                 if (grossVal != null && grossVal != "") {
                     grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
                 }
-                $('#claimHeader_GrossTotal').val(grossTotal.toFixed(2));
+                $('#claimHeader_claimDetailAirfareTotal').val(grossTotal.toFixed(2));
             }
         }
 
-        function deleteClaimDetail(detailId, index) {
+        function deleteAirfareClaimDetail(detailId, index,category){
             var headerId = $('#claimHeader_TravelClaimId').val();
-            var length = $('.cssLength').length;
+            var length = $('.cssAirfareLength').length;
             if (length > 1) {
-                //if (detailId != undefined && detailId != null && detailId != 0) {
-                //    $('#headerId').val(headerId);
-                //    $('#detailId').val(detailId);
 
-                //    $('#frmClaimDelete').submit();
-                //}
-                //else {
+                $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
-                $('#claimDetail_' + index + '__Category').removeAttr('required');
-                $('#claimDetail_' + index + '__Amount').removeAttr('required');
-                $('#claimDetail_' + index + '__Currency').removeAttr('required');
-                $('#claimDetail_' + index + '__TravelDate').removeAttr('required');
+                $('#claimDetailAirfareVm_' + index + '__Perticulars').removeAttr('required');
+                $('#claimDetailAirfareVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailAirfareVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailAirfareVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
                 $('#frmClaim').submit();
-                // $('#tr_' + index).remove();
-                //CalculateTotal(index);
-                //}
+
             }
             else {
                 swal("Message!", "You can not delete because one row should be mandatory");
             }
         }
+
+        function deleteAirfareClaimDetail(detailId, index,category) {
+            var headerId = $('#claimHeader_TravelClaimId').val();
+            var length = $('.cssLength').length;
+            if (length > 1) {
+
+                $('#addNewClaim').val(category);
+                $('#addOrDelete').val(index);
+                $('#claimDetailAirfareVm_' + index + '__Category').removeAttr('required');
+                $('#claimDetailAirfareVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailAirfareVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailAirfareVm_' + index + '__TravelDate').removeAttr('required');
+                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+                $('#frmClaim').submit();
+
+            }
+            else {
+                swal("Message!", "You can not delete because one row should be mandatory");
+            }
+        }
+
+        // Calculations for AirFare : End
 
         $('#claimHeader_ToDate').on('blur', function (e) {
             $('#claimHeader_NoOfDays').val('');

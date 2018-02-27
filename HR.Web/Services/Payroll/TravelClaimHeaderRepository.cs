@@ -97,6 +97,21 @@ namespace HR.Web.Services.Payroll
             }
         }
 
+        internal int GetCount(int branchId)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.TravelClaimHeaders.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
         internal IEnumerable<TravelClaimHeader> GetListByProperty(Func<TravelClaimHeader, bool> predicate)
         {

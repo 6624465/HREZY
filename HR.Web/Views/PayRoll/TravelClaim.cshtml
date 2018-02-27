@@ -513,7 +513,7 @@
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
                                                                             style="padding-left: 5px;margin-left: 6px;"
-                                                                            onclick="deleteClaimDetail(@Model.claimDetailAccomdationVm[i].TravelClaimDetailId,@i,'ACCOMMODATION')">
+                                                                            onclick="deleteAccomodationDetail(@Model.claimDetailAccomdationVm[i].TravelClaimDetailId,@i,'ACCOMMODATION')">
                                                                         <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                                     </button>
                                                                 </td>
@@ -527,7 +527,7 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td><span class="pull-right"><b>Total  </b></span></td>
-                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.claimDetailAccomdationTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                                             <td></td>
                                                         </tr>
 
@@ -568,7 +568,7 @@
                                                         @for (int i = 0; i < Model.claimDetailTaxiLocalVm.Count; i++)
                                                         {
 
-                                                            <tr id="tr_@i" class="cssLength">
+                                                            <tr id="tr_@i" class="cssTaxilocalLength">
 
                                                                 <td>
 
@@ -598,14 +598,14 @@
                                                                    @class = "form-control input-sm decimalCss",
                                                                    required = "required",
                                                                    style = "width:100px;",
-                                                                   onblur = "CalculateTotal(this)",
+                                                                   onblur = "CalculateTaxilocalTotal(this)",
                                                                    data_index = i
                                                                })
                                                                 </td>
                                                                 <td>
                                                                     @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency,
                                                                        SelectListItemHelper.CurrnyList(), new
-                                                                       { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                                       { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTaxilocalTotal(this)", data_index = i, @required = "required" })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ExchangeRate,
@@ -618,7 +618,7 @@
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
                                                                             style="padding-left: 5px;margin-left: 6px;"
-                                                                            onclick="deleteClaimDetail(@Model.claimDetailTaxiLocalVm[i].TravelClaimDetailId,@i,'TAXILOCAL')">
+                                                                            onclick="deletetaxilocalDetail(@Model.claimDetailTaxiLocalVm[i].TravelClaimDetailId,@i,'TAXILOCAL')">
                                                                         <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                                     </button>
                                                                 </td>
@@ -631,7 +631,7 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td><span class="pull-right"><b>Total  </b></span></td>
-                                                            <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                            <td>@Html.TextBoxFor(x => x.claimHeader.claimDetailTaxiLocalTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
                                                             <td></td>
                                                         </tr>
 
@@ -1410,6 +1410,7 @@
         // Calculations for Visa: Start
 
         function CalculateVisaTotal(obj){
+            debugger;
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
             var amount = parseFloat($('#claimDetailVisaVm_' + index + '__Amount').val());
             var exrate = isNaN($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val()) ? 1 :
@@ -1462,46 +1463,46 @@
         // Calculations for Visa: End
 
         //Calculations for Accomodation: Start
-        @*function CalculateAccomodationTotal(obj){
+        function CalculateAccomodationTotal(obj){
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailVisaVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailVisaVm_' + index + '__ExchangeRate').val(exrate);
+            var amount = parseFloat($('#claimDetailAccomdationVm_' + index + '__Amount').val());
+            var exrate = isNaN($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val()) ? 1 :
+                parseFloat($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val());
+            $('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val(exrate);
             if (isNaN(amount)) {
                 amount = 0;
             }
-            var exchangeRate = parseFloat($('#claimDetailVisaVm_' + index + '__ExchangeRate').val());
+            var exchangeRate = parseFloat($('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val());
             if (isNaN(exchangeRate)) {
                 exchangeRate = 1;
             }
             var Total = parseFloat(amount * exchangeRate).toFixed(2);
             Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailVisaVm_' + index + '__TotalInSGD').val(Total);
+            $('#claimDetailAccomdationVm_' + index + '__TotalInSGD').val(Total);
             debugger;
             var length = $('.cssAccomodationLength').length;
             var grossTotal = 0;
             for (var i = 0; i < length; i++) {
 
-                var grossVal = $('#claimDetailVisaVm_' + i + '__TotalInSGD').val();
+                var grossVal = $('#claimDetailAccomdationVm_' + i + '__TotalInSGD').val();
                 if (grossVal != null && grossVal != "") {
                     grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
                 }
-                $('#claimHeader_claimDetailVisaTotal').val(grossTotal.toFixed(2));
+                $('#claimHeader_claimDetailAccomdationTotal').val(grossTotal.toFixed(2));
             }
         }
 
         function deleteAccomodationDetail(detailId, index,category){
             var headerId = $('#claimHeader_TravelClaimId').val();
-            var length = $('.cssVisaLength').length;
+            var length = $('.cssAccomodationLength').length;
             if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
-                $('#claimDetailVisaVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailVisaVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailVisaVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailVisaVm_' + index + '__TravelDate').removeAttr('required');
+                $('#claimDetailAccomdationVm_' + index + '__Perticulars').removeAttr('required');
+                $('#claimDetailAccomdationVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailAccomdationVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailAccomdationVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
                 $('#frmClaim').submit();
 
@@ -1509,10 +1510,59 @@
             else {
                 swal("Message!", "You can not delete because one row should be mandatory");
             }
-        }*@
+        }
 
         //Calculations for Accomodation: End
+        //calculations for TaxiFares local:start
+        function CalculateTaxilocalTotal(obj) {
+            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+            var amount = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__Amount').val());
+            var exrate = isNaN($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
+                parseFloat($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val());
+            $('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val(exrate);
+            if (isNaN(amount)) {
+                amount = 0;
+            }
+            var exchangeRate = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val());
+            if (isNaN(exchangeRate)) {
+                exchangeRate = 1;
+            }
+            var Total = parseFloat(amount * exchangeRate).toFixed(2);
+            Total = parseFloat(Total).toFixed(2);
+            $('#claimDetailTaxiLocalVm_' + index + '__TotalInSGD').val(Total);
+            debugger;
+            var length = $('.cssTaxilocalLength').length;
+            var grossTotal = 0;
+            for (var i = 0; i < length; i++) {
 
+                var grossVal = $('#claimDetailTaxiLocalVm_' + i + '__TotalInSGD').val();
+                if (grossVal != null && grossVal != "") {
+                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                }
+                $('#claimHeader_claimDetailTaxiLocalTotal').val(grossTotal.toFixed(2));
+            }
+        }
+
+        function deletetaxilocalDetail(detailId, index,category){
+            var headerId = $('#claimHeader_TravelClaimId').val();
+            var length = $('.cssTaxilocalLength').length;
+            if (length > 1) {
+
+                $('#addNewClaim').val(category);
+                $('#addOrDelete').val(index);
+                $('#claimDetailTaxiLocalVm_' + index + '__Perticulars').removeAttr('required');
+                $('#claimDetailTaxiLocalVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailTaxiLocalVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailTaxiLocalVm_' + index + '__TravelDate').removeAttr('required');
+                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+                $('#frmClaim').submit();
+
+            }
+            else {
+                swal("Message!", "You can not delete because one row should be mandatory");
+            }
+        }
+        //calculations for TaxiFares local:end
 
 
         $('#claimHeader_ToDate').on('blur', function (e) {

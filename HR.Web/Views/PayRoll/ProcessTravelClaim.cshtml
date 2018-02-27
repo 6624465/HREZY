@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<HR.Web.Models.TravelClaimHeader>
 
-
+@using(Html.BeginForm("ApproveTravelClaim","PayRoll",FormMethod.Post, new { id="frmtravelclaim",name="frmtravelclaim"}))
+{
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
@@ -13,13 +14,13 @@
                         <thead>
                             <tr>
                                 <th>
-                                   
+
                                 </th>
                                 <th>
-                                   TravelClaim No
+                                    TravelClaim No
                                 </th>
                                 <th>
-                                   Employee Name
+                                    Employee Name
                                 </th>
                                 <th>Submission Date</th>
                                 <th>Total Claim</th>
@@ -29,11 +30,11 @@
                         <tbody>
                             @for (var i = 0; i < Model.Count(); i++)
                             {
-                                @Html.HiddenFor(x=>x.ElementAt(i).BranchId)
-                                
-                                <tr>
+                                @Html.HiddenFor(x => x.ElementAt(i).BranchId)
+                                @Html.HiddenFor(x=>x.ElementAt(i).TravelClaimId)
+                                <tr class="Length">
                                     <td>
-                                        <input type="checkbox" />
+                                      <input type="checkbox" id="chk" name="chk"/>
                                     </td>
                                     <td>
                                         @Model.ElementAt(i).TravelClaimId
@@ -50,28 +51,67 @@
                                         </button>
                                     </td>
                                 </tr>
-                            }
-                            
+                                }
+
                         </tbody>
-                       
+
                     </table>
-               <div class="row">
-                   <div class="col-md-12">
-                       <button class="btn btn-primary btn-sm">
-                           <i class="fa fa-floppy-o"></i>
-                           Approve
-                       </button>
-                       <button class="btn btn-primary btn-sm">
-                           <i class="fa fa-trash-o"></i>
-                           Reject
-                       </button>
-                   </div>
-               </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary btn-sm" type="button" onclick="approve()" >
+                                <i class="fa fa-check"></i>
+                                Approve
+                            </button>
+                            <button class="btn btn-primary btn-sm" type="button" onclick="location.href='@Url.Content("~/PayRoll/RejectTravelClaim")'">
+                                <i class="fa fa-times"></i>
+                                Reject
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+}
+
+@section Styles{
+    <script type="text/javascript">
+        $(function () {
+            $('#chk').val($('#TravelClaimId').val())
+        })
+        function approve() {
+            if ($('#frmtravelclaim').valid()) {
+                $('#frmtravelclaim').submit();
+
+                swal({
+                    title: "Saved Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                     function () {
+                         $.loader({
+                             className: "blue-with-image-2",
+                             content: '',
+                         });
+                     })
+            }
+            else {
+                swal("InCorrect Inputs");
+            }
+        }
+   
+
+
+    </script>
+    
+    
+    }
+
 
    

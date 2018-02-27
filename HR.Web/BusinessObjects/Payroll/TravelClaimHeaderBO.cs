@@ -84,6 +84,22 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
+        public TravelClaimHeader ApproveTravelClaim(TravelClaimHeader travelclaim)
+        {
+            var travelclaimobj = GetById(travelclaim.TravelClaimId);
+            travelclaimobj.Status = "APPROVED";
+            travelclaimobj.IsApproved = true;
+            Add(travelclaimobj);
+            return travelclaimobj;
+        }
+
+        public TravelClaimHeader RejectTravelClaim(TravelClaimHeader travelclaim)
+        {
+            var travelclaimobj = GetById(travelclaim.TravelClaimId);
+            travelclaimobj.Status = "REJECTED";
+            Add(travelclaimobj);
+            return travelclaimobj;
+        }
 
     }
 }

@@ -1712,7 +1712,7 @@
             }
         }
 
-        function deletefoodbillsoverseasDetail(detailId, index,category){
+        function deleteOtherExpensesDetail(detailId, index,category){
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssfoodbillsoverseasLength').length;
             if (length > 1) {
@@ -1735,44 +1735,44 @@
         //calculations for OtherExpenses:start
         function  CalculateOtherExpensesTotal(obj) {
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
+            var amount = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__Amount').val());
+            var exrate = isNaN($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val()) ? 1 :
+                parseFloat($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val());
+            $('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val(exrate);
             if (isNaN(amount)) {
                 amount = 0;
             }
-            var exchangeRate = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val());
+            var exchangeRate = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val());
             if (isNaN(exchangeRate)) {
                 exchangeRate = 1;
             }
             var Total = parseFloat(amount * exchangeRate).toFixed(2);
             Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailFoodOverseasVm_' + index + '__TotalInSGD').val(Total);
+            $('#claimDetailOtherExpensesVm_' + index + '__TotalInSGD').val(Total);
             debugger;
-            var length = $('.cssfoodbillsoverseasLength').length;
+            var length = $('.cssOtherExpensesLength').length;
             var grossTotal = 0;
             for (var i = 0; i < length; i++) {
 
-                var grossVal = $('#claimDetailFoodOverseasVm_' + i + '__TotalInSGD').val();
+                var grossVal = $('#claimDetailOtherExpensesVm_' + i + '__TotalInSGD').val();
                 if (grossVal != null && grossVal != "") {
                     grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
                 }
-                $('#claimHeader_claimDetailFoodOverseasTotal').val(grossTotal.toFixed(2));
+                $('#claimHeader_claimDetailOtherExpensesTotal').val(grossTotal.toFixed(2));
             }
         }
 
-        function deletefoodbillsoverseasDetail(detailId, index,category){
+        function deleteOtherExpensesDetail(detailId, index,category){
             var headerId = $('#claimHeader_TravelClaimId').val();
-            var length = $('.cssfoodbillsoverseasLength').length;
+            var length = $('.cssOtherExpensesLength').length;
             if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
-                $('#claimDetailFoodOverseasVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__TravelDate').removeAttr('required');
+                $('#claimDetailOtherExpensesVm_' + index + '__Perticulars').removeAttr('required');
+                $('#claimDetailOtherExpensesVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailOtherExpensesVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailOtherExpensesVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
                 $('#frmClaim').submit();
 

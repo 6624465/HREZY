@@ -13,6 +13,7 @@ namespace HR.Web.BusinessObjects.Security
     {
         UserRepository userRepository = null;
 
+
         public int BRANCHID { get; private set; }
 
         public UserBO(SessionObj _sessionObj)
@@ -123,6 +124,18 @@ namespace HR.Web.BusinessObjects.Security
                 RoleCode = "Employee"
             };
             Update(user);
+        }
+        public User GetByProperty(Func<User,bool> predicate)
+        {
+            try
+            {
+                return userRepository.GetByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

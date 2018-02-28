@@ -132,6 +132,7 @@
                     </div>
                     <div class="panel-body">
                      @Html.HiddenFor(x=>x.claimHeader.TravelClaimId)
+                        @*<input type="hidden" id="claimHeader_TravelClaimId" name="claimHeader_TravelClaimId" value="@Model.claimHeader.TravelClaimId"/>*@
                         @Html.HiddenFor(x => x.claimHeader.Name)
                         @Html.HiddenFor(x => x.claimHeader.EmployeeId)
                         <div class="row css5">
@@ -1169,7 +1170,7 @@
                                 <button type="button" class="btn btn-primary btn-sm">
                                     <i class="fa fa-eye"></i><b>Preview</b>
                                 </button>
-                                <button type="button" class="btn btn-primary btn-sm">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="Submit()">
                                     <i class="fa fa fa-check-circle"></i><b>Submit</b>
                                 </button>
                                 <button type="button" class="btn btn-primary btn-sm"
@@ -1194,6 +1195,10 @@
         <input type="hidden" id="detailId" name="detailId" />
         <input type="hidden" id="headerId" name="headerId" />
 
+    }
+    @using(Html.BeginForm("SubmittravelClaim", "PayRoll",FormMethod.Post, new { id="frmsubmit",name= "frmsubmit" }))
+    {
+        <input type="hidden" id="travelid" name="travelid"/>
     }
 
 </div>
@@ -1824,7 +1829,10 @@
             var days = moment.duration(to.diff(from)).asDays() + 1;
             $('#claimHeader_NoOfDays').val(days);
         })
+        function Submit(){
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/SubmittravelClaim")', 'novalidate': 'novalidate' }).submit();
 
+        }
 
     </script>
 

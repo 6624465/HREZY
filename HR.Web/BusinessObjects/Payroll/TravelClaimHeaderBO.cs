@@ -100,6 +100,13 @@ namespace HR.Web.BusinessObjects.Payroll
             Add(travelclaimobj);
             return travelclaimobj;
         }
+        public TravelClaimHeader SubmitTravelClaim(TravelClaimHeader travelclaim)
+        {
+            var travelobj = GetById(travelclaim.TravelClaimId);
+            travelobj.Status = "SUBMITTED";
+            Add(travelobj);
+            return travelobj;
+        }
         internal int GetCount(int branchId)
         {
             return travelClaimHeaderRepository.GetCount(branchId);

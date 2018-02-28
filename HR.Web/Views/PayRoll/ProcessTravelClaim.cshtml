@@ -33,7 +33,7 @@
                                 @Html.HiddenFor(x=>x.ElementAt(i).EmployeeId)
                                 <tr id="len_@i" class="length">
                                     <td>
-                                            <input type="checkbox" class="chk" id="chk_@i" name="chk" data-index="@Model.ElementAt(i).TravelClaimId" value="@Model.ElementAt(i).TravelClaimId"  />
+                                            <input type="checkbox" class="chk " id="chk_@i" name="chk" data-index="@Model.ElementAt(i).TravelClaimId" value="@Model.ElementAt(i).TravelClaimId"  />
                                     </td>
                                     <td>
                                         @Model.ElementAt(i).ClaimNo
@@ -86,6 +86,8 @@
         var index="";
         $(function(){
             $('.chk').on("ifChanged", function (event) {
+                //debugger;
+                //$('.chk').addClass('csslength');
                 var temp = this;
                 index = $(this).data('index');
                 $('#travelclaimid').val(index);

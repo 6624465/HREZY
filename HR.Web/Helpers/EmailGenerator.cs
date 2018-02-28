@@ -89,6 +89,19 @@ namespace HR.Web.Helpers
             return SendMail(msg);
         }
 
+        public bool ConfigMail(string to, string bcc, bool isHtml, string subject, string body)
+        {
+            MailMessage msg = new MailMessage();
+
+            msg.To.Add(new MailAddress(to));
+            msg.Bcc.Add(new MailAddress(bcc));
+            msg.Subject = subject;
+            msg.Body = body;
+            msg.BodyEncoding = UTF8Encoding.UTF8;
+            msg.IsBodyHtml = isHtml;
+            return SendMail(msg);
+        }
+
         public bool ConfigMail(string to, string bcc, bool isHtml, string subject, string body, string[] attachments)
         {
             MailMessage msg = new MailMessage();

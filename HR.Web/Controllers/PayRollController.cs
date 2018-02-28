@@ -1054,7 +1054,7 @@ namespace HR.Web.Controllers
                     travelClaimVm.claimHeader.claimDetailOtherExpensesTotal = travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
                     break;
             }
-                     
+
             ModelState.Clear();
             return View("TravelClaim", travelClaimVm);
         }
@@ -1282,7 +1282,7 @@ namespace HR.Web.Controllers
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
             }
-            
+
             return RedirectToAction("TravelClaimList", "Payroll");
         }
 

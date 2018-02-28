@@ -34,7 +34,7 @@
                                 @Html.HiddenFor(x=>x.ElementAt(i).TravelClaimId)
                                 <tr class="Length">
                                     <td>
-                                      <input type="checkbox" id="chk" name="chk"/>
+                                      <input type="checkbox" id="chk_@i" name="chk" value="@Model.ElementAt(i).TravelClaimId"/>
                                     </td>
                                     <td>
                                         @Model.ElementAt(i).TravelClaimId

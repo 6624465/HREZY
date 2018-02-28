@@ -1165,10 +1165,17 @@
                                     <i class="fa fa-floppy-o"></i>
                                     Save
                                 </button>
+                                <button type="button" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-eye"></i><b>Preview</b>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm">
+                                    <i class="fa fa fa-check-circle"></i><b>Submit</b>
+                                </button>
                                 <button type="button" class="btn btn-primary btn-sm"
                                         onclick="location.href='@Url.Content("~/PayRoll/TravelClaimList")'">
                                     <i class="fa fa-arrow-left"></i><b>Back</b>
                                 </button>
+                             
                             </div>
 
                         </div>
@@ -1709,6 +1716,25 @@
                     grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
                 }
                 $('#claimHeader_claimDetailFoodOverseasTotal').val(grossTotal.toFixed(2));
+            }
+        }
+        function deletefoodbillsoverseasDetail(detailId, index,category){
+            var headerId = $('#claimHeader_TravelClaimId').val();
+            var length = $('.cssfoodbillsoverseasLength').length;
+            if (length > 1) {
+
+                $('#addNewClaim').val(category);
+                $('#addOrDelete').val(index);
+                $('#claimDetailFoodOverseasVm_' + index + '__Perticulars').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__Amount').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
+                $('#claimDetailFoodOverseasVm_' + index + '__TravelDate').removeAttr('required');
+                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+                $('#frmClaim').submit();
+
+            }
+            else {
+                swal("Message!", "You can not delete because one row should be mandatory");
             }
         }
 

@@ -544,6 +544,7 @@
           <Property Name="FromDate" Type="datetime" />
           <Property Name="TODate" Type="datetime" />
           <Property Name="DepartureTime" Type="time" Precision="7" />
+          <Property Name="ClaimNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TravelClaimHeader">
           <Key>
@@ -1315,6 +1316,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="FromDate" Type="DateTime" Precision="3" />
           <Property Name="TODate" Type="DateTime" Precision="3" />
           <Property Name="DepartureTime" Type="Time" Precision="7" />
+          <Property Name="ClaimNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TravelClaimHeader">
           <Key>
@@ -1968,6 +1970,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="TravelClaimDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TravelClaimDetail">
               <MappingFragment StoreEntitySet="TravelClaimDetail">
+                <ScalarProperty Name="ClaimNo" ColumnName="ClaimNo" />
                 <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
                 <ScalarProperty Name="TODate" ColumnName="TODate" />
                 <ScalarProperty Name="FromDate" ColumnName="FromDate" />

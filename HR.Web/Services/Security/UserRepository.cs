@@ -144,5 +144,20 @@ namespace HR.Web.Services.Security
                 throw ex;
             }
         }
+        public  User GetByProperty(Func<User, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.Users.Where(predicate).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

@@ -30,6 +30,7 @@
                             {
                                 @Html.HiddenFor(x => x.ElementAt(i).BranchId)
                                 @Html.HiddenFor(x=>x.ElementAt(i).TravelClaimId)
+                                @Html.HiddenFor(x=>x.ElementAt(i).EmployeeId)
                                 <tr id="len_@i" class="length">
                                     <td>
                                             <input type="checkbox" class="chk" id="chk_@i" name="chk" data-index="@Model.ElementAt(i).TravelClaimId" value="@Model.ElementAt(i).TravelClaimId"  />

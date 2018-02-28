@@ -34,10 +34,10 @@
                                 @Html.HiddenFor(x=>x.ElementAt(i).TravelClaimId)
                                 <tr class="Length">
                                     <td>
-                                      <input type="checkbox" id="chk_@i" name="chk" value="@Model.ElementAt(i).TravelClaimId"/>
+                                      <input type="checkbox" id="chk_@i" name="chk" value="@Model.ElementAt(i).TravelClaimId" onchange="gettravelclaimid(@Model.ElementAt(i).TravelClaimId)"/>
                                     </td>
                                     <td>
-                                        @Model.ElementAt(i).TravelClaimId
+                                        @Model.ElementAt(i).ClaimNo
                                     </td>
                                     <td>@Model.ElementAt(i).Name</td>
                                     <td>@Model.ElementAt(i).CreatedOn.Value.ToString("dd/MM/yyyy")</td>
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-
+        <input type="hidden" id="travelclaimid" name="travelclaimid" />
     </div>
 </div>
 
@@ -82,6 +82,9 @@
         $(function () {
             $('#chk').val($('#TravelClaimId').val())
         })
+        function gettravelclaimid(id){
+
+        }
         function approve() {
             if ($('#frmtravelclaim').valid()) {
                 $('#frmtravelclaim').submit();

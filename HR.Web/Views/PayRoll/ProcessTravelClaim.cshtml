@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<HR.Web.Models.TravelClaimHeader>
 
-@using(Html.BeginForm("ApproveTravelClaim","PayRoll",FormMethod.Post, new { id="frmtravelclaim",name="frmtravelclaim"}))
-{
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
@@ -32,9 +30,9 @@
                             {
                                 @Html.HiddenFor(x => x.ElementAt(i).BranchId)
                                 @Html.HiddenFor(x=>x.ElementAt(i).TravelClaimId)
-                                <tr class="Length">
+                                <tr id="len_@i" class="length">
                                     <td>
-                                      <input type="checkbox" id="chk_@i" name="chk" value="@Model.ElementAt(i).TravelClaimId" onchange="gettravelclaimid(@Model.ElementAt(i).TravelClaimId)"/>
+                                            <input type="checkbox" class="chk" id="chk_@i" name="chk" data-index="@Model.ElementAt(i).TravelClaimId" value="@Model.ElementAt(i).TravelClaimId"  />
                                     </td>
                                     <td>
                                         @Model.ElementAt(i).ClaimNo
@@ -58,11 +56,11 @@
                     </table>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary btn-sm" type="button" onclick="approve()" >
+                            <button class="btn btn-primary btn-sm" type="button" onclick="Approve()">
                                 <i class="fa fa-check"></i>
                                 Approve
                             </button>
-                            <button class="btn btn-primary btn-sm" type="button" onclick="location.href='@Url.Content("~/PayRoll/RejectTravelClaim")'">
+                            <button class="btn btn-primary btn-sm" type="button" onclick="Reject()">
                                 <i class="fa fa-times"></i>
                                 Reject
                             </button>
@@ -71,44 +69,86 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" id="travelclaimid" name="travelclaimid" />
+       
     </div>
 </div>
-
+@using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmapprove", name = "frmapprove" }))
+{
+    <input type="hidden" id="travelclaimid" name="travelclaimid" />
 }
-
+@using (Html.BeginForm("RejectTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmreject", name = "frmreject" }))
+{
+    <input type="hidden" id="travelclaimrejid" name="travelclaimrejid" />
+}
 @section Styles{
     <script type="text/javascript">
-        $(function () {
-            $('#chk').val($('#TravelClaimId').val())
+        var index="";
+        $(function(){
+            $('.chk').on("ifChanged", function (event) {
+                var temp = this;
+                index = $(this).data('index');
+                $('#travelclaimid').val(index);
+                $('#travelclaimrejid').val(index);
+            });
         })
-        function gettravelclaimid(id){
-
-        }
-        function approve() {
-            if ($('#frmtravelclaim').valid()) {
-                $('#frmtravelclaim').submit();
-
-                swal({
-                    title: "Saved Successfully",
-                    text: "",
-                    closeOnConfirm: true,
-                    confirmButtonText: "Ok",
-                    confirmButtonClass: "btn-primary",
-                    timer: 5000
-                },
-                     function () {
-                         $.loader({
-                             className: "blue-with-image-2",
-                             content: '',
-                         });
-                     })
+      
+        function Approve() {
+            if (index == "") {
+                swal("Please Select the Checkbox which you want to approve");
             }
             else {
-                swal("InCorrect Inputs");
+                if ($('#frmapprove').valid()) {
+                    $('#frmapprove').submit();
+
+                    swal({
+                        title: "Saved Successfully",
+                        text: "",
+                        closeOnConfirm: true,
+                        confirmButtonText: "Ok",
+                        confirmButtonClass: "btn-primary",
+                        timer: 5000
+                    },
+                         function () {
+                             $.loader({
+                                 className: "blue-with-image-2",
+                                 content: '',
+                             });
+                         })
+                }
             }
-        }
-   
+                
+            }
+           
+          
+        function Reject() {
+          
+            if (index == "") {
+                swal("Please Select the Checkbox which you want to Reject");
+            }
+            else
+            {
+                if ($('#frmreject').valid()) {
+                    $('#frmreject').submit();
+                    swal({
+                        title: "Rejected Successfully",
+                        text: "",
+                        closeOnConfirm: true,
+                        confirmButtonText: "Ok",
+                        confirmButtonClass: "btn-primary",
+                        timer: 5000
+                    },
+                         function () {
+                             $.loader({
+                                 className: "blue-with-image-2",
+                                 content: '',
+                             });
+                         })
+                }
+            }
+                
+            }
+           
+         
 
 
     </script>

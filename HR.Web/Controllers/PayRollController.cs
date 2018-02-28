@@ -1303,11 +1303,15 @@ namespace HR.Web.Controllers
         }
         public ActionResult ApproveTravelClaim(TravelClaimHeader travelclaim)
         {
+            var travelclaimid = Request["travelclaimid"];
+            travelclaim.TravelClaimId = Convert.ToInt32(travelclaimid);
             travelClaimHeaderBO.ApproveTravelClaim(travelclaim);
             return RedirectToAction("ProcessTravelClaim");
         }
         public ActionResult RejectTravelClaim(TravelClaimHeader TravelClaim)
         {
+            var travelclaimid = Request["travelclaimrejid"];
+            TravelClaim.TravelClaimId = Convert.ToInt32(travelclaimid);
             travelClaimHeaderBO.RejectTravelClaim(TravelClaim);
             return RedirectToAction("ProcessTravelClaim");
         }

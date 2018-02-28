@@ -1527,7 +1527,8 @@
                 $('#claimDetailAccomdationVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailAccomdationVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailAccomdationVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailAccomdationVm_' + index + '__TravelDate').removeAttr('required');
+                $('#claimDetailAccomdationVm_' + index + '__FromDate').removeAttr('required');
+                $('#claimDetailAccomdationVm_' + index + '__ToDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
                 $('#frmClaim').submit();
 

@@ -712,52 +712,226 @@ namespace HR.Web.Controllers
                         Receipts = false
                     }
                 };
-
-                //List<LookUp> lookUpList = new List<LookUp>();
-                //lookUpList = dbcntx.LookUps.Where(x => x.LookUpCategory == UTILITY.TRAVELCLAIM && x.IsActive == true).ToList();
-                //foreach (var item in lookUpList)
-                //{
-                //    TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
-                //    {
-                //        Category = item.LookUpDescription,
-                //        Receipts = false
-                //    };
-                //    // travelClaimVm.claimDetail.Add(travelClaimDetail);
-                //}
-
                 return View(travelClaimVm);
 
             }
             else
             {
                 TravelClaimVm travelClaimNewObj = new TravelClaimVm();
-                //travelClaimNewObj.claimHeader = travelClaimHeaderBO
-                //   .GetByProperty(x => x.TravelClaimId == travelClaimId);
-
-                // travelClaimNewObj.claimDetail = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimId).ToList();
-
-                //if (travelClaimNewObj.claimDetail != null && travelClaimNewObj.claimDetail.Count > 0)
-                //{
-                //    for (var i = 0; i < travelClaimNewObj.claimDetail.Count; i++)
-                //    {
-                //        if (travelClaimNewObj.claimDetail[i].Amount != null)
-                //        {
-                //            decimal? amount = travelClaimNewObj.claimDetail[i].Amount;
-                //            decimal? exrate = travelClaimNewObj.claimDetail[i].ExchangeRate;
-                //            decimal total = (amount.Value * exrate.Value);
-
-                //            travelClaimNewObj.claimDetail[i].TotalInSGD = total;
-                //            travelClaimNewObj.claimDetail[i].TravelClaimId = travelClaimNewObj.claimHeader.TravelClaimId;
-                //            //travelClaimDetailBO.Add(travelClaimNewObj.claimDetail[i]);
-                //        }
-                //    }
-
-                //    travelClaimNewObj.claimHeader.GrossTotal = travelClaimNewObj.claimDetail.Sum(x => x.TotalInSGD);
+                TravelClaimHeader header = travelClaimHeaderBO
+                 .GetByProperty(x => x.TravelClaimId == travelClaimId);
+                travelClaimNewObj.claimHeader = new TravelClaimHeaderVm()
+                {
+                    BranchId = header.BranchId,
+                    ClaimNo = header.ClaimNo,
+                    CountryVisited = header.CountryVisited,
+                    EmployeeId = header.EmployeeId,
+                    FromDate = header.FromDate,
+                    GrossTotal = header.GrossTotal,
+                    Name = header.Name,
+                    NoOfDays = header.NoOfDays,
+                    Status = header.Status,
+                    ToDate = header.ToDate,
+                    TravelClaimId = header.TravelClaimId
+                };
 
 
-                // }
-                //return View(travelClaimNewObj);
-                return View();
+                var details = travelClaimDetailBO.GetListByProperty(x => x.TravelClaimId == travelClaimId).ToList();
+                travelClaimNewObj.claimDetailAirfareVm = new List<TravelDetailAirfareVm>();
+                travelClaimNewObj.claimDetailAccomdationVm = new List<TravelDetailAccomdationVm>();
+                travelClaimNewObj.claimDetailVisaVm = new List<TravelDetailVisaVm>();
+                travelClaimNewObj.claimDetailTaxiLocalVm = new List<TravelDetailTaxiLocalVm>();
+                travelClaimNewObj.claimDetailTaxiOverseasVm = new List<TravelDetailTaxiOverseasVm>();
+                travelClaimNewObj.claimDetailFoodLocalVm = new List<TravelDetailFoodLocalVm>();
+                travelClaimNewObj.claimDetailFoodOverseasVm = new List<TravelDetailFoodOverseasVm>();
+                travelClaimNewObj.claimDetailOtherExpensesVm = new List<TravelDetailOtherExpensesVm>();
+
+                foreach (var item in details)
+                {
+                    switch (item.Category)
+                    {
+                        case UTILITY.AIRFARE:
+                            TravelDetailAirfareVm travelClaimDetailAirfare = new TravelDetailAirfareVm()
+                            {
+                                TravelClaimId = item.TravelClaimId,
+                                Amount = item.Amount,
+                                BranchId = item.BranchId,
+                                Category = UTILITY.AIRFARE,
+                                Currency = item.Currency,
+                                DepartureTime = null,
+                                ExchangeRate = item.ExchangeRate,
+                                FromDate = item.FromDate,
+                                Perticulars = item.Perticulars,
+                                Receipts = item.Receipts,
+                                ToDate = item.TODate,
+                                TotalInSGD = item.TotalInSGD,
+                                TravelDate = item.TravelDate,
+                                ClaimNo = item.ClaimNo
+                            };
+                            travelClaimNewObj.claimDetailAirfareVm.Add(travelClaimDetailAirfare);
+                            break;
+
+
+                        case UTILITY.ACCOMMODATION:
+                            TravelDetailAccomdationVm travelClaimDetailAccomdation = new TravelDetailAccomdationVm()
+                            {
+                                TravelClaimId = item.TravelClaimId,
+                                Amount = item.Amount,
+                                BranchId = item.BranchId,
+                                Category = UTILITY.AIRFARE,
+                                Currency = item.Currency,
+                                DepartureTime = null,
+                                ExchangeRate = item.ExchangeRate,
+                                FromDate = item.FromDate,
+                                Perticulars = item.Perticulars,
+                                Receipts = item.Receipts,
+                                ToDate = item.TODate,
+                                TotalInSGD = item.TotalInSGD,
+                                TravelDate = item.TravelDate,
+                                ClaimNo = item.ClaimNo
+                            };
+                            travelClaimNewObj.claimDetailAccomdationVm.Add(travelClaimDetailAccomdation);
+                            break;
+
+                        case UTILITY.VISA:
+                            TravelDetailVisaVm travelClaimDetailVisa = new TravelDetailVisaVm()
+                            {
+                                TravelClaimId = item.TravelClaimId,
+                                Amount = item.Amount,
+                                BranchId = item.BranchId,
+                                Category = UTILITY.AIRFARE,
+                                Currency = item.Currency,
+                                DepartureTime = null,
+                                ExchangeRate = item.ExchangeRate,
+                                FromDate = item.FromDate,
+                                Perticulars = item.Perticulars,
+                                Receipts = item.Receipts,
+                                ToDate = item.TODate,
+                                TotalInSGD = item.TotalInSGD,
+                                TravelDate = item.TravelDate,
+                                ClaimNo = item.ClaimNo
+                            };
+                            travelClaimNewObj.claimDetailVisaVm.Add(travelClaimDetailVisa);
+                            break;
+
+                        case UTILITY.TAXILOCAL:
+                            TravelDetailTaxiLocalVm travelClaimDetailTaxiLocal = new TravelDetailTaxiLocalVm()
+                            {
+                                TravelClaimId = item.TravelClaimId,
+                                Amount = item.Amount,
+                                BranchId = item.BranchId,
+                                Category = UTILITY.AIRFARE,
+                                Currency = item.Currency,
+                                DepartureTime = null,
+                                ExchangeRate = item.ExchangeRate,
+                                FromDate = item.FromDate,
+                                Perticulars = item.Perticulars,
+                                Receipts = item.Receipts,
+                                ToDate = item.TODate,
+                                TotalInSGD = item.TotalInSGD,
+                                TravelDate = item.TravelDate,
+                                ClaimNo = item.ClaimNo
+                            };
+                            travelClaimNewObj.claimDetailTaxiLocalVm.Add(travelClaimDetailTaxiLocal);
+                            break;
+
+                        case UTILITY.TAXIOVERSEAS:
+                            TravelDetailTaxiOverseasVm travelClaimDetailTaxiOverseas = new TravelDetailTaxiOverseasVm()
+                            {
+                                TravelClaimId = item.TravelClaimId,
+                                Amount = item.Amount,
+                                BranchId = item.BranchId,
+                                Category = UTILITY.AIRFARE,
+                                Currency = item.Currency,
+                                DepartureTime = null,
+                                ExchangeRate = item.ExchangeRate,
+                                FromDate = item.FromDate,
+                                Perticulars = item.Perticulars,
+                                Receipts = item.Receipts,
+                                ToDate = item.TODate,
+                                TotalInSGD = item.TotalInSGD,
+                                TravelDate = item.TravelDate,
+                                ClaimNo = item.ClaimNo
+                            };
+                            travelClaimNewObj.claimDetailTaxiOverseasVm.Add(travelClaimDetailTaxiOverseas);
+                            break;
+
+                        case UTILITY.FOODBILLSLOCAL:
+                            TravelDetailFoodLocalVm travelClaimDetailFoodLocal = new TravelDetailFoodLocalVm()
+                            {
+                                TravelClaimId = item.TravelClaimId,
+                                Amount = item.Amount,
+                                BranchId = item.BranchId,
+                                Category = UTILITY.AIRFARE,
+                                Currency = item.Currency,
+                                DepartureTime = null,
+                                ExchangeRate = item.ExchangeRate,
+                                FromDate = item.FromDate,
+                                Perticulars = item.Perticulars,
+                                Receipts = item.Receipts,
+                                ToDate = item.TODate,
+                                TotalInSGD = item.TotalInSGD,
+                                TravelDate = item.TravelDate,
+                                ClaimNo = item.ClaimNo
+                            };
+                            travelClaimNewObj.claimDetailFoodLocalVm.Add(travelClaimDetailFoodLocal);
+                            break;
+
+                        case UTILITY.FOODBILLSOVERSEAS:
+                            TravelDetailFoodOverseasVm travelClaimDetailFoodOverseas = new TravelDetailFoodOverseasVm()
+                            {
+                                TravelClaimId = item.TravelClaimId,
+                                Amount = item.Amount,
+                                BranchId = item.BranchId,
+                                Category = UTILITY.AIRFARE,
+                                Currency = item.Currency,
+                                DepartureTime = null,
+                                ExchangeRate = item.ExchangeRate,
+                                FromDate = item.FromDate,
+                                Perticulars = item.Perticulars,
+                                Receipts = item.Receipts,
+                                ToDate = item.TODate,
+                                TotalInSGD = item.TotalInSGD,
+                                TravelDate = item.TravelDate,
+                                ClaimNo = item.ClaimNo
+                            };
+                            travelClaimNewObj.claimDetailFoodOverseasVm.Add(travelClaimDetailFoodOverseas);
+                            break;
+
+                        case UTILITY.OTHEREXPENSES:
+                            TravelDetailOtherExpensesVm travelClaimDetailOtherExpenses = new TravelDetailOtherExpensesVm()
+                            {
+                                TravelClaimId = item.TravelClaimId,
+                                Amount = item.Amount,
+                                BranchId = item.BranchId,
+                                Category = UTILITY.AIRFARE,
+                                Currency = item.Currency,
+                                DepartureTime = null,
+                                ExchangeRate = item.ExchangeRate,
+                                FromDate = item.FromDate,
+                                Perticulars = item.Perticulars,
+                                Receipts = item.Receipts,
+                                ToDate = item.TODate,
+                                TotalInSGD = item.TotalInSGD,
+                                TravelDate = item.TravelDate,
+                                ClaimNo = item.ClaimNo
+                            };
+                            travelClaimNewObj.claimDetailOtherExpensesVm.Add(travelClaimDetailOtherExpenses);
+                            break;
+                    }
+
+                }
+                travelClaimNewObj.claimHeader.claimDetailAirfareTotal = travelClaimNewObj.claimDetailAirfareVm
+                    .Sum(x => x.TotalInSGD);
+                travelClaimNewObj.claimHeader.claimDetailVisaTotal = travelClaimNewObj.claimDetailVisaVm.Sum(x => x.TotalInSGD);
+                travelClaimNewObj.claimHeader.claimDetailAccomdationTotal = travelClaimNewObj.claimDetailAccomdationVm.Sum(x => x.TotalInSGD);
+                travelClaimNewObj.claimHeader.claimDetailTaxiLocalTotal = travelClaimNewObj.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD);
+                travelClaimNewObj.claimHeader.claimDetailTaxiOverseasTotal = travelClaimNewObj.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD);
+                travelClaimNewObj.claimHeader.claimDetailFoodLocalTotal = travelClaimNewObj.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD);
+                travelClaimNewObj.claimHeader.claimDetailFoodOverseasTotal = travelClaimNewObj.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD);
+                travelClaimNewObj.claimHeader.claimDetailOtherExpensesTotal = travelClaimNewObj.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
+
+                return View(travelClaimNewObj);
             }
 
         }
@@ -934,7 +1108,7 @@ namespace HR.Web.Controllers
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
                         Amount = travelClaimVm.claimDetailAirfareVm[i].Amount,
-                        BranchId = 0,
+                        BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.AIRFARE,
                         Currency = travelClaimVm.claimDetailAirfareVm[i].Currency,
                         DepartureTime = null,
@@ -959,16 +1133,16 @@ namespace HR.Web.Controllers
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
                         Amount = travelClaimVm.claimDetailAccomdationVm[i].Amount,
-                        BranchId = 0,
+                        BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.ACCOMMODATION,
                         Currency = travelClaimVm.claimDetailAccomdationVm[i].Currency,
                         DepartureTime = null,
                         ExchangeRate = travelClaimVm.claimDetailAccomdationVm[i].ExchangeRate,
-                        FromDate = travelClaimVm.claimDetailAccomdationVm[i].FromDate ==null?DateTime.Now:
+                        FromDate = travelClaimVm.claimDetailAccomdationVm[i].FromDate == null ? DateTime.Now :
                          travelClaimVm.claimDetailAccomdationVm[i].FromDate,
                         Perticulars = travelClaimVm.claimDetailAccomdationVm[i].Perticulars,
                         Receipts = travelClaimVm.claimDetailAccomdationVm[i].Receipts,
-                        TODate = travelClaimVm.claimDetailAccomdationVm[i].ToDate == null?
+                        TODate = travelClaimVm.claimDetailAccomdationVm[i].ToDate == null ?
                         DateTime.Now : travelClaimVm.claimDetailAccomdationVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailAccomdationVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailAccomdationVm[i].TravelDate,
@@ -987,7 +1161,7 @@ namespace HR.Web.Controllers
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
                         Amount = travelClaimVm.claimDetailVisaVm[i].Amount,
-                        BranchId = 0,
+                        BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.VISA,
                         Currency = travelClaimVm.claimDetailVisaVm[i].Currency,
                         DepartureTime = null,
@@ -1012,7 +1186,7 @@ namespace HR.Web.Controllers
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
                         Amount = travelClaimVm.claimDetailTaxiLocalVm[i].Amount,
-                        BranchId = 0,
+                        BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.TAXILOCAL,
                         Currency = travelClaimVm.claimDetailTaxiLocalVm[i].Currency,
                         DepartureTime = null,
@@ -1037,7 +1211,7 @@ namespace HR.Web.Controllers
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
                         Amount = travelClaimVm.claimDetailTaxiOverseasVm[i].Amount,
-                        BranchId = 0,
+                        BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.TAXIOVERSEAS,
                         Currency = travelClaimVm.claimDetailTaxiOverseasVm[i].Currency,
                         DepartureTime = null,
@@ -1062,7 +1236,7 @@ namespace HR.Web.Controllers
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
                         Amount = travelClaimVm.claimDetailFoodLocalVm[i].Amount,
-                        BranchId = 0,
+                        BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.FOODBILLSLOCAL,
                         Currency = travelClaimVm.claimDetailFoodLocalVm[i].Currency,
                         DepartureTime = null,
@@ -1087,7 +1261,7 @@ namespace HR.Web.Controllers
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
                         Amount = travelClaimVm.claimDetailFoodOverseasVm[i].Amount,
-                        BranchId = 0,
+                        BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.FOODBILLSOVERSEAS,
                         Currency = travelClaimVm.claimDetailFoodOverseasVm[i].Currency,
                         DepartureTime = null,
@@ -1112,7 +1286,7 @@ namespace HR.Web.Controllers
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
                         Amount = travelClaimVm.claimDetailOtherExpensesVm[i].Amount,
-                        BranchId = 0,
+                        BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.OTHEREXPENSES,
                         Currency = travelClaimVm.claimDetailOtherExpensesVm[i].Currency,
                         DepartureTime = null,

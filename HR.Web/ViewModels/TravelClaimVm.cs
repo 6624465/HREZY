@@ -52,7 +52,9 @@ namespace HR.Web.ViewModels
         public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
 
-        public int DepartureTime { get; set; }
+        public int? DepartureTime { get; set; }
+
+        public string ClaimNo { get; set; }
     }
 
     public class TravelDetailVisaVm
@@ -72,11 +74,12 @@ namespace HR.Web.ViewModels
         public DateTime? CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public DateTime ToDate { get; set; }
-        public DateTime FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
 
-        public int DepartureTime { get; set; }
+        public int? DepartureTime { get; set; }
+        public string ClaimNo { get; set; }
     }
 
     public class TravelDetailAccomdationVm
@@ -99,8 +102,8 @@ namespace HR.Web.ViewModels
         public DateTime? ToDate { get; set; }
         public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
-
-        public int DepartureTime { get; set; }
+        public string ClaimNo { get; set; }
+        public int? DepartureTime { get; set; }
     }
 
     public class TravelDetailTaxiLocalVm
@@ -120,11 +123,11 @@ namespace HR.Web.ViewModels
         public DateTime? CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public DateTime ToDate { get; set; }
-        public DateTime FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
-
-        public int DepartureTime { get; set; }
+        public string ClaimNo { get; set; }
+        public int? DepartureTime { get; set; }
     }
 
     public class TravelDetailTaxiOverseasVm
@@ -144,11 +147,11 @@ namespace HR.Web.ViewModels
         public DateTime? CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public DateTime ToDate { get; set; }
-        public DateTime FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
-
-        public int DepartureTime { get; set; }
+        public string ClaimNo { get; set; }
+        public int? DepartureTime { get; set; }
     }
 
     public class TravelDetailFoodLocalVm
@@ -168,11 +171,11 @@ namespace HR.Web.ViewModels
         public DateTime? CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public DateTime ToDate { get; set; }
-        public DateTime FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
-
-        public int DepartureTime { get; set; }
+        public string ClaimNo { get; set; }
+        public int? DepartureTime { get; set; }
     }
 
     public class TravelDetailFoodOverseasVm
@@ -192,11 +195,11 @@ namespace HR.Web.ViewModels
         public DateTime? CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public DateTime ToDate { get; set; }
-        public DateTime FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
-
-        public int DepartureTime { get; set; }
+        public string ClaimNo { get; set; }
+        public int? DepartureTime { get; set; }
     }
 
     public class TravelDetailOtherExpensesVm
@@ -216,11 +219,11 @@ namespace HR.Web.ViewModels
         public DateTime? CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public DateTime ToDate { get; set; }
-        public DateTime FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
         public int BranchId { get; set; }
-
-        public int DepartureTime { get; set; }
+        public string ClaimNo { get; set; }
+        public int? DepartureTime { get; set; }
     }
     public class LookupObj
     {

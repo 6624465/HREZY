@@ -790,6 +790,7 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailVisaVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     else
                         travelClaimVm.claimDetailVisaVm.Add(travelDetailVisaVm);
+                    travelClaimVm.claimHeader.claimDetailVisaTotal = travelClaimVm.claimDetailVisaVm.Sum(x => x.TotalInSGD);
                     break;
 
                 case UTILITY.ACCOMMODATION:
@@ -801,6 +802,7 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailAccomdationVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     else
                         travelClaimVm.claimDetailAccomdationVm.Add(travelDetailAccomdationVm);
+                    travelClaimVm.claimHeader.claimDetailAccomdationTotal = travelClaimVm.claimDetailAccomdationVm.Sum(x => x.TotalInSGD);
                     break;
                 case UTILITY.TAXILOCAL:
                     TravelDetailTaxiLocalVm travelDetailTaxiLocalVm = new TravelDetailTaxiLocalVm()
@@ -811,6 +813,7 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailTaxiLocalVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     else
                         travelClaimVm.claimDetailTaxiLocalVm.Add(travelDetailTaxiLocalVm);
+                    travelClaimVm.claimHeader.claimDetailTaxiLocalTotal = travelClaimVm.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD);
                     break;
 
                 case UTILITY.TAXIOVERSEAS:
@@ -823,6 +826,7 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailTaxiOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     else
                         travelClaimVm.claimDetailTaxiOverseasVm.Add(travelDetailTaxiOverseasVm);
+                    travelClaimVm.claimHeader.claimDetailTaxiOverseasTotal = travelClaimVm.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD);
                     break;
 
                 case UTILITY.FOODBILLSLOCAL:
@@ -834,6 +838,7 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailFoodLocalVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     else
                         travelClaimVm.claimDetailFoodLocalVm.Add(travelDetailFoodLocalVm);
+                    travelClaimVm.claimHeader.claimDetailFoodLocalTotal = travelClaimVm.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD);
                     break;
 
                 case UTILITY.FOODBILLSOVERSEAS:
@@ -845,6 +850,7 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailFoodOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     else
                         travelClaimVm.claimDetailFoodOverseasVm.Add(travelDetailFoodOverseasVm);
+                    travelClaimVm.claimHeader.claimDetailFoodOverseasTotal = travelClaimVm.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD);
                     break;
                 case UTILITY.OTHEREXPENSES:
                     TravelDetailOtherExpensesVm travelDetailOtherExpensesVm = new TravelDetailOtherExpensesVm()
@@ -855,6 +861,7 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailOtherExpensesVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     else
                         travelClaimVm.claimDetailOtherExpensesVm.Add(travelDetailOtherExpensesVm);
+                    travelClaimVm.claimHeader.claimDetailOtherExpensesTotal = travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
                     break;
             }
 
@@ -906,6 +913,7 @@ namespace HR.Web.Controllers
             {
                 BranchId = BRANCHID,
                 CountryVisited = travelClaimVm.claimHeader.CountryVisited,
+                ClaimNo = travelClaimVm.claimHeader.ClaimNo,
                 CreatedBy = SESSIONOBJ.USERID,
                 CreatedOn = DateTime.Now,
                 EmployeeId = travelClaimVm.claimHeader.EmployeeId,
@@ -937,6 +945,7 @@ namespace HR.Web.Controllers
                         TODate = travelClaimVm.claimDetailAirfareVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailAirfareVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailAirfareVm[i].TravelDate,
+                        ClaimNo = travelClaimHeader.ClaimNo
                     };
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
@@ -955,12 +964,15 @@ namespace HR.Web.Controllers
                         Currency = travelClaimVm.claimDetailAccomdationVm[i].Currency,
                         DepartureTime = null,
                         ExchangeRate = travelClaimVm.claimDetailAccomdationVm[i].ExchangeRate,
-                        FromDate = travelClaimVm.claimDetailAccomdationVm[i].FromDate,
+                        FromDate = travelClaimVm.claimDetailAccomdationVm[i].FromDate ==null?DateTime.Now:
+                         travelClaimVm.claimDetailAccomdationVm[i].FromDate,
                         Perticulars = travelClaimVm.claimDetailAccomdationVm[i].Perticulars,
                         Receipts = travelClaimVm.claimDetailAccomdationVm[i].Receipts,
-                        TODate = travelClaimVm.claimDetailAccomdationVm[i].ToDate,
+                        TODate = travelClaimVm.claimDetailAccomdationVm[i].ToDate == null?
+                        DateTime.Now : travelClaimVm.claimDetailAccomdationVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailAccomdationVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailAccomdationVm[i].TravelDate,
+                        ClaimNo = travelClaimHeader.ClaimNo
                     };
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
@@ -986,6 +998,7 @@ namespace HR.Web.Controllers
                         TODate = travelClaimVm.claimDetailVisaVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailVisaVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailVisaVm[i].TravelDate,
+                        ClaimNo = travelClaimHeader.ClaimNo
                     };
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
@@ -1010,6 +1023,7 @@ namespace HR.Web.Controllers
                         TODate = travelClaimVm.claimDetailTaxiLocalVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailTaxiLocalVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailTaxiLocalVm[i].TravelDate,
+                        ClaimNo = travelClaimHeader.ClaimNo
                     };
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
@@ -1034,6 +1048,7 @@ namespace HR.Web.Controllers
                         TODate = travelClaimVm.claimDetailTaxiOverseasVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailTaxiOverseasVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailTaxiOverseasVm[i].TravelDate,
+                        ClaimNo = travelClaimHeader.ClaimNo
                     };
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
@@ -1058,6 +1073,7 @@ namespace HR.Web.Controllers
                         TODate = travelClaimVm.claimDetailFoodLocalVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailFoodLocalVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailFoodLocalVm[i].TravelDate,
+                        ClaimNo = travelClaimHeader.ClaimNo
                     };
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
@@ -1082,6 +1098,7 @@ namespace HR.Web.Controllers
                         TODate = travelClaimVm.claimDetailFoodOverseasVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailFoodOverseasVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailFoodOverseasVm[i].TravelDate,
+                        ClaimNo = travelClaimHeader.ClaimNo
                     };
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
@@ -1106,6 +1123,7 @@ namespace HR.Web.Controllers
                         TODate = travelClaimVm.claimDetailOtherExpensesVm[i].ToDate,
                         TotalInSGD = travelClaimVm.claimDetailOtherExpensesVm[i].TotalInSGD,
                         TravelDate = travelClaimVm.claimDetailOtherExpensesVm[i].TravelDate,
+                        ClaimNo = travelClaimHeader.ClaimNo
                     };
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }

@@ -755,6 +755,7 @@ namespace HR.Web.Controllers
                             {
                                 TravelClaimId = item.TravelClaimId,
                                 Amount = item.Amount,
+                                TravelClaimDetailId = item.TravelClaimDetailId,
                                 BranchId = item.BranchId,
                                 Category = UTILITY.AIRFARE,
                                 Currency = item.Currency,
@@ -777,6 +778,7 @@ namespace HR.Web.Controllers
                             {
                                 TravelClaimId = item.TravelClaimId,
                                 Amount = item.Amount,
+                                TravelClaimDetailId = item.TravelClaimDetailId,
                                 BranchId = item.BranchId,
                                 Category = UTILITY.AIRFARE,
                                 Currency = item.Currency,
@@ -798,6 +800,7 @@ namespace HR.Web.Controllers
                             {
                                 TravelClaimId = item.TravelClaimId,
                                 Amount = item.Amount,
+                                TravelClaimDetailId = item.TravelClaimDetailId,
                                 BranchId = item.BranchId,
                                 Category = UTILITY.AIRFARE,
                                 Currency = item.Currency,
@@ -819,6 +822,7 @@ namespace HR.Web.Controllers
                             {
                                 TravelClaimId = item.TravelClaimId,
                                 Amount = item.Amount,
+                                TravelClaimDetailId = item.TravelClaimDetailId,
                                 BranchId = item.BranchId,
                                 Category = UTILITY.AIRFARE,
                                 Currency = item.Currency,
@@ -840,6 +844,7 @@ namespace HR.Web.Controllers
                             {
                                 TravelClaimId = item.TravelClaimId,
                                 Amount = item.Amount,
+                                TravelClaimDetailId = item.TravelClaimDetailId,
                                 BranchId = item.BranchId,
                                 Category = UTILITY.AIRFARE,
                                 Currency = item.Currency,
@@ -861,6 +866,7 @@ namespace HR.Web.Controllers
                             {
                                 TravelClaimId = item.TravelClaimId,
                                 Amount = item.Amount,
+                                TravelClaimDetailId = item.TravelClaimDetailId,
                                 BranchId = item.BranchId,
                                 Category = UTILITY.AIRFARE,
                                 Currency = item.Currency,
@@ -881,6 +887,7 @@ namespace HR.Web.Controllers
                             TravelDetailFoodOverseasVm travelClaimDetailFoodOverseas = new TravelDetailFoodOverseasVm()
                             {
                                 TravelClaimId = item.TravelClaimId,
+                                TravelClaimDetailId = item.TravelClaimDetailId,
                                 Amount = item.Amount,
                                 BranchId = item.BranchId,
                                 Category = UTILITY.AIRFARE,
@@ -903,6 +910,7 @@ namespace HR.Web.Controllers
                             {
                                 TravelClaimId = item.TravelClaimId,
                                 Amount = item.Amount,
+                                TravelClaimDetailId = item.TravelClaimDetailId,
                                 BranchId = item.BranchId,
                                 Category = UTILITY.AIRFARE,
                                 Currency = item.Currency,
@@ -1038,44 +1046,7 @@ namespace HR.Web.Controllers
                     travelClaimVm.claimHeader.claimDetailOtherExpensesTotal = travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
                     break;
             }
-
-            //travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
-            //if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
-            //{
-            //    for (var i = 0; i < travelClaimVm.claimDetail.Count; i++)
-            //    {
-            //        if (travelClaimVm.claimDetail[i].Amount != null)
-            //        {
-            //            //CalculateAmount(ref travelClaimVm.claimDetail[i]);
-
-            //            var amount = travelClaimVm.claimDetail[i].Amount;
-            //            var exrate = travelClaimVm.claimDetail[i].ExchangeRate;
-            //            var total = (amount * exrate);
-
-            //            travelClaimVm.claimDetail[i].TotalInSGD = total;
-            //            travelClaimVm.claimDetail[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
-            //            //travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
-            //        }
-            //    }
-
-
-            //}
-
-
-            //if (!string.IsNullOrEmpty(addOrDelVal))
-            //{
-            //    travelClaimVm.claimDetail.RemoveAt(Convert.ToInt32(addOrDelVal));
-            //}
-            //else
-            //{
-            //    TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
-            //    {
-            //        Receipts = false
-            //    };
-
-            //    travelClaimVm.claimDetail.Add(travelClaimDetail);
-            //}
-            //travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
+                     
             ModelState.Clear();
             return View("TravelClaim", travelClaimVm);
         }
@@ -1096,7 +1067,8 @@ namespace HR.Web.Controllers
                 Name = travelClaimVm.claimHeader.Name,
                 NoOfDays = travelClaimVm.claimHeader.NoOfDays,
                 Status = UTILITY.TRAVELCLAIMSAVED,
-                ToDate = travelClaimVm.claimHeader.ToDate
+                ToDate = travelClaimVm.claimHeader.ToDate,
+                TravelClaimId = travelClaimVm.claimHeader.TravelClaimId
             };
             travelClaimHeaderBO.Add(travelClaimHeader);
 
@@ -1302,29 +1274,7 @@ namespace HR.Web.Controllers
                     travelClaimDetailBO.Add(travelClaimDetail);
                 }
             }
-
-            //travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimDetail.Sum(x => x.TotalInSGD);
-            //travelClaimHeaderBO.Add(travelClaimVm.claimHeader);
-            //travelClaimDetailBO.DeleteAll(travelClaimVm.claimHeader.TravelClaimId);
-            //if (travelClaimVm.claimDetail != null && travelClaimVm.claimDetail.Count > 0)
-            //{
-            //    for (var i = 0; i < travelClaimVm.claimDetail.Count; i++)
-            //    {
-            //        if (travelClaimVm.claimDetail[i].Amount != null)
-            //        {
-            //            var amount = travelClaimVm.claimDetail[i].Amount;
-            //            var exrate = travelClaimVm.claimDetail[i].ExchangeRate;
-            //            var total = (amount * exrate);
-
-            //            travelClaimVm.claimDetail[i].TotalInSGD = total;
-            //            travelClaimVm.claimDetail[i].TravelClaimId = travelClaimVm.claimHeader.TravelClaimId;
-
-            //            travelClaimDetailBO.Add(travelClaimVm.claimDetail[i]);
-            //        }
-            //    }
-            //}
-
-
+            
             return RedirectToAction("TravelClaimList", "Payroll");
         }
 

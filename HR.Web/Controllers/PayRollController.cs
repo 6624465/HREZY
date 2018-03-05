@@ -958,6 +958,8 @@ namespace HR.Web.Controllers
 
             var addNewClaim = Request["addNewClaim"];
             var addOrDelVal = Request["addOrDelete"];
+
+            ViewData["SelectedTab"] = Request["selectedTab"];
             switch (addNewClaim)
             {
                 case UTILITY.AIRFARE:

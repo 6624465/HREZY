@@ -97,7 +97,7 @@
                                         }
                                         @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSAVED)
                                         {
-                                            <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelRecord?travelclaimid=" + Model.TableData[i].TravelClaimId) '">
+                                            <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deletetravelclaim(@Model.TableData[i].TravelClaimId)" @*onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelRecord?travelclaimid=" + Model.TableData[i].TravelClaimId) '"*@>
                                                 <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                             </button>
                                         }
@@ -128,6 +128,35 @@
 @section Scripts{
     <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
+
+
+        function deletetravelclaim(TravelClaimId) {
+            debugger;
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this Record?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Delete",
+                confirmButtonClass: "btn-danger"
+            },
+            function (isConfirm) {
+
+                if (isConfirm) {
+                    location.href='@Url.Content("~/PayRoll/DeleteTravelRecord?travelclaimid=")' + TravelClaimId ;
+                    swal("Deleted!", "You have successfully Deleted", "success");
+                }
+                else {
+                    swal("Cancelled", "", "error");
+                }
+            }
+
+
+            )
+        }
+
+
         $(function () {
             $('#li_PayRollConfig').addClass('open');
             $('#li_ContributionRegisterList').addClass('active');

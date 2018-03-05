@@ -97,7 +97,7 @@
                                         }
                                         @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSAVED)
                                         {
-                                            <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;">
+                                            <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelRecord?travelclaimid=" + Model.TableData[i].TravelClaimId) '">
                                                 <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                             </button>
                                         }

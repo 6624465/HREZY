@@ -111,5 +111,16 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             return travelClaimHeaderRepository.GetCount(branchId);
         }
+        public void Delete(int id)
+        {
+            try
+            {
+                 travelClaimHeaderRepository.Delete(id);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

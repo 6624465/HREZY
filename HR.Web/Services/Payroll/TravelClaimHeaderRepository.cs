@@ -46,15 +46,37 @@ namespace HR.Web.Services.Payroll
             }
         }
 
+        //public void Delete(TravelClaimHeader entity)
+        //{
+        //    try
+        //    {
+        //        using (HrDataContext dbContext = new HrDataContext())
+        //        {
+        //            TravelClaimHeader travelClaimHeader = dbContext.TravelClaimHeaders
+        //                .Where(x => x.TravelClaimId == entity.TravelClaimId).FirstOrDefault();
+        //            travelClaimHeader.IsActive = false;
+        //            dbContext.SaveChanges();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw ex;
+        //    }
+        //}
         public void Delete(TravelClaimHeader entity)
+        {
+            throw new NotImplementedException();
+        }
+        public void Delete(int id)
         {
             try
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    TravelClaimHeader travelClaimHeader = dbContext.TravelClaimHeaders
-                        .Where(x => x.TravelClaimId == entity.TravelClaimId).FirstOrDefault();
-                    travelClaimHeader.IsActive = false;
+                    var record = dbContext.TravelClaimHeaders.Where(x => x.TravelClaimId == id).FirstOrDefault();
+                    record.IsActive = false;
+
                     dbContext.SaveChanges();
                 }
             }
@@ -64,7 +86,6 @@ namespace HR.Web.Services.Payroll
                 throw ex;
             }
         }
-
         public IEnumerable<TravelClaimHeader> GetAll()
         {
             try

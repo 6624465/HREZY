@@ -1383,5 +1383,11 @@ namespace HR.Web.Controllers
 
             return RedirectToAction("TravelClaimList");
         }
+
+        public ActionResult DeleteTravelRecord(int travelclaimid)
+        {
+            travelClaimHeaderBO.Delete(travelclaimid);
+            return RedirectToAction("TravelClaimList");
+        }
     }
 }

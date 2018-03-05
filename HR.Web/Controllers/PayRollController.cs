@@ -1087,6 +1087,7 @@ namespace HR.Web.Controllers
                     TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
+                        TravelClaimDetailId = travelClaimVm.claimDetailAirfareVm[i].TravelClaimDetailId,
                         Amount = travelClaimVm.claimDetailAirfareVm[i].Amount,
                         BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.AIRFARE,
@@ -1112,6 +1113,7 @@ namespace HR.Web.Controllers
                     TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
+                        TravelClaimDetailId = travelClaimVm.claimDetailAccomdationVm[i].TravelClaimDetailId,
                         Amount = travelClaimVm.claimDetailAccomdationVm[i].Amount,
                         BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.ACCOMMODATION,
@@ -1140,6 +1142,7 @@ namespace HR.Web.Controllers
                     TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
+                        TravelClaimDetailId = travelClaimVm.claimDetailVisaVm[i].TravelClaimDetailId,
                         Amount = travelClaimVm.claimDetailVisaVm[i].Amount,
                         BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.VISA,
@@ -1165,6 +1168,7 @@ namespace HR.Web.Controllers
                     TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
+                        TravelClaimDetailId = travelClaimVm.claimDetailTaxiLocalVm[i].TravelClaimDetailId,
                         Amount = travelClaimVm.claimDetailTaxiLocalVm[i].Amount,
                         BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.TAXILOCAL,
@@ -1190,6 +1194,7 @@ namespace HR.Web.Controllers
                     TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
+                        TravelClaimDetailId = travelClaimVm.claimDetailTaxiOverseasVm[i].TravelClaimDetailId,
                         Amount = travelClaimVm.claimDetailTaxiOverseasVm[i].Amount,
                         BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.TAXIOVERSEAS,
@@ -1215,6 +1220,7 @@ namespace HR.Web.Controllers
                     TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
+                        TravelClaimDetailId = travelClaimVm.claimDetailFoodLocalVm[i].TravelClaimDetailId,
                         Amount = travelClaimVm.claimDetailFoodLocalVm[i].Amount,
                         BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.FOODBILLSLOCAL,
@@ -1240,6 +1246,7 @@ namespace HR.Web.Controllers
                     TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
+                        TravelClaimDetailId = travelClaimVm.claimDetailFoodOverseasVm[i].TravelClaimDetailId,
                         Amount = travelClaimVm.claimDetailFoodOverseasVm[i].Amount,
                         BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.FOODBILLSOVERSEAS,
@@ -1265,6 +1272,7 @@ namespace HR.Web.Controllers
                     TravelClaimDetail travelClaimDetail = new TravelClaimDetail()
                     {
                         TravelClaimId = travelClaimHeader.TravelClaimId,
+                        TravelClaimDetailId = travelClaimVm.claimDetailOtherExpensesVm[i].TravelClaimDetailId,
                         Amount = travelClaimVm.claimDetailOtherExpensesVm[i].Amount,
                         BranchId = travelClaimHeader.BranchId,
                         Category = UTILITY.OTHEREXPENSES,

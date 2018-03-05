@@ -87,6 +87,7 @@ namespace HR.Web.Helpers
             msg.BodyEncoding = UTF8Encoding.UTF8;
             msg.IsBodyHtml = isHtml;
             return SendMail(msg);
+
         }
 
         public bool ConfigMail(string to, string bcc, bool isHtml, string subject, string body)

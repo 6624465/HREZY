@@ -1351,20 +1351,25 @@ namespace HR.Web.Controllers
             travelClaimHeaderBO.SubmitTravelClaim(TravelClaim);
 
             var empObj = employeeHeaderBo.GetByProperty(x => x.EmployeeId == SESSIONOBJ.EMPLOYEEID);
+            var employeename = empObj.FirstName + " " + empObj.LastName;
+            var employeeemail = empObj.UserEmailId;
             var managerEmail = employeeHeaderBo.GetByProperty(x => x.EmployeeId == empObj.ManagerId).UserEmailId;
-            var hrAdminEmail = userBo.GetById(SESSIONOBJ.BRANCHID).Email;
+            var hrAdminEmail = userBo.GetByProperty(x => x.BranchId==empObj.BranchId && x.RoleCode==UTILITY.ROLE_ADMIN).Email;
 
             var subject = string.Empty;
-            subject = "Travel claim rejected";
+            subject = "Travel claim submission";
             var strbody = string.Empty;
-            strbody = "Dear <Employee Name>,";
-            strbody += "Your expenses claim submitted successfully.<br/><br/>";
-            strbody += "Email Content to HR Admin & Manager<br/><br/>";
+            
+            
 
-            strbody += "<EmployeeName> submitted travel expenses claim.Please review and approve.";
-                        
+            strbody = employeename + " " + "submitted travel expenses claim.Please review and approve.";
+            var body = string.Empty;
+            body = "Dear" + employeename + "<BR>";
+            body += "Your expenses claim submitted successfully.";
+
             EmailGenerator emailgenerator = new EmailGenerator();
             emailgenerator.ConfigMail(managerEmail, hrAdminEmail, true, subject, strbody);
+            emailgenerator.ConfigMail(employeeemail, true, subject, body);
 
 
 

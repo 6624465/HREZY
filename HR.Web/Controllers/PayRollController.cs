@@ -958,6 +958,8 @@ namespace HR.Web.Controllers
 
             var addNewClaim = Request["addNewClaim"];
             var addOrDelVal = Request["addOrDelete"];
+
+            ViewData["SelectedTab"] = Request["selectedTab"];
             switch (addNewClaim)
             {
                 case UTILITY.AIRFARE:
@@ -1061,6 +1063,37 @@ namespace HR.Web.Controllers
             ModelState.Clear();
             return View("TravelClaim", travelClaimVm);
         }
+
+        private decimal? GetGrossTotal(TravelClaimVm travelClaimVm)
+        {
+            decimal? GrossTotal = null;
+            if(travelClaimVm.claimDetailAirfareVm != null && travelClaimVm.claimDetailAirfareVm.Count > 0)
+                GrossTotal = travelClaimVm.claimDetailAirfareVm.Sum(x => x.TotalInSGD);
+
+            if(travelClaimVm.claimDetailVisaVm != null && travelClaimVm.claimDetailVisaVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailVisaVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailAccomdationVm != null && travelClaimVm.claimDetailAccomdationVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailAccomdationVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailTaxiLocalVm != null && travelClaimVm.claimDetailTaxiLocalVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailTaxiOverseasVm != null && travelClaimVm.claimDetailTaxiOverseasVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailFoodLocalVm != null && travelClaimVm.claimDetailFoodLocalVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailFoodOverseasVm != null && travelClaimVm.claimDetailFoodOverseasVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailOtherExpensesVm != null && travelClaimVm.claimDetailOtherExpensesVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
+
+            return GrossTotal;
+        }
+
         [HttpPost]
         public ActionResult TravelClaimSave(TravelClaimVm travelClaimVm)
         {
@@ -1080,14 +1113,7 @@ namespace HR.Web.Controllers
                 Status = UTILITY.TRAVELCLAIMSAVED,
                 ToDate = travelClaimVm.claimHeader.ToDate,
                 TravelClaimId = travelClaimVm.claimHeader.TravelClaimId,
-                GrossTotal = travelClaimVm.claimDetailAirfareVm.Sum(x => x.TotalInSGD) +
-                             travelClaimVm.claimDetailVisaVm.Sum(x => x.TotalInSGD) +
-                             travelClaimVm.claimDetailAccomdationVm.Sum(x => x.TotalInSGD) +
-                             travelClaimVm.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD) +
-                             travelClaimVm.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD) +
-                             travelClaimVm.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD) +
-                             travelClaimVm.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD) +
-                             travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD)
+                GrossTotal = GetGrossTotal(travelClaimVm)
 
             };
             travelClaimHeaderBO.Add(travelClaimHeader);
@@ -1326,7 +1352,7 @@ namespace HR.Web.Controllers
 
         public ActionResult ProcessTravelClaim()
         {
-            var travelobj = travelClaimHeaderBO.GetListByProperty(x => x.BranchId == BRANCHID);
+            var travelobj = travelClaimHeaderBO.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive==true && x.Status==UTILITY.TRAVELCLAIMSUBMITTED);
             return View(travelobj);
         }
         public ActionResult ApproveTravelClaim(TravelClaimHeader travelclaim)

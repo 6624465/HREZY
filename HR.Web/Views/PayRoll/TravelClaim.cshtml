@@ -1334,11 +1334,17 @@ data_index = i,
 
         $(document).ready(function () {
             debugger;
-            
-            @if(ViewData["SelectedTab"] != null)
+            @{ 
+                var selectedTab = "";
+                if (ViewData["SelectedTab"] != null)
+                {
+                    selectedTab = (string)ViewData["SelectedTab"];
+                }
+            }
+            @if (!string.IsNullOrWhiteSpace(selectedTab))
             {
                 <text>
-                $('a[href="#' + '@ViewData["SelectedTab"]' + '"]').tab('show');
+                $('a[href="#' + '@selectedTab' + '"]').tab('show');
                 </text>
             }
             for (var i = 0; i < detailCount; i++) {
@@ -1499,7 +1505,8 @@ data_index = i,
             }
         }
 
-        function deleteAirfareClaimDetail(detailId, index,category){
+        function deleteAirfareClaimDetail(detailId, index, category) {
+            $('#selectedTab').val('Airfare');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssAirfareLength').length;
             if (length > 1) {
@@ -1556,7 +1563,8 @@ data_index = i,
 
 
 
-        function deleteVisaDetail(detailId, index,category){
+        function deleteVisaDetail(detailId, index, category) {
+            $('#selectedTab').val('Visa');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssVisaLength').length;
             if (length > 1) {
@@ -1607,7 +1615,8 @@ data_index = i,
             }
         }
 
-        function deleteAccomodationDetail(detailId, index,category){
+        function deleteAccomodationDetail(detailId, index, category) {
+            $('#selectedTab').val('Accommodation');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssAccomodationLength').length;
             if (length > 1) {
@@ -1659,7 +1668,8 @@ data_index = i,
             }
         }
 
-        function deletetaxilocalDetail(detailId, index,category){
+        function deletetaxilocalDetail(detailId, index, category) {
+            $('#selectedTab').val('TaxiLocal');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssTaxilocalLength').length;
             if (length > 1) {
@@ -1709,7 +1719,8 @@ data_index = i,
             }
         }
 
-        function deletetaxioverseaDetail(detailId, index,category){
+        function deletetaxioverseaDetail(detailId, index, category) {
+            $('#selectedTab').val('TaxiOverseas');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.csstaxioverseaLength').length;
             if (length > 1) {
@@ -1760,7 +1771,8 @@ data_index = i,
             }
         }
 
-        function deletefoodbillslocalDetail(detailId, index,category){
+        function deletefoodbillslocalDetail(detailId, index, category) {
+            $('#selectedTab').val('FoodBillsLocal');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssfoodbillslocalLength').length;
             if (length > 1) {
@@ -1809,7 +1821,8 @@ data_index = i,
                 $('#claimHeader_claimDetailFoodOverseasTotal').val(grossTotal.toFixed(2));
             }
         }
-        function deletefoodbillsoverseasDetail(detailId, index,category){
+        function deletefoodbillsoverseasDetail(detailId, index, category) {
+            $('#selectedTab').val('FoodBillsOverseas');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssfoodbillsoverseasLength').length;
             if (length > 1) {
@@ -1829,7 +1842,9 @@ data_index = i,
             }
         }
 
-        function deleteOtherExpensesDetail(detailId, index,category){
+        function deleteOtherExpensesDetail(detailId, index, category) {
+            $('#selectedTab').val('OtherExpences');
+            debugger;
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssfoodbillsoverseasLength').length;
             if (length > 1) {
@@ -1879,7 +1894,8 @@ data_index = i,
             }
         }
 
-        function deleteOtherExpensesDetail(detailId, index,category){
+        function deleteOtherExpensesDetail(detailId, index, category) {
+            $('#selectedTab').val('OtherExpences');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssOtherExpensesLength').length;
             if (length > 1) {

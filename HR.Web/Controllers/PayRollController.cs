@@ -1055,6 +1055,9 @@ namespace HR.Web.Controllers
                     break;
             }
 
+
+            //travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimHeader.claimDetailAirfareTotal + travelClaimVm.claimHeader.claimDetailVisaTotal + travelClaimVm.claimHeader.claimDetailAccomdationTotal + travelClaimVm.claimHeader.claimDetailTaxiLocalTotal
+            //    + travelClaimVm.claimHeader.claimDetailTaxiOverseasTotal + travelClaimVm.claimHeader.claimDetailFoodLocalTotal + travelClaimVm.claimHeader.claimDetailFoodOverseasTotal + travelClaimVm.claimHeader.claimDetailOtherExpensesTotal;
             ModelState.Clear();
             return View("TravelClaim", travelClaimVm);
         }
@@ -1076,7 +1079,16 @@ namespace HR.Web.Controllers
                 NoOfDays = travelClaimVm.claimHeader.NoOfDays,
                 Status = UTILITY.TRAVELCLAIMSAVED,
                 ToDate = travelClaimVm.claimHeader.ToDate,
-                TravelClaimId = travelClaimVm.claimHeader.TravelClaimId
+                TravelClaimId = travelClaimVm.claimHeader.TravelClaimId,
+                GrossTotal = travelClaimVm.claimDetailAirfareVm.Sum(x => x.TotalInSGD) +
+                             travelClaimVm.claimDetailVisaVm.Sum(x => x.TotalInSGD) +
+                             travelClaimVm.claimDetailAccomdationVm.Sum(x => x.TotalInSGD) +
+                             travelClaimVm.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD) +
+                             travelClaimVm.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD) +
+                             travelClaimVm.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD) +
+                             travelClaimVm.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD) +
+                             travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD)
+
             };
             travelClaimHeaderBO.Add(travelClaimHeader);
 

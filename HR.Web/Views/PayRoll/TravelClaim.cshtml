@@ -1426,8 +1426,7 @@ data_index = i,
         //    }
         //});
 
-        function SaveAndGetData(category, tabId) {
-
+        function SaveAndGetData(category) {
             // if ($('#frmClaim').valid()) {
             if (true) {
                 $('#addNewClaim').val(category);
@@ -1841,27 +1840,6 @@ data_index = i,
             }
         }
 
-        function deleteOtherExpensesDetail(detailId, index, category) {
-            $('#selectedTab').val('OtherExpences');
-            debugger;
-            var headerId = $('#claimHeader_TravelClaimId').val();
-            var length = $('.cssfoodbillsoverseasLength').length;
-            if (length > 1) {
-
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#claimDetailFoodOverseasVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
-
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
-        }
         //calculations for Food Bills overseas:end
         //calculations for OtherExpenses:start
         function  CalculateOtherExpensesTotal(obj) {

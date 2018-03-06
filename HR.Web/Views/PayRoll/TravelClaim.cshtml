@@ -632,8 +632,7 @@
                                                                 </td>
 
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Perticulars,
-new { @class = "form-control input-sm", style = "width:100px;" })
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Perticulars,new { @class = "form-control input-sm", style = "width:100px;" })
                                                                 </td>
                                                                 <td>
 
@@ -653,15 +652,12 @@ new { @class = "form-control input-sm", style = "width:100px;" })
                                                                 })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency,
-SelectListItemHelper.CurrnyList(), new
-{
-@class = "form-control input-sm",
-@style = "width:100px;",
-@onchange = "CalculateTaxilocalTotal(this)",
-data_index = i,
-@required = "required"
-})
+                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency,SelectListItemHelper.CurrnyList(), new{
+                                                                   @class = "form-control input-sm",@style = "width:100px;",
+                                                                   @onchange = "CalculateTaxilocalTotal(this)",
+                                                                   data_index = i,
+                                                                   @required = "required"
+                                                               })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailTaxiLocalVm_' + '@i' + '__Currency').val('@Model.claimDetailTaxiLocalVm[i].Currency');
@@ -669,8 +665,7 @@ data_index = i,
                                                                     </script>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ExchangeRate,
-new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ExchangeRate,new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TotalInSGD, new
@@ -1091,8 +1086,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                 })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailOtherExpensesVm[i].Currency,
-SelectListItemHelper.CurrnyList(), new
+                                                                    @Html.DropDownListFor(x => x.claimDetailOtherExpensesVm[i].Currency,SelectListItemHelper.CurrnyList(), new
 {
 @class = "form-control input-sm",
 @style = "width:100px;",

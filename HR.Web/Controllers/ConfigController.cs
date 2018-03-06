@@ -255,10 +255,11 @@ namespace HR.Web.Controllers
             return RedirectToAction("LeaveList");
         }
         
-        public ActionResult LeaveListDelete(int lookupid)
+        public ActionResult LeaveListDelete(LookUp lookup)
         {
 
-            lookUpBO.Delete(lookupid);
+            lookUpBO.Delete(lookup.LookUpID);
+            otherLeaveBo.DeleteLookUp(lookup);
             return RedirectToAction("LeaveList");
         }
         public bool IsLeaveTypeExist(string LeaveType)

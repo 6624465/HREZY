@@ -22,7 +22,9 @@ namespace HR.Web.Services.OtherLeaveMaster
                         .Where(x => x.BranchId == entity.BranchId && x.LeaveId == entity.LeaveId).FirstOrDefault();
                     if (OtherLeave == null)
                     {
+                        entity.IsActive = true;
                         dbContext.OtherLeaves.Add(entity);
+                        
                     }
                     else
                     {
@@ -127,6 +129,7 @@ namespace HR.Web.Services.OtherLeaveMaster
                             OtherLeave.BranchId = entity.BranchId;
                             OtherLeave.IsCarryForward = entity.IsCarryForward;
                             OtherLeave.LeaveTypeId = entity.LeaveTypeId;
+                        OtherLeave.IsActive = true;
                             //  OtherLeave.
                         
                         dbContext.SaveChanges();
@@ -141,6 +144,22 @@ namespace HR.Web.Services.OtherLeaveMaster
             }
 
 
+        }
+        public void DeleteFromLookUp(OtherLeave entity)
+        {
+            try
+            {
+                using(var dbcntx=new HrDataContext())
+                {
+                    OtherLeave leave = dbcntx.OtherLeaves.Where(x => x.BranchId == entity.BranchId && x.LeaveTypeId == entity.LeaveTypeId).FirstOrDefault();
+                    leave.IsActive = false;
+                    dbcntx.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

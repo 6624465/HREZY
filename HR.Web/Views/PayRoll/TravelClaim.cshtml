@@ -1326,8 +1326,8 @@ data_index = i,
             }
         }
 
-        $(document).ready(function () {            
-            @{ 
+        $(document).ready(function () {
+            @{
                 var selectedTab = "";
                 if (ViewData["SelectedTab"] != null)
                 {
@@ -1355,7 +1355,6 @@ data_index = i,
                 },
                 format: dateFormat
             });
-
 
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
@@ -1419,15 +1418,18 @@ data_index = i,
         //        }
         //    }
         //});
-
+        $('#frmClaim').validate({
+            ignore:""
+        });
         function SaveAndGetData(category,tabId) {
             debugger;
-            // if ($('#frmClaim').valid()) {
-            if (true) {
+            // if () {
+            if ($('#frmClaim').valid()) {
                 $('#addNewClaim').val(category);
                 $('#selectedTab').val(tabId);
                 $('#frmClaim').submit();
             }
+
             else
             {
 
@@ -1460,6 +1462,12 @@ data_index = i,
                     })
             }
             else {
+                var errObj = $('#frmClaim').validate();
+                if (errObj.errorList.length > 0) {
+                    var tabId = $('#' + errObj.errorList[0].element.id).closest('.tab-pane')[0].id;
+                    $('a[href="#' + tabId + '"]').tab('show');
+                }
+                debugger;
                 var title =$('.multiselect').attr('title');
                 if(title=='None selected')
                     $('.multiselect').addClass('multiselecterr');
@@ -1499,6 +1507,7 @@ data_index = i,
         }
 
         function deleteAirfareClaimDetail(detailId, index, category) {
+            debugger;
             $('#selectedTab').val('Airfare');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssAirfareLength').length;

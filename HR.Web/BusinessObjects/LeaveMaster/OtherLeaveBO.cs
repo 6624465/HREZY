@@ -120,5 +120,23 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             }
 
         }
+        public void DeleteLookUp(LookUp lookup)
+        {
+            try
+            {
+                OtherLeave leave = new OtherLeave
+                {
+                    LeaveTypeId = lookup.LookUpID,
+                    Description = lookup.LookUpCode,
+                    IsCarryForward = lookup.IsCarryForward,
+                    BranchId = sessionObj.BRANCHID
+                };
+                OtherLeaveRepository.DeleteFromLookUp(leave);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

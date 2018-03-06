@@ -62,6 +62,10 @@ namespace HR.Web.Controllers
                         //    return RedirectToAction("Index", "Dashboard");
                         return RedirectToAction("Index", "Dashboard");
                     }
+                    else
+                    {
+                        ViewData["message"] = "Your EmailId or Password is wrong";
+                    }
                 }
             }
             catch (Exception)

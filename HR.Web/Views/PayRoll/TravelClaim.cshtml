@@ -1332,8 +1332,8 @@ data_index = i,
             }
         }
 
-        $(document).ready(function () {            
-            @{ 
+        $(document).ready(function () {
+            @{
                 var selectedTab = "";
                 if (ViewData["SelectedTab"] != null)
                 {
@@ -1424,9 +1424,9 @@ data_index = i,
         //        }
         //    }
         //});
-        //$('#frmClaim').validate({
-        //    ignore:""
-        //});
+        $('#frmClaim').validate({
+            ignore:""
+        });
         function SaveAndGetData(category,tabId) {
             debugger;
             // if () {
@@ -1434,8 +1434,8 @@ data_index = i,
                 $('#addNewClaim').val(category);
                 $('#selectedTab').val(tabId);
                 $('#frmClaim').submit();
-            } 
-           
+            }
+
             else
             {
 
@@ -1468,6 +1468,12 @@ data_index = i,
                     })
             }
             else {
+                var errObj = $('#frmClaim').validate();
+                if (errObj.errorList.length > 0) {
+                    var tabId = $('#' + errObj.errorList[0].element.id).closest('.tab-pane')[0].id;
+                    $('a[href="#' + tabId + '"]').tab('show');
+                }
+                debugger;
                 var title =$('.multiselect').attr('title');
                 if(title=='None selected')
                     $('.multiselect').addClass('multiselecterr');

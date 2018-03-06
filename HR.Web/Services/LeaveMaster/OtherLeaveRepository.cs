@@ -129,7 +129,7 @@ namespace HR.Web.Services.OtherLeaveMaster
                             OtherLeave.BranchId = entity.BranchId;
                             OtherLeave.IsCarryForward = entity.IsCarryForward;
                             OtherLeave.LeaveTypeId = entity.LeaveTypeId;
-                        OtherLeave.IsActive = true;
+                        OtherLeave.IsActive = entity.IsActive;
                             //  OtherLeave.
                         
                         dbContext.SaveChanges();

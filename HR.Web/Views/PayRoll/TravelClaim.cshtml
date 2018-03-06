@@ -1362,7 +1362,6 @@ data_index = i,
                 format: dateFormat
             });
 
-
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
                 $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
@@ -1425,15 +1424,18 @@ data_index = i,
         //        }
         //    }
         //});
-
+        //$('#frmClaim').validate({
+        //    ignore:""
+        //});
         function SaveAndGetData(category,tabId) {
             debugger;
-            // if ($('#frmClaim').valid()) {
-            if (true) {
+            // if () {
+            if ($('#frmClaim').valid()) {
                 $('#addNewClaim').val(category);
                 $('#selectedTab').val(tabId);
                 $('#frmClaim').submit();
-            }
+            } 
+           
             else
             {
 
@@ -1505,6 +1507,7 @@ data_index = i,
         }
 
         function deleteAirfareClaimDetail(detailId, index, category) {
+            debugger;
             $('#selectedTab').val('Airfare');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssAirfareLength').length;

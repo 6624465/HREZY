@@ -1438,7 +1438,8 @@ data_index = i,
 
             else
             {
-
+                swal("Message!", "Please update these before proceeding..");
+                TabVisibility();
                 var title =$('.multiselect').attr('title');
                 if(title=='None selected')
                     $('.multiselect').addClass('multiselecterr');
@@ -1468,18 +1469,22 @@ data_index = i,
                     })
             }
             else {
-                var errObj = $('#frmClaim').validate();
-                if (errObj.errorList.length > 0) {
-                    var tabId = $('#' + errObj.errorList[0].element.id).closest('.tab-pane')[0].id;
-                    $('a[href="#' + tabId + '"]').tab('show');
-                }
-                debugger;
+                swal("Message!", "Please update these before proceeding..");
+                TabVisibility();
                 var title =$('.multiselect').attr('title');
                 if(title=='None selected')
                     $('.multiselect').addClass('multiselecterr');
                 else
                     $('.multiselect').removeClass('multiselecterr');
                 swal("Incorrect Inputs");
+            }
+        }
+
+        function TabVisibility() {
+            var errObj = $('#frmClaim').validate();
+            if (errObj.errorList.length > 0) {
+                var tabId = $('#' + errObj.errorList[0].element.id).closest('.tab-pane')[0].id;
+                $('a[href="#' + tabId + '"]').tab('show');
             }
         }
         // Calculations for AirFare : Start
@@ -1526,7 +1531,12 @@ data_index = i,
                 $('#claimDetailAirfareVm_' + index + '__Currency').removeAttr('required');
                 $('#claimDetailAirfareVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
+                if ($('#frmClaim').valid())
+                    $('#frmClaim').submit();
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                }
 
             }
             else {
@@ -1584,7 +1594,12 @@ data_index = i,
                 $('#claimDetailVisaVm_' + index + '__Currency').removeAttr('required');
                 $('#claimDetailVisaVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
+                if ($('#frmClaim').valid())
+                    $('#frmClaim').submit();
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                }
 
             }
             else {
@@ -1637,7 +1652,12 @@ data_index = i,
                 $('#claimDetailAccomdationVm_' + index + '__FromDate').removeAttr('required');
                 $('#claimDetailAccomdationVm_' + index + '__ToDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
+                if ($('#frmClaim').valid())
+                    $('#frmClaim').submit();
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                }
 
             }
             else {
@@ -1689,7 +1709,12 @@ data_index = i,
                 $('#claimDetailTaxiLocalVm_' + index + '__Currency').removeAttr('required');
                 $('#claimDetailTaxiLocalVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
+                if ($('#frmClaim').valid())
+                    $('#frmClaim').submit();
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                }
 
             }
             else {
@@ -1740,7 +1765,12 @@ data_index = i,
                 $('#claimDetailTaxiOverseasVm_' + index + '__Currency').removeAttr('required');
                 $('#claimDetailTaxiOverseasVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
+                if ($('#frmClaim').valid())
+                    $('#frmClaim').submit();
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                }
 
             }
             else {
@@ -1792,7 +1822,12 @@ data_index = i,
                 $('#claimDetailFoodLocalVm_' + index + '__Currency').removeAttr('required');
                 $('#claimDetailFoodLocalVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
+                if ($('#frmClaim').valid())
+                    $('#frmClaim').submit();
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                }
 
             }
             else {
@@ -1842,7 +1877,12 @@ data_index = i,
                 $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
                 $('#claimDetailFoodOverseasVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
+                if ($('#frmClaim').valid())
+                    $('#frmClaim').submit();
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                }
 
             }
             else {
@@ -1894,7 +1934,12 @@ data_index = i,
                 $('#claimDetailOtherExpensesVm_' + index + '__Currency').removeAttr('required');
                 $('#claimDetailOtherExpensesVm_' + index + '__TravelDate').removeAttr('required');
                 $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                $('#frmClaim').submit();
+                if ($('#frmClaim').valid())
+                    $('#frmClaim').submit();
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                }
 
             }
             else {

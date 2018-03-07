@@ -158,13 +158,16 @@ namespace HR.Web.Controllers
                     LeaveMaster lMaster = new LeaveMaster();
                     if (leaveStartTransactions != null)
                     {
+                        var paidLeave = lMaster.PAIDLEAVE(BRANCHID);
+                        var casualLeave = lMaster.CASUALLEAVE(BRANCHID);
+                        var sickLeave = lMaster.SICKLEAVE(BRANCHID);
 
-                        LeaveTran PreveLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == lMaster.PAIDLEAVE(BRANCHID)).OrderBy(x => x.TransactionId).FirstOrDefault();
+                        LeaveTran PreveLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
                         decimal totalPaidLeaves = 0;
                         if (PreveLeaveTran != null)
                             totalPaidLeaves = PreveLeaveTran.PreviousLeaves;
 
-                        var currentLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == lMaster.PAIDLEAVE(BRANCHID)).OrderBy(x => x.TransactionId)
+                        var currentLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId)
                             .OrderByDescending(x => x.TransactionId).FirstOrDefault();
                         decimal currentPaidLeaves = 0;
                         if (currentLeaveTrans != null)
@@ -175,10 +178,10 @@ namespace HR.Web.Controllers
                         if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
                             remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 
-                        LeaveTran prevCasualLeaves = leaveStartTransactions.Where(x => x.LeaveType == lMaster.CASUALLEAVE(BRANCHID))
+                        LeaveTran prevCasualLeaves = leaveStartTransactions.Where(x => x.LeaveType == casualLeave)
                             .OrderBy(x => x.TransactionId).FirstOrDefault();
 
-                        LeaveTran curCasualLeaves = leaveCurrentTransactions.Where(x => x.LeaveType == lMaster.CASUALLEAVE(BRANCHID)).OrderBy(x => x.TransactionId)
+                        LeaveTran curCasualLeaves = leaveCurrentTransactions.Where(x => x.LeaveType == casualLeave).OrderBy(x => x.TransactionId)
                             .OrderByDescending(x => x.TransactionId).FirstOrDefault();
 
 
@@ -200,11 +203,11 @@ namespace HR.Web.Controllers
                         var endDate = startDate.AddMonths(1).AddDays(-1);
 
                         
-                        var otherLeaveObj = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == lMaster.SICKLEAVE(BRANCHID))
+                        var otherLeaveObj = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == sickLeave)
                             .FirstOrDefault();
 
                         var SLPerMonth = otherLeaveObj != null ? otherLeaveObj.LeavesPerMonth : 0;
-                        var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == lMaster.SICKLEAVE(BRANCHID)).ToList();
+                        var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == sickLeave).ToList();
                         foreach (var item in CurrentMonthSLs)
                         {
                             obj.totalSLs += item.Days.Value;

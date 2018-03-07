@@ -1229,6 +1229,8 @@ data_index = i,
                             </div>
                         </div>
 
+                        
+
                         <div class="row mr-top">
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary btn-sm"
@@ -1236,9 +1238,11 @@ data_index = i,
                                     <i class="fa fa-floppy-o"></i>
                                     Save
                                 </button>
-                                <button type="button" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-eye"></i><b>Preview</b>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="Preview(@Model.claimHeader.TravelClaimId)">
+                                    <i class="fa fa-eye"></i><b>Preview</b>                                    
                                 </button>
+
+
                                 <button type="button" class="btn btn-primary btn-sm" onclick="Submit()">
                                     <i class="fa fa fa-check-circle"></i><b>Submit</b>
                                 </button>
@@ -1272,6 +1276,24 @@ data_index = i,
 }
 
     </div>
+
+<div id="myPreviewModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><b>Preview</b></h4>
+                <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" id="modalContent1">
+
+            </div>
+    <div class="modal-footer">
+
+    </div>
+        </div>
+
+    </div>
+</div>
 @section Scripts{
 
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
@@ -1299,6 +1321,25 @@ data_index = i,
         var detailCount = @Model.claimDetailAirfareVm.Count;
 
         </text>
+        }
+
+        function Preview(TravelClaimId) {
+            debugger;
+            $.ajax({
+                url: '@Url.Content("~/PayRoll/PreviewTravelClaim?TravelClaimId=")' + TravelClaimId,
+                contentType: 'text/html',
+                method: 'GET',
+                success: function (data) {
+                    debugger;
+
+                    $('#myPreviewModal').modal('show');
+                    $('#modalContent1').html('');
+                    $('#modalContent1').html(data);
+                },
+                error: function (err) {
+
+                }
+            });
         }
 
         function showAccomdation(obj) {

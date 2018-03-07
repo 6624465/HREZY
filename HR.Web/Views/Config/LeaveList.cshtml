@@ -43,9 +43,20 @@
                             grid.Column("LookUpDescription", "Leave Description", canSort: true),
                             //grid.Column("IsActive", "Status", canSort: false),
                             @*grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
-                            grid.Column("", "#Action", canSort: false, format: @<text>
-                            <button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
-                                <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteLeaveList(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button></text>)),
+                            grid.Column("", "#Action", canSort: false, format: 
+                            @<text>
+                                @*@if (item.LookUpCode=="" || item.LookUpCode ==  )
+                                {*@
+                                    <button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
+                                    <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteLeaveList(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button>
+                                @*}
+                                else
+                                {
+                                    <button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
+                                    <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteLeaveList(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button>
+                                }*@
+                           
+                                </text>)),
                             tableStyle: "table table-condensed table-bordered")
                             </div>
                         </div>

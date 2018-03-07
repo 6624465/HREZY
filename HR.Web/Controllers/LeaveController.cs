@@ -782,7 +782,7 @@ namespace HR.Web.Controllers
             leaveVm.BranchId = Convert.ToInt32(leave.BranchId.Value);
 
 
-            List<LookUp> lookUpList = lookUpBo.GetListByProperty(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true).ToList();
+            List<LookUp> lookUpList = lookUpBo.GetListByProperty(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true && x.BranchId==BRANCHID).ToList();
 
             List<int> lookupIdList = otherLeaveBO.GetByAll().Select(x => x.LeaveTypeId.Value).ToList();
 
@@ -838,7 +838,7 @@ namespace HR.Web.Controllers
 
                 leaveVm.otherLeave = new List<OtherLeave>();
 
-                List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true).ToList();
+                List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true && x.BranchId==BRANCHID).ToList();
 
                 List<int> lookupIdList = dbContext.OtherLeaves
                            .Select(x => x.LeaveTypeId.Value).ToList();
@@ -847,7 +847,7 @@ namespace HR.Web.Controllers
                 {
 
 
-                    leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == BRANCHID).ToList();
+                    leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.IsActive==true).ToList();
                     if (leaveVm.otherLeave.Count == 0)
                     {
                         foreach (LookUp lookUp in lookUpList)
@@ -901,7 +901,7 @@ namespace HR.Web.Controllers
                     }
                     else
                     {
-                        leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == branchid).ToList();
+                        leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == branchid && x.IsActive==true).ToList();
 
                         if (leaveVm.otherLeave.Count == 0)
                         {

@@ -97,6 +97,19 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
+        public void Delete(int id)
+        {
+            try
+            {
+                TravelClaimDetailRepository.Delete(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public void DeleteAll(int?  id)
         {
             try

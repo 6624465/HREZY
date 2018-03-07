@@ -1256,6 +1256,7 @@ data_index = i,
                 </div>
             </div>
         </div>
+        <input type="hidden" id="DetailId" name="DetailId" />
         <input type="hidden" id="addOrDelete" name="addOrDelete" />
         <input type="hidden" id="addNewClaim" name="addNewClaim" />
         <input type="hidden" id="selectedTab" name="selectedTab" />
@@ -1520,6 +1521,7 @@ data_index = i,
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
+                $('#DetailId').val(detailId);
                 $('#claimDetailAirfareVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailAirfareVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailAirfareVm_' + index + '__Currency').removeAttr('required');
@@ -1583,6 +1585,7 @@ data_index = i,
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
+                $('#DetailId').val(detailId);
                 $('#claimDetailVisaVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailVisaVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailVisaVm_' + index + '__Currency').removeAttr('required');
@@ -1640,6 +1643,7 @@ data_index = i,
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
+                $('#DetailId').val(detailId);
                 $('#claimDetailAccomdationVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailAccomdationVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailAccomdationVm_' + index + '__Currency').removeAttr('required');
@@ -1698,6 +1702,7 @@ data_index = i,
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
+                $('#DetailId').val(detailId);
                 $('#claimDetailTaxiLocalVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailTaxiLocalVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailTaxiLocalVm_' + index + '__Currency').removeAttr('required');
@@ -1754,6 +1759,7 @@ data_index = i,
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
+                $('#DetailId').val(detailId);
                 $('#claimDetailTaxiOverseasVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailTaxiOverseasVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailTaxiOverseasVm_' + index + '__Currency').removeAttr('required');
@@ -1811,6 +1817,7 @@ data_index = i,
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
+                $('#DetailId').val(detailId);
                 $('#claimDetailFoodLocalVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailFoodLocalVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailFoodLocalVm_' + index + '__Currency').removeAttr('required');
@@ -1859,6 +1866,7 @@ data_index = i,
             }
         }
         function deletefoodbillsoverseasDetail(detailId, index, category) {
+            debugger;
             $('#selectedTab').val('FoodBillsOverseas');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssfoodbillsoverseasLength').length;
@@ -1866,6 +1874,7 @@ data_index = i,
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
+                $('#DetailId').val(detailId);
                 $('#claimDetailFoodOverseasVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailFoodOverseasVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
@@ -1923,6 +1932,7 @@ data_index = i,
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
+                $('#DetailId').val(detailId);
                 $('#claimDetailOtherExpensesVm_' + index + '__Perticulars').removeAttr('required');
                 $('#claimDetailOtherExpensesVm_' + index + '__Amount').removeAttr('required');
                 $('#claimDetailOtherExpensesVm_' + index + '__Currency').removeAttr('required');

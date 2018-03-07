@@ -79,6 +79,25 @@ namespace HR.Web.Services.Payroll
                 throw ex;
             }
         }
+        public void Delete(int  id)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    TravelClaimDetail travelClaimDetail = dbContext.TravelClaimDetails
+                        .Where(x => x.TravelClaimDetailId == id).FirstOrDefault();
+                    // travelClaimHeader.IsActive = false;
+                    dbContext.TravelClaimDetails.Remove(travelClaimDetail);
+                    dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
         public void DeleteAll(int? TravelClaimId)
         {

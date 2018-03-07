@@ -129,6 +129,8 @@ namespace HR.Web
 
         }
 
+        public static string RAZORDATEFORMAT = "{0:dd/MM/yyyy}";
+
 
 
     }

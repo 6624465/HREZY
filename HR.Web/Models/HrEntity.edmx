@@ -20,6 +20,7 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="IsCarryForward" Type="bit" Nullable="false" />
           <Property Name="IsWeekendPolicy" Type="bit" Nullable="false" />
+          <Property Name="BranchId" Type="int" />
         </EntityType>
         <EntityType Name="Branches">
           <Key>
@@ -875,6 +876,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="IsCarryForward" Type="Boolean" Nullable="false" />
           <Property Name="IsWeekendPolicy" Type="Boolean" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -1511,6 +1513,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="LookUps">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.LookUp">
               <MappingFragment StoreEntitySet="LookUp">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="IsWeekendPolicy" ColumnName="IsWeekendPolicy" />
                 <ScalarProperty Name="IsCarryForward" ColumnName="IsCarryForward" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />

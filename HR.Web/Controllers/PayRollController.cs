@@ -1485,5 +1485,10 @@ namespace HR.Web.Controllers
             travelClaimHeaderBO.Delete(travelclaimid);
             return RedirectToAction("TravelClaimList");
         }
+        public PartialViewResult PreviewTravelClaim(int TravelClaimId)
+        {
+            var travelObj= travelClaimDetailBO.GetListByProperty(x => x.BranchId == BRANCHID && x.TravelClaimId == TravelClaimId);
+            return PartialView("_PreviewTravelClaim", travelObj);
+        }
     }
 }

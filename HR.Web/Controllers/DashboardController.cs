@@ -175,6 +175,7 @@ namespace HR.Web.Controllers
                         obj.totalPLs = currentPaidLeaves;
 
 
+
                         if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
                             remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 

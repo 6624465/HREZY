@@ -4,6 +4,8 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 
+using System.Configuration;
+
 namespace HR.Web
 {
 
@@ -83,15 +85,15 @@ namespace HR.Web
         public static string LOOKUPCATEGORY = "LeaveType";
 
         public static int PRIVILEGELEAVE = 1029;
-        public static int CASUALLEAVE = 1030;
-        public static int SICKLEAVE = 1031;
+        //public static int CASUALLEAVE = 1030;
+        //public static int SICKLEAVE = 1031;
         public static int MATERNITYLEAVE = 1032;
         public static int HALFPAYLEAVE = 1033;
         public static int QUARANTINELEAVE = 1034;
         public static int STUDYLEAVE = 1035;
         public static int PATERNITYLEAVE = 1036;
         public static int COMPENSATORYLEAVE = 1037;
-        public static int PAIDLEAVE = 1049;
+        //public static int PAIDLEAVE = 1049;
         public static int EARNEDLEVAE = 1113;
         public static int RESTRICTEDHOLIDAY = 1114;
         public static int HALFDAYLEAVE = 2440;
@@ -117,6 +119,43 @@ namespace HR.Web
         public static string TRAVELCLAIMAPPROVED = "APPROVED";
         public static string TRAVELCLAIMREJECTED = "REJECTED";
 
+        //public static int PAIDLEAVE(int BRANCHID)
+        //{
+        //    return Convert.ToInt32(ConfigurationManager.AppSettings["PAIDLEAVE_" + BRANCHID.ToString()]);
+        //}
+
+        //public static int SICKLEAVE(int BRANCHID)
+        //{
+        //    return Convert.ToInt32(ConfigurationManager.AppSettings["SICKLEAVE_" + BRANCHID.ToString()]);
+        //}
+
+        //public static int CASUALLEAVE(int BRANCHID)
+        //{
+        //    return Convert.ToInt32(ConfigurationManager.AppSettings["CASUALLEAVE_" + BRANCHID.ToString()]);
+        //}
+
+        /* for generating app keys
+        Set nocount On;
+        Select * into #TempLookup From Config.Lookup 
+        Where LookupCode in ('CASUALLEAVE','PAIDLEAVE','SICKLEAVE')
+        Select * From #TempLookup
+
+
+        Declare @lookupId smallint;
+        Declare @lookupCode nvarchar(20);
+        Declare @branchId int;
+        While (Select Count(0) From #TempLookup) > 0
+        Begin
+            Select Top(1) @lookupId = LookUpID, @lookupCode = LookUpCode, @branchId = BranchId From #TempLookup Order By LookupCategory asc
+            --print 'public static string ' + UPPER(@lookupCode) + '_' + convert(nvarchar(20), @branchId) + ' = "' + convert(nvarchar(20), @lookupId) + '";'
+	        print '<add key="' + UPPER(@lookupCode) + '_' + convert(nvarchar(20), @branchId) + '" value="' + convert(nvarchar(20), @lookupId) + '" />'
+
+            Delete From #TempLookup Where LookUpID = @lookupId;
+        End
+
+        Drop table #TempLookup
+        Set nocount Off; 
+        */
 
         public static DateTime SINGAPORETIME
         {
@@ -128,6 +167,8 @@ namespace HR.Web
             }
 
         }
+
+        public static string RAZORDATEFORMAT = "{0:dd/MM/yyyy}";
 
 
 

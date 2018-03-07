@@ -958,6 +958,8 @@ namespace HR.Web.Controllers
 
             var addNewClaim = Request["addNewClaim"];
             var addOrDelVal = Request["addOrDelete"];
+            var travelclaimdetailid = Request["DetailId"];
+            
 
             ViewData["SelectedTab"] = Request["selectedTab"];
             switch (addNewClaim)
@@ -968,7 +970,13 @@ namespace HR.Web.Controllers
                         Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
-                        travelClaimVm.claimDetailAirfareVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    {
+                        if(travelclaimdetailid!="0")
+                        {
+                            travelClaimDetailBO.Delete(Convert.ToInt32(travelclaimdetailid));
+                        }
+                            travelClaimVm.claimDetailAirfareVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    }
                     else
                         travelClaimVm.claimDetailAirfareVm.Add(travelDetailAirfareVm);
                     travelClaimVm.claimHeader.claimDetailAirfareTotal = travelClaimVm.claimDetailAirfareVm.Sum(x => x.TotalInSGD);
@@ -979,7 +987,13 @@ namespace HR.Web.Controllers
                         Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
+                    {
+                        if(travelclaimdetailid != "0")
+                        {
+                            travelClaimDetailBO.Delete(Convert.ToInt32(travelclaimdetailid));
+                        }
                         travelClaimVm.claimDetailVisaVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    }
                     else
                         travelClaimVm.claimDetailVisaVm.Add(travelDetailVisaVm);
                     travelClaimVm.claimHeader.claimDetailVisaTotal = travelClaimVm.claimDetailVisaVm.Sum(x => x.TotalInSGD);
@@ -991,7 +1005,14 @@ namespace HR.Web.Controllers
                         Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
+                    {
+
+                        if(travelclaimdetailid != "0")
+                        {
+                            travelClaimDetailBO.Delete(Convert.ToInt32(travelclaimdetailid));
+                        }
                         travelClaimVm.claimDetailAccomdationVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    }
                     else
                         travelClaimVm.claimDetailAccomdationVm.Add(travelDetailAccomdationVm);
                     travelClaimVm.claimHeader.claimDetailAccomdationTotal = travelClaimVm.claimDetailAccomdationVm.Sum(x => x.TotalInSGD);
@@ -1002,7 +1023,15 @@ namespace HR.Web.Controllers
                         Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
+                    {
+
+                        if (travelclaimdetailid != "0")
+                        {
+                            travelClaimDetailBO.Delete(Convert.ToInt32(travelclaimdetailid));
+                        }
                         travelClaimVm.claimDetailTaxiLocalVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+
+                    }
                     else
                         travelClaimVm.claimDetailTaxiLocalVm.Add(travelDetailTaxiLocalVm);
                     travelClaimVm.claimHeader.claimDetailTaxiLocalTotal = travelClaimVm.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD);
@@ -1015,7 +1044,15 @@ namespace HR.Web.Controllers
                         Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
-                        travelClaimVm.claimDetailTaxiOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    {
+
+                        if (travelclaimdetailid != "0")
+                        {
+                            travelClaimDetailBO.Delete(Convert.ToInt32(travelclaimdetailid));
+                            
+                        }
+                            travelClaimVm.claimDetailTaxiOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    }
                     else
                         travelClaimVm.claimDetailTaxiOverseasVm.Add(travelDetailTaxiOverseasVm);
                     travelClaimVm.claimHeader.claimDetailTaxiOverseasTotal = travelClaimVm.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD);
@@ -1027,7 +1064,14 @@ namespace HR.Web.Controllers
                         Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
-                        travelClaimVm.claimDetailFoodLocalVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    {
+
+                        if (travelclaimdetailid != "0")
+                        {
+                            travelClaimDetailBO.Delete(Convert.ToInt32(travelclaimdetailid));
+                        }
+                            travelClaimVm.claimDetailFoodLocalVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    }
                     else
                         travelClaimVm.claimDetailFoodLocalVm.Add(travelDetailFoodLocalVm);
                     travelClaimVm.claimHeader.claimDetailFoodLocalTotal = travelClaimVm.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD);
@@ -1039,7 +1083,15 @@ namespace HR.Web.Controllers
                         Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
-                        travelClaimVm.claimDetailFoodOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    {
+
+                        if (travelclaimdetailid != "0")
+                        {
+                            travelClaimDetailBO.Delete(Convert.ToInt32(travelclaimdetailid));
+                            
+                        }
+                            travelClaimVm.claimDetailFoodOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    }
                     else
                         travelClaimVm.claimDetailFoodOverseasVm.Add(travelDetailFoodOverseasVm);
                     travelClaimVm.claimHeader.claimDetailFoodOverseasTotal = travelClaimVm.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD);
@@ -1050,7 +1102,13 @@ namespace HR.Web.Controllers
                         Receipts = false
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
-                        travelClaimVm.claimDetailOtherExpensesVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    {
+                        if (travelclaimdetailid != "0")
+                        {
+                            travelClaimDetailBO.Delete(Convert.ToInt32(travelclaimdetailid));
+                        }
+                            travelClaimVm.claimDetailOtherExpensesVm.RemoveAt(Convert.ToInt32(addOrDelVal));
+                    }
                     else
                         travelClaimVm.claimDetailOtherExpensesVm.Add(travelDetailOtherExpensesVm);
                     travelClaimVm.claimHeader.claimDetailOtherExpensesTotal = travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);

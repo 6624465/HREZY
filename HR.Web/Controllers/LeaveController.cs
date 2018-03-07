@@ -252,6 +252,7 @@ namespace HR.Web.Controllers
 
         public ActionResult EmployeeRequestFrom()
         {
+            ViewBag.BranchID = BRANCHID;
             GetHolidayWeekends();
 
             var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
@@ -272,6 +273,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
+            ViewBag.BranchID = BRANCHID;
         //    if (ModelState.IsValid)
         //    {
         //        EmployeeWorkDetail workdetails = empworkdetailsBo.GetByProperty(x=>x.EmployeeId==EMPLOYEEID);
@@ -359,21 +361,21 @@ namespace HR.Web.Controllers
                 }
                 if (!isPreviousLeaveExists)
                 {
-
-                    if (EmployeeLeaveList.LeaveTypeId == UTILITY.CASUALLEAVE && leavetransaction.CurrentLeaves == 0)
+                    LeaveMaster lMaster = new LeaveMaster();
+                    if (EmployeeLeaveList.LeaveTypeId == lMaster.CASUALLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
                         ViewData["Message"] = "You do not have enough casual leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
-                    else if (EmployeeLeaveList.LeaveTypeId == UTILITY.SICKLEAVE && leavetransaction.CurrentLeaves == 0)
+                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.SICKLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
 
                         ViewData["Message"] = "You do not have enough paid leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
-                    else if (EmployeeLeaveList.LeaveTypeId == UTILITY.PAIDLEAVE && leavetransaction.CurrentLeaves == 0)
+                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.PAIDLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
                         ViewData["Message"] = "You do not have enough paid leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
@@ -436,7 +438,7 @@ namespace HR.Web.Controllers
                             leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,
                                                                 leave.LeavesPerYear.Value
                                                               );
-                            CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+                            CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc, BRANCHID);
 
 
                         }
@@ -554,7 +556,7 @@ namespace HR.Web.Controllers
                          .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId).FirstOrDefault();
                     leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,
                                                         leave.LeavesPerYear.Value);
-                    CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+                    CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc, BRANCHID);
 
 
                 }
@@ -782,7 +784,7 @@ namespace HR.Web.Controllers
             leaveVm.BranchId = Convert.ToInt32(leave.BranchId.Value);
 
 
-            List<LookUp> lookUpList = lookUpBo.GetListByProperty(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true).ToList();
+            List<LookUp> lookUpList = lookUpBo.GetListByProperty(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true && x.BranchId==BRANCHID).ToList();
 
             List<int> lookupIdList = otherLeaveBO.GetByAll().Select(x => x.LeaveTypeId.Value).ToList();
 
@@ -838,7 +840,7 @@ namespace HR.Web.Controllers
 
                 leaveVm.otherLeave = new List<OtherLeave>();
 
-                List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true).ToList();
+                List<LookUp> lookUpList = dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true && x.BranchId==BRANCHID).ToList();
 
                 List<int> lookupIdList = dbContext.OtherLeaves
                            .Select(x => x.LeaveTypeId.Value).ToList();
@@ -847,7 +849,7 @@ namespace HR.Web.Controllers
                 {
 
 
-                    leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == BRANCHID).ToList();
+                    leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.IsActive==true).ToList();
                     if (leaveVm.otherLeave.Count == 0)
                     {
                         foreach (LookUp lookUp in lookUpList)
@@ -901,7 +903,7 @@ namespace HR.Web.Controllers
                     }
                     else
                     {
-                        leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == branchid).ToList();
+                        leaveVm.otherLeave = dbContext.OtherLeaves.Where(x => x.BranchId == branchid && x.IsActive==true).ToList();
 
                         if (leaveVm.otherLeave.Count == 0)
                         {

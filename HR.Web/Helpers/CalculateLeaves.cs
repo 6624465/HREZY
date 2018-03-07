@@ -1,4 +1,5 @@
-﻿using HR.Web.Models;
+﻿using HR.Web.Controllers;
+using HR.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,13 +55,14 @@ namespace HR.Web.Helpers
             //}
 
         }
-        public static void CalculateLeave(OtherLeave LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc)
+        public static void CalculateLeave(OtherLeave LeaveTransaction, EmployeeLeaveList obj, LeaveListCalc leaveListCalc, int branchId)
         {
-            if (obj.LeaveTypeId == UTILITY.CASUALLEAVE)
+            LeaveMaster lMaster = new LeaveMaster();
+            if (obj.LeaveTypeId == lMaster.CASUALLEAVE(branchId))
                 leaveListCalc.currentLeaves = leaveListCalc.currentLeaves - obj.Days.Value;
-            else if (obj.LeaveTypeId == UTILITY.PAIDLEAVE)
+            else if (obj.LeaveTypeId == lMaster.PAIDLEAVE(branchId))
                 leaveListCalc.currentLeaves = leaveListCalc.currentLeaves - obj.Days.Value;
-            if (obj.LeaveTypeId == UTILITY.SICKLEAVE)
+            if (obj.LeaveTypeId == lMaster.SICKLEAVE(branchId))
                 leaveListCalc.currentLeaves = leaveListCalc.currentLeaves - obj.Days.Value;
         }
 

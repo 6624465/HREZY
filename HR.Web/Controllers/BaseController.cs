@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HR.Web.BusinessObjects.LookUpMaster;
 using HR.Web.Helpers;
 namespace HR.Web.Controllers
 {
@@ -143,6 +145,8 @@ namespace HR.Web.Controllers
             }
         }
 
+        
+
         public string GetRoleIcon()
         {
             var cssCls = string.Empty;
@@ -161,6 +165,26 @@ namespace HR.Web.Controllers
             }
 
             return cssCls;
+        }
+
+        
+    }   
+
+    public class LeaveMaster
+    {
+        public int PAIDLEAVE(int BRANCHID)
+        {
+            return Convert.ToInt32(ConfigurationManager.AppSettings["PAIDLEAVE_" + BRANCHID.ToString()]);
+        }
+
+        public int SICKLEAVE(int BRANCHID)
+        {
+            return Convert.ToInt32(ConfigurationManager.AppSettings["SICKLEAVE_" + BRANCHID.ToString()]);
+        }
+
+        public int CASUALLEAVE(int BRANCHID)
+        {
+            return Convert.ToInt32(ConfigurationManager.AppSettings["CASUALLEAVE_" + BRANCHID.ToString()]);
         }
     }
 }

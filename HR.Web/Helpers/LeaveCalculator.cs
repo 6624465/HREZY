@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using HR.Web.Controllers;
+
 namespace HR.Web.Helpers
 {
     public class LeaveCalculator
@@ -37,8 +39,9 @@ namespace HR.Web.Helpers
 
                 if (leaveTransaction != null)
                 {
+                    LeaveMaster lMaster = new LeaveMaster();
 
-                    if (LeaveType == UTILITY.SICKLEAVE)
+                    if (LeaveType == lMaster.SICKLEAVE(BranchID))
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)
@@ -47,7 +50,7 @@ namespace HR.Web.Helpers
                             eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
 
                     }
-                    if (LeaveType == UTILITY.CASUALLEAVE)
+                    if (LeaveType == lMaster.CASUALLEAVE(BranchID))
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)
@@ -58,7 +61,7 @@ namespace HR.Web.Helpers
                             eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
 
                     }
-                    if (LeaveType == UTILITY.PAIDLEAVE)
+                    if (LeaveType == lMaster.PAIDLEAVE(BranchID))
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)

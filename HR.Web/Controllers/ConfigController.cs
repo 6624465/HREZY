@@ -47,6 +47,7 @@ namespace HR.Web.Controllers
         public ActionResult SaveEmployeeDesignation(LookUp lookup)
         {
             lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEDESIGNATION;
+            
             lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeDesignationList");
         }
@@ -232,7 +233,7 @@ namespace HR.Web.Controllers
         #region LeaveList
         public ActionResult LeaveList()
         {
-            var leaveType = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE && x.IsActive == true).ToList().AsEnumerable();
+            var leaveType = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE && x.IsActive == true && x.BranchId==BRANCHID).ToList().AsEnumerable();
             return View(leaveType);
         }
         [HttpGet]
@@ -250,6 +251,7 @@ namespace HR.Web.Controllers
         public ActionResult SaveLeaveType(LookUp lookup)
         {
             lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEELEAVETYPE;
+            lookup.BranchId = BRANCHID;
             lookUpBO.Add(lookup);
             otherLeaveBo.AddLookUp(lookup);
             return RedirectToAction("LeaveList");
@@ -264,7 +266,7 @@ namespace HR.Web.Controllers
         }
         public bool IsLeaveTypeExist(string LeaveType)
         {
-            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == LeaveType.ToUpper()) && x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEELEAVETYPE)).ToList();
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == LeaveType.ToUpper()) && x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEELEAVETYPE) && x.BranchId==BRANCHID).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

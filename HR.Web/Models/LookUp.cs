@@ -25,6 +25,6 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool IsCarryForward { get; set; }
         public bool IsWeekendPolicy { get; set; }
-        public Nullable<int> BranchId { get; set; } = null;
+        public Nullable<int> BranchId { get; set; }
     }
 }

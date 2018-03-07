@@ -359,21 +359,21 @@ namespace HR.Web.Controllers
                 }
                 if (!isPreviousLeaveExists)
                 {
-
-                    if (EmployeeLeaveList.LeaveTypeId == UTILITY.CASUALLEAVE && leavetransaction.CurrentLeaves == 0)
+                    LeaveMaster lMaster = new LeaveMaster();
+                    if (EmployeeLeaveList.LeaveTypeId == lMaster.CASUALLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
                         ViewData["Message"] = "You do not have enough casual leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
-                    else if (EmployeeLeaveList.LeaveTypeId == UTILITY.SICKLEAVE && leavetransaction.CurrentLeaves == 0)
+                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.SICKLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
 
                         ViewData["Message"] = "You do not have enough paid leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
-                    else if (EmployeeLeaveList.LeaveTypeId == UTILITY.PAIDLEAVE && leavetransaction.CurrentLeaves == 0)
+                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.PAIDLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
                         ViewData["Message"] = "You do not have enough paid leaves or applied leave,other leaves will be LOP";
                         ViewData["IsLop"] = true;
@@ -436,7 +436,7 @@ namespace HR.Web.Controllers
                             leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,
                                                                 leave.LeavesPerYear.Value
                                                               );
-                            CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+                            CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc, BRANCHID);
 
 
                         }
@@ -554,7 +554,7 @@ namespace HR.Web.Controllers
                          .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId).FirstOrDefault();
                     leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,
                                                         leave.LeavesPerYear.Value);
-                    CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc);
+                    CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc, BRANCHID);
 
 
                 }

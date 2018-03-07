@@ -206,7 +206,7 @@ namespace HR.Web.Controllers
                         var otherLeaveObj = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == sickLeave)
                             .FirstOrDefault();
 
-                        var SLPerMonth = otherLeaveObj != null ? otherLeaveObj.LeavesPerMonth : 0;
+                        var SLPerMonth = otherLeaveObj != null ? (otherLeaveObj.LeavesPerMonth != null ? otherLeaveObj.LeavesPerMonth : 0) : 0;
                         var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == sickLeave).ToList();
                         foreach (var item in CurrentMonthSLs)
                         {

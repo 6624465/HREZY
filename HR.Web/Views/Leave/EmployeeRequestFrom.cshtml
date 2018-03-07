@@ -7,6 +7,16 @@
     var IsLop = ViewData["IsLop"] == null ? false : (bool)ViewData["IsLop"];
     var temp = Model;
 
+    if (Model.FromDate == DateTime.MinValue)
+    {
+        Model.FromDate = DateTime.Now;
+    }
+
+    if (Model.ToDate == DateTime.MinValue)
+    {
+        Model.ToDate = DateTime.Now;
+    }
+
 }
 <style type="text/css">
     h1 {
@@ -62,19 +72,19 @@
             padding-top: 0.8em;
             color: #2f2f2f;
         }
-        @@media screen and (min-width: 992px) {
-     .btn-apply{
-        position:relative;
-       left:53%;
-        
-    }
-}
-        .btn-apply{
-            margin-top:20px;
-            clear:both;
-            position:relative;
-            
+
+    @@media screen and (min-width: 992px) {
+        .btn-apply {
+            position: relative;
+            left: 53%;
         }
+    }
+
+    .btn-apply {
+        margin-top: 20px;
+        clear: both;
+        position: relative;
+    }
 </style>
 @using (Html.BeginForm("SaveEmployeeLeaveForm", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
@@ -87,25 +97,25 @@
                 <div class="panel-body ">
                     <div class="row">
                         <div class="col-md-6">
-                            
-                                <div class="row">
 
-                                    <label class="col-md-3 control-label">
-                                        <span class="pull-right">From Date</span>
-                                    </label>
-                                    <div class="col-md-6">
-                                        <div class="input-group date dtCss" id="FromDt">
-                                            @Html.TextBoxFor(x => x.FromDate, new { @class = "form-control dtCssTxt input-sm", required = "required" })
-                                            <span class="input-group-addon">
-                                                <i class="ion ion-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+                            <div class="row">
+
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">From Date</span>
+                                </label>
+                                <div class="col-md-6">
+                                    <div class="input-group date dtCss" id="FromDt">
+                                        @Html.TextBoxFor(x => x.FromDate, "{0:dd/MM/yyyy}", new { @class = "form-control dtCssTxt input-sm", required = "required" })
+                                        <span class="input-group-addon">
+                                            <i class="ion ion-calendar"></i>
+                                        </span>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                </div>
+                            </div>
 
-                            
+
                             <div class="row css10">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">
@@ -113,7 +123,7 @@
                                     </label>
                                     <div class="col-md-6">
                                         <div class="input-group date dtCss" id="ToDt">
-                                            @Html.TextBoxFor(x => x.ToDate, new { @class = "form-control dtCssTxt input-sm", required = "required" })
+                                            @Html.TextBoxFor(x => x.ToDate, "{0:dd/MM/yyyy}", new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                             <span class="input-group-addon">
                                                 <i class="ion ion-calendar"></i>
                                             </span>
@@ -132,24 +142,24 @@
                                 <label class="col-md-3 control-label">
                                     <span class="pull-right">Leave Type</span>
                                 </label>
-                                <div class="col-md-6">
+                                <div class="col-md-6">                                    
                                     @Html.DropDownListFor(x => x.LeaveTypeId,
-                      SelectListItemHelper.EmployeeLeaveType(),
-                      "Select Leave Type",
-                      new { @class = "form-control input-sm" })
+                           SelectListItemHelper.EmployeeLeaveType((int)ViewBag.BranchID),
+                           "Select Leave Type",
+                           new { @class = "form-control input-sm" })
                                 </div>
                                 <div class="col-md-3">
                                     @{
                                         List<SelectListItem> listItem = new List<SelectListItem>() {
-                                            new SelectListItem() {
-                                                Text="AM",
-                                                Value="AM"
-                                            },
-                                             new SelectListItem() {
-                                                Text="PM",
-                                                Value="PM"
-                                            },
-                                        };
+                                                                    new SelectListItem() {
+                                                                        Text="AM",
+                                                                        Value="AM"
+                                                                    },
+                                                                     new SelectListItem() {
+                                                                        Text="PM",
+                                                                        Value="PM"
+                                                                    },
+                                                                };
                                     }
 
                                     @Html.DropDownListFor(x => x.Session, listItem, new { @class = "form-control input-sm" })
@@ -174,7 +184,7 @@
                                     <label id="noOfDays" style="margin-top: 25px;"> </label>
                                 </span>
                             </time>
-                            
+
                         </div>
                         <div class="clearfix"></div>
                         <div class="row">
@@ -195,19 +205,19 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
                     </div>
                 </div>
                 <br />
-                
+
             </div>
         </div>
     </div>
 
     <input type="hidden" name="isChecked" id="isChecked" />
     <input type="hidden" name="isLOP" id="isLOP" />
-                                        }
+}
 
 @section Scripts{
 
@@ -258,23 +268,7 @@
             $('#li_Leave').addClass('open');
             $('#li_emprequestleave').addClass('active');
 
-            @if(Model.FromDate != DateTime.MinValue)
-            {
-                <text>
-            var from = moment('@Model.FromDate', 'DD/MM/YYYY').format('MM/DD/YYYY');
-            //$('#FromDt').find('input').val(from);
-            $('#FromDate').data("DateTimePicker").date(from);
-            </text>
-            }
 
-            @if(Model.ToDate != DateTime.MinValue)
-             {
-                 <text>
-            var to = moment('@Model.ToDate', 'DD/MM/YYYY').format('MM/DD/YYYY');
-            //$('#ToDt').find('input').val(to);
-            $('#ToDate').data("DateTimePicker").date(to);
-            </text>
-             }
 
             @if(Model.Days == 0.5M)
             {
@@ -302,10 +296,24 @@
             },
             format: dateFormat,
             minDate: date,
-            maxDate: new Date(year+1,month,daet)
+            maxDate: new Date(year + 1, month, daet)
         });
+        @if(Model.FromDate != DateTime.MinValue)
+        {
+            <text>
+            var from = moment('@Model.FromDate', 'DD/MM/YYYY').format('MM/DD/YYYY');
+            $('#FromDate').data("DateTimePicker").date(from);
+            </text>
+        }
 
-        
+        @if(Model.ToDate != DateTime.MinValue)
+        {
+            <text>
+            var to = moment('@Model.ToDate', 'DD/MM/YYYY').format('MM/DD/YYYY');
+            $('#ToDate').data("DateTimePicker").date(to);
+            </text>
+        }
+
         $("#FromDt").on("dp.change", function (e) {
             $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();

@@ -195,12 +195,12 @@ namespace HR.Web.Helpers
                                 .ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
             }
         }
-        public static IEnumerable<SelectListItem> EmployeeLeaveType()
+        public static IEnumerable<SelectListItem> EmployeeLeaveType(int BranchID)
         {
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE && x.IsActive == true)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEELEAVETYPE && x.IsActive == true && x.BranchId == BranchID)
                                 .Select(x => new SelectListItem
                                 {
                                     Text = x.LookUpDescription,

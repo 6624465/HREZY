@@ -252,6 +252,7 @@ namespace HR.Web.Controllers
 
         public ActionResult EmployeeRequestFrom()
         {
+            ViewBag.BranchID = BRANCHID;
             GetHolidayWeekends();
 
             var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
@@ -272,6 +273,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
+            ViewBag.BranchID = BRANCHID;
         //    if (ModelState.IsValid)
         //    {
         //        EmployeeWorkDetail workdetails = empworkdetailsBo.GetByProperty(x=>x.EmployeeId==EMPLOYEEID);

@@ -1,4 +1,24 @@
 ﻿@model  HR.Web.ViewModels.TravelClaimVm
+    @section Styles{
+        <style>
+            .table tr th a {
+                color: #000;
+            }
+             .top > th {
+            background: #ccc !important;
+        }
+
+        .table tr th {
+            background-color: #fff;
+            color: #000;
+        }
+        .table > thead > tr > th, .table > tbody > tr > td, .table > tfoot > tr > td {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+      
+        </style>
+        }
     @{ 
         var AirFare="AirFare";
         var Visa = "Visa";
@@ -38,7 +58,17 @@
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).ExchangeRate</td>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).TotalInSGD</td>
                                             </tr>
+
                                         }
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@Model.claimHeader.claimDetailAirfareTotal</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -70,7 +100,17 @@
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).ExchangeRate</td>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
+
                                        }
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>@Model.claimHeader.claimDetailVisaTotal</td>
+                                    </tr>
                                    }
                                    
                                 </tbody>
@@ -105,8 +145,18 @@
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).ExchangeRate</td>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
+                                        }
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@Model.claimHeader.claimDetailAccomdationTotal</td>
+                                        </tr>
                                     }
-                                }
                                 </tbody>
                             </table>
                             <table class="table table-hover table-bordered">
@@ -138,6 +188,15 @@
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
                                         }
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@Model.claimHeader.claimDetailTaxiLocalTotal</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -171,6 +230,15 @@
                                         <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
                                         }
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@Model.claimHeader.claimDetailTaxiOverseasTotal</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -204,6 +272,15 @@
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
                                         }
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@Model.claimHeader.claimDetailFoodLocalTotal</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -237,6 +314,15 @@
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
                                         }
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@Model.claimHeader.claimDetailFoodOverseasTotal</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -268,6 +354,15 @@
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).TotalInSGD</td>
                                             </tr>
                                         }
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@Model.claimHeader.claimDetailOtherExpensesTotal</td>
+                                        </tr>
                                     }
 
                                 </tbody>

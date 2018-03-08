@@ -665,61 +665,61 @@ namespace HR.Web.Controllers
                 travelClaimVm.claimHeader.ClaimNo = "TRC" + travelCount.ToString("D4");
                 //travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
-                travelClaimVm.claimDetailAccomdationVm = new List<TravelDetailAccomdationVm>()
-                {
-                    new TravelDetailAccomdationVm()
-                    {
-                        Receipts = false
-                    }
-                };
-                travelClaimVm.claimDetailAirfareVm = new List<TravelDetailAirfareVm>()
-                {
-                    new TravelDetailAirfareVm()
-                    {
-                        Receipts = false
-                    }
-                };
-                travelClaimVm.claimDetailFoodLocalVm = new List<TravelDetailFoodLocalVm>()
-                {
-                    new TravelDetailFoodLocalVm()
-                    {
-                        Receipts = false
-                    }
-                };
-                travelClaimVm.claimDetailFoodOverseasVm = new List<TravelDetailFoodOverseasVm>()
-                {
-                    new TravelDetailFoodOverseasVm()
-                    {
-                        Receipts = false
-                    }
-                };
-                travelClaimVm.claimDetailOtherExpensesVm = new List<TravelDetailOtherExpensesVm>()
-                {
-                    new TravelDetailOtherExpensesVm()
-                    {
-                        Receipts = false
-                    }
-                };
-                travelClaimVm.claimDetailTaxiLocalVm = new List<TravelDetailTaxiLocalVm>()
-                {
-                    new TravelDetailTaxiLocalVm()
-                    {
-                        Receipts = false
-                    }
-                };
-                travelClaimVm.claimDetailTaxiOverseasVm = new List<TravelDetailTaxiOverseasVm>()
-                {
-                    new TravelDetailTaxiOverseasVm()
-                    {
-                        Receipts = false
-                    }
-                };
-                travelClaimVm.claimDetailVisaVm = new List<TravelDetailVisaVm>() {
-                    new TravelDetailVisaVm()
-                    {
-                        Receipts = false
-                    }
-                };
+                //travelClaimVm.claimDetailAccomdationVm = new List<TravelDetailAccomdationVm>()
+                //{
+                //    new TravelDetailAccomdationVm()
+                //    {
+                //        Receipts = false
+                //    }
+                //};
+                //travelClaimVm.claimDetailAirfareVm = new List<TravelDetailAirfareVm>()
+                //{
+                //    new TravelDetailAirfareVm()
+                //    {
+                //        Receipts = false
+                //    }
+                //};
+                //travelClaimVm.claimDetailFoodLocalVm = new List<TravelDetailFoodLocalVm>()
+                //{
+                //    new TravelDetailFoodLocalVm()
+                //    {
+                //        Receipts = false
+                //    }
+                //};
+                //travelClaimVm.claimDetailFoodOverseasVm = new List<TravelDetailFoodOverseasVm>()
+                //{
+                //    new TravelDetailFoodOverseasVm()
+                //    {
+                //        Receipts = false
+                //    }
+                //};
+                //travelClaimVm.claimDetailOtherExpensesVm = new List<TravelDetailOtherExpensesVm>()
+                //{
+                //    new TravelDetailOtherExpensesVm()
+                //    {
+                //        Receipts = false
+                //    }
+                //};
+                //travelClaimVm.claimDetailTaxiLocalVm = new List<TravelDetailTaxiLocalVm>()
+                //{
+                //    new TravelDetailTaxiLocalVm()
+                //    {
+                //        Receipts = false
+                //    }
+                //};
+                //travelClaimVm.claimDetailTaxiOverseasVm = new List<TravelDetailTaxiOverseasVm>()
+                //{
+                //    new TravelDetailTaxiOverseasVm()
+                //    {
+                //        Receipts = false
+                //    }
+                //};
+                //travelClaimVm.claimDetailVisaVm = new List<TravelDetailVisaVm>() {
+                //    new TravelDetailVisaVm()
+                //    {
+                //        Receipts = false
+                //    }
+                //};
                 return View(travelClaimVm);
 
             }
@@ -758,7 +758,13 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailAirfareVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     }
                     else
+                    {
+                        if (travelClaimVm.claimDetailAirfareVm == null)
+                            travelClaimVm.claimDetailAirfareVm = new List<TravelDetailAirfareVm>();
+
                         travelClaimVm.claimDetailAirfareVm.Add(travelDetailAirfareVm);
+                    }
+
                     travelClaimVm.claimHeader.claimDetailAirfareTotal = travelClaimVm.claimDetailAirfareVm.Sum(x => x.TotalInSGD);
                     break;
                 case UTILITY.VISA:
@@ -775,7 +781,12 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailVisaVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     }
                     else
+                    {
+                        if (travelClaimVm.claimDetailVisaVm == null)
+                            travelClaimVm.claimDetailVisaVm = new List<TravelDetailVisaVm>();
+
                         travelClaimVm.claimDetailVisaVm.Add(travelDetailVisaVm);
+                    }
                     travelClaimVm.claimHeader.claimDetailVisaTotal = travelClaimVm.claimDetailVisaVm.Sum(x => x.TotalInSGD);
                     break;
 

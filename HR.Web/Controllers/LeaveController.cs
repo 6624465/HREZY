@@ -336,7 +336,7 @@ namespace HR.Web.Controllers
                       .OrderByDescending(x => x.CreatedOn).FirstOrDefault();
                 if (leavetransaction == null)
                 {
-                    List<OtherLeave> leaveList = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID).ToList();
+                    List<OtherLeave> leaveList = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.IsActive==true).ToList();
 
                     foreach (OtherLeave leave in leaveList)
                     {
@@ -434,7 +434,7 @@ namespace HR.Web.Controllers
                         else
                         {
                             OtherLeave leave = dbCntx.OtherLeaves
-                                 .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId).FirstOrDefault();
+                                 .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId && x.IsActive==true).FirstOrDefault();
                             leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,
                                                                 leave.LeavesPerYear.Value
                                                               );
@@ -554,7 +554,7 @@ namespace HR.Web.Controllers
                 {
 
                     OtherLeave leave = dbCntx.OtherLeaves
-                         .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId).FirstOrDefault();
+                         .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId && x.IsActive==true).FirstOrDefault();
                     leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,
                                                         leave.LeavesPerYear.Value);
                     CalculateLeavesTransaction.CalculateLeave(leave, EmployeeLeaveList, leaveListCalc, BRANCHID);

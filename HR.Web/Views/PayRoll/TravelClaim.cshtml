@@ -257,7 +257,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @if (Model.claimDetailAirfareVm.Count > 0)
+
+                                                        @if (Model.claimDetailAirfareVm!=null && Model.claimDetailAirfareVm.Count > 0)
                                                     {
                                                         for (int i = 0; i < Model.claimDetailAirfareVm.Count; i++)
                                                         {
@@ -1302,7 +1303,12 @@ data_index = i,
     <script type="text/javascript">
 
         @{
-            if(Model.claimHeader.TravelClaimId!=0)
+            var detailCount = 0;
+            if(Model.claimDetailAirfareVm != null && Model.claimDetailAirfareVm.Count > 0)
+            {
+                detailCount = Model.claimDetailAirfareVm.Count;
+            }
+            if(Model.claimHeader.TravelClaimId != 0)
             {
                 var varArr = Model.claimHeader.CountryVisited;
                 var result = varArr.Split(',');
@@ -1316,12 +1322,9 @@ data_index = i,
             }
 
             <text>
-        parseFloat($('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal)).toFixed(2);
-        </text>
-            <text>
-        var detailCount = @Model.claimDetailAirfareVm.Count;
-
-        </text>
+            parseFloat($('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal)).toFixed(2);
+            var detailCount = @detailCount;
+            </text>            
         }
 
         function Preview(TravelClaimId) {
@@ -1474,7 +1477,12 @@ data_index = i,
 
             else
             {
-                swal("Message!", "Please update these before proceeding..");
+                var errObj = $('#frmClaim').validate();
+                if (errObj.errorList.length == 1 && errObj.errorList[0].element.id == 'claimHeader_CountryVisited'){
+                    swal("Message!", "Please select country before proceeding..");
+                } else{
+                    swal("Message!", "Please update these before proceeding..");
+                }
                 TabVisibility();
                 var title =$('.multiselect').attr('title');
                 if(title=='None selected')
@@ -1505,7 +1513,10 @@ data_index = i,
                     })
             }
             else {
+
                 swal("Message!", "Please update these before proceeding..");
+
+                
                 TabVisibility();
                 var title =$('.multiselect').attr('title');
                 if(title=='None selected')
@@ -1517,6 +1528,7 @@ data_index = i,
         }
 
         function TabVisibility() {
+            debugger;
             var errObj = $('#frmClaim').validate();
             if (errObj.errorList.length > 0) {
                 var tabId = $('#' + errObj.errorList[0].element.id).closest('.tab-pane')[0].id;

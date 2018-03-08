@@ -561,6 +561,7 @@ namespace HR.Web.Controllers
 
 
                 }
+
                 LeaveTran leaveTransaction = new LeaveTran()
                 {
                     BranchId = BRANCHID,

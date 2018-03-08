@@ -31,6 +31,11 @@
     }
                     <div class="row">
                         <div class="col-md-12">
+                        @if (Model.claimDetailAirfareVm != null && Model.claimDetailAirfareVm.Count() > 0)
+                        {
+                            @AirFare
+                            for (var i = 0; i < Model.claimDetailAirfareVm.Count(); i++)
+                            {
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -44,11 +49,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.claimDetailAirfareVm != null && Model.claimDetailAirfareVm.Count() > 0)
-                                    {
-                                        @AirFare
-                                        for (var i = 0; i < Model.claimDetailAirfareVm.Count(); i++)
-                                        {
+                                       
                                             <tr>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).Perticulars</td>
@@ -58,8 +59,6 @@
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).ExchangeRate</td>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).TotalInSGD</td>
                                             </tr>
-
-                                        }
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -69,10 +68,16 @@
                                             <td></td>
                                             <td>@Model.claimHeader.claimDetailAirfareTotal</td>
                                         </tr>
-                                    }
+                                  
                                 </tbody>
                             </table>
-             
+                            }
+                        }
+            @if (Model.claimDetailVisaVm != null && Model.claimDetailVisaVm.Count() > 0)
+            {
+                @Visa
+                for (var i = 0; i < Model.claimDetailVisaVm.Count(); i++)
+                {
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -86,11 +91,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   @if (Model.claimDetailVisaVm != null && Model.claimDetailVisaVm.Count() > 0)
-                                   {
-                                    @Visa
-                                        for (var i = 0; i < Model.claimDetailVisaVm.Count(); i++)
-                                        {
+                                    
                                     <tr>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).Perticulars</td>
@@ -101,7 +102,7 @@
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
 
-                                       }
+                                   
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -111,11 +112,17 @@
                                         <td></td>
                                         <td>@Model.claimHeader.claimDetailVisaTotal</td>
                                     </tr>
-                                   }
-                                   
+
+
                                 </tbody>
                             </table>
-              
+                             }
+                        }
+@if (Model.claimDetailAccomdationVm != null && Model.claimDetailAccomdationVm.Count() > 0)
+{
+    @Accomodation
+    for (var i = 0; i < Model.claimDetailAccomdationVm.Count(); i++)
+    {
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -130,11 +137,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.claimDetailAccomdationVm != null && Model.claimDetailAccomdationVm.Count() > 0)
-                                {
-                                    @Accomodation
-                                    for (var i = 0; i < Model.claimDetailAccomdationVm.Count(); i++)
-                                    {
+                                
                                     <tr>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).FromDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).ToDate.Value.ToShortDateString()</td>
@@ -145,7 +148,7 @@
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).ExchangeRate</td>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
-                                        }
+                                     
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -156,9 +159,17 @@
                                             <td></td>
                                             <td>@Model.claimHeader.claimDetailAccomdationTotal</td>
                                         </tr>
-                                    }
+                                 
                                 </tbody>
                             </table>
+    }
+}
+@if (Model.claimDetailTaxiLocalVm != null && Model.claimDetailTaxiLocalVm.Count() > 0)
+{
+    @TaxiFaresLocal
+    for (var i = 0; i < Model.claimDetailTaxiLocalVm.Count(); i++)
+    {
+
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -172,12 +183,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.claimDetailTaxiLocalVm != null && Model.claimDetailTaxiLocalVm.Count() > 0)
-                                    {
-                                    @TaxiFaresLocal
-                                        for (var i = 0; i < Model.claimDetailTaxiLocalVm.Count(); i++)
-                                        {
-
+                                   
                                     <tr>
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Perticulars</td>
@@ -187,7 +193,7 @@
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).ExchangeRate</td>
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
-                                        }
+                                       
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -197,9 +203,16 @@
                                             <td></td>
                                             <td>@Model.claimHeader.claimDetailTaxiLocalTotal</td>
                                         </tr>
-                                    }
+                                   
                                 </tbody>
                             </table>
+    }
+}
+@if (Model.claimDetailTaxiOverseasVm != null && Model.claimDetailTaxiOverseasVm.Count() > 0)
+{
+    @TaxiFaresOverseas
+    for (var i = 0; i < Model.claimDetailTaxiOverseasVm.Count(); i++)
+    {
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -213,11 +226,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.claimDetailTaxiOverseasVm != null && Model.claimDetailTaxiOverseasVm.Count() > 0)
-                                    {
-                                    @TaxiFaresOverseas
-                                        for (var i = 0; i < Model.claimDetailTaxiOverseasVm.Count(); i++)
-                                        {
+                                  
 
                                     <tr>
 
@@ -229,7 +238,7 @@
                                         <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).ExchangeRate</td>
                                         <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
-                                        }
+                                        
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -239,9 +248,17 @@
                                             <td></td>
                                             <td>@Model.claimHeader.claimDetailTaxiOverseasTotal</td>
                                         </tr>
-                                    }
+                                  
                                 </tbody>
                             </table>
+    }
+}
+@if (Model.claimDetailFoodLocalVm != null && Model.claimDetailFoodLocalVm.Count() > 0)
+{
+    @FoodBillsLocal
+    for (var i = 0; i < Model.claimDetailFoodLocalVm.Count(); i++)
+    {
+
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -255,12 +272,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.claimDetailFoodLocalVm != null && Model.claimDetailFoodLocalVm.Count() > 0)
-                                    {
-                                    @FoodBillsLocal
-                                        for (var i = 0; i < Model.claimDetailFoodLocalVm.Count(); i++)
-                                        {
-
+                                    
                                     <tr>
 
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
@@ -271,7 +283,7 @@
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).ExchangeRate</td>
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
-                                        }
+                                       
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -281,9 +293,17 @@
                                             <td></td>
                                             <td>@Model.claimHeader.claimDetailFoodLocalTotal</td>
                                         </tr>
-                                    }
+                                   
                                 </tbody>
                             </table>
+    }
+}
+@if (Model.claimDetailFoodOverseasVm != null && Model.claimDetailFoodOverseasVm.Count() > 0)
+{
+    @FoodBillsOverseas
+    for (var i = 0; i < Model.claimDetailFoodOverseasVm.Count(); i++)
+    {
+
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -297,12 +317,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.claimDetailFoodOverseasVm != null && Model.claimDetailFoodOverseasVm.Count() > 0)
-                                    {
-                                    @FoodBillsOverseas
-                                        for (var i = 0; i < Model.claimDetailFoodOverseasVm.Count(); i++)
-                                        {
-
+                                   
                                     <tr>
 
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
@@ -313,7 +328,7 @@
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).ExchangeRate</td>
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
-                                        }
+                                        
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -323,9 +338,17 @@
                                             <td></td>
                                             <td>@Model.claimHeader.claimDetailFoodOverseasTotal</td>
                                         </tr>
-                                    }
+                                    
                                 </tbody>
                             </table>
+    }
+}
+@if (Model.claimDetailOtherExpensesVm != null && Model.claimDetailOtherExpensesVm.Count() > 0)
+{
+    @OtherExpenses
+    for (var i = 0; i < Model.claimDetailOtherExpensesVm.Count(); i++)
+    {
+
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -339,12 +362,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.claimDetailOtherExpensesVm != null && Model.claimDetailOtherExpensesVm.Count() > 0)
-                                    {
-                                        @OtherExpenses
-                                        for (var i = 0; i < Model.claimDetailOtherExpensesVm.Count(); i++)
-                                        {
-                                            <tr>
+                                    <tr>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Perticulars</td>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Receipts</td>
@@ -353,7 +371,7 @@
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).ExchangeRate</td>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).TotalInSGD</td>
                                             </tr>
-                                        }
+                                       
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -363,11 +381,12 @@
                                             <td></td>
                                             <td>@Model.claimHeader.claimDetailOtherExpensesTotal</td>
                                         </tr>
-                                    }
-
+                                  
                                 </tbody>
 
                             </table>
+    }
+}
 
                         </div>
 

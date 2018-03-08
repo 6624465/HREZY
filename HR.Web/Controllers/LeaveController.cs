@@ -552,6 +552,7 @@ namespace HR.Web.Controllers
                 }
                 else
                 {
+
                     OtherLeave leave = dbCntx.OtherLeaves
                          .Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == EmployeeLeaveList.LeaveTypeId).FirstOrDefault();
                     leaveListCalc = new LeaveListCalc(leave.LeavesPerYear.Value,

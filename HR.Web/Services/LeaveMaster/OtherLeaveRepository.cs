@@ -161,5 +161,20 @@ namespace HR.Web.Services.OtherLeaveMaster
                 throw ex;
             }
         }
+        public List<OtherLeave> GetListByProperty(Func<OtherLeave, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.OtherLeaves.Where(predicate).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

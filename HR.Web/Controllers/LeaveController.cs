@@ -789,9 +789,8 @@ namespace HR.Web.Controllers
             List<LookUp> lookUpList = lookUpBo.GetListByProperty(x => x.LookUpCategory == UTILITY.LOOKUPCATEGORY && x.IsActive == true && x.BranchId==BRANCHID).ToList();
 
             List<int> lookupIdList = otherLeaveBO.GetByAll().Select(x => x.LeaveTypeId.Value).ToList();
-
-
-            leaveVm.otherLeave = otherLeaveBO.GetListById(Convert.ToInt32(leave.BranchId));
+            int branchid = Convert.ToInt32(leave.BranchId);
+            leaveVm.otherLeave = otherLeaveBO.GetListByProperty(x=>x.BranchId == branchid && x.IsActive == true);
 
             if (leaveVm.otherLeave.Count == 0)
             {

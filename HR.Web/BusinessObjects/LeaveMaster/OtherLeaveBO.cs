@@ -138,5 +138,17 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 throw ex;
             }
         }
+        public List<OtherLeave> GetListByProperty(Func<OtherLeave, bool> predicate)
+        {
+            try
+            {
+                return OtherLeaveRepository.GetListByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

@@ -42,6 +42,7 @@
                                     }
                                 </tbody>
                             </table>
+             
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -55,8 +56,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.claimDetailVisaVm != null && Model.claimDetailVisaVm.Count() > 0)
-                                    {
+                                   @if (Model.claimDetailVisaVm != null && Model.claimDetailVisaVm.Count() > 0)
+                                   {
                                     @Visa
                                         for (var i = 0; i < Model.claimDetailVisaVm.Count(); i++)
                                         {
@@ -69,10 +70,12 @@
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).ExchangeRate</td>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).TotalInSGD</td>
                                     </tr>
-                                        }
-                                    }
+                                       }
+                                   }
+                                   
                                 </tbody>
                             </table>
+              
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>

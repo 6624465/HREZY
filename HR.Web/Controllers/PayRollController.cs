@@ -805,7 +805,11 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailAccomdationVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     }
                     else
+                    {
+                        if (travelClaimVm.claimDetailAccomdationVm == null)
+                            travelClaimVm.claimDetailAccomdationVm = new List<TravelDetailAccomdationVm>();
                         travelClaimVm.claimDetailAccomdationVm.Add(travelDetailAccomdationVm);
+                    }
                     travelClaimVm.claimHeader.claimDetailAccomdationTotal = travelClaimVm.claimDetailAccomdationVm.Sum(x => x.TotalInSGD);
                     break;
                 case UTILITY.TAXILOCAL:
@@ -824,7 +828,12 @@ namespace HR.Web.Controllers
 
                     }
                     else
+                    {
+                        if (travelClaimVm.claimDetailTaxiLocalVm == null)
+                            travelClaimVm.claimDetailTaxiLocalVm = new List<TravelDetailTaxiLocalVm>();
                         travelClaimVm.claimDetailTaxiLocalVm.Add(travelDetailTaxiLocalVm);
+                    }
+                        
                     travelClaimVm.claimHeader.claimDetailTaxiLocalTotal = travelClaimVm.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD);
                     break;
 
@@ -845,7 +854,13 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailTaxiOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     }
                     else
+                    {
+
+                        if (travelClaimVm.claimDetailTaxiOverseasVm == null)
+                            travelClaimVm.claimDetailTaxiOverseasVm = new List<TravelDetailTaxiOverseasVm>();
                         travelClaimVm.claimDetailTaxiOverseasVm.Add(travelDetailTaxiOverseasVm);
+                    }
+                      
                     travelClaimVm.claimHeader.claimDetailTaxiOverseasTotal = travelClaimVm.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD);
                     break;
 
@@ -864,7 +879,12 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailFoodLocalVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     }
                     else
+                    {
+                        if (travelClaimVm.claimDetailFoodLocalVm == null)
+                            travelClaimVm.claimDetailFoodLocalVm = new List<TravelDetailFoodLocalVm>();
                         travelClaimVm.claimDetailFoodLocalVm.Add(travelDetailFoodLocalVm);
+                    }
+                       
                     travelClaimVm.claimHeader.claimDetailFoodLocalTotal = travelClaimVm.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD);
                     break;
 
@@ -884,7 +904,12 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailFoodOverseasVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     }
                     else
+                    {
+                        if (travelClaimVm.claimDetailFoodOverseasVm == null)
+                            travelClaimVm.claimDetailFoodOverseasVm = new List<TravelDetailFoodOverseasVm>();
                         travelClaimVm.claimDetailFoodOverseasVm.Add(travelDetailFoodOverseasVm);
+                    }
+                        
                     travelClaimVm.claimHeader.claimDetailFoodOverseasTotal = travelClaimVm.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD);
                     break;
                 case UTILITY.OTHEREXPENSES:
@@ -901,7 +926,12 @@ namespace HR.Web.Controllers
                         travelClaimVm.claimDetailOtherExpensesVm.RemoveAt(Convert.ToInt32(addOrDelVal));
                     }
                     else
+                    {
+                        if (travelClaimVm.claimDetailOtherExpensesVm == null)
+                            travelClaimVm.claimDetailOtherExpensesVm = new List<TravelDetailOtherExpensesVm>();
                         travelClaimVm.claimDetailOtherExpensesVm.Add(travelDetailOtherExpensesVm);
+                    }
+                       
                     travelClaimVm.claimHeader.claimDetailOtherExpensesTotal = travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
                     break;
             }

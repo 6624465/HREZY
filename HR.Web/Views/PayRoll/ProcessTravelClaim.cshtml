@@ -2,88 +2,88 @@
 
 @using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frm", name = "frm" }))
 {
-<div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default">
-            <div class="center-block width">
-                <div class="panel-heading">
-                    Process Travel Claim
-                </div>
-                <div class="panel-body">
-                    <table class="table table-conden table-bordered">
-                        <thead>
-                            <tr>
-                                <th>
+    <div class="page">
+        <div class="page-wrap">
+            <div class="panel panel-default">
+                <div class="center-block width">
+                    <div class="panel-heading">
+                        Process Travel Claim
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-conden table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
 
-                                </th>
-                                <th>
-                                    TravelClaim No
-                                </th>
-                                <th>
-                                    Employee Name
-                                </th>
-                                <th>Submission Date</th>
-                                <th>Total Claim</th>
-                                <th>View</th>
-                            </tr>
-                        </thead>
-                        <tbody>                            
-
-                            @for (var i = 0; i < Model.Count; i++)
-                            {
-                                
-                                <tr id="len_@i" class="length">
-                                    <td>
-                                        @*<input type="checkbox"
-                                        class="chk "
-                                        id="chk_@i"
-                                        name="chk"
-                                        data-index="@Model.ElementAt(i).TravelClaimId"
-                                        value="@Model.ElementAt(i).TravelClaimId"  />*@
-                                        
-                                        @Html.CheckBox("[" + i + "].IsChecked", new { @class = "myChk" })
-                                        @Html.HiddenFor(x => Model[i].EmployeeId)
-                                        @Html.HiddenFor(x => Model[i].TravelClaimId)
-                                        @Html.HiddenFor(x => Model[i].BranchId)
-                                    </td>
-                                    <td>
-                                        @Model[i].ClaimNo
-                                    </td>
-                                    <td>@Model[i].Name</td>
-                                    <td>@Model[i].CreatedOn.Value.ToString("dd/MM/yyyy")</td>
-                                    <td>
-                                        @Model[i].GrossTotal
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.ElementAt(i).TravelClaimId)">
-                                            <i class="fa fa-eye"></i>
-                                            View
-                                        </button>
-                                    </td>
+                                    </th>
+                                    <th>
+                                        TravelClaim No
+                                    </th>
+                                    <th>
+                                        Employee Name
+                                    </th>
+                                    <th>Submission Date</th>
+                                    <th>Total Claim</th>
+                                    <th>View</th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody>
 
-                        </tbody>
+                                @for (var i = 0; i < Model.Count; i++)
+                                {
 
-                    </table>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="btn btn-primary btn-sm" type="button" onclick="Approve()">
-                                <i class="fa fa-check"></i>
-                                Approve
-                            </button>
-                            <button class="btn btn-primary btn-sm" type="button" onclick="Reject()">
-                                <i class="fa fa-times"></i>
-                                Reject
-                            </button>
+                                    <tr id="len_@i" class="length">
+                                        <td>
+                                            @*<input type="checkbox"
+                                                class="chk "
+                                                id="chk_@i"
+                                                name="chk"
+                                                data-index="@Model.ElementAt(i).TravelClaimId"
+                                                value="@Model.ElementAt(i).TravelClaimId"  />*@
+
+                                            @Html.CheckBox("[" + i + "].IsChecked", new { @class = "myChk" })
+                                            @Html.HiddenFor(x => Model[i].EmployeeId)
+                                            @Html.HiddenFor(x => Model[i].TravelClaimId)
+                                            @Html.HiddenFor(x => Model[i].BranchId)
+                                        </td>
+                                        <td>
+                                            @Model[i].ClaimNo
+                                        </td>
+                                        <td>@Model[i].Name</td>
+                                        <td>@Model[i].CreatedOn.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>
+                                            @Model[i].GrossTotal
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.ElementAt(i).TravelClaimId)">
+                                                <i class="fa fa-eye"></i>
+                                                View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary btn-sm" type="button" onclick="Approve()">
+                                    <i class="fa fa-check"></i>
+                                    Approve
+                                </button>
+                                <button class="btn btn-primary btn-sm" type="button" onclick="Reject()">
+                                    <i class="fa fa-times"></i>
+                                    Reject
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
-       
     </div>
-</div>
 }
 <div id="myPreviewModal" class="modal fade" role="dialog">
     <div class="modal-dialog" style="width:1250px;">
@@ -103,13 +103,13 @@
     </div>
 </div>
 @*@using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmapprove", name = "frmapprove" }))
-{
-    <input type="hidden" id="travelclaimid" name="travelclaimid" />
-}
-@using (Html.BeginForm("RejectTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmreject", name = "frmreject" }))
-{
-    <input type="hidden" id="travelclaimrejid" name="travelclaimrejid" />
-}*@
+    {
+        <input type="hidden" id="travelclaimid" name="travelclaimid" />
+    }
+    @using (Html.BeginForm("RejectTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmreject", name = "frmreject" }))
+    {
+        <input type="hidden" id="travelclaimrejid" name="travelclaimrejid" />
+    }*@
 @section Styles{
     <script type="text/javascript">
         //var index="";
@@ -120,22 +120,14 @@
         //        var temp = this;
         //        index = $(this).data('index');
         //        $('#travelclaimid').val(index);
-        //        $('#travelclaimrejid').val(index);                
+        //        $('#travelclaimrejid').val(index);
         //    });
         //    $('#li_claims').addClass('open');
         //    $('#li_TravelClaim').addClass('active');
         //})
-      
-        function Approve() {
-            var chksObj = $('.myChk');
-            var atleastOneChecked = false;
-            $.each(chksObj, function (index, item) {
-                var isChecked = $(item).is(':checked');
-                if (isChecked) {
-                    atleastOneChecked = true;
-                }
-            });
 
+        function Approve() {
+            var atleastOneChecked = $('.myChk').is(':checked');
             if (!atleastOneChecked) {
                 swal("Please Select the Checkbox which you want to approve");
             }
@@ -151,29 +143,19 @@
                         confirmButtonClass: "btn-primary",
                         timer: 5000
                     },
-                         function () {
-                             $.loader({
-                                 className: "blue-with-image-2",
-                                 content: '',
-                             });
-                         })
+                        function () {
+                            $.loader({
+                                className: "blue-with-image-2",
+                                content: '',
+                            });
+                        })
                 }
             }
-                
-            }
-           
-          
+        }
+
+
         function Reject() {
-            var chksObj = $('.myChk');
-            var atleastOneChecked = false;
-            $.each(chksObj, function (index, item) {
-                var isChecked = $(item).is(':checked');
-                if (isChecked) {
-                    atleastOneChecked = true;
-                }
-            });
-
-
+            var atleastOneChecked = $('.myChk').is(':checked');
             if (!atleastOneChecked) {
                 swal("Please Select the Checkbox which you want to Reject");
             }
@@ -198,7 +180,7 @@
                          })
                 }
             }
-                
+
             }
         function view(travelclaimid) {
             debugger;
@@ -216,13 +198,13 @@
                 }
             });
         }
-         
+
 
 
     </script>
-    
-    
-    }
 
 
-   
+}
+
+
+

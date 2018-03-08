@@ -1243,7 +1243,7 @@ data_index = i,
                                     <i class="fa fa-eye"></i><b>Preview</b>                                    
                                 </button>
 
-                                @if (Model.claimHeader.Status == UTILITY.TRAVELCLAIMSAVED)
+                                @if (Model.claimHeader.TravelClaimId!=0)
                                 {
                                     <button type="button" class="btn btn-primary btn-sm" onclick="Submit()">
                                         <i class="fa fa fa-check-circle"></i><b>Submit</b>

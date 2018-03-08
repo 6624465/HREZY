@@ -1201,41 +1201,54 @@ namespace HR.Web.Controllers
 
         public ActionResult ProcessTravelClaim()
         {
-            var travelobj = travelClaimHeaderBO.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true && x.Status == UTILITY.TRAVELCLAIMSUBMITTED);
+            var travelobj = travelClaimHeaderBO.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true && x.Status == UTILITY.TRAVELCLAIMSUBMITTED).ToList();
             return View(travelobj);
         }
-        public ActionResult ApproveTravelClaim(TravelClaimHeader travelclaim)
+        public ActionResult ApproveTravelClaim(List<SelectedTCVm> selectedTCVm)
         {
-            var travelclaimid = Request["travelclaimid"];
-            travelclaim.TravelClaimId = Convert.ToInt32(travelclaimid);
-            travelClaimHeaderBO.ApproveTravelClaim(travelclaim);
-            TravelClaimHeader travelobj = travelClaimHeaderBO.GetById(travelclaim.TravelClaimId);
-            var employeeid = travelobj.EmployeeId;
-            EmployeeHeader empheaderobj = employeeHeaderBo.GetByProperty(x => x.EmployeeId == employeeid);
-            var email = empheaderobj.UserEmailId;
-            var subject = string.Empty;
-            subject = "Travel claim Approval";
-            var strbody = string.Empty;
-            strbody = "Travel Claim Approved:" + "<BR>" + "Your Travelclaim Expenses are Approved";
-            EmailGenerator emailgenerator = new EmailGenerator();
-            emailgenerator.ConfigMail(email, true, subject, strbody);
+            for(var i = 0; i < selectedTCVm.Count; i++)
+            {
+                if (!selectedTCVm[i].IsChecked)
+                    continue;
+
+                var travelclaimid = selectedTCVm[i].TravelClaimId;
+                var travelclaim = travelClaimHeaderBO.GetById(travelclaimid);
+                travelClaimHeaderBO.ApproveTravelClaim(travelclaim);
+                TravelClaimHeader travelobj = travelClaimHeaderBO.GetById(travelclaim.TravelClaimId);
+                var employeeid = travelobj.EmployeeId;
+                EmployeeHeader empheaderobj = employeeHeaderBo.GetByProperty(x => x.EmployeeId == employeeid);
+                var email = empheaderobj.UserEmailId;
+                var subject = string.Empty;
+                subject = "Travel claim Approval";
+                var strbody = string.Empty;
+                strbody = "Travel Claim Approved:" + "<BR>" + "Your Travelclaim Expenses are Approved";
+                EmailGenerator emailgenerator = new EmailGenerator();
+                emailgenerator.ConfigMail(email, true, subject, strbody);
+            }            
             return RedirectToAction("ProcessTravelClaim");
         }
-        public ActionResult RejectTravelClaim(TravelClaimHeader TravelClaim)
+
+        public ActionResult RejectTravelClaim(List<SelectedTCVm> selectedTCVm)
         {
-            var travelclaimid = Request["travelclaimrejid"];
-            TravelClaim.TravelClaimId = Convert.ToInt32(travelclaimid);
-            travelClaimHeaderBO.RejectTravelClaim(TravelClaim);
-            TravelClaimHeader travelobj = travelClaimHeaderBO.GetById(TravelClaim.TravelClaimId);
-            var employeeid = travelobj.EmployeeId;
-            EmployeeHeader empheaderobj = employeeHeaderBo.GetByProperty(x => x.EmployeeId == employeeid);
-            var email = empheaderobj.UserEmailId;
-            var subject = string.Empty;
-            subject = "Travel claim rejected";
-            var strbody = string.Empty;
-            strbody = "Travel Claim Rejected:" + "<BR>" + "Your Travelclaim Expenses are Rejected";
-            EmailGenerator emailgenerator = new EmailGenerator();
-            emailgenerator.ConfigMail(email, true, subject, strbody);
+            for (var i = 0; i < selectedTCVm.Count; i++)
+            {
+                if (!selectedTCVm[i].IsChecked)
+                    continue;
+
+                var travelclaimid = selectedTCVm[i].TravelClaimId;
+                var travelclaim = travelClaimHeaderBO.GetById(travelclaimid);
+                travelClaimHeaderBO.RejectTravelClaim(travelclaim);
+                TravelClaimHeader travelobj = travelClaimHeaderBO.GetById(travelclaim.TravelClaimId);
+                var employeeid = travelobj.EmployeeId;
+                EmployeeHeader empheaderobj = employeeHeaderBo.GetByProperty(x => x.EmployeeId == employeeid);
+                var email = empheaderobj.UserEmailId;
+                var subject = string.Empty;
+                subject = "Travel claim rejected";
+                var strbody = string.Empty;
+                strbody = "Travel Claim Rejected:" + "<BR>" + "Your Travelclaim Expenses are Rejected";
+                EmailGenerator emailgenerator = new EmailGenerator();
+                emailgenerator.ConfigMail(email, true, subject, strbody);
+            }
             return RedirectToAction("ProcessTravelClaim");
         }
         [HttpPost]

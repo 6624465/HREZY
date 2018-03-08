@@ -1,5 +1,7 @@
-﻿@model IEnumerable<HR.Web.Models.TravelClaimHeader>
+﻿@model List<HR.Web.Models.TravelClaimHeader>
 
+@using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frm", name = "frm" }))
+{
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
@@ -25,23 +27,32 @@
                                 <th>View</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @for (var i = 0; i < Model.Count(); i++)
+                        <tbody>                            
+
+                            @for (var i = 0; i < Model.Count; i++)
                             {
-                                @Html.HiddenFor(x => x.ElementAt(i).BranchId)
-                                @Html.HiddenFor(x=>x.ElementAt(i).TravelClaimId)
-                                @Html.HiddenFor(x=>x.ElementAt(i).EmployeeId)
+                                
                                 <tr id="len_@i" class="length">
                                     <td>
-                                            <input type="checkbox" class="chk " id="chk_@i" name="chk" data-index="@Model.ElementAt(i).TravelClaimId" value="@Model.ElementAt(i).TravelClaimId"  />
+                                        @*<input type="checkbox"
+                                        class="chk "
+                                        id="chk_@i"
+                                        name="chk"
+                                        data-index="@Model.ElementAt(i).TravelClaimId"
+                                        value="@Model.ElementAt(i).TravelClaimId"  />*@
+                                        
+                                        @Html.CheckBox("[" + i + "].IsChecked", new { @class = "myChk" })
+                                        @Html.HiddenFor(x => Model[i].EmployeeId)
+                                        @Html.HiddenFor(x => Model[i].TravelClaimId)
+                                        @Html.HiddenFor(x => Model[i].BranchId)
                                     </td>
                                     <td>
-                                        @Model.ElementAt(i).ClaimNo
+                                        @Model[i].ClaimNo
                                     </td>
-                                    <td>@Model.ElementAt(i).Name</td>
-                                    <td>@Model.ElementAt(i).CreatedOn.Value.ToString("dd/MM/yyyy")</td>
+                                    <td>@Model[i].Name</td>
+                                    <td>@Model[i].CreatedOn.Value.ToString("dd/MM/yyyy")</td>
                                     <td>
-                                        @Model.ElementAt(i).GrossTotal
+                                        @Model[i].GrossTotal
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.ElementAt(i).TravelClaimId)">
@@ -50,7 +61,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                }
+                            }
 
                         </tbody>
 
@@ -73,6 +84,7 @@
        
     </div>
 </div>
+}
 <div id="myPreviewModal" class="modal fade" role="dialog">
     <div class="modal-dialog" style="width:1250px;">
         <div class="modal-content">
@@ -90,37 +102,46 @@
 
     </div>
 </div>
-@using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmapprove", name = "frmapprove" }))
+@*@using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmapprove", name = "frmapprove" }))
 {
     <input type="hidden" id="travelclaimid" name="travelclaimid" />
 }
 @using (Html.BeginForm("RejectTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmreject", name = "frmreject" }))
 {
     <input type="hidden" id="travelclaimrejid" name="travelclaimrejid" />
-}
+}*@
 @section Styles{
     <script type="text/javascript">
-        var index="";
-        $(function(){
-            $('.chk').on("ifChanged", function (event) {
-                //debugger;
-                //$('.chk').addClass('csslength');
-                var temp = this;
-                index = $(this).data('index');
-                $('#travelclaimid').val(index);
-                $('#travelclaimrejid').val(index);
-            });
-            $('#li_claims').addClass('open');
-            $('#li_TravelClaim').addClass('active');
-        })
+        //var index="";
+        //$(function(){
+        //    $('.chk').on("ifChanged", function (event) {
+        //        debugger;
+        //        //$('.chk').addClass('csslength');
+        //        var temp = this;
+        //        index = $(this).data('index');
+        //        $('#travelclaimid').val(index);
+        //        $('#travelclaimrejid').val(index);                
+        //    });
+        //    $('#li_claims').addClass('open');
+        //    $('#li_TravelClaim').addClass('active');
+        //})
       
         function Approve() {
-            if (index == "") {
+            var chksObj = $('.myChk');
+            var atleastOneChecked = false;
+            $.each(chksObj, function (index, item) {
+                var isChecked = $(item).is(':checked');
+                if (isChecked) {
+                    atleastOneChecked = true;
+                }
+            });
+
+            if (!atleastOneChecked) {
                 swal("Please Select the Checkbox which you want to approve");
             }
             else {
-                if ($('#frmapprove').valid()) {
-                    $('#frmapprove').submit();
+                if ($('#frm').valid()) {
+                    $('#frm').submit();
 
                     swal({
                         title: "Saved Successfully",
@@ -143,14 +164,24 @@
            
           
         function Reject() {
-          
-            if (index == "") {
+            var chksObj = $('.myChk');
+            var atleastOneChecked = false;
+            $.each(chksObj, function (index, item) {
+                var isChecked = $(item).is(':checked');
+                if (isChecked) {
+                    atleastOneChecked = true;
+                }
+            });
+
+
+            if (!atleastOneChecked) {
                 swal("Please Select the Checkbox which you want to Reject");
             }
             else
             {
-                if ($('#frmreject').valid()) {
-                    $('#frmreject').submit();
+                if ($('#frm').valid()) {
+                    $('#frm').attr('action','@Url.Content("~/PayRoll/RejectTravelClaim")')
+                    $('#frm').submit();
                     swal({
                         title: "Rejected Successfully",
                         text: "",

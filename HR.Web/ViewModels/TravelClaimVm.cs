@@ -19,6 +19,14 @@ namespace HR.Web.ViewModels
         public List<TravelDetailOtherExpensesVm> claimDetailOtherExpensesVm { get; set; }
     }
 
+    public class SelectedTCVm
+    {
+        public bool IsChecked { get; set; }
+        public int BranchId { get; set; }
+        public int TravelClaimId { get; set; }
+        public int EmployeeId { get; set; }
+    }
+
     public class TravelClaimHeaderVm : TravelClaimHeader {
         public decimal? claimDetailAirfareTotal { get; set; }
         public decimal? claimDetailVisaTotal { get; set; }

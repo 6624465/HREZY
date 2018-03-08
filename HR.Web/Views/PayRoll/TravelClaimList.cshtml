@@ -80,7 +80,7 @@
                                            }
                                        </td>
                                     <td>
-                                        @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED)
+                                        @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED || Model.TableData[i].Status==UTILITY.TRAVELCLAIMAPPROVED)
                                         {
                                             <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" disabled="disabled"
                                                     style="padding-left: 5px;margin-left: 6px;"

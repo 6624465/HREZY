@@ -1243,10 +1243,19 @@ data_index = i,
                                     <i class="fa fa-eye"></i><b>Preview</b>                                    
                                 </button>
 
+                                @if (Model.claimHeader.Status == UTILITY.TRAVELCLAIMSAVED)
+                                {
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="Submit()">
+                                        <i class="fa fa fa-check-circle"></i><b>Submit</b>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="Submit()" disabled="disabled">
+                                        <i class="fa fa fa-check-circle"></i><b>Submit</b>
+                                    </button>
+                                }
 
-                                <button type="button" class="btn btn-primary btn-sm" onclick="Submit()">
-                                    <i class="fa fa fa-check-circle"></i><b>Submit</b>
-                                </button>
                                 <button type="button" class="btn btn-primary btn-sm"
                                         onclick="location.href='@Url.Content("~/PayRoll/TravelClaimList")'">
                                     <i class="fa fa-arrow-left"></i><b>Back</b>

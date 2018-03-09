@@ -268,7 +268,7 @@
                                                                 <td>
                                                                     @Html.HiddenFor(x => x.claimDetailAirfareVm[i].TravelClaimDetailId)
 
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateAirfare_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
@@ -393,7 +393,7 @@
                                                             <tr id="tr_@i" class="cssVisaLength">
                                                                 @Html.HiddenFor(x => x.claimDetailVisaVm[i].TravelClaimDetailId)
                                                                 <td>
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateVisa_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailVisaVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
@@ -619,7 +619,7 @@
 
                                                                 <td>
 
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateTaxiLocal_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TravelDate, new
                                                                     {
                                                                         @class = "form-control input-sm dtCssTxt wdCss",
@@ -737,7 +737,7 @@
                                                             @Html.HiddenFor(x => x.claimDetailTaxiOverseasVm[i].TravelClaimDetailId)
                                                             <tr id="tr_@i" class="csstaxioverseaLength">
                                                                 <td>
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateTaxiOverseas_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].TravelDate, new
                                                                     {
                                                                         @class = "form-control input-sm dtCssTxt wdCss",
@@ -850,7 +850,7 @@
                                                             <tr id="tr_@i" class="cssfoodbillslocalLength">
                                                                 <td>
 
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateFoodLocal_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
@@ -956,7 +956,7 @@
                                                             <tr id="tr_@i" class="cssfoodbillsoverseasLength">
                                                                 <td>
 
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateFoodOverseas_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
@@ -1059,7 +1059,7 @@
                                                             <tr id="tr_@i" class="cssOtherExpensesLength">
                                                                 <td>
 
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateOtherExpenses_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>

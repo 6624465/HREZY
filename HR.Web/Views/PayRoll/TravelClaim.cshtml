@@ -495,7 +495,7 @@
                                                             @Html.HiddenFor(x => x.claimDetailAccomdationVm[i].TravelClaimDetailId)
                                                             <tr id="tr_@i" class="cssAccomodationLength">
                                                                 <td class="accomdation" id="accfromDate_@i">
-                                                                    <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss_fromDate" id="FromDate_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].FromDate, new
                                                                     {
                                                                         @class = "form-control input-sm dtCssTxt wdCss",
@@ -507,7 +507,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td class="accomdation" id="acctoDate_@i">
-                                                                    <div class="input-group date dtCss travelDateCss" id="TODate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss_ToDate" id="TODate_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ToDate, new
                                                                     {
                                                                         @class = "form-control input-sm dtCssTxt wdCss",
@@ -1407,30 +1407,47 @@ data_index = i,
                     next: 'fa fa-arrow-right',
 
                 },
-                format: dateFormat
+                format: dateFormat,
             });
+           
+
 
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
                 $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
                 $('#claimHeader_NoOfDays').val('');
                 $('.travelDateCss').data("DateTimePicker").minDate(e.date);
+                $('.travelDateCss_fromDate').data("DateTimePicker").minDate(e.date);
             });
             $(".dtCssToDate").on("dp.change", function (e) {
                 $('.travelDateCss').data("DateTimePicker").maxDate(e.date);
+                $('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
             });
+            $(".travelDateCss_fromDate").on("dp.change", function (e) {
+                $('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
+            });
+
 
             if ($('#claimHeader_FromDate').val() != null && $('#claimHeader_FromDate').val() != "") {
                 $('.travelDateCss').each(function (index, item) {
                     $('#' + item.id).data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
                 });
-
+                $('.travelDateCss_fromDate').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
+                });
             }
 
             if ($('#claimHeader_ToDate').val() != null && $('#claimHeader_ToDate').val() != "") {
                 $('.travelDateCss').each(function (index, item) {
                     $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
                 });
+                $('.travelDateCss_fromDate').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+                });
+                $('.travelDateCss_ToDate').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+                });
+
             }
 
 

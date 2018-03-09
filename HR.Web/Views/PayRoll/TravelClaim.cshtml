@@ -495,7 +495,7 @@
                                                             @Html.HiddenFor(x => x.claimDetailAccomdationVm[i].TravelClaimDetailId)
                                                             <tr id="tr_@i" class="cssAccomodationLength">
                                                                 <td class="accomdation" id="accfromDate_@i">
-                                                                    <div class="input-group date dtCss travelDateCss" id="FromDate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss_fromDate" id="FromDate_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].FromDate, new
                                                                     {
                                                                         @class = "form-control input-sm dtCssTxt wdCss",
@@ -507,7 +507,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td class="accomdation" id="acctoDate_@i">
-                                                                    <div class="input-group date dtCss travelDateCss" id="TODate_@i">
+                                                                    <div class="input-group date dtCss travelDateCss_ToDate" id="TODate_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ToDate, new
                                                                     {
                                                                         @class = "form-control input-sm dtCssTxt wdCss",
@@ -1397,6 +1397,7 @@ data_index = i,
             for (var i = 0; i < detailCount; i++) {
                 showAccomdation(i);
             }
+            var date=new Date();
             $('.dtCss').datetimepicker({
                 icons: {
                     time: 'fa fa-clock-o',
@@ -1407,7 +1408,7 @@ data_index = i,
                     next: 'fa fa-arrow-right',
 
                 },
-                format: dateFormat
+                format: dateFormat,
             });
 
             $(".dtCssFromDate").on("dp.change", function (e) {
@@ -1415,20 +1416,37 @@ data_index = i,
                 $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
                 $('#claimHeader_NoOfDays').val('');
                 $('.travelDateCss').data("DateTimePicker").minDate(e.date);
+                $('.travelDateCss_fromDate').data("DateTimePicker").minDate(e.date);
             });
             $(".dtCssToDate").on("dp.change", function (e) {
                 $('.travelDateCss').data("DateTimePicker").maxDate(e.date);
+                $('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
             });
+            $(".travelDateCss_fromDate").on("dp.change", function (e) {
+                //$('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
+                $('.travelDateCss_ToDate').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").minDate(e.date);
+                });
+            });
+
 
             if ($('#claimHeader_FromDate').val() != null && $('#claimHeader_FromDate').val() != "") {
                 $('.travelDateCss').each(function (index, item) {
                     $('#' + item.id).data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
                 });
-
+                $('.travelDateCss_fromDate').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
+                });
             }
 
             if ($('#claimHeader_ToDate').val() != null && $('#claimHeader_ToDate').val() != "") {
                 $('.travelDateCss').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+                });
+                $('.travelDateCss_fromDate').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+                });
+                $('.travelDateCss_ToDate').each(function (index, item) {
                     $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
                 });
             }
@@ -1579,7 +1597,7 @@ data_index = i,
             $('#selectedTab').val('Airfare');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssAirfareLength').length;
-            if (length > 1) {
+            //if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
@@ -1596,10 +1614,10 @@ data_index = i,
                     TabVisibility();
                 }
 
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
+            //}
+            //else {
+            //    swal("Message!", "You can not delete because one row should be mandatory");
+            //}
         }
 
         // Calculations for AirFare : End
@@ -1643,7 +1661,7 @@ data_index = i,
             $('#selectedTab').val('Visa');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssVisaLength').length;
-            if (length > 1) {
+            //if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
@@ -1660,10 +1678,10 @@ data_index = i,
                     TabVisibility();
                 }
 
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
+            //}
+            //else {
+            //    swal("Message!", "You can not delete because one row should be mandatory");
+            //}
         }
         // Calculations for Visa: End
 
@@ -1701,7 +1719,7 @@ data_index = i,
             $('#selectedTab').val('Accommodation');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssAccomodationLength').length;
-            if (length > 1) {
+            //if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
@@ -1719,10 +1737,10 @@ data_index = i,
                     TabVisibility();
                 }
 
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
+            //}
+            //else {
+            //    swal("Message!", "You can not delete because one row should be mandatory");
+            //}
         }
 
         //Calculations for Accomodation: End
@@ -1760,7 +1778,7 @@ data_index = i,
             $('#selectedTab').val('TaxiLocal');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssTaxilocalLength').length;
-            if (length > 1) {
+            //if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
@@ -1777,10 +1795,10 @@ data_index = i,
                     TabVisibility();
                 }
 
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
+            //}
+            //else {
+            //    swal("Message!", "You can not delete because one row should be mandatory");
+            //}
         }
         //calculations for TaxiFares local:end
         //calculations for TaxiFares oversea:start
@@ -1817,7 +1835,7 @@ data_index = i,
             $('#selectedTab').val('TaxiOverseas');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.csstaxioverseaLength').length;
-            if (length > 1) {
+            //if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
@@ -1834,10 +1852,10 @@ data_index = i,
                     TabVisibility();
                 }
 
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
+            //}
+            //else {
+            //    swal("Message!", "You can not delete because one row should be mandatory");
+            //}
         }
 
         //calculations for TaxiFares oversea:end
@@ -1875,7 +1893,7 @@ data_index = i,
             $('#selectedTab').val('FoodBillsLocal');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssfoodbillslocalLength').length;
-            if (length > 1) {
+            //if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
@@ -1892,10 +1910,10 @@ data_index = i,
                     TabVisibility();
                 }
 
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
+            //}
+            //else {
+            //    swal("Message!", "You can not delete because one row should be mandatory");
+            //}
         }
         //calculations for Food Bills Local:end
         //calculations for Food Bills overseas:end
@@ -1932,7 +1950,7 @@ data_index = i,
             $('#selectedTab').val('FoodBillsOverseas');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssfoodbillsoverseasLength').length;
-            if (length > 1) {
+            //if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
@@ -1949,10 +1967,10 @@ data_index = i,
                     TabVisibility();
                 }
 
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
+            //}
+            //else {
+            //    swal("Message!", "You can not delete because one row should be mandatory");
+            //}
         }
 
         //calculations for Food Bills overseas:end
@@ -1990,7 +2008,7 @@ data_index = i,
             $('#selectedTab').val('OtherExpences');
             var headerId = $('#claimHeader_TravelClaimId').val();
             var length = $('.cssOtherExpensesLength').length;
-            if (length > 1) {
+            //if (length > 1) {
 
                 $('#addNewClaim').val(category);
                 $('#addOrDelete').val(index);
@@ -2007,10 +2025,10 @@ data_index = i,
                     TabVisibility();
                 }
 
-            }
-            else {
-                swal("Message!", "You can not delete because one row should be mandatory");
-            }
+            //}
+            //else {
+            //    swal("Message!", "You can not delete because one row should be mandatory");
+            //}
         }
         //calculations for OtherExpenses:end
 

@@ -81,8 +81,8 @@
                             </label>
                             <div class="col-md-3">
                                 <div class="input-group date dtCss" id="EffectiveDate">
-                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate,
-                                   new { @class = "form-control dtCssTxt input-sm" })
+                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate, "{0:dd/MM/yyyy}",
+                                    new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>

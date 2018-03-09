@@ -81,7 +81,8 @@
                             </label>
                             <div class="col-md-3">
                                 <div class="input-group date dtCss" id="EffectiveDate">
-                                    @Html.TextBoxFor(x => x.structureHeader.EffectiveDate,
+                                   @Html.TextBoxFor(x => x.structureHeader.EffectiveDate,
+                                   "{0:dd/MM/yyyy}",
                                    new { @class = "form-control dtCssTxt input-sm" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
@@ -392,7 +393,7 @@
                 $('#structureSalaryPaymentDetail_' + index + '__RegisterCode').attr('disabled', 'disabled');
                 $('#structureSalaryPaymentDetail_' + index + '__Amount').attr('disabled', 'disabled');
                 $('#structureSalaryPaymentDetail_' + index + '__IsVariablePay').attr('disabled','disabled');
-               
+
 
 
                 $('#structureSalaryPaymentDetail_' + index + '__ComputationCode').attr('disabled', 'disabled');
@@ -408,10 +409,30 @@
             $('#li_PayRollConfig').addClass('open');
             $('#li_SalaryStructureHeaderList').addClass('active');
             showHide();
+            @if(Model.structureHeader.EffectiveDate != null && Model.structureHeader.EffectiveDate != DateTime.MinValue)
+            {
+                var effDt = Model.structureHeader.EffectiveDate.Value.ToString("dd/MM/yyyy");
+                if(DateTime.Parse(effDt) < DateTime.Now)
+                {
+                    <text>
+                    var dateObj = moment('@Model.structureHeader.EffectiveDate.Value.ToString("dd/MM/yyyy")', dateFormat);
+                    $('#EffectiveDate, #structureHeader_EffectiveDate').attr('readonly', 'readonly');
+                    </text>
+                }
+                else
+                {
+                    <text>var dateObj = moment('@DateTime.Now.ToString("dd/MM/yyyy")', dateFormat);</text>
+                }
+                
+            }
+            else
+            {
+                <text>var dateObj = moment();</text>
+            }
             var date = new Date();
             $('.dtCss').datetimepicker({
-                icons: {
-                    time: 'fa fa-clock-o',
+            icons: {
+            time: 'fa fa-clock-o',
                     date: 'fa fa-calendar',
                     up: 'fa fa-arrow-up',
                     down: 'fa fa-arrow-down',
@@ -420,7 +441,7 @@
 
                 },
                 format: dateFormat,
-                minDate: moment(date)
+                minDate: dateObj
             });
             $("#structureHeader_EmployeeId").select2().on("change", function (e) {
                 $(this).valid()
@@ -547,7 +568,7 @@
             var index=$(this).data('index');
 
             if($('#'+this.id).prop('checked')){
-                
+
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val("AMOUNT");
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('required','required');
@@ -555,12 +576,12 @@
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('required','required');
                 $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').removeAttr('disabled');
 
-            
+
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').removeAttr('disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').removeAttr('disabled');
                 var code=  $('#structureEmployeeContributionDetail_' + index + '__Code').val();
                 calculateByEmployeeCode(code,index);
-               
+
             }
             else{
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
@@ -646,7 +667,7 @@
                 $('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('required','required');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').attr('required','required');
 
-                
+
                 $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').removeAttr('disabled');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').removeAttr('disabled');
                 var code=  $('#structureEmployerContributionDetail_' + index + '__Code').val();

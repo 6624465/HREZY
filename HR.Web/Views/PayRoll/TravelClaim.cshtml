@@ -1397,6 +1397,7 @@ data_index = i,
             for (var i = 0; i < detailCount; i++) {
                 showAccomdation(i);
             }
+            var date=new Date();
             $('.dtCss').datetimepicker({
                 icons: {
                     time: 'fa fa-clock-o',
@@ -1409,8 +1410,6 @@ data_index = i,
                 },
                 format: dateFormat,
             });
-           
-
 
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
@@ -1424,7 +1423,10 @@ data_index = i,
                 $('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
             });
             $(".travelDateCss_fromDate").on("dp.change", function (e) {
-                $('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
+                //$('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
+                $('.travelDateCss_ToDate').each(function (index, item) {
+                    $('#' + item.id).data("DateTimePicker").minDate(e.date);
+                });
             });
 
 
@@ -1447,7 +1449,6 @@ data_index = i,
                 $('.travelDateCss_ToDate').each(function (index, item) {
                     $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
                 });
-
             }
 
 

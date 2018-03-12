@@ -1424,12 +1424,16 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                 $('#claimHeader_ToDate').val('');
                 $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
                 $('#claimHeader_NoOfDays').val('');
-                $('.travelDateCss').data("DateTimePicker").minDate(e.date);
-                $('.travelDateCss_fromDate').data("DateTimePicker").minDate(e.date);
+                if ($('.travelDateCss').length > 0)
+                    $('.travelDateCss').data("DateTimePicker").minDate(e.date);
+                if ($('.travelDateCss_fromDate').length > 0)
+                    $('.travelDateCss_fromDate').data("DateTimePicker").minDate(e.date);
             });
             $(".dtCssToDate").on("dp.change", function (e) {
-                $('.travelDateCss').data("DateTimePicker").maxDate(e.date);
-                $('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
+                if ($('.travelDateCss').length > 0)
+                    $('.travelDateCss').data("DateTimePicker").maxDate(e.date);
+                if ($('.travelDateCss_ToDate').length > 0)
+                    $('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
             });
             $(".travelDateCss_fromDate").on("dp.change", function (e) {
                 //$('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);

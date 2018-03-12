@@ -1326,16 +1326,16 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
             {
                 detailCount = Model.claimDetailAirfareVm.Count;
             }
-            if(Model.claimHeader.TravelClaimId != 0)
+            if(true)//Model.claimHeader.TravelClaimId != 0
             {
                 var varArr = Model.claimHeader.CountryVisited;
                 var result = varArr.Split(',');
                 for (var i=0; i < result.Length; i++)
                 {
                     <text>
-        $options = $('#claimHeader_CountryVisited option');
-        $options.filter('[value="@result[i]"]').prop('selected', true);
-        </text>
+                        $options = $('#claimHeader_CountryVisited option');
+                        $options.filter('[value="@result[i]"]').prop('selected', true);
+                    </text>
                 }
             }
 

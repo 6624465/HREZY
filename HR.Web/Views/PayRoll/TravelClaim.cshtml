@@ -156,7 +156,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                 <div class="col-md-6">
                                     <div class="input-group date dtCss dtCssFromDate" id="FromDate">
                                         @Html.TextBoxFor(x => x.claimHeader.FromDate,
-new { @class = "form-control dtCssTxt input-sm" })
+new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -170,7 +170,7 @@ new { @class = "form-control dtCssTxt input-sm" })
                                 <div class="col-md-6">
                                     <div class="input-group date dtCss dtCssToDate" id="ToDate">
                                         @Html.TextBoxFor(x => x.claimHeader.ToDate,
-new { @class = "form-control dtCssTxt input-sm" })
+new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                         <span class="input-group-addon">
                                             <i class="ion ion-calendar"></i>
                                         </span>
@@ -499,6 +499,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                         @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].FromDate, new
                                                                    {
                                                                        @class = "form-control input-sm dtCssTxt wdCss",
+                                                                       required = "required",
                                                                        style = "width:100px;"
                                                                    })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
@@ -511,6 +512,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                         @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ToDate, new
                                                                    {
                                                                        @class = "form-control input-sm dtCssTxt wdCss",
+                                                                       required = "required",
                                                                        style = "width:100px;"
                                                                    })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
@@ -1438,6 +1440,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
             $(".travelDateCss_fromDate").on("dp.change", function (e) {
                 //$('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
                 $('.travelDateCss_ToDate').each(function (index, item) {
+                    $('#claimDetailAccomdationVm_'+index+'__ToDate').val('');
                     $('#' + item.id).data("DateTimePicker").minDate(e.date);
                 });
             });
@@ -1519,9 +1522,9 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
             {
                 var errObj = $('#frmClaim').validate();
                 if (errObj.errorList.length == 1 && errObj.errorList[0].element.id == 'claimHeader_CountryVisited'){
-                    swal("Message!", "Please select country before proceeding..");
+                    swal("Message!", "Please select Country before proceeding...");
                 } else{
-                    swal("Message!", "Please update these before proceeding..");
+                    swal("Message!", "Please update these before proceeding...");
                 }
                 TabVisibility();
                 var title =$('.multiselect').attr('title');

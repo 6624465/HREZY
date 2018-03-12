@@ -308,6 +308,7 @@
 
         $("#FromDt").on("dp.change", function (e) {
             $('#noOfDays').val('');
+            $("#ToDt").data("DateTimePicker").minDate(e.date);
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
 
@@ -346,7 +347,8 @@
                 if (days < 0) {
                     $('#FromDt').find('input').val('');
                     $('#ToDt').find('input').val('');
-                    $('#Days').val('');$('#noOfDays').val('');
+                    $('#Days').val('');
+                    $('#noOfDays').val('');
                 } else {
                     $('#Days').val(days);
                     $('#noOfDays').val(days);
@@ -370,6 +372,7 @@
             $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
+            
 
             var from = moment(fromDate, dateFormat);
             var to = moment(toDate, dateFormat);
@@ -392,7 +395,7 @@
                     }
                     else
                         $('#Days').val('');
-
+                    
                     var daysCount=$('#Days').val();
                     if (daysCount > 1) {
 
@@ -421,7 +424,7 @@
         }
 
         $("#ToDate").on("blur", function (e) {
-            // checkDates();
+             //checkDates();
             isoWeekDayCalc();
             $('#chkhalfday').trigger("ifChanged");
         });
@@ -430,6 +433,7 @@
             isoWeekDayCalc();
             $('#chkhalfday').trigger("ifChanged");
         });
+      
 
         function checkDates() {
             $('#Days').val('');
@@ -536,7 +540,7 @@
             $('#Remarks').val('');
 
         }
-        //clearrec();
+        //clearrec();      
 
         function SaveEmployeeLeaveForm() {
 

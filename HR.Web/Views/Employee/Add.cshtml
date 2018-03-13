@@ -26,6 +26,15 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="left">
+                        <img height="32" width="32"
+                             src="${imgPath + EmployeeId + '/' + DocumentDetailID + '/' + ProfilePic}"
+                             onerror="this.src='@Url.Content("~/Images/user.png")'"
+                             class="img-circle"
+                             alt=""
+                             style="cursor:pointer">
+                        @*<button><i class="fa fa-user" aria-hidden="true"></i></button>*@
+                    </div>
                     <div class="panel-heading">@Model.empHeader.FirstName&nbsp;@Model.empHeader.LastName&nbsp;Profile</div>
                     <div class="panel-body">
                         <div class="row">
@@ -589,6 +598,7 @@ new { @class = "form-control input-sm" })
 @section Scripts{
     <link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript">
+
         function CheckFileName(el) {
             var fileName = document.getElementById(el.id).value;
             if (fileName == "") {

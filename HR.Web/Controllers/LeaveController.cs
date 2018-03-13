@@ -137,18 +137,20 @@ namespace HR.Web.Controllers
             List<EmpLeaveListVm> list = new List<EmpLeaveListVm>();
             using (var dbcntx=new HrDataContext())
             {
-               
-                    var query = dbcntx.EmployeeHeaders.Join(
-                        dbcntx.EmployeeLeaveLists,
-                        a => a.EmployeeId, b => b.EmployeeId,
-                        (a, b) => new { A = a, B = b })
-                        .Select(x => new EmpLeaveListVm {
-                            EmployeeId = x.B.EmployeeId,
-                            EmployeeName = x.A.FirstName + " " + x.A.LastName,
-                            FromDate = x.B.FromDate,
-                            ToDate = x.B.ToDate,
-                            Status = x.B.Status,
-                            Branchid=x.B.BranchId,
+
+                var query = dbcntx.EmployeeHeaders.Join(
+                    dbcntx.EmployeeLeaveLists,
+                    a => a.EmployeeId, b => b.EmployeeId,
+                    (a, b) => new { A = a, B = b })
+                    .Select(x => new EmpLeaveListVm {
+                        EmployeeId = x.B.EmployeeId,
+                        EmployeeName = x.A.FirstName + " " + x.A.LastName,
+                        FromDate = x.B.FromDate,
+                        ToDate = x.B.ToDate,
+                        Status = x.B.Status,
+                        Branchid = x.B.BranchId,
+                        Reason = x.B.Reason,
+                        LeaveType = dbcntx.LookUps.Where(y => y.LookUpID == x.B.LeaveTypeId).FirstOrDefault().LookUpDescription
                         }).ToList();
                 if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {

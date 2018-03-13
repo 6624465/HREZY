@@ -49,6 +49,12 @@
                                     To Date
                                 </th>
                                 <th>
+                                    Type of Leave
+                                </th>
+                                <th>
+                                    Reason
+                                </th>
+                                <th>
                                     Status
                                 </th>
                             </tr>
@@ -66,6 +72,12 @@
                                     </td>
                                     <td>
                                         @Model.TableData[i].ToDate.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>
+                                        @Model.TableData[i].LeaveType
+                                    </td>
+                                    <td>
+                                        @Model.TableData[i].Reason
                                     </td>
                                         @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
                                         {

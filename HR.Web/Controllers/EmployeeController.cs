@@ -132,15 +132,15 @@ namespace HR.Web.Controllers
                                 PersonalEmailId = x.F.Email,
                                 OfficialEmailId = x.F.Email,
                                 DocumentDetailID = dbCntx.EmployeeDocumentDetails
-                                .Where(z => z.DocumentType == UTILITY.FILEID && z.EmployeeId== x.E.C.A.EmployeeId).FirstOrDefault() == null ? 0 :
+                                .Where(z => z.DocumentType == UTILITY.DOCUMENTTYPEID && z.EmployeeId== x.E.C.A.EmployeeId).FirstOrDefault() == null ? 0 :
                                 dbCntx.EmployeeDocumentDetails
-                                .Where(z => z.DocumentType == UTILITY.FILEID && z.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().DocumentDetailID,//x.H.DocumentDetailID,
+                                .Where(z => z.DocumentType == UTILITY.DOCUMENTTYPEID && z.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().DocumentDetailID,//x.H.DocumentDetailID,
                                 DateOfBirth = x.E.C.B.DOB,
                                 branchid = x.E.C.A.BranchId,
                                 ProfilePic = dbCntx.EmployeeDocumentDetails
-                                .Where(a => a.DocumentType == UTILITY.FILEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault() == null ?  "" :
+                                .Where(a => a.DocumentType == UTILITY.DOCUMENTTYPEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault() == null ?  "" :
                                 dbCntx.EmployeeDocumentDetails
-                                .Where(a=> a.DocumentType == UTILITY.FILEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().FileName
+                                .Where(a=> a.DocumentType == UTILITY.DOCUMENTTYPEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().FileName
                             });
                 var emplist = list.Where(x => x.branchid == BRANCHID).ToList();
                 var query = emplist.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(offSet).ToList().AsEnumerable();
@@ -276,7 +276,7 @@ namespace HR.Web.Controllers
         }
         public bool IsEmailExists(string Email)
         {
-            var list = empHeaderBO.GetListByProperty(x => (x.UserEmailId.ToLower() == Email.ToLower()) && (x.BranchId == BRANCHID)).ToList();
+            var list = empHeaderBO.GetListByProperty(x => (x.UserEmailId.ToLower() == Email.ToLower())).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

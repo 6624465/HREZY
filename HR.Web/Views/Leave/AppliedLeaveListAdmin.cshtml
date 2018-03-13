@@ -44,6 +44,7 @@
                                                         <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).EmployeeName</td>
                                                         <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).FromDate</td>
                                                         <td>@Model.ElementAt(i).employeeLeaveList.ElementAt(j).ToDate</td>
+
                                                         @if (Model.ElementAt(i).employeeLeaveList.ElementAt(j).Status == UTILITY.LEAVEAPPROVED)
                                                         {
                                                             <td class="control-label">

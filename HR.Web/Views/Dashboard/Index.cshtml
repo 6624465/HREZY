@@ -10,7 +10,7 @@
         .highcharts-data-label-connector {
             display: none;
         }
-
+  
         .spanboxNumber {
             position: absolute;
             right: 205px;
@@ -167,6 +167,10 @@
                 float: left;
             }
         }
+        .box-border{
+            border:2px solid #ccc;
+            margin:20px;
+        }
     </style>
 }
 <div class="page">
@@ -177,8 +181,12 @@
                 @for (int i = 0; i < Model.Count(); i++)
                 {
                     <div class="col-md-6">
+                        <div class="box-border">
                         <div id="container_@i" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-                    </div>
+                        </div>
+                            
+                        
+</div>
                 }
             </div>
         </div>

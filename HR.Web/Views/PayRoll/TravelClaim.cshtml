@@ -1168,7 +1168,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                 @for (int i = 0; i < Model.claimDocumentVm.Count(); i++)
                                                 {
                                                     <tr>
-                                                        <td>@Html.DisplayFor(x => x.claimDocumentVm[i].DocumentDescription)</td>
+                                                        <td>@Html.DisplayFor(x => x.claimDocumentVm[i].fileName)</td>
                                                         @Html.HiddenFor(x => x.claimDocumentVm[i].DocumentType)
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file" })

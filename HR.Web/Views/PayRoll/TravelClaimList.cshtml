@@ -34,6 +34,7 @@
                     <table class="table table-conden table-bordered">
                         <thead>
                             <tr>
+                                <th>Claim No</th>
                                 <th>
                                     Submitted On
                                 </th>
@@ -50,6 +51,7 @@
                         {
                             <tbody>
                                 <tr>
+                                    <td>@Model.TableData[i].ClaimNo</td>
                                     <td>
                                         @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
                                     </td>

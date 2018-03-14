@@ -34,6 +34,22 @@ namespace HR.Web.BusinessObjects.Operation
 
         }
 
+        public void AddClaimDocuments(EmployeeDocumentDetail entity)
+        {
+            try
+            {
+                empDocDetailService.AddClaimDocuments(entity);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        
+
         public void Delete(EmployeeDocumentDetail entity)
         {
             try

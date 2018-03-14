@@ -45,6 +45,39 @@ namespace HR.Web.Services.Operation
             }
         }
 
+        public void AddClaimDocuments(EmployeeDocumentDetail entity)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    //EmployeeDocumentDetail empDetail = dbContext.EmployeeDocumentDetails
+                    //    .Where(x => x.EmployeeId == entity.EmployeeId && x.DocumentType == entity.DocumentType)
+                    //    .FirstOrDefault();
+                    if (true)
+                    {
+                        dbContext.EmployeeDocumentDetails.Add(entity);
+                    }
+                    else
+                    {
+                        //empDetail.BranchId = entity.BranchId;
+
+                        ////empDetail.DocumentDetailID = entity.DocumentDetailID;
+                        //empDetail.DocumentType = entity.DocumentType;
+                        //empDetail.FileName = entity.FileName;
+                        //empDetail.EmployeeId = entity.EmployeeId;
+                        //empDetail.ModifiedBy = entity.CreatedBy;
+                        //empDetail.ModifiedOn = UTILITY.SINGAPORETIME;
+                    }
+                    dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void Delete(EmployeeDocumentDetail entity)
         {
             try

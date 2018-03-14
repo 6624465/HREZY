@@ -677,63 +677,14 @@ namespace HR.Web.Controllers
                                             DocumentDescription = x.LookUpDescription
                                         }).ToList();
                 travelClaimVm.claimDocumentVm = documentTypes;
-                //travelClaimVm.claimDetail = new List<TravelClaimDetail>();
 
-                //travelClaimVm.claimDetailAccomdationVm = new List<TravelDetailAccomdationVm>()
-                //{
-                //    new TravelDetailAccomdationVm()
-                //    {
-                //        Receipts = false
-                //    }
-                //};
-                //travelClaimVm.claimDetailAirfareVm = new List<TravelDetailAirfareVm>()
-                //{
-                //    new TravelDetailAirfareVm()
-                //    {
-                //        Receipts = false
-                //    }
-                //};
-                //travelClaimVm.claimDetailFoodLocalVm = new List<TravelDetailFoodLocalVm>()
-                //{
-                //    new TravelDetailFoodLocalVm()
-                //    {
-                //        Receipts = false
-                //    }
-                //};
-                //travelClaimVm.claimDetailFoodOverseasVm = new List<TravelDetailFoodOverseasVm>()
-                //{
-                //    new TravelDetailFoodOverseasVm()
-                //    {
-                //        Receipts = false
-                //    }
-                //};
-                //travelClaimVm.claimDetailOtherExpensesVm = new List<TravelDetailOtherExpensesVm>()
-                //{
-                //    new TravelDetailOtherExpensesVm()
-                //    {
-                //        Receipts = false
-                //    }
-                //};
-                //travelClaimVm.claimDetailTaxiLocalVm = new List<TravelDetailTaxiLocalVm>()
-                //{
-                //    new TravelDetailTaxiLocalVm()
-                //    {
-                //        Receipts = false
-                //    }
-                //};
-                //travelClaimVm.claimDetailTaxiOverseasVm = new List<TravelDetailTaxiOverseasVm>()
-                //{
-                //    new TravelDetailTaxiOverseasVm()
-                //    {
-                //        Receipts = false
-                //    }
-                //};
-                //travelClaimVm.claimDetailVisaVm = new List<TravelDetailVisaVm>() {
-                //    new TravelDetailVisaVm()
-                //    {
-                //        Receipts = false
-                //    }
-                //};
+                var travelClaimDocument = new List<TravelClaimDocumentVm>();
+                for(var i = 0; i < 10; i++)
+                {
+                    var tcdObj = new TravelClaimDocumentVm();
+                    travelClaimDocument.Add(tcdObj);
+                }
+                travelClaimVm.claimDocumentVm = travelClaimDocument;
                 return View(travelClaimVm);
 
             }
@@ -1229,13 +1180,13 @@ namespace HR.Web.Controllers
                     {
                         EmployeeId = travelClaimHeader.TravelClaimId,
                         BranchId = SESSIONOBJ.BRANCHID,
-                        DocumentType = item.DocumentType,
+                        DocumentType = UTILITY.TRAVELCLAIMDOCUMENTID,
                         FileName = item.Document.FileName,
                         CreatedBy = SESSIONOBJ.USERID,
                         CreatedOn = UTILITY.SINGAPORETIME
                     };
 
-                    empDocDetailBO.Add(uidDocument);
+                    empDocDetailBO.AddClaimDocuments(uidDocument);
                     
                     string path = System.Web.HttpContext.Current.Server.MapPath("~/TravlClaimDocs/" + travelClaimVm.claimHeader.EmployeeId + "/"
                         + travelClaimVm.claimHeader.ClaimNo + "/");
@@ -1593,45 +1544,58 @@ namespace HR.Web.Controllers
             List<EmployeeDocumentDetail> empDocumentDetList = new List<EmployeeDocumentDetail>();
 
            empDocumentDetList = empDocDetailBO.
-                GetListByProperty(x => x.EmployeeId == travelClaimId && x.DocumentType==UTILITY.TRAVELCLAIMDOCUMENTID).ToList();
+                GetListByProperty(x => x.EmployeeId == travelClaimId && x.BranchId == BRANCHID && x.DocumentType==UTILITY.TRAVELCLAIMDOCUMENTID).ToList();
 
             var codeList = empDocumentDetList.Select(x => x.DocumentType).ToList();
 
+            List<TravelClaimDocumentVm> docVmList = new List<TravelClaimDocumentVm>();
             if (empDocumentDetList.Count > 0)
             {
-                List<TravelClaimDocumentVm> docVmList = new List<TravelClaimDocumentVm>();
+                Int16 loopCount = 0;
                 foreach (EmployeeDocumentDetail item in empDocumentDetList)
                 {
                     TravelClaimDocumentVm docVm = new TravelClaimDocumentVm()
                     {
                         DocumentType = item.DocumentType,
-                        DocumentDescription = lookUpBo
-                            .GetByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE && y.LookUpID == UTILITY.TRAVELCLAIMDOCUMENTID)
-                            .LookUpDescription,
+                        DocumentDescription = "",
                         fileName = item.FileName,
                         DocumentDetailId = item.DocumentDetailID
                     };
                     docVmList.Add(docVm);
+                    loopCount++;
                 }
 
+                for(var i = 0; i < (10 - loopCount); i++)
+                {
+                    var tdcObj = new TravelClaimDocumentVm();
+                    docVmList.Add(tdcObj);
+                }
 
-                travelClaimNewObj.claimDocumentVm = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE && y.LookUpID==UTILITY.TRAVELCLAIMDOCUMENTID)
-                    .Select(y => new TravelClaimDocumentVm
-                    {
-                        DocumentType = y.LookUpID,
-                        DocumentDescription = y.LookUpDescription
-                    }).Where(x => !codeList.Contains(x.DocumentType)).ToList();
-                travelClaimNewObj.claimDocumentVm.AddRange(docVmList);
+                travelClaimNewObj.claimDocumentVm = docVmList;
+                //travelClaimNewObj.claimDocumentVm = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE && y.LookUpID==UTILITY.TRAVELCLAIMDOCUMENTID)
+                //    .Select(y => new TravelClaimDocumentVm
+                //    {
+                //        DocumentType = y.LookUpID,
+                //        DocumentDescription = y.LookUpDescription
+                //    }).Where(x => !codeList.Contains(x.DocumentType)).ToList();
+                //travelClaimNewObj.claimDocumentVm.AddRange(docVmList);
             }
             else
             {
-                travelClaimNewObj.claimDocumentVm = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE &&
-                y.LookUpID == UTILITY.TRAVELCLAIMDOCUMENTID)
-                    .Select(y => new TravelClaimDocumentVm
-                    {
-                        DocumentType = y.LookUpID,
-                        DocumentDescription = y.LookUpDescription
-                    }).ToList();
+                //travelClaimNewObj.claimDocumentVm = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE &&
+                //y.LookUpID == UTILITY.TRAVELCLAIMDOCUMENTID)
+                //    .Select(y => new TravelClaimDocumentVm
+                //    {
+                //        DocumentType = y.LookUpID,
+                //        DocumentDescription = y.LookUpDescription
+                //    }).ToList();
+                for(var i = 0; i < 10; i++)
+                {
+                    var tdcObj = new TravelClaimDocumentVm();
+                    docVmList.Add(tdcObj);
+                }
+
+                travelClaimNewObj.claimDocumentVm = docVmList;
             }
 
 

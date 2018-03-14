@@ -51,23 +51,23 @@ namespace HR.Web.Services.Operation
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    //EmployeeDocumentDetail empDetail = dbContext.EmployeeDocumentDetails
-                    //    .Where(x => x.EmployeeId == entity.EmployeeId && x.DocumentType == entity.DocumentType)
-                    //    .FirstOrDefault();
-                    if (true)
+                    EmployeeDocumentDetail empDetail = dbContext.EmployeeDocumentDetails
+                        .Where(x => x.EmployeeId == entity.EmployeeId && x.DocumentType == entity.DocumentType)
+                        .FirstOrDefault();
+                    if (empDetail == null)
                     {
                         dbContext.EmployeeDocumentDetails.Add(entity);
                     }
                     else
                     {
-                        //empDetail.BranchId = entity.BranchId;
+                        empDetail.BranchId = entity.BranchId;
 
-                        ////empDetail.DocumentDetailID = entity.DocumentDetailID;
-                        //empDetail.DocumentType = entity.DocumentType;
-                        //empDetail.FileName = entity.FileName;
-                        //empDetail.EmployeeId = entity.EmployeeId;
-                        //empDetail.ModifiedBy = entity.CreatedBy;
-                        //empDetail.ModifiedOn = UTILITY.SINGAPORETIME;
+                        //empDetail.DocumentDetailID = entity.DocumentDetailID;
+                        empDetail.DocumentType = entity.DocumentType;
+                        empDetail.FileName = entity.FileName;
+                        empDetail.EmployeeId = entity.EmployeeId;
+                        empDetail.ModifiedBy = entity.CreatedBy;
+                        empDetail.ModifiedOn = UTILITY.SINGAPORETIME;
                     }
                     dbContext.SaveChanges();
                 }

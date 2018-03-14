@@ -1162,9 +1162,13 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                 <tr>
                                                     <th>Document Name</th>
                                                     <th>Document Type</th>
+                                                    <th>Download</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @{ 
+                                                    var documentsPath = ViewData["documentsPath"];
+                                                }
                                                 @for (int i = 0; i < Model.claimDocumentVm.Count(); i++)
                                                 {
                                                     <tr>
@@ -1173,6 +1177,12 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                         <td>
                                                             @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file" })
 
+                                                        </td>
+                                                        <td>
+                                                            @if (!string.IsNullOrWhiteSpace(Model.claimDocumentVm[i].fileName))
+                                                            {
+                                                            <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank">download</a>
+                                                            }
                                                         </td>
                                                     </tr>
 

@@ -682,6 +682,7 @@ namespace HR.Web.Controllers
                 for(var i = 0; i < 10; i++)
                 {
                     var tcdObj = new TravelClaimDocumentVm();
+                    tcdObj.DocumentType = 2581 + i;
                     travelClaimDocument.Add(tcdObj);
                 }
                 travelClaimVm.claimDocumentVm = travelClaimDocument;
@@ -691,6 +692,12 @@ namespace HR.Web.Controllers
             else
             {
                TravelClaimVm travelclaimobj= gettravelclaimobj(travelClaimId);
+                ViewData["documentsPath"] = 
+                    "TravlClaimDocs/" + 
+                    BRANCHID + "/" + 
+                    EMPLOYEEID + "/" + 
+                    travelclaimobj.claimHeader.ClaimNo;
+
                 return View("TravelClaim", travelclaimobj);
             }
         }
@@ -906,36 +913,6 @@ namespace HR.Web.Controllers
             //    + travelClaimVm.claimHeader.claimDetailTaxiOverseasTotal + travelClaimVm.claimHeader.claimDetailFoodLocalTotal + travelClaimVm.claimHeader.claimDetailFoodOverseasTotal + travelClaimVm.claimHeader.claimDetailOtherExpensesTotal;
             ModelState.Clear();
             return View("TravelClaim", travelClaimVm);
-        }
-
-        private decimal? GetGrossTotal(TravelClaimVm travelClaimVm)
-        {
-            decimal? GrossTotal = null;
-            if (travelClaimVm.claimDetailAirfareVm != null && travelClaimVm.claimDetailAirfareVm.Count > 0)
-                GrossTotal = travelClaimVm.claimDetailAirfareVm.Sum(x => x.TotalInSGD);
-
-            if (travelClaimVm.claimDetailVisaVm != null && travelClaimVm.claimDetailVisaVm.Count > 0)
-                GrossTotal += travelClaimVm.claimDetailVisaVm.Sum(x => x.TotalInSGD);
-
-            if (travelClaimVm.claimDetailAccomdationVm != null && travelClaimVm.claimDetailAccomdationVm.Count > 0)
-                GrossTotal += travelClaimVm.claimDetailAccomdationVm.Sum(x => x.TotalInSGD);
-
-            if (travelClaimVm.claimDetailTaxiLocalVm != null && travelClaimVm.claimDetailTaxiLocalVm.Count > 0)
-                GrossTotal += travelClaimVm.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD);
-
-            if (travelClaimVm.claimDetailTaxiOverseasVm != null && travelClaimVm.claimDetailTaxiOverseasVm.Count > 0)
-                GrossTotal += travelClaimVm.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD);
-
-            if (travelClaimVm.claimDetailFoodLocalVm != null && travelClaimVm.claimDetailFoodLocalVm.Count > 0)
-                GrossTotal += travelClaimVm.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD);
-
-            if (travelClaimVm.claimDetailFoodOverseasVm != null && travelClaimVm.claimDetailFoodOverseasVm.Count > 0)
-                GrossTotal += travelClaimVm.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD);
-
-            if (travelClaimVm.claimDetailOtherExpensesVm != null && travelClaimVm.claimDetailOtherExpensesVm.Count > 0)
-                GrossTotal += travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
-
-            return GrossTotal;
         }
 
         [HttpPost]
@@ -1180,7 +1157,7 @@ namespace HR.Web.Controllers
                     {
                         EmployeeId = travelClaimHeader.TravelClaimId,
                         BranchId = SESSIONOBJ.BRANCHID,
-                        DocumentType = UTILITY.TRAVELCLAIMDOCUMENTID,
+                        DocumentType = item.DocumentType,
                         FileName = item.Document.FileName,
                         CreatedBy = SESSIONOBJ.USERID,
                         CreatedOn = UTILITY.SINGAPORETIME
@@ -1188,8 +1165,11 @@ namespace HR.Web.Controllers
 
                     empDocDetailBO.AddClaimDocuments(uidDocument);
                     
-                    string path = System.Web.HttpContext.Current.Server.MapPath("~/TravlClaimDocs/" + travelClaimVm.claimHeader.EmployeeId + "/"
-                        + travelClaimVm.claimHeader.ClaimNo + "/");
+                    string path = 
+                        System.Web.HttpContext.Current.Server.MapPath("~/TravlClaimDocs/" +
+                        BRANCHID + "/" +
+                        travelClaimVm.claimHeader.EmployeeId + "/" + 
+                        travelClaimVm.claimHeader.ClaimNo + "/");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
@@ -1202,6 +1182,38 @@ namespace HR.Web.Controllers
 
             return RedirectToAction("TravelClaimList", "Payroll");
         }
+
+        private decimal? GetGrossTotal(TravelClaimVm travelClaimVm)
+        {
+            decimal? GrossTotal = null;
+            if (travelClaimVm.claimDetailAirfareVm != null && travelClaimVm.claimDetailAirfareVm.Count > 0)
+                GrossTotal = travelClaimVm.claimDetailAirfareVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailVisaVm != null && travelClaimVm.claimDetailVisaVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailVisaVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailAccomdationVm != null && travelClaimVm.claimDetailAccomdationVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailAccomdationVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailTaxiLocalVm != null && travelClaimVm.claimDetailTaxiLocalVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailTaxiLocalVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailTaxiOverseasVm != null && travelClaimVm.claimDetailTaxiOverseasVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailTaxiOverseasVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailFoodLocalVm != null && travelClaimVm.claimDetailFoodLocalVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailFoodOverseasVm != null && travelClaimVm.claimDetailFoodOverseasVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD);
+
+            if (travelClaimVm.claimDetailOtherExpensesVm != null && travelClaimVm.claimDetailOtherExpensesVm.Count > 0)
+                GrossTotal += travelClaimVm.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
+
+            return GrossTotal;
+        }
+
+        
 
 
         public void CalculateAmount(ref TravelClaimDetail item)
@@ -1544,32 +1556,54 @@ namespace HR.Web.Controllers
             List<EmployeeDocumentDetail> empDocumentDetList = new List<EmployeeDocumentDetail>();
 
            empDocumentDetList = empDocDetailBO.
-                GetListByProperty(x => x.EmployeeId == travelClaimId && x.BranchId == BRANCHID && x.DocumentType==UTILITY.TRAVELCLAIMDOCUMENTID).ToList();
+                GetListByProperty(x => x.EmployeeId == travelClaimId && x.BranchId == BRANCHID).ToList();
 
             var codeList = empDocumentDetList.Select(x => x.DocumentType).ToList();
 
             List<TravelClaimDocumentVm> docVmList = new List<TravelClaimDocumentVm>();
             if (empDocumentDetList.Count > 0)
             {
-                Int16 loopCount = 0;
-                foreach (EmployeeDocumentDetail item in empDocumentDetList)
-                {
-                    TravelClaimDocumentVm docVm = new TravelClaimDocumentVm()
-                    {
-                        DocumentType = item.DocumentType,
-                        DocumentDescription = "",
-                        fileName = item.FileName,
-                        DocumentDetailId = item.DocumentDetailID
-                    };
-                    docVmList.Add(docVm);
-                    loopCount++;
-                }
+                //Int16 loopCount = 0;
+                //foreach (EmployeeDocumentDetail item in empDocumentDetList)
+                //{
+                //    TravelClaimDocumentVm docVm = new TravelClaimDocumentVm()
+                //    {
+                //        DocumentType = item.DocumentType,
+                //        DocumentDescription = "",
+                //        fileName = item.FileName,
+                //        DocumentDetailId = item.DocumentDetailID
+                //    };
+                //    docVmList.Add(docVm);
+                //    loopCount++;
+                //}
 
-                for(var i = 0; i < (10 - loopCount); i++)
+                for(var i = 0; i < 10; i++)
                 {
-                    var tdcObj = new TravelClaimDocumentVm();
+                    var documentType = 2581 + i;
+                    var tdcObj = empDocumentDetList
+                            .Where(x => x.DocumentType == documentType)
+                            .Select(x => new TravelClaimDocumentVm {
+                                DocumentType = documentType,
+                                DocumentDescription = "",
+                                fileName = x.FileName,
+                                DocumentDetailId = x.DocumentDetailID
+                            })
+                            .FirstOrDefault();
+
+                    if(tdcObj == null)
+                    {
+                        tdcObj = new TravelClaimDocumentVm
+                        {
+                            DocumentType = documentType,
+                            DocumentDescription = "",
+                            fileName = ""
+                        };
+                    }
+
+
                     docVmList.Add(tdcObj);
                 }
+
 
                 travelClaimNewObj.claimDocumentVm = docVmList;
                 //travelClaimNewObj.claimDocumentVm = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE && y.LookUpID==UTILITY.TRAVELCLAIMDOCUMENTID)

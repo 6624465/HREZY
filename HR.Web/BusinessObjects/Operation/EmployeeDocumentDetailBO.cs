@@ -73,5 +73,18 @@ namespace HR.Web.BusinessObjects.Operation
             }
 
         }
+        public IEnumerable<EmployeeDocumentDetail> GetListByProperty(Func<EmployeeDocumentDetail, bool> predicate)
+        {
+            try
+            {
+
+                return empDocDetailService.GetListByProperty(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

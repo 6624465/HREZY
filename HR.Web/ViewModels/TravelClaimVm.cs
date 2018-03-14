@@ -17,6 +17,8 @@ namespace HR.Web.ViewModels
         public List<TravelDetailFoodLocalVm> claimDetailFoodLocalVm { get; set; }
         public List<TravelDetailFoodOverseasVm> claimDetailFoodOverseasVm { get; set; }
         public List<TravelDetailOtherExpensesVm> claimDetailOtherExpensesVm { get; set; }
+        public List<TravelClaimDocumentVm> claimDocumentVm { get; set; }
+
     }
 
     public class SelectedTCVm
@@ -244,6 +246,14 @@ namespace HR.Web.ViewModels
               "FOOD EXPENCES-OVERSEAS",
               "OTHER EXPENSES"
         };
+    }
+    public class TravelClaimDocumentVm
+    {
+        public int DocumentDetailId { get; set; }
+        public int DocumentType { get; set; }
+        public string DocumentDescription { get; set; }
+        public HttpPostedFileBase Document { get; set; }
+        public string fileName { get; set; }
     }
 
 }

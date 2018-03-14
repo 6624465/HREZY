@@ -85,6 +85,21 @@ namespace HR.Web.Services.Operation
             }
         }
 
+        public IEnumerable<EmployeeDocumentDetail> GetListByProperty(Func<EmployeeDocumentDetail, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.EmployeeDocumentDetails.Where(predicate).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
     }
 }

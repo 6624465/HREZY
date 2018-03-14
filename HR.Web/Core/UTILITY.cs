@@ -61,6 +61,9 @@ namespace HR.Web
         public static string CONFIG_MANAGER = "MANAGER";
         public static string CONFIG_TRAVELCLAIM = "TravelClaim";
         public static string CONFIG_CURRENCY = "Currency";
+        public static string CONFIG_TRAVELCLAIMTYPE = "TravelClaimType";
+
+
 
         public static string LEAVEAPPROVED = "Approved";
         public static string LEAVEREJECTED = "Rejected";
@@ -118,6 +121,13 @@ namespace HR.Web
         public static string TRAVELCLAIMSUBMITTED = "SUBMITTED";
         public static string TRAVELCLAIMAPPROVED = "APPROVED";
         public static string TRAVELCLAIMREJECTED = "REJECTED";
+
+        /* Travel Claim DocumentTypeId */
+
+        public static int TRAVELCLAIMDOCUMENTID = 2581;
+
+
+
 
         //public static int PAIDLEAVE(int BRANCHID)
         //{

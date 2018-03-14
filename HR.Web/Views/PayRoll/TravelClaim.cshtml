@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "TravelClaim";
     var model = Model;
+
 }
 @section Styles{
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
@@ -124,7 +125,7 @@
 }
     <div class="page" style="overflow:visible;">
 
-        @using (Html.BeginForm("TravelClaim", "Payroll", FormMethod.Post, new { id = "frmClaim", name = "frmClaim" }))
+        @using (Html.BeginForm("TravelClaim", "Payroll", FormMethod.Post, new { id = "frmClaim", name = "frmClaim", enctype = "multipart/form-data" }))
         {
         <div class="row">
             <div class="col-md-12">
@@ -137,6 +138,11 @@
                         @*<input type="hidden" id="claimHeader_TravelClaimId" name="claimHeader_TravelClaimId" value="@Model.claimHeader.TravelClaimId"/>*@
                         @Html.HiddenFor(x => x.claimHeader.Name)
                         @Html.HiddenFor(x => x.claimHeader.EmployeeId)
+                        @for (var i = 0; i < Model.claimDocumentVm.Count(); i++)
+                        {
+                            @Html.HiddenFor(x => x.claimDocumentVm[i].DocumentDetailId)
+                        }
+
                         <div class="row css5">
                             <div class="col-md-4">
                                 <label class="col-md-5 control-label">
@@ -291,7 +297,7 @@ new { @class = "form-control input-sm", @multiple = "multiple", @required = "req
                                                                    @class = "form-control input-sm decimalCss",
                                                                    required = "required",
                                                                    style = "width:100px;",
-                                                                   onblur = "CalculateAirFareTotal(this)",
+                                                                   onchange = "CalculateAirFareTotal(this)",
                                                                    data_index = i
                                                                })
                                                                 </td>
@@ -1149,12 +1155,154 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                             </div>
 
                             <div class="tab-pane" id="UploadFiles">
+                                
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Document Name</th>
+                                                    <th>Document Type</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.claimDocumentVm.Count(); i++)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.DisplayFor(x => x.claimDocumentVm[i].DocumentDescription)</td>
+                                                        @Html.HiddenFor(x => x.claimDocumentVm[i].DocumentType)
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file" })
+
+                                                        </td>
+                                                    </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                @*<div class="row">
+                                <div class="col-md-2">
+                                      @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                                @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                </div>
+                                <div class="col-md-6 pull-left">
+                                    @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                </div>
+                                </div>
                                 <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)
+                                        @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+                                    </div>
+                                </div>*@
+                             
+                                    @*<table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Document Name</th>
+                                                <th>Document Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @for (int i = 1; i <= 10; i++)
+                                        {
+                                            for (var j = 0; j < Model.claimDocumentVm.Count(); j++)
+                                            {
+                                                <tr>
+                                                    <td>@Html.DisplayFor(x => x.claimDocumentVm[j].DocumentDescription)</td>
+                                                    @Html.HiddenFor(x => x.claimDocumentVm[j].DocumentType)
+                                                    <td>
+                                                        @Html.TextBoxFor(x => x.claimDocumentVm[j].Document, new { type = "file" })
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                            
+                                        </tbody>
+                                    </table>*@
+                               
+                                @*<div class="row">
                                     <div class="col-md-6">
-                                        <div class="col-md-2"><label class="uplaod-label">Documents</label></div>
-                                        <div class="col-md-6">
-                                            <input type="file" id="myFile">
-                                        </div>
+                                       <div>
+                                          
+                                       </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -1228,7 +1376,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                             <input type="file" id="choose-btn">
                                         </div>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
 
@@ -1586,7 +1734,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
             var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
             var amount = parseFloat($('#claimDetailAirfareVm_' + index + '__Amount').val());
             var exrate = isNaN($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
+               parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
             $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
             if (isNaN(amount)) {
                 amount = 0;

@@ -69,7 +69,7 @@ namespace HR.Web.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return RedirectToAction("LogOut", "Account");

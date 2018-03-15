@@ -285,6 +285,14 @@ namespace HR.Web.Controllers
             int count = list.Count();
             return (count > 0 ? true : false);
         }
+        public ActionResult DeleteEmployeeDocs(int docdetailid)
+        {
+           var empdetails= empDocDetailBO.GetById(docdetailid);
+           var EmployeeId = empdetails.EmployeeId;
+                empDocDetailBO.Delete(docdetailid);
+                return RedirectToAction("add", "Employee", new { EmployeeId = EmployeeId });
+            
+        }
 
         /*
         private EmployeePersonalDetail PrepareEmployeePersonalInfo(EmployeePersonalDetail employeePersonalInfo, EmployeeHeader employeeHeader)

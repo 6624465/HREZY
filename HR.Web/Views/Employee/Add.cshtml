@@ -581,6 +581,7 @@ new { @class = "form-control input-sm" })
                                             <th>Document Name</th>
                                             <th>Document Type</th>
                                             <th>Download</th>
+                                            <th>Action</th>
                                             @*<th>File</th>*@
                                         </tr>
                                     </thead>
@@ -600,9 +601,22 @@ new { @class = "form-control input-sm" })
                                                 <td>
                                                     @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
                                                     {
-                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+ "/" + Model.empDocument[i].fileName)" target="_blank">download</a>
+                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+"/" + Model.empDocument[i].fileName)" target="_blank">download</a>
                                                     }
                                                 </td>
+
+                                                <td>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
+                                                    {
+                                                        <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
+                                                                style="padding-left: 5px;margin-left: 6px;"
+                                                                onclick="location.href='@Url.Content("~/Employee/DeleteEmployeeDocs?docdetailid=" + Model.empDocument[i].DocumentDetailId)'">
+                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                        </button>
+
+                                                    }
+                                                </td>
+
                                                 @*<td>
                                                     @if(Model.empDocument[i].fileName != null) {
                                                     <img src="@Url.Content("~/Uploads/"+Model.empHeader.EmployeeId+"/"+Model.empDocument[i].DocumentDetailId +"/" + Model.empDocument[i].fileName)" alt="image" height="50" width="50" />
@@ -643,7 +657,7 @@ new { @class = "form-control input-sm" })
             else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF")
                 return true;
             else {
-                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with png/jpg/jpeg/gif extensions");
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a valid File with png/jpg/jpeg/gif extensions");
                 el.value = "";
                 return false;
             }

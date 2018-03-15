@@ -1328,6 +1328,11 @@ namespace HR.Web.Controllers
         {
 
             TravelClaimVm travelobj = gettravelclaimobj(TravelClaimId);
+            ViewData["documentsPath"] =
+                   "TravlClaimDocs/" +
+                   BRANCHID + "/" +
+                   EMPLOYEEID + "/" +
+                  travelobj.claimHeader.ClaimNo;
             return PartialView("_PreviewTravelClaim", travelobj);
         }
         private TravelClaimVm gettravelclaimobj(int travelClaimId)
@@ -1587,7 +1592,8 @@ namespace HR.Web.Controllers
                                 DocumentType = documentType,
                                 DocumentDescription = "",
                                 fileName = x.FileName,
-                                DocumentDetailId = x.DocumentDetailID
+                                DocumentDetailId = x.DocumentDetailID,
+                                EmployeeId=x.EmployeeId
                             })
                             .FirstOrDefault();
 
@@ -1637,9 +1643,19 @@ namespace HR.Web.Controllers
             return travelClaimNewObj;
 
         }
-        public ActionResult DeleteTravelclaimDocs(int docdetailid,int travelclaimid)
+        public ActionResult DeleteTravelclaimDocs(int docdetailid, int travelclaimid, string claimNo)
         {
-            //EmployeeDocumentDetail empdocdetail = empDocDetailBO.GetById(docdetailid);
+            EmployeeDocumentDetail empdocdetail = empDocDetailBO.GetById(docdetailid);
+            string path =
+                        System.Web.HttpContext.Current.Server.MapPath("~/TravlClaimDocs/" +
+                        BRANCHID + "/" +
+                        EMPLOYEEID + "/" +
+                        claimNo + "/");
+
+            FileInfo file = new FileInfo(path + empdocdetail.FileName);
+            if (file.Exists)
+                file.Delete();
+
             empDocDetailBO.Delete(docdetailid);
             return RedirectToAction("TravelClaim","PayRoll",new { travelClaimId = travelclaimid });
         }

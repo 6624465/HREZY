@@ -78,7 +78,7 @@ namespace HR.Web
         public static string COMPUTATION = "COMPUTATION";
         public static string PERCENTAGE = "PERCENTAGE";
         public static string TRAVELCLAIM = "TRAVELCLAIM";
-        public static string CURRENCY = "CURRENCY";
+        public static string CURRENCY = "Currency";
         public static string AMOUNT = "AMOUNT";
 
         public static string EMPLOYEECONTRIBUTION = "EMPLOYEE CONTRIBUTION";

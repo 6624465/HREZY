@@ -1537,14 +1537,13 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         }
 
         function Preview(TravelClaimId) {
-            debugger;
+            
             $.ajax({
                 url: '@Url.Content("~/PayRoll/PreviewTravelClaim?TravelClaimId=")' + TravelClaimId,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    $('#jquery-loader-background').remove();
-                    $('#jquery-loader').remove();
+                    StopLoadingAnimation();
                     $('#myPreviewModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);
@@ -1769,32 +1768,56 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         }
         // Calculations for AirFare : Start
         function CalculateAirFareTotal(obj) {
-            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailAirfareVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val()) ? 1 :
-               parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
-            if (isNaN(amount)) {
-                amount = 0;
-            }
-            var exchangeRate = parseFloat($('#claimDetailAirfareVm_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 1;
-            }
-            var Total = parseFloat(amount * exchangeRate).toFixed(2);
-            Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailAirfareVm_' + index + '__TotalInSGD').val(Total);
-            debugger;
-            var length = $('.cssAirfareLength').length;
-            var grossTotal = 0;
-            for (var i = 0; i < length; i++) {
-
-                var grossVal = $('#claimDetailAirfareVm_' + i + '__TotalInSGD').val();
-                if (grossVal != null && grossVal != "") {
-                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+            
+            var promise = GetExchangeRateByCurrencyCode(obj.value);
+            $.when(promise).done(function (data) {
+                debugger;
+                var exrate = parseFloat(data.LookUpCode);
+                var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var amount = parseFloat($('#claimDetailAirfareVm_' + index + '__Amount').val());
+                //var exrate = isNaN($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val()) ? 1 :
+                //    parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
+                $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
+                if (isNaN(amount)) {
+                    amount = 0;
                 }
-                $('#claimHeader_claimDetailAirfareTotal').val(grossTotal.toFixed(2));
-            }
+                var exchangeRate = parseFloat($('#claimDetailAirfareVm_' + index + '__ExchangeRate').val());
+                if (isNaN(exchangeRate)) {
+                    exchangeRate = 1;
+                }
+                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                Total = parseFloat(Total).toFixed(2);
+                $('#claimDetailAirfareVm_' + index + '__TotalInSGD').val(Total);
+                
+                var length = $('.cssAirfareLength').length;
+                var grossTotal = 0;
+                for (var i = 0; i < length; i++) {
+
+                    var grossVal = $('#claimDetailAirfareVm_' + i + '__TotalInSGD').val();
+                    if (grossVal != null && grossVal != "") {
+                        grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                    }
+                    $('#claimHeader_claimDetailAirfareTotal').val(grossTotal.toFixed(2));
+                }
+            });
+            
+        }
+
+        function GetExchangeRateByCurrencyCode(currencyCode) {
+            debugger;
+            LoadingAnimation();
+            var def = $.Deferred();
+            $.ajax({
+                url: '@Url.Content("~/PayRoll/GetExRateByCurrencyCode?currencyCode=")' + currencyCode,
+                method: 'GET',
+                contentType: 'application/json',
+                success: function (data) {
+                    debugger;
+                    StopLoadingAnimation();
+                    def.resolve(data);
+                }
+            });
+            return def.promise();
         }
 
         function deleteAirfareClaimDetail(detailId, index, category) {
@@ -1831,33 +1854,38 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         // Calculations for Visa: Start
 
         function CalculateVisaTotal(obj){
-            debugger;
-            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailVisaVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailVisaVm_' + index + '__ExchangeRate').val(exrate);
-            if (isNaN(amount)) {
-                amount = 0;
-            }
-            var exchangeRate = parseFloat($('#claimDetailVisaVm_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 1;
-            }
-            var Total = parseFloat(amount * exchangeRate).toFixed(2);
-            Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailVisaVm_' + index + '__TotalInSGD').val(Total);
-            debugger;
-            var length = $('.cssVisaLength').length;
-            var grossTotal = 0;
-            for (var i = 0; i < length; i++) {
+            var promise = GetExchangeRateByCurrencyCode(obj.value);
+            $.when(promise).done(function (data) {
+                var exrate = parseFloat(data.LookUpCode);
 
-                var grossVal = $('#claimDetailVisaVm_' + i + '__TotalInSGD').val();
-                if (grossVal != null && grossVal != "") {
-                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var amount = parseFloat($('#claimDetailVisaVm_' + index + '__Amount').val());
+                //var exrate = isNaN($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val()) ? 1 :
+                //    parseFloat($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val());
+                $('#claimDetailVisaVm_' + index + '__ExchangeRate').val(exrate);
+                if (isNaN(amount)) {
+                    amount = 0;
                 }
-                $('#claimHeader_claimDetailVisaTotal').val(grossTotal.toFixed(2));
-            }
+                var exchangeRate = parseFloat($('#claimDetailVisaVm_' + index + '__ExchangeRate').val());
+                if (isNaN(exchangeRate)) {
+                    exchangeRate = 1;
+                }
+                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                Total = parseFloat(Total).toFixed(2);
+                $('#claimDetailVisaVm_' + index + '__TotalInSGD').val(Total);
+                debugger;
+                var length = $('.cssVisaLength').length;
+                var grossTotal = 0;
+                for (var i = 0; i < length; i++) {
+
+                    var grossVal = $('#claimDetailVisaVm_' + i + '__TotalInSGD').val();
+                    if (grossVal != null && grossVal != "") {
+                        grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                    }
+                    $('#claimHeader_claimDetailVisaTotal').val(grossTotal.toFixed(2));
+                }
+            });
+            
         }
 
 
@@ -1891,33 +1919,40 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         // Calculations for Visa: End
 
         //Calculations for Accomodation: Start
-        function CalculateAccomodationTotal(obj){
-            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailAccomdationVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val(exrate);
-            if (isNaN(amount)) {
-                amount = 0;
-            }
-            var exchangeRate = parseFloat($('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 1;
-            }
-            var Total = parseFloat(amount * exchangeRate).toFixed(2);
-            Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailAccomdationVm_' + index + '__TotalInSGD').val(Total);
-            debugger;
-            var length = $('.cssAccomodationLength').length;
-            var grossTotal = 0;
-            for (var i = 0; i < length; i++) {
+        function CalculateAccomodationTotal(obj) {
+            var promise = GetExchangeRateByCurrencyCode(obj.value);
+            $.when(promise).done(function (data) {
+                var exrate = parseFloat(data.LookUpCode);
 
-                var grossVal = $('#claimDetailAccomdationVm_' + i + '__TotalInSGD').val();
-                if (grossVal != null && grossVal != "") {
-                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var amount = parseFloat($('#claimDetailAccomdationVm_' + index + '__Amount').val());
+                //var exrate = isNaN($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val()) ? 1 :
+                //    parseFloat($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val());
+                $('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val(exrate);
+                if (isNaN(amount)) {
+                    amount = 0;
                 }
-                $('#claimHeader_claimDetailAccomdationTotal').val(grossTotal.toFixed(2));
-            }
+                var exchangeRate = parseFloat($('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val());
+                if (isNaN(exchangeRate)) {
+                    exchangeRate = 1;
+                }
+                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                Total = parseFloat(Total).toFixed(2);
+                $('#claimDetailAccomdationVm_' + index + '__TotalInSGD').val(Total);
+                debugger;
+                var length = $('.cssAccomodationLength').length;
+                var grossTotal = 0;
+                for (var i = 0; i < length; i++) {
+
+                    var grossVal = $('#claimDetailAccomdationVm_' + i + '__TotalInSGD').val();
+                    if (grossVal != null && grossVal != "") {
+                        grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                    }
+                    $('#claimHeader_claimDetailAccomdationTotal').val(grossTotal.toFixed(2));
+                }
+            });
+
+            
         }
 
         function deleteAccomodationDetail(detailId, index, category) {
@@ -1951,32 +1986,39 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         //Calculations for Accomodation: End
         //calculations for TaxiFares local:start
         function CalculateTaxilocalTotal(obj) {
-            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val(exrate);
-            if (isNaN(amount)) {
-                amount = 0;
-            }
-            var exchangeRate = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 1;
-            }
-            var Total = parseFloat(amount * exchangeRate).toFixed(2);
-            Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailTaxiLocalVm_' + index + '__TotalInSGD').val(Total);
-            debugger;
-            var length = $('.cssTaxilocalLength').length;
-            var grossTotal = 0;
-            for (var i = 0; i < length; i++) {
 
-                var grossVal = $('#claimDetailTaxiLocalVm_' + i + '__TotalInSGD').val();
-                if (grossVal != null && grossVal != "") {
-                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+            var promise = GetExchangeRateByCurrencyCode(obj.value);
+            $.when(promise).done(function (data) {
+                var exrate = parseFloat(data.LookUpCode);
+
+                var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var amount = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__Amount').val());
+                //var exrate = isNaN($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
+                //    parseFloat($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val());
+                $('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val(exrate);
+                if (isNaN(amount)) {
+                    amount = 0;
                 }
-                $('#claimHeader_claimDetailTaxiLocalTotal').val(grossTotal.toFixed(2));
-            }
+                var exchangeRate = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val());
+                if (isNaN(exchangeRate)) {
+                    exchangeRate = 1;
+                }
+                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                Total = parseFloat(Total).toFixed(2);
+                $('#claimDetailTaxiLocalVm_' + index + '__TotalInSGD').val(Total);
+                debugger;
+                var length = $('.cssTaxilocalLength').length;
+                var grossTotal = 0;
+                for (var i = 0; i < length; i++) {
+
+                    var grossVal = $('#claimDetailTaxiLocalVm_' + i + '__TotalInSGD').val();
+                    if (grossVal != null && grossVal != "") {
+                        grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                    }
+                    $('#claimHeader_claimDetailTaxiLocalTotal').val(grossTotal.toFixed(2));
+                }
+            });
+            
         }
 
         function deletetaxilocalDetail(detailId, index, category) {
@@ -2008,32 +2050,39 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         //calculations for TaxiFares local:end
         //calculations for TaxiFares oversea:start
         function CalculatetaxioverseaTotal(obj) {
-            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val(exrate);
-            if (isNaN(amount)) {
-                amount = 0;
-            }
-            var exchangeRate = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 1;
-            }
-            var Total = parseFloat(amount * exchangeRate).toFixed(2);
-            Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailTaxiOverseasVm_' + index + '__TotalInSGD').val(Total);
-            debugger;
-            var length = $('.csstaxioverseaLength').length;
-            var grossTotal = 0;
-            for (var i = 0; i < length; i++) {
 
-                var grossVal = $('#claimDetailTaxiOverseasVm_' + i + '__TotalInSGD').val();
-                if (grossVal != null && grossVal != "") {
-                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+            var promise = GetExchangeRateByCurrencyCode(obj.value);
+            $.when(promise).done(function (data) {
+                var exrate = parseFloat(data.LookUpCode);
+
+                var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var amount = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__Amount').val());
+                //var exrate = isNaN($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
+                //    parseFloat($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val());
+                $('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val(exrate);
+                if (isNaN(amount)) {
+                    amount = 0;
                 }
-                $('#claimHeader_claimDetailTaxiOverseasTotal').val(grossTotal.toFixed(2));
-            }
+                var exchangeRate = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val());
+                if (isNaN(exchangeRate)) {
+                    exchangeRate = 1;
+                }
+                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                Total = parseFloat(Total).toFixed(2);
+                $('#claimDetailTaxiOverseasVm_' + index + '__TotalInSGD').val(Total);
+                debugger;
+                var length = $('.csstaxioverseaLength').length;
+                var grossTotal = 0;
+                for (var i = 0; i < length; i++) {
+
+                    var grossVal = $('#claimDetailTaxiOverseasVm_' + i + '__TotalInSGD').val();
+                    if (grossVal != null && grossVal != "") {
+                        grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                    }
+                    $('#claimHeader_claimDetailTaxiOverseasTotal').val(grossTotal.toFixed(2));
+                }
+            });
+            
         }
 
         function deletetaxioverseaDetail(detailId, index, category) {
@@ -2066,32 +2115,39 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         //calculations for TaxiFares oversea:end
         //calculations for Food Bills Local:end
         function CalculatefoodbillslocalTotal(obj) {
-            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailFoodLocalVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val(exrate);
-            if (isNaN(amount)) {
-                amount = 0;
-            }
-            var exchangeRate = parseFloat($('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 1;
-            }
-            var Total = parseFloat(amount * exchangeRate).toFixed(2);
-            Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailFoodLocalVm_' + index + '__TotalInSGD').val(Total);
-            debugger;
-            var length = $('.cssfoodbillslocalLength').length;
-            var grossTotal = 0;
-            for (var i = 0; i < length; i++) {
+            var promise = GetExchangeRateByCurrencyCode(obj.value);
+            $.when(promise).done(function (data) {
+                var exrate = parseFloat(data.LookUpCode);
 
-                var grossVal = $('#claimDetailFoodLocalVm_' + i + '__TotalInSGD').val();
-                if (grossVal != null && grossVal != "") {
-                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var amount = parseFloat($('#claimDetailFoodLocalVm_' + index + '__Amount').val());
+                //var exrate = isNaN($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
+                //    parseFloat($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val());
+                $('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val(exrate);
+                if (isNaN(amount)) {
+                    amount = 0;
                 }
-                $('#claimHeader_claimDetailFoodLocalTotal').val(grossTotal.toFixed(2));
-            }
+                var exchangeRate = parseFloat($('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val());
+                if (isNaN(exchangeRate)) {
+                    exchangeRate = 1;
+                }
+                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                Total = parseFloat(Total).toFixed(2);
+                $('#claimDetailFoodLocalVm_' + index + '__TotalInSGD').val(Total);
+                debugger;
+                var length = $('.cssfoodbillslocalLength').length;
+                var grossTotal = 0;
+                for (var i = 0; i < length; i++) {
+
+                    var grossVal = $('#claimDetailFoodLocalVm_' + i + '__TotalInSGD').val();
+                    if (grossVal != null && grossVal != "") {
+                        grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                    }
+                    $('#claimHeader_claimDetailFoodLocalTotal').val(grossTotal.toFixed(2));
+                }
+            });
+
+            
         }
 
         function deletefoodbillslocalDetail(detailId, index, category) {
@@ -2123,32 +2179,38 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         //calculations for Food Bills Local:end
         //calculations for Food Bills overseas:end
         function CalculatefoodbillsoverseasTotal(obj) {
-            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
-            if (isNaN(amount)) {
-                amount = 0;
-            }
-            var exchangeRate = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 1;
-            }
-            var Total = parseFloat(amount * exchangeRate).toFixed(2);
-            Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailFoodOverseasVm_' + index + '__TotalInSGD').val(Total);
-            debugger;
-            var length = $('.cssfoodbillsoverseasLength').length;
-            var grossTotal = 0;
-            for (var i = 0; i < length; i++) {
+            var promise = GetExchangeRateByCurrencyCode(obj.value);
+            $.when(promise).done(function (data) {
+                var exrate = parseFloat(data.LookUpCode);
 
-                var grossVal = $('#claimDetailFoodOverseasVm_' + i + '__TotalInSGD').val();
-                if (grossVal != null && grossVal != "") {
-                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var amount = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__Amount').val());
+                //var exrate = isNaN($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
+                //    parseFloat($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val());
+                $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
+                if (isNaN(amount)) {
+                    amount = 0;
                 }
-                $('#claimHeader_claimDetailFoodOverseasTotal').val(grossTotal.toFixed(2));
-            }
+                var exchangeRate = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val());
+                if (isNaN(exchangeRate)) {
+                    exchangeRate = 1;
+                }
+                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                Total = parseFloat(Total).toFixed(2);
+                $('#claimDetailFoodOverseasVm_' + index + '__TotalInSGD').val(Total);
+                debugger;
+                var length = $('.cssfoodbillsoverseasLength').length;
+                var grossTotal = 0;
+                for (var i = 0; i < length; i++) {
+
+                    var grossVal = $('#claimDetailFoodOverseasVm_' + i + '__TotalInSGD').val();
+                    if (grossVal != null && grossVal != "") {
+                        grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                    }
+                    $('#claimHeader_claimDetailFoodOverseasTotal').val(grossTotal.toFixed(2));
+                }
+            });
+            
         }
         function deletefoodbillsoverseasDetail(detailId, index, category) {
             debugger;
@@ -2180,33 +2242,40 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
 
         //calculations for Food Bills overseas:end
         //calculations for OtherExpenses:start
-        function  CalculateOtherExpensesTotal(obj) {
-            var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
-            var amount = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__Amount').val());
-            var exrate = isNaN($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val()) ? 1 :
-                parseFloat($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val());
-            $('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val(exrate);
-            if (isNaN(amount)) {
-                amount = 0;
-            }
-            var exchangeRate = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val());
-            if (isNaN(exchangeRate)) {
-                exchangeRate = 1;
-            }
-            var Total = parseFloat(amount * exchangeRate).toFixed(2);
-            Total = parseFloat(Total).toFixed(2);
-            $('#claimDetailOtherExpensesVm_' + index + '__TotalInSGD').val(Total);
-            debugger;
-            var length = $('.cssOtherExpensesLength').length;
-            var grossTotal = 0;
-            for (var i = 0; i < length; i++) {
+        function CalculateOtherExpensesTotal(obj) {
 
-                var grossVal = $('#claimDetailOtherExpensesVm_' + i + '__TotalInSGD').val();
-                if (grossVal != null && grossVal != "") {
-                    grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+            var promise = GetExchangeRateByCurrencyCode(obj.value);
+            $.when(promise).done(function (data) {
+                var exrate = parseFloat(data.LookUpCode);
+                var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var amount = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__Amount').val());
+                //var exrate = isNaN($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val()) ? 1 :
+                //    parseFloat($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val());
+                $('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val(exrate);
+                if (isNaN(amount)) {
+                    amount = 0;
                 }
-                $('#claimHeader_claimDetailOtherExpensesTotal').val(grossTotal.toFixed(2));
-            }
+                var exchangeRate = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val());
+                if (isNaN(exchangeRate)) {
+                    exchangeRate = 1;
+                }
+                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                Total = parseFloat(Total).toFixed(2);
+                $('#claimDetailOtherExpensesVm_' + index + '__TotalInSGD').val(Total);
+                debugger;
+                var length = $('.cssOtherExpensesLength').length;
+                var grossTotal = 0;
+                for (var i = 0; i < length; i++) {
+
+                    var grossVal = $('#claimDetailOtherExpensesVm_' + i + '__TotalInSGD').val();
+                    if (grossVal != null && grossVal != "") {
+                        grossTotal = parseFloat(grossTotal) + parseFloat(grossVal);
+                    }
+                    $('#claimHeader_claimDetailOtherExpensesTotal').val(grossTotal.toFixed(2));
+                }
+
+            });
+            
         }
 
         function deleteOtherExpensesDetail(detailId, index, category) {

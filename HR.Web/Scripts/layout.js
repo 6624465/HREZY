@@ -199,6 +199,11 @@ function LoadingAnimation() {
     });
 }
 
+function StopLoadingAnimation() {
+    $('#jquery-loader-background').remove();
+    $('#jquery-loader').remove();
+}
+
 function createCookie(name, value, days) {
     var expires = "";
     if (days) {

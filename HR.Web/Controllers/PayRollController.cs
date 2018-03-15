@@ -56,6 +56,19 @@ namespace HR.Web.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public JsonResult GetExRateByCurrencyCode(string currencyCode)
+        {
+            var lookupObj = lookUpBo
+                                .GetByProperty(x => x.LookUpCategory == UTILITY.CURRENCY && x.LookUpDescription == currencyCode);
+
+            if (lookupObj == null)
+                lookupObj = new LookUp { LookUpCode = "1" };
+                                
+            return Json(lookupObj, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ContributionRegister(int ContributionId)
         {
             ViewData["RoleCode"] = ROLECODE;

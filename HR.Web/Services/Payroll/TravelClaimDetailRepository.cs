@@ -26,6 +26,7 @@ namespace HR.Web.Services.Payroll
                         {
                             //travelClaimDetail.CreatedBy = entity.CreatedBy;
                             //travelClaimDetail.CreatedOn = entity.CreatedOn;
+                            entity.CurrencyCode = entity.Currency;
                             dbContext.TravelClaimDetails.Add(entity);
                         }
                         else
@@ -46,6 +47,7 @@ namespace HR.Web.Services.Payroll
                             travelClaimDetail.FromDate = entity.FromDate;
                             travelClaimDetail.TODate = entity.TODate;
                             travelClaimDetail.DepartureTime = entity.DepartureTime;
+                            travelClaimDetail.CurrencyCode = entity.Currency;
 
                         }
                         dbContext.SaveChanges();

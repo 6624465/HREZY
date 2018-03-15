@@ -306,7 +306,7 @@ namespace HR.Web.Helpers
                 return dbContext.LookUps.Where(x => x.LookUpCategory == UTILITY.CURRENCY && x.IsActive == true)
                     .Select(x => new SelectListItem
                     {
-                        Value = x.LookUpCode,
+                        Value = x.LookUpDescription,
                         Text = x.LookUpDescription
                     }).ToList().AsEnumerable();
             }

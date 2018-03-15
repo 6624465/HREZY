@@ -254,6 +254,7 @@ namespace HR.Web.ViewModels
         public string DocumentDescription { get; set; }
         public HttpPostedFileBase Document { get; set; }
         public string fileName { get; set; }
+        public int EmployeeId { get; set; }
     }
 
 }

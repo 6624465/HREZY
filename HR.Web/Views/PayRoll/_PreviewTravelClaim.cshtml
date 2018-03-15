@@ -28,6 +28,8 @@
         var FoodBillsLocal = "Food Bills Local";
         var FoodBillsOverseas = "Food Bills Overseas";
         var OtherExpenses = "Other Expenses";
+        var NO = "No";
+        var YES = "Yes";
     }
                     <div class="row">
                         <div class="col-md-12">
@@ -54,7 +56,16 @@
                                             <tr>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).Perticulars</td>
-                                                <td>@Model.claimDetailAirfareVm.ElementAt(i).Receipts</td>
+                                                <td>
+                                                    @if (Model.claimDetailAirfareVm.ElementAt(i).Receipts == false)
+                                                    {
+                                                        @NO
+                                                    }
+                                                    else
+                                                    {
+                                                        @YES
+                                                    }
+                                                </td>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).Amount</td>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).Currency</td>
                                                 <td>@Model.claimDetailAirfareVm.ElementAt(i).ExchangeRate</td>
@@ -96,7 +107,16 @@
                                     <tr>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).Perticulars</td>
-                                        <td>@Model.claimDetailVisaVm.ElementAt(i).Receipts</td>
+                                        <td>
+                                            @if (Model.claimDetailVisaVm.ElementAt(i).Receipts == false)
+                                            {
+                                                @NO
+                                            }
+                                            else
+                                            {
+                                                @YES
+                                            }
+                                        </td>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).Amount</td>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).Currency</td>
                                         <td>@Model.claimDetailVisaVm.ElementAt(i).ExchangeRate</td>
@@ -140,7 +160,16 @@
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).FromDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).ToDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).Perticulars</td>
-                                        <td>@Model.claimDetailAccomdationVm.ElementAt(i).Receipts</td>
+                                        <td>
+                                            @if (Model.claimDetailAccomdationVm.ElementAt(i).Receipts == false)
+                                            {
+                                                @NO
+                                            }
+                                            else
+                                            {
+                                                @YES
+                                            }
+                                        </td>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).Amount</td>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).Currency</td>
                                         <td>@Model.claimDetailAccomdationVm.ElementAt(i).ExchangeRate</td>
@@ -184,7 +213,16 @@
                                     <tr>
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Perticulars</td>
-                                        <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Receipts</td>
+                                        <td>
+                                            @if (Model.claimDetailTaxiLocalVm.ElementAt(i).Receipts == false)
+                                            {
+                                                @NO
+                                            }
+                                            else
+                                            {
+                                                @YES
+                                            }
+                                        </td>
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Amount</td>
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Currency</td>
                                         <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).ExchangeRate</td>
@@ -227,7 +265,16 @@
 
                                         <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Perticulars</td>
-                                        <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Receipts</td>
+                                        <td>
+                                            @if (Model.claimDetailTaxiOverseasVm.ElementAt(i).Receipts == false)
+                                            {
+                                                @NO
+                                            }
+                                            else
+                                            {
+                                                @YES
+                                            }
+                                        </td>
                                         <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Amount</td>
                                         <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Currency</td>
                                         <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).ExchangeRate</td>
@@ -271,7 +318,16 @@
 
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Perticulars</td>
-                                        <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Receipts</td>
+                                        <td>
+                                            @if (Model.claimDetailFoodLocalVm.ElementAt(i).Receipts == false)
+                                            {
+                                                @NO
+                                            }
+                                            else
+                                            {
+                                                @YES
+                                            }
+                                        </td>
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Amount</td>
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Currency</td>
                                         <td>@Model.claimDetailFoodLocalVm.ElementAt(i).ExchangeRate</td>
@@ -315,7 +371,16 @@
 
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Perticulars</td>
-                                        <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Receipts</td>
+                                        <td>
+                                            @if (Model.claimDetailFoodOverseasVm.ElementAt(i).Receipts == false)
+                                            {
+                                                @NO
+                                            }
+                                            else
+                                            {
+                                                @YES
+                                            }
+                                        </td>
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Amount</td>
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Currency</td>
                                         <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).ExchangeRate</td>
@@ -357,7 +422,16 @@
                                     <tr>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Perticulars</td>
-                                                <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Receipts</td>
+                                        <td>
+                                            @if (Model.claimDetailOtherExpensesVm.ElementAt(i).Receipts == false)
+                                            {
+                                                @NO
+                                            }
+                                            else
+                                            {
+                                                @YES
+                                            }
+                                        </td>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Amount</td>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Currency</td>
                                                 <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).ExchangeRate</td>

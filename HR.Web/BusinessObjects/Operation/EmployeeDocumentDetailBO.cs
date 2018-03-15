@@ -102,5 +102,18 @@ namespace HR.Web.BusinessObjects.Operation
                 throw ex;
             }
         }
+        public void Delete(int id)
+        {
+            try
+            {
+                 empDocDetailService.Delete(id);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+       
     }
 }

@@ -1636,6 +1636,12 @@ namespace HR.Web.Controllers
             return travelClaimNewObj;
 
         }
+        public ActionResult DeleteTravelclaimDocs(int docdetailid,int travelclaimid)
+        {
+            //EmployeeDocumentDetail empdocdetail = empDocDetailBO.GetById(docdetailid);
+            empDocDetailBO.Delete(docdetailid);
+            return RedirectToAction("TravelClaim","PayRoll",new { travelClaimId = travelclaimid });
+        }
     }
 }
    

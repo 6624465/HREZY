@@ -1238,6 +1238,7 @@ namespace HR.Web.Controllers
             var travelobj = travelClaimHeaderBO.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true && x.Status == UTILITY.TRAVELCLAIMSUBMITTED).ToList();
             return View(travelobj);
         }
+
         public ActionResult ApproveTravelClaim(List<SelectedTCVm> selectedTCVm)
         {
             for(var i = 0; i < selectedTCVm.Count; i++)

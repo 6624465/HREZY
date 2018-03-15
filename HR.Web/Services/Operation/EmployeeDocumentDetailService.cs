@@ -147,6 +147,7 @@ namespace HR.Web.Services.Operation
             }
             catch(Exception ex)
             {
+
                 throw ex;
             }
         }

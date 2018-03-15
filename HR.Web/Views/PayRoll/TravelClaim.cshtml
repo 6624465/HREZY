@@ -1495,13 +1495,13 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         function CheckFileName(el) {
             var fileName = document.getElementById(el.id).value;
             if (fileName == "") {
-                alert("Browse to upload a valid File with png/jpeg/jpg/gif extension");
+                alert("Browse to upload a valid File with png/jpeg/jpg/gif/doc/docx/pdf extension");
                 return false;
             }
-            else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF")
+            else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF" || fileName.split(".")[1].toUpperCase()=="DOC" || fileName.split(".")[1].toUpperCase() == "DOCX" || fileName.split(".")[1].toUpperCase() == "PDF")
                 return true;
             else {
-                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a valid File with png/jpg/jpeg/gif extensions");
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a valid File with png/jpg/jpeg/gif/doc/docx/pdf extensions");
                 el.value = "";
                 return false;
             }

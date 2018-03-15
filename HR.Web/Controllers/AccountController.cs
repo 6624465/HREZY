@@ -18,6 +18,7 @@ namespace HR.Web.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Login(User user)
         {

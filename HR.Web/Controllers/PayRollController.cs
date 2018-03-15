@@ -1348,7 +1348,7 @@ namespace HR.Web.Controllers
             ViewData["documentsPath"] =
                    "TravlClaimDocs/" +
                    BRANCHID + "/" +
-                   EMPLOYEEID + "/" +
+                   travelobj.claimHeader.EmployeeId + "/" +
                   travelobj.claimHeader.ClaimNo;
             return PartialView("_PreviewTravelClaim", travelobj);
         }

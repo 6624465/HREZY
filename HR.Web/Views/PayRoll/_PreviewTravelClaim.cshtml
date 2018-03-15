@@ -468,7 +468,7 @@
                         <thead>
                             <tr>
                                 <th>Document Name</th>
-                                <th>Document Type</th>
+                                @*<th>Document Type</th>*@
                                 <th>Download</th>
                                 @*<th>Delete</th>*@
                             </tr>
@@ -485,9 +485,9 @@
                                             @Html.HiddenFor(x => x.claimDocumentVm[i].DocumentType)
                                         </td>
 
-                                        <td>
-                                            @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file" })
-                                        </td>
+                                        @*<td>
+                                            @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file",@disabled= "disabled" })
+                                        </td>*@
                                         <td>
                                                 <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank">download</a>
                                         </td>

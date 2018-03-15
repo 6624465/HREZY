@@ -1297,6 +1297,10 @@ namespace HR.Web.Controllers
             var employeename = empObj.FirstName + " " + empObj.LastName;
             var employeeemail = empObj.UserEmailId;
             var managerEmail = employeeHeaderBo.GetByProperty(x => x.EmployeeId == empObj.ManagerId).UserEmailId;
+            //if (string.IsNullOrWhiteSpace(managerEmail))
+            //{
+            //    return View("Error");
+            //}
             var hrAdminEmail = userBo.GetByProperty(x => x.BranchId == empObj.BranchId && x.RoleCode == UTILITY.ROLE_ADMIN).Email;
 
             var subject = string.Empty;

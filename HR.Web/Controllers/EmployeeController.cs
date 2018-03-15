@@ -208,6 +208,7 @@ namespace HR.Web.Controllers
                         }
 
 
+                             
                         empObj.empDocument = lookUpBO.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
                         .Select(y => new EmployeeDocumentVm
                         {
@@ -215,6 +216,10 @@ namespace HR.Web.Controllers
                             DocumentDescription = y.LookUpDescription
                         }).Where(x => !codeList.Contains(x.DocumentType)).ToList();
                         empObj.empDocument.AddRange(docVmList);
+
+                        ViewData["empdocumentsPath"] = "Uploads/" + empObj.empHeader.EmployeeId + "/";
+
+
                     }
                     else
                     {

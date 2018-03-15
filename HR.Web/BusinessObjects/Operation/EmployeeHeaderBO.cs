@@ -151,7 +151,8 @@ namespace HR.Web.BusinessObjects.Operation
 
                         empDocDetailBO.Add(uidDocument);
 
-                        string path = HttpContext.Current.Server.MapPath("~/Uploads/" + empHeader.EmployeeId + "/" + uidDocument.DocumentDetailID + "/");
+                        string path = HttpContext.Current.Server.
+                            MapPath("~/Uploads/" + empHeader.EmployeeId + "/" + uidDocument.DocumentDetailID + "/");
                         if (!Directory.Exists(path))
                         {
                             Directory.CreateDirectory(path);

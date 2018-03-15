@@ -1160,10 +1160,10 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Document Name</th>
-                                                    <th>Document Type</th>
-                                                    <th>Download</th>
-                                                    <th>Delete</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Document Name</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Document Type</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Download</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1174,9 +1174,10 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                 {
                                                     <tr>
                                                         <td>@Html.DisplayFor(x => x.claimDocumentVm[i].fileName)</td>
-                                                        @Html.HiddenFor(x => x.claimDocumentVm[i].DocumentType)
+                                                        @Html.HiddenFor(x => x.claimDocumentVm[i].DocumentType)                                                     
+
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file" })
+                                                            @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file", onchange = "CheckFileName(this)" })
 
                                                         </td>
                                                         <td>
@@ -1491,6 +1492,21 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
             type="text/javascript"></script>
     <script type="text/javascript">
+        function CheckFileName(el) {
+            var fileName = document.getElementById(el.id).value;
+            if (fileName == "") {
+                alert("Browse to upload a valid File with png/jpeg/jpg/gif extension");
+                return false;
+            }
+            else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF")
+                return true;
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with png/jpg/jpeg/gif extensions");
+                el.value = "";
+                return false;
+            }
+            return true;
+        }
 
         @{
             var detailCount = 0;

@@ -1,0 +1,106 @@
+<div class="clearfix">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive t-height">
+                                        <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                            <thead>
+                                                <tr style="background:#3f51b5;">
+                                                    <th style="background:#3f51b5; color:#fff;">Date</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Departure time</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Perticulars</th>
+                                                    <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Receipts (Y/N)</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Amount</th>
+                                                    <th style="white-space:nowrap; background:#3f51b5; color:#fff;">Currency</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Exchange Rate</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Total</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <h4>AIRFARE</h4>
+                                                @for (int i = 0; i < Model.claimDetail.Count; i++)
+                                                {
+                                                    <input id="claimDetail_@(i)__TravelClaimDetailId"
+                                                           name="claimDetail[@(i)].TravelClaimDetailId" type="hidden" value="@Model.claimDetail[i].TravelClaimDetailId">
+
+                                                    <script>
+                                                                $(document).ready(function () {
+                                                                    $('#claimDetail_' + '@i' + '__Category').val('@Model.claimDetail[i].Category');
+                                                                    $('#claimDetail_' + '@i' + '__Currency').val('@Model.claimDetail[i].Currency');
+                                                                });
+                                                    </script>
+                                                    <tr id="tr_@i" class="cssLength">
+                                                      
+                                                        
+                                                        
+                                                        <td>
+                                                            <div class="input-group date dtCss">
+                                                                <input type="text" class="form-control input-sm" />
+                                                                <span class="input-group-addon on-click cal-cal-icon">
+                                                                    <i class="ion ion-calendar"></i>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+
+                                                            <div class="input-group date dtCss travelDateCss" id="TravelDate_@i">
+                                                                @Html.TextBoxFor(x => x.claimDetail[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
+
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].Description, new { @class = "form-control input-sm", style = "width:100px;" })
+                                                        </td>
+                                                        <td>
+
+                                                            @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, true, "Yes")
+                                                            <span>Y</span>
+                                                            @Html.RadioButtonFor(x => x.claimDetail[i].Receipts, false, "No")
+                                                            <span>N</span>
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].Amount, new
+                                                       {
+                                                           @class = "form-control input-sm decimalCss",
+                                                           required = "required",
+                                                           style = "width:100px;",
+                                                           onblur = "CalculateTotal(this)",
+                                                           data_index = i
+                                                       })
+                                                        </td>
+                                                        <td>
+                                                            @Html.DropDownListFor(x => x.claimDetail[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateTotal(this)", data_index = i, @required = "required" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(x => x.claimDetail[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                    style="padding-left: 5px;margin-left: 6px;" onclick="deleteClaimDetail(@Model.claimDetail[i].TravelClaimDetailId,@i)">
+                                                                <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                    <td><span class="pull-right"><b>Total  </b></span></td>
+                                                    <td>@Html.TextBoxFor(x => x.claimHeader.GrossTotal, new { @class = "form-control input-sm", @readonly = "readonly" })</td>
+                                                    <td></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>

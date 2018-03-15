@@ -470,7 +470,7 @@
                                 <th>Document Name</th>
                                 <th>Document Type</th>
                                 <th>Download</th>
-                                <th>Delete</th>
+                                @*<th>Delete</th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -491,13 +491,13 @@
                                         <td>
                                                 <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank">download</a>
                                         </td>
-                                        <td>
+                                        @*<td>
                                                 <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
                                                         style="padding-left: 5px;margin-left: 6px;"
                                                         onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelclaimDocs?docdetailid=" + Model.claimDocumentVm[i].DocumentDetailId + "&travelclaimid=" + Model.claimHeader.TravelClaimId + "&claimNo=" + Model.claimHeader.ClaimNo )'">
                                                     <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                 </button>
-                                        </td>
+                                        </td>*@
                                     </tr>
                                 }
 

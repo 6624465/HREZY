@@ -580,10 +580,14 @@ new { @class = "form-control input-sm" })
                                         <tr>
                                             <th>Document Name</th>
                                             <th>Document Type</th>
+                                            <th>Download</th>
                                             @*<th>File</th>*@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @{
+                                            var documentsPath = ViewData["empdocumentsPath"];
+                                        }
                                         @for (int i = 0; i < Model.empDocument.Count(); i++)
                                         {
                                             <tr>
@@ -592,6 +596,12 @@ new { @class = "form-control input-sm" })
                                                 <td>
                                                     @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)" })
 
+                                                </td>
+                                                <td>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
+                                                    {
+                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+ "/" + Model.empDocument[i].fileName)" target="_blank">download</a>
+                                                    }
                                                 </td>
                                                 @*<td>
                                                     @if(Model.empDocument[i].fileName != null) {

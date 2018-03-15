@@ -30,6 +30,16 @@
         var OtherExpenses = "Other Expenses";
         var NO = "No";
         var YES = "Yes";
+        var UPLOADFILES = "UploadFiles";
+        var documentsPath = ViewData["documentsPath"];
+        var travelclaimobj = Model.claimDocumentVm.Where(x => x.EmployeeId==Model.claimHeader.TravelClaimId).FirstOrDefault();
+        int detailid = 0;
+        var filename = "";
+        if (travelclaimobj != null)
+        {
+            detailid = travelclaimobj.DocumentDetailId;
+            filename = travelclaimobj.fileName;
+        }
     }
                     <div class="row">
                         <div class="col-md-12">
@@ -450,6 +460,54 @@
                                 </tbody>
                             </table>
 }
+            @if (Model.claimDocumentVm.Count() > 0 && Model.claimDocumentVm != null && !string.IsNullOrWhiteSpace(filename))
+            {
+                @UPLOADFILES
+              
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Document Name</th>
+                                <th>Document Type</th>
+                                <th>Download</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                            @for (int i = 0; i < Model.claimDocumentVm.Count(); i++)
+                            {
+                            if (!string.IsNullOrWhiteSpace(Model.claimDocumentVm[i].fileName))
+                            {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(x => x.claimDocumentVm[i].fileName)
+                                            @Html.HiddenFor(x => x.claimDocumentVm[i].DocumentType)
+                                        </td>
+
+                                        <td>
+                                            @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file" })
+                                        </td>
+                                        <td>
+                                                <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank">download</a>
+                                        </td>
+                                        <td>
+                                                <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
+                                                        style="padding-left: 5px;margin-left: 6px;"
+                                                        onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelclaimDocs?docdetailid=" + Model.claimDocumentVm[i].DocumentDetailId + "&travelclaimid=" + Model.claimHeader.TravelClaimId + "&claimNo=" + Model.claimHeader.ClaimNo )'">
+                                                    <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                </button>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                              
+                        </tbody>
+                    </table>
+                                    }
+
+
                         </div>
 
                     </div>

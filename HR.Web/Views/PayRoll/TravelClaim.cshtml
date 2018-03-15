@@ -1190,7 +1190,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                             {
                                                                 <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
                                                                         style="padding-left: 5px;margin-left: 6px;"
-                                                                        onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelclaimDocs?docdetailid=" + Model.claimDocumentVm[i].DocumentDetailId + "&travelclaimid=" + Model.claimHeader.TravelClaimId)'">
+                                                                        onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelclaimDocs?docdetailid=" + Model.claimDocumentVm[i].DocumentDetailId + "&travelclaimid=" + Model.claimHeader.TravelClaimId + "&claimNo=" + Model.claimHeader.ClaimNo )'">
                                                                     <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
                                                                 </button>
                                                               
@@ -1411,7 +1411,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                     <i class="fa fa-floppy-o"></i>
                                     Save
                                 </button>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="Preview(@Model.claimHeader.TravelClaimId)">
+                                <button type="button" class="btn btn-primary btn-sm ajaxCss" onclick="Preview(@Model.claimHeader.TravelClaimId)">
                                     <i class="fa fa-eye"></i><b>Preview</b>                                    
                                 </button>
 
@@ -1527,8 +1527,8 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
-                    debugger;
-
+                    $('#jquery-loader-background').remove();
+                    $('#jquery-loader').remove();
                     $('#myPreviewModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);

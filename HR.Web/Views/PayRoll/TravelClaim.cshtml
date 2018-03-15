@@ -303,14 +303,14 @@ new { @class = "form-control input-sm", @multiple = "multiple", @required = "req
                                                                 </td>
                                                                 <td>
                                                                     @Html.DropDownListFor(x => x.claimDetailAirfareVm[i].Currency,
-SelectListItemHelper.CurrnyList(), new
-{
-    @class = "form-control input-sm",
-    style = "width:100px;",
-    onchange = "CalculateAirFareTotal(this)",
-    data_index = i,
-    required = "required"
-})
+                                                                    SelectListItemHelper.CurrnyList(), new
+                                                                    {
+                                                                        @class = "form-control input-sm",
+                                                                        style = "width:100px;",
+                                                                        onchange = "CalculateAirFareTotal(this);",
+                                                                        data_index = i,
+                                                                        required = "required"
+                                                                    })
                                                                     <script type="text/javascript">
                                                                                     $(function(){
                                                                                         $('#claimDetailAirfareVm_' + '@i' + '__Currency').val('@Model.claimDetailAirfareVm[i].Currency');
@@ -2252,6 +2252,10 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
         })
         function Submit(){
             $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/SubmittravelClaim")', 'novalidate': 'novalidate' }).submit();
+
+        }
+
+        function SetCurrencyProperty(el){
 
         }
         

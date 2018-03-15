@@ -18,6 +18,7 @@ namespace HR.Web.Services.Payroll
                 {
                     try
                     {
+                        
 
                         TravelClaimDetail travelClaimDetail = dbContext.TravelClaimDetails
                         .Where(x => x.TravelClaimDetailId == entity.TravelClaimDetailId).FirstOrDefault();
@@ -45,6 +46,7 @@ namespace HR.Web.Services.Payroll
                             travelClaimDetail.FromDate = entity.FromDate;
                             travelClaimDetail.TODate = entity.TODate;
                             travelClaimDetail.DepartureTime = entity.DepartureTime;
+
                         }
                         dbContext.SaveChanges();
                         transaction.Commit();

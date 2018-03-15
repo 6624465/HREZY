@@ -33,5 +33,6 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> TODate { get; set; }
         public Nullable<System.TimeSpan> DepartureTime { get; set; }
         public string ClaimNo { get; set; }
+        public string CurrencyCode { get; set; }
     }
 }

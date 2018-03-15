@@ -1160,9 +1160,10 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Document Name</th>
-                                                    <th>Document Type</th>
-                                                    <th>Download</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Document Name</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Document Type</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Download</th>
+                                                    <th style="background:#3f51b5; color:#fff;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1182,6 +1183,17 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                             @if (!string.IsNullOrWhiteSpace(Model.claimDocumentVm[i].fileName))
                                                             {
                                                             <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank">download</a>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @if (!string.IsNullOrWhiteSpace(Model.claimDocumentVm[i].fileName))
+                                                            {
+                                                                <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
+                                                                        style="padding-left: 5px;margin-left: 6px;"
+                                                                        onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelclaimDocs?docdetailid=" + Model.claimDocumentVm[i].DocumentDetailId + "&travelclaimid=" + Model.claimHeader.TravelClaimId)'">
+                                                                    <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                </button>
+                                                              
                                                             }
                                                         </td>
                                                     </tr>
@@ -2226,7 +2238,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
             $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/SubmittravelClaim")', 'novalidate': 'novalidate' }).submit();
 
         }
-
+        
     </script>
 
 }

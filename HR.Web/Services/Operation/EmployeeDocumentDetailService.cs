@@ -134,5 +134,23 @@ namespace HR.Web.Services.Operation
             }
         }
 
+        public void Delete(int id)
+        {
+            try
+            {
+                using(var dbcntx=new HrDataContext())
+                {
+                    EmployeeDocumentDetail empdocdetail = dbcntx.EmployeeDocumentDetails.Where(x => x.DocumentDetailID == id).FirstOrDefault();
+                    dbcntx.EmployeeDocumentDetails.Remove(empdocdetail);
+                    dbcntx.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

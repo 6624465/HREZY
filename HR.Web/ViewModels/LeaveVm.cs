@@ -34,6 +34,20 @@ namespace HR.Web.ViewModels
         public string Status { get; set; }
         public int Branchid { get; set; }
     }
+
+    public class ExcelEmpLeaveListVm
+    {
+        public string EmployeeName { get; set; }
+        public int EmployeeId { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+        public string LeaveType { get; set; }
+        public string Reason { get; set; }
+        public string Status { get; set; }
+        public int Branchid { get; set; }
+        public string BranchName { get; set; }
+    }
+
     public class LeaveHeaderVm
     {
         public int LeaveHeaderID { get; set; }

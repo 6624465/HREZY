@@ -1244,7 +1244,7 @@ namespace HR.Web.Controllers
 
                 list = query.ToList();
 
-                string myName = Server.UrlEncode("leavelist.xlsx");
+                string myName = "leavelist.xlsx";
                 using (var stream = ListToExcel(list))
                 {
                     Response.Clear();

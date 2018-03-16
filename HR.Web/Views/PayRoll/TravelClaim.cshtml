@@ -307,7 +307,7 @@ new { @class = "form-control input-sm", @multiple = "multiple", @required = "req
                                                                     {
                                                                         @class = "form-control input-sm",
                                                                         style = "width:100px;",
-                                                                        onchange = "CalculateAirFareTotal(this);",
+                                                                        //onchange = "CalculateAirFareTotal(this);",
                                                                         data_index = i,
                                                                         required = "required"
                                                                     })
@@ -319,7 +319,7 @@ new { @class = "form-control input-sm", @multiple = "multiple", @required = "req
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].ExchangeRate,
-new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onblur = "CalculateAirFareTotal(this);",data_index=i })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TotalInSGD, new
@@ -425,7 +425,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailVisaVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateVisaTotal(this)", data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailVisaVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculateVisaTotal(this)"*@ data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailVisaVm_' + '@i' + '__Currency').val('@Model.claimDetailVisaVm[i].Currency');
@@ -433,7 +433,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                     </script>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onblur= "CalculateVisaTotal(this);",data_index=i })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailVisaVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
@@ -547,7 +547,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailAccomdationVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculateAccomodationTotal(this)", data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailAccomdationVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculateAccomodationTotal(this)",*@ data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailAccomdationVm_' + '@i' + '__Currency').val('@Model.claimDetailAccomdationVm[i].Currency');
@@ -555,7 +555,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                     </script>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onblur= "CalculateAccomodationTotal(this);",data_index=i })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
@@ -662,7 +662,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                 <td>
                                                                     @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new {
                                                                    @class = "form-control input-sm", @style = "width:100px;",
-                                                                   @onchange = "CalculateTaxilocalTotal(this)",
+                                                                   //@onchange = "CalculateTaxilocalTotal(this)",
                                                                    data_index = i,
                                                                    @required = "required"
                                                                })
@@ -673,7 +673,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                     </script>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;",@onblur= "CalculateTaxilocalTotal(this);",data_index=i })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TotalInSGD, new
@@ -781,7 +781,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculatetaxioverseaTotal(this)", data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculatetaxioverseaTotal(this)",*@ data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailTaxiOverseasVm_' + '@i' + '__Currency').val('@Model.claimDetailTaxiOverseasVm[i].Currency');
@@ -789,7 +789,10 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                     </script>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;",
+                                                                   @onblur = "CalculatetaxioverseaTotal(this)",
+                                                                   data_index = i
+                                                               })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
@@ -886,7 +889,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailFoodLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculatefoodbillslocalTotal(this)", data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailFoodLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculatefoodbillslocalTotal(this)*@ data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailFoodLocalVm_' + '@i' + '__Currency').val('@Model.claimDetailFoodLocalVm[i].Currency');
@@ -894,7 +897,10 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                     </script>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;",
+                                                                   @onblur = "CalculatefoodbillslocalTotal(this)",
+                                                                   data_index = i
+                                                               })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
@@ -991,7 +997,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @onchange = "CalculatefoodbillsoverseasTotal(this)", data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculatefoodbillsoverseasTotal(this)",*@ data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailFoodOverseasVm_' + '@i' + '__Currency').val('@Model.claimDetailFoodOverseasVm[i].Currency');
@@ -999,7 +1005,10 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                     </script>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @readonly = true })
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].ExchangeRate, new { @class = "form-control input-sm decimalCss", @style = "width:100px;",
+                                                                   @onblur = "CalculatefoodbillsoverseasTotal(this)",
+                                                                   data_index = i
+                                                               })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].TotalInSGD, new { @class = "form-control input-sm", @style = "width:100px", @readonly = "readolny" })
@@ -1098,7 +1107,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                {
                                                                    @class = "form-control input-sm",
                                                                    @style = "width:100px;",
-                                                                   @onchange = "CalculateOtherExpensesTotal(this)",
+                                                                   //@onchange = "CalculateOtherExpensesTotal(this)",
                                                                    data_index = i,
                                                                    @required = "required"
                                                                })
@@ -1115,7 +1124,8 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                                                                {
                                                                    @class = "form-control input-sm decimalCss",
                                                                    @style = "width:100px;",
-                                                                   @readonly = true
+                                                                   @onblur = "CalculateOtherExpensesTotal(this)",
+                                                                   data_index = i
                                                                })
                                                                 </td>
                                                                 <td>
@@ -1767,16 +1777,15 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
         }
         // Calculations for AirFare : Start
         function CalculateAirFareTotal(obj) {
-            
+            debugger;
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                debugger;
-                var exrate = parseFloat(data.LookUpCode);
+            //var exrate = $('claimDetailAirfareVm_' + index +'_ExchangeRate').val();
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailAirfareVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
+                //$('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -1803,7 +1812,6 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
         }
 
         function GetExchangeRateByCurrencyCode(currencyCode) {
-            debugger;
             LoadingAnimation();
             var def = $.Deferred();
             $.ajax({
@@ -1811,7 +1819,6 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                 method: 'GET',
                 contentType: 'application/json',
                 success: function (data) {
-                    debugger;
                     StopLoadingAnimation();
                     def.resolve(data);
                 }
@@ -1855,13 +1862,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
         function CalculateVisaTotal(obj){
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailVisaVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailVisaVm_' + index + '__ExchangeRate').val(exrate);
+                //$('#claimDetailVisaVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -1872,7 +1879,6 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
                 var Total = parseFloat(amount * exchangeRate).toFixed(2);
                 Total = parseFloat(Total).toFixed(2);
                 $('#claimDetailVisaVm_' + index + '__TotalInSGD').val(Total);
-                debugger;
                 var length = $('.cssVisaLength').length;
                 var grossTotal = 0;
                 for (var i = 0; i < length; i++) {
@@ -1921,13 +1927,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
         function CalculateAccomodationTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailAccomdationVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val(exrate);
+                //$('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -1988,13 +1994,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val(exrate);
+                //$('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2052,13 +2058,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val(exrate);
+                //$('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2116,13 +2122,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
         function CalculatefoodbillslocalTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailFoodLocalVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val(exrate);
+                //$('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2180,13 +2186,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
         function CalculatefoodbillsoverseasTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
+                //$('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2245,12 +2251,12 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @rea
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val(exrate);
+                //$('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }

@@ -1649,7 +1649,9 @@ namespace HR.Web.Controllers
                 //    }).ToList();
                 for(var i = 0; i < 10; i++)
                 {
+                    var documentType = 2581 + i;
                     var tdcObj = new TravelClaimDocumentVm();
+                    tdcObj.DocumentType = documentType;
                     docVmList.Add(tdcObj);
                 }
 

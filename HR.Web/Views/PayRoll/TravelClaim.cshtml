@@ -505,7 +505,8 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                    {
                                                                        @class = "form-control input-sm dtCssTxt wdCss",
                                                                        required = "required",
-                                                                       style = "width:100px;"
+                                                                       style = "width:100px;",
+                                                                       data_index=i
                                                                    })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
@@ -518,7 +519,8 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                    {
                                                                        @class = "form-control input-sm dtCssTxt wdCss",
                                                                        required = "required",
-                                                                       style = "width:100px;"
+                                                                       style = "width:100px;",
+                                                                       data_index=i
                                                                    })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
@@ -1637,7 +1639,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
             $(".travelDateCss_fromDate").on("dp.change", function (e) {
                 //$('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
                 $('.travelDateCss_ToDate').each(function (index, item) {
-                    $('#claimDetailAccomdationVm_'+index+'__ToDate').val('');
+                    //$('#claimDetailAccomdationVm_'+index+'__ToDate').val('');
                     $('#' + item.id).data("DateTimePicker").minDate(e.date);
                 });
             });
@@ -1663,6 +1665,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
                 });
             }
+            $(".travelDateCss_ToDate").on("dp.change", function (e) {
+                //$('.travelDateCss_ToDate').data("DateTimePicker").minDate(e.date);
+                $('.travelDateCss_fromDate').each(function (index, item) {
+                    //$('#claimDetailAccomdationVm_'+index+'__ToDate').val('');
+                    $('#' + item.id).data("DateTimePicker").maxDate(e.date);
+                });
+            });
 
 
             $('#claimHeader_CountryVisited').multiselect({

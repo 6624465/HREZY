@@ -683,7 +683,7 @@ namespace HR.Web.Controllers
                 var travelCount = travelClaimHeaderBO.GetCount(BRANCHID);
                 travelCount = travelCount + 1;
                 travelClaimVm.claimHeader.ClaimNo = "TRC" + travelCount.ToString("D4");
-                var documentTypes = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE && y.LookUpID == UTILITY.TRAVELCLAIMDOCUMENTID)
+                var documentTypes = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE)
                                         .Select(x => new TravelClaimDocumentVm
                                         {
                                             DocumentType=x.LookUpID,

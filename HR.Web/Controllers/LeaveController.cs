@@ -14,6 +14,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net.Mail;
 using System.Web.Routing;
+using NsExcel = Microsoft.Office.Interop.Excel;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace HR.Web.Controllers
 {
@@ -152,6 +155,7 @@ namespace HR.Web.Controllers
                         Reason = x.B.Reason,
                         LeaveType = dbcntx.LookUps.Where(y => y.LookUpID == x.B.LeaveTypeId).FirstOrDefault().LookUpDescription
                         }).ToList();
+
                 if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {
                     list = query.Where(x => x.Branchid == branchid).OrderBy(x=>x.Branchid).ToList();
@@ -1193,6 +1197,93 @@ namespace HR.Web.Controllers
             holidayListBO.Delete(holidayid);
             return RedirectToAction("HolidayList");
 
+        }
+
+        [HttpPost]
+        public FileResult Excel(int Year, int Month = 0)
+        {
+            List<ExcelEmpLeaveListVm> list = new List<ExcelEmpLeaveListVm>();
+            using (var dbcntx = new HrDataContext())
+            {
+                var query = dbcntx.EmployeeHeaders.Join(
+                    dbcntx.EmployeeLeaveLists,
+                    a => a.EmployeeId, b => b.EmployeeId,
+                    (a, b) => new { A = a, B = b })
+                    .Select(x => new ExcelEmpLeaveListVm
+                    {
+                        EmployeeId = x.B.EmployeeId,
+                        EmployeeName = x.A.FirstName + " " + x.A.LastName,
+                        FromDate = x.B.FromDate,
+                        ToDate = x.B.ToDate,
+                        Status = x.B.Status,
+                        Branchid = x.B.BranchId,
+                        BranchName = dbcntx.Branches.Where(y => y.BranchID == x.B.BranchId).FirstOrDefault().BranchName,
+                        Reason = x.B.Reason,
+                        LeaveType = dbcntx.LookUps.Where(y => y.LookUpID == x.B.LeaveTypeId).FirstOrDefault().LookUpDescription
+                    });                
+
+                if (Month != 0)
+                    query = query.Where(x => x.FromDate.Month == Month);
+
+                query = query.Where(x => x.FromDate.Year == Year);
+
+                if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                {
+                    var selbranchIDStr = Request.Form["hdnBranchID"];
+                    if(!string.IsNullOrWhiteSpace(selbranchIDStr))
+                    {
+                        var selbranchIDInt = Convert.ToInt32(selbranchIDStr);
+                        query = query.Where(x => x.Branchid == selbranchIDInt);
+                    }
+                    query = query.OrderBy(x => x.Branchid).ThenBy(x => x.FromDate);
+                }
+                else
+                {
+                    query = query.Where(x => x.Branchid == BRANCHID).OrderBy(x => x.FromDate);
+                }
+
+                list = query.ToList();
+
+                string myName = Server.UrlEncode("leavelist.xlsx");
+                using (var stream = ListToExcel(list))
+                {
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.AddHeader("content-disposition", "attachment; filename=" + myName);
+                    Response.ContentType = "application/vnd.ms-excel";
+                    Response.BinaryWrite(stream.ToArray());
+                    Response.End();
+                    return File(stream.ToArray(), "application/vnd.ms-excel");
+                }
+            }
+        }
+
+        public MemoryStream ListToExcel(List<ExcelEmpLeaveListVm> list)
+        {
+            using (var fs = new MemoryStream())
+            {
+                var workbook = new XLWorkbook();
+                workbook.AddWorksheet("sheetName");
+                var ws = workbook.Worksheet("sheetName");
+
+                int row = 1;
+                foreach (var item in list)
+                {
+                    ws.Cell("A" + row.ToString()).Value = item.EmployeeId.ToString();
+                    ws.Cell("B" + row.ToString()).Value = item.EmployeeName;
+                    ws.Cell("C" + row.ToString()).Value = item.FromDate.ToString("dd/MM/yyyy");
+                    ws.Cell("D" + row.ToString()).Value = item.ToDate.ToString("dd/MM/yyyy");
+                    ws.Cell("E" + row.ToString()).Value = item.Status;
+                    ws.Cell("F" + row.ToString()).Value = item.BranchName;
+                    ws.Cell("G" + row.ToString()).Value = item.Reason;
+                    ws.Cell("H" + row.ToString()).Value = item.LeaveType;
+
+                    row++;
+                }                
+                workbook.SaveAs(fs);
+                fs.Position = 0;
+                return fs;
+            }
         }
     }
 

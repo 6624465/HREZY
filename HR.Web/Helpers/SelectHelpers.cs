@@ -5,6 +5,7 @@ using System.Web;
 using HR.Web.Controllers;
 using HR.Web.Models;
 using System.Web.Mvc;
+using System.Globalization;
 
 namespace HR.Web.Helpers
 {
@@ -442,6 +443,56 @@ namespace HR.Web.Helpers
                                         };
                 return listItem;
             }
+        }
+
+        public static IEnumerable<SelectListItem> GetMonths()
+        {
+            string[] names = DateTimeFormatInfo.CurrentInfo.MonthNames;
+            string currentMonth = DateTimeFormatInfo.CurrentInfo.GetMonthName(DateTime.Now.Month);            
+
+            List<SelectListItem> listItem = new List<SelectListItem>();
+            SelectListItem sItem = null;
+            int loopCount = 0;
+            for(var i = 0; i < names.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(names[i]))
+                    continue;
+
+                loopCount++;
+                sItem = new SelectListItem {
+                    Text = names[i],
+                    Value = loopCount.ToString(),
+                    Selected = names[i] == currentMonth ? true : false
+                };
+
+                listItem.Add(sItem);
+            }            
+
+            return listItem;
+        }
+
+        public static IEnumerable<SelectListItem> GetYears()
+        {
+            List<SelectListItem> listItem = new List<SelectListItem>();
+            var currentYear = DateTime.Now.Year;
+
+            var obj2 = new SelectListItem
+            {
+                Value = (currentYear - 1).ToString(),
+                Text = (currentYear - 1).ToString(),
+                Selected = false
+            };
+            listItem.Add(obj2);
+
+            var obj1 = new SelectListItem {
+                Value = currentYear.ToString(),
+                Text = currentYear.ToString(),
+                Selected = true
+            };
+            listItem.Add(obj1);
+            
+
+            return listItem;
         }
     }
 }

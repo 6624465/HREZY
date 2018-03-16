@@ -14,6 +14,23 @@
         }
     </style>
 }
+@{
+    var listMonths = new List<SelectListItem>()
+    {
+    new SelectListItem {Text = "January",   Value = "1"},
+    new SelectListItem {Text = "February", Value = "2"},
+    new SelectListItem {Text = "March", Value = "3"},
+    new SelectListItem {Text = "April",   Value = "4"},
+    new SelectListItem {Text = "May", Value = "5"},
+    new SelectListItem {Text = "June", Value = "6"},
+    new SelectListItem {Text = "July",   Value = "7"},
+    new SelectListItem {Text = "August", Value = "8"},
+    new SelectListItem {Text = "September", Value = "9"},
+    new SelectListItem {Text = "October",   Value = "10"},
+    new SelectListItem {Text = "November", Value = "11"},
+    new SelectListItem {Text = "December", Value = "12"}
+    };
+}
 
 <div class="page">
     <div class="page-wrap">
@@ -23,97 +40,116 @@
                     Applied Leave List
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
-                            {
-                                using (Html.BeginForm("AppliedLeaveList", "Leave", FormMethod.Get, new { id = "appliedleavelist", name = "appliedleavelist" }))
+                    @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                    {
+                        <div class="row">
+                            <div class="col-md-3">
+                                @using (Html.BeginForm("AppliedLeaveList", "Leave", FormMethod.Get, new { id = "appliedleavelist", name = "appliedleavelist" }))
                                 {
-                                    @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm", onchange = "getappliedlist(this)" })
+                                @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm", onchange = "getappliedlist(this)" })
                                 }
-                            }
-
+                            </div>
+                            <div class="col-md-9">
+                            </div>
                         </div>
+                    }
+                    @using (Html.BeginForm("Excel", "Leave", FormMethod.Post, new { id = "frmexcel", name = "frmexcel" }))
+                    {
+                        <div class="row" style="padding-top:10px">
+                            <div class="col-md-3">
+                                @Html.DropDownList("Month", SelectListItemHelper.GetMonths(), "All", new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownList("Year", SelectListItemHelper.GetYears(), "Select Year", new { @class = "form-control input-sm" })
+                                @Html.Hidden("hdnBranchID")
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-default btn-sm" onclick="downloadexcel()" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    }
+                    <div class="row" style="padding-top:10px">
                         <div class="col-md-12">
+                            <table class="table table-conden table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Employee Name
+                                        </th>
+                                        <th>
+                                            From Date
+                                        </th>
+                                        <th>
+                                            To Date
+                                        </th>
+                                        <th>
+                                            Type of Leave
+                                        </th>
+                                        <th>
+                                            Reason
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                @for (var i = 0; i < Model.TableData.Count(); i++)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @Model.TableData[i].EmployeeName
+                                            </td>
+                                            <td>
+                                                @Model.TableData[i].FromDate.ToString("dd/MM/yyyy")
+                                            </td>
+                                            <td>
+                                                @Model.TableData[i].ToDate.ToString("dd/MM/yyyy")
+                                            </td>
+                                            <td>
+                                                @Model.TableData[i].LeaveType
+                                            </td>
+                                            <td>
+                                                @Model.TableData[i].Reason
+                                            </td>
+                                            @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
+                                            {
+                                                <td class="control-label">
+                                                    <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                                </td>
+                                            }
+                                            else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
+                                            {
+                                                <td class="control-label">
+                                                    <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                                </td>
+                                            }
+                                            else if (Model.TableData[i].Status == UTILITY.LEAVEPENDING)
+                                            {
+                                                <td class="control-label">
+                                                    <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                                </td>
+                                            }
+                                            else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
+                                            {
+                                                <td class="control-label">
+                                                    <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                                </td>
+                                            }
+                                            else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
+                                            {
+                                                <td class="control-label">
+                                                    <span class="label label-info" style="font-weight:bold;font-size:12px;">Pending</span>
+                                                </td>
+                                            }
+                                        </tr>
+                                    </tbody>
+                                }
+                            </table>
                         </div>
                     </div>
-                    <table class="table table-conden table-bordered">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Employee Name
-                                </th>
-                                <th>
-                                    From Date
-                                </th>
-                                <th>
-                                    To Date
-                                </th>
-                                <th>
-                                    Type of Leave
-                                </th>
-                                <th>
-                                    Reason
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                            </tr>
-                        </thead>
 
-                        @for (var i = 0; i < Model.TableData.Count(); i++)
-                        {
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        @Model.TableData[i].EmployeeName
-                                    </td>
-                                    <td>
-                                        @Model.TableData[i].FromDate.ToString("dd/MM/yyyy")
-                                    </td>
-                                    <td>
-                                        @Model.TableData[i].ToDate.ToString("dd/MM/yyyy")
-                                    </td>
-                                    <td>
-                                        @Model.TableData[i].LeaveType
-                                    </td>
-                                    <td>
-                                        @Model.TableData[i].Reason
-                                    </td>
-                                        @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
-                                        {
-                                            <td class="control-label">
-                                                <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                            </td>
-                                        }
-                                        else if(Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
-                                        {
-                                        <td class="control-label">
-                                            <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                        </td>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.LEAVEPENDING)
-                                        {
-                                            <td class="control-label">
-                                                <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                            </td>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
-                                        {
-                                            <td class="control-label">
-                                                <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                            </td>
-                                        }
-                                        else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
-                                        {
-                                            <td class="control-label">
-                                                <span class="label label-info" style="font-weight:bold;font-size:12px;">Pending</span>
-                                            </td>
-                                        }
-                                </tr>
-                            </tbody>
-                        }
-                    </table>
                     <div class="row">
                         <div class="col-md-12">
                             <div id="pagination"></div>
@@ -145,11 +181,21 @@
                 $(".content3").html("Page " + num); // or some ajax content loading...
             });
         });
-       
+
         function getappliedlist(el) {
             $('#appliedleavelist').submit();
         }
 
+        function downloadexcel() {
+            if ($('#BranchId')) {
+                $('#hdnBranchID').val($('#BranchId').val())
+                debugger;
+            }
+
+            $('#frmexcel').submit();
+            
+        }
+
 
     </script>
-    }
+}

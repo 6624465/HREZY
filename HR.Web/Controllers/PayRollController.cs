@@ -732,7 +732,7 @@ namespace HR.Web.Controllers
                 case UTILITY.AIRFARE:
                     TravelDetailAirfareVm travelDetailAirfareVm = new TravelDetailAirfareVm()
                     {
-                        Receipts = false
+                        Receipts = true
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                     {
@@ -755,7 +755,7 @@ namespace HR.Web.Controllers
                 case UTILITY.VISA:
                     TravelDetailVisaVm travelDetailVisaVm = new TravelDetailVisaVm()
                     {
-                        Receipts = false
+                        Receipts = true
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                     {
@@ -778,7 +778,7 @@ namespace HR.Web.Controllers
                 case UTILITY.ACCOMMODATION:
                     TravelDetailAccomdationVm travelDetailAccomdationVm = new TravelDetailAccomdationVm()
                     {
-                        Receipts = false
+                        Receipts = true
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                     {
@@ -800,7 +800,7 @@ namespace HR.Web.Controllers
                 case UTILITY.TAXILOCAL:
                     TravelDetailTaxiLocalVm travelDetailTaxiLocalVm = new TravelDetailTaxiLocalVm()
                     {
-                        Receipts = false
+                        Receipts = true
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                     {
@@ -826,7 +826,7 @@ namespace HR.Web.Controllers
 
                     TravelDetailTaxiOverseasVm travelDetailTaxiOverseasVm = new TravelDetailTaxiOverseasVm()
                     {
-                        Receipts = false
+                        Receipts = true
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                     {
@@ -852,7 +852,7 @@ namespace HR.Web.Controllers
                 case UTILITY.FOODBILLSLOCAL:
                     TravelDetailFoodLocalVm travelDetailFoodLocalVm = new TravelDetailFoodLocalVm()
                     {
-                        Receipts = false
+                        Receipts = true
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                     {
@@ -876,7 +876,7 @@ namespace HR.Web.Controllers
                 case UTILITY.FOODBILLSOVERSEAS:
                     TravelDetailFoodOverseasVm travelDetailFoodOverseasVm = new TravelDetailFoodOverseasVm()
                     {
-                        Receipts = false
+                        Receipts = true
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                     {
@@ -900,7 +900,7 @@ namespace HR.Web.Controllers
                 case UTILITY.OTHEREXPENSES:
                     TravelDetailOtherExpensesVm travelDetailOtherExpensesVm = new TravelDetailOtherExpensesVm()
                     {
-                        Receipts = false
+                        Receipts = true
                     };
                     if (!string.IsNullOrEmpty(addOrDelVal))
                     {

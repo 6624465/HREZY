@@ -307,7 +307,7 @@ new { @class = "form-control input-sm", @multiple = "multiple", @required = "req
                                                                     {
                                                                         @class = "form-control input-sm",
                                                                         style = "width:100px;",
-                                                                        //onchange = "CalculateAirFareTotal(this);",
+                                                                        onchange = "CalculateAirFareTotal(this);",
                                                                         data_index = i,
                                                                         required = "required"
                                                                     })
@@ -425,7 +425,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailVisaVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculateVisaTotal(this)"*@ data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailVisaVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculateVisaTotal(this)", data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailVisaVm_' + '@i' + '__Currency').val('@Model.claimDetailVisaVm[i].Currency');
@@ -549,7 +549,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailAccomdationVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculateAccomodationTotal(this)",*@ data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailAccomdationVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculateAccomodationTotal(this)", data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailAccomdationVm_' + '@i' + '__Currency').val('@Model.claimDetailAccomdationVm[i].Currency');
@@ -664,7 +664,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                 <td>
                                                                     @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new {
                                                                    @class = "form-control input-sm", @style = "width:100px;",
-                                                                   //@onchange = "CalculateTaxilocalTotal(this)",
+                                                                   onchange = "CalculateTaxilocalTotal(this)",
                                                                    data_index = i,
                                                                    @required = "required"
                                                                })
@@ -783,7 +783,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculatetaxioverseaTotal(this)",*@ data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatetaxioverseaTotal(this)", data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailTaxiOverseasVm_' + '@i' + '__Currency').val('@Model.claimDetailTaxiOverseasVm[i].Currency');
@@ -891,7 +891,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailFoodLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculatefoodbillslocalTotal(this)*@ data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailFoodLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatefoodbillslocalTotal(this)", data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailFoodLocalVm_' + '@i' + '__Currency').val('@Model.claimDetailFoodLocalVm[i].Currency');
@@ -999,7 +999,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", @*@onchange = "CalculatefoodbillsoverseasTotal(this)",*@ data_index = i, @required = "required" })
+                                                                    @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatefoodbillsoverseasTotal(this)", data_index = i, @required = "required" })
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailFoodOverseasVm_' + '@i' + '__Currency').val('@Model.claimDetailFoodOverseasVm[i].Currency');
@@ -1109,7 +1109,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                {
                                                                    @class = "form-control input-sm",
                                                                    @style = "width:100px;",
-                                                                   //@onchange = "CalculateOtherExpensesTotal(this)",
+                                                                   onchange = "CalculateOtherExpensesTotal(this)",
                                                                    data_index = i,
                                                                    @required = "required"
                                                                })
@@ -1789,12 +1789,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
             debugger;
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-            //var exrate = $('claimDetailAirfareVm_' + index +'_ExchangeRate').val();
+                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = $('claimDetailAirfareVm_' + index + '_ExchangeRate').val(data.LookUpCode);
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailAirfareVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
-                //$('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
+                $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -1871,13 +1872,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function CalculateVisaTotal(obj){
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                //var exrate = parseFloat(data.LookUpCode);
+                var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailVisaVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val());
-                //$('#claimDetailVisaVm_' + index + '__ExchangeRate').val(exrate);
+                $('#claimDetailVisaVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -1936,13 +1937,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function CalculateAccomodationTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                //var exrate = parseFloat(data.LookUpCode);
+                var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailAccomdationVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val());
-                //$('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val(exrate);
+                $('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2003,13 +2004,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                //var exrate = parseFloat(data.LookUpCode);
+                var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val());
-                //$('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val(exrate);
+                $('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2067,13 +2068,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                //var exrate = parseFloat(data.LookUpCode);
+                var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val());
-                //$('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val(exrate);
+                $('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2131,13 +2132,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function CalculatefoodbillslocalTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                //var exrate = parseFloat(data.LookUpCode);
+                var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailFoodLocalVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val());
-                //$('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val(exrate);
+                $('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2195,13 +2196,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function CalculatefoodbillsoverseasTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                //var exrate = parseFloat(data.LookUpCode);
+                var exrate = parseFloat(data.LookUpCode);
 
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val());
-                //$('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
+                $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -2260,12 +2261,12 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                //var exrate = parseFloat(data.LookUpCode);
+                var exrate = parseFloat(data.LookUpCode);
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
                 var amount = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val());
-                //$('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val(exrate);
+                $('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val(exrate);
                 if (isNaN(amount)) {
                     amount = 0;
                 }

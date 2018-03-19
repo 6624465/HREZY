@@ -319,7 +319,7 @@ new { @class = "form-control input-sm", @multiple = "multiple", @required = "req
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].ExchangeRate,
-new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onblur = "CalculateAirFareTotal(this);",data_index=i })
+new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onblur = "CalculateAirFareTotal(this);", data_index=i })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TotalInSGD, new
@@ -1789,13 +1789,23 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
             debugger;
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
-                //var exrate = $('claimDetailAirfareVm_' + index + '_ExchangeRate').val(data.LookUpCode);
+                debugger;
+                var exrate = 0;
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                if ($(obj).hasClass('decimalCss')) {
+                    exrate = $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val();
+                }
+                else {
+                    exrate = parseFloat(data.LookUpCode);
+                    $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
+                }
+                
+                //var exrate = $('claimDetailAirfareVm_' + index + '_ExchangeRate').val(data.LookUpCode);
+                
                 var amount = parseFloat($('#claimDetailAirfareVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
-                $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
+                
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -1872,9 +1882,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function CalculateVisaTotal(obj){
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
+                //var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var exrate = 0;
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                if ($(obj).hasClass('decimalCss')) {
+                    exrate = $('#claimDetailVisaVm_' + index + '__ExchangeRate').val();
+                }
+                else {
+                    exrate = parseFloat(data.LookUpCode);
+                    $('#claimDetailVisaVm_' + index + '__ExchangeRate').val(exrate);
+                }
                 var amount = parseFloat($('#claimDetailVisaVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailVisaVm_' + index + '__Currency option:selected').val());
@@ -1937,9 +1956,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function CalculateAccomodationTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
+                //var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var exrate = 0;
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                if ($(obj).hasClass('decimalCss')) {
+                    exrate = $('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val();
+                }
+                else {
+                    exrate = parseFloat(data.LookUpCode);
+                    $('#claimDetailAccomdationVm_' + index + '__ExchangeRate').val(exrate);
+                }
                 var amount = parseFloat($('#claimDetailAccomdationVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailAccomdationVm_' + index + '__Currency option:selected').val());
@@ -2004,9 +2032,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
+                //var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var exrate = 0;
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                if ($(obj).hasClass('decimalCss')) {
+                    exrate = $('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val();
+                }
+                else {
+                    exrate = parseFloat(data.LookUpCode);
+                    $('#claimDetailTaxiLocalVm_' + index + '__ExchangeRate').val(exrate);
+                }
                 var amount = parseFloat($('#claimDetailTaxiLocalVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailTaxiLocalVm_' + index + '__Currency option:selected').val());
@@ -2068,9 +2105,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
+                //var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var exrate = 0;
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                if ($(obj).hasClass('decimalCss')) {
+                    exrate = $('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val();
+                }
+                else {
+                    exrate = parseFloat(data.LookUpCode);
+                    $('#claimDetailTaxiOverseasVm_' + index + '__ExchangeRate').val(exrate);
+                }
                 var amount = parseFloat($('#claimDetailTaxiOverseasVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailTaxiOverseasVm_' + index + '__Currency option:selected').val());
@@ -2132,9 +2178,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function CalculatefoodbillslocalTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
+                //var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var exrate = 0;
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                if ($(obj).hasClass('decimalCss')) {
+                    exrate = $('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val();
+                }
+                else {
+                    exrate = parseFloat(data.LookUpCode);
+                    $('#claimDetailFoodLocalVm_' + index + '__ExchangeRate').val(exrate);
+                }
                 var amount = parseFloat($('#claimDetailFoodLocalVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailFoodLocalVm_' + index + '__Currency option:selected').val());
@@ -2196,9 +2251,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function CalculatefoodbillsoverseasTotal(obj) {
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
 
+                //var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var exrate = 0;
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                if ($(obj).hasClass('decimalCss')) {
+                    exrate = $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val();
+                }
+                else {
+                    exrate = parseFloat(data.LookUpCode);
+                    $('#claimDetailFoodOverseasVm_' + index + '__ExchangeRate').val(exrate);
+                }
                 var amount = parseFloat($('#claimDetailFoodOverseasVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailFoodOverseasVm_' + index + '__Currency option:selected').val());
@@ -2261,8 +2325,17 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
 
             var promise = GetExchangeRateByCurrencyCode(obj.value);
             $.when(promise).done(function (data) {
-                var exrate = parseFloat(data.LookUpCode);
+                //var exrate = parseFloat(data.LookUpCode);
+                //var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                var exrate = 0;
                 var index = $(obj).data('index') == undefined ? obj : $(obj).data('index');
+                if ($(obj).hasClass('decimalCss')) {
+                    exrate = $('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val();
+                }
+                else {
+                    exrate = parseFloat(data.LookUpCode);
+                    $('#claimDetailOtherExpensesVm_' + index + '__ExchangeRate').val(exrate);
+                }
                 var amount = parseFloat($('#claimDetailOtherExpensesVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailOtherExpensesVm_' + index + '__Currency option:selected').val());

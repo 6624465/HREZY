@@ -1263,12 +1263,12 @@ namespace HR.Web.Controllers
             using (var fs = new MemoryStream())
             {
                 var workbook = new XLWorkbook();
-                workbook.AddWorksheet("sheetName");
-                var ws = workbook.Worksheet("sheetName");
+                workbook.AddWorksheet("LeaveList");
+                var ws = workbook.Worksheet("LeaveList");
 
                 int row = 1;
 
-                ws.FirstRow().Style.Font.SetBold(true);
+                ws.FirstRow().Style.Font.SetBold(true);                
 
                 ws.Cell("A" + row.ToString()).Value = "Employee Id";
                 ws.Cell("B" + row.ToString()).Value = "Employee Name";

@@ -12,7 +12,9 @@ using System.Web.Mvc;
 using HR.Web.Helpers;
 using System.IO;
 using System.Web;
-   
+
+using ClosedXML.Excel;
+
 
 namespace HR.Web.Controllers
 {
@@ -726,6 +728,250 @@ namespace HR.Web.Controllers
                     travelclaimobj.claimHeader.ClaimNo;
 
                 return View("TravelClaim", travelclaimobj);
+            }
+        }
+
+        [HttpPost]
+        public FileResult ExcelDownloadTC(int ExcelClaimId)
+        {
+            TravelClaimVm travelclaimobj = gettravelclaimobj(ExcelClaimId);
+
+            string myName = $"travelclaim_{ExcelClaimId}.xlsx";
+            using (var stream = ListToExcel(travelclaimobj))
+            {
+                Response.Clear();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment; filename=" + myName);
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.BinaryWrite(stream.ToArray());
+                Response.End();
+                return File(stream.ToArray(), "application/vnd.ms-excel");
+            }            
+        }
+
+        public MemoryStream ListToExcel(TravelClaimVm travelclaimobj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var workbook = new XLWorkbook();
+                workbook.AddWorksheet("TravelClaim");
+                var ws = workbook.Worksheet("TravelClaim");
+
+                int row = 1;                
+                if(travelclaimobj.claimDetailAirfareVm != null && travelclaimobj.claimDetailAirfareVm.Count > 0)
+                {
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "AirFare";
+                    row++;
+
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Date";
+                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
+                    ws.Cell("D" + row.ToString()).Value = "Amount";
+                    ws.Cell("E" + row.ToString()).Value = "Currency";
+                    ws.Cell("F" + row.ToString()).Value = "Exchange Rate";
+                    ws.Cell("G" + row.ToString()).Value = "Total";
+                    row++;
+
+                    for (var i = 0; i < travelclaimobj.claimDetailAirfareVm.Count;i++)
+                    {
+                        ws.Cell("A" + row.ToString()).Value = travelclaimobj.claimDetailAirfareVm[i].TravelDate.Value.ToString("dd/MM/yyyy");
+                        ws.Cell("B" + row.ToString()).Value = travelclaimobj.claimDetailAirfareVm[i].Perticulars;
+                        ws.Cell("C" + row.ToString()).Value = travelclaimobj.claimDetailAirfareVm[i].Receipts.Value == true ? "Yes" : "No";
+                        ws.Cell("D" + row.ToString()).Value = travelclaimobj.claimDetailAirfareVm[i].Amount.Value.ToString();
+                        ws.Cell("E" + row.ToString()).Value = travelclaimobj.claimDetailAirfareVm[i].Currency;
+                        ws.Cell("F" + row.ToString()).Value = travelclaimobj.claimDetailAirfareVm[i].ExchangeRate.ToString();
+                        ws.Cell("G" + row.ToString()).Value = travelclaimobj.claimDetailAirfareVm[i].TotalInSGD.Value.ToString();
+                        row++;
+                    }
+                }
+
+                row++;
+                if (travelclaimobj.claimDetailVisaVm != null && travelclaimobj.claimDetailVisaVm.Count > 0)
+                {
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Visa";
+                    row++;
+
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Date";
+                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
+                    ws.Cell("D" + row.ToString()).Value = "Amount";
+                    ws.Cell("E" + row.ToString()).Value = "Currency";
+                    ws.Cell("F" + row.ToString()).Value = "Exchange Rate";
+                    ws.Cell("G" + row.ToString()).Value = "Total";
+                    row++;
+
+                    for (var i = 0; i < travelclaimobj.claimDetailVisaVm.Count; i++)
+                    {
+                        ws.Cell("A" + row.ToString()).Value = travelclaimobj.claimDetailVisaVm[i].TravelDate.Value.ToString("dd/MM/yyyy");
+                        ws.Cell("B" + row.ToString()).Value = travelclaimobj.claimDetailVisaVm[i].Perticulars;
+                        ws.Cell("C" + row.ToString()).Value = travelclaimobj.claimDetailVisaVm[i].Receipts.Value == true ? "Yes" : "No";
+                        ws.Cell("D" + row.ToString()).Value = travelclaimobj.claimDetailVisaVm[i].Amount.Value.ToString();
+                        ws.Cell("E" + row.ToString()).Value = travelclaimobj.claimDetailVisaVm[i].Currency;
+                        ws.Cell("F" + row.ToString()).Value = travelclaimobj.claimDetailVisaVm[i].ExchangeRate.ToString();
+                        ws.Cell("G" + row.ToString()).Value = travelclaimobj.claimDetailVisaVm[i].TotalInSGD.Value.ToString();
+                        row++;
+                    }
+                }
+
+                row++;
+                if (travelclaimobj.claimDetailAccomdationVm != null && travelclaimobj.claimDetailAccomdationVm.Count > 0)
+                {
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Accomdation";
+                    row++;
+
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "From Date";
+                    ws.Cell("B" + row.ToString()).Value = "To Date";
+                    ws.Cell("C" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("D" + row.ToString()).Value = "Receipts (Y/N)";
+                    ws.Cell("E" + row.ToString()).Value = "Amount";
+                    ws.Cell("F" + row.ToString()).Value = "Currency";
+                    ws.Cell("G" + row.ToString()).Value = "Exchange Rate";
+                    ws.Cell("H" + row.ToString()).Value = "Total";
+                    row++;
+
+                    for (var i = 0; i < travelclaimobj.claimDetailAccomdationVm.Count; i++)
+                    {
+                        ws.Cell("A" + row.ToString()).Value = travelclaimobj.claimDetailAccomdationVm[i].FromDate.Value.ToString("dd/MM/yyyy");
+                        ws.Cell("B" + row.ToString()).Value = travelclaimobj.claimDetailAccomdationVm[i].ToDate.Value.ToString("dd/MM/yyyy");
+                        ws.Cell("C" + row.ToString()).Value = travelclaimobj.claimDetailAccomdationVm[i].Perticulars;
+                        ws.Cell("D" + row.ToString()).Value = travelclaimobj.claimDetailAccomdationVm[i].Receipts.Value == true ? "Yes" : "No";
+                        ws.Cell("E" + row.ToString()).Value = travelclaimobj.claimDetailAccomdationVm[i].Amount.Value.ToString();
+                        ws.Cell("F" + row.ToString()).Value = travelclaimobj.claimDetailAccomdationVm[i].Currency;
+                        ws.Cell("G" + row.ToString()).Value = travelclaimobj.claimDetailAccomdationVm[i].ExchangeRate.ToString();
+                        ws.Cell("H" + row.ToString()).Value = travelclaimobj.claimDetailAccomdationVm[i].TotalInSGD.Value.ToString();
+                        row++;
+                    }
+                }
+
+                row++;
+                if (travelclaimobj.claimDetailTaxiLocalVm != null && travelclaimobj.claimDetailTaxiLocalVm.Count > 0)
+                {
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Taxi Fares";
+                    row++;
+
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Date";
+                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
+                    ws.Cell("D" + row.ToString()).Value = "Amount";
+                    ws.Cell("E" + row.ToString()).Value = "Currency";
+                    ws.Cell("F" + row.ToString()).Value = "Exchange Rate";
+                    ws.Cell("G" + row.ToString()).Value = "Total";
+                    row++;
+
+                    for (var i = 0; i < travelclaimobj.claimDetailTaxiLocalVm.Count; i++)
+                    {
+                        ws.Cell("A" + row.ToString()).Value = travelclaimobj.claimDetailTaxiLocalVm[i].TravelDate.Value.ToString("dd/MM/yyyy");
+                        ws.Cell("B" + row.ToString()).Value = travelclaimobj.claimDetailTaxiLocalVm[i].Perticulars;
+                        ws.Cell("C" + row.ToString()).Value = travelclaimobj.claimDetailTaxiLocalVm[i].Receipts.Value == true ? "Yes" : "No";
+                        ws.Cell("D" + row.ToString()).Value = travelclaimobj.claimDetailTaxiLocalVm[i].Amount.Value.ToString();
+                        ws.Cell("E" + row.ToString()).Value = travelclaimobj.claimDetailTaxiLocalVm[i].Currency;
+                        ws.Cell("F" + row.ToString()).Value = travelclaimobj.claimDetailTaxiLocalVm[i].ExchangeRate.ToString();
+                        ws.Cell("G" + row.ToString()).Value = travelclaimobj.claimDetailTaxiLocalVm[i].TotalInSGD.Value.ToString();
+                        row++;
+                    }
+                }
+
+                row++;
+                if (travelclaimobj.claimDetailTaxiOverseasVm != null && travelclaimobj.claimDetailTaxiOverseasVm.Count > 0)
+                {
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Taxi Overseas Fares";
+                    row++;
+
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Date";
+                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
+                    ws.Cell("D" + row.ToString()).Value = "Amount";
+                    ws.Cell("E" + row.ToString()).Value = "Currency";
+                    ws.Cell("F" + row.ToString()).Value = "Exchange Rate";
+                    ws.Cell("G" + row.ToString()).Value = "Total";
+                    row++;
+
+                    for (var i = 0; i < travelclaimobj.claimDetailTaxiLocalVm.Count; i++)
+                    {
+                        ws.Cell("A" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].TravelDate.Value.ToString("dd/MM/yyyy");
+                        ws.Cell("B" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].Perticulars;
+                        ws.Cell("C" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].Receipts.Value == true ? "Yes" : "No";
+                        ws.Cell("D" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].Amount.Value.ToString();
+                        ws.Cell("E" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].Currency;
+                        ws.Cell("F" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].ExchangeRate.ToString();
+                        ws.Cell("G" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].TotalInSGD.Value.ToString();
+                        row++;
+                    }
+                }
+
+                row++;
+                if (travelclaimobj.claimDetailFoodLocalVm != null && travelclaimobj.claimDetailFoodLocalVm.Count > 0)
+                {
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Food Bills";
+                    row++;
+
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Date";
+                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
+                    ws.Cell("D" + row.ToString()).Value = "Amount";
+                    ws.Cell("E" + row.ToString()).Value = "Currency";
+                    ws.Cell("F" + row.ToString()).Value = "Exchange Rate";
+                    ws.Cell("G" + row.ToString()).Value = "Total";
+                    row++;
+
+                    for (var i = 0; i < travelclaimobj.claimDetailFoodLocalVm.Count; i++)
+                    {
+                        ws.Cell("A" + row.ToString()).Value = travelclaimobj.claimDetailFoodLocalVm[i].TravelDate.Value.ToString("dd/MM/yyyy");
+                        ws.Cell("B" + row.ToString()).Value = travelclaimobj.claimDetailFoodLocalVm[i].Perticulars;
+                        ws.Cell("C" + row.ToString()).Value = travelclaimobj.claimDetailFoodLocalVm[i].Receipts.Value == true ? "Yes" : "No";
+                        ws.Cell("D" + row.ToString()).Value = travelclaimobj.claimDetailFoodLocalVm[i].Amount.Value.ToString();
+                        ws.Cell("E" + row.ToString()).Value = travelclaimobj.claimDetailFoodLocalVm[i].Currency;
+                        ws.Cell("F" + row.ToString()).Value = travelclaimobj.claimDetailFoodLocalVm[i].ExchangeRate.ToString();
+                        ws.Cell("G" + row.ToString()).Value = travelclaimobj.claimDetailFoodLocalVm[i].TotalInSGD.Value.ToString();
+                        row++;
+                    }
+                }
+
+                row++;
+                if (travelclaimobj.claimDetailFoodOverseasVm != null && travelclaimobj.claimDetailFoodOverseasVm.Count > 0)
+                {
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Food Bills Overseas";
+                    row++;
+
+                    ws.Row(row).Style.Font.SetBold(true);
+                    ws.Cell("A" + row.ToString()).Value = "Date";
+                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
+                    ws.Cell("D" + row.ToString()).Value = "Amount";
+                    ws.Cell("E" + row.ToString()).Value = "Currency";
+                    ws.Cell("F" + row.ToString()).Value = "Exchange Rate";
+                    ws.Cell("G" + row.ToString()).Value = "Total";
+                    row++;
+
+                    for (var i = 0; i < travelclaimobj.claimDetailFoodOverseasVm.Count; i++)
+                    {
+                        ws.Cell("A" + row.ToString()).Value = travelclaimobj.claimDetailFoodOverseasVm[i].TravelDate.Value.ToString("dd/MM/yyyy");
+                        ws.Cell("B" + row.ToString()).Value = travelclaimobj.claimDetailFoodOverseasVm[i].Perticulars;
+                        ws.Cell("C" + row.ToString()).Value = travelclaimobj.claimDetailFoodOverseasVm[i].Receipts.Value == true ? "Yes" : "No";
+                        ws.Cell("D" + row.ToString()).Value = travelclaimobj.claimDetailFoodOverseasVm[i].Amount.Value.ToString();
+                        ws.Cell("E" + row.ToString()).Value = travelclaimobj.claimDetailFoodOverseasVm[i].Currency;
+                        ws.Cell("F" + row.ToString()).Value = travelclaimobj.claimDetailFoodOverseasVm[i].ExchangeRate.ToString();
+                        ws.Cell("G" + row.ToString()).Value = travelclaimobj.claimDetailFoodOverseasVm[i].TotalInSGD.Value.ToString();
+                        row++;
+                    }
+                }
+
+                workbook.SaveAs(ms);
+                ms.Position = 0;
+                return ms;
             }
         }
 

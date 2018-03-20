@@ -489,7 +489,7 @@
                                             @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file",@disabled= "disabled" })
                                         </td>*@
                                         <td>
-                                                <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank">download</a>
+                                                <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank" download="@Model.claimDocumentVm[i].fileName">download</a>
                                         </td>
                                         @*<td>
                                                 <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"

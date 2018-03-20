@@ -534,7 +534,7 @@
           <Property Name="Perticulars" Type="nvarchar" MaxLength="250" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Currency" Type="nvarchar" MaxLength="10" />
-          <Property Name="ExchangeRate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExchangeRate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="TotalInSGD" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -1308,7 +1308,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="Receipts" Type="Boolean" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Currency" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="ExchangeRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExchangeRate" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="TotalInSGD" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />

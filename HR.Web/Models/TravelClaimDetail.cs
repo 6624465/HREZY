@@ -21,7 +21,7 @@ namespace HR.Web.Models
         public Nullable<bool> Receipts { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string Currency { get; set; }
-        public Nullable<decimal> ExchangeRate { get; set; }
+        public decimal ExchangeRate { get; set; }
         public Nullable<decimal> TotalInSGD { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

@@ -1194,7 +1194,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                         <td>
                                                             @if (!string.IsNullOrWhiteSpace(Model.claimDocumentVm[i].fileName))
                                                             {
-                                                            <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank">download</a>
+                                                            <a download="@Model.claimDocumentVm[i].fileName" href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank">download</a>
                                                             }
                                                         </td>
                                                         <td>

@@ -1267,8 +1267,22 @@ namespace HR.Web.Controllers
                 var ws = workbook.Worksheet("sheetName");
 
                 int row = 1;
+
+                ws.FirstRow().Style.Font.SetBold(true);
+
+                ws.Cell("A" + row.ToString()).Value = "Employee Id";
+                ws.Cell("B" + row.ToString()).Value = "Employee Name";
+                ws.Cell("C" + row.ToString()).Value = "From Date";
+                ws.Cell("D" + row.ToString()).Value = "To Date";
+                ws.Cell("E" + row.ToString()).Value = "Status";
+                ws.Cell("F" + row.ToString()).Value = "Branch Name";
+                ws.Cell("G" + row.ToString()).Value = "Reason";
+                ws.Cell("H" + row.ToString()).Value = "Leave Type";
+
+                row++;
                 foreach (var item in list)
                 {
+                    
                     ws.Cell("A" + row.ToString()).Value = item.EmployeeId.ToString();
                     ws.Cell("B" + row.ToString()).Value = item.EmployeeName;
                     ws.Cell("C" + row.ToString()).Value = item.FromDate.ToString("dd/MM/yyyy");

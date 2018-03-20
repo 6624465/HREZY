@@ -274,7 +274,7 @@ new { @class = "form-control input-sm", @multiple = "multiple", @required = "req
                                                                 <td>
                                                                     @Html.HiddenFor(x => x.claimDetailAirfareVm[i].TravelClaimDetailId)
 
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateAirfare_@i">
+                                                                    <div class="input-group date dtCss dateCss" id="TravelDateAirfare_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
@@ -398,7 +398,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                             <tr id="tr_@i" class="cssVisaLength">
                                                                 @Html.HiddenFor(x => x.claimDetailVisaVm[i].TravelClaimDetailId)
                                                                 <td>
-                                                                    <div class="input-group date dtCss travelDateCss" id="TravelDateVisa_@i">
+                                                                    <div class="input-group date dtCss dateCss" id="TravelDateVisa_@i">
                                                                         @Html.TextBoxFor(x => x.claimDetailVisaVm[i].TravelDate, new { @class = "form-control input-sm dtCssTxt wdCss", required = "required", style = "width:100px;" })
                                                                         <span class="input-group-addon on-click cal-cal-icon">
                                                                             <i class="ion ion-calendar"></i>
@@ -1629,6 +1629,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('.travelDateCss').data("DateTimePicker").minDate(e.date);
                 if ($('.travelDateCss_fromDate').length > 0)
                     $('.travelDateCss_fromDate').data("DateTimePicker").minDate(e.date);
+                
             });
             $(".dtCssToDate").on("dp.change", function (e) {
                 if ($('.travelDateCss').length > 0)
@@ -1672,7 +1673,14 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('#' + item.id).data("DateTimePicker").maxDate(e.date);
                 });
             });
-
+            if($('.dateCss').length > 0){
+                $('.dateCss').data("DateTimePicker").maxDate(date);
+            }
+            $('.dateCss').each(function (index, item) {
+                $('#' + item.id).data("DateTimePicker").maxDate(date);
+            });
+               
+           
 
             $('#claimHeader_CountryVisited').multiselect({
                 includeSelectAllOption: true

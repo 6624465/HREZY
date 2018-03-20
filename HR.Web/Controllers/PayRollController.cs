@@ -34,6 +34,7 @@ namespace HR.Web.Controllers
         BranchBO branchBO = null;
         EmployeeDocumentDetailBO empDocDetailBO = null;
         LookUpBO lookUpBo = null;
+        EmployeeHeaderBO empHeaderBO = null;
         public PayRollController()
         {
             salaryRuleBO = new SalaryRuleBO(SESSIONOBJ);
@@ -50,6 +51,7 @@ namespace HR.Web.Controllers
             branchBO = new BranchBO(SESSIONOBJ);
             lookUpBo = new LookUpBO(SESSIONOBJ);
             empDocDetailBO = new EmployeeDocumentDetailBO(SESSIONOBJ);
+            empHeaderBO = new EmployeeHeaderBO(SESSIONOBJ);
         }
         // GET: PayRoll
         public ActionResult PayRollInfo()
@@ -655,6 +657,18 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult TravelClaimList(int? page = 1)
         {
+
+
+            var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+            if (empHeader != null)
+            {
+                int managerId = empHeader.ManagerId == null ? 0 : empHeader.ManagerId.Value;
+                if (managerId == 0)
+                {
+                    return View("Error");
+                }
+            }
+
             ViewData["RoleCode"] = ROLECODE;
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skip = (page.Value - 1) * offset;

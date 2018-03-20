@@ -125,6 +125,20 @@ namespace HR.Web.Controllers
                 using (var dbCntx = new HrDataContext())
                 {
                     EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
+                    var empheader = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault();
+                    var managername = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == empheader.ManagerId).FirstOrDefault();
+                    if (empheader != null)
+                    {
+                        int managerId = empheader.ManagerId == null ? 0 : empheader.ManagerId.Value;
+                        if (managerId == 0)
+                        {
+                            ViewData["message"] = "You Don't Have Reporting Manger";
+                        }
+                        else
+                        {
+                            ViewData["message"] = "Your Reporting manager is" + " " + managername.FirstName + " " + managername.LastName;
+                        }
+                    }
                     var query = dbCntx.EmployeeLeaveLists
                                             .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
                     var empLeaveDetails = query.OrderByDescending(x => x.EmployeeLeaveID)

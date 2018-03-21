@@ -57,10 +57,10 @@
                                 </th>
                             </tr>
                         </thead>
+                        <tbody>
+                            @for (var i = 0; i < Model.TableData.Count(); i++)
+                            {
 
-                        @for (var i = 0; i < Model.TableData.Count(); i++)
-                        {
-                            <tbody>
                                 <tr>
                                     <td>
                                         @Model.TableData[i].Name
@@ -77,12 +77,14 @@
                                             <i class="fa fa-pencil" style="padding-left: 5px;"></i>
                                         </button>
                                         @*<button class="btn btn-xs btn-danger waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteRecord(@Model.TableData[i].ContributionId)">
-                                                <i class="fa fa-trash-o" style="padding-left: 5px;" aria-hidden="true"> </i>
-                                            </button>*@
+                            <i class="fa fa-trash-o" style="padding-left: 5px;" aria-hidden="true"> </i>
+                        </button>*@
                                     </td>
                                 </tr>
-                            </tbody>
-                        }
+
+                            }
+                        </tbody>
+
                     </table>
                     <div class="row">
                         <div class="col-md-12">

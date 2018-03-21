@@ -116,32 +116,42 @@
                                             @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)
                                             {
                                                 <td class="control-label">
-                                                    <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                                </td>
+                                                    <label class="control-label">
+                                                        <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                                    </label>
+                                               </td>
                                             }
                                             else if (Model.TableData[i].Status == UTILITY.LEAVECANCELLED)
                                             {
                                                 <td class="control-label">
-                                                    <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                                </td>
+                                                    <label class="control-label">
+                                                        <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                                        </label>
+                                                 </td>
                                             }
                                             else if (Model.TableData[i].Status == UTILITY.LEAVEPENDING)
                                             {
                                                 <td class="control-label">
-                                                    <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                                </td>
+                                                    <label class="control-label">
+                                                        <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                                                        </label>
+                                                  </td>
                                             }
                                             else if (Model.TableData[i].Status == UTILITY.LEAVEREJECTED)
                                             {
                                                 <td class="control-label">
+                                                    <label class="control-label">
                                                     <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                                </td>
+                                                </label>
+                                                        </td>
                                             }
                                             else if (string.IsNullOrWhiteSpace(Model.TableData[i].Status))
                                             {
                                                 <td class="control-label">
-                                                    <span class="label label-info" style="font-weight:bold;font-size:12px;">Pending</span>
-                                                </td>
+                                                    <label class="control-label">
+                                                        <span class="label label-info" style="font-weight:bold;font-size:12px;">Pending</span>
+                                                   </label>
+                                                        </td>
                                             }
                                         </tr>
 

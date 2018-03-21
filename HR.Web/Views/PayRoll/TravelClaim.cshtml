@@ -1777,7 +1777,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
 
 
             debugger;
-            if (isOneChecked && isFileUploaded) {
+            if ((isOneChecked && isFileUploaded) || !isOneChecked) {
                 if ($('#frmClaim').valid()) {
                     $('#frmClaim').attr('action', '@Url.Content("~/Payroll/TravelClaimSave")');
                     $('#frmClaim').submit();

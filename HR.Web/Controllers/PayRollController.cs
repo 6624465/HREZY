@@ -1938,6 +1938,21 @@ namespace HR.Web.Controllers
             empDocDetailBO.Delete(docdetailid);
             return RedirectToAction("TravelClaim","PayRoll",new { travelClaimId = travelclaimid });
         }
+
+        public ActionResult ApprovedClaimsList(int? page=1)
+        {
+            var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+            int skip = (page.Value - 1) * offset;
+            var approvedlist = travelClaimHeaderBO.GetListByProperty(x => x.Status == UTILITY.TRAVELCLAIMAPPROVED && x.BranchId == BRANCHID);
+            var count = approvedlist.Count();
+            decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+            HtmlTblVm<TravelClaimHeader> HtmlTblVm = new HtmlTblVm<TravelClaimHeader>();
+            HtmlTblVm.TableData = approvedlist.Skip(skip).Take(offset).ToList();
+            HtmlTblVm.TotalRows = count;
+            HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+            HtmlTblVm.CurrentPage = page.Value;
+            return View(HtmlTblVm);
+        }
     }
 }
    

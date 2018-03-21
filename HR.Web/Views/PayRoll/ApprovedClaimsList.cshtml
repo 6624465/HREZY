@@ -1,0 +1,129 @@
+﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.Models.TravelClaimHeader>
+@section Styles{
+    <style>
+        .pagination {
+            display: table;
+            margin: 15px auto;
+            position: relative;
+            float: right;
+        }
+
+        .width {
+            width: 60%;
+        }
+    </style>
+}
+
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="center-block width">
+                <div class="panel-heading">
+                    Approved Claims List
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Claim No</th>
+                                <th>Employee Name</th>
+                                <th>
+                                    Submitted On
+                                </th>
+                                <th>
+                                    Total Claim
+                                </th>
+                                <th>
+                                    View
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < Model.TableData.Count(); i++)
+                            {
+                                <tr>
+                                    <td>@Model.TableData[i].ClaimNo</td>
+                                    <td>@Model.TableData[i].Name</td>
+                                    <td>
+                                        @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>@Model.TableData[i].GrossTotal</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.TableData[i].TravelClaimId)">
+                                            <i class="fa fa-eye"></i>
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="myPreviewModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width:1250px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><b>Preview</b></h4>
+                <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" id="modalContent1">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $('#li_claims').addClass('open');
+            $('#li_Approvedlist').addClass('active');
+            $('#pagination').bootpag({
+                total: @Model.PageLength,
+                page: @Model.CurrentPage,
+                maxVisible: 10,
+                href: '@Url.Content("~/PayRoll/ApprovedClaimsList?page="){{number}}',  //"#pro-page-{{number}}",
+                leaps: false,
+                next: 'Next',
+                prev: 'Prev',
+                wrapClass: 'pagination pagination-sm'
+            }).on('page', function (event, num) {
+                $(".content3").html("Page " + num); // or some ajax content loading...
+            });
+        });
+        function view(travelclaimid) {
+            $.ajax({
+                url: '@Url.Content("~/PayRoll/PreviewTravelClaim?TravelClaimId=")' + travelclaimid,
+                contentType: 'text/html',
+                method: 'GET',
+                success: function (data) {
+                    $('#myPreviewModal').modal('show');
+                    $('#modalContent1').html('');
+                    $('#modalContent1').html(data);
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+
+    </script>
+}

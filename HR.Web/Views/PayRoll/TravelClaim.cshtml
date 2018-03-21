@@ -2310,7 +2310,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 if (isNaN(exchangeRate)) {
                     exchangeRate = 1;
                 }
-                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                var Total = parseFloat(amount / exchangeRate).toFixed(2);
                 Total = parseFloat(Total).toFixed(2);
                 $('#claimDetailFoodOverseasVm_' + index + '__TotalInSGD').val(Total);
                 debugger;
@@ -2383,7 +2383,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 if (isNaN(exchangeRate)) {
                     exchangeRate = 1;
                 }
-                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                var Total = parseFloat(amount / exchangeRate).toFixed(2);
                 Total = parseFloat(Total).toFixed(2);
                 $('#claimDetailOtherExpensesVm_' + index + '__TotalInSGD').val(Total);
                 debugger;

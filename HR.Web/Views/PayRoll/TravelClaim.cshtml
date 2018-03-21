@@ -1849,7 +1849,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 if (isNaN(exchangeRate)) {
                     exchangeRate = 1;
                 }
-                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                var Total = parseFloat(amount / exchangeRate).toFixed(2);
                 Total = parseFloat(Total).toFixed(2);
                 $('#claimDetailAirfareVm_' + index + '__TotalInSGD').val(Total);
 
@@ -1941,7 +1941,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 if (isNaN(exchangeRate)) {
                     exchangeRate = 1;
                 }
-                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                var Total = parseFloat(amount / exchangeRate).toFixed(2);
                 Total = parseFloat(Total).toFixed(2);
                 $('#claimDetailVisaVm_' + index + '__TotalInSGD').val(Total);
                 var length = $('.cssVisaLength').length;
@@ -2015,7 +2015,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 if (isNaN(exchangeRate)) {
                     exchangeRate = 1;
                 }
-                var Total = parseFloat(amount * exchangeRate).toFixed(2);
+                var Total = parseFloat(amount / exchangeRate).toFixed(2);
                 Total = parseFloat(Total).toFixed(2);
                 $('#claimDetailAccomdationVm_' + index + '__TotalInSGD').val(Total);
                 debugger;

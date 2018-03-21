@@ -28,24 +28,25 @@
                 top: 49%;
                 left: 50%;
             }
-            .width{
-                width:60%;
-            }
-            .panel-default>span{
-                margin-left:10px;
-                line-height:2;
-                margin-bottom:0;
-                padding:15px;
-                
-            }
+
+        .width {
+            width: 60%;
+        }
+
+        .panel-default > span {
+            margin-left: 10px;
+            line-height: 2;
+            margin-bottom: 0;
+            padding: 15px;
+        }
     </style>
 }
 <div class="page page-dashboard">
     <div class="panel panel-default panel-heading"><span>Employee Profile</span></div>
-    <br/>
+    <br />
     <div class="page-wrap">
-       
-        <div class="row">            
+
+        <div class="row">
             <div class="col-md-4">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="piedemo clearfix">
@@ -73,7 +74,7 @@
                         <p class="mt0 mb0 left"><span style="font-weight:bold;">Earned Sick Leaves</span></p>
                     </div>
                 </div>
-                
+
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
@@ -154,23 +155,34 @@
                                                     <td>
                                                         @if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEAPPROVED)
                                                         {
-                                                            <span class="label label-success" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            <label class="control-label">
+                                                                <span class="label label-success" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            </label>
+
                                                         }
                                                         else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEREJECTED)
                                                         {
-                                                            <span class="label label-danger" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            <label class="control-label">
+                                                                <span class="label label-danger" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            </label>
                                                         }
                                                         else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVECANCELLED)
                                                         {
-                                                            <span class="label label-primary" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            <label class="control-label">
+                                                                <span class="label label-primary" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            </label>
                                                         }
                                                         else if (string.IsNullOrWhiteSpace(Model.empLeaveDashBoard.ElementAt(i).Status))
                                                         {
-                                                            <span class="label label-info" style="font-weight:bold;font-size:12px;color:white;">Pending</span>
+                                                            <label class="control-label">
+                                                                <span class="label label-info" style="font-weight:bold;font-size:12px;color:white;">Pending</span>
+                                                            </label>
                                                         }
                                                         else if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEPENDING)
                                                         {
-                                                            <span class="label label-info" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            <label class="control-label">
+                                                                <span class="label label-info" style="font-weight:bold;font-size:12px;color:white;">@Model.empLeaveDashBoard.ElementAt(i).Status</span>
+                                                            </label>
                                                         }
                                                     </td>
                                                 </tr>

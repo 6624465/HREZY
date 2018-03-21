@@ -1,10 +1,11 @@
 ﻿@model  HR.Web.ViewModels.TravelClaimVm
-    @section Styles{
-        <style>
-            .table tr th a {
-                color: #000;
-            }
-             .top > th {
+@section Styles{
+    <style>
+        .table tr th a {
+            color: #000;
+        }
+
+        .top > th {
             background: #ccc !important;
         }
 
@@ -12,459 +13,462 @@
             background-color: #fff;
             color: #000;
         }
+
         .table > thead > tr > th, .table > tbody > tr > td, .table > tfoot > tr > td {
             padding-left: 10px;
             padding-right: 10px;
         }
-      
-        </style>
-        }
-    @{ 
-        var AirFare="AirFare";
-        var Visa = "Visa";
-        var Accomodation = "Accomodation";
-        var TaxiFaresLocal = "Taxi Fares Local";
-        var TaxiFaresOverseas = "Taxi Fares Overseas";
-        var FoodBillsLocal = "Food Bills Local";
-        var FoodBillsOverseas = "Food Bills Overseas";
-        var OtherExpenses = "Other Expenses";
-        var NO = "No";
-        var YES = "Yes";
-        var UPLOADFILES = "UploadFiles";
-        var documentsPath = ViewData["documentsPath"];
-        var travelclaimobj = Model.claimDocumentVm.Where(x => x.EmployeeId==Model.claimHeader.TravelClaimId).FirstOrDefault();
-        int detailid = 0;
-        var filename = "";
-        if (travelclaimobj != null)
-        {
-            detailid = travelclaimobj.DocumentDetailId;
-            filename = travelclaimobj.fileName;
-        }
+    </style>
+}
+@{
+    var AirFare = "AirFare";
+    var Visa = "Visa";
+    var Accomodation = "Accomodation";
+    var TaxiFaresLocal = "Taxi Fares Local";
+    var TaxiFaresOverseas = "Taxi Fares Overseas";
+    var FoodBillsLocal = "Food Bills Local";
+    var FoodBillsOverseas = "Food Bills Overseas";
+    var OtherExpenses = "Other Expenses";
+    var NO = "No";
+    var YES = "Yes";
+    var UPLOADFILES = "UploadFiles";
+    var documentsPath = ViewData["documentsPath"];
+    var travelclaimobj = Model.claimDocumentVm.Where(x => x.EmployeeId == Model.claimHeader.TravelClaimId).FirstOrDefault();
+    int detailid = 0;
+    var filename = "";
+    if (travelclaimobj != null)
+    {
+        detailid = travelclaimobj.DocumentDetailId;
+        filename = travelclaimobj.fileName;
     }
-                    <div class="row">
-                        <div class="col-md-12">
-                        @if (Model.claimDetailAirfareVm != null && Model.claimDetailAirfareVm.Count() > 0)
-                        {
-                            @AirFare
-                           
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Perticulars</th>
-                                        <th>Receipts (Y/N)</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Exchange Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.claimDetailAirfareVm.Count(); i++)
-                                    {
-                                       
-                                            <tr>
-                                                <td>@Model.claimDetailAirfareVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
-                                                <td>@Model.claimDetailAirfareVm.ElementAt(i).Perticulars</td>
-                                                <td>
-                                                    @if (Model.claimDetailAirfareVm.ElementAt(i).Receipts == false)
-                                                    {
-                                                        @NO
-                                                    }
-                                                    else
-                                                    {
-                                                        @YES
-                                                    }
-                                                </td>
-                                                <td>@Model.claimDetailAirfareVm.ElementAt(i).Amount</td>
-                                                <td>@Model.claimDetailAirfareVm.ElementAt(i).Currency</td>
-                                                <td>@Model.claimDetailAirfareVm.ElementAt(i).ExchangeRate</td>
-                                                <td>@Model.claimDetailAirfareVm.ElementAt(i).TotalInSGD</td>
-                                            </tr>
-                                    }
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>@Model.claimHeader.claimDetailAirfareTotal</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                           
-                        }
-            @if (Model.claimDetailVisaVm != null && Model.claimDetailVisaVm.Count() > 0)
+}
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.claimDetailAirfareVm != null && Model.claimDetailAirfareVm.Count() > 0)
+        {
+            @AirFare
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Perticulars</th>
+                        <th>Receipts (Y/N)</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Exchange Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.claimDetailAirfareVm.Count(); i++)
+                    {
+
+                        <tr>
+                            <td>@Model.claimDetailAirfareVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailAirfareVm.ElementAt(i).Perticulars</td>
+                            <td>
+                                @if (Model.claimDetailAirfareVm.ElementAt(i).Receipts == false)
+                                {
+                                    @NO
+                                }
+                                else
+                                {
+                                    @YES
+                                }
+                            </td>
+                            <td>@Model.claimDetailAirfareVm.ElementAt(i).Amount</td>
+                            <td>@Model.claimDetailAirfareVm.ElementAt(i).Currency</td>
+                            <td>@Model.claimDetailAirfareVm.ElementAt(i).ExchangeRate</td>
+                            <td>@Model.claimDetailAirfareVm.ElementAt(i).TotalInSGD</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.claimHeader.claimDetailAirfareTotal</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        }
+        @if (Model.claimDetailVisaVm != null && Model.claimDetailVisaVm.Count() > 0)
             {
-                @Visa
-                        <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Perticulars</th>
-                                        <th>Receipts (Y/N)</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Exchange Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.claimDetailVisaVm.Count(); i++)
-                                    {
+            @Visa
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Perticulars</th>
+                        <th>Receipts (Y/N)</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Exchange Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.claimDetailVisaVm.Count(); i++)
+                    {
 
-                                    <tr>
-                                        <td>@Model.claimDetailVisaVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
-                                        <td>@Model.claimDetailVisaVm.ElementAt(i).Perticulars</td>
-                                        <td>
-                                            @if (Model.claimDetailVisaVm.ElementAt(i).Receipts == false)
-                                            {
-                                                @NO
-                                            }
-                                            else
-                                            {
-                                                @YES
-                                            }
-                                        </td>
-                                        <td>@Model.claimDetailVisaVm.ElementAt(i).Amount</td>
-                                        <td>@Model.claimDetailVisaVm.ElementAt(i).Currency</td>
-                                        <td>@Model.claimDetailVisaVm.ElementAt(i).ExchangeRate</td>
-                                        <td>@Model.claimDetailVisaVm.ElementAt(i).TotalInSGD</td>
-                                    </tr>
-                                    }
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>@Model.claimHeader.claimDetailVisaTotal</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                        }
-@if (Model.claimDetailAccomdationVm != null && Model.claimDetailAccomdationVm.Count() > 0)
-{
-    @Accomodation
+                        <tr>
+                            <td>@Model.claimDetailVisaVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailVisaVm.ElementAt(i).Perticulars</td>
+                            <td>
+                                @if (Model.claimDetailVisaVm.ElementAt(i).Receipts == false)
+                                {
+                                    @NO
+                                }
+                                else
+                                {
+                                    @YES
+                                }
+                            </td>
+                            <td>@Model.claimDetailVisaVm.ElementAt(i).Amount</td>
+                            <td>@Model.claimDetailVisaVm.ElementAt(i).Currency</td>
+                            <td>@Model.claimDetailVisaVm.ElementAt(i).ExchangeRate</td>
+                            <td>@Model.claimDetailVisaVm.ElementAt(i).TotalInSGD</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.claimHeader.claimDetailVisaTotal</td>
+                    </tr>
+                </tbody>
+            </table>
 
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>FromDate</th>
-                                        <th>ToDate</th>
-                                        <th>Perticulars</th>
-                                        <th>Receipts (Y/N)</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Exchange Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.claimDetailAccomdationVm.Count(); i++)
-                                    {
-                                    <tr>
-                                        <td>@Model.claimDetailAccomdationVm.ElementAt(i).FromDate.Value.ToShortDateString()</td>
-                                        <td>@Model.claimDetailAccomdationVm.ElementAt(i).ToDate.Value.ToShortDateString()</td>
-                                        <td>@Model.claimDetailAccomdationVm.ElementAt(i).Perticulars</td>
-                                        <td>
-                                            @if (Model.claimDetailAccomdationVm.ElementAt(i).Receipts == false)
-                                            {
-                                                @NO
-                                            }
-                                            else
-                                            {
-                                                @YES
-                                            }
-                                        </td>
-                                        <td>@Model.claimDetailAccomdationVm.ElementAt(i).Amount</td>
-                                        <td>@Model.claimDetailAccomdationVm.ElementAt(i).Currency</td>
-                                        <td>@Model.claimDetailAccomdationVm.ElementAt(i).ExchangeRate</td>
-                                        <td>@Model.claimDetailAccomdationVm.ElementAt(i).TotalInSGD</td>
-                                    </tr>
-                                    }
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>@Model.claimHeader.claimDetailAccomdationTotal</td>
-                                        </tr>
-                                 
-                                </tbody>
-                            </table>
-}
-@if (Model.claimDetailTaxiLocalVm != null && Model.claimDetailTaxiLocalVm.Count() > 0)
-{
-    @TaxiFaresLocal
+        }
+        @if (Model.claimDetailAccomdationVm != null && Model.claimDetailAccomdationVm.Count() > 0)
+        {
+            @Accomodation
 
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>FromDate</th>
+                        <th>ToDate</th>
+                        <th>Perticulars</th>
+                        <th>Receipts (Y/N)</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Exchange Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.claimDetailAccomdationVm.Count(); i++)
+                    {
+                        <tr>
+                            <td>@Model.claimDetailAccomdationVm.ElementAt(i).FromDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailAccomdationVm.ElementAt(i).ToDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailAccomdationVm.ElementAt(i).Perticulars</td>
+                            <td>
+                                @if (Model.claimDetailAccomdationVm.ElementAt(i).Receipts == false)
+                                {
+                                    @NO
+                                }
+                                else
+                                {
+                                    @YES
+                                }
+                            </td>
+                            <td>@Model.claimDetailAccomdationVm.ElementAt(i).Amount</td>
+                            <td>@Model.claimDetailAccomdationVm.ElementAt(i).Currency</td>
+                            <td>@Model.claimDetailAccomdationVm.ElementAt(i).ExchangeRate</td>
+                            <td>@Model.claimDetailAccomdationVm.ElementAt(i).TotalInSGD</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.claimHeader.claimDetailAccomdationTotal</td>
+                    </tr>
 
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Perticulars</th>
-                                        <th>Receipts (Y/N)</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Exchange Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.claimDetailTaxiLocalVm.Count(); i++)
-                                    {
-                                    <tr>
-                                        <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
-                                        <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Perticulars</td>
-                                        <td>
-                                            @if (Model.claimDetailTaxiLocalVm.ElementAt(i).Receipts == false)
-                                            {
-                                                @NO
-                                            }
-                                            else
-                                            {
-                                                @YES
-                                            }
-                                        </td>
-                                        <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Amount</td>
-                                        <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Currency</td>
-                                        <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).ExchangeRate</td>
-                                        <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).TotalInSGD</td>
-                                    </tr>
-                                    }
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>@Model.claimHeader.claimDetailTaxiLocalTotal</td>
-                                        </tr>
-                                   
-                                </tbody>
-                            </table>
-}
-@if (Model.claimDetailTaxiOverseasVm != null && Model.claimDetailTaxiOverseasVm.Count() > 0)
-{
-    @TaxiFaresOverseas
-
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Perticulars</th>
-                                        <th>Receipts (Y/N)</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Exchange Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.claimDetailTaxiOverseasVm.Count(); i++)
-                                    {
-                                    <tr>
-
-                                        <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
-                                        <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Perticulars</td>
-                                        <td>
-                                            @if (Model.claimDetailTaxiOverseasVm.ElementAt(i).Receipts == false)
-                                            {
-                                                @NO
-                                            }
-                                            else
-                                            {
-                                                @YES
-                                            }
-                                        </td>
-                                        <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Amount</td>
-                                        <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Currency</td>
-                                        <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).ExchangeRate</td>
-                                        <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).TotalInSGD</td>
-                                    </tr>
-                                    }
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>@Model.claimHeader.claimDetailTaxiOverseasTotal</td>
-                                        </tr>
-                                  
-                                </tbody>
-                            </table>
-}
-@if (Model.claimDetailFoodLocalVm != null && Model.claimDetailFoodLocalVm.Count() > 0)
-{
-    @FoodBillsLocal
+                </tbody>
+            </table>
+        }
+        @if (Model.claimDetailTaxiLocalVm != null && Model.claimDetailTaxiLocalVm.Count() > 0)
+        {
+            @TaxiFaresLocal
 
 
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Perticulars</th>
-                                        <th>Receipts (Y/N)</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Exchange Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.claimDetailFoodLocalVm.Count(); i++)
-                                    {
-                                    <tr>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Perticulars</th>
+                        <th>Receipts (Y/N)</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Exchange Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.claimDetailTaxiLocalVm.Count(); i++)
+                    {
+                        <tr>
+                            <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Perticulars</td>
+                            <td>
+                                @if (Model.claimDetailTaxiLocalVm.ElementAt(i).Receipts == false)
+                                {
+                                    @NO
+                                }
+                                else
+                                {
+                                    @YES
+                                }
+                            </td>
+                            <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Amount</td>
+                            <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).Currency</td>
+                            <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).ExchangeRate</td>
+                            <td>@Model.claimDetailTaxiLocalVm.ElementAt(i).TotalInSGD</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.claimHeader.claimDetailTaxiLocalTotal</td>
+                    </tr>
 
-                                        <td>@Model.claimDetailFoodLocalVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
-                                        <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Perticulars</td>
-                                        <td>
-                                            @if (Model.claimDetailFoodLocalVm.ElementAt(i).Receipts == false)
-                                            {
-                                                @NO
-                                            }
-                                            else
-                                            {
-                                                @YES
-                                            }
-                                        </td>
-                                        <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Amount</td>
-                                        <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Currency</td>
-                                        <td>@Model.claimDetailFoodLocalVm.ElementAt(i).ExchangeRate</td>
-                                        <td>@Model.claimDetailFoodLocalVm.ElementAt(i).TotalInSGD</td>
-                                    </tr>
-                                    }
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>@Model.claimHeader.claimDetailFoodLocalTotal</td>
-                                        </tr>
-                                   
-                                </tbody>
-                            </table>
-}
-@if (Model.claimDetailFoodOverseasVm != null && Model.claimDetailFoodOverseasVm.Count() > 0)
-{
-    @FoodBillsOverseas
+                </tbody>
+            </table>
+        }
+        @if (Model.claimDetailTaxiOverseasVm != null && Model.claimDetailTaxiOverseasVm.Count() > 0)
+        {
+            @TaxiFaresOverseas
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Perticulars</th>
+                        <th>Receipts (Y/N)</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Exchange Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.claimDetailTaxiOverseasVm.Count(); i++)
+                    {
+                        <tr>
+
+                            <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Perticulars</td>
+                            <td>
+                                @if (Model.claimDetailTaxiOverseasVm.ElementAt(i).Receipts == false)
+                                {
+                                    @NO
+                                }
+                                else
+                                {
+                                    @YES
+                                }
+                            </td>
+                            <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Amount</td>
+                            <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).Currency</td>
+                            <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).ExchangeRate</td>
+                            <td>@Model.claimDetailTaxiOverseasVm.ElementAt(i).TotalInSGD</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.claimHeader.claimDetailTaxiOverseasTotal</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        }
+        @if (Model.claimDetailFoodLocalVm != null && Model.claimDetailFoodLocalVm.Count() > 0)
+        {
+            @FoodBillsLocal
 
 
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Perticulars</th>
-                                        <th>Receipts (Y/N)</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Exchange Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.claimDetailFoodOverseasVm.Count(); i++)
-                                    {
-                                    <tr>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Perticulars</th>
+                        <th>Receipts (Y/N)</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Exchange Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.claimDetailFoodLocalVm.Count(); i++)
+                    {
+                        <tr>
 
-                                        <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
-                                        <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Perticulars</td>
-                                        <td>
-                                            @if (Model.claimDetailFoodOverseasVm.ElementAt(i).Receipts == false)
-                                            {
-                                                @NO
-                                            }
-                                            else
-                                            {
-                                                @YES
-                                            }
-                                        </td>
-                                        <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Amount</td>
-                                        <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Currency</td>
-                                        <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).ExchangeRate</td>
-                                        <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).TotalInSGD</td>
-                                    </tr>
-                                    }
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>@Model.claimHeader.claimDetailFoodOverseasTotal</td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
-}
-@if (Model.claimDetailOtherExpensesVm != null && Model.claimDetailOtherExpensesVm.Count() > 0)
-{
-    @OtherExpenses
+                            <td>@Model.claimDetailFoodLocalVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Perticulars</td>
+                            <td>
+                                @if (Model.claimDetailFoodLocalVm.ElementAt(i).Receipts == false)
+                                {
+                                    @NO
+                                }
+                                else
+                                {
+                                    @YES
+                                }
+                            </td>
+                            <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Amount</td>
+                            <td>@Model.claimDetailFoodLocalVm.ElementAt(i).Currency</td>
+                            <td>@Model.claimDetailFoodLocalVm.ElementAt(i).ExchangeRate</td>
+                            <td>@Model.claimDetailFoodLocalVm.ElementAt(i).TotalInSGD</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.claimHeader.claimDetailFoodLocalTotal</td>
+                    </tr>
 
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Perticulars</th>
-                                        <th>Receipts (Y/N)</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Exchange Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.claimDetailOtherExpensesVm.Count(); i++)
-                                    {
-                                    <tr>
-                                                <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
-                                                <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Perticulars</td>
-                                        <td>
-                                            @if (Model.claimDetailOtherExpensesVm.ElementAt(i).Receipts == false)
-                                            {
-                                                @NO
-                                            }
-                                            else
-                                            {
-                                                @YES
-                                            }
-                                        </td>
-                                                <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Amount</td>
-                                                <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Currency</td>
-                                                <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).ExchangeRate</td>
-                                                <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).TotalInSGD</td>
-                                            </tr>
-                                    }
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>@Model.claimHeader.claimDetailOtherExpensesTotal</td>
-                                        </tr>
-                                </tbody>
-                            </table>
-}
-            @if (Model.claimDocumentVm.Count() > 0 && Model.claimDocumentVm != null && !string.IsNullOrWhiteSpace(filename))
+
+                </tbody>
+            </table>
+        }
+        @if (Model.claimDetailFoodOverseasVm != null && Model.claimDetailFoodOverseasVm.Count() > 0)
+        {
+            @FoodBillsOverseas
+
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Perticulars</th>
+                        <th>Receipts (Y/N)</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Exchange Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.claimDetailFoodOverseasVm.Count(); i++)
+                    {
+                        <tr>
+
+                            <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Perticulars</td>
+                            <td>
+                                @if (Model.claimDetailFoodOverseasVm.ElementAt(i).Receipts == false)
+                                {
+                                    @NO
+                                }
+                                else
+                                {
+                                    @YES
+                                }
+                            </td>
+                            <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Amount</td>
+                            <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).Currency</td>
+                            <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).ExchangeRate</td>
+                            <td>@Model.claimDetailFoodOverseasVm.ElementAt(i).TotalInSGD</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.claimHeader.claimDetailFoodOverseasTotal</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        }
+        @if (Model.claimDetailOtherExpensesVm != null && Model.claimDetailOtherExpensesVm.Count() > 0)
+        {
+            @OtherExpenses
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Perticulars</th>
+                        <th>Receipts (Y/N)</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Exchange Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.claimDetailOtherExpensesVm.Count(); i++)
+                    {
+                        <tr>
+                            <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).TravelDate.Value.ToShortDateString()</td>
+                            <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Perticulars</td>
+                            <td>
+                                @if (Model.claimDetailOtherExpensesVm.ElementAt(i).Receipts == false)
+                                {
+                                    @NO
+                                }
+                                else
+                                {
+                                    @YES
+                                }
+                            </td>
+                            <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Amount</td>
+                            <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).Currency</td>
+                            <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).ExchangeRate</td>
+                            <td>@Model.claimDetailOtherExpensesVm.ElementAt(i).TotalInSGD</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Model.claimHeader.claimDetailOtherExpensesTotal</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        <div class="row">
+            <div class="col-md-4">
+                @if (Model.claimDocumentVm.Count() > 0 && Model.claimDocumentVm != null && !string.IsNullOrWhiteSpace(filename))
             {
-                @UPLOADFILES
-            <div class="row">
-                <div class="col-md-4">
+                    @UPLOADFILES
+
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -487,18 +491,18 @@
                                         </td>
 
                                         @*<td>
-                                @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file",@disabled= "disabled" })
-                            </td>*@
+                                                @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file",@disabled= "disabled" })
+                                            </td>*@
                                         <td>
                                             <a href="@Url.Content("~/" + documentsPath + "/" + Model.claimDocumentVm[i].fileName)" target="_blank" download="@Model.claimDocumentVm[i].fileName">download</a>
                                         </td>
                                         @*<td>
-                                    <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
-                                            style="padding-left: 5px;margin-left: 6px;"
-                                            onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelclaimDocs?docdetailid=" + Model.claimDocumentVm[i].DocumentDetailId + "&travelclaimid=" + Model.claimHeader.TravelClaimId + "&claimNo=" + Model.claimHeader.ClaimNo )'">
-                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                    </button>
-                            </td>*@
+                                                    <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
+                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                            onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelclaimDocs?docdetailid=" + Model.claimDocumentVm[i].DocumentDetailId + "&travelclaimid=" + Model.claimHeader.TravelClaimId + "&claimNo=" + Model.claimHeader.ClaimNo )'">
+                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                    </button>
+                                            </td>*@
                                     </tr>
                                 }
 
@@ -506,14 +510,31 @@
 
                         </tbody>
                     </table>
-                </div>
-              
-
-            </div>  
-                  
-                                    }
 
 
-                        </div>
+                }
 
-                    </div>
+
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <tr style="background-color:#3f51b5;color:#fff">
+                       <td>
+                           Total Amount
+                       </td>
+                        <td>
+                            @Model.claimHeader.GrossTotal
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

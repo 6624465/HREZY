@@ -191,7 +191,7 @@ new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                 </label>
                                 <div class="col-md-6">
                                     @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(),
-new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
+                                    new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -286,7 +286,7 @@ new { @class = "form-control input-sm", @multiple = "multiple", @required = "req
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.claimDetailAirfareVm[i].Receipts, true, "Yes")
+                                                                    @Html.RadioButtonFor(x => x.claimDetailAirfareVm[i].Receipts, true, new { @class = "rdoCss" })
                                                                     <span>Y</span>
                                                                     @Html.RadioButtonFor(x => x.claimDetailAirfareVm[i].Receipts, false, "No")
                                                                     <span>N</span>
@@ -409,7 +409,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                     @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:250px;" })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.RadioButtonFor(x => x.claimDetailVisaVm[i].Receipts, true, "Yes")
+                                                                    @Html.RadioButtonFor(x => x.claimDetailVisaVm[i].Receipts, true, new { @class = "rdoCss" })
                                                                     <span>Y</span>
                                                                     @Html.RadioButtonFor(x => x.claimDetailVisaVm[i].Receipts, false, "No")
                                                                     <span>N</span>
@@ -533,7 +533,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.claimDetailAccomdationVm[i].Receipts, true, "Yes")
+                                                                    @Html.RadioButtonFor(x => x.claimDetailAccomdationVm[i].Receipts, true, new { @class = "rdoCss" })
                                                                     <span>Y</span>
                                                                     @Html.RadioButtonFor(x => x.claimDetailAccomdationVm[i].Receipts, false, "No")
                                                                     <span>N</span>
@@ -646,7 +646,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.claimDetailTaxiLocalVm[i].Receipts, true, "Yes")
+                                                                    @Html.RadioButtonFor(x => x.claimDetailTaxiLocalVm[i].Receipts, true, new { @class = "rdoCss" })
                                                                     <span>Y</span>
                                                                     @Html.RadioButtonFor(x => x.claimDetailTaxiLocalVm[i].Receipts, false, "No")
                                                                     <span>N</span>
@@ -767,7 +767,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.claimDetailTaxiOverseasVm[i].Receipts, true, "Yes")
+                                                                    @Html.RadioButtonFor(x => x.claimDetailTaxiOverseasVm[i].Receipts, true, new { @class = "rdoCss" })
                                                                     <span>Y</span>
                                                                     @Html.RadioButtonFor(x => x.claimDetailTaxiOverseasVm[i].Receipts, false, "No")
                                                                     <span>N</span>
@@ -875,7 +875,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.claimDetailFoodLocalVm[i].Receipts, true, "Yes")
+                                                                    @Html.RadioButtonFor(x => x.claimDetailFoodLocalVm[i].Receipts, true, new { @class = "rdoCss" })
                                                                     <span>Y</span>
                                                                     @Html.RadioButtonFor(x => x.claimDetailFoodLocalVm[i].Receipts, false, "No")
                                                                     <span>N</span>
@@ -983,7 +983,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.claimDetailFoodOverseasVm[i].Receipts, true, "Yes")
+                                                                    @Html.RadioButtonFor(x => x.claimDetailFoodOverseasVm[i].Receipts, true, new { @class = "rdoCss" })
                                                                     <span>Y</span>
                                                                     @Html.RadioButtonFor(x => x.claimDetailFoodOverseasVm[i].Receipts, false, "No")
                                                                     <span>N</span>
@@ -1089,7 +1089,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.claimDetailOtherExpensesVm[i].Receipts, true, "Yes")
+                                                                    @Html.RadioButtonFor(x => x.claimDetailOtherExpensesVm[i].Receipts, true, new { @class = "rdoCss" })
                                                                     <span>Y</span>
                                                                     @Html.RadioButtonFor(x => x.claimDetailOtherExpensesVm[i].Receipts, false, "No")
                                                                     <span>N</span>
@@ -1188,7 +1188,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                         @Html.HiddenFor(x => x.claimDocumentVm[i].DocumentType)                                                     
 
                                                         <td>
-                                                            @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file", onchange = "CheckFileName(this)" })
+                                                            @Html.TextBoxFor(x => x.claimDocumentVm[i].Document, new { type = "file", onchange = "CheckFileName(this)", @class = "fileCss" })
 
                                                         </td>
                                                         <td>
@@ -1544,11 +1544,11 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
             <text>
             parseFloat($('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal)).toFixed(2);
             var detailCount = @detailCount;
-            </text>            
+            </text>
         }
 
         function Preview(TravelClaimId) {
-            
+
             $.ajax({
                 url: '@Url.Content("~/PayRoll/PreviewTravelClaim?TravelClaimId=")' + TravelClaimId,
                 contentType: 'text/html',
@@ -1629,7 +1629,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('.travelDateCss').data("DateTimePicker").minDate(e.date);
                 if ($('.travelDateCss_fromDate').length > 0)
                     $('.travelDateCss_fromDate').data("DateTimePicker").minDate(e.date);
-                
+
             });
             $(".dtCssToDate").on("dp.change", function (e) {
                 if ($('.travelDateCss').length > 0)
@@ -1679,8 +1679,8 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
             $('.dateCss').each(function (index, item) {
                 $('#' + item.id).data("DateTimePicker").maxDate(date);
             });
-               
-           
+
+
 
             $('#claimHeader_CountryVisited').multiselect({
                 includeSelectAllOption: true
@@ -1751,36 +1751,64 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         }
 
         function SaveTravelClaim() {
-            if ($('#frmClaim').valid()) {
-                $('#frmClaim').attr('action', '@Url.Content("~/Payroll/TravelClaimSave")');
-                $('#frmClaim').submit();
-                swal({
-                    title: "Saved Successfully",
-                    text: "",
-                    closeOnConfirm: true,
-                    confirmButtonText: "Ok",
-                    confirmButtonClass: "btn-primary",
-                    timer: 5000
-                },
-                    function () {
-                        $.loader({
-                            className: "blue-with-image-2",
-                            content: '',
-                        });
-                    })
+            var isOneChecked = $('.rdoCss').is(':checked');
+            var filesControls = $('.fileCss');
+            var isFileUploaded = false;
+            @if(Model.claimDocumentVm != null && Model.claimDocumentVm.Count > 0)
+            {
+                var isAtleastOneUploaded = Model.claimDocumentVm
+                                            .Where(x => x.fileName != null)
+                                            .Count() > 0;
+
+                if(isAtleastOneUploaded)
+                {
+                    <text>isFileUploaded = true;</text>
+                }
+                else
+                {
+                    <text>
+                    $.each(filesControls, function (index, item) {
+                        if (item.files.length > 0)
+                            isFileUploaded = true;
+                    });
+                    </text>
+                }
+            }
+
+
+            debugger;
+            if (isOneChecked && isFileUploaded) {
+                if ($('#frmClaim').valid()) {
+                    $('#frmClaim').attr('action', '@Url.Content("~/Payroll/TravelClaimSave")');
+                    $('#frmClaim').submit();
+                    swal({
+                        title: "Saved Successfully",
+                        text: "",
+                        closeOnConfirm: true,
+                        confirmButtonText: "Ok",
+                        confirmButtonClass: "btn-primary",
+                        timer: 5000
+                    },
+                        function () {
+                            $.loader({
+                                className: "blue-with-image-2",
+                                content: '',
+                            });
+                        })
+                }
+                else {
+                    swal("Message!", "Please update these before proceeding..");
+                    TabVisibility();
+                    var title = $('.multiselect').attr('title');
+                    if (title == 'None selected')
+                        $('.multiselect').addClass('multiselecterr');
+                    else
+                        $('.multiselect').removeClass('multiselecterr');
+                    swal("Incorrect Inputs");
+                }
             }
             else {
-
-                swal("Message!", "Please update these before proceeding..");
-
-                
-                TabVisibility();
-                var title =$('.multiselect').attr('title');
-                if(title=='None selected')
-                    $('.multiselect').addClass('multiselecterr');
-                else
-                    $('.multiselect').removeClass('multiselecterr');
-                swal("Incorrect Inputs");
+                swal("Message!", "Please upload one document before saving..");
             }
         }
 
@@ -1807,13 +1835,13 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     exrate = parseFloat(data.LookUpCode);
                     $('#claimDetailAirfareVm_' + index + '__ExchangeRate').val(exrate);
                 }
-                
+
                 //var exrate = $('claimDetailAirfareVm_' + index + '_ExchangeRate').val(data.LookUpCode);
-                
+
                 var amount = parseFloat($('#claimDetailAirfareVm_' + index + '__Amount').val());
                 //var exrate = isNaN($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val()) ? 1 :
                 //    parseFloat($('select#claimDetailAirfareVm_' + index + '__Currency option:selected').val());
-                
+
                 if (isNaN(amount)) {
                     amount = 0;
                 }
@@ -1824,7 +1852,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 var Total = parseFloat(amount * exchangeRate).toFixed(2);
                 Total = parseFloat(Total).toFixed(2);
                 $('#claimDetailAirfareVm_' + index + '__TotalInSGD').val(Total);
-                
+
                 var length = $('.cssAirfareLength').length;
                 var grossTotal = 0;
                 for (var i = 0; i < length; i++) {
@@ -1836,7 +1864,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('#claimHeader_claimDetailAirfareTotal').val(grossTotal.toFixed(2));
                 }
             });
-            
+
         }
 
         function GetExchangeRateByCurrencyCode(currencyCode) {
@@ -1927,7 +1955,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('#claimHeader_claimDetailVisaTotal').val(grossTotal.toFixed(2));
                 }
             });
-            
+
         }
 
 
@@ -2003,7 +2031,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 }
             });
 
-            
+
         }
 
         function deleteAccomodationDetail(detailId, index, category) {
@@ -2078,7 +2106,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('#claimHeader_claimDetailTaxiLocalTotal').val(grossTotal.toFixed(2));
                 }
             });
-            
+
         }
 
         function deletetaxilocalDetail(detailId, index, category) {
@@ -2151,7 +2179,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('#claimHeader_claimDetailTaxiOverseasTotal').val(grossTotal.toFixed(2));
                 }
             });
-            
+
         }
 
         function deletetaxioverseaDetail(detailId, index, category) {
@@ -2225,7 +2253,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 }
             });
 
-            
+
         }
 
         function deletefoodbillslocalDetail(detailId, index, category) {
@@ -2297,7 +2325,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                     $('#claimHeader_claimDetailFoodOverseasTotal').val(grossTotal.toFixed(2));
                 }
             });
-            
+
         }
         function deletefoodbillsoverseasDetail(detailId, index, category) {
             debugger;
@@ -2371,7 +2399,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 }
 
             });
-            
+
         }
 
         function deleteOtherExpensesDetail(detailId, index, category) {
@@ -2423,7 +2451,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
         function SetCurrencyProperty(el){
 
         }
-        
+
     </script>
 
 }

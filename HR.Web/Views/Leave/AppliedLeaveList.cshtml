@@ -93,10 +93,10 @@
                                         </th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    @for (var i = 0; i < Model.TableData.Count(); i++)
+                                    {
 
-                                @for (var i = 0; i < Model.TableData.Count(); i++)
-                                {
-                                    <tbody>
                                         <tr>
                                             <td>
                                                 @Model.TableData[i].EmployeeName
@@ -144,8 +144,10 @@
                                                 </td>
                                             }
                                         </tr>
-                                    </tbody>
-                                }
+
+                                    }
+                                </tbody>
+
                             </table>
                         </div>
                     </div>

@@ -1184,6 +1184,7 @@ namespace HR.Web.Controllers
 
             //travelClaimVm.claimHeader.GrossTotal = travelClaimVm.claimHeader.claimDetailAirfareTotal + travelClaimVm.claimHeader.claimDetailVisaTotal + travelClaimVm.claimHeader.claimDetailAccomdationTotal + travelClaimVm.claimHeader.claimDetailTaxiLocalTotal
             //    + travelClaimVm.claimHeader.claimDetailTaxiOverseasTotal + travelClaimVm.claimHeader.claimDetailFoodLocalTotal + travelClaimVm.claimHeader.claimDetailFoodOverseasTotal + travelClaimVm.claimHeader.claimDetailOtherExpensesTotal;
+            travelClaimVm.claimDocumentVm = GetTravelClaimDocuments(travelClaimVm.claimHeader.TravelClaimId);
             ModelState.Clear();
             return View("TravelClaim", travelClaimVm);
         }
@@ -1836,45 +1837,39 @@ namespace HR.Web.Controllers
             travelClaimNewObj.claimHeader.claimDetailFoodLocalTotal = travelClaimNewObj.claimDetailFoodLocalVm.Sum(x => x.TotalInSGD);
             travelClaimNewObj.claimHeader.claimDetailFoodOverseasTotal = travelClaimNewObj.claimDetailFoodOverseasVm.Sum(x => x.TotalInSGD);
             travelClaimNewObj.claimHeader.claimDetailOtherExpensesTotal = travelClaimNewObj.claimDetailOtherExpensesVm.Sum(x => x.TotalInSGD);
-            List<EmployeeDocumentDetail> empDocumentDetList = new List<EmployeeDocumentDetail>();
+            
+            travelClaimNewObj.claimDocumentVm = GetTravelClaimDocuments(travelClaimId);
 
-           empDocumentDetList = empDocDetailBO.
-                GetListByProperty(x => x.EmployeeId == travelClaimId && x.BranchId == BRANCHID).ToList();
+            return travelClaimNewObj;
 
-            var codeList = empDocumentDetList.Select(x => x.DocumentType).ToList();
+        }
+
+
+        private List<TravelClaimDocumentVm> GetTravelClaimDocuments(int travelClaimId)
+        {
+
+            var empDocumentDetList = empDocDetailBO.
+                 GetListByProperty(x => x.EmployeeId == travelClaimId && x.BranchId == BRANCHID).ToList();
 
             List<TravelClaimDocumentVm> docVmList = new List<TravelClaimDocumentVm>();
             if (empDocumentDetList.Count > 0)
             {
-                //Int16 loopCount = 0;
-                //foreach (EmployeeDocumentDetail item in empDocumentDetList)
-                //{
-                //    TravelClaimDocumentVm docVm = new TravelClaimDocumentVm()
-                //    {
-                //        DocumentType = item.DocumentType,
-                //        DocumentDescription = "",
-                //        fileName = item.FileName,
-                //        DocumentDetailId = item.DocumentDetailID
-                //    };
-                //    docVmList.Add(docVm);
-                //    loopCount++;
-                //}
-
-                for(var i = 0; i < 10; i++)
+                for (var i = 0; i < 10; i++)
                 {
                     var documentType = 2581 + i;
                     var tdcObj = empDocumentDetList
                             .Where(x => x.DocumentType == documentType)
-                            .Select(x => new TravelClaimDocumentVm {
+                            .Select(x => new TravelClaimDocumentVm
+                            {
                                 DocumentType = documentType,
                                 DocumentDescription = "",
                                 fileName = x.FileName,
                                 DocumentDetailId = x.DocumentDetailID,
-                                EmployeeId=x.EmployeeId
+                                EmployeeId = x.EmployeeId
                             })
                             .FirstOrDefault();
 
-                    if(tdcObj == null)
+                    if (tdcObj == null)
                     {
                         tdcObj = new TravelClaimDocumentVm
                         {
@@ -1884,44 +1879,24 @@ namespace HR.Web.Controllers
                         };
                     }
 
-
                     docVmList.Add(tdcObj);
                 }
 
-
-                travelClaimNewObj.claimDocumentVm = docVmList;
-                //travelClaimNewObj.claimDocumentVm = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE && y.LookUpID==UTILITY.TRAVELCLAIMDOCUMENTID)
-                //    .Select(y => new TravelClaimDocumentVm
-                //    {
-                //        DocumentType = y.LookUpID,
-                //        DocumentDescription = y.LookUpDescription
-                //    }).Where(x => !codeList.Contains(x.DocumentType)).ToList();
-                //travelClaimNewObj.claimDocumentVm.AddRange(docVmList);
             }
             else
             {
-                //travelClaimNewObj.claimDocumentVm = lookUpBo.GetListByProperty(y => y.LookUpCategory == UTILITY.CONFIG_TRAVELCLAIMTYPE &&
-                //y.LookUpID == UTILITY.TRAVELCLAIMDOCUMENTID)
-                //    .Select(y => new TravelClaimDocumentVm
-                //    {
-                //        DocumentType = y.LookUpID,
-                //        DocumentDescription = y.LookUpDescription
-                //    }).ToList();
-                for(var i = 0; i < 10; i++)
+                for (var i = 0; i < 10; i++)
                 {
                     var documentType = 2581 + i;
                     var tdcObj = new TravelClaimDocumentVm();
                     tdcObj.DocumentType = documentType;
                     docVmList.Add(tdcObj);
                 }
-
-                travelClaimNewObj.claimDocumentVm = docVmList;
             }
 
-
-            return travelClaimNewObj;
-
+            return docVmList;
         }
+
         public ActionResult DeleteTravelclaimDocs(int docdetailid, int travelclaimid, string claimNo)
         {
             EmployeeDocumentDetail empdocdetail = empDocDetailBO.GetById(docdetailid);

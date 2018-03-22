@@ -11,122 +11,120 @@
         .width {
             width: 60%;
         }
-
+        
         
     </style>
 }
 
 
 <div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default">
-            <div class="center-block width">
-                <div class="panel-heading">
-                    Travel Claim List
+    <div class="box">
+        <div class="box-header">
+            <h4>Travel Claim List</h4>
+            <div class="box-tools">
+                <button class="btn-box-tool btn btn-primary btn-sm pull-right ajaxCss"
+                        onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=0")'">
+                    <i class="fa fa-plus-square"></i>&nbsp;Create
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="btn btn-primary btn-sm ajaxCss pull-right"
-                                    onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=0")'">
-                                <i class="fa fa-plus-square"></i>&nbsp;Create
+            </div>
+            <table class="table table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th>Claim No</th>
+                        <th>
+                            Submitted On
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            #Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.TableData.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model.TableData[i].ClaimNo</td>
+                        <td>
+                            @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSAVED)
+                        {
+                            <label class="control-label">
+                                <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                            </label>
+                    }
+                    else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED)
+                    {
+                        <label class="control-label">
+                            <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                        </label>
+                }
+                else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMAPPROVED)
+                {
+                    <label class="control-label">
+                        <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                    </label>
+            }
+            else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMREJECTED)
+            {
+                <label class="control-label">
+                    <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                </label>
+        }
+                        </td>
+                        <td>
+                            @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED || Model.TableData[i].Status == UTILITY.TRAVELCLAIMAPPROVED)
+                        {
+                            <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" disabled="disabled"
+                                    style="padding-left: 5px;margin-left: 6px;"
+                                    onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=" + Model.TableData[i].TravelClaimId)'">
+                                <i class="fa fa-pencil" style="padding-left: 5px;"></i>
                             </button>
-                        </div>
-                    </div>
-                    <table class="table table-condensed table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Claim No</th>
-                                <th>
-                                    Submitted On
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                                <th>
-                                    #Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (var i = 0; i < Model.TableData.Count(); i++)
-                            {
-                                <tr>
-                                    <td>@Model.TableData[i].ClaimNo</td>
-                                    <td>
-                                        @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
-                                    </td>
-                                    <td>
-                                        @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSAVED)
-                                        {
-                                            <label class="control-label">
-                                                <span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                            </label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED)
-                                        {
-                                            <label class="control-label">
-                                                <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                            </label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMAPPROVED)
-                                        {
-                                            <label class="control-label">
-                                                <span class="label label-success" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                            </label>
-                                        }
-                                        else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMREJECTED)
-                                        {
-                                            <label class="control-label">
-                                                <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
-                                            </label>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED || Model.TableData[i].Status == UTILITY.TRAVELCLAIMAPPROVED)
-                                        {
-                                            <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" disabled="disabled"
-                                                    style="padding-left: 5px;margin-left: 6px;"
-                                                    onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=" + Model.TableData[i].TravelClaimId)'">
-                                                <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                            </button>
-                                        }
-                                        else
-                                        {
-                                            <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
-                                                    onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=" + Model.TableData[i].TravelClaimId)'">
-                                                <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                            </button>
-                                        }
-                                        @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSAVED)
-                                        {
-                                            <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deletetravelclaim(@Model.TableData[i].TravelClaimId)" @*onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelRecord?travelclaimid=" + Model.TableData[i].TravelClaimId) '"*@>
-                                                <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                            </button>
-                                        }
-                                        else
-                                        {
-                                            <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" disabled="disabled">
-                                                <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                            </button>
-                                        }
-                                        <button class="btn btn-xs btn-success" type="button" onclick="downloadExcel(@Model.TableData[i].TravelClaimId)">&nbsp;<i class="fa fa-file-excel-o"></i></button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
+                                onclick="location.href='@Url.Content("~/PayRoll/TravelClaim?travelClaimId=" + Model.TableData[i].TravelClaimId)'">
+                            <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                        </button>
+                }
+                            @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSAVED)
+                        {
+                            <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deletetravelclaim(@Model.TableData[i].TravelClaimId)" @*onclick="location.href='@Url.Content("~/PayRoll/DeleteTravelRecord?travelclaimid=" + Model.TableData[i].TravelClaimId) '"*@>
+                                <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                            </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" disabled="disabled">
+                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                        </button>
+                }
+                            <button class="btn btn-xs btn-success" type="button" onclick="downloadExcel(@Model.TableData[i].TravelClaimId)">&nbsp;<i class="fa fa-file-excel-o"></i></button>
 
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
+                        </td>
+                    </tr>
+            }
+                </tbody>
 
-                    </table>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="pagination"></div>
-                        </div>
-                    </div>
+            </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="pagination"></div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 @using (Html.BeginForm("ExcelDownloadTC", "PayRoll", FormMethod.Post, new { id = "frmExcel", name = "frmExcel" }))

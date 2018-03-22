@@ -183,12 +183,13 @@
 
             }
         function view(travelclaimid) {
-            debugger;
+            LoadingAnimation();
             $.ajax({
                 url: '@Url.Content("~/PayRoll/PreviewTravelClaim?TravelClaimId=")' + travelclaimid,
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
+                    StopLoadingAnimation();
                     $('#myPreviewModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);

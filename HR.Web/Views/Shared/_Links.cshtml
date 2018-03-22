@@ -8,14 +8,34 @@
 @if (Model.RoleCode == UTILITY.ROLE_EMPLOYEE)
 {
     <ul class="list-unstyled clearfix nav-list mb15">
-        <li><a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Employee Profile</a></li>
-        <li><a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")"><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim</a></li>
-        <li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")"><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;&nbsp;Holiday List</a></li>
-        <li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")"><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;&nbsp;View Leaves</a></li>
-        <li id="li_emprequestleave"><a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;&nbsp;Leave Request</a></li>
+        <li id="li_dashboard">
+            <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
+                <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;Dashboard
+            </a>            
+        </li>
+        <li id="li_travelclaim">
+            <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
+                <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
+            </a>
+        </li>
+        <li id="li_holidaylist">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">
+            <i class="ion ion-paper-airplane" aria-hidden="true"></i>&nbsp;&nbsp;Holiday List</a>
+        </li>
+        <li id="li_empadd">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">
+            <i class="ion ion-android-calendar" aria-hidden="true"></i>&nbsp;&nbsp;View Leaves</a>
+        </li>
+        <li id="li_emprequestleave">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">
+            <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Request</a>
+        </li>
         @if (Model.IsManager)
-                {
-            <li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Grant Leave Form</a></li>
+        {
+            <li id="li_grantleaveform">
+                <a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">
+                <i class="ion ion-android-person" aria-hidden="true"></i>&nbsp;&nbsp;Grant Leave Form</a>
+            </li>
         }
         
     </ul>
@@ -31,7 +51,9 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <i class="arrow ion-chevron-left"></i>
             </a>
             <ul class="inner-drop list-unstyled">
-                <li><a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a></li>
+                <li>
+                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
+                </li>
             </ul>
         </li>
         <li id="li_Master">

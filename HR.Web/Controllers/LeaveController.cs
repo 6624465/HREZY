@@ -685,18 +685,19 @@ namespace HR.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult ApproveLeave(GrantLeaveListVm grantLeaveVm)
+        [HttpGet]
+        public ActionResult ApproveLeave(int employeeleaveid)
         {
-            employeeLeaveListBO.ApproveLeave(grantLeaveVm);
-            var mail = grantLeaveVm.useremailid;
+            employeeLeaveListBO.ApproveLeave(employeeleaveid);
+            var employeeid = employeeLeaveListBO.GetById(employeeleaveid).EmployeeId;
+            var mail = empHeaderBO.GetById(employeeid).UserEmailId;
             var subject = string.Empty;
             subject = "Leave Approved";
             var strbody = string.Empty;
             strbody = "Leave Approved:" + "<BR>" + "Your Leave Has Been Approved";
             EmailGenerator emailgenerator = new EmailGenerator();
             emailgenerator.ConfigMail(mail, true, subject, strbody);
-            return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
+            return RedirectToAction("GrantLeaveFormList");
         }
 
         [HttpPost]
@@ -706,14 +707,15 @@ namespace HR.Web.Controllers
             {
                 var empLeaveObj = employeeLeaveListBO.RejectLeave(grantLeaveVm);
                 Save(grantLeaveVm, empLeaveObj);
-                var email = grantLeaveVm.useremailid;
+                var employeeid = empLeaveObj.EmployeeId;
+                var email= empHeaderBO.GetById(employeeid).UserEmailId;
                 var subject = string.Empty;
                 subject = "Leave Rejected";
                 var strbody = string.Empty;
                 strbody = "Leave Rejected:" + "<BR>" + "Your Leave Has Been Rejected. Please Discuss";
                 EmailGenerator emailgenerator = new EmailGenerator();
                 emailgenerator.ConfigMail(email, true, subject, strbody);
-                return RedirectToAction("AppliedGrantLeaveStatus", new { EmployeeLeaveID = grantLeaveVm.EmployeeLeaveID });
+                return RedirectToAction("GrantLeaveFormList");
 
             }
             catch (Exception ex)

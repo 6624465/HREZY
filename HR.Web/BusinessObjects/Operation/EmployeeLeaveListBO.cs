@@ -21,10 +21,10 @@ namespace HR.Web.BusinessObjects.Operation
             leaveTransBO = new LeaveTransBO(_sessionObj);
         }
 
-        public EmployeeLeaveList ApproveLeave(GrantLeaveListVm grantLeaveListVm)
+        public EmployeeLeaveList ApproveLeave(int employeeleaveid)
         {
 
-            var empLeaveObj = GetById(grantLeaveListVm.EmployeeLeaveID);
+            EmployeeLeaveList empLeaveObj = GetById(employeeleaveid);
             empLeaveObj.Status = "Approved";
             empLeaveObj.Remarks = "";
             Add(empLeaveObj);
@@ -34,7 +34,7 @@ namespace HR.Web.BusinessObjects.Operation
         public EmployeeLeaveList RejectLeave(GrantLeaveListVm grantLeaveListVm)
         {
 
-            var empLeaveObj = GetById(grantLeaveListVm.EmployeeLeaveID);
+            EmployeeLeaveList empLeaveObj = GetById(grantLeaveListVm.EmployeeLeaveID);
             empLeaveObj.Status = "Rejected";
             empLeaveObj.Remarks = "";
             Add(empLeaveObj);

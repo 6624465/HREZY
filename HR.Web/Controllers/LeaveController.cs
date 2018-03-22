@@ -705,7 +705,10 @@ namespace HR.Web.Controllers
         {
             try
             {
+                var remarks = Request["employeeRemarks"];
+                grantLeaveVm.Remarks = remarks;
                 var empLeaveObj = employeeLeaveListBO.RejectLeave(grantLeaveVm);
+                grantLeaveVm.EmployeeId = empLeaveObj.EmployeeId;
                 Save(grantLeaveVm, empLeaveObj);
                 var employeeid = empLeaveObj.EmployeeId;
                 var email= empHeaderBO.GetById(employeeid).UserEmailId;

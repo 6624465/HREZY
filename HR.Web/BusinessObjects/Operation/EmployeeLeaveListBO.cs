@@ -36,7 +36,7 @@ namespace HR.Web.BusinessObjects.Operation
 
             EmployeeLeaveList empLeaveObj = GetById(grantLeaveListVm.EmployeeLeaveID);
             empLeaveObj.Status = "Rejected";
-            empLeaveObj.Remarks = "";
+            empLeaveObj.Remarks = grantLeaveListVm.Remarks;
             Add(empLeaveObj);
             return empLeaveObj;
 

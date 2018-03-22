@@ -74,12 +74,19 @@
                                                 <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                         </td>
-                                        <td>
+                                        @*<td>
                                             <button class="btn btn-primary btn-sm ajaxCss"
                                                     type="button"
                                                     onclick="location.href = '@Url.Content("~/Leave/AppliedGrantLeaveStatus?EmployeeLeaveID=")'+ @Model.TableData[i].EmployeeLeaveID">
                                                 <i class="fa fa-eye"></i>&nbsp;View
                                             </button>
+                                        </td>*@
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" type="button" onclick="location.href='@Url.Content("~/Leave/ApproveLeave?employeeleaveid="+ Model.TableData[i].EmployeeLeaveID)'">
+                                            <i class="fa fa-check"></i>Approve</button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="popoverCancel" 
+                                                    data-id="@Model.TableData[i].EmployeeLeaveID"
+                                                    title="Remarks"><i class="fa fa-times"></i>Reject</button>
                                         </td>
                                     </tr>
                                 }
@@ -97,8 +104,32 @@
         </div>
 </div>
    </div>
+@using (Html.BeginForm("RejectLeave", "Leave", FormMethod.Post, new { id = "frmRejectLeave", name = "frmRejectLeave" }))
+{
+    <input type="hidden" id="employeeLeaveID" name="employeeLeaveID" />
+    <input type="hidden" id="employeeRemarks" name="employeeRemarks" />
+    <div id="popoverCancel" class="hide">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">Remarks:</div>
+                <div class="col-md-9">
 
-@section Scripts{
+                    <textarea id="txtRemarks" name="txtRemarks" class="form-control input-sm"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row css10">
+            <div class="form-group">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="RejectLeave()"><i class="fa fa-floppy-o"></i>Save</button>
+                    <button type="button" class="btn btn-default btn-sm" onclick="ClosePopUp()"><i class="fa fa-times"></i>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}@section Scripts{
     <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
     $(function () {
@@ -116,7 +147,27 @@
         }).on('page', function (event, num) {
             $(".content3").html("Page " + num); // or some ajax content loading...
         });
+        $('[data-toggle="popoverCancel"]').popover({
+            placement: 'left',
+            html: true,
+            content: function () {
+                var empLeaveId=$(this).data("id");
+                $('#employeeLeaveID').val(empLeaveId);
+                return $('#popoverCancel').html();
+            }
+        });
     });
+        function RejectLeave() {
+            var remarks = $('#txtRemarks').val();
+            $('#employeeRemarks').val(remarks);
+            $('#popoverCancel').find('textarea[id=txtRemarks]').attr('value', remarks);
+            $('#frmRejectLeave').submit();
+
+        }
+        function ClosePopUp() {
+            $('[data-toggle="popoverCancel"]').popover('hide');
+        }
+
     </script>
 }
 

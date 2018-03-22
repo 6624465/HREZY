@@ -24,6 +24,7 @@
                                     </th>
                                     <th>Submission Date</th>
                                     <th>Total Claim</th>
+                                    <th>Total Amt Paid</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
@@ -34,14 +35,7 @@
 
                                     <tr id="len_@i" class="length">
                                         <td>
-                                            @*<input type="checkbox"
-                                                class="chk "
-                                                id="chk_@i"
-                                                name="chk"
-                                                data-index="@Model.ElementAt(i).TravelClaimId"
-                                                value="@Model.ElementAt(i).TravelClaimId"  />*@
-
-                                            @Html.CheckBox("[" + i + "].IsChecked", new { @class = "myChk" })
+                                            @Html.CheckBox("[" + i + "].IsChecked", new { @class = "myChk", id = i + "_IsChecked", data_index = i })
                                             @Html.HiddenFor(x => Model[i].EmployeeId)
                                             @Html.HiddenFor(x => Model[i].TravelClaimId)
                                             @Html.HiddenFor(x => Model[i].BranchId)
@@ -53,6 +47,9 @@
                                         <td>@Model[i].CreatedOn.Value.ToString("dd/MM/yyyy")</td>
                                         <td>
                                             @Model[i].GrossTotal
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(x => Model[i].TotalAmtPaid, new { @class = "form-control input-sm decimalCss txtCss", id =  i + "_TotalAmtPaid" })
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.ElementAt(i).TravelClaimId)">
@@ -96,38 +93,29 @@
 
             </div>
             <div class="modal-footer">
-
+                
             </div>
         </div>
 
     </div>
 </div>
-@*@using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmapprove", name = "frmapprove" }))
-    {
-        <input type="hidden" id="travelclaimid" name="travelclaimid" />
-    }
-    @using (Html.BeginForm("RejectTravelClaim", "PayRoll", FormMethod.Post, new { id = "frmreject", name = "frmreject" }))
-    {
-        <input type="hidden" id="travelclaimrejid" name="travelclaimrejid" />
-    }*@
 @section Styles{
-    <script type="text/javascript">
-        //var index="";
-        //$(function(){
-        //    $('.chk').on("ifChanged", function (event) {
-        //        debugger;
-        //        //$('.chk').addClass('csslength');
-        //        var temp = this;
-        //        index = $(this).data('index');
-        //        $('#travelclaimid').val(index);
-        //        $('#travelclaimrejid').val(index);
-        //    });
-        //    $('#li_claims').addClass('open');
-        //    $('#li_TravelClaim').addClass('active');
-        //})
+    <script type="text/javascript">       
 
         function Approve() {
+
             var atleastOneChecked = $('.myChk').is(':checked');
+
+            if (atleastOneChecked) {
+                var chksArr = $('.myChk');
+                $.each(chksArr, function (index, item) {
+                    if (item.checked) {
+                        var index = item.dataset['index'];
+                        $('#' + index + '_TotalAmtPaid').attr('required', 'required');
+                    }
+                });
+            }
+            
             if (!atleastOneChecked) {
                 swal("Please Select the Checkbox which you want to approve");
             }
@@ -155,6 +143,7 @@
 
 
         function Reject() {
+            $('.txtCss').removeAttr('required');
             var atleastOneChecked = $('.myChk').is(':checked');
             if (!atleastOneChecked) {
                 swal("Please Select the Checkbox which you want to Reject");
@@ -201,7 +190,19 @@
         }
         $(function () {
             $('#li_claims').addClass('open');
-            $('#li_TravelClaim').addClass('active');
+            $('#li_TravelClaim').addClass('active');            
+
+            /*
+            $('.myChk').on('ifChanged', function (event) {
+                debugger;
+                var index = event.delegateTarget.dataset['index'];
+                if (event.currentTarget.checked) {
+                    $('#' + index + '_TotalAmtPaid').attr('required','required');
+                } else {
+                    $('#' + index + '_TotalAmtPaid').removeAttr('required');
+                }
+            });
+            */
         });
 
 

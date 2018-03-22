@@ -31,5 +31,6 @@ namespace HR.Web.Models
         public bool IsApproved { get; set; }
         public string Status { get; set; }
         public string ClaimNo { get; set; }
+        public Nullable<decimal> TotalAmtPaid { get; set; }
     }
 }

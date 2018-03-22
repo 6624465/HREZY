@@ -27,6 +27,7 @@ namespace HR.Web.ViewModels
         public int BranchId { get; set; }
         public int TravelClaimId { get; set; }
         public int EmployeeId { get; set; }
+        public decimal TotalAmtPaid { get; set; }
     }
 
     public class TravelClaimHeaderVm : TravelClaimHeader {

@@ -89,6 +89,7 @@ namespace HR.Web.BusinessObjects.Payroll
             var travelclaimobj = GetById(travelclaim.TravelClaimId);
             travelclaimobj.Status = "APPROVED";
             travelclaimobj.IsApproved = true;
+            travelclaimobj.TotalAmtPaid = travelclaim.TotalAmtPaid;
             Add(travelclaimobj);
             return travelclaimobj;
         }

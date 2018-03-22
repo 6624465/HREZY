@@ -1522,6 +1522,7 @@ namespace HR.Web.Controllers
 
                 var travelclaimid = selectedTCVm[i].TravelClaimId;
                 var travelclaim = travelClaimHeaderBO.GetById(travelclaimid);
+                travelclaim.TotalAmtPaid = selectedTCVm[i].TotalAmtPaid;
                 travelClaimHeaderBO.ApproveTravelClaim(travelclaim);
                 TravelClaimHeader travelobj = travelClaimHeaderBO.GetById(travelclaim.TravelClaimId);
                 var employeeid = travelobj.EmployeeId;

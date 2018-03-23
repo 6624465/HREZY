@@ -84,7 +84,7 @@
                                         <td>
                                             @if (Model.TableData[i].Status == UTILITY.LEAVEPENDING)
                                             {
-                                                <button class="btn btn-primary btn-sm" type="button" onclick="location.href='@Url.Content("~/Leave/ApproveLeave?employeeleaveid="+ Model.TableData[i].EmployeeLeaveID)'">
+                                                <button class="btn btn-primary btn-sm ajaxCss" type="button" onclick="location.href='@Url.Content("~/Leave/ApproveLeave?employeeleaveid="+ Model.TableData[i].EmployeeLeaveID)'">
                                                     <i class="fa fa-check"></i>Approve
                                                 </button>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="popoverCancel"
@@ -131,7 +131,7 @@
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-9">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="RejectLeave()"><i class="fa fa-floppy-o"></i>Save</button>
+                    <button type="button" class="btn btn-primary btn-sm ajaxCss" onclick="RejectLeave()"><i class="fa fa-floppy-o"></i>Save</button>
                     <button type="button" class="btn btn-default btn-sm" onclick="ClosePopUp()"><i class="fa fa-times"></i>Close</button>
                 </div>
             </div>

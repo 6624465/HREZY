@@ -601,7 +601,7 @@ new { @class = "form-control input-sm" })
                                                 <td>
                                                     @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
                                                     {
-                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+"/" + Model.empDocument[i].fileName)" target="_blank">download</a>
+                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+"/" + Model.empDocument[i].fileName)" target="_self" download="@Model.empDocument[i].fileName">download</a>
                                                     }
                                                 </td>
 

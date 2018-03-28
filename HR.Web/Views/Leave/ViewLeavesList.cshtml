@@ -28,7 +28,8 @@
         <div class="box">
             <div class="">
                 <div class="box-header">
-                    <h4>Leave List For The Year(@DateTime.Now.Year)</h4>
+                    @*<h4>Leave List For The Year(@DateTime.Now.Year)</h4>*@
+                    <h4>Leave Report</h4>
                     @if (ViewData["RoleCode"].ToString() != UTILITY.ROLE_SUPERADMIN)
                     {
                         <div class="box-tools">
@@ -42,11 +43,11 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="nowrap">Manager Name</th>
-                                    <th class="nowrap">Apply Date</th>
+                                    @*<th class="nowrap">Manager Name</th>*@
+                                    <th class="nowrap">Date Of Application</th>
                                     <th class="nowrap">From Date</th>
                                     <th class="nowrap">To Date</th>
-                                    <th class="nowrap">Leave Type</th>
+                                    <th class="nowrap">Type Of Leave</th>
                                     <th class="nowrap">Total Days</th>
                                     <th>Reason</th>
                                     <th>Status</th>
@@ -60,7 +61,7 @@
                                     @Html.HiddenFor(x => x.TableData[i].EmployeeId)
                                     @Html.HiddenFor(x => x.TableData[i].EmployeeLeaveID)
                                     <tr>
-                                        <td class="nowrap">@Model.TableData[i].ManagerName</td>
+                                        @*<td class="nowrap">@Model.TableData[i].ManagerName</td>*@
                                         <td>@Model.TableData[i].ApplyDate.ToString("dd/MM/yyyy")</td>
                                         <td>@Model.TableData[i].FromDate.ToString("dd/MM/yyyy")</td>
                                         <td>@Model.TableData[i].ToDate.ToString("dd/MM/yyyy")</td>

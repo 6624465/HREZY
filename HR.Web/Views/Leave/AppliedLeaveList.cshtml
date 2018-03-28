@@ -30,6 +30,15 @@
     new SelectListItem {Text = "November", Value = "11"},
     new SelectListItem {Text = "December", Value = "12"}
     };
+
+    var currentyear = DateTime.Now.Year;
+    var listyears = new List<SelectListItem>()
+    {
+        new SelectListItem {Text=(currentyear-1).ToString(),Value=(currentyear-1).ToString() },
+        new SelectListItem {Text=(currentyear).ToString(),Value=(currentyear).ToString() }
+    };
+
+
 }
 
 <div class="page">
@@ -44,10 +53,10 @@
                     {
                         <div class="row">
                             <div class="col-md-3">
-                                @Html.DropDownList("Month", SelectListItemHelper.GetMonths(), "All", new { @class = "form-control input-sm", onchange = "getappliedlist(this)" })
+                                @Html.DropDownList("Month", listMonths, "All", new { @class = "form-control input-sm", onchange = "getappliedlist(this)" })
                             </div>
                             <div class="col-md-3">
-                                @Html.DropDownList("Year", SelectListItemHelper.GetYears(), "Select Year", new { @class = "form-control input-sm", onchange = "getappliedlist(this)" })
+                                @Html.DropDownList("Year", listyears, "Select Year", new { @class = "form-control input-sm", onchange = "getappliedlist(this)" })
                             </div>
                             <div class="col-md-6">
                                 <button class="btn btn-success btn-sm" onclick="downloadexcel()" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>

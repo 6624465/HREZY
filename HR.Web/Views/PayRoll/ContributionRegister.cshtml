@@ -38,7 +38,7 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Name</span>
                             </label>
-                                <div class="col-md-8">
+                                <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm" })
                                 </div>
                         </div>
@@ -51,7 +51,7 @@
                             }
                             @if (Model.ContributionId != 0)
                             {
-                                <div class="col-md-8">
+                                <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.RegisterCode,
                                                                     new SelectList(ContributionRegister,
                                                                     "Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm"})
@@ -59,7 +59,7 @@
                             }
                             else
                             {
-                                <div class="col-md-8">
+                                <div class="col-md-4">
                                     @Html.DropDownListFor(x => x.RegisterCode,
                                                                     new SelectList(ContributionRegister,
                                                                     "Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm", onchange = "checkComponent(this)" })
@@ -72,7 +72,7 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Description</span>
                             </label>
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 @Html.TextAreaFor(x => x.Description, new { @class = "form-control input-sm" })
                             </div>
                         </div>
@@ -80,13 +80,13 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Sort Order</span>
                             </label>
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 @Html.TextBoxFor(x => x.SortBy, new { @class = "form-control input-sm numCss" })
                             </div>
                         </div>
                         <div class="row css10">
                             <div class="form-group ">
-                                <div class="col-md-8"></div>
+                                <div class="col-md-6"></div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary btn-sm" onclick="ContributionSave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                                     <button class="btn btn-primary btn-sm ajaxCss" type="reset" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegisterList/")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>

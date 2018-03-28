@@ -37,11 +37,12 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h4 class="panel-title">
+                @*<h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapse1" style="font-size:16px;font-weight:bold">Advanced Search</a>
-                </h4>
+                </h4>*@
+                Advanced Search
             </div>
-            <div id="collapse1" class="panel-collapse collapse">
+            @*<div id="collapse1" class="panel-collapse collapse">*@
 
                 <div class="panel-body">
                     @using (Html.BeginForm("empsearch", "Employee", FormMethod.Post, new { id = "frmSearch", name = "frmSearch" }))
@@ -97,7 +98,7 @@
                 </div>
 
             </div>
-        </div>
+        @*</div>*@
         <div class="panel panel-default">
 
             <div class="box">

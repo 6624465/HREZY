@@ -132,7 +132,8 @@ namespace HR.Web.Controllers
         }
 
         #endregion
-        public ViewResult AppliedLeaveList(int page=1,int branchid=0)
+
+        public ViewResult AppliedLeaveList(int page=1,int branchid=0,int month=0,int year=0)
         {
             ViewData["RoleCode"] = ROLECODE;
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
@@ -145,7 +146,8 @@ namespace HR.Web.Controllers
                     dbcntx.EmployeeLeaveLists,
                     a => a.EmployeeId, b => b.EmployeeId,
                     (a, b) => new { A = a, B = b })
-                    .Select(x => new EmpLeaveListVm {
+                    .Select(x => new EmpLeaveListVm
+                    {
                         EmployeeId = x.B.EmployeeId,
                         EmployeeName = x.A.FirstName + " " + x.A.LastName,
                         FromDate = x.B.FromDate,
@@ -154,7 +156,11 @@ namespace HR.Web.Controllers
                         Branchid = x.B.BranchId,
                         Reason = x.B.Reason,
                         LeaveType = dbcntx.LookUps.Where(y => y.LookUpID == x.B.LeaveTypeId).FirstOrDefault().LookUpDescription
-                        }).ToList();
+                    });
+                if (month != 0)
+                    query = query.Where(x => x.FromDate.Month == month);
+
+                query = query.Where(x => x.FromDate.Year == year);
 
                 if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {
@@ -1205,7 +1211,7 @@ namespace HR.Web.Controllers
         }
 
         [HttpPost]
-        public FileResult Excel(int Year, int Month = 0)
+        public FileResult Excel(int Month=0,int Year=0)
         {
             List<ExcelEmpLeaveListVm> list = new List<ExcelEmpLeaveListVm>();
             using (var dbcntx = new HrDataContext())

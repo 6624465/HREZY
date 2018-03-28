@@ -13,6 +13,10 @@
                 <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;Dashboard
             </a>            
         </li>
+@if (Model.IsManager)
+{
+
+
         <li id="li_travelclaim">
             <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
                 <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
@@ -24,6 +28,23 @@
                 <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Application
             </a>
         </li>
+}
+else
+{
+
+
+        <li id="li_emprequestleave">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">
+                <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Application
+            </a>
+        </li>
+
+        <li id="li_travelclaim">
+            <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
+                <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
+            </a>
+        </li>
+}
 
         @if (Model.IsManager)
         {

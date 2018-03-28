@@ -13,30 +13,60 @@
                 <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;Dashboard
             </a>            
         </li>
+@if (Model.IsManager)
+{
+
+
         <li id="li_travelclaim">
             <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
                 <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
             </a>
         </li>
-        <li id="li_holidaylist">
-            <a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">
-            <i class="ion ion-paper-airplane" aria-hidden="true"></i>&nbsp;&nbsp;Holiday List</a>
-        </li>
-        <li id="li_empadd">
-            <a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">
-            <i class="ion ion-android-calendar" aria-hidden="true"></i>&nbsp;&nbsp;View Leaves</a>
-        </li>
+
         <li id="li_emprequestleave">
             <a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">
-            <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Request</a>
+                <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Application
+            </a>
         </li>
+}
+else
+{
+
+
+        <li id="li_emprequestleave">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">
+                <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Application
+            </a>
+        </li>
+
+        <li id="li_travelclaim">
+            <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
+                <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
+            </a>
+        </li>
+}
+
         @if (Model.IsManager)
         {
             <li id="li_grantleaveform">
                 <a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">
-                <i class="ion ion-android-person" aria-hidden="true"></i>&nbsp;&nbsp;Grant Leave Form</a>
+                    <i class="ion ion-android-person" aria-hidden="true"></i>&nbsp;&nbsp;Grant Leave Form
+                </a>
             </li>
         }
+        <li id="li_empadd">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">
+                <i class="ion ion-android-calendar" aria-hidden="true"></i>&nbsp;&nbsp;View Leaves
+            </a>
+        </li>
+
+        <li id="li_holidaylist">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">
+            <i class="ion ion-paper-airplane" aria-hidden="true"></i>&nbsp;&nbsp;Holiday List</a>
+        </li>
+       
+        
+       
         
     </ul>
 }
@@ -72,7 +102,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <li id="li_leave1"><a class="ajaxCss" href="@Url.Content("~/Config/LeaveList")">Leave Types</a></li>
                 <li id="li_paymenttype"><a class="ajaxCss" href="@Url.Content("~/Config/PaymentTypeList")">Payment Mode</a></li>
                 <li id="li_travelclaim"><a class="ajaxCss" href="@Url.Content("~/Config/TravelClaimList")">Travel Claim</a></li>
-                <li id="li_currency"><a class="ajaxCss" href="@Url.Content("~/Config/CurrencyList")">Currencys</a></li>
+                <li id="li_currency"><a class="ajaxCss" href="@Url.Content("~/Config/CurrencyList")">Currencies</a></li>
             </ul>
         </li>
 

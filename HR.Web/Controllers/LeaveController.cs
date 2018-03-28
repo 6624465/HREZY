@@ -1211,7 +1211,7 @@ namespace HR.Web.Controllers
         }
 
         [HttpPost]
-        public FileResult Excel(int Year, int Month = 0)
+        public FileResult Excel(int Month=0,int Year=0)
         {
             List<ExcelEmpLeaveListVm> list = new List<ExcelEmpLeaveListVm>();
             using (var dbcntx = new HrDataContext())

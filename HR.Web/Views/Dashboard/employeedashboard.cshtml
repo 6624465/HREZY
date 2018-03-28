@@ -135,11 +135,11 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <th class="nowrap"> Date Of Application</th>
                                                 <th>From Date</th>
                                                 <th>To Date</th>
-                                                <th class="nowrap">Apply Date</th>
-                                                <th style="white-space:nowrap">Leave Type</th>
-                                                <th>Days</th>
+                                                <th>Total Days</th>
+                                                <th style="white-space:nowrap"> Type Of Leave</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -147,11 +147,12 @@
                                             @for (var i = 0; i < Model.empLeaveDashBoard.Count(); i++)
                                             {
                                                 <tr>
+                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).ApplyDate.ToShortDateString()</td>
                                                     <td>@Model.empLeaveDashBoard.ElementAt(i).FromDate.ToShortDateString()</td>
                                                     <td>@Model.empLeaveDashBoard.ElementAt(i).ToDate.ToShortDateString()</td>
-                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).ApplyDate.ToShortDateString()</td>
-                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).LeaveTypeDesc</td>
                                                     <td>@Model.empLeaveDashBoard.ElementAt(i).Days</td>
+                                                    <td>@Model.empLeaveDashBoard.ElementAt(i).LeaveTypeDesc</td>
+                                                    
                                                     <td>
                                                         @if (Model.empLeaveDashBoard.ElementAt(i).Status == UTILITY.LEAVEAPPROVED)
                                                         {
@@ -193,7 +194,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 pull-right" style="color:#000000;font-family:bold;text-align:center;">
-                                    <h3>@ViewData["message"]</h3>
+                                    @*<h3>@ViewData["message"]</h3>*@
                                 </div>
                             </div>
                         </div>

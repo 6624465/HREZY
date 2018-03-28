@@ -164,6 +164,8 @@
         </div>
     </div>
 }
+
+
                     @*@using (Html.BeginForm("Excel", "Leave", FormMethod.Post, new { id = "frmexcel", name = "frmexcel" }))
                     {
                         <div class="row" style="padding-top:10px">
@@ -192,14 +194,17 @@
     <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            debugger;
             $('#li_Leave').addClass('open');
             $('#li_appliedleavelist').addClass('active');
             var branchid=$('#BranchId').val();
+            var month=$('#Month').val();
+            var year=$('#Year').val();
             $('#pagination').bootpag({
                 total: @Model.PageLength,
                 page: @Model.CurrentPage,
                 maxVisible: 10,
-                href: '@Url.Content("~/Leave/AppliedLeaveList?page="){{number}}' + '&branchid=' +branchid, //"#pro-page-{{number}}",
+                href: '@Url.Content("~/Leave/AppliedLeaveList?page="){{number}}' + '&branchid=' +branchid	+'&month='+month+'&year='+year, //"#pro-page-{{number}}",
                 leaps: false,
                 next: 'Next',
                 prev: 'Prev',

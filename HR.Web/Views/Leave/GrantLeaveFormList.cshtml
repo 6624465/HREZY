@@ -31,11 +31,11 @@
                             <thead>
                                 <tr>
                                     <th>Employee Name</th>
-                                    <th>Apply Date</th>
+                                    <th>Date Of Application</th>
                                     <th>From Date</th>
                                     <th>To Date</th>
-                                    <th>Leave Type</th>
                                     <th>Total Days</th>
+                                    <th>Type Of Leave</th>                                    
                                     <th>Reason</th>
                                     <th>Status</th>
                                     <th>#Action</th>
@@ -49,8 +49,8 @@
                                         <td>@Model.TableData[i].ApplyDate.ToString("dd/MM/yyyy")</td>
                                         <td>@Model.TableData[i].FromDate.ToString("dd/MM/yyyy")</td>
                                         <td>@Model.TableData[i].ToDate.ToString("dd/MM/yyyy")</td>
-                                        <td>@Model.TableData[i].LeaveTypeDesc</td>
                                         <td>@Model.TableData[i].TotalDays</td>
+                                        <td>@Model.TableData[i].LeaveTypeDesc</td>                                        
                                         <td>@Model.TableData[i].Reason</td>
                                         <td>
                                             @if (Model.TableData[i].Status == UTILITY.LEAVEAPPROVED)

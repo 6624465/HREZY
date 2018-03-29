@@ -302,7 +302,7 @@ new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailAirfareVm[i].Currency,
+                                                                    @*@Html.DropDownListFor(x => x.claimDetailAirfareVm[i].Currency,
                                                                     SelectListItemHelper.CurrnyList(), new
                                                                     {
                                                                         @class = "form-control input-sm",
@@ -310,7 +310,16 @@ new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                                                         onchange = "CalculateAirFareTotal(this);",
                                                                         data_index = i,
                                                                         required = "required"
-                                                                    })
+                                                                    })*@
+                                                                    @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].Currency, new
+                                                               {
+                                                                   @class = "form-control  input-sm validatename",
+                                                                   required = "required",
+                                                                   style = "width:100px;",
+                                                                   maxlength = "3",
+                                                                        onblur = "CalculateAirFareTotal(this)",
+                                                                   data_index = i
+                                                               })
                                                                     <script type="text/javascript">
                                                                                     $(function(){
                                                                                         $('#claimDetailAirfareVm_' + '@i' + '__Currency').val('@Model.claimDetailAirfareVm[i].Currency');
@@ -425,7 +434,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailVisaVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculateVisaTotal(this)", data_index = i, @required = "required" })
+                                                                    @*@Html.DropDownListFor(x => x.claimDetailVisaVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculateVisaTotal(this)", data_index = i, @required = "required" })*@
+                                                                    
+                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Currency, new
+                                                                {
+                                                                    @class = "form-control  input-sm validatename",
+                                                                    required = "required",
+                                                                    style = "width:100px;",
+                                                                    maxlength = "3",
+                                                                    onblur = "CalculateVisaTotal(this)",
+                                                                    data_index = i
+                                                                })
+                                                                    
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailVisaVm_' + '@i' + '__Currency').val('@Model.claimDetailVisaVm[i].Currency');
@@ -549,8 +569,19 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailAccomdationVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculateAccomodationTotal(this)", data_index = i, @required = "required" })
-                                                                    <script type="text/javascript">
+                                                                    @*@Html.DropDownListFor(x => x.claimDetailAccomdationVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculateAccomodationTotal(this)", data_index = i, @required = "required" })*@
+                                                                   
+                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].Currency, new
+                                                                {
+                                                                    @class = "form-control  input-sm validatename",
+                                                                    required = "required",
+                                                                    style = "width:100px;",
+                                                                    maxlength = "3",
+                                                                    onblur = "CalculateAccomodationTotal(this)",
+                                                                    data_index = i
+                                                                })
+                                                                    
+                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailAccomdationVm_' + '@i' + '__Currency').val('@Model.claimDetailAccomdationVm[i].Currency');
                                                                         });
@@ -662,12 +693,23 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new {
+                                                                    @*@Html.DropDownListFor(x => x.claimDetailTaxiLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new {
                                                                    @class = "form-control input-sm", @style = "width:100px;",
                                                                    onchange = "CalculateTaxilocalTotal(this)",
                                                                    data_index = i,
                                                                    @required = "required"
-                                                               })
+                                                               })*@
+
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Currency, new
+                                                                {
+                                                                    @class = "form-control  input-sm validatename",
+                                                                    required = "required",
+                                                                    style = "width:100px;",
+                                                                    maxlength = "3",
+                                                                    onblur = "CalculateTaxilocalTotal(this)",
+                                                                    data_index = i
+                                                                })
+
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailTaxiLocalVm_' + '@i' + '__Currency').val('@Model.claimDetailTaxiLocalVm[i].Currency');
@@ -783,7 +825,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatetaxioverseaTotal(this)", data_index = i, @required = "required" })
+                                                                    @*@Html.DropDownListFor(x => x.claimDetailTaxiOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatetaxioverseaTotal(this)", data_index = i, @required = "required" })*@
+                                                                    
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].Currency, new
+                                                                {
+                                                                    @class = "form-control  input-sm validatename",
+                                                                    required = "required",
+                                                                    style = "width:100px;",
+                                                                    maxlength = "3",
+                                                                    onblur = "CalculatetaxioverseaTotal(this)",
+                                                                    data_index = i
+                                                                })
+                                                                    
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailTaxiOverseasVm_' + '@i' + '__Currency').val('@Model.claimDetailTaxiOverseasVm[i].Currency');
@@ -891,7 +944,18 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailFoodLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatefoodbillslocalTotal(this)", data_index = i, @required = "required" })
+                                                                    @*@Html.DropDownListFor(x => x.claimDetailFoodLocalVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatefoodbillslocalTotal(this)", data_index = i, @required = "required" })*@
+
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].Currency, new
+                                                                {
+                                                                    @class = "form-control  input-sm validatename",
+                                                                    required = "required",
+                                                                    style = "width:100px;",
+                                                                    maxlength = "3",
+                                                                    onblur = "CalculatefoodbillslocalTotal(this)",
+                                                                    data_index = i
+                                                                })
+
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailFoodLocalVm_' + '@i' + '__Currency').val('@Model.claimDetailFoodLocalVm[i].Currency');
@@ -999,8 +1063,19 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatefoodbillsoverseasTotal(this)", data_index = i, @required = "required" })
-                                                                    <script type="text/javascript">
+                                                                    @*@Html.DropDownListFor(x => x.claimDetailFoodOverseasVm[i].Currency, SelectListItemHelper.CurrnyList(), new { @class = "form-control input-sm", @style = "width:100px;", onchange = "CalculatefoodbillsoverseasTotal(this)", data_index = i, @required = "required" })*@
+                                                                   
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].Currency, new
+                                                                 {
+                                                                     @class = "form-control  input-sm validatename",
+                                                                     required = "required",
+                                                                     style = "width:100px;",
+                                                                     maxlength = "3",
+                                                                     onblur = "CalculatefoodbillsoverseasTotal(this)",
+                                                                     data_index = i
+                                                                 })
+                                                                    
+                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $('#claimDetailFoodOverseasVm_' + '@i' + '__Currency').val('@Model.claimDetailFoodOverseasVm[i].Currency');
                                                                         });
@@ -1105,14 +1180,27 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                                                                })
                                                                 </td>
                                                                 <td>
-                                                                    @Html.DropDownListFor(x => x.claimDetailOtherExpensesVm[i].Currency, SelectListItemHelper.CurrnyList(), new
+                                                                    @*@Html.DropDownListFor(x => x.claimDetailOtherExpensesVm[i].Currency, SelectListItemHelper.CurrnyList(), new
                                                                {
                                                                    @class = "form-control input-sm",
                                                                    @style = "width:100px;",
                                                                    onchange = "CalculateOtherExpensesTotal(this)",
                                                                    data_index = i,
                                                                    @required = "required"
-                                                               })
+                                                               })*@
+
+                                                                    @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].Currency, new
+                                                                {
+                                                                    @class = "form-control  input-sm validatename",
+                                                                    required = "required",
+                                                                    style = "width:100px;",
+                                                                    maxlength = "3",
+                                                                    onblur = "CalculateOtherExpensesTotal(this)",
+                                                                    data_index = i
+                                                                })
+
+
+
 
                                                                     <script type="text/javascript">
                                                                         $(function(){

@@ -92,20 +92,20 @@
                                                 <label class="control-label"><span class="label label-info" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span></label>
                                             }
                                         </td>
-                                        @if ((Model.TableData[i].Status == UTILITY.LEAVEPENDING) || (string.IsNullOrWhiteSpace(Model.TableData[i].Status)))
-                                        {
-                                            <td>
-                                                <button class="btn btn-danger btn-sm"
-                                                        type="button" data-toggle="popoverCancel" data-id="@Model.TableData[i].EmployeeLeaveID">
-                                                    <i class="fa fa-trash-o"></i> Cancel
-                                                </button>
+<td>
+    @if ((Model.TableData[i].Status == UTILITY.LEAVEPENDING) || (string.IsNullOrWhiteSpace(Model.TableData[i].Status)))
+    {
+
+        <button class="btn btn-danger btn-sm"
+                type="button" data-toggle="popoverCancel" data-id="@Model.TableData[i].EmployeeLeaveID">
+            <i class="fa fa-trash-o"></i> Cancel
+        </button>
                                                 @*<button class="btn btn-danger btn-sm"
                                                             type="button" onclick="OpenCancelPopover(@Model.TableData[i].EmployeeLeaveID)">
                                                         <i class="fa fa-trash-o"></i> Cancel
                                                     </button>*@
-                                            </td>
-                                        }
-                                        else
+
+                                        @*else
                                         {
                                             <td>
                                                 <button class="btn btn-danger btn-sm"
@@ -113,7 +113,9 @@
                                                     <i class="fa fa-trash-o"></i> Cancel
                                                 </button>
                                             </td>
-                                        }
+                                        }*@
+    }
+        </td>
                                     </tr>
                                 }
                             </tbody>

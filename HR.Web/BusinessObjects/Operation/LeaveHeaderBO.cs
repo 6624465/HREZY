@@ -58,7 +58,7 @@ namespace HR.Web.BusinessObjects.Operation
             catch (Exception ex)
             {
 
-                throw ex;
+                throw;
             }
         }
 
@@ -71,7 +71,7 @@ namespace HR.Web.BusinessObjects.Operation
             catch (Exception ex)
             {
 
-                throw ex;
+                throw;
             }
         }
 

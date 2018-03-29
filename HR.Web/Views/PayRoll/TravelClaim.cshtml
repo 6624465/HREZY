@@ -319,7 +319,7 @@ new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].ExchangeRate,
-new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onblur = "CalculateAirFareTotal(this);", data_index=i })
+                                                                   new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onblur = "CalculateAirFareTotal(this);", data_index=i })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].TotalInSGD, new
@@ -1809,7 +1809,7 @@ new { @class = "form-control input-sm decimalCss", @style = "width:100px;", @onb
                 }
             }
             else {
-                swal("Message!", "Please upload one document before saving..");
+                swal("Caution!", "Please update the mandatory fields before proceeding...");
             }
         }
 

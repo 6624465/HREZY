@@ -128,7 +128,7 @@ namespace HR.Web.Helpers
         {
             using (var dbCntx = new HrDataContext())
             {
-                return dbCntx.Countries
+                return dbCntx.Countries.OrderBy(x=>x.CountryName)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.CountryName,

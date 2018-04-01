@@ -213,6 +213,7 @@
 
     <script src="@Url.Content("~/Scripts/moment-weekday-calc.js")"></script>
     <script type="text/javascript">
+        var weekEndPolicyArr = new Array();
         $(function () {
             $('#Session').hide();
             @if (!string.IsNullOrWhiteSpace(message))
@@ -284,7 +285,15 @@
             $('.icheckbox_flat-blue').addClass('checked');
             </text>
             }
+
+
         });
+        @if(ViewBag.weekEndPolicy != null)
+            {
+                <text>
+                weekEndPolicyArr = @Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.weekEndPolicy);
+                </text>
+            }
         //var date = new Date('12/01/2017');
         var date = new Date();
         var year =(new Date()).getFullYear();
@@ -303,7 +312,7 @@
             format: dateFormat,
             minDate: date,
             maxDate: new Date(year+1,month,daet),
-            daysOfWeekDisabled: [0,6]
+            daysOfWeekDisabled: weekEndPolicyArr
         });
 
 
@@ -373,7 +382,7 @@
             $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
-            
+
 
             var from = moment(fromDate, dateFormat);
             var to = moment(toDate, dateFormat);
@@ -396,7 +405,7 @@
                     }
                     else
                         $('#Days').val('');
-                    
+
                     var daysCount=$('#Days').val();
                     if (daysCount > 1) {
 
@@ -434,7 +443,7 @@
             isoWeekDayCalc();
             $('#chkhalfday').trigger("ifChanged");
         });
-      
+
 
         function checkDates() {
             $('#Days').val('');
@@ -541,7 +550,7 @@
             $('#Remarks').val('');
 
         }
-        //clearrec();      
+        //clearrec();
 
         function SaveEmployeeLeaveForm() {
 

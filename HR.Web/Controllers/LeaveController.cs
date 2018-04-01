@@ -217,7 +217,7 @@ namespace HR.Web.Controllers
         public void GetHolidayWeekends()
         {
             List<int> weekEnd = new List<int>();
-
+            List<int> weekEndPolicy = new int[] { 0, 1, 2, 3, 4, 5, 6 }.ToList();            
             WeekendPolicy weekendPolicy = weekendPolicyBO.GetById(BRANCHID);
             List<HolidayList> holidayList = holidayListBO.GetListByProperty(x => x.BranchID == BRANCHID).ToList();
             string[] holidaysList = new string[holidayList.Count];
@@ -231,35 +231,35 @@ namespace HR.Web.Controllers
             {
                 if ((!weekendPolicy.Monday.Value && !weekendPolicy.IsMondayHalfDay.Value) || !weekendPolicy.Monday.Value || weekendPolicy.IsMondayHalfDay.Value)
                 {
-                    weekEnd.Add(1);
+                    weekEnd.Add(1); weekEndPolicy.Remove(1);
                 }
                 if ((!weekendPolicy.Tuesday.Value && !weekendPolicy.IsTuesdayHalfDay.Value) || !weekendPolicy.Tuesday.Value || weekendPolicy.IsTuesdayHalfDay.Value)
                 {
-                    weekEnd.Add(2);
+                    weekEnd.Add(2); weekEndPolicy.Remove(2);
                 }
                 if ((!weekendPolicy.Wednesday.Value && !weekendPolicy.IsWednesdayHalfDay.Value) || !weekendPolicy.Wednesday.Value || weekendPolicy.IsWednesdayHalfDay.Value)
                 {
-                    weekEnd.Add(3);
+                    weekEnd.Add(3); weekEndPolicy.Remove(3);
                 }
                 if ((!weekendPolicy.Thursday.Value && !weekendPolicy.IsThursdayHalfDay.Value) || !weekendPolicy.Thursday.Value || weekendPolicy.IsThursdayHalfDay.Value)
                 {
-                    weekEnd.Add(4);
+                    weekEnd.Add(4); weekEndPolicy.Remove(4);
                 }
                 if ((!weekendPolicy.Friday.Value && !weekendPolicy.IsFridayHalfDay.Value) || !weekendPolicy.Friday.Value && weekendPolicy.IsFridayHalfDay.Value)
                 {
-                    weekEnd.Add(5);
+                    weekEnd.Add(5); weekEndPolicy.Remove(5);
                 }
                 if ((!weekendPolicy.Saturday.Value && !weekendPolicy.IsSaturdayHalfDay.Value) || !weekendPolicy.Saturday.Value || weekendPolicy.IsSaturdayHalfDay.Value)
                 {
-                    weekEnd.Add(6);
+                    weekEnd.Add(6); weekEndPolicy.Remove(6);
                 }
                 if ((!weekendPolicy.Sunday.Value && !weekendPolicy.IsSundayHalfDay.Value) || !weekendPolicy.Sunday.Value || weekendPolicy.IsSundayHalfDay.Value)
                 {
-                    weekEnd.Add(7);
+                    weekEnd.Add(7); weekEndPolicy.Remove(0);
                 }
                 ViewBag.weekend = weekEnd;
+                ViewBag.weekEndPolicy = weekEndPolicy;
             }
-
         }
 
         public ActionResult EmployeeRequestFrom()

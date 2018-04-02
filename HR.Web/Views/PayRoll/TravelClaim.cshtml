@@ -196,7 +196,7 @@
                                 <label class="col-md-5 control-label">
                                     <span>Claim No</span>
                                 </label>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.claimHeader.ClaimNo,
                                    new { @class = "form-control input-sm", @readonly = "readonly" })
                                 </div>
@@ -206,7 +206,7 @@
                                     <label class="col-md-5 control-label">
                                         <span>From Date</span>
                                     </label>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="input-group date dtCss dtCssFromDate" id="FromDate">
                                             @Html.TextBoxFor(x => x.claimHeader.FromDate,
                                        new { @class = "form-control dtCssTxt input-sm", required = "required" })
@@ -242,7 +242,7 @@
                                 <label class="col-md-5 control-label">
                                     <span>To Date</span>
                                 </label>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="input-group date dtCss dtCssToDate" id="ToDate">
                                         @Html.TextBoxFor(x => x.claimHeader.ToDate,
                                        new { @class = "form-control dtCssTxt input-sm", required = "required" })

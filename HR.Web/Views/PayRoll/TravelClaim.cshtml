@@ -12,10 +12,10 @@
         font-size: 1em; /* change icon size */
         display: block;
         position: relative;
-        width: 10em;
-        height: 10em;
+        width: 9em;
+        height: 6em;
         background-color: #fff;
-        margin: 2em auto;
+        /*margin: 2em auto;*/
         box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
         overflow: hidden;
         -webkit-backface-visibility: hidden;
@@ -203,16 +203,18 @@
                             </div>
                             <div class="row css5">
                                 <div class="col-md-4">
-                                    <label class="col-md-5 control-label">
-                                        <span>From Date</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <div class="input-group date dtCss dtCssFromDate" id="FromDate">
-                                            @Html.TextBoxFor(x => x.claimHeader.FromDate,
+                                    <div class="pull-right">
+                                        <label class="col-md-4 control-label">
+                                            <span>From Date</span>
+                                        </label>
+                                        <div class="col-md-5">
+                                            <div class="input-group date dtCss dtCssFromDate" id="FromDate">
+                                                @Html.TextBoxFor(x => x.claimHeader.FromDate,
                                        new { @class = "form-control dtCssTxt input-sm", required = "required" })
-                                            <span class="input-group-addon">
-                                                <i class="ion ion-calendar"></i>
-                                            </span>
+                                                <span class="input-group-addon">
+                                                    <i class="ion ion-calendar"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +225,7 @@
                                 <label class="col-md-5 control-label">
                                     <span>Country Visited</span>
                                 </label>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(),
                                     new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
                                 </div>
@@ -239,10 +241,10 @@
             </div>*@
 
                             <div class="col-md-4">
-                                <label class="col-md-5 control-label">
+                                <label class="col-md-4 control-label">
                                     <span>To Date</span>
                                 </label>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="input-group date dtCss dtCssToDate" id="ToDate">
                                         @Html.TextBoxFor(x => x.claimHeader.ToDate,
                                        new { @class = "form-control dtCssTxt input-sm", required = "required" })
@@ -259,7 +261,7 @@
                                     <em></em>
                                     <strong>Days</strong>
                                     <span>
-                                        <label id="noOfDays" style="margin-top: 25px;"> </label>
+                                        <label id="noOfDays" style="margin-top: 1px;"> </label>
                                     </span>
                                 </time>
 
@@ -1660,8 +1662,11 @@
                 alert("Browse to upload a valid File with png/jpeg/jpg/gif/doc/docx/pdf extension");
                 return false;
             }
-            else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF" || fileName.split(".")[1].toUpperCase()=="DOC" || fileName.split(".")[1].toUpperCase() == "DOCX" || fileName.split(".")[1].toUpperCase() == "PDF")
+            else if (fileName.split(".").toUpperCase() == "PNG" || fileName.split(".").toUpperCase() == "JPEG" || fileName.split(".").toUpperCase() == "JPG" || fileName.split(".").toUpperCase() == "GIF" || fileName.split(".").toUpperCase()=="DOC" || fileName.split(".").toUpperCase() == "DOCX" || fileName.split(".").toUpperCase() == "PDF")
                 return true;
+
+            //else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF" || fileName.split(".")[1].toUpperCase()=="DOC" || fileName.split(".")[1].toUpperCase() == "DOCX" || fileName.split(".")[1].toUpperCase() == "PDF")
+            //    return true;
             else {
                 alert("File with " + fileName.split(".")[1] + " is invalid. Upload a valid File with png/jpg/jpeg/gif/doc/docx/pdf extensions");
                 el.value = "";
@@ -1685,17 +1690,17 @@
                     for (var i = 0; i < result.Length; i++)
                     {
                     <text>
-                        $options = $('#claimHeader_CountryVisited option');
-                        $options.filter('[value="@result[i]"]').prop('selected', true);
-                    </text>
+        $options = $('#claimHeader_CountryVisited option');
+        $options.filter('[value="@result[i]"]').prop('selected', true);
+        </text>
                     }
                 }
             }
 
             <text>
-            parseFloat($('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal)).toFixed(2);
-            var detailCount = @detailCount;
-            </text>
+        parseFloat($('#claimHeader_GrossTotal').val(@Model.claimHeader.GrossTotal)).toFixed(2);
+        var detailCount = @detailCount;
+        </text>
         }
 
         function Preview(TravelClaimId) {
@@ -1742,6 +1747,28 @@
         }
 
         $(document).ready(function () {
+            debugger;
+
+            var fromDate = $('#FromDate').find('input').val();
+            var toDate = $('#ToDate').find('input').val();
+            if(fromDate=='' || toDate=='')
+            {
+      
+           $('#claimHeader_NoOfDays').val('');
+           $('#noOfDays').text('');
+
+            }
+            else {
+            var from = moment(fromDate, dateFormat);
+
+            var to = moment(toDate, dateFormat);
+
+            var days = moment.duration(to.diff(from)).asDays() + 1;
+            $('#claimHeader_NoOfDays').val(days);
+            $('#noOfDays').text(days);
+        }
+
+
             @{
                 var selectedTab = "";
                 if (ViewData["SelectedTab"] != null)
@@ -1752,8 +1779,8 @@
             @if (!string.IsNullOrWhiteSpace(selectedTab))
             {
                 <text>
-                $('a[href="#' + '@selectedTab' + '"]').tab('show');
-                </text>
+            $('a[href="#' + '@selectedTab' + '"]').tab('show');
+        </text>
             }
             for (var i = 0; i < detailCount; i++) {
                 showAccomdation(i);
@@ -1919,17 +1946,17 @@
                 else
                 {
                     <text>
-                    $.each(filesControls, function (index, item) {
-                        if (item.files.length > 0)
-                            isFileUploaded = true;
-                    });
-                    </text>
+            $.each(filesControls, function (index, item) {
+                if (item.files.length > 0)
+                    isFileUploaded = true;
+            });
+            </text>
                 }
             }
 
 
             debugger;
-            if ((isOneChecked && isFileUploaded) || !isOneChecked) {
+            if ((isOneChecked ) || !isOneChecked) {   //&& isFileUploaded
                 if ($('#frmClaim').valid()) {
                     $('#frmClaim').attr('action', '@Url.Content("~/Payroll/TravelClaimSave")');
                     $('#frmClaim').submit();
@@ -1948,16 +1975,16 @@
                             });
                         })
                 }
-                else {
-                    swal("Caution!", "Please update the mandatory fields before proceeding...");
-                    TabVisibility();
-                    var title = $('.multiselect').attr('title');
-                    if (title == 'None selected')
-                        $('.multiselect').addClass('multiselecterr');
-                    else
-                        $('.multiselect').removeClass('multiselecterr');
-                    swal("Incorrect Inputs");
-                }
+                //else {
+                //    swal("Caution!", "Please update the mandatory fields before proceeding...");
+                //    TabVisibility();
+                //    var title = $('.multiselect').attr('title');
+                //    if (title == 'None selected')
+                //        $('.multiselect').addClass('multiselecterr');
+                //    else
+                //        $('.multiselect').removeClass('multiselecterr');
+                //    swal("Incorrect Inputs");
+                //}
             }
             else {
                 swal("Caution!", "Please upload one document before saving...");
@@ -2041,20 +2068,20 @@
             var length = $('.cssAirfareLength').length;
             //if (length > 1) {
 
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#DetailId').val(detailId);
-                $('#claimDetailAirfareVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailAirfareVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailAirfareVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailAirfareVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                if ($('#frmClaim').valid())
-                    $('#frmClaim').submit();
-                else {
-                    swal("Caution!", "Please select Country before proceeding...");
-                    TabVisibility();
-                }
+            $('#addNewClaim').val(category);
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#claimDetailAirfareVm_' + index + '__Perticulars').removeAttr('required');
+            $('#claimDetailAirfareVm_' + index + '__Amount').removeAttr('required');
+            $('#claimDetailAirfareVm_' + index + '__Currency').removeAttr('required');
+            $('#claimDetailAirfareVm_' + index + '__TravelDate').removeAttr('required');
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+            if ($('#frmClaim').valid())
+                $('#frmClaim').submit();
+            else {
+                swal("Caution!", "Please select Country before proceeding...");
+                TabVisibility();
+            }
 
             //}
             //else {
@@ -2118,20 +2145,20 @@
             var length = $('.cssVisaLength').length;
             //if (length > 1) {
 
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#DetailId').val(detailId);
-                $('#claimDetailVisaVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailVisaVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailVisaVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailVisaVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                if ($('#frmClaim').valid())
-                    $('#frmClaim').submit();
-                else {
-                    swal("Caution!", "Please update the mandatory fields before proceeding...");
-                    TabVisibility();
-                }
+            $('#addNewClaim').val(category);
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#claimDetailVisaVm_' + index + '__Perticulars').removeAttr('required');
+            $('#claimDetailVisaVm_' + index + '__Amount').removeAttr('required');
+            $('#claimDetailVisaVm_' + index + '__Currency').removeAttr('required');
+            $('#claimDetailVisaVm_' + index + '__TravelDate').removeAttr('required');
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+            if ($('#frmClaim').valid())
+                $('#frmClaim').submit();
+            else {
+                swal("Caution!", "Please update the mandatory fields before proceeding...");
+                TabVisibility();
+            }
 
             //}
             //else {
@@ -2192,21 +2219,21 @@
             var length = $('.cssAccomodationLength').length;
             //if (length > 1) {
 
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#DetailId').val(detailId);
-                $('#claimDetailAccomdationVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailAccomdationVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailAccomdationVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailAccomdationVm_' + index + '__FromDate').removeAttr('required');
-                $('#claimDetailAccomdationVm_' + index + '__ToDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                if ($('#frmClaim').valid())
-                    $('#frmClaim').submit();
-                else {
-                    swal("Caution!", "Please update the mandatory fields before proceeding...");
-                    TabVisibility();
-                }
+            $('#addNewClaim').val(category);
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#claimDetailAccomdationVm_' + index + '__Perticulars').removeAttr('required');
+            $('#claimDetailAccomdationVm_' + index + '__Amount').removeAttr('required');
+            $('#claimDetailAccomdationVm_' + index + '__Currency').removeAttr('required');
+            $('#claimDetailAccomdationVm_' + index + '__FromDate').removeAttr('required');
+            $('#claimDetailAccomdationVm_' + index + '__ToDate').removeAttr('required');
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+            if ($('#frmClaim').valid())
+                $('#frmClaim').submit();
+            else {
+                swal("Caution!", "Please update the mandatory fields before proceeding...");
+                TabVisibility();
+            }
 
             //}
             //else {
@@ -2267,20 +2294,20 @@
             var length = $('.cssTaxilocalLength').length;
             //if (length > 1) {
 
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#DetailId').val(detailId);
-                $('#claimDetailTaxiLocalVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailTaxiLocalVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailTaxiLocalVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailTaxiLocalVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                if ($('#frmClaim').valid())
-                    $('#frmClaim').submit();
-                else {
-                    swal("Caution!", "Please update the mandatory fields before proceeding...");
-                    TabVisibility();
-                }
+            $('#addNewClaim').val(category);
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#claimDetailTaxiLocalVm_' + index + '__Perticulars').removeAttr('required');
+            $('#claimDetailTaxiLocalVm_' + index + '__Amount').removeAttr('required');
+            $('#claimDetailTaxiLocalVm_' + index + '__Currency').removeAttr('required');
+            $('#claimDetailTaxiLocalVm_' + index + '__TravelDate').removeAttr('required');
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+            if ($('#frmClaim').valid())
+                $('#frmClaim').submit();
+            else {
+                swal("Caution!", "Please update the mandatory fields before proceeding...");
+                TabVisibility();
+            }
 
             //}
             //else {
@@ -2340,20 +2367,20 @@
             var length = $('.csstaxioverseaLength').length;
             //if (length > 1) {
 
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#DetailId').val(detailId);
-                $('#claimDetailTaxiOverseasVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailTaxiOverseasVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailTaxiOverseasVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailTaxiOverseasVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                if ($('#frmClaim').valid())
-                    $('#frmClaim').submit();
-                else {
-                    swal("Caution!", "Please update the mandatory fields before proceeding...");
-                    TabVisibility();
-                }
+            $('#addNewClaim').val(category);
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#claimDetailTaxiOverseasVm_' + index + '__Perticulars').removeAttr('required');
+            $('#claimDetailTaxiOverseasVm_' + index + '__Amount').removeAttr('required');
+            $('#claimDetailTaxiOverseasVm_' + index + '__Currency').removeAttr('required');
+            $('#claimDetailTaxiOverseasVm_' + index + '__TravelDate').removeAttr('required');
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+            if ($('#frmClaim').valid())
+                $('#frmClaim').submit();
+            else {
+                swal("Caution!", "Please update the mandatory fields before proceeding...");
+                TabVisibility();
+            }
 
             //}
             //else {
@@ -2414,20 +2441,20 @@
             var length = $('.cssfoodbillslocalLength').length;
             //if (length > 1) {
 
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#DetailId').val(detailId);
-                $('#claimDetailFoodLocalVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailFoodLocalVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailFoodLocalVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailFoodLocalVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                if ($('#frmClaim').valid())
-                    $('#frmClaim').submit();
-                else {
-                    swal("Caution!", "Please update the mandatory fields before proceeding...");
-                    TabVisibility();
-                }
+            $('#addNewClaim').val(category);
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#claimDetailFoodLocalVm_' + index + '__Perticulars').removeAttr('required');
+            $('#claimDetailFoodLocalVm_' + index + '__Amount').removeAttr('required');
+            $('#claimDetailFoodLocalVm_' + index + '__Currency').removeAttr('required');
+            $('#claimDetailFoodLocalVm_' + index + '__TravelDate').removeAttr('required');
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+            if ($('#frmClaim').valid())
+                $('#frmClaim').submit();
+            else {
+                swal("Caution!", "Please update the mandatory fields before proceeding...");
+                TabVisibility();
+            }
 
             //}
             //else {
@@ -2486,20 +2513,20 @@
             var length = $('.cssfoodbillsoverseasLength').length;
             //if (length > 1) {
 
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#DetailId').val(detailId);
-                $('#claimDetailFoodOverseasVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailFoodOverseasVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                if ($('#frmClaim').valid())
-                    $('#frmClaim').submit();
-                else {
-                    swal("Caution!", "Please update the mandatory fields before proceeding...");
-                    TabVisibility();
-                }
+            $('#addNewClaim').val(category);
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#claimDetailFoodOverseasVm_' + index + '__Perticulars').removeAttr('required');
+            $('#claimDetailFoodOverseasVm_' + index + '__Amount').removeAttr('required');
+            $('#claimDetailFoodOverseasVm_' + index + '__Currency').removeAttr('required');
+            $('#claimDetailFoodOverseasVm_' + index + '__TravelDate').removeAttr('required');
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+            if ($('#frmClaim').valid())
+                $('#frmClaim').submit();
+            else {
+                swal("Caution!", "Please update the mandatory fields before proceeding...");
+                TabVisibility();
+            }
 
             //}
             //else {
@@ -2560,20 +2587,20 @@
             var length = $('.cssOtherExpensesLength').length;
             //if (length > 1) {
 
-                $('#addNewClaim').val(category);
-                $('#addOrDelete').val(index);
-                $('#DetailId').val(detailId);
-                $('#claimDetailOtherExpensesVm_' + index + '__Perticulars').removeAttr('required');
-                $('#claimDetailOtherExpensesVm_' + index + '__Amount').removeAttr('required');
-                $('#claimDetailOtherExpensesVm_' + index + '__Currency').removeAttr('required');
-                $('#claimDetailOtherExpensesVm_' + index + '__TravelDate').removeAttr('required');
-                $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
-                if ($('#frmClaim').valid())
-                    $('#frmClaim').submit();
-                else {
-                    swal("Caution!", "Please update the mandatory fields before proceeding...");
-                    TabVisibility();
-                }
+            $('#addNewClaim').val(category);
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#claimDetailOtherExpensesVm_' + index + '__Perticulars').removeAttr('required');
+            $('#claimDetailOtherExpensesVm_' + index + '__Amount').removeAttr('required');
+            $('#claimDetailOtherExpensesVm_' + index + '__Currency').removeAttr('required');
+            $('#claimDetailOtherExpensesVm_' + index + '__TravelDate').removeAttr('required');
+            $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/TravelClaim")', 'novalidate': 'novalidate' });
+            if ($('#frmClaim').valid())
+                $('#frmClaim').submit();
+            else {
+                swal("Caution!", "Please update the mandatory fields before proceeding...");
+                TabVisibility();
+            }
 
             //}
             //else {
@@ -2584,6 +2611,7 @@
 
 
         $('#claimHeader_ToDate').on('blur', function (e) {
+            debugger;
             $('#claimHeader_NoOfDays').val('');
             $('#noOfDays').text('');
             var fromDate = $('#FromDate').find('input').val();

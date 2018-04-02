@@ -150,36 +150,22 @@
                                 </label>
                                 <div class="col-md-6">
                                     @Html.TextBoxFor(x => x.claimHeader.ClaimNo,
-new { @class = "form-control input-sm", @readonly = "readonly" })
+                                   new { @class = "form-control input-sm", @readonly = "readonly" })
                                 </div>
                             </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="col-md-4">
-                                <label class="col-md-5 control-label">
-                                    <span>From Date</span>
-                                </label>
-                                <div class="col-md-6">
-                                    <div class="input-group date dtCss dtCssFromDate" id="FromDate">
-                                        @Html.TextBoxFor(x => x.claimHeader.FromDate,
-new { @class = "form-control dtCssTxt input-sm", required = "required" })
-                                        <span class="input-group-addon">
-                                            <i class="ion ion-calendar"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-5 control-label">
-                                    <span>To Date</span>
-                                </label>
-                                <div class="col-md-6">
-                                    <div class="input-group date dtCss dtCssToDate" id="ToDate">
-                                        @Html.TextBoxFor(x => x.claimHeader.ToDate,
-new { @class = "form-control dtCssTxt input-sm", required = "required" })
-                                        <span class="input-group-addon">
-                                            <i class="ion ion-calendar"></i>
-                                        </span>
+                            <div class="row css5">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">
+                                        <span>From Date</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group date dtCss dtCssFromDate" id="FromDate">
+                                            @Html.TextBoxFor(x => x.claimHeader.FromDate,
+                                       new { @class = "form-control dtCssTxt input-sm", required = "required" })
+                                            <span class="input-group-addon">
+                                                <i class="ion ion-calendar"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -194,16 +180,33 @@ new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                     new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
                                 </div>
                             </div>
+                            @*<div class="col-md-4">
+                <label class="col-md-5 control-label">
+                    <span>No Of Days</span>
+                </label>
+                <div class="col-md-6" id="noofdays">
+                    @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
+                    @Html.HiddenFor(x => x.claimHeader.GrossTotal)
+                </div>
+            </div>*@
+
                             <div class="col-md-4">
                                 <label class="col-md-5 control-label">
-                                    <span>No Of Days</span>
+                                    <span>To Date</span>
                                 </label>
-                                <div class="col-md-6" id="noofdays">
-                                    @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
-                                    @Html.HiddenFor(x => x.claimHeader.GrossTotal)
+                                <div class="col-md-6">
+                                    <div class="input-group date dtCss dtCssToDate" id="ToDate">
+                                        @Html.TextBoxFor(x => x.claimHeader.ToDate,
+                                       new { @class = "form-control dtCssTxt input-sm", required = "required" })
+                                        <span class="input-group-addon">
+                                            <i class="ion ion-calendar"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>     
+                           
+                     
                         <div id="exTab1">
                             <ul class="nav nav-pills">
                                 <li class="active">

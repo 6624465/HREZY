@@ -766,7 +766,7 @@ namespace HR.Web.Controllers
 
                     ws.Row(row).Style.Font.SetBold(true);
                     ws.Cell("A" + row.ToString()).Value = "Date";
-                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("B" + row.ToString()).Value = "Particulars";
                     ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
                     ws.Cell("D" + row.ToString()).Value = "Amount";
                     ws.Cell("E" + row.ToString()).Value = "Currency";
@@ -796,7 +796,7 @@ namespace HR.Web.Controllers
 
                     ws.Row(row).Style.Font.SetBold(true);
                     ws.Cell("A" + row.ToString()).Value = "Date";
-                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("B" + row.ToString()).Value = "Particulars";
                     ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
                     ws.Cell("D" + row.ToString()).Value = "Amount";
                     ws.Cell("E" + row.ToString()).Value = "Currency";
@@ -827,7 +827,7 @@ namespace HR.Web.Controllers
                     ws.Row(row).Style.Font.SetBold(true);
                     ws.Cell("A" + row.ToString()).Value = "From Date";
                     ws.Cell("B" + row.ToString()).Value = "To Date";
-                    ws.Cell("C" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("C" + row.ToString()).Value = "Particulars";
                     ws.Cell("D" + row.ToString()).Value = "Receipts (Y/N)";
                     ws.Cell("E" + row.ToString()).Value = "Amount";
                     ws.Cell("F" + row.ToString()).Value = "Currency";
@@ -858,7 +858,7 @@ namespace HR.Web.Controllers
 
                     ws.Row(row).Style.Font.SetBold(true);
                     ws.Cell("A" + row.ToString()).Value = "Date";
-                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("B" + row.ToString()).Value = "Particulars";
                     ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
                     ws.Cell("D" + row.ToString()).Value = "Amount";
                     ws.Cell("E" + row.ToString()).Value = "Currency";
@@ -888,7 +888,7 @@ namespace HR.Web.Controllers
 
                     ws.Row(row).Style.Font.SetBold(true);
                     ws.Cell("A" + row.ToString()).Value = "Date";
-                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("B" + row.ToString()).Value = "Particulars";
                     ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
                     ws.Cell("D" + row.ToString()).Value = "Amount";
                     ws.Cell("E" + row.ToString()).Value = "Currency";
@@ -918,7 +918,7 @@ namespace HR.Web.Controllers
 
                     ws.Row(row).Style.Font.SetBold(true);
                     ws.Cell("A" + row.ToString()).Value = "Date";
-                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("B" + row.ToString()).Value = "Particulars";
                     ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
                     ws.Cell("D" + row.ToString()).Value = "Amount";
                     ws.Cell("E" + row.ToString()).Value = "Currency";
@@ -948,7 +948,7 @@ namespace HR.Web.Controllers
 
                     ws.Row(row).Style.Font.SetBold(true);
                     ws.Cell("A" + row.ToString()).Value = "Date";
-                    ws.Cell("B" + row.ToString()).Value = "Perticulars";
+                    ws.Cell("B" + row.ToString()).Value = "Particulars";
                     ws.Cell("C" + row.ToString()).Value = "Receipts (Y/N)";
                     ws.Cell("D" + row.ToString()).Value = "Amount";
                     ws.Cell("E" + row.ToString()).Value = "Currency";

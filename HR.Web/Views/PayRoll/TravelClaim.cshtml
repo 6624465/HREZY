@@ -8,6 +8,54 @@
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
           rel="stylesheet" type="text/css" />
     <style>
+        time.icon {
+        font-size: 1em; /* change icon size */
+        display: block;
+        position: relative;
+        width: 10em;
+        height: 10em;
+        background-color: #fff;
+        margin: 2em auto;
+        box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+        overflow: hidden;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: rotate(0deg) skewY(0deg);
+        -webkit-transform-origin: 50% 10%;
+        transform-origin: 50% 10%;
+    }
+
+        time.icon * {
+            display: block;
+            width: 100%;
+            font-size: 1em;
+            font-weight: bold;
+            font-style: normal;
+            text-align: center;
+        }
+
+        time.icon strong {
+            position: absolute;
+            top: 0;
+            padding: 0.4em 0;
+            color: #fff;
+            background-color: #3f51b5;
+            border-bottom: 1px dashed #3f51b5;
+            box-shadow: 0 2px 0 #3f51b5;
+        }
+
+        time.icon em {
+            position: absolute;
+            bottom: 0.3em;
+            color: #fd9f1b;
+        }
+
+        time.icon span {
+            width: 100%;
+            font-size: 2.8em;
+            letter-spacing: -0.05em;
+            padding-top: 0.8em;
+            color: #2f2f2f;
+        }
         .multiselect-container {
             position: absolute;
             /* list-style-type: none; */
@@ -148,38 +196,24 @@
                                 <label class="col-md-5 control-label">
                                     <span>Claim No</span>
                                 </label>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.claimHeader.ClaimNo,
-new { @class = "form-control input-sm", @readonly = "readonly" })
+                                   new { @class = "form-control input-sm", @readonly = "readonly" })
                                 </div>
                             </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="col-md-4">
-                                <label class="col-md-5 control-label">
-                                    <span>From Date</span>
-                                </label>
-                                <div class="col-md-6">
-                                    <div class="input-group date dtCss dtCssFromDate" id="FromDate">
-                                        @Html.TextBoxFor(x => x.claimHeader.FromDate,
-new { @class = "form-control dtCssTxt input-sm", required = "required" })
-                                        <span class="input-group-addon">
-                                            <i class="ion ion-calendar"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-5 control-label">
-                                    <span>To Date</span>
-                                </label>
-                                <div class="col-md-6">
-                                    <div class="input-group date dtCss dtCssToDate" id="ToDate">
-                                        @Html.TextBoxFor(x => x.claimHeader.ToDate,
-new { @class = "form-control dtCssTxt input-sm", required = "required" })
-                                        <span class="input-group-addon">
-                                            <i class="ion ion-calendar"></i>
-                                        </span>
+                            <div class="row css5">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">
+                                        <span>From Date</span>
+                                    </label>
+                                    <div class="col-md-5">
+                                        <div class="input-group date dtCss dtCssFromDate" id="FromDate">
+                                            @Html.TextBoxFor(x => x.claimHeader.FromDate,
+                                       new { @class = "form-control dtCssTxt input-sm", required = "required" })
+                                            <span class="input-group-addon">
+                                                <i class="ion ion-calendar"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -189,21 +223,50 @@ new { @class = "form-control dtCssTxt input-sm", required = "required" })
                                 <label class="col-md-5 control-label">
                                     <span>Country Visited</span>
                                 </label>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     @Html.DropDownListFor(x => x.claimHeader.CountryVisited, SelectListItemHelper.CountryList(),
                                     new { @class = "form-control input-sm", @multiple = "multiple", @required = "required" })
                                 </div>
                             </div>
+                            @*<div class="col-md-4">
+                <label class="col-md-5 control-label">
+                    <span>No Of Days</span>
+                </label>
+                <div class="col-md-6" id="noofdays">
+                    @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
+                    @Html.HiddenFor(x => x.claimHeader.GrossTotal)
+                </div>
+            </div>*@
+
                             <div class="col-md-4">
                                 <label class="col-md-5 control-label">
-                                    <span>No Of Days</span>
+                                    <span>To Date</span>
                                 </label>
-                                <div class="col-md-6" id="noofdays">
-                                    @Html.TextBoxFor(x => x.claimHeader.NoOfDays, new { @class = "form-control input-sm numCss" })
-                                    @Html.HiddenFor(x => x.claimHeader.GrossTotal)
+                                <div class="col-md-5">
+                                    <div class="input-group date dtCss dtCssToDate" id="ToDate">
+                                        @Html.TextBoxFor(x => x.claimHeader.ToDate,
+                                       new { @class = "form-control dtCssTxt input-sm", required = "required" })
+                                        <span class="input-group-addon">
+                                            <i class="ion ion-calendar"></i>
+                                        </span>
+                                    </div>
                                 </div>
+                                @Html.HiddenFor(x => x.claimHeader.NoOfDays)
+                                @Html.HiddenFor(x=>x.claimHeader.GrossTotal)
                             </div>
-                        </div>
+                            <div class="col-md-3" style="margin-top:-3%">
+                                <time class="icon pull-left">
+                                    <em></em>
+                                    <strong>Days</strong>
+                                    <span>
+                                        <label id="noOfDays" style="margin-top: 25px;"> </label>
+                                    </span>
+                                </time>
+
+                            </div>
+                        </div>     
+                           
+                     
                         <div id="exTab1">
                             <ul class="nav nav-pills">
                                 <li class="active">
@@ -2522,6 +2585,7 @@ new { @class = "form-control dtCssTxt input-sm", required = "required" })
 
         $('#claimHeader_ToDate').on('blur', function (e) {
             $('#claimHeader_NoOfDays').val('');
+            $('#noOfDays').text('');
             var fromDate = $('#FromDate').find('input').val();
             var toDate = $('#ToDate').find('input').val();
 
@@ -2531,6 +2595,7 @@ new { @class = "form-control dtCssTxt input-sm", required = "required" })
 
             var days = moment.duration(to.diff(from)).asDays() + 1;
             $('#claimHeader_NoOfDays').val(days);
+            $('#noOfDays').text(days);
         })
         function Submit(){
             $('#frmClaim').attr({ 'action': '@Url.Content("~/Payroll/SubmittravelClaim")', 'novalidate': 'novalidate' }).submit();

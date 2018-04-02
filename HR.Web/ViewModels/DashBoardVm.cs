@@ -28,6 +28,14 @@ namespace HR.Web.ViewModels
         public decimal totalCLs { get; set; }
         public decimal totalPLs { get; set; }
         public decimal totalSLs { get; set; }
+
+        public decimal remainingcls { get; set; }
+        public decimal? remainingpls { get; set; }
+        public decimal? remainingsls { get; set; }
+
+       public decimal currentcls { get; set; }
+        public decimal? currentpls { get; set; }
+        public decimal? currentsls { get; set; }
     }
 
     public class EmpLeaveDashBoard

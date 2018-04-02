@@ -176,6 +176,10 @@ namespace HR.Web.Controllers
                         var casualLeave = lMaster.CASUALLEAVE(BRANCHID);
                         var sickLeave = lMaster.SICKLEAVE(BRANCHID);
 
+                        var totalcasualLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == casualLeave && x.BranchId == BRANCHID).FirstOrDefault().LeavesPerYear;
+                        var totalpaidleaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == paidLeave && x.BranchId == BRANCHID).FirstOrDefault().LeavesPerYear;
+                        var totalsickLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == sickLeave && x.BranchId == BRANCHID).FirstOrDefault().LeavesPerYear;
+
                         LeaveTran PreveLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
                         decimal totalPaidLeaves = 0;
                         if (PreveLeaveTran != null)
@@ -231,6 +235,12 @@ namespace HR.Web.Controllers
                         obj.empLeaveDashBoard = empLeaveDetails;
                         obj.clPercent = remainingCasualLeavesPercent;
                         obj.plPercent = remainingPaidLeavesPercent;
+                        obj.remainingcls = totalCasualLeaves;
+                        obj.remainingpls = totalpaidleaves;
+                        obj.remainingsls = totalsickLeaves;
+                        obj.currentcls = obj.remainingcls - obj.totalCLs;
+                        obj.currentpls = obj.remainingpls - obj.totalPLs;
+                        obj.currentsls = obj.remainingsls - obj.totalSLs;
                     }
                     return View("employeedashboard", obj);
                 }

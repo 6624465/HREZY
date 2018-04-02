@@ -1,4 +1,5 @@
-﻿@model HR.Web.ViewModels.EmployeeDashBoardVm
+﻿@using Newtonsoft.Json;
+@model HR.Web.ViewModels.EmployeeDashBoardVm
 @{
     ViewBag.Title = "employeedashboard";
 }
@@ -39,14 +40,32 @@
             margin-bottom: 0;
             padding: 15px;
         }
+         .page-dashboard .mini-box .icon {
+            margin-top: -15px;
+            font-size: 43.2px;
+        }
     </style>
 }
 <div class="page page-dashboard">
     <div class="panel panel-default panel-heading"><span>Employee Profile</span></div>
     <br />
     <div class="">
+        <div class="row css10">
+            @*<div class="col-md-6">
+                <div id="container"></div>
+            </div>*@
+            <div class="col-md-4">
+                <div id="CasualLeavesContainer"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="paidLeavesContainer"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="SickLeavesContainer"></div>
+            </div>
+        </div>
 
-        <div class="row">
+        @*<div class="row">
             <div class="col-md-3">
                 <div class="panel panel-default mb20 mini-box panel-hovered">
                     <div class="piedemo clearfix">
@@ -110,19 +129,19 @@
                         <div class="clearfix">
                             <div class="info left">
                                 @*<h4 class="mt0 text-pink text-bold">10K+</h4>*@
-                                <h4 class="text-light mb0"><b class="mt0 mb0 left"><a style="text-decoration:underline" target="_blank" href="@Url.Content("~/Uploads/Sample_PaySlip.pdf")">Download Pay Slip</a></b></h4>
+                                @*<h4 class="text-light mb0"><b class="mt0 mb0 left"><a style="text-decoration:underline" target="_blank" href="@Url.Content("~/Uploads/Sample_PaySlip.pdf")">Download Pay Slip</a></b></h4>
                             </div>
-                            @*<div class="right ion ion-ios-cloud-download-outline icon"></div>*@
+                            <div class="right ion ion-ios-cloud-download-outline icon"></div>
                         </div>
                     </div>
                     <div class="panel-footer clearfix panel-footer-sm panel-footer-pink">
                         <p class="mt0 mb0 left"><span style="font-weight:bold;">Download Previous Pay Slips</span></p>
-                        @*<span class="sparkline right" data-type="bar" data-barcolor="#fff" data-width="1.15em" data-height="1.15em"><canvas style="display: inline-block; width: 29px; height: 14px; vertical-align: top;" width="29" height="14"></canvas></span>*@
+                       <span class="sparkline right" data-type="bar" data-barcolor="#fff" data-width="1.15em" data-height="1.15em"><canvas style="display: inline-block; width: 29px; height: 14px; vertical-align: top;" width="29" height="14"></canvas></span>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+        </div>*@
+        <div class="row css10">
             <div class="col-md-12">
                 <div class="box">
                     <div class="">
@@ -209,42 +228,187 @@
 @section Scripts{
 
     <script type="text/javascript">
-        $(function () {
-            $('.percentage').easyPieChart({
-                barColor: '#CDDC39',
-                trackColor: '#3f51b5',
-                scaleColor: '#3f51b5',
-                lineCap: 'round',
-                scaleLength: 8,
-                size: 120,
-                lineWidth: 4,
-                animate: {
-                    duration: 1000,
-                    enabled: true
-                },
-            });
-            //initCharts();
+        //$(function () {
+        //    $('.percentage').easyPieChart({
+        //        barColor: '#CDDC39',
+        //        trackColor: '#3f51b5',
+        //        scaleColor: '#3f51b5',
+        //        lineCap: 'round',
+        //        scaleLength: 8,
+        //        size: 120,
+        //        lineWidth: 4,
+        //        animate: {
+        //            duration: 1000,
+        //            enabled: true
+        //        },
+        //    });
+        //    //initCharts();
 
-            
-            $('#li_dashboard').addClass('active');
 
+        //    $('#li_dashboard').addClass('active');
+
+        //});
+
+        //var initCharts = function () {
+        //    var charts = $('.percentage');
+        //    charts.easyPieChart({
+        //        animate: 1000,
+        //        onStep: function (value) {
+        //            this.$el.find('span').text(~~value);
+        //        }
+        //    });
+        //    $('.updatePieCharts').on('click', function (e) {
+        //        e.preventDefault();
+        //        charts.each(function () {
+        //            $(this).data('easyPieChart').update(Math.floor(100 * Math.random()));
+        //        });
+        //    });
+        //}
+        var casualleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+        debugger;
+
+        Highcharts.chart('CasualLeavesContainer', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+            },
+                    "colors": [
+               "#2f6e91",
+               "#ff9332",
+               "#6a2329",
+               "#092f46",
+               "#d95c1f",
+               "#33765e",
+               "#845285",
+               "#70bde8",
+               "#12484f",
+               "#4d3d5a"],
+
+                    title: {
+                        text: 'Total CLs' + " " + casualleaves.remainingcls
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' + '<b>' + this.point.name + '</b> is <b>' + this.point.y+ '</b>';
+                        }
+                    },
+
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+
+                            }
+                        }
+                    },
+            series: [{
+                name: 'Casual leaves',
+                colorByPoint: true,
+                data: [{ name: 'RemainingCLs', y: casualleaves.remainingcls }, { name: 'TotalCLs', y: casualleaves.currentcls }]
+            }]
+        });
+        var paidleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+        debugger;
+
+        Highcharts.chart('paidLeavesContainer', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+            },
+            "colors": [
+       "#2f6e91",
+       "#ff9332",
+       "#6a2329",
+       "#092f46",
+       "#d95c1f",
+       "#33765e",
+       "#845285",
+       "#70bde8",
+       "#12484f",
+       "#4d3d5a"],
+
+            title: {
+                text: 'Total PLs' + " " + paidleaves.remainingpls
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' + '<b>' + this.point.name + '</b> is <b>' + this.point.y + '</b>';
+                }
+            },
+
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+
+                    }
+                }
+            },
+            series: [{
+                name: 'Paid Leaves',
+                colorByPoint: true,
+                data: [{ name: 'RemainingPLs', y: paidleaves.remainingpls }, { name: 'TotalPLs', y: paidleaves.currentpls }]
+            }]
+        });
+        var SickLeaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+        debugger;
+
+        Highcharts.chart('SickLeavesContainer', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+            },
+            "colors": [
+       "#2f6e91",
+       "#ff9332",
+       "#6a2329",
+       "#092f46",
+       "#d95c1f",
+       "#33765e",
+       "#845285",
+       "#70bde8",
+       "#12484f",
+       "#4d3d5a"],
+
+            title: {
+                text: 'Total SLs' + " " + SickLeaves.remainingsls
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' + '<b>' + this.point.name + '</b> is <b>' + this.point.y + '</b>';
+                }
+            },
+
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+
+                    }
+                }
+            },
+            series: [{
+                name: 'Sick Leaves',
+                colorByPoint: true,
+                data: [{ name: 'RemainingSLs', y: SickLeaves.totalSLs }, { name: 'TotalSLs', y: SickLeaves.SLPerMonth }]
+            }]
         });
 
-        var initCharts = function () {
-            var charts = $('.percentage');
-            charts.easyPieChart({
-                animate: 1000,
-                onStep: function (value) {
-                    this.$el.find('span').text(~~value);
-                }
-            });
-            $('.updatePieCharts').on('click', function (e) {
-                e.preventDefault();
-                charts.each(function () {
-                    $(this).data('easyPieChart').update(Math.floor(100 * Math.random()));
-                });
-            });
-        }
         $(function () {
             $('#li_EmpProfile').addClass('active');
         });

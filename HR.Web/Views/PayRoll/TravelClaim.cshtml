@@ -15,7 +15,7 @@
         width: 9em;
         height: 6em;
         background-color: #fff;
-        margin: 2em auto;
+        /*margin: 2em auto;*/
         box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
         overflow: hidden;
         -webkit-backface-visibility: hidden;
@@ -203,16 +203,18 @@
                             </div>
                             <div class="row css5">
                                 <div class="col-md-4">
-                                    <label class="col-md-5 control-label">
-                                        <span>From Date</span>
-                                    </label>
-                                    <div class="col-md-5">
-                                        <div class="input-group date dtCss dtCssFromDate" id="FromDate">
-                                            @Html.TextBoxFor(x => x.claimHeader.FromDate,
+                                    <div class="pull-right">
+                                        <label class="col-md-4 control-label">
+                                            <span>From Date</span>
+                                        </label>
+                                        <div class="col-md-5">
+                                            <div class="input-group date dtCss dtCssFromDate" id="FromDate">
+                                                @Html.TextBoxFor(x => x.claimHeader.FromDate,
                                        new { @class = "form-control dtCssTxt input-sm", required = "required" })
-                                            <span class="input-group-addon">
-                                                <i class="ion ion-calendar"></i>
-                                            </span>
+                                                <span class="input-group-addon">
+                                                    <i class="ion ion-calendar"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +241,7 @@
             </div>*@
 
                             <div class="col-md-4">
-                                <label class="col-md-5 control-label">
+                                <label class="col-md-4 control-label">
                                     <span>To Date</span>
                                 </label>
                                 <div class="col-md-5">

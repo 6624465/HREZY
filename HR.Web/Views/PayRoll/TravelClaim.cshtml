@@ -12,8 +12,8 @@
         font-size: 1em; /* change icon size */
         display: block;
         position: relative;
-        width: 10em;
-        height: 10em;
+        width: 9em;
+        height: 6em;
         background-color: #fff;
         margin: 2em auto;
         box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
@@ -259,7 +259,7 @@
                                     <em></em>
                                     <strong>Days</strong>
                                     <span>
-                                        <label id="noOfDays" style="margin-top: 25px;"> </label>
+                                        <label id="noOfDays" style="margin-top: 1px;"> </label>
                                     </span>
                                 </time>
 
@@ -1660,8 +1660,11 @@
                 alert("Browse to upload a valid File with png/jpeg/jpg/gif/doc/docx/pdf extension");
                 return false;
             }
-            else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF" || fileName.split(".")[1].toUpperCase()=="DOC" || fileName.split(".")[1].toUpperCase() == "DOCX" || fileName.split(".")[1].toUpperCase() == "PDF")
+            else if (fileName.split(".").toUpperCase() == "PNG" || fileName.split(".").toUpperCase() == "JPEG" || fileName.split(".").toUpperCase() == "JPG" || fileName.split(".").toUpperCase() == "GIF" || fileName.split(".").toUpperCase()=="DOC" || fileName.split(".").toUpperCase() == "DOCX" || fileName.split(".").toUpperCase() == "PDF")
                 return true;
+
+            //else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF" || fileName.split(".")[1].toUpperCase()=="DOC" || fileName.split(".")[1].toUpperCase() == "DOCX" || fileName.split(".")[1].toUpperCase() == "PDF")
+            //    return true;
             else {
                 alert("File with " + fileName.split(".")[1] + " is invalid. Upload a valid File with png/jpg/jpeg/gif/doc/docx/pdf extensions");
                 el.value = "";
@@ -2606,6 +2609,7 @@
 
 
         $('#claimHeader_ToDate').on('blur', function (e) {
+            debugger;
             $('#claimHeader_NoOfDays').val('');
             $('#noOfDays').text('');
             var fromDate = $('#FromDate').find('input').val();

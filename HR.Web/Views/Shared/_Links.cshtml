@@ -75,17 +75,23 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
 
     <ul class="list-unstyled clearfix nav-list mb15">
         <li id="li_Dashboard">
-            <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
+            @*<a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
                 <i class="ion ion-monitor"></i>
                 <span class="text">Dashboard</span>
                 <i class="arrow ion-chevron-left"></i>
-            </a>
-            <ul class="inner-drop list-unstyled">
+            </a>*@
+            @*<ul class="inner-drop list-unstyled">
                 <li>
                     <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
                 </li>
-            </ul>
-        </li>
+            </ul>*@
+          
+               
+                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
+                        <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;Dashboard
+                    </a>
+              
+</li>
         <li id="li_Master">
             <a href="javascript:;">
                 <i class="ion ion-android-options"></i>

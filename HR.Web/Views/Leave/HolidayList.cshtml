@@ -100,7 +100,7 @@
                         <button type="button" class="btn btn-default btn-sm" onclick="location.href='@Url.Content("~/Leave/HolidayList")'"><i class="fa fa-times"></i>Close</button>
                         @if (Model.HolidayList.HolidayId != 0)
                         {
-                            <button type="button" class="btn btn-danger btn-sm" onclick="location.href='@Url.Content("~/Leave/DeleteHoliday?holidayid=")'+ @Model.HolidayList.HolidayId"><i class="fa fa-trash-o"></i>Delete</button>
+                            <button  id="btndelete" type="button" class="btn btn-danger btn-sm" onclick="location.href='@Url.Content("~/Leave/DeleteHoliday?holidayid=")'+ @Model.HolidayList.HolidayId"><i class="fa fa-trash-o"></i>Delete</button>
                         }
                         @*<button type="button" class="btn btn-danger btn-sm" onclick="location.href='@Url.Content("~/Leave/DeleteHoliday?holidayid=")'+ @Model.HolidayList.HolidayId"><i class="fa fa-trash-o"></i>Delete</button>*@
                     </div>
@@ -122,18 +122,19 @@
                  if(DateTime.Parse(effDt) < DateTime.Now)
                  {
                      <text>
-              
-           $('#Date').attr('readonly', 'readonly');
-                     $('#Description').attr('readonly', 'readonly');
-                    
-                     $("btnsave").removeAttr("active");
-                     </text>
+
+            $('#Date').attr('readonly', 'readonly');
+            $('#Description').attr('readonly', 'readonly');
+            @if (Model.HolidayList.Description != null)
+                    {
+                         <text>
+                         $("#btnsave").remove();
+                         $("#btndelete").remove();
+                         </text>
+                    }
+
+            </text>
                  }
-                 else
-                 {
-                     //<text>var dateObj = moment('@DateTime.Now.ToString("dd/MM/yyyy")', dateFormat);</text>
-                 }
-                
              }
 
             var obj = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.calendarVM))');

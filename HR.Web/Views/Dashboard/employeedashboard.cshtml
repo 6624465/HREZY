@@ -287,7 +287,7 @@
                "#4d3d5a"],
 
                     title: {
-                        text: 'Total CLs per year' + " " + casualleaves.remainingcls
+                        text: 'Total CLs per year' + " " + casualleaves.totalCLs
                     },
                     tooltip: {
                         formatter: function () {
@@ -335,7 +335,7 @@
        "#4d3d5a"],
 
             title: {
-                text: 'Total PLs per year' + " " + paidleaves.remainingpls
+                text: 'Total PLs per year' + " " + paidleaves.totalPLs
             },
             tooltip: {
                 formatter: function () {
@@ -383,7 +383,7 @@
        "#4d3d5a"],
 
             title: {
-                text: 'Total SLs per month' + " " + SickLeaves.SLsPerMonth
+                text: 'Total SLs per Month' + " " + SickLeaves.SLsPerMonth
             },
             tooltip: {
                 formatter: function () {
@@ -405,7 +405,7 @@
             series: [{
                 name: 'Sick Leaves',
                 colorByPoint: true,
-                data: [{ name: 'RemainingSLs', y: SickLeaves.SLsPerMonth }, { name: 'TotalSLs', y: SickLeaves.totalSLs }]
+                data: [{ name: 'RemainingSLs', y: SickLeaves.remainingsl }, { name: 'TotalSLs Applied', y: SickLeaves.totalSLs }]
             }]
         });
 

@@ -50,24 +50,7 @@
 
 <script type="text/javascript">
 
-      @if(Model.HolidayId != -1)
-      {
-          var effDt = Model.Date.ToString("dd/MM/yyyy");
-          if(DateTime.Parse(effDt) < DateTime.Now)
-          {
-              <text>
-              
-    $('#Date').attr('readonly', 'readonly');
-    $('#Description').attr('readonly', 'readonly');
-    $('#Description').attr('readonly', 'readonly');
-              </text>
-          }
-          else
-          {
-              //<text>var dateObj = moment('@DateTime.Now.ToString("dd/MM/yyyy")', dateFormat);</text>
-          }
-                
-      }
+     
 
 
     $(function () {

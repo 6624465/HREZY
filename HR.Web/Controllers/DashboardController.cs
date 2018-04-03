@@ -176,6 +176,10 @@ namespace HR.Web.Controllers
                         var casualLeave = lMaster.CASUALLEAVE(BRANCHID);
                         var sickLeave = lMaster.SICKLEAVE(BRANCHID);
 
+                        var totalcasualLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == casualLeave && x.BranchId == BRANCHID && x.IsActive==true).FirstOrDefault().LeavesPerYear;
+                        var totalpaidleaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == paidLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
+                        var totalsickLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == sickLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
+
                         LeaveTran PreveLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
                         decimal totalPaidLeaves = 0;
                         if (PreveLeaveTran != null)
@@ -186,7 +190,7 @@ namespace HR.Web.Controllers
                         decimal currentPaidLeaves = 0;
                         if (currentLeaveTrans != null)
                             currentPaidLeaves = currentLeaveTrans.CurrentLeaves;
-                        obj.totalPLs = currentPaidLeaves;
+                        obj.remainingpls = currentPaidLeaves;
 
 
 
@@ -209,7 +213,7 @@ namespace HR.Web.Controllers
                         if (curCasualLeaves != null)
                             currentCasualLeaves = curCasualLeaves.CurrentLeaves;
 
-                        obj.totalCLs = currentCasualLeaves;
+                        obj.remainingcls = currentCasualLeaves;
                         if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
                             remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
 
@@ -223,14 +227,38 @@ namespace HR.Web.Controllers
 
                         var SLPerMonth = otherLeaveObj != null ? (otherLeaveObj.LeavesPerMonth != null ? otherLeaveObj.LeavesPerMonth : 0) : 0;
                         var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == sickLeave).ToList();
-                        foreach (var item in CurrentMonthSLs)
+                         foreach (var item in CurrentMonthSLs)
                         {
                             obj.totalSLs += item.Days.Value;
                         }
-                        obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
+                        //if (obj.totalSLs >= SLPerMonth)
+                        //{
+                        //    obj.totalSLs = obj.totalSLs;
+                        //}
+                        //else
+                        //{
+                        //    if (CurrentMonthSLs.Count() != 0)
+                        //    {
+                        //        obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
+                        //    }
+                        //    else
+                        //    {
+                        //        obj.totalSLs = 0;
+                        //    }
+
+                        //}
+
+                        obj.remainingsl = SLPerMonth.Value - obj.totalSLs;
                         obj.empLeaveDashBoard = empLeaveDetails;
                         obj.clPercent = remainingCasualLeavesPercent;
                         obj.plPercent = remainingPaidLeavesPercent;
+                        obj.totalCLs = totalCasualLeaves;
+                        obj.totalPLs = totalpaidleaves.Value;
+                        obj.remainingsls = totalsickLeaves;
+                        obj.currentcls = obj.totalCLs - obj.remainingcls;
+                        obj.currentpls = obj.totalPLs - obj.remainingpls;
+                        obj.currentsls = obj.remainingsls - obj.totalSLs;
+                        obj.SLsPerMonth = SLPerMonth.Value;
                     }
                     return View("employeedashboard", obj);
                 }

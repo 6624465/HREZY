@@ -36,6 +36,8 @@ namespace HR.Web.ViewModels
        public decimal currentcls { get; set; }
         public decimal? currentpls { get; set; }
         public decimal? currentsls { get; set; }
+
+        public decimal SLsPerMonth { get; set; }
     }
 
     public class EmpLeaveDashBoard

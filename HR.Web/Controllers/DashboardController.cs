@@ -241,6 +241,7 @@ namespace HR.Web.Controllers
                         obj.currentcls = obj.remainingcls - obj.totalCLs;
                         obj.currentpls = obj.remainingpls - obj.totalPLs;
                         obj.currentsls = obj.remainingsls - obj.totalSLs;
+                        obj.SLsPerMonth = SLPerMonth.Value;
                     }
                     return View("employeedashboard", obj);
                 }

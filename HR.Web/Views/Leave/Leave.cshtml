@@ -20,7 +20,12 @@
         }
 
         .width {
-            width: 75%;
+            width: 100%;
+        }
+        @@media only screen and (min-width: 1280px) {
+            .width {
+                width: 75%;
+            }
         }
 
         .icheckbox_flat-blue {
@@ -74,90 +79,90 @@
             }
             <div class="center-block width">
                 <div class="panel-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Type Of Leave</th>
-                                <th>Per Year</th>
-                                <th>Per Month</th>
-                                <th class="nowrap">Carry Forward</th>
-                                <th class="nowrap">Carry Forward Days(Per Year)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (int i = 0; i < Model.otherLeave.Count; i++)
-                {
-                                @Html.HiddenFor(x => x.otherLeave[i].LeaveId)
-                                @Html.HiddenFor(x => x.otherLeave[i].LeaveTypeId)
-                                @Html.HiddenFor(x => x.otherLeave[i].BranchId)
-                                @Html.HiddenFor(x => x.otherLeave[i].Description)
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        @Model.otherLeave[i].Description
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerYear,
+                                    <th>Type Of Leave</th>
+                                    <th>Per Year</th>
+                                    <th>Per Month</th>
+                                    <th class="nowrap">Carry Forward</th>
+                                    <th class="nowrap">Carry Forward Days(Per Year)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.otherLeave.Count; i++)
+                {
+                                    @Html.HiddenFor(x => x.otherLeave[i].LeaveId)
+                                    @Html.HiddenFor(x => x.otherLeave[i].LeaveTypeId)
+                                    @Html.HiddenFor(x => x.otherLeave[i].BranchId)
+                                    @Html.HiddenFor(x => x.otherLeave[i].Description)
+                                    <tr>
+                                        <td>
+                                            @Model.otherLeave[i].Description
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerYear,
                            new
                            {
                                @class = "form-control numCss input-sm",
                                onblur = "calcCasualLeave(this," + i + ")",
                                required = "required"
                            })
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerMonth,
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(x => x.otherLeave[i].LeavesPerMonth,
                                  new
                                  {
                                      @class = "form-control decimalCss input-sm",
                                      @readonly = "readonly"
                                  })
-                                    </td>
-                                    <td>
-                                        @Html.HiddenFor(x => x.otherLeave[i].IsCarryForward)
-                                        @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward,
+                                        </td>
+                                        <td>
+                                            @Html.HiddenFor(x => x.otherLeave[i].IsCarryForward)
+                                            @Html.CheckBoxFor(x => x.otherLeave[i].IsCarryForward,
                                             new { @class = "form-control ", @disabled = "disabled" })
-                                    </td>
+                                        </td>
 
-                                    <td>
-                                        @if (Model.otherLeave[i].IsCarryForward)
-                                        {
-                                            @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
-new
-{
-    @class = "form-control decimalCss input-sm",
-    onblur = "CarryFardWard(this," + i + ")",
-    required = "required"
-})
-                                        }
-                                        else
-                                        {
-                                            @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,
-new
-{
-    @class = "form-control decimalCss input-sm",
-    disabled = "disabled",
-    onblur = "CarryFardWard(this," + i + ")"
-})
-                                        }
+                                        <td>
+                                            @if (Model.otherLeave[i].IsCarryForward)
+                                            {
+                                                @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,new
+                                           {
+                                               @class = "form-control decimalCss input-sm",
+                                               onblur = "CarryFardWard(this," + i + ")",
+                                               required = "required"
+                                           })
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBoxFor(x => x.otherLeave[i].CarryForward,new
+                                           {
+                                               @class = "form-control decimalCss input-sm",
+                                               disabled = "disabled",
+                                               onblur = "CarryFardWard(this," + i + ")"
+                                           })
+                                            }
 
 
-                                    </td>
+                                        </td>
 
 
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i><b>Save</b></button>
-                        </div>
-                        @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
-                        {
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="col-md-12">
                             <div class="col-md-6">
-                                <button class="btn btn-primary btn-sm pull-right" type="button" onclick="location.href='@Url.Content("~/Leave/LeaveList")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
+                                <button class="btn btn-primary btn-sm" type="button" onclick="SaveLeave()"><i class="fa fa-floppy-o" aria-hidden="true"></i><b>Save</b></button>
                             </div>
-                        }
+                            @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
+                            {
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary btn-sm pull-right" type="button" onclick="location.href='@Url.Content("~/Leave/LeaveList")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

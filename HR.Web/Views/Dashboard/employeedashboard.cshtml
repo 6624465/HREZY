@@ -310,7 +310,7 @@
             series: [{
                 name: 'Casual Leaves',
                 colorByPoint: true,
-                data: [{ name: 'RemainingCLs', y: casualleaves.totalCLs }, { name: 'TotalCLs', y: casualleaves.currentcls }]
+                data: [{ name: 'RemainingCLs', y: casualleaves.remainingcls }, { name: 'TotalCLs Applied', y: casualleaves.currentcls }]
             }]
         });
         var paidleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
@@ -358,7 +358,7 @@
             series: [{
                 name: 'Paid Leaves',
                 colorByPoint: true,
-                data: [{ name: 'RemainingPLs', y: paidleaves.totalPLs }, { name: 'TotalPLs', y: paidleaves.currentpls }]
+                data: [{ name: 'RemainingPLs', y: paidleaves.remainingpls }, { name: 'TotalPLs Applied', y: paidleaves.currentpls }]
             }]
         });
         var SickLeaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
@@ -384,7 +384,7 @@
        "#4d3d5a"],
 
             title: {
-                text: 'Total SLs per Month' + " " + SickLeaves.SLsPerMonth
+                text: 'Total SLs per Year' + " " + SickLeaves.totalSLs
             },
             tooltip: {
                 formatter: function () {
@@ -398,7 +398,7 @@
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.y}',
+                        format: '<b>{point.name}</b>: {point.y} ',
 
                     }
                 }
@@ -406,7 +406,7 @@
             series: [{
                 name: 'Sick Leaves',
                 colorByPoint: true,
-                data: [{ name: 'RemainingSLs', y: SickLeaves.remainingsl }, { name: 'TotalSLs Applied', y: SickLeaves.totalSLs }]
+                data: [{ name: 'RemainingSLs', y: SickLeaves.remainingsls }, { name: 'TotalSLs Applied', y: SickLeaves.currentsls }]
             }]
         });
 

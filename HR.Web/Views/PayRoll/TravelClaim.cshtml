@@ -1800,7 +1800,7 @@
             $('.dtCssToDate').data("DateTimePicker").maxDate(date);
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
-                $('.dtCssToDate').data("DateTimePicker").maxDate(date);
+                $('.dtCssToDate').data("DateTimePicker").minDate(e.date);
                 $('#claimHeader_NoOfDays').val('');
                 if ($('.travelDateCss').length > 0)
                     $('.travelDateCss').data("DateTimePicker").minDate(e.date);
@@ -1852,6 +1852,7 @@
             });
 
             var MaxDate=$('#claimHeader_FromDate').val();
+            
             if($('.dateCss').length > 0){
                
                 $('.dateCss').data("DateTimePicker").maxDate(MaxDate);

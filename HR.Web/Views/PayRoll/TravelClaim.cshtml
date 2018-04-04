@@ -1797,6 +1797,7 @@
                 format: dateFormat,
             });
             $('.dtCssFromDate').data("DateTimePicker").maxDate(date);
+            $('.dtCssToDate').data("DateTimePicker").maxDate(date);
             $(".dtCssFromDate").on("dp.change", function (e) {
                 $('#claimHeader_ToDate').val('');
                 $('.dtCssToDate').data("DateTimePicker").maxDate(date);

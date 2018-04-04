@@ -1849,11 +1849,15 @@
                     $('#' + item.id).data("DateTimePicker").maxDate(e.date);
                 });
             });
+
+            var MaxDate=$('#claimHeader_FromDate').val();
             if($('.dateCss').length > 0){
-                $('.dateCss').data("DateTimePicker").maxDate(date);
+               
+                $('.dateCss').data("DateTimePicker").maxDate(MaxDate);
+              
             }
             $('.dateCss').each(function (index, item) {
-                $('#' + item.id).data("DateTimePicker").maxDate(date);
+                $('#' + item.id).data("DateTimePicker").maxDate(MaxDate);
             });
 
 

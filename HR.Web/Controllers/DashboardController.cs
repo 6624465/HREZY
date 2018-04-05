@@ -17,271 +17,283 @@ namespace HR.Web.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            DateTime startDayOfYear = new DateTime(UTILITY.SINGAPORETIME.Year, 01, 01);
-            if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+            try
             {
-                using (var dbCntx = new HrDataContext())
+                DateTime startDayOfYear = new DateTime(UTILITY.SINGAPORETIME.Year, 01, 01);
+                if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {
-                    List<Branch> branches = dbCntx.Branches.ToList();
-                    List<EmployeeDataVm> superadminGenderCount = new List<EmployeeDataVm>();
-                    foreach (Branch branch in branches)
+                    using (var dbCntx = new HrDataContext())
                     {
-                        var count = dbCntx.EmployeePersonalDetails
-                               .Where(x => x.BranchId == branch.BranchID).Count();
-                        if (count > 0)
+                        List<Branch> branches = dbCntx.Branches.ToList();
+                        List<EmployeeDataVm> superadminGenderCount = new List<EmployeeDataVm>();
+                        foreach (Branch branch in branches)
                         {
-                            EmployeeDataVm employeeDataVm = new EmployeeDataVm();
+                            var count = dbCntx.EmployeePersonalDetails
+                                   .Where(x => x.BranchId == branch.BranchID).Count();
+                            if (count > 0)
+                            {
+                                EmployeeDataVm employeeDataVm = new EmployeeDataVm();
 
-                            employeeDataVm.genderCount = new List<GenderCount>();
-                            employeeDataVm.branchName = branch.BranchName;
+                                employeeDataVm.genderCount = new List<GenderCount>();
+                                employeeDataVm.branchName = branch.BranchName;
 
-                            GenderCount malecount = new GenderCount();
-                            malecount.name = "Male";
-                            malecount.y = dbCntx.EmployeePersonalDetails
-                                 .Where(x => x.Gender == 101 && x.BranchId == branch.BranchID).Count();
-                            malecount.custom = malecount.y;
-                            employeeDataVm.genderCount.Add(malecount);
+                                GenderCount malecount = new GenderCount();
+                                malecount.name = "Male";
+                                malecount.y = dbCntx.EmployeePersonalDetails
+                                     .Where(x => x.Gender == 101 && x.BranchId == branch.BranchID).Count();
+                                malecount.custom = malecount.y;
+                                employeeDataVm.genderCount.Add(malecount);
 
-                            GenderCount femalecount = new GenderCount();
-                            femalecount.name = "Female";
-                            femalecount.y = dbCntx.EmployeePersonalDetails
-                                 .Where(x => x.Gender == 102 && x.BranchId == branch.BranchID).Count();
-                            femalecount.custom = femalecount.y;
-                            employeeDataVm.genderCount.Add(femalecount);
+                                GenderCount femalecount = new GenderCount();
+                                femalecount.name = "Female";
+                                femalecount.y = dbCntx.EmployeePersonalDetails
+                                     .Where(x => x.Gender == 102 && x.BranchId == branch.BranchID).Count();
+                                femalecount.custom = femalecount.y;
+                                employeeDataVm.genderCount.Add(femalecount);
 
-                            superadminGenderCount.Add(employeeDataVm);
+                                superadminGenderCount.Add(employeeDataVm);
+                            }
                         }
+
+                        return View("index", superadminGenderCount);
                     }
-
-                    return View("index", superadminGenderCount);
                 }
-            }
-            else if (ROLECODE == UTILITY.ROLE_ADMIN)
-            {
-                using (var dbCntx = new HrDataContext())
+                else if (ROLECODE == UTILITY.ROLE_ADMIN)
                 {
-                    DashBoardVm obj = new DashBoardVm();
-                    /*
-                    obj.EmployeeCount = dbCntx.EmployeeHeaders
-                                        .Where(x => x.BranchId == BRANCHID)
-                                        .Count();*/
-                    obj.EmployeeCount = dbCntx.usp_EmployeeDetail(BRANCHID, ROLECODE).Count();
-
-                    obj.lineChartData = dbCntx.usp_EmployeeDateOfJoiningDate(UTILITY.SINGAPORETIME, BRANCHID)
-                                            .ToList()
-                                            .AsEnumerable();
-
-                    Branch branch = dbCntx.Branches.Where(x => x.BranchID == BRANCHID).FirstOrDefault();
-                    //List<EmployeeDataVm> employeeDataVm = new List<EmployeeDataVm>();
-
-                    obj.employeeDataVm = new EmployeeDataVm();
-                    obj.employeeDataVm.genderCount = new List<GenderCount>();
-                    obj.employeeDataVm.branchName = branch.BranchName;
-
-                    GenderCount malecount = new GenderCount();
-                    malecount.name = "Male";
-                    malecount.y = dbCntx.EmployeePersonalDetails
-                         .Where(x => x.Gender == 101 && x.BranchId == branch.BranchID).Count();
-                    malecount.custom = malecount.y;
-                    obj.employeeDataVm.genderCount.Add(malecount);
-
-                    GenderCount femalecount = new GenderCount();
-                    femalecount.name = "Female";
-                    femalecount.y = dbCntx.EmployeePersonalDetails
-                         .Where(x => x.Gender == 102 && x.BranchId == branch.BranchID).Count();
-                    femalecount.custom = femalecount.y;
-                    obj.employeeDataVm.genderCount.Add(femalecount);
-
-
-
-
-                    //var query = dbCntx.EmployeeLeaveLists
-                    //                    .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
-                    //var leaveStartTransactions = dbCntx.LeaveTrans
-                    //                          .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
-                    //                          .OrderBy(x => x.TransactionId)
-                    //                          .FirstOrDefault();
-                    //if (leaveStartTransactions != null)
-                    //{
-                    //    obj.totalPLs = leaveStartTransactions.CurrentLeaves;
-                    //    obj.totalCLs = leaveStartTransactions.CurrentLeaves;
-                    //    DateTime now = DateTime.Now;
-                    //    var startDate = new DateTime(now.Year, now.Month, 1);
-                    //    var endDate = startDate.AddMonths(1).AddDays(-1);
-
-                    //    var SLPerMonth = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault().SickLeavesPerMonth;
-                    //    var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == 1031).ToList();
-                    //    foreach (var item in CurrentMonthSLs)
-                    //    {
-                    //        obj.totalSLs += item.Days.Value;
-                    //    }
-                    //    obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
-                    //}
-                    return View("admindashboard", obj);
-                }
-            }
-            else if (ROLECODE == UTILITY.ROLE_EMPLOYEE)
-            {
-                using (var dbCntx = new HrDataContext())
-                {
-                    EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
-                    var empheader = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault();
-                    var managername = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == empheader.ManagerId).FirstOrDefault();
-                    if (empheader != null)
+                    using (var dbCntx = new HrDataContext())
                     {
-                        int managerId = empheader.ManagerId == null ? 0 : empheader.ManagerId.Value;
-                        if (managerId == 0)
-                        {
-                            ViewData["message"] = "You Don't Have Reporting Manger";
-                        }
-                        else
-                        {
-                            ViewData["message"] = "Your Reporting manager is" + " " + managername.FirstName + " " + managername.LastName;
-                        }
-                    }
-                    var query = dbCntx.EmployeeLeaveLists
-                                            .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
-                    var empLeaveDetails = query.OrderByDescending(x => x.EmployeeLeaveID)
-                                            .ThenByDescending(x => x.ApplyDate)
-                                            .Take(5)
-                                            .Select(x => new EmpLeaveDashBoard
-                                            {
-                                                FromDate = x.FromDate,
-                                                ToDate = x.ToDate,
-                                                ApplyDate = x.ApplyDate,
-                                                LeaveTypeDesc = dbCntx.LookUps.Where(y => y.LookUpID == x.LeaveTypeId).FirstOrDefault().LookUpDescription,
-                                                Status = x.Status,
-                                                Days = x.Days.Value
-                                            })
-                                            .ToList()
-                                            .AsEnumerable();
+                        DashBoardVm obj = new DashBoardVm();
+                        /*
+                        obj.EmployeeCount = dbCntx.EmployeeHeaders
+                                            .Where(x => x.BranchId == BRANCHID)
+                                            .Count();*/
+                        obj.EmployeeCount = dbCntx.usp_EmployeeDetail(BRANCHID, ROLECODE).Count();
 
-                    List<LeaveTran> leaveCurrentTransactions = dbCntx.LeaveTrans
-                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
-                                                .OrderByDescending(x => x.TransactionId)
-                                                .ToList();
+                        obj.lineChartData = dbCntx.usp_EmployeeDateOfJoiningDate(UTILITY.SINGAPORETIME, BRANCHID)
+                                                .ToList()
+                                                .AsEnumerable();
 
+                        Branch branch = dbCntx.Branches.Where(x => x.BranchID == BRANCHID).FirstOrDefault();
+                        //List<EmployeeDataVm> employeeDataVm = new List<EmployeeDataVm>();
 
-                    List<LeaveTran> leaveStartTransactions = dbCntx.LeaveTrans
-                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
-                                                .OrderBy(x => x.TransactionId)
-                                                .ToList();
+                        obj.employeeDataVm = new EmployeeDataVm();
+                        obj.employeeDataVm.genderCount = new List<GenderCount>();
+                        obj.employeeDataVm.branchName = branch.BranchName;
 
-                    decimal remainingPaidLeavesPercent = 0.0M;
-                    decimal remainingCasualLeavesPercent = 0.0M;
-                    LeaveMaster lMaster = new LeaveMaster();
-                    if (leaveStartTransactions != null)
-                    {
-                        var paidLeave = lMaster.PAIDLEAVE(BRANCHID);
-                        var casualLeave = lMaster.CASUALLEAVE(BRANCHID);
-                        var sickLeave = lMaster.SICKLEAVE(BRANCHID);
+                        GenderCount malecount = new GenderCount();
+                        malecount.name = "Male";
+                        malecount.y = dbCntx.EmployeePersonalDetails
+                             .Where(x => x.Gender == 101 && x.BranchId == branch.BranchID).Count();
+                        malecount.custom = malecount.y;
+                        obj.employeeDataVm.genderCount.Add(malecount);
 
-                        var totalcasualLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == casualLeave && x.BranchId == BRANCHID && x.IsActive==true).FirstOrDefault().LeavesPerYear;
-                        var totalpaidleaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == paidLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
-                        var totalsickLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == sickLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
-
-                        LeaveTran PreveLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
-                        decimal totalPaidLeaves = 0;
-                        if (PreveLeaveTran != null)
-                            totalPaidLeaves = PreveLeaveTran.PreviousLeaves;
-
-                        var currentLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId)
-                            .OrderByDescending(x => x.TransactionId).FirstOrDefault();
-                        decimal currentPaidLeaves = 0;
-                        if (currentLeaveTrans != null)
-                            currentPaidLeaves = currentLeaveTrans.CurrentLeaves;
-                        obj.remainingpls = currentPaidLeaves;
+                        GenderCount femalecount = new GenderCount();
+                        femalecount.name = "Female";
+                        femalecount.y = dbCntx.EmployeePersonalDetails
+                             .Where(x => x.Gender == 102 && x.BranchId == branch.BranchID).Count();
+                        femalecount.custom = femalecount.y;
+                        obj.employeeDataVm.genderCount.Add(femalecount);
 
 
 
-                        if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
-                            remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 
-                        LeaveTran prevCasualLeaves = leaveStartTransactions.Where(x => x.LeaveType == casualLeave)
-                            .OrderBy(x => x.TransactionId).FirstOrDefault();
-
-                        LeaveTran curCasualLeaves = leaveCurrentTransactions.Where(x => x.LeaveType == casualLeave).OrderBy(x => x.TransactionId)
-                            .OrderByDescending(x => x.TransactionId).FirstOrDefault();
-
-
-                        decimal totalCasualLeaves = 0;
-
-                        if (prevCasualLeaves != null)
-                            totalCasualLeaves = prevCasualLeaves.PreviousLeaves;
-
-                        decimal currentCasualLeaves = 0;
-                        if (curCasualLeaves != null)
-                            currentCasualLeaves = curCasualLeaves.CurrentLeaves;
-
-                        obj.remainingcls = currentCasualLeaves;
-                        if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
-                            remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
-
-                        DateTime now = DateTime.Now;
-                        var startDate = new DateTime(now.Year, now.Month, 1);
-                        var endDate = startDate.AddMonths(1).AddDays(-1);
-
-
-                        //var otherLeaveObj = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == sickLeave)
-                        //    .FirstOrDefault();
-
-                        //var SLPerMonth = otherLeaveObj != null ? (otherLeaveObj.LeavesPerMonth != null ? otherLeaveObj.LeavesPerMonth : 0) : 0;
-                        //var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == sickLeave).ToList();
-                        // foreach (var item in CurrentMonthSLs)
+                        //var query = dbCntx.EmployeeLeaveLists
+                        //                    .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
+                        //var leaveStartTransactions = dbCntx.LeaveTrans
+                        //                          .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
+                        //                          .OrderBy(x => x.TransactionId)
+                        //                          .FirstOrDefault();
+                        //if (leaveStartTransactions != null)
                         //{
-                        //    obj.totalSLs += item.Days.Value;
-                        //}
-                        //if (obj.totalSLs >= SLPerMonth)
-                        //{
-                        //    obj.totalSLs = obj.totalSLs;
-                        //}
-                        //else
-                        //{
-                        //    if (CurrentMonthSLs.Count() != 0)
+                        //    obj.totalPLs = leaveStartTransactions.CurrentLeaves;
+                        //    obj.totalCLs = leaveStartTransactions.CurrentLeaves;
+                        //    DateTime now = DateTime.Now;
+                        //    var startDate = new DateTime(now.Year, now.Month, 1);
+                        //    var endDate = startDate.AddMonths(1).AddDays(-1);
+
+                        //    var SLPerMonth = dbCntx.Leaves.Where(x => x.BranchId == BRANCHID).FirstOrDefault().SickLeavesPerMonth;
+                        //    var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == 1031).ToList();
+                        //    foreach (var item in CurrentMonthSLs)
                         //    {
-                        //        obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
+                        //        obj.totalSLs += item.Days.Value;
                         //    }
-                        //    else
-                        //    {
-                        //        obj.totalSLs = 0;
-                        //    }
-
+                        //    obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
                         //}
-
-                        LeaveTran PrevesickLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == sickLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
-                        decimal totalsickleaves = 0;
-                        if (PrevesickLeaveTran != null)
-                            totalsickleaves = PrevesickLeaveTran.PreviousLeaves;
-
-                        var currentsickLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == sickLeave).OrderBy(x => x.TransactionId)
-                            .OrderByDescending(x => x.TransactionId).FirstOrDefault();
-                        decimal currentsickLeaves = 0;
-                        if (currentsickLeaveTrans != null)
-                            currentsickLeaves = currentsickLeaveTrans.CurrentLeaves;
-                        obj.remainingsls = currentsickLeaves;
-
-
-
-                        //if (totalsickleaves != 0 && currentsickLeaves != 0)
-                        //    remainingsickLeavesPercent = (currentsickLeaves / totalsickleaves) * 100;
-
-
-                        obj.empLeaveDashBoard = empLeaveDetails;
-                        obj.clPercent = remainingCasualLeavesPercent;
-                        obj.plPercent = remainingPaidLeavesPercent;
-                        obj.totalCLs = totalCasualLeaves;
-                        obj.totalPLs = totalpaidleaves.Value;
-                        obj.totalSLs = totalsickleaves;
-                        obj.currentcls = obj.totalCLs - obj.remainingcls;
-                        obj.currentpls = obj.totalPLs - obj.remainingpls;
-                        obj.currentsls = obj.totalSLs - obj.remainingsls;
-
-
+                        return View("admindashboard", obj);
                     }
-                    return View("employeedashboard", obj);
                 }
+                else if (ROLECODE == UTILITY.ROLE_EMPLOYEE)
+                {
+                    using (var dbCntx = new HrDataContext())
+                    {
+                        EmployeeDashBoardVm obj = new EmployeeDashBoardVm();
+                        var empheader = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault();
+                        var managername = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == empheader.ManagerId).FirstOrDefault();
+                        if (empheader != null)
+                        {
+                            int managerId = empheader.ManagerId == null ? 0 : empheader.ManagerId.Value;
+                            if (managerId == 0)
+                            {
+                                ViewData["message"] = "You Don't Have Reporting Manger";
+                            }
+                            else
+                            {
+                                ViewData["message"] = "Your Reporting manager is" + " " + managername.FirstName + " " + managername.LastName;
+                            }
+                        }
+                        var query = dbCntx.EmployeeLeaveLists
+                                                .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID);
+                        var empLeaveDetails = query.OrderByDescending(x => x.EmployeeLeaveID)
+                                                .ThenByDescending(x => x.ApplyDate)
+                                                .Take(5)
+                                                .Select(x => new EmpLeaveDashBoard
+                                                {
+                                                    FromDate = x.FromDate,
+                                                    ToDate = x.ToDate,
+                                                    ApplyDate = x.ApplyDate,
+                                                    LeaveTypeDesc = dbCntx.LookUps.Where(y => y.LookUpID == x.LeaveTypeId).FirstOrDefault().LookUpDescription,
+                                                    Status = x.Status,
+                                                    Days = x.Days.Value
+                                                })
+                                                .ToList()
+                                                .AsEnumerable();
 
+                        List<LeaveTran> leaveCurrentTransactions = dbCntx.LeaveTrans
+                                                    .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
+                                                    .OrderByDescending(x => x.TransactionId)
+                                                    .ToList();
+
+
+                        List<LeaveTran> leaveStartTransactions = dbCntx.LeaveTrans
+                                                    .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
+                                                    .OrderBy(x => x.TransactionId)
+                                                    .ToList();
+
+                        decimal remainingPaidLeavesPercent = 0.0M;
+                        decimal remainingCasualLeavesPercent = 0.0M;
+                        LeaveMaster lMaster = new LeaveMaster();
+                        if (leaveStartTransactions != null)
+                        {
+                            var paidLeave = lMaster.PAIDLEAVE(BRANCHID);
+                            var casualLeave = lMaster.CASUALLEAVE(BRANCHID);
+                            var sickLeave = lMaster.SICKLEAVE(BRANCHID);
+
+                            var totalcasualLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == casualLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
+                            var totalpaidleaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == paidLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
+                            var totalsickLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == sickLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
+
+                            LeaveTran PreveLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
+                            decimal totalPaidLeaves = 0;
+                            if (PreveLeaveTran != null)
+                                totalPaidLeaves = PreveLeaveTran.PreviousLeaves;
+
+                            var currentLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId)
+                                .OrderByDescending(x => x.TransactionId).FirstOrDefault();
+                            decimal currentPaidLeaves = 0;
+                            if (currentLeaveTrans != null)
+                                currentPaidLeaves = currentLeaveTrans.CurrentLeaves;
+                            obj.remainingpls = currentPaidLeaves;
+
+
+
+                            if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
+                                remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
+
+                            LeaveTran prevCasualLeaves = leaveStartTransactions.Where(x => x.LeaveType == casualLeave)
+                                .OrderBy(x => x.TransactionId).FirstOrDefault();
+
+                            LeaveTran curCasualLeaves = leaveCurrentTransactions.Where(x => x.LeaveType == casualLeave).OrderBy(x => x.TransactionId)
+                                .OrderByDescending(x => x.TransactionId).FirstOrDefault();
+
+
+                            decimal totalCasualLeaves = 0;
+
+                            if (prevCasualLeaves != null)
+                                totalCasualLeaves = prevCasualLeaves.PreviousLeaves;
+
+                            decimal currentCasualLeaves = 0;
+                            if (curCasualLeaves != null)
+                                currentCasualLeaves = curCasualLeaves.CurrentLeaves;
+
+                            obj.remainingcls = currentCasualLeaves;
+                            if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
+                                remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
+
+                            DateTime now = DateTime.Now;
+                            var startDate = new DateTime(now.Year, now.Month, 1);
+                            var endDate = startDate.AddMonths(1).AddDays(-1);
+
+
+                            //var otherLeaveObj = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == sickLeave)
+                            //    .FirstOrDefault();
+
+                            //var SLPerMonth = otherLeaveObj != null ? (otherLeaveObj.LeavesPerMonth != null ? otherLeaveObj.LeavesPerMonth : 0) : 0;
+                            //var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == sickLeave).ToList();
+                            // foreach (var item in CurrentMonthSLs)
+                            //{
+                            //    obj.totalSLs += item.Days.Value;
+                            //}
+                            //if (obj.totalSLs >= SLPerMonth)
+                            //{
+                            //    obj.totalSLs = obj.totalSLs;
+                            //}
+                            //else
+                            //{
+                            //    if (CurrentMonthSLs.Count() != 0)
+                            //    {
+                            //        obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
+                            //    }
+                            //    else
+                            //    {
+                            //        obj.totalSLs = 0;
+                            //    }
+
+                            //}
+
+                            LeaveTran PrevesickLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == sickLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
+                            decimal totalsickleaves = 0;
+                            if (PrevesickLeaveTran != null)
+                                totalsickleaves = PrevesickLeaveTran.PreviousLeaves;
+
+                            var currentsickLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == sickLeave).OrderBy(x => x.TransactionId)
+                                .OrderByDescending(x => x.TransactionId).FirstOrDefault();
+                            decimal currentsickLeaves = 0;
+                            if (currentsickLeaveTrans != null)
+                                currentsickLeaves = currentsickLeaveTrans.CurrentLeaves;
+                            obj.remainingsls = currentsickLeaves;
+
+
+
+                            //if (totalsickleaves != 0 && currentsickLeaves != 0)
+                            //    remainingsickLeavesPercent = (currentsickLeaves / totalsickleaves) * 100;
+
+
+                            obj.empLeaveDashBoard = empLeaveDetails.ToList();
+                            obj.clPercent = remainingCasualLeavesPercent;
+                            obj.plPercent = remainingPaidLeavesPercent;
+                            obj.totalCLs = totalCasualLeaves;
+                            obj.totalPLs = totalpaidleaves.Value;
+                            obj.totalSLs = totalsickleaves;
+                            obj.currentcls = obj.totalCLs - obj.remainingcls;
+                            obj.currentpls = obj.totalPLs - obj.remainingpls;
+                            obj.currentsls = obj.totalSLs - obj.remainingsls;
+
+
+                        }
+                        return View("employeedashboard", obj);
+                    }
+
+                }
             }
+            catch (Exception ex)
+            {
+                //Session["ErrMsg"] = ex.Message + " " + 
+                //                    ex.StackTrace + " " + 
+                //                    ex.TargetSite + " " + 
+                //                    ex.Source;
+                throw;
+            }
+            
 
             return View();
         }

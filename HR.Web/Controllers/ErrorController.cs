@@ -13,6 +13,7 @@ namespace HR.Web.Controllers
         // GET: Error
         public ActionResult NotFound()
         {
+            //ViewBag.Msg = Session["ErrMsg"].ToString();
             return View();
         }
     }

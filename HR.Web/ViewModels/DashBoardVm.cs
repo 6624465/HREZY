@@ -20,7 +20,7 @@ namespace HR.Web.ViewModels
 
     public class EmployeeDashBoardVm
     {
-        public IEnumerable<EmpLeaveDashBoard> empLeaveDashBoard { get; set; }
+        public List<EmpLeaveDashBoard> empLeaveDashBoard { get; set; }
 
         public decimal clPercent { get; set; }
         public decimal plPercent { get; set; }

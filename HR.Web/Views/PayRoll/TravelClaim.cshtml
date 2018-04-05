@@ -2615,12 +2615,16 @@
 
 
         $('#claimHeader_ToDate').on('blur', function (e) {
+
             debugger;
             $('#claimHeader_NoOfDays').val('');
             $('#noOfDays').text('');
             var fromDate = $('#FromDate').find('input').val();
             var toDate = $('#ToDate').find('input').val();
-
+//            if((fromDate=null )|| (toDate =null ))
+//            {
+//                $('#claimHeader_NoOfDays').val('');
+//}
             var from = moment(fromDate, dateFormat);
 
             var to = moment(toDate, dateFormat);

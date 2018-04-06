@@ -687,7 +687,7 @@ new { @class = "form-control input-sm" })
                                                                                     @Html.DropDownListFor(x => x.empHeader.IDType,
                                                                               SelectListItemHelper.EmployeeType(),
                                                                                   "Select Type",
-                                                                              new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                                              new { @class = "form-control input-sm", disabled =true })
                                                                                 </div>
                                                                                 <label class="col-md-2 control-label">
                                                                                     <span class="pull-right">DOJ</span>
@@ -709,7 +709,7 @@ new { @class = "form-control input-sm" })
                                                                                 </label>
                                                                                 <div class="col-md-4">
                                                                                     @Html.TextBoxFor(x => x.empHeader.FirstName,
-new { @class = "form-control validatename input-sm", @maxlength = 30, @readonly = "readonly" })
+new { @class = "form-control validatename input-sm", @maxlength = 30, disabled = true })
                                                                                 </div>
                                                                                 <label class="col-md-2 control-label">
                                                                                     <span class="pull-right">Last Name</span>
@@ -727,7 +727,7 @@ new { @class = "form-control validatename input-sm", @maxlength = 30, @readonly 
                                                                                 </label>
                                                                                 <div class="col-md-4 name">
                                                                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
-new { @class = "form-control validatename input-sm", @maxlength = 30, @readonly = "readonly" })
+new { @class = "form-control validatename input-sm", @maxlength = 30, disabled = true })
                                                                                 </div>
                                                                                 <div class="col-md-2"></div>
                                                                                 <div class="col-md-4">
@@ -749,7 +749,7 @@ new { @class = "form-control validatename input-sm", @maxlength = 30, @readonly 
                                                                             </label>
                                                                             <div class="col-md-4">
                                                                                 <div class="input-group date dtCss" id="DOB">
-                                                                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control dtCssTxt input-sm", @readonly = "readonly" })
+                                                                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control dtCssTxt input-sm", disabled = true })
                                                                                     <span class="input-group-addon">
                                                                                         <i class="ion ion-calendar"></i>
                                                                                     </span>
@@ -782,7 +782,7 @@ new { @class = "form-control input-sm" , @readonly = "readonly" })
                                                                                 {
                                                                                     <div class="col-md-4">
                                                                                         @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-new { @class = "form-control input-sm", onblur = "appendEmail(this)", @readonly = "readonly" })
+new { @class = "form-control input-sm", onblur = "appendEmail(this)", disabled = true })
                                                                                         <label id="error">Email Already Exists.Please enter another one</label>
                                                                                     </div>
                                                                                 }
@@ -806,7 +806,7 @@ new
 {
     @class = "form-control numCssPlus input-sm",
     @maxlength = "15",
-    @readonly = "readonly"
+    disabled = true
 })
                                                                                 </div>
                                                                                 <label class="col-md-2 control-label">
@@ -833,7 +833,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                 </label>
                                                                                 <div class="col-md-4">
                                                                                     @Html.TextBoxFor(x => x.empPersonalDetail.EPFNO,
-                                        new { @class = "form-control input-sm", @readonly = "readonly" })
+                                        new { @class = "form-control input-sm", disabled = true })
                                                                                     @*@Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
                                                                                         new { @class = "form-control numCssPlus input-sm" })*@
                                                                                 </div>
@@ -877,7 +877,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
          @class = "form-control input-sm",
          @cols = 80,
          @rows = 9,
-         @readonly = "readonly"
+         disabled = true
      })
                                                                                 </div>
                                                                             </div>
@@ -889,7 +889,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                 </label>
                                                                                 <div class="col-md-9">
                                                                                     @Html.TextBoxFor(x => x.address.CityName,
-     new { @class = "form-control input-sm", @readonly = "readonly" })
+     new { @class = "form-control input-sm", disabled = true })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -900,7 +900,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                 </label>
                                                                                 <div class="col-md-9">
                                                                                     @Html.TextBoxFor(x => x.address.StateName,
-     new { @class = "form-control input-sm", @readonly = "readonly" })
+     new { @class = "form-control input-sm", disabled = true })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -911,7 +911,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                 </label>
                                                                                 <div class="col-md-9">
                                                                                     @Html.TextBoxFor(x => x.address.ZipCode,
-     new { @class = "form-control numCss input-sm", @readonly = "readonly" })
+     new { @class = "form-control numCss input-sm", disabled = true })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -922,7 +922,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                 </label>
                                                                                 <div class="col-md-9">
                                                                                     @Html.DropDownListFor(x => x.address.CountryCode, SelectListItemHelper.CountryList(), "Select",
-     new { @class = "form-control input-sm", @readonly = "readonly" })
+     new { @class = "form-control input-sm", disabled = true })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1078,7 +1078,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
          value = Model.empHeader.Password,
          @maxlength = "15",
          @minlength = "5",
-         @readonly = "readonly"
+         disabled = true
      })
                                                                                 </div>
                                                                             </div>
@@ -1090,7 +1090,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                 </label>
                                                                                 <div class="col-md-9">
                                                                                     @Html.PasswordFor(x => x.empHeader.ConfirmPassword,
-     new { @class = "form-control input-sm", @readonly = "readonly", value = Model.empHeader.ConfirmPassword })
+     new { @class = "form-control input-sm", disabled = true, value = Model.empHeader.ConfirmPassword })
                                                                                 </div>
                                                                             </div>
                                                                         </div>

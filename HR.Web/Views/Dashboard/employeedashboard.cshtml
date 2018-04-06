@@ -53,8 +53,8 @@
 }
 <div class="page page-dashboard">
     <div class="panel panel-default panel-heading">
-        <span>@baseObj.FIRSTNAME Profile</span>
-        <h4 class="text-light mb0 pull-right"><b class="mt0 mb0 left"><a style="text-decoration:underline" target="_blank" href="@Url.Content("~/Uploads/Sample_PaySlip.pdf")">Download Pay Slip</a></b></h4>
+        <span>Employee Profile</span>
+        <button class="text-light mb0 pull-right btn btn-primary" onclick="location.href='@Url.Content("~/Uploads/Sample_PaySlip.pdf")'"><i class="fa fa-download"></i><b>Download Pay Slip</b></button>
     </div>
     <br />
     <div class="">
@@ -320,7 +320,7 @@
             series: [{
                 name: 'Casual Leaves',
                 colorByPoint: true,
-                data: [{ name: 'RemainingCLs', y: casualleaves.remainingcls }, { name: 'TotalCLs Applied', y: casualleaves.currentcls }]
+                data: [{ name: 'Balance', y: casualleaves.remainingcls }, { name: 'Applied', y: casualleaves.currentcls }]
             }]
         });
         var paidleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
@@ -368,7 +368,7 @@
             series: [{
                 name: 'Paid Leaves',
                 colorByPoint: true,
-                data: [{ name: 'RemainingPLs', y: paidleaves.remainingpls }, { name: 'TotalPLs Applied', y: paidleaves.currentpls }]
+                data: [{ name: 'Balance', y: paidleaves.remainingpls }, { name: 'Applied', y: paidleaves.currentpls }]
             }]
         });
         var SickLeaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
@@ -416,7 +416,7 @@
             series: [{
                 name: 'Sick Leaves',
                 colorByPoint: true,
-                data: [{ name: 'RemainingSLs', y: SickLeaves.remainingsls }, { name: 'TotalSLs Applied', y: SickLeaves.currentsls }]
+                data: [{ name: 'Balance', y: SickLeaves.remainingsls }, { name: 'Applied', y: SickLeaves.currentsls }]
             }]
         });
 

@@ -1,5 +1,32 @@
 ﻿@model HR.Web.ViewModels.PayrollBatchVm
+@section Styles{
+    <link src="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link src="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.bootstrap.min.css" rel="stylesheet" />
+    <style>
+        th, td {
+            white-space: nowrap;
+        }
 
+        div.dataTables_wrapper {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .table-striped td {
+            background: #fff;
+        }
+
+        #dtid {
+            display: none;
+        }
+        .pd-generate{
+            padding:15px;
+        }
+        #dtid2{
+            display:none;
+        }
+    </style>
+}
 @{
     var listMonths = new List<SelectListItem>()
     {
@@ -20,202 +47,214 @@
 
 @using (Html.BeginForm("", "PayrollBatch", FormMethod.Post))
 {
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default panel-hovered panel-stacked mb10">
-                <div class="panel-heading">
-                    Payslip Batch
-                </div>
-                <div class="panel-body">
-                    @Html.HiddenFor(x => x.payslipBatchHeader.BatchHeaderId)
-                    <div class="row css5">
+    <div class="page" style="overflow:visible;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
+                    <div class="panel-heading">
+                        Payslip Batch
+                    </div>
+                    <div class="panel-body">
+                        @Html.HiddenFor(x => x.payslipBatchHeader.BatchHeaderId)
+                        <div class="row css5">
 
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Batch No</span>
-                        </label>
-                        <div class="col-md-3">
-                            @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm" })
-                        </div>
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Process Date</span>
-                        </label>
-                        <div class="col-md-3">
-                            <div class="input-group date dtCss" id="ProcessDate">
-                                @Html.TextBoxFor(x => x.payslipBatchHeader.ProcessDate, new { @class = "form-control input-sm" })
-                                <span class="input-group-addon">
-                                    <i class="ion ion-calendar"></i>
-                                </span>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Batch No</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm" })
+                            </div>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Process Date</span>
+                            </label>
+                            <div class="col-md-3">
+                                <div class="input-group date dtCss" id="ProcessDate">
+                                    @Html.TextBoxFor(x => x.payslipBatchHeader.ProcessDate, new { @class = "form-control input-sm" })
+                                    <span class="input-group-addon">
+                                        <i class="ion ion-calendar"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row css5">
+                        <div class="row css5">
 
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Month</span>
-                        </label>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(x => x.payslipBatchHeader.Month, listMonths, new { @class = "form-control input-sm" })
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Month</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, listMonths, new { @class = "form-control input-sm" })
+                            </div>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Year</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Year, Enumerable.Range(2014, 14).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm" })
+                            </div>
                         </div>
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Year</span>
-                        </label>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(x => x.payslipBatchHeader.Year, Enumerable.Range(2014, 14).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm" })
-                        </div>
-                    </div>
-                    <div class="row css5">
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Total Salary</span>
-                        </label>
-                        <div class="col-md-3">
-                            @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm" })
-                        </div>
-                        <div class="col-md-2">
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Total Salary</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="col-md-2">
 
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-sm btn-primary" id="button-btn"><b>Process</b></button>
+                            </div>
                         </div>
-                        <div class="col-md-5">
-                            <button type="button" class="btn btn-sm btn-primary" onclick="showhide()">Process</button>
+                        <dialog></dialog>
+                        <div class="row" id="dtid">
+                            <div class="col-md-12">
+                              
+                                <table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>EMP ID</th>
+                                            <th>Location</th>
+                                            <th>F/S</th>
+                                            <th>Name</th>
+                                            <th>Designation</th>
+                                            <th>NIC</th>
+                                            <th>Sub Department</th>
+                                            <th>Basic Salary</th>
+                                            <th>BRA 01</th>
+                                            <th>BRA 02</th>
+                                            <th>BRA 03</th>
+                                            <th>Salary Arrears</th>
+                                            <th>No. of No Pay Days</th>
+                                            <th>No Pay Amount</th>
+                                            <th>Salary for EPF</th>
+                                            <th>"Vehicle  Allow. (Pay Slip)"</th>
+                                            <th>"Special Allow (Pay Slip)"</th>
+                                            <th>"Entertain. Allow. (Pay Slip)"</th>
+                                            <th>"Travel Allow. (Pay Slip)"</th>
+                                            <th>"Additional Allowance (Pay Slip)"</th>
+                                            <th>Other Incentives</th>
+                                            <th>Total Additions</th>
+                                            <th>Mobile</th>
+                                            <th>Advance</th>
+                                            <th>Stamp Duty</th>
+                                            <th>P.A.Y.E</th>
+                                            <th>Loan Repayment</th>
+                                            <th>Other Deductions</th>
+                                            <th>E.P.F (8)</th>
+                                            <th>"Total Deductions (Without No Pay)"</th>
+                                            <th>"Total Deductions (With No Pay)"</th>
+                                            <th>Net Pay</th>
+                                            <th>E.P.F 12%</th>
+                                            <th>E.P.F 20%</th>
+                                            <th>E.T.F 3%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                        </tr>
 
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                
+                            </div>
+                            
                         </div>
+                        
+                        
+
                     </div>
+                    
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                            <table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>S.No.</th>
-                                        <th>EMP ID</th>
-                                        <th>Location</th>
-                                        <th>F/S</th>
-                                        <th>Name</th>
-                                        <th>Designation</th>
-                                        <th>NIC</th>
-                                        <th>Sub Department</th>
-                                        <th>Basic Salary</th>
-                                        <th>BRA 01</th>
-                                        <th>BRA 02</th>
-                                        <th>BRA 03</th>
-                                        <th>Salary Arrears</th>
-                                        <th>No. of No Pay Days</th>
-                                        <th>No Pay Amount</th>
-                                        <th>Salary for EPF</th>
-                                        <th>"Vehicle  Allow. (Pay Slip)"</th>
-                                        <th>"Special Allow (Pay Slip)"</th>
-                                        <th>"Entertain. Allow. (Pay Slip)"</th>
-                                        <th>"Travel Allow. (Pay Slip)"</th>
-                                        <th>"Additional Allowance (Pay Slip)"</th>
-                                        <th>Other Incentives</th>
-                                        <th>Total Additions</th>
-                                        <th>Mobile</th>
-                                        <th>Advance</th>
-                                        <th>Stamp Duty</th>
-                                        <th>P.A.Y.E</th>
-                                        <th>Loan Repayment</th>
-                                        <th>Other Deductions</th>
-                                        <th>E.P.F (8)</th>
-                                        <th>"Total Deductions (Without No Pay)"</th>
-                                        <th>"Total Deductions (With No Pay)"</th>
-                                        <th>Net Pay</th>
-                                        <th>E.P.F 12%</th>
-                                        <th>E.P.F 20%</th>
-                                        <th>E.T.F 3%</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Tiger</td>
-                                        <td>Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>Tiger</td>
-                                        <td>Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>Tiger</td>
-                                        <td>Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger</td>
-                                        <td>Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>Tiger</td>
-                                        <td>Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>Tiger</td>
-                                        <td>Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                        <td>$320,800</td>
-                                        <td>5421</td>
-                                        <td>t.nixon@datatables.net</td>
-                                    </tr>
-                                   
-                                </tbody>
-                            </table>
-                    </div>
+                <div id="dtid2" class="panel panel-default panel-hovered panel-stacked mb10 pd-generate">
+                    <button type="button" class="btn btn-sm btn-primary"><b>Generate</b></button>
                 </div>
-
-            </div>
+                </div>
         </div>
-
     </div>
-
+    
 }
-@section Scripts{
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+        @section Scripts{
+            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
-<script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
+            <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

@@ -57,7 +57,8 @@
                 <a href="@Url.Content("~/Employee/Add?EmployeeId=" + Model.EmployeeId)">@Model.EmployeeName Profile</a>
         </span>
        
-        <h4 class="text-light mb0 pull-right"><b class="mt0 mb0 left"><a style="text-decoration:underline" target="_blank" href="@Url.Content("~/Uploads/Sample_PaySlip.pdf")">Download Pay Slip</a></b></h4>
+        @*<h4 class="text-light mb0 pull-right"><b class="mt0 mb0 left"><a style="text-decoration:underline" target="_blank" href="@Url.Content("~/Uploads/Sample_PaySlip.pdf")">Download Pay Slip</a></b></h4>*@
+        <button class="text-light mb0 pull-right btn btn-primary" onclick="location.href='@Url.Content("~/Uploads/Sample_PaySlip.pdf")'"><i class="fa fa-download"></i><b>Download Pay Slip</b></button>
     </div>
     <br />
     <div class="">

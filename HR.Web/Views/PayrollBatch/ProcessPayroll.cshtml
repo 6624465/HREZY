@@ -70,6 +70,13 @@
                         <div class="col-md-3">
                             @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm" })
                         </div>
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-sm btn-primary" onclick="showhide()">Process</button>
+
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -236,6 +243,9 @@
                 }
             });
         });
+        function showhide() {
+            $('#example').show();
+        }
 
   
 

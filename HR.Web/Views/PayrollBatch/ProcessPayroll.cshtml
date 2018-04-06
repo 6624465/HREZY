@@ -219,6 +219,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            var date = new Date();
             $('.dtCss').datetimepicker({
                 icons: {
                     time: 'fa fa-clock-o',
@@ -229,7 +230,9 @@
                     next: 'fa fa-arrow-right',
 
                 },
-                format: dateFormat
+                format: dateFormat,
+                defaultDate:date
+                
             });
             var table = $('#example').DataTable({
                 scrollY: "300px",

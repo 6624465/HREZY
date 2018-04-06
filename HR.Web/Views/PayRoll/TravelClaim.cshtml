@@ -169,6 +169,17 @@
         .uplaod-label {
             display: inline;
         }
+        @@media only screen and (min-width: 993px) {
+            .left-mrgn {
+                margin-left: 80px;
+                margin-top:10px;
+            }
+        }
+        @@media only screen and (max-width: 992px) {
+            .icon {
+                margin-top:35px;
+            }
+        }
     </style>
 }
     <div class="page" style="overflow:visible;">
@@ -268,16 +279,16 @@
                             </div>
                         </div>  
                         <div class="row css5">
-                                <label class="col-md-4 control-label">
+                            <div class="col-md-12">
+                                <label class="col-md-1 control-label">
                                     <span>Purpose Of Visit</span>
                                 </label>
-                                <div class="col-md-8">
+                                <div class="col-sm-6">
                                     @Html.TextBoxFor(x => x.claimHeader.TravelPurpose,
                                    new { @class = "form-control input-sm left-mrgn" })
                                 </div>
+                            </div>
                         </div>   
-                           
-                     
                         <div id="exTab1">
                             <ul class="nav nav-pills">
                                 <li class="active">
@@ -1803,7 +1814,6 @@
                     down: 'fa fa-arrow-down',
                     previous: 'fa fa-arrow-left',
                     next: 'fa fa-arrow-right',
-
                 },
                 format: dateFormat,
             });

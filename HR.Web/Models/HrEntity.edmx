@@ -570,6 +570,7 @@
           <Property Name="Status" Type="nvarchar" MaxLength="20" />
           <Property Name="ClaimNo" Type="nvarchar" MaxLength="50" />
           <Property Name="TotalAmtPaid" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="TravelPurpose" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
@@ -1345,6 +1346,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ClaimNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TotalAmtPaid" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="TravelPurpose" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EmployeeBankdetail">
           <Key>
@@ -2003,6 +2005,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="TravelClaimHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TravelClaimHeader">
               <MappingFragment StoreEntitySet="TravelClaimHeader">
+                <ScalarProperty Name="TravelPurpose" ColumnName="TravelPurpose" />
                 <ScalarProperty Name="TotalAmtPaid" ColumnName="TotalAmtPaid" />
                 <ScalarProperty Name="ClaimNo" ColumnName="ClaimNo" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

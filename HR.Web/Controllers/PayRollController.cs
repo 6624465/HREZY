@@ -1208,6 +1208,7 @@ namespace HR.Web.Controllers
                 Status = UTILITY.TRAVELCLAIMSAVED,
                 ToDate = travelClaimVm.claimHeader.ToDate,
                 TravelClaimId = travelClaimVm.claimHeader.TravelClaimId,
+                TravelPurpose=travelClaimVm.claimHeader.TravelPurpose,
                 GrossTotal = GetGrossTotal(travelClaimVm)
 
             };
@@ -1631,6 +1632,7 @@ namespace HR.Web.Controllers
                 NoOfDays = header.NoOfDays,
                 Status = header.Status,
                 ToDate = header.ToDate,
+                TravelPurpose=header.TravelPurpose,
                 TravelClaimId = header.TravelClaimId
             };
 

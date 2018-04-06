@@ -281,18 +281,16 @@
                                     <a href="#Accommodation" data-toggle="tab">Accommodation</a>
                                 </li>
                                 <li>
+                                    <a href="#TaxiLocal" data-toggle="tab">Taxi Fares Local</a>
+                                </li>
+                                <li>
                                     <a href="#TaxiOverseas" data-toggle="tab">Taxi Fares Overseas</a>
                                 </li>
                                 <li>
-                                    <a href="#FoodBillsOverseas" data-toggle="tab">Food Bills Overseas</a>
-                                </li>
-
-                                <li>
-                                    <a href="#TaxiLocal" data-toggle="tab">Taxi Fares Local</a>
-                                </li>
-                                
-                                <li>
                                     <a href="#FoodBillsLocal" data-toggle="tab">Food Bills Local</a>
+                                </li>
+                                <li>
+                                    <a href="#FoodBillsOverseas" data-toggle="tab">Food Bills Overseas</a>
                                 </li>
                                 <li>
                                     <a href="#OtherExpences" data-toggle="tab">Other Expences</a>
@@ -2617,16 +2615,12 @@
 
 
         $('#claimHeader_ToDate').on('blur', function (e) {
-
             debugger;
             $('#claimHeader_NoOfDays').val('');
             $('#noOfDays').text('');
             var fromDate = $('#FromDate').find('input').val();
             var toDate = $('#ToDate').find('input').val();
-//            if((fromDate=null )|| (toDate =null ))
-//            {
-//                $('#claimHeader_NoOfDays').val('');
-//}
+
             var from = moment(fromDate, dateFormat);
 
             var to = moment(toDate, dateFormat);

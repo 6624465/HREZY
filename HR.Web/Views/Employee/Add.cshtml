@@ -761,7 +761,7 @@ new { @class = "form-control validatename input-sm", @maxlength = 30, @readonly 
                                                                             <div class="col-md-4">
                                                                                 @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
 SelectListItemHelper.MaritalStatus(), "Select Marital Status",
-new { @class = "form-control input-sm" , @readonly = "readonly" })
+new { @class = "form-control input-sm" , disabled = "true" })
                                                                            </div>
                                                                         </div>
                                                                         <div class="row css5">
@@ -815,7 +815,7 @@ new
                                                                                 <div class="col-md-4">
                                                                                     @Html.DropDownListFor(x => x.empHeader.Nationality,
 SelectListItemHelper.CountryList(), "Select Country",
-new { @class = "form-control input-sm", @readonly = "readonly" })
+new { @class = "form-control input-sm", disabled = "true" })
                                                                                     @*<label class="col-md-2 control-label">
                                                                                                                        <span class="pull-right">Emg. Contact Name</span>
                                                                                                                    </label>
@@ -943,7 +943,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                     @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
       SelectListItemHelper.Designation(),
       "Select Designation",
-      new { @class = "form-control input-sm", @readonly = "readonly" })
+      new { @class = "form-control input-sm", disabled = "true" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -956,7 +956,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                     @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
       SelectListItemHelper.Department(),
       "Select Department",
-      new { @class = "form-control input-sm", @readonly = "readonly" })
+      new { @class = "form-control input-sm", disabled = "true" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -969,7 +969,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                     @Html.DropDownListFor(x => x.empWorkDetail.NoticePeriod,
       SelectListItemHelper.NoticePeriod(),
       "Select NoticePeriod",
-      new { @class = "form-control input-sm", @readonly = "readonly" })
+      new { @class = "form-control input-sm", disabled = "true" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -982,7 +982,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                     @Html.DropDownListFor(x => x.empWorkDetail.ProbationPeriod,
       SelectListItemHelper.ProhibationPeriod(),
       "Select Prohibation",
-      new { @class = "form-control input-sm", @readonly = "readonly" })
+      new { @class = "form-control input-sm", disabled = "true" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1140,7 +1140,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                     <span class="pull-right">Account Type</span>
                                                                                 </label>
                                                                                 <div class="col-md-9">
-                                                                                    @Html.DropDownListFor(x => x.empBankdetail.AccountType, SelectListItemHelper.AccountType(), "--Select--", new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                                                    @Html.DropDownListFor(x => x.empBankdetail.AccountType, SelectListItemHelper.AccountType(), "--Select--", new { @class = "form-control input-sm", disabled = "true" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>

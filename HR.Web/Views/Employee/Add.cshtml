@@ -6,6 +6,9 @@
             display: none;
             color: Red;
         }
+          .icheckbox_flat-blue.checked.disabled {
+    background-position: -22px 0;
+}
     </style>
 }
 
@@ -732,12 +735,12 @@ new { @class = "form-control validatename input-sm", @maxlength = 30, @readonly 
                                                                                 <div class="col-md-2"></div>
                                                                                 <div class="col-md-4">
                                                                                     <label>
-                                                                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 101, "Male")
+                                                                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 101, new { disabled = "disabled" })
                                                                                         <span>Male</span>
                                                                                     </label>
                                                                                     &nbsp;
                                                                                     <label>
-                                                                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 102, "Female")
+                                                                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 102, new { disabled="disabled"})
                                                                                         <span>Female</span>
                                                                                     </label>
                                                                                 </div>
@@ -1031,7 +1034,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
 
                                                                                     <div class="col-md-8">
                                                                                         @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
- new { @class = "form-control input-sm", @readonly = "readonly" })
+ new { @class = "form-control input-sm", disabled="true" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

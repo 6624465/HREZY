@@ -53,7 +53,10 @@
 }
 <div class="page page-dashboard">
     <div class="panel panel-default panel-heading">
-        <span>@baseObj.FIRSTNAME Profile</span>
+        <span>
+                <a href="@Url.Content("~/Employee/Add?EmployeeId=" + Model.EmployeeId)">@Model.EmployeeName Profile</a>
+        </span>
+       
         <h4 class="text-light mb0 pull-right"><b class="mt0 mb0 left"><a style="text-decoration:underline" target="_blank" href="@Url.Content("~/Uploads/Sample_PaySlip.pdf")">Download Pay Slip</a></b></h4>
     </div>
     <br />

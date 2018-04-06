@@ -39,6 +39,9 @@ namespace HR.Web.ViewModels
 
         public decimal SLsPerMonth { get; set; }
         public decimal remainingsl { get; set; }
+        public int EmployeeId { get; set; }
+
+        public string EmployeeName { get; set; }
     }
 
     public class EmpLeaveDashBoard

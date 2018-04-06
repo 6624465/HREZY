@@ -277,6 +277,8 @@ namespace HR.Web.Controllers
                             obj.currentcls = obj.totalCLs - obj.remainingcls;
                             obj.currentpls = obj.totalPLs - obj.remainingpls;
                             obj.currentsls = obj.totalSLs - obj.remainingsls;
+                            obj.EmployeeId = EMPLOYEEID;
+                            obj.EmployeeName = empheader.FirstName + " " + empheader.LastName;
 
 
                         }

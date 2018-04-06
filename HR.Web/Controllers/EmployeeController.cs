@@ -166,6 +166,7 @@ namespace HR.Web.Controllers
         public ActionResult add(int? EmployeeId)
         {
             ViewData["BranchId"] = BRANCHID;
+            ViewData["RoleCode"] = ROLECODE;
             var count = salaryStructureHeaderBO.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true).Count();
             ViewData["IsEnable"] = false;
             if (count > 0)

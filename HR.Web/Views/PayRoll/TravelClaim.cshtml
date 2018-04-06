@@ -266,7 +266,16 @@
                                 </time>
 
                             </div>
-                        </div>     
+                        </div>  
+                        <div class="row css5">
+                                <label class="col-md-4 control-label">
+                                    <span>Purpose Of Visit</span>
+                                </label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.claimHeader.TravelPurpose,
+                                   new { @class = "form-control input-sm left-mrgn" })
+                                </div>
+                        </div>   
                            
                      
                         <div id="exTab1">

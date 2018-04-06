@@ -1024,7 +1024,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                     <span class="pull-right">Reporting To</span>
                                                                                 </label>
                                                                                 <div class="col-md-1" style="margin-top:10px">
-                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
+                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority,new { disabled="disabled"})
 
                                                                                 </div>
                                                                                 <div id="isReportingTo">
@@ -1102,7 +1102,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                             </label>
                                                                             <div class="col-md-2">
                                                                                 <div style="margin-top:10px">
-                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value)
+                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value,new { disabled="disabled"})
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1217,7 +1217,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                                 <td>@Html.DisplayFor(x => x.empDocument[i].DocumentDescription)</td>
                                                                                                 @Html.HiddenFor(x => x.empDocument[i].DocumentType)
                                                                                                 <td>
-                                                                                                    @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)", @readonly = "readonly" })
+                                                                                                    @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)", disabled=true })
 
                                                                                                 </td>
                                                                                                 <td>
@@ -1230,7 +1230,7 @@ new { @class = "form-control input-sm", @readonly = "readonly" })
                                                                                                 <td>
                                                                                                     @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
                                                                                                     {
-                                                                                                        <button class="btn btn-xs  btn-sm ajaxCss btn-danger " type="button"
+                                                                                                        <button class="btn btn-xs  btn-sm ajaxCss btn-danger " type="button" disabled="disabled"
                                                                                                                 style="padding-left: 5px;margin-left: 6px;"
                                                                                                                 onclick="location.href='@Url.Content("~/Employee/DeleteEmployeeDocs?docdetailid=" + Model.empDocument[i].DocumentDetailId)'">
                                                                                                             <i class="fa fa-trash-o" style="padding-left: 5px;"></i>

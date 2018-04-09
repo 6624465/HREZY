@@ -6,16 +6,18 @@
             display: none;
             color: Red;
         }
-          .icheckbox_flat-blue.checked.disabled {
-    background-position: -22px 0;
-}
-          .iradio_flat-blue.checked.disabled{
-              background-position:-110px 0;
-          }
+
+        .icheckbox_flat-blue.checked.disabled {
+            background-position: -22px 0;
+        }
+
+        .iradio_flat-blue.checked.disabled {
+            background-position: -110px 0;
+        }
     </style>
 }
 
-@{ 
+@{
     var documentdetailidObj = Model.empDocument.Where(x => x.DocumentType == UTILITY.DOCUMENTTYPEID).FirstOrDefault();
     int detailid = 0;
     var filename = "";
@@ -693,7 +695,7 @@ new { @class = "form-control input-sm" })
                                                                                     @Html.DropDownListFor(x => x.empHeader.IDType,
                                                                               SelectListItemHelper.EmployeeType(),
                                                                                   "Select Type",
-                                                                              new { @class = "form-control input-sm", disabled =true })
+                                                                              new { @class = "form-control input-sm", disabled = true })
                                                                                 </div>
                                                                                 <label class="col-md-2 control-label">
                                                                                     <span class="pull-right">DOJ</span>
@@ -743,7 +745,7 @@ new { @class = "form-control validatename input-sm", @maxlength = 30, disabled =
                                                                                     </label>
                                                                                     &nbsp;
                                                                                     <label>
-                                                                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 102, new { disabled="disabled"})
+                                                                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 102, new { disabled = "disabled" })
                                                                                         <span>Female</span>
                                                                                     </label>
                                                                                 </div>
@@ -767,8 +769,8 @@ new { @class = "form-control validatename input-sm", @maxlength = 30, disabled =
                                                                             <div class="col-md-4">
                                                                                 @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
 SelectListItemHelper.MaritalStatus(), "Select Marital Status",
-new { @class = "form-control input-sm" , disabled = "true" })
-                                                                           </div>
+new { @class = "form-control input-sm", disabled = "true" })
+                                                                            </div>
                                                                         </div>
                                                                         <div class="row css5">
                                                                             <div class="form-group">
@@ -1030,14 +1032,14 @@ new { @class = "form-control input-sm", disabled = "true" })
                                                                                     <span class="pull-right">Reporting To</span>
                                                                                 </label>
                                                                                 <div class="col-md-1" style="margin-top:10px">
-                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority,new { disabled="disabled"})
+                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority, new { disabled = "disabled" })
 
                                                                                 </div>
                                                                                 <div id="isReportingTo">
 
                                                                                     <div class="col-md-8">
                                                                                         @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
- new { @class = "form-control input-sm", disabled="true" })
+ new { @class = "form-control input-sm", disabled = "true" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1108,7 +1110,7 @@ new { @class = "form-control input-sm", disabled = "true" })
                                                                             </label>
                                                                             <div class="col-md-2">
                                                                                 <div style="margin-top:10px">
-                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value,new { disabled="disabled"})
+                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value, new { disabled = "disabled" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1223,13 +1225,13 @@ new { @class = "form-control input-sm", disabled = "true" })
                                                                                                 <td>@Html.DisplayFor(x => x.empDocument[i].DocumentDescription)</td>
                                                                                                 @Html.HiddenFor(x => x.empDocument[i].DocumentType)
                                                                                                 <td>
-                                                                                                    @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)", disabled=true })
+                                                                                                    @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)", disabled = true })
 
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
                                                                                                     {
-                                                                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+"/" + Model.empDocument[i].fileName)" target="_self" download="@Model.empDocument[i].fileName" >download</a>
+                                                                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+"/" + Model.empDocument[i].fileName)" target="_self" download="@Model.empDocument[i].fileName">download</a>
                                                                                                     }
                                                                                                 </td>
 
@@ -1260,219 +1262,227 @@ new { @class = "form-control input-sm", disabled = "true" })
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <button type="button" class="btn btn-primary btn-sm"
+                                                                        onclick="location.href='@Url.Content("~/Dashboard/Index")'">
+                                                                    <i class="fa fa-arrow-left"></i><b>Back</b>
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-
+                                                    
                                                                                             }
 
 
-@section Scripts{
-    <link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
-    <script type="text/javascript">
+                                                        @section Scripts{
+                                                            <link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
+                                                            <script type="text/javascript">
 
-        function CheckFileName(el) {
-            var fileName = document.getElementById(el.id).value;
-            if (fileName == "") {
-                alert("Browse to upload a valid File with png/jpeg/jpg/gif/doc/docx/pdf extension");
-                return false;
-            }
-            else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF" || fileName.split(".")[1].toUpperCase() == "PDF" || fileName.split(".")[1].toUpperCase() == "DOC" || fileName.split(".")[1].toUpperCase() == "DOCX")
-                return true;
-            else {
-                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a valid File with png/jpg/jpeg/gif/doc/docx/pdf extensions");
-                el.value = "";
-                return false;
-            }
-            return true;
-        }
-    </script>
-    <script type="text/javascript">
-        jQuery.validator.addMethod("multiemail",
-       function (value, element) {
-        var email = value.split(/[;,]+/); // split element by , and ;
-        valid = true;
-        for (var i in email) {
-            value = email[i];
-            valid = valid && jQuery.validator.methods.email.call(this, $.trim(value), element);
-        }
-        return valid;
-    },
-    jQuery.validator.messages.multiemail
-);
-        $(function () {
-            //$('#isReportingTo').hide();
-            //$('.form-control').addClass('input-sm');
-            $('#li_Employee').addClass('open');
-            $('#li_empdir').addClass('active');
-            $('.dtCss').datetimepicker({
-                icons: {
-                    time: 'fa fa-clock-o',
-                    date: 'fa fa-calendar',
-                    up: 'fa fa-arrow-up',
-                    down: 'fa fa-arrow-down',
-                    previous: 'fa fa-arrow-left',
-                    next: 'fa fa-arrow-right'
-                },
-                format: dateFormat
-            });
+                                                                function CheckFileName(el) {
+                                                                    var fileName = document.getElementById(el.id).value;
+                                                                    if (fileName == "") {
+                                                                        alert("Browse to upload a valid File with png/jpeg/jpg/gif/doc/docx/pdf extension");
+                                                                        return false;
+                                                                    }
+                                                                    else if (fileName.split(".")[1].toUpperCase() == "PNG" || fileName.split(".")[1].toUpperCase() == "JPEG" || fileName.split(".")[1].toUpperCase() == "JPG" || fileName.split(".")[1].toUpperCase() == "GIF" || fileName.split(".")[1].toUpperCase() == "PDF" || fileName.split(".")[1].toUpperCase() == "DOC" || fileName.split(".")[1].toUpperCase() == "DOCX")
+                                                                        return true;
+                                                                    else {
+                                                                        alert("File with " + fileName.split(".")[1] + " is invalid. Upload a valid File with png/jpg/jpeg/gif/doc/docx/pdf extensions");
+                                                                        el.value = "";
+                                                                        return false;
+                                                                    }
+                                                                    return true;
+                                                                }
+                                                            </script>
+                                                            <script type="text/javascript">
+                                                                jQuery.validator.addMethod("multiemail",
+                                                               function (value, element) {
+                                                                   var email = value.split(/[;,]+/); // split element by , and ;
+                                                                   valid = true;
+                                                                   for (var i in email) {
+                                                                       value = email[i];
+                                                                       valid = valid && jQuery.validator.methods.email.call(this, $.trim(value), element);
+                                                                   }
+                                                                   return valid;
+                                                               },
+                                                            jQuery.validator.messages.multiemail
+                                                        );
+                                                                $(function () {
+                                                                    //$('#isReportingTo').hide();
+                                                                    //$('.form-control').addClass('input-sm');
+                                                                    $('#li_Employee').addClass('open');
+                                                                    $('#li_empdir').addClass('active');
+                                                                    $('.dtCss').datetimepicker({
+                                                                        icons: {
+                                                                            time: 'fa fa-clock-o',
+                                                                            date: 'fa fa-calendar',
+                                                                            up: 'fa fa-arrow-up',
+                                                                            down: 'fa fa-arrow-down',
+                                                                            previous: 'fa fa-arrow-left',
+                                                                            next: 'fa fa-arrow-right'
+                                                                        },
+                                                                        format: dateFormat
+                                                                    });
 
-            $('#loginEmail').val($('#empHeader_UserEmailId').val());
-        });
-        function appendEmail(el) {
-            $.ajax({
-                url: '@Url.Content("~/Employee/IsEmailExists?Email=")' + $('#empHeader_UserEmailId').val(),
-                method: 'get',
-                contentType: 'Json',
-                success: function (result) {
-                    if (result == "True") {
-                        $('#error').show();
-                        $('#empHeader_UserEmailId').val('');
-                        $('#error').fadeOut(5000);
-                    }
-                    else {
-                        $('#error').hide();
-                        $('#loginEmail').val($('#empHeader_UserEmailId').val());
-                    }
-                },
-                error: function (err) {
-                    return result;
-                }
+                                                                    $('#loginEmail').val($('#empHeader_UserEmailId').val());
+                                                                });
+                                                                function appendEmail(el) {
+                                                                    $.ajax({
+                                                                        url: '@Url.Content("~/Employee/IsEmailExists?Email=")' + $('#empHeader_UserEmailId').val(),
+                                                                        method: 'get',
+                                                                        contentType: 'Json',
+                                                                        success: function (result) {
+                                                                            if (result == "True") {
+                                                                                $('#error').show();
+                                                                                $('#empHeader_UserEmailId').val('');
+                                                                                $('#error').fadeOut(5000);
+                                                                            }
+                                                                            else {
+                                                                                $('#error').hide();
+                                                                                $('#loginEmail').val($('#empHeader_UserEmailId').val());
+                                                                            }
+                                                                        },
+                                                                        error: function (err) {
+                                                                            return result;
+                                                                        }
 
-            });
-        }
+                                                                    });
+                                                                }
 
-        $('#frmEmp').validate({
-            rules: {
-                'empHeader.IDType': {
-                    required: true
-                },
-                'empWorkDetail.JoiningDate': {
-                    required: true
-                },
-                'empHeader.FirstName': {
-                    required: true,
-                    maxlength: 30,
+                                                                $('#frmEmp').validate({
+                                                                    rules: {
+                                                                        'empHeader.IDType': {
+                                                                            required: true
+                                                                        },
+                                                                        'empWorkDetail.JoiningDate': {
+                                                                            required: true
+                                                                        },
+                                                                        'empHeader.FirstName': {
+                                                                            required: true,
+                                                                            maxlength: 30,
 
-                },
-                'empHeader.MiddleName': {
-                    maxlength: 30
-                },
-                'empHeader.LastName': {
-                    required: true,
-                    maxlength: 30
-                },
-                'empPersonalDetail.FatherName': {
-                    maxlength: 30
-                },
-               
-                'empPersonalDetail.DOB': {
-                    required: true
-                },
-                'address.Email': {
-                    required: true,
-                    email: true,
-                   
+                                                                        },
+                                                                        'empHeader.MiddleName': {
+                                                                            maxlength: 30
+                                                                        },
+                                                                        'empHeader.LastName': {
+                                                                            required: true,
+                                                                            maxlength: 30
+                                                                        },
+                                                                        'empPersonalDetail.FatherName': {
+                                                                            maxlength: 30
+                                                                        },
 
-                },
-                'address.MobileNo': {
-                    required: true,
-                    maxlength: 15
-                },
-                'empHeader.Nationality': {
-                    required: true
-                },
-                'empPersonalDetail.MaritalStatus': {
-                    required: true
-                },
-                'empWorkDetail.ConfirmationDate': {
-                    required: true
-                },
-                'address.Address1': {
-                    required: true,
-                },
-                'address.CityName': {
-                    required: true,
-                },
-                'address.CountryCode': {
-                    required: true,
-                },
-                'empHeader.UserEmailId': {
-                    required: true,
-                    email: true
-                    //multiemail: true
-                },
-                'empHeader.Password': {
-                    required: true,
-                    maxlength: 15,
-                    minlength: 5
-                },
-                'empHeader.ConfirmPassword': {
-                    required: true,
-                    equalTo: '#empHeader_Password'
-                },
-                
-                'empWorkDetail.DesignationId': {
-                    required: true
-                },
-                'empPersonalDetail.PasspostNo': {
-                    required: true
-                },
-                'empWorkDetail.SendMailsTo' : {
-                    multiemail:true
-                }
-                //'empBankdetail.BankName': {
-                //    required: true
-                //},
-                //'empBankdetail.AccountNo': {
-                //    required: true
-                //},
-                //'empBankdetail.AccountType': {
-                //    required: true
-                //}
-            },
-            messages: {
-                'empWorkDetail.SendMailsTo' : "Enter correct Email ID"
-            }
-        });
-       
+                                                                        'empPersonalDetail.DOB': {
+                                                                            required: true
+                                                                        },
+                                                                        'address.Email': {
+                                                                            required: true,
+                                                                            email: true,
 
-        function SaveEmployee() {
-            if ($('#frmEmp').valid()) {
-                $('#frmEmp').submit();
-                swal({
-                    title: "Saved Successfully",
-                    text: "",
-                    closeOnConfirm: true,
-                    confirmButtonText: "Ok",
-                    confirmButtonClass: "btn-primary",
-                    timer: 5000
-                },
-                       function () {
-                           $.loader({
-                               className: "blue-with-image-2",
-                               content: '',
-                           });
-                       })
-            }
-            else {
-                swal("Incorrect Inputs");
-            }
-            
-        }
-        //$('.maxlength').keypress(function (e) {
-        //    debugger;
-        //    var Value = e.target.value;
-        //    var length = Value.length;
-        //    if (length >= 30) {
-        //        e.preventDefault();
-        //        return false;
-        //    }
-        //    else {
-        //        return true;
-        //    }
-        //});
 
-   
-    </script>
-}
+                                                                        },
+                                                                        'address.MobileNo': {
+                                                                            required: true,
+                                                                            maxlength: 15
+                                                                        },
+                                                                        'empHeader.Nationality': {
+                                                                            required: true
+                                                                        },
+                                                                        'empPersonalDetail.MaritalStatus': {
+                                                                            required: true
+                                                                        },
+                                                                        'empWorkDetail.ConfirmationDate': {
+                                                                            required: true
+                                                                        },
+                                                                        'address.Address1': {
+                                                                            required: true,
+                                                                        },
+                                                                        'address.CityName': {
+                                                                            required: true,
+                                                                        },
+                                                                        'address.CountryCode': {
+                                                                            required: true,
+                                                                        },
+                                                                        'empHeader.UserEmailId': {
+                                                                            required: true,
+                                                                            email: true
+                                                                            //multiemail: true
+                                                                        },
+                                                                        'empHeader.Password': {
+                                                                            required: true,
+                                                                            maxlength: 15,
+                                                                            minlength: 5
+                                                                        },
+                                                                        'empHeader.ConfirmPassword': {
+                                                                            required: true,
+                                                                            equalTo: '#empHeader_Password'
+                                                                        },
+
+                                                                        'empWorkDetail.DesignationId': {
+                                                                            required: true
+                                                                        },
+                                                                        'empPersonalDetail.PasspostNo': {
+                                                                            required: true
+                                                                        },
+                                                                        'empWorkDetail.SendMailsTo': {
+                                                                            multiemail: true
+                                                                        }
+                                                                        //'empBankdetail.BankName': {
+                                                                        //    required: true
+                                                                        //},
+                                                                        //'empBankdetail.AccountNo': {
+                                                                        //    required: true
+                                                                        //},
+                                                                        //'empBankdetail.AccountType': {
+                                                                        //    required: true
+                                                                        //}
+                                                                    },
+                                                                    messages: {
+                                                                        'empWorkDetail.SendMailsTo': "Enter correct Email ID"
+                                                                    }
+                                                                });
+
+
+                                                                function SaveEmployee() {
+                                                                    if ($('#frmEmp').valid()) {
+                                                                        $('#frmEmp').submit();
+                                                                        swal({
+                                                                            title: "Saved Successfully",
+                                                                            text: "",
+                                                                            closeOnConfirm: true,
+                                                                            confirmButtonText: "Ok",
+                                                                            confirmButtonClass: "btn-primary",
+                                                                            timer: 5000
+                                                                        },
+                                                                               function () {
+                                                                                   $.loader({
+                                                                                       className: "blue-with-image-2",
+                                                                                       content: '',
+                                                                                   });
+                                                                               })
+                                                                    }
+                                                                    else {
+                                                                        swal("Incorrect Inputs");
+                                                                    }
+
+                                                                }
+                                                                //$('.maxlength').keypress(function (e) {
+                                                                //    debugger;
+                                                                //    var Value = e.target.value;
+                                                                //    var length = Value.length;
+                                                                //    if (length >= 30) {
+                                                                //        e.preventDefault();
+                                                                //        return false;
+                                                                //    }
+                                                                //    else {
+                                                                //        return true;
+                                                                //    }
+                                                                //});
+
+
+                                                            </script>
+                                                        }
 
 

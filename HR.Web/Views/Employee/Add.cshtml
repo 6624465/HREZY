@@ -6,11 +6,13 @@
             display: none;
             color: Red;
         }
+
           .icheckbox_flat-blue.checked.disabled {
     background-position: -22px 0;
 }
-          .iradio_flat-blue.checked.disabled{
-              background-position:-110px 0;
+
+        .iradio_flat-blue.checked.disabled {
+            background-position: -110px 0;
           }
     </style>
 }
@@ -647,21 +649,599 @@ new { @class = "form-control input-sm" })
                 </div>
                 <div class="col-md-6">
                     @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_EMPLOYEE)
-                    {
+                                                {
                         <button class="btn btn-primary btn-sm pull-right" id="btnback" type="button" onclick="location.href='@Url.Content("~/Dashboard/Index")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
 
-                    }
-                    else
-                    {
+                                                                            }
+                                                                            else
+                                                                            {
                         <button class="btn btn-primary btn-sm pull-right"  type="button" onclick="location.href='@Url.Content("~/employee/employeedirectory")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
-                    }
-                </div>
-            </div>
-        </div>
-                                                    }
+                                                                            }
+
+                                                                        }
+                                                                        @Model.empHeader.FirstName&nbsp;@Model.empHeader.LastName&nbsp;Profile
+                                                                    </div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">ID Type</span>
+                                                                                </label>
+                                                                                <div class="col-md-4">
+                                                                                    @Html.DropDownListFor(x => x.empHeader.IDType,
+                                                                              SelectListItemHelper.EmployeeType(),
+                                                                                  "Select Type",
+                                                                              new { @class = "form-control input-sm", disabled =true })
+                                                                                </div>
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">DOJ</span>
+                                                                                </label>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="input-group date dtCss" id="JoiningDate">
+                                                                                        @Html.TextBoxFor(x => x.empWorkDetail.JoiningDate, new { @class = "form-control dtCssTxt input-sm", required = "required", @readonly = "readonly" })
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="ion ion-calendar"></i>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">First Name</span>
+                                                                                </label>
+                                                                                <div class="col-md-4">
+                                                                                    @Html.TextBoxFor(x => x.empHeader.FirstName,
+new { @class = "form-control validatename input-sm", @maxlength = 30, disabled = true })
+                                                                                </div>
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">Last Name</span>
+                                                                                </label>
+                                                                                <div class="col-md-4 name">
+                                                                                    @Html.TextBoxFor(x => x.empHeader.LastName,
+new { @class = "form-control validatename input-sm", @maxlength = 30, @readonly = "readonly" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">Middle Name</span>
+                                                                                </label>
+                                                                                <div class="col-md-4 name">
+                                                                                    @Html.TextBoxFor(x => x.empHeader.MiddleName,
+new { @class = "form-control validatename input-sm", @maxlength = 30, disabled = true })
+                                                                                </div>
+                                                                                <div class="col-md-2"></div>
+                                                                                <div class="col-md-4">
+                                                                                    <label>
+                                                                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 101, new { disabled = "disabled" })
+                                                                                        <span>Male</span>
+                                                                                    </label>
+                                                                                    &nbsp;
+                                                                                    <label>
+                                                                                        @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 102, new { disabled="disabled"})
+                                                                                        <span>Female</span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <label class="col-md-2 control-label">
+                                                                                <span class="pull-right">DOB</span>
+                                                                            </label>
+                                                                            <div class="col-md-4">
+                                                                                <div class="input-group date dtCss" id="DOB">
+                                                                                    @Html.TextBoxFor(x => x.empPersonalDetail.DOB, new { @class = "form-control dtCssTxt input-sm", disabled = true })
+                                                                                    <span class="input-group-addon">
+                                                                                        <i class="ion ion-calendar"></i>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <label class="col-md-2 control-label">
+                                                                                <span class="pull-right">Marital Status</span>
+                                                                            </label>
+                                                                            <div class="col-md-4">
+                                                                                @Html.DropDownListFor(x => x.empPersonalDetail.MaritalStatus,
+SelectListItemHelper.MaritalStatus(), "Select Marital Status",
+new { @class = "form-control input-sm" , disabled = "true" })
+                                                                           </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">Email</span>
+                                                                                </label>
 
 
-                                               
+                                                                                @if (Model.empHeader.EmployeeId != -1)
+                                                                                {
+                                                                                    <div class="col-md-4">
+                                                                                        @Html.TextBoxFor(x => x.empHeader.UserEmailId,
+        new { @class = "form-control input-sm", @readonly = "true" })
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col-md-4">
+                                                                                        @Html.TextBoxFor(x => x.empHeader.UserEmailId,
+new { @class = "form-control input-sm", onblur = "appendEmail(this)", disabled = true })
+                                                                                        <label id="error">Email Already Exists.Please enter another one</label>
+                                                                                    </div>
+                                                                                }
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">Father's Name</span>
+                                                                                </label>
+                                                                                <div class="col-md-4">
+                                                                                    @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
+new { @class = "form-control input-sm maxlength", @maxlength = "30", @readonly = "readonly" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">Mobile</span>
+                                                                                </label>
+                                                                                <div class="col-md-4">
+                                                                                    @Html.TextBoxFor(x => x.address.MobileNo,
+new
+{
+    @class = "form-control numCssPlus input-sm",
+    @maxlength = "15",
+    disabled = true
+})
+                                                                                </div>
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">Nationality</span>
+                                                                                </label>
+                                                                                <div class="col-md-4">
+                                                                                    @Html.DropDownListFor(x => x.empHeader.Nationality,
+SelectListItemHelper.CountryList(), "Select Country",
+new { @class = "form-control input-sm", disabled = "true" })
+                                                                                    @*<label class="col-md-2 control-label">
+                                                                                                                       <span class="pull-right">Emg. Contact Name</span>
+                                                                                                                   </label>
+                                                                                                                   <div class="col-md-4">
+                                                                                                                       @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
+                                                                                        new { @class = "form-control input-sm" })
+                                                                                                                   </div>*@
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">EPF No</span>
+                                                                                </label>
+                                                                                <div class="col-md-4">
+                                                                                    @Html.TextBoxFor(x => x.empPersonalDetail.EPFNO,
+                                        new { @class = "form-control input-sm", disabled = true })
+                                                                                    @*@Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
+                                                                                        new { @class = "form-control numCssPlus input-sm" })*@
+                                                                                </div>
+                                                                                <label class="col-md-2 control-label">
+                                                                                    <span class="pull-right">ID/Passport No</span>
+                                                                                </label>
+                                                                                <div class="col-md-4">
+                                                                                    @Html.TextBoxFor(x => x.empPersonalDetail.PasspostNo,
+                                        new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group" style="white-space:nowrap">
+                                                                                <div class="col-md-6">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                                                                    <div class="panel-heading">Address</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Address 1</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextAreaFor(x => x.address.Address1,
+     new
+     {
+         @class = "form-control input-sm",
+         @cols = 80,
+         @rows = 9,
+         disabled = true
+     })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">City</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextBoxFor(x => x.address.CityName,
+     new { @class = "form-control input-sm", disabled = true })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">State</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextBoxFor(x => x.address.StateName,
+     new { @class = "form-control input-sm", disabled = true })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Postal Code</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextBoxFor(x => x.address.ZipCode,
+     new { @class = "form-control numCss input-sm", disabled = true })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Country</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.DropDownListFor(x => x.address.CountryCode, SelectListItemHelper.CountryList(), "Select",
+     new { @class = "form-control input-sm", disabled = true })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                                                                    <div class="panel-heading">Position</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Designation</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
+      SelectListItemHelper.Designation(),
+      "Select Designation",
+      new { @class = "form-control input-sm", disabled = "true" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Department</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
+      SelectListItemHelper.Department(),
+      "Select Department",
+      new { @class = "form-control input-sm", disabled = "true" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Notice Period</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.DropDownListFor(x => x.empWorkDetail.NoticePeriod,
+      SelectListItemHelper.NoticePeriod(),
+      "Select NoticePeriod",
+      new { @class = "form-control input-sm", disabled = "true" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Prohibation</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.DropDownListFor(x => x.empWorkDetail.ProbationPeriod,
+      SelectListItemHelper.ProhibationPeriod(),
+      "Select Prohibation",
+      new { @class = "form-control input-sm", disabled = "true" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Confirmation Date</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    <div class="input-group date dtCss" id="ConfirmationDate">
+                                                                                        @Html.TextBoxFor(x => x.empWorkDetail.ConfirmationDate, new { @class = "form-control dtCssTxt input-sm", @readonly = "readonly" })
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="ion ion-calendar"></i>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Resigned Date</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    <div class="input-group date dtCss" id="ResignationDate">
+                                                                                        @Html.TextBoxFor(x => x.empWorkDetail.ResignationDate, new { @class = "form-control dtCssTxt input-sm", @readonly = "readonly" })
+                                                                                        <span class="input-group-addon">
+                                                                                            <i class="ion ion-calendar"></i>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group" style="white-space:nowrap">
+                                                                                <div class="col-md-2">
+                                                                                </div>
+                                                                                <label class="col-md-1 control-label">
+                                                                                    <span class="pull-right">Reporting To</span>
+                                                                                </label>
+                                                                                <div class="col-md-1" style="margin-top:10px">
+                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority,new { disabled="disabled"})
+
+                                                                                </div>
+                                                                                <div id="isReportingTo">
+
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
+ new { @class = "form-control input-sm", disabled="true" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Send Mails To</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextBoxFor(x => x.empWorkDetail.SendMailsTo, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:310px;">
+                                                                    <div class="panel-heading">Login Info</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Email</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    <input type="text" class="form-control input-sm" id="loginEmail" disabled="disabled">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Password</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.PasswordFor(x => x.empHeader.Password,
+     new
+     {
+         @class = "form-control input-sm",
+         value = Model.empHeader.Password,
+         @maxlength = "15",
+         @minlength = "5",
+         disabled = true
+     })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right" style="white-space:nowrap">Confirm Password</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.PasswordFor(x => x.empHeader.ConfirmPassword,
+     new { @class = "form-control input-sm", disabled = true, value = Model.empHeader.ConfirmPassword })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="col-md-2">
+                                                                            </div>
+                                                                            <label class="col-md-1 control-label">
+                                                                                <span class="pull-right">Status</span>
+                                                                            </label>
+                                                                            <div class="col-md-2">
+                                                                                <div style="margin-top:10px">
+                                                                                    @Html.CheckBoxFor(x => x.empHeader.IsActive.Value,new { disabled="disabled"})
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                                                                    <div class="panel-heading">Bank Details</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Bank Name</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextBoxFor(x => x.empBankdetail.BankName, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Account No</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextBoxFor(x => x.empBankdetail.AccountNo, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Account Type</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.DropDownListFor(x => x.empBankdetail.AccountType, SelectListItemHelper.AccountType(), "--Select--", new { @class = "form-control input-sm", disabled = "true" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">Bank Branch</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextBoxFor(x => x.empBankdetail.BankBranchCode, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row css5">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-3 control-label">
+                                                                                    <span class="pull-right">SWIFT Code</span>
+                                                                                </label>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.TextBoxFor(x => x.empBankdetail.SwiftCode, new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row css5">
+                                                            @*<div class="form-group">
+                                                                    <label class="col-md-3 control-label">
+                                                                        <span class="pull-right">Link</span>
+                                                                    </label>
+                                                                    <div class="col-md-9">
+                                                                        <select class="form-control input-sm">
+                                                                            <option value="BASIC">BASIC STRUCT</option>
+                                                                            <option value="HRA">HRA STRUCT</option>
+                                                                            <option value="OTHER">OTHER STRUCT</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>*@
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">
+                                                                    <span class="pull-right"></span>
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                                                                    <div class="panel-heading">Documents</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <table class="table table-bordered">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Document Name</th>
+                                                                                            <th>Document Type</th>
+                                                                                            <th>Download</th>
+                                                                                            <th>Action</th>
+                                                                                            @*<th>File</th>*@
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        @{
+                                                                                            var documentsPath = ViewData["empdocumentsPath"];
+                                                                                        }
+                                                                                        @for (int i = 0; i < Model.empDocument.Count(); i++)
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>@Html.DisplayFor(x => x.empDocument[i].DocumentDescription)</td>
+                                                                                                @Html.HiddenFor(x => x.empDocument[i].DocumentType)
+                                                                                                <td>
+                                                                                                    @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)", disabled=true })
+
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
+                                                                                                    {
+                                                                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+"/" + Model.empDocument[i].fileName)" target="_self" download="@Model.empDocument[i].fileName" >download</a>
+                                                                                                    }
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                    @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
+                                                                                                    {
+                                                                                                        <button class="btn btn-xs  btn-sm ajaxCss btn-danger " type="button" disabled="disabled"
+                                                                                                                style="padding-left: 5px;margin-left: 6px;"
+                                                                                                                onclick="location.href='@Url.Content("~/Employee/DeleteEmployeeDocs?docdetailid=" + Model.empDocument[i].DocumentDetailId)'">
+                                                                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                                                        </button>
+
+                                                                                                    }
+                                                                                                </td>
+
+                                                                                                @*<td>
+                                                                                                    @if(Model.empDocument[i].fileName != null) {
+                                                                                                    <img src="@Url.Content("~/Uploads/"+Model.empHeader.EmployeeId+"/"+Model.empDocument[i].DocumentDetailId +"/" + Model.empDocument[i].fileName)" alt="image" height="50" width="50" />
+                                                                                                    }</td>*@
+                                                                                            </tr>
+
+                                                                                        }
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
 @section Scripts{
     <link rel="stylesheet" href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript">
@@ -710,8 +1290,8 @@ new { @class = "form-control input-sm" })
         </text>
            }
             $('.dtCss').datetimepicker({
-    icons: {
-        time: 'fa fa-clock-o',
+                icons: {
+                    time: 'fa fa-clock-o',
                     date: 'fa fa-calendar',
                     up: 'fa fa-arrow-up',
                     down: 'fa fa-arrow-down',
@@ -822,8 +1402,8 @@ new { @class = "form-control input-sm" })
                 'empPersonalDetail.PasspostNo': {
                     required: true
                 },
-                'empWorkDetail.SendMailsTo' : {
-                    multiemail:true
+                                                                        'empWorkDetail.SendMailsTo': {
+                                                                            multiemail: true
                 }
                 //'empBankdetail.BankName': {
                 //    required: true
@@ -836,7 +1416,7 @@ new { @class = "form-control input-sm" })
                 //}
             },
             messages: {
-                'empWorkDetail.SendMailsTo' : "Enter correct Email ID"
+                                                                        'empWorkDetail.SendMailsTo': "Enter correct Email ID"
             }
         });
        

@@ -654,8 +654,9 @@
             //}
             disableEmployeeFields(index);
             var obj={};
-            validateDeductAmount(obj,0,code);
+           
             validateTaxAmount(obj,0,code);
+            validateDeductAmount(obj,0,code);
         }
 
 
@@ -746,8 +747,9 @@
             //    disableFields(index);
             //}
             var obj={};
-            validateDeductAmount(obj,0,code);
+            
             validateTaxAmount(obj,0,code);
+            validateDeductAmount(obj,0,code);
         }
 
 
@@ -763,15 +765,17 @@
         function calculateTotal(code){
             var obj={};
             validateAmount(obj,0,code);
-            validateDeductAmount(obj,0,code);
+            
             validateTaxAmount(obj,0,code);
+            validateDeductAmount(obj,0,code);
+            
         }
         function validateAmount(el, index,code) {
 
             code= $('#structureSalaryPaymentDetail_'+index+'__RegisterCode').val();
             var rowCount=$('.trCssSalaryPayment').length;
             var TotalGross=0;
-
+            var employeeval=$('#structureHeader_TotalDeductions').val();
             for(var i=0; i<rowCount;i++){
                 code= $('#structureSalaryPaymentDetail_'+i+'__RegisterCode').val();
                 var basicAmount=$('#structureSalaryPaymentDetail_' + 0 + '__Amount').val();
@@ -836,7 +840,7 @@
                 var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
                 var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
-                var netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions);
+                var netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions)-parseFloat(employeeval);
                 $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
 
             }
@@ -845,17 +849,23 @@
         }
 
         function validateDeductAmount(el, index,code){
+
             debugger;
+
             var rowCount=$('.trCssEmployeeContribution').length;
             var netAmount=0;
+            
             for(var i=0; i<rowCount;i++){
 
                 code=$('#structureEmployeeContributionDetail_'+i+'__RegisterCode').val();
 
-                var basicAmount= $('#structureHeader_NetAmount').val();
+                var basicAmount=$('#structureSalaryPaymentDetail_' + 0 + '__Amount').val();
+                var salarypayment =$('#structureHeader_TotalGross').val();
+                var employercontribution=$('#structureHeader_EmpContribution').val();
+                var totaladd=parseFloat(salarypayment)+parseFloat(employercontribution);
                 if(index == 0 && basicAmount!=""){
                     basicAmount =parseFloat(basicAmount).toFixed(2);
-                    //$('#structureSalaryPaymentDetail_' + 0 + '__Total').val(basicAmount);
+                    $('#structureSalaryPaymentDetail_' + 0 + '__Total').val(basicAmount);
                 }
 
                 var total = $('#structureEmployeeContributionDetail_' + i + '__Amount').val();
@@ -898,10 +908,10 @@
                 $('#structureHeader_TotalDeductions').val(netAmount);
 
             }
-            var _totalGross= $('#structureHeader_NetAmount').val() == "" ? 0 :  $('#structureHeader_NetAmount').val();
+            var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
             var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
-            var netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions);
+            var netAmount=parseFloat(totaladd) - parseFloat(_totalDeductions);
             $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
 
         }
@@ -911,7 +921,7 @@
             debugger;
             var rowCount=$('.trCssEmployerContribution').length;
             var netAmount=0;
-
+            var employeeval=$('#structureHeader_TotalDeductions').val();
             for(var i=0; i<rowCount;i++){
 
                 code=$('#structureEmployerContributionDetail_'+i+'__RegisterCode').val();
@@ -961,7 +971,7 @@
                 netAmount=netAmount.toFixed(2);
                 $('#structureHeader_EmpContribution').val(netAmount);
                 var totalgross=$('#structureHeader_TotalGross').val();
-                var amount=parseFloat(netAmount)+parseFloat(totalgross);
+                var amount=parseFloat(netAmount)+parseFloat(totalgross)-parseFloat(employeeval);
                 $('#structureHeader_NetAmount').val(amount);
 
             }

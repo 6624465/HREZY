@@ -224,7 +224,7 @@
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureEmployerContributionDetail[i].ComputationCode,
-                                                                 new SelectList( Computation.Where(x=>x.Text=="AMOUNT"), "Value", "Text", Model.structureEmployerContributionDetail[i].ComputationCode),new { @class = "form-control input-sm", onchange = "calculateTotal()" })
+                                                                 new SelectList( Computation, "Value", "Text", Model.structureEmployerContributionDetail[i].ComputationCode),new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.structureEmployerContributionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateTaxAmount(this," + i + ")" })
@@ -295,7 +295,7 @@
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureEmployeeContributionDetail[i].ComputationCode,
-                                                                 new SelectList(Computation.Where(x => x.Text == "AMOUNT"), "Value", "Text", Model.structureEmployeeContributionDetail[i].ComputationCode), new { @class = "form-control input-sm", onchange = "calculateTotal()" })
+                                                                 new SelectList(Computation,"Value", "Text", Model.structureEmployeeContributionDetail[i].ComputationCode), new { @class = "form-control input-sm", onchange = "calculateTotal()" })
                                                         </td>
                                                         <td>
                                                             @Html.TextBoxFor(x => x.structureEmployeeContributionDetail[i].Amount, new { @class = "form-control input-sm decimalCss", onblur = "validateDeductAmount(this," + i + ")" })
@@ -572,8 +572,8 @@
 
             if($('#'+this.id).prop('checked')){
 
-                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val("AMOUNT");
-                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
+                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val("AMOUNT");
+                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('required','required');
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').attr('required','required');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('required','required');
@@ -582,6 +582,7 @@
 
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').removeAttr('disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').removeAttr('disabled');
+                $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
                 var code=  $('#structureEmployeeContributionDetail_' + index + '__Code').val();
                 calculateByEmployeeCode(code,index);
 
@@ -607,50 +608,50 @@
         function disableEmployeeFields(index){
             //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
             $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').attr('readonly','readonly');
-            $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('readonly','readonly');
+            //$('#structureEmployeeContributionDetail_' + index + '__Amount').attr('readonly','readonly');
 
         }
 
 
         function calculateByEmployeeCode(code,index){
 
-            if(code=="SSS"){
+            //if(code=="SSS"){
 
-                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
-                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
-                var amountVal=582.00;
-                $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
-                $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
-            }
-            if(code=="PHIL-HEALTH"){
-
-
-                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
-                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
-                $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('disabled','disabled');
+            //    //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+            //    //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+            //    var amountVal=582.00;
+            //    $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
+            //    $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
+            //}
+            //if(code=="PHIL-HEALTH"){
 
 
-                var basicSalary=   parseFloat($('#structureSalaryPaymentDetail_0__Total').val());
-                if(basicSalary<40000){
-                    var total=parseFloat((basicSalary/100)*1.375).toFixed(2);
-                    $('#structureEmployeeContributionDetail_' + index + '__Amount').val(total);
-                    $('#structureEmployeeContributionDetail_' + index + '__Total').val(total);
-                }
-                else{
-                    var amountVal=550.00;
-                    $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
-                    $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
-                }
+            //    //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+            //    //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+            //    $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('disabled','disabled');
 
-            }
-            if(code=="PAG-IBIG"){
 
-                // $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
-                //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
-                var amountVal=100.00
-                $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
-                $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
-            }
+            //    var basicSalary=   parseFloat($('#structureSalaryPaymentDetail_0__Total').val());
+            //    if(basicSalary<40000){
+            //        var total=parseFloat((basicSalary/100)*1.375).toFixed(2);
+            //        $('#structureEmployeeContributionDetail_' + index + '__Amount').val(total);
+            //        $('#structureEmployeeContributionDetail_' + index + '__Total').val(total);
+            //    }
+            //    else{
+            //        var amountVal=550.00;
+            //        $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
+            //        $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
+            //    }
+
+            //}
+            //if(code=="PAG-IBIG"){
+
+            //    // $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+            //    //$('#structureEmployeeContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+            //    var amountVal=100.00
+            //    $('#structureEmployeeContributionDetail_' + index + '__Amount').val(amountVal);
+            //    $('#structureEmployeeContributionDetail_' + index + '__Total').val(amountVal);
+            //}
             disableEmployeeFields(index);
             var obj={};
             validateDeductAmount(obj,0,code);
@@ -664,15 +665,16 @@
             var index=$(this).data('index');
 
             if($('#'+this.id).prop('checked')){
-                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
-                $('#structureEmployerContributionDetail_' + index + '__Amount').attr('disabled','disabled');
-                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').val("AMOUNT");
+                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('disabled','disabled');
+                //$('#structureEmployerContributionDetail_' + index + '__Amount').attr('disabled','disabled');
+                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val("AMOUNT");
                 $('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('required','required');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').attr('required','required');
 
 
                 $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').removeAttr('disabled');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').removeAttr('disabled');
+                $('#structureEmployerContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
                 var code=  $('#structureEmployerContributionDetail_' + index + '__Code').val();
                 calculateByEmpoyerCode(code,index);
             }
@@ -704,45 +706,45 @@
 
         function calculateByEmpoyerCode(code,index){
 
-            if(code=="SSS"){
+            //if(code=="SSS"){
 
-                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
-                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
-                var amountVal=1178.00;
-                $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
-                $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
+            //    //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+            //    //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+            //    var amountVal=1178.00;
+            //    $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
+            //    $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
 
-                disableFields(index);
-            }
-            if(code=="PHIL-HEALTH"){
+            //    disableFields(index);
+            //}
+            //if(code=="PHIL-HEALTH"){
 
-                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
-                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
-                $('#structureEmployerContributionDetail_' + index + '__Amount').attr('disabled','disabled');
+            //    //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+            //    //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+            //    $('#structureEmployerContributionDetail_' + index + '__Amount').attr('disabled','disabled');
 
 
-                var basicSalary=   parseFloat($('#structureSalaryPaymentDetail_0__Total').val());
-                if(basicSalary<40000){
-                    var total=parseFloat((basicSalary/100)*1.375).toFixed(2);
-                    $('#structureEmployerContributionDetail_' + index + '__Amount').val(total);
-                    $('#structureEmployerContributionDetail_' + index + '__Total').val(total);
-                }
-                else{
-                    var amountVal=550.00;
-                    $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
-                    $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
-                }
-                disableFields(index);
-            }
-            if(code=="PAG-IBIG"){
+            //    var basicSalary=   parseFloat($('#structureSalaryPaymentDetail_0__Total').val());
+            //    if(basicSalary<40000){
+            //        var total=parseFloat((basicSalary/100)*1.375).toFixed(2);
+            //        $('#structureEmployerContributionDetail_' + index + '__Amount').val(total);
+            //        $('#structureEmployerContributionDetail_' + index + '__Total').val(total);
+            //    }
+            //    else{
+            //        var amountVal=550.00;
+            //        $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
+            //        $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
+            //    }
+            //    disableFields(index);
+            //}
+            //if(code=="PAG-IBIG"){
 
-                //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
-                // $('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
-                var amountVal=100.00;
-                $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
-                $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
-                disableFields(index);
-            }
+            //    //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('AMOUNT');
+            //    // $('#structureEmployerContributionDetail_' + index + '__ComputationCode').text('AMOUNT');
+            //    var amountVal=100.00;
+            //    $('#structureEmployerContributionDetail_' + index + '__Amount').val(amountVal);
+            //    $('#structureEmployerContributionDetail_' + index + '__Total').val(amountVal);
+            //    disableFields(index);
+            //}
             var obj={};
             validateDeductAmount(obj,0,code);
             validateTaxAmount(obj,0,code);
@@ -843,17 +845,17 @@
         }
 
         function validateDeductAmount(el, index,code){
-
+            debugger;
             var rowCount=$('.trCssEmployeeContribution').length;
             var netAmount=0;
             for(var i=0; i<rowCount;i++){
 
                 code=$('#structureEmployeeContributionDetail_'+i+'__RegisterCode').val();
 
-                var basicAmount=$('#structureSalaryPaymentDetail_' + 0 + '__Amount').val();
+                var basicAmount= $('#structureHeader_NetAmount').val();
                 if(index == 0 && basicAmount!=""){
                     basicAmount =parseFloat(basicAmount).toFixed(2);
-                    $('#structureSalaryPaymentDetail_' + 0 + '__Total').val(basicAmount);
+                    //$('#structureSalaryPaymentDetail_' + 0 + '__Total').val(basicAmount);
                 }
 
                 var total = $('#structureEmployeeContributionDetail_' + i + '__Amount').val();
@@ -896,7 +898,7 @@
                 $('#structureHeader_TotalDeductions').val(netAmount);
 
             }
-            var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
+            var _totalGross= $('#structureHeader_NetAmount').val() == "" ? 0 :  $('#structureHeader_NetAmount').val();
             var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
             var netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions);
@@ -905,6 +907,8 @@
         }
 
         function validateTaxAmount(obj,index,code){
+
+            debugger;
             var rowCount=$('.trCssEmployerContribution').length;
             var netAmount=0;
 
@@ -956,6 +960,9 @@
 
                 netAmount=netAmount.toFixed(2);
                 $('#structureHeader_EmpContribution').val(netAmount);
+                var totalgross=$('#structureHeader_TotalGross').val();
+                var amount=parseFloat(netAmount)+parseFloat(totalgross);
+                $('#structureHeader_NetAmount').val(amount);
 
             }
         }

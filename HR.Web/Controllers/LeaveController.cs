@@ -475,21 +475,23 @@ namespace HR.Web.Controllers
                         dbCntx.SaveChanges();
                         //EmployeeWorkDetail workdetail = empworkdetailsBo.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
                         EmployeeLeaveList empleavelist = employeeLeaveListBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+                        EmployeeHeader empobj = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+                        var empname = empobj.FirstName + " " + empobj.LastName;
                         var strbody = string.Empty;
                         var subject = "New Leave Application";
 
-                        using (var dbcntx = new HrDataContext())
-                        {
-                            var empLeave = dbcntx.EmployeeHeaders.Join(dbcntx.EmployeeLeaveLists, a => a.EmployeeId, b => b.EmployeeId, (a, b) =>
-                              new { A = a, B = b }).Where(x => x.B.EmployeeId == EMPLOYEEID).Select(x => new EmpLeaveListVm
-                              {
-                                  EmployeeName = x.A.FirstName + " " + x.A.LastName,
-                                  FromDate = x.B.FromDate,
-                                  ToDate = x.B.ToDate,
-                                  Reason = x.B.Reason,
-                                  ApplyDate = x.B.ApplyDate
+                        //using (var dbcntx = new HrDataContext())
+                        //{
+                        //    var empLeave = dbcntx.EmployeeHeaders.Join(dbcntx.EmployeeLeaveLists, a => a.EmployeeId, b => b.EmployeeId, (a, b) =>
+                        //      new { A = a, B = b }).Where(x => x.B.EmployeeId == EMPLOYEEID).Select(x => new EmpLeaveListVm
+                        //      {
+                        //          EmployeeName = x.A.FirstName + " " + x.A.LastName,
+                        //          FromDate = x.B.FromDate,
+                        //          ToDate = x.B.ToDate,
+                        //          Reason = x.B.Reason,
+                        //          ApplyDate = x.B.ApplyDate
 
-                              }).FirstOrDefault();
+                        //      }).FirstOrDefault();
 
 
                             
@@ -499,14 +501,16 @@ namespace HR.Web.Controllers
                                 "Leave Applied By : {0} <BR>" +
                                 "From :{1} <BR>" +
                                 "To : {2} <BR>" +
-                                "Reason : {3} <BR>" +
-                                "Applied On : {4} <BR>",
-                                empLeave.EmployeeName,
-                                empLeave.FromDate.ToShortDateString(), 
-                                empLeave.ToDate.ToShortDateString(), 
-                                empLeave.Reason, 
-                                empLeave.ApplyDate.ToShortDateString());
-                        }
+                                "No. of Days : {3} <BR>"+
+                                "Reason : {4} <BR>" +
+                                "Applied On : {5} <BR>",
+                                empname,
+                                empleavelist.FromDate.ToShortDateString(),
+                                empleavelist.ToDate.ToShortDateString(),
+                                empleavelist.Days,
+                                empleavelist.Reason,
+                                empleavelist.ApplyDate.ToShortDateString());
+                        //}
                         /*
                          "From:" + empleavelist.FromDate.ToShortDateString() + "to"  + empleavelist.ToDate.ToShortDateString() + "<BR>" 
                             + "Reason:" + empleavelist.Reason;
@@ -625,37 +629,26 @@ namespace HR.Web.Controllers
 
                 dbCntx.SaveChanges();
                 EmployeeLeaveList empleavelist = employeeLeaveListBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+                EmployeeHeader empobj = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+                var empname = empobj.FirstName + " " + empobj.LastName;
                 var strbody = string.Empty;
                 var subject = "New Leave Application";
-                using (var dbcntx = new HrDataContext())
-                {
-                    var empLeave = dbcntx.EmployeeHeaders.Join(dbcntx.EmployeeLeaveLists, a => a.EmployeeId, b => b.EmployeeId, (a, b) =>
-                      new { A = a, B = b }).Where(x => x.B.EmployeeId == EMPLOYEEID).Select(x => new EmpLeaveListVm
-                      {
-                          EmployeeName = x.A.FirstName + " " + x.A.LastName,
-                          FromDate = x.B.FromDate,
-                          ToDate = x.B.ToDate,
-                          Reason = x.B.Reason,
-                          ApplyDate = x.B.ApplyDate
-
-                      }).FirstOrDefault();
-
-
-
                     strbody =
                         string.Format("Dear HR, <BR>" +
                         "You have received a new leave application. <BR>" +
                         "Leave Applied By : {0} <BR>" +
                         "From :{1} <BR>" +
                         "To : {2} <BR>" +
-                        "Reason : {3} <BR>" +
-                        "Applied On : {4} <BR>",
-                        empLeave.EmployeeName,
-                        empLeave.FromDate.ToShortDateString(),
-                        empLeave.ToDate.ToShortDateString(),
-                        empLeave.Reason,
-                        empLeave.ApplyDate.ToShortDateString());
-                }
+                        "No. of Days : {3} <BR>"+
+                        "Reason : {4} <BR>" +
+                        "Applied On : {5} <BR>",
+                        empname,
+                        empleavelist.FromDate.ToShortDateString(),
+                        empleavelist.ToDate.ToShortDateString(),
+                        empleavelist.Days,
+                        empleavelist.Reason,
+                        empleavelist.ApplyDate.ToShortDateString());
+                
                 //strbody = "Leave Applied:" + "<BR>"
                 //    + "Leave Applied From:" + empleavelist.FromDate.ToShortDateString() + "to" + empleavelist.ToDate.ToShortDateString() + "<BR>"
                 //    + "Reason:" + empleavelist.Reason;

@@ -507,7 +507,7 @@ namespace HR.Web.Controllers
                                 empname,
                                 empleavelist.FromDate.ToShortDateString(),
                                 empleavelist.ToDate.ToShortDateString(),
-                                empleavelist.Days,
+                                empleavelist.Days.Value.ToString("#0.0"),
                                 empleavelist.Reason,
                                 empleavelist.ApplyDate.ToShortDateString());
                         //}
@@ -645,7 +645,7 @@ namespace HR.Web.Controllers
                         empname,
                         empleavelist.FromDate.ToShortDateString(),
                         empleavelist.ToDate.ToShortDateString(),
-                        empleavelist.Days,
+                        empleavelist.Days.Value.ToString("#0.0"),
                         empleavelist.Reason,
                         empleavelist.ApplyDate.ToShortDateString());
                 

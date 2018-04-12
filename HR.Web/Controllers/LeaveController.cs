@@ -496,7 +496,7 @@ namespace HR.Web.Controllers
 
                             
                             strbody =
-                                string.Format("Dear HR, <BR>" +
+                                string.Format(
                                 "You have received a new leave application. <BR>" +
                                 "Leave Applied By : {0} <BR>" +
                                 "From :{1} <BR>" +
@@ -634,7 +634,7 @@ namespace HR.Web.Controllers
                 var strbody = string.Empty;
                 var subject = "New Leave Application";
                     strbody =
-                        string.Format("Dear HR, <BR>" +
+                        string.Format(
                         "You have received a new leave application. <BR>" +
                         "Leave Applied By : {0} <BR>" +
                         "From :{1} <BR>" +

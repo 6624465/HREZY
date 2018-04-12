@@ -82,7 +82,7 @@ namespace HR.Web
         public static string AMOUNT = "AMOUNT";
 
         public static string EMPLOYEECONTRIBUTION = "EMPLOYEE CONTRIBUTION";
-        public static string SALARYPAYMENTS = "SALARY PAYMENTS";
+        public static string SALARYPAYMENTS = "BASIC SALARY";
         public static string EMPLOYERCONTRIBUTION = "EMPLOYER CONTRIBUTION";     
 
         public static string LOOKUPCATEGORY = "LeaveType";

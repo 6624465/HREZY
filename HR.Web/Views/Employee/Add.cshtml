@@ -82,7 +82,7 @@
                        new { @class = "form-control input-sm" })
                                 </div>
                                 <label class="col-md-2 control-label">
-                                    <span class="pull-right">DOJ</span>
+                                    <span class="pull-right">Date Of Joining</span>
                                 </label>
                                 <div class="col-md-4">
                                     <div class="input-group date dtCss" id="JoiningDate">
@@ -120,9 +120,11 @@ new { @class = "form-control validatename input-sm", @maxlength = 30 })
                                 <div class="col-md-4 name">
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
 new { @class = "form-control validatename input-sm", @maxlength = 30 })
-                                </div>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-4">
+                                </div>                                
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Gender</span>
+                                </label>
+                                <div class="col-md-4 name">
                                     <label>
                                         @Html.RadioButtonFor(x => x.empPersonalDetail.Gender, 101, "Male")
                                         <span>Male</span>
@@ -137,7 +139,7 @@ new { @class = "form-control validatename input-sm", @maxlength = 30 })
                         </div>
                         <div class="row css5">
                             <label class="col-md-2 control-label">
-                                <span class="pull-right">DOB</span>
+                                <span class="pull-right">Date Of Birth</span>
                             </label>
                             <div class="col-md-4">
                                 <div class="input-group date dtCss" id="DOB">

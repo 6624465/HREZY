@@ -429,8 +429,8 @@ namespace HR.Web.Helpers
             {
                 List<SelectListItem> listItem = new List<SelectListItem>() {
                                             new SelectListItem() {
-                                                Text="SALARY PAYMENTS",
-                                                Value="SALARY PAYMENTS"
+                                                Text="BASIC SALARY",
+                                                Value="BASIC SALARY"
                                             },
                                              new SelectListItem() {
                                                 Text="EMPLOYER CONTRIBUTION",

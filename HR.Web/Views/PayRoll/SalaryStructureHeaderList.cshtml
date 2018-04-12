@@ -1,4 +1,4 @@
-﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.Models.SalaryStructureHeader>
+﻿@model HR.Web.ViewModels.HtmlTblVm<HR.Web.ViewModels.structurelistVm>
 @*@model HR.Web.ViewModels.HtmlTblVm <HR.Web.ViewModels.SalaryStructureHeaderTblVm>*@
 @section Styles{
     <style>
@@ -42,6 +42,7 @@
                         <thead>
                             <tr>
                                 <th>Code</th>
+                                <th>Employee Name</th>
                                 <th style="white-space:nowrap">Effective Date</th>
                                 <th>Remarks</th>
                                 <th>#Action</th>
@@ -53,6 +54,7 @@
                                 @Html.HiddenFor(x => x.TableData[i].StructureID)
                                 <tr>
                                     <td>@Model.TableData[i].Code</td>
+                                    <td>@Model.TableData[i].EmployeeName</td>
                                     <td>@Model.TableData[i].EffectiveDate.Value.ToString("dd/MM/yyyy")</td>
                                     <td>@Model.TableData[i].Remarks</td>
                                     <td>

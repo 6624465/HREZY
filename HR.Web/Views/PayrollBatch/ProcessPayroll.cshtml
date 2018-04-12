@@ -74,7 +74,7 @@
                                 <span class="pull-right">Batch No</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm" })
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm uppercase" })
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Process Date</span>
@@ -108,7 +108,7 @@
                                 <span class="pull-right">Total Salary</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm" })
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm numCss" })
                             </div>
                             <div class="col-md-2">
 

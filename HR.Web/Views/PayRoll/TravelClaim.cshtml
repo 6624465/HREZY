@@ -285,7 +285,7 @@
                                 </label>
                                 <div class="col-sm-6" style="width:45%">
                                     @Html.TextBoxFor(x => x.claimHeader.TravelPurpose,
-                                   new { @class = "form-control input-sm left-mrgn" ,required=true})
+                                   new { @class = "form-control input-sm left-mrgn uppercase", required=true})
                                 </div>
                             </div>
                         </div>   
@@ -367,7 +367,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:250px;" })
+                                                                    @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].Perticulars, new { @class = "form-control input-sm uppercase", style = "width:250px;" })
                                                                 </td>
                                                                 <td>
 
@@ -398,7 +398,7 @@
                                                                     })*@
                                                                     @Html.TextBoxFor(x => x.claimDetailAirfareVm[i].Currency, new
                                                                {
-                                                                   @class = "form-control  input-sm validatename",
+                                                                   @class = "form-control  input-sm validatename uppercase",
                                                                    required = "required",
                                                                    style = "width:100px;",
                                                                    maxlength = "3",
@@ -500,7 +500,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:250px;" })
+                                                                    @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Perticulars, new { @class = "form-control input-sm uppercase", style = "width:250px;" })
                                                                 </td>
                                                                 <td>
                                                                     @Html.RadioButtonFor(x => x.claimDetailVisaVm[i].Receipts, true, new { @class = "rdoCss" })
@@ -523,7 +523,7 @@
                                                                     
                                                                     @Html.TextBoxFor(x => x.claimDetailVisaVm[i].Currency, new
                                                                 {
-                                                                    @class = "form-control  input-sm validatename",
+                                                                    @class = "form-control  input-sm validatename uppercase",
                                                                     required = "required",
                                                                     style = "width:100px;",
                                                                     maxlength = "3",
@@ -634,7 +634,7 @@
                                                                 </td>
 
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:250px;" })
+                                                                    @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].Perticulars, new { @class = "form-control input-sm uppercase", style = "width:250px;" })
                                                                 </td>
                                                                 <td>
 
@@ -658,7 +658,7 @@
                                                                    
                                                                     @Html.TextBoxFor(x => x.claimDetailAccomdationVm[i].Currency, new
                                                                 {
-                                                                    @class = "form-control  input-sm validatename",
+                                                                    @class = "form-control  input-sm validatename uppercase",
                                                                     required = "required",
                                                                     style = "width:100px;",
                                                                     maxlength = "3",
@@ -758,7 +758,7 @@
                                                                 </td>
 
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:250px;" })
+                                                                    @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Perticulars, new { @class = "form-control input-sm uppercase", style = "width:250px;" })
                                                                 </td>
                                                                 <td>
 
@@ -787,7 +787,7 @@
 
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].Currency, new
                                                                 {
-                                                                    @class = "form-control  input-sm validatename",
+                                                                    @class = "form-control  input-sm validatename uppercase",
                                                                     required = "required",
                                                                     style = "width:100px;",
                                                                     maxlength = "3",
@@ -888,7 +888,7 @@
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].Perticulars, new
                                                                {
-                                                                   @class = "form-control input-sm",
+                                                                   @class = "form-control input-sm uppercase",
                                                                    style = "width:250px;"
                                                                })
                                                                 </td>
@@ -914,7 +914,7 @@
                                                                     
                                                                     @Html.TextBoxFor(x => x.claimDetailTaxiOverseasVm[i].Currency, new
                                                                 {
-                                                                    @class = "form-control  input-sm validatename",
+                                                                    @class = "form-control  input-sm validatename uppercase",
                                                                     required = "required",
                                                                     style = "width:100px;",
                                                                     maxlength = "3",
@@ -1009,7 +1009,7 @@
                                                                 </td>
 
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:250px;" })
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].Perticulars, new { @class = "form-control input-sm uppercase", style = "width:250px;" })
                                                                 </td>
                                                                 <td>
 
@@ -1033,7 +1033,7 @@
 
                                                                     @Html.TextBoxFor(x => x.claimDetailFoodLocalVm[i].Currency, new
                                                                 {
-                                                                    @class = "form-control  input-sm validatename",
+                                                                    @class = "form-control  input-sm validatename uppercase",
                                                                     required = "required",
                                                                     style = "width:100px;",
                                                                     maxlength = "3",
@@ -1128,7 +1128,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:250px;" })
+                                                                    @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].Perticulars, new { @class = "form-control input-sm uppercase", style = "width:250px;" })
                                                                 </td>
                                                                 <td>
 
@@ -1152,7 +1152,7 @@
                                                                    
                                                                     @Html.TextBoxFor(x => x.claimDetailFoodOverseasVm[i].Currency, new
                                                                  {
-                                                                     @class = "form-control  input-sm validatename",
+                                                                     @class = "form-control  input-sm validatename uppercase",
                                                                      required = "required",
                                                                      style = "width:100px;",
                                                                      maxlength = "3",
@@ -1245,7 +1245,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].Perticulars, new { @class = "form-control input-sm", style = "width:250px;" })
+                                                                    @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].Perticulars, new { @class = "form-control input-sm uppercase", style = "width:250px;" })
                                                                 </td>
                                                                 <td>
 
@@ -1276,16 +1276,13 @@
 
                                                                     @Html.TextBoxFor(x => x.claimDetailOtherExpensesVm[i].Currency, new
                                                                 {
-                                                                    @class = "form-control  input-sm validatename",
+                                                                    @class = "form-control  input-sm validatename uppercase",
                                                                     required = "required",
                                                                     style = "width:100px;",
                                                                     maxlength = "3",
                                                                     onblur = "CalculateOtherExpensesTotal(this)",
                                                                     data_index = i
                                                                 })
-
-
-
 
                                                                     <script type="text/javascript">
                                                                         $(function(){
@@ -1944,7 +1941,7 @@
                 }
                 TabVisibility();
                 var title =$('.multiselect').attr('title');
-                if(title=='None selected')
+                if(title=='None Selected')
                     $('.multiselect').addClass('multiselecterr');
                 else
                     $('.multiselect').removeClass('multiselecterr');

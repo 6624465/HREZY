@@ -104,7 +104,7 @@
                                 </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(x => x.empHeader.FirstName,
-new { @class = "form-control validatename input-sm", @maxlength = 30 })
+new { @class = "form-control validatename input-sm uppercase", @maxlength = 30 })
                                 </div>
                                 
                                 <label class="col-md-1 control-label">
@@ -130,7 +130,7 @@ new { @class = "form-control validatename input-sm", @maxlength = 30 })
                                 </label>
                                 <div class="col-md-5 name">
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
-new { @class = "form-control validatename input-sm", @maxlength = 30 })
+new { @class = "form-control validatename input-sm uppercase", @maxlength = 30 })
                                 </div>                                
                                 
                                 <label class="col-md-1 control-label">
@@ -149,14 +149,14 @@ new { @class = "form-control input-sm" })
                             </label>
                             <div class="col-md-5 name">
                                 @Html.TextBoxFor(x => x.empHeader.LastName,
-new { @class = "form-control validatename input-sm", @maxlength = 30 })
+new { @class = "form-control validatename input-sm uppercase", @maxlength = 30 })
                             </div>
                             <label class="col-md-1 control-label">
                                 <span>Father's Name</span>
                             </label>
                             <div class="col-md-5">
                                 @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
-new { @class = "form-control input-sm maxlength", @maxlength = "30" })
+new { @class = "form-control input-sm maxlength uppercase", @maxlength = "30" })
                             </div>
                             
                         </div>
@@ -201,14 +201,14 @@ new { @class = "form-control input-sm" })
                                 {
                                     <div class="col-md-5">
                                         @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-        new { @class = "form-control input-sm", @readonly = "true" })
+        new { @class = "form-control input-sm uppercase", @readonly = "true" })
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="col-md-5">
                                         @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-new { @class = "form-control input-sm", onblur = "appendEmail(this)" })
+new { @class = "form-control input-sm uppercase", onblur = "appendEmail(this)" })
                                         <label id="error">Email Already Exists.Please enter another one</label>
                                     </div>
                                 }
@@ -219,7 +219,7 @@ new { @class = "form-control input-sm", onblur = "appendEmail(this)" })
                                 </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.PasspostNo,
-                                        new { @class = "form-control input-sm" })
+                                        new { @class = "form-control input-sm uppercase" })
                                 </div>
                                 
                             </div>
@@ -243,7 +243,7 @@ new
                                 </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EPFNO,
-                                        new { @class = "form-control input-sm" })
+                                        new { @class = "form-control input-sm uppercase" })
                                     @*@Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
             new { @class = "form-control numCssPlus input-sm" })*@
                                 </div>
@@ -274,13 +274,8 @@ new
                                     <span>Address 1</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextAreaFor(x => x.address.Address1,
-     new
-     {
-         @class = "form-control input-sm",
-         @cols = 80,
-         @rows = 2
-     })
+                                    @Html.TextAreaFor(x => x.address.Address1,new
+                                        { @class = "form-control input-sm uppercase",@cols = 80,@rows = 2})
                                 </div>
                             </div>
                         </div>
@@ -291,7 +286,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.TextBoxFor(x => x.address.CityName,
-     new { @class = "form-control input-sm" })
+     new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -302,7 +297,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.TextBoxFor(x => x.address.StateName,
-     new { @class = "form-control input-sm" })
+     new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -324,7 +319,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.address.CountryCode, SelectListItemHelper.CountryList(), "Select",
-     new { @class = "form-control input-sm" })
+     new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -443,7 +438,7 @@ new
                                     <span>Send Mails To</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(x => x.empWorkDetail.SendMailsTo, new { @class = "form-control input-sm" })
+                                    @Html.TextBoxFor(x => x.empWorkDetail.SendMailsTo, new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -519,7 +514,7 @@ new
                                     <span>Bank Name</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(x => x.empBankdetail.BankName, new { @class = "form-control input-sm" })
+                                    @Html.TextBoxFor(x => x.empBankdetail.BankName, new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -529,7 +524,7 @@ new
                                     <span>Account No</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(x => x.empBankdetail.AccountNo, new { @class = "form-control input-sm" })
+                                    @Html.TextBoxFor(x => x.empBankdetail.AccountNo, new { @class = "form-control input-sm numCss" })
                                 </div>
                             </div>
                         </div>
@@ -549,7 +544,7 @@ new
                                     <span>Bank Branch</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(x => x.empBankdetail.BankBranchCode, new { @class = "form-control input-sm" })
+                                    @Html.TextBoxFor(x => x.empBankdetail.BankBranchCode, new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -559,7 +554,7 @@ new
                                     <span>SWIFT Code</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(x => x.empBankdetail.SwiftCode, new { @class = "form-control input-sm" })
+                                    @Html.TextBoxFor(x => x.empBankdetail.SwiftCode, new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>

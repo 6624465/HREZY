@@ -15,7 +15,7 @@
         {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", onblur = "checkTravelClaimType(this)" })
+            new { @class = "form-control input-sm uppercase", onblur = "checkTravelClaimType(this)" })
                 <label id="error">Travel Claim Type Already Exists.</label>
             </div>
         }
@@ -23,7 +23,7 @@
         {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", @maxlength="50" })
+            new { @class = "form-control input-sm uppercase", @maxlength="50" })
             </div>
 
         }
@@ -37,7 +37,7 @@
         </label>
         <div class="col-md-8">
             @Html.TextAreaFor(x => x.LookUpDescription,
-            new { @class = "form-control input-sm", @maxlength="50" })
+            new { @class = "form-control input-sm uppercase", @maxlength="50" })
         </div>
     </div>
 </div>

@@ -745,6 +745,7 @@
                                                                 <td>
 
                                                                     <div class="input-group date dtCss travelDateCss" id="TravelDateTaxiLocal_@i">
+                                                                        
                                                                         @Html.TextBoxFor(x => x.claimDetailTaxiLocalVm[i].TravelDate, new
                                                                    {
                                                                        @class = "form-control input-sm dtCssTxt wdCss",
@@ -1764,6 +1765,7 @@
         }
 
         $(document).ready(function () {
+            debugger;
             var fromDate = $('#FromDate').find('input').val();
             var toDate = $('#ToDate').find('input').val();
             if(fromDate=='' || toDate=='')
@@ -1781,7 +1783,7 @@
             var days = moment.duration(to.diff(from)).asDays() + 1;
             $('#claimHeader_NoOfDays').val(days);
             $('#noOfDays').text(days);
-        }
+            }
 
 
             @{
@@ -1840,23 +1842,25 @@
 
 
             if ($('#claimHeader_FromDate').val() != null && $('#claimHeader_FromDate').val() != "") {
+                var minDt = moment($('#claimHeader_FromDate').val(), dateFormat);                
                 $('.travelDateCss').each(function (index, item) {
-                    $('#' + item.id).data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
+                    $('#' + item.id).data("DateTimePicker").minDate(minDt);
                 });
                 $('.travelDateCss_fromDate').each(function (index, item) {
-                    $('#' + item.id).data("DateTimePicker").minDate($('#claimHeader_FromDate').val());
+                    $('#' + item.id).data("DateTimePicker").minDate(minDt);
                 });
             }
 
             if ($('#claimHeader_ToDate').val() != null && $('#claimHeader_ToDate').val() != "") {
+                var maxDt = moment($('#claimHeader_ToDate').val(), dateFormat);
                 $('.travelDateCss').each(function (index, item) {
-                    $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+                    $('#' + item.id).data("DateTimePicker").maxDate(maxDt);
                 });
                 $('.travelDateCss_fromDate').each(function (index, item) {
-                    $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+                    $('#' + item.id).data("DateTimePicker").maxDate(maxDt);
                 });
                 $('.travelDateCss_ToDate').each(function (index, item) {
-                    $('#' + item.id).data("DateTimePicker").maxDate($('#claimHeader_ToDate').val());
+                    $('#' + item.id).data("DateTimePicker").maxDate(maxDt);
                 });
             }
             $(".travelDateCss_ToDate").on("dp.change", function (e) {
@@ -1893,32 +1897,7 @@
             // var title =$('.multiselect-selected-text').text();
         });
 
-        //$('#frmClaim').validate({
-        //    rules: {
-        //        'claimHeader.Name': {
-        //            required: true
-        //        },
-
-        //        'claimHeader.FromDate': {
-        //            required: true
-        //        },
-        //        'claimHeader.ToDate': {
-        //            required: true
-        //        },
-        //        'claimHeader.CountryVisited': {
-        //            required: true
-        //        },
-        //        'claimHeader.NoOfDays': {
-        //            required: true
-        //        },
-        //        'claimDetail.Category': {
-        //            required: true
-        //        },
-        //        'claimDetail.Currency': {
-        //            required: true
-        //        }
-        //    }
-        //});
+        
         $('#frmClaim').validate({
             ignore:""
         });

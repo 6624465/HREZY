@@ -41,13 +41,10 @@
 @using (Html.BeginForm("Leave", "Leave", FormMethod.Post, new { id = "frmLeave", name = "frmLeave" }))
 {
     <div class="page">
-        <div class="panel panel-default panel-hovered panel-stacked mb10">
-            <div class="panel-heading">
+        <div class="panel panel-default panel-hovered panel-stacked mb10">            
                 <div class="center-block width">
-                    Leave Policy
+                    <h4><b>LEAVE POLICY</b></h4>
                     </div>
-                </div>
-
             @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
             {
                 <div class="row">

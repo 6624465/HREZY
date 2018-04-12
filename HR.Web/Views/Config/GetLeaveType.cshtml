@@ -16,7 +16,7 @@
         {
             <div class="col-md-8">
                 @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", onblur = "checkLeaveType(this)", @maxlength = "50" })
+            new { @class = "form-control input-sm uppercase", onblur = "checkLeaveType(this)", @maxlength = "50" })
                 <label id="error">Leave Type Already Exists.</label>
             </div>
         }
@@ -26,14 +26,14 @@
             {
                 <div class="col-md-8">
                     @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", @maxlength = "50" ,@readonly="true"})
+            new { @class = "form-control input-sm uppercase", @maxlength = "50" ,@readonly="true"})
                 </div>
             }
             else
             {
                 <div class="col-md-8">
                     @Html.TextBoxFor(x => x.LookUpCode,
-            new { @class = "form-control input-sm", @maxlength = "50" })
+            new { @class = "form-control input-sm uppercase", @maxlength = "50" })
                 </div>
             }
 
@@ -49,13 +49,13 @@
             @if (Model.LookUpCode == "SICKLEAVE" || Model.LookUpCode == "PAIDLEAVE" || Model.LookUpCode == "CASUALLEAVE")
             {
                 @Html.TextAreaFor(x => x.LookUpDescription,
-            new { @class = "form-control input-sm", @maxlength = "50", @readonly = "true" })
+            new { @class = "form-control input-sm uppercase", @maxlength = "50", @readonly = "true" })
             }
             else
             {
 
                 @Html.TextAreaFor(x => x.LookUpDescription,
-            new { @class = "form-control input-sm", @maxlength = "50" })
+            new { @class = "form-control input-sm uppercase", @maxlength = "50" })
             }
         </div>
     </div>

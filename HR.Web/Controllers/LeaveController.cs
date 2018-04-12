@@ -155,6 +155,7 @@ namespace HR.Web.Controllers
                         Status = x.B.Status,
                         Branchid = x.B.BranchId,
                         Reason = x.B.Reason,
+                        Days=x.B.Days,
                         LeaveType = dbcntx.LookUps.Where(y => y.LookUpID == x.B.LeaveTypeId).FirstOrDefault().LookUpDescription
                     });
                 if (month != 0)

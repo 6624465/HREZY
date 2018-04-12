@@ -4,6 +4,11 @@
         display: none;
         color: Red;
     }
+    
+input.uppercase{
+text-transform: uppercase;
+}
+
 </style>
 <div class="row">
     @Html.HiddenFor(x => x.LookUpID)
@@ -38,7 +43,7 @@
         <div class="col-md-8">
             @Html.TextAreaFor(x => x.LookUpDescription,
 
-            new { @class = "form-control input-sm", @maxlength = "50" })
+            new { @class = "form-control input-sm uppercase", @maxlength = "50" })
         </div>
     </div>
 </div>

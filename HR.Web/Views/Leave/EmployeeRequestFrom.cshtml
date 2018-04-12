@@ -347,6 +347,7 @@
         });
 
         $("#ToDate").on("change", function (e) {
+           
             $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             if (fromDate != undefined && fromDate != "") {
@@ -361,7 +362,7 @@
                     $('#noOfDays').val('');
                 } else {
                     $('#Days').val(days);
-                    $('#noOfDays').val(days);
+                    $('#noOfDays').text(days);
                 }
             }
             if (fromDate != toDate) {
@@ -379,6 +380,7 @@
             holidaysArray.push(moment(holiDayList[i], 'MM/DD/YYYY'));
         }
         function isoWeekDayCalc() {
+            debugger;
             $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
             var toDate = $('#ToDt').find('input').val();
@@ -446,6 +448,7 @@
 
 
         function checkDates() {
+            debugger;
             $('#Days').val('');
             $('#noOfDays').val('');
             var fromDate = $('#FromDt').find('input').val();
@@ -492,6 +495,9 @@
                 $('#Session').hide();
             }
             isoWeekDayCalc();
+
+
+
             var daysCount=$('#Days').val();
 
             if (daysCount == 1) {

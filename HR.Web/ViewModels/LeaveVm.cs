@@ -34,6 +34,7 @@ namespace HR.Web.ViewModels
         public string Status { get; set; }
         public int Branchid { get; set; }
         public decimal? Days { get; set;}
+        public DateTime ApplyDate { get; set; }
     }
 
     public class ExcelEmpLeaveListVm

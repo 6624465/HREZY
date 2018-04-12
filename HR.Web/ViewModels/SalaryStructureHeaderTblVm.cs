@@ -23,4 +23,15 @@ namespace HR.Web.ViewModels
        
         public string BranchName { get; set; }
     }
+    public class structurelistVm
+    {
+        public string Code { get; set; }
+        public Nullable<System.DateTime> EffectiveDate { get; set; }
+        public string Remarks { get; set; }
+        public int EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
+
+        public int BranchId { get; set; }
+        public int StructureID { get; set; }
+    }
 }

@@ -452,25 +452,64 @@ namespace HR.Web.Controllers
                 isPresent = false;
             return Json(isPresent, JsonRequestBehavior.AllowGet);
         }
-        public ViewResult SalaryStructureHeaderList(int? BranchId = 0, int? page = 1)
+        //public ViewResult SalaryStructureHeaderList(int? BranchId = 0, int? page = 1)
+        //{
+        //    ViewData["RoleCode"] = ROLECODE;
+        //    var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+        //    int skip = (page.Value - 1) * offset;
+        //    List<SalaryStructureHeader> list = new List<SalaryStructureHeader>();
+        //    if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+        //        list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BranchId).OrderBy(x => x.BranchId).ToList();
+        //    else
+        //        list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID).ToList();
+
+        //    var count = list.Count();
+        //    decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+        //    HtmlTblVm<SalaryStructureHeader> HtmlTblVm = new HtmlTblVm<SalaryStructureHeader>();
+        //    HtmlTblVm.TableData = list.Skip(skip).Take(offset).ToList();
+        //    HtmlTblVm.TotalRows = count;
+        //    HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+        //    HtmlTblVm.CurrentPage = page.Value;
+        //    return View(HtmlTblVm);
+        //}
+        public ViewResult SalaryStructureHeaderList(int? BranchId = 0, int page = 1)
         {
             ViewData["RoleCode"] = ROLECODE;
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
-            int skip = (page.Value - 1) * offset;
-            List<SalaryStructureHeader> list = new List<SalaryStructureHeader>();
-            if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
-                list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BranchId).OrderBy(x => x.BranchId).ToList();
-            else
-                list = salaryStructureHeaderBO.GetListByProperty(x => x.IsActive == true && x.BranchId == BRANCHID).ToList();
+            var skip = (page - 1) * offset;
+            List<structurelistVm> list = new List<structurelistVm>();
+            using (var dbcntx=new HrDataContext())
+            {
+                var query = dbcntx.SalaryStructureHeaders.Join(
+                     dbcntx.EmployeeHeaders,
+                     a => a.EmployeeId, b => b.EmployeeId,
+                     (a, b) => new { A = a, B = b })
+                     .Where(x => x.A.IsActive == true)
 
-            var count = list.Count();
-            decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
-            HtmlTblVm<SalaryStructureHeader> HtmlTblVm = new HtmlTblVm<SalaryStructureHeader>();
-            HtmlTblVm.TableData = list.Skip(skip).Take(offset).ToList();
-            HtmlTblVm.TotalRows = count;
-            HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
-            HtmlTblVm.CurrentPage = page.Value;
-            return View(HtmlTblVm);
+                     .Select(x => new structurelistVm {
+                         EmployeeId = x.A.EmployeeId.Value,
+                         EmployeeName = x.B.FirstName + " " + x.B.LastName,
+                         Code = x.A.Code,
+                         EffectiveDate = x.A.EffectiveDate,
+                         Remarks = x.A.Remarks,
+                         StructureID=x.A.StructureID,
+                         BranchId=x.A.BranchId.Value
+                     });
+
+                if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
+                     list = query.Where(y=>y.BranchId == BranchId).OrderBy(y => y.BranchId).ToList();
+                else
+                    list = query.Where(y => y.BranchId == BRANCHID).ToList();
+                var count = query.Count();
+                decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+
+                HtmlTblVm<structurelistVm> HtmlTblVm = new HtmlTblVm<structurelistVm>();
+                HtmlTblVm.TableData = list.Skip(skip).Take(offset).ToList();
+                HtmlTblVm.TotalRows = count;
+                HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+                HtmlTblVm.CurrentPage = page;
+                return View(HtmlTblVm);
+            }
         }
 
         [HttpGet]

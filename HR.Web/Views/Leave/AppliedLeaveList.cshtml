@@ -59,7 +59,7 @@
                                 @Html.DropDownList("Year", listyears, "Select Year", new { @class = "form-control input-sm", onchange = "getappliedlist(this)" })
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-success btn-sm" onclick="downloadexcel()" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
+                                <button class="btn btn-success btn-sm" onclick="downloadexcel()" type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i><b>Download</b></button>
                             </div>
                         </div>
                         if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)

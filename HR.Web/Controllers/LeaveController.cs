@@ -158,10 +158,19 @@ namespace HR.Web.Controllers
                         Days = x.B.Days,
                         LeaveType = dbcntx.LookUps.Where(y => y.LookUpID == x.B.LeaveTypeId).FirstOrDefault().LookUpDescription
                     });
-                if (month != 0)
+                var fromdate = DateTime.Now;
+                if(month==0 && year == 0)
+                {
+                    query = query.Where(x => x.FromDate.Month == fromdate.Month);
+                    query = query.Where(x => x.FromDate.Year == fromdate.Year);
+                }
+             else if (month != 0)
+                {
                     query = query.Where(x => x.FromDate.Month == month);
 
-                query = query.Where(x => x.FromDate.Year == year);
+                    query = query.Where(x => x.FromDate.Year == year);
+                }
+                   
 
                 if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {
@@ -1288,11 +1297,19 @@ namespace HR.Web.Controllers
                         Reason = x.B.Reason,
                         LeaveType = dbcntx.LookUps.Where(y => y.LookUpID == x.B.LeaveTypeId).FirstOrDefault().LookUpDescription
                     });
-
-                if (Month != 0)
+                var fromdate = DateTime.Now;
+                if (Month == 0 && Year == 0)
+                {
+                    query = query.Where(x => x.FromDate.Month == fromdate.Month);
+                    query = query.Where(x => x.FromDate.Year == fromdate.Year);
+                }
+                else if (Month != 0)
+                {
                     query = query.Where(x => x.FromDate.Month == Month);
 
-                query = query.Where(x => x.FromDate.Year == Year);
+                    query = query.Where(x => x.FromDate.Year == Year);
+
+                }
 
                 if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {

@@ -185,7 +185,14 @@ namespace HR.Web.Controllers
                 empObj.empBankdetail = empbankdetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
                 List<EmployeeDocumentDetail> empDocumentDetList = empDocDetailBO.GetAll().ToList();
 
-                empDocumentDetList = empDocumentDetList.Where(x => x.EmployeeId == EmployeeId.Value).ToList();
+                var documentTypeLookupids = lookUpBO.GetByAll()
+                            .Where(x => x.LookUpCategory == UTILITY.CONFIG_DOCUMENTTYPE)
+                            .Select(x => x.LookUpID)
+                            .ToList();
+                empDocumentDetList = empDocumentDetList
+                            .Where(x => x.EmployeeId == EmployeeId.Value && 
+                                        documentTypeLookupids.Contains(x.DocumentType))
+                            .ToList();
 
                 var codeList = empDocumentDetList.Select(x => x.DocumentType).ToList();
 

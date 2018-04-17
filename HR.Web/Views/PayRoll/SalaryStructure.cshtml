@@ -329,37 +329,39 @@
 
                                     <h4><b>GROSS AND NET SALARY</b></h4>
                                     <div>
-                                        <div class="col-md-12">
-                                            <div class="table-responsive">
-                                              
-                                                <table class="table table-condensed table-bordered" >
-                                                    @*<thead>
-                                                        <tr>
-                                                           
-                                                            <th></th>
-                                                            <th></th>
-                                                           <th></th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>*@
-                                                    <tbody>
-                                                        <tr>
-                                                           
-                                                            <td style="text-align:right;">Gross Amount</td>
-                                                            @*<td>@Html.TextBox("grosstotal",
-    new { @class = "form-control input-sm", @readonly = "readonly",id="grosstotal" })</td>*@
-                                                            <td style="width:300px;">
-                                                                <input type="text" id="totalgross" name="totalgross" disabled class= "form-control input-sm"/>
-                                                            </td>
-                                                           
-                                                            <td style="text-align:right;width:200px;">Net Amount</td>
-                                                            <td style="width:300px;">
-                                                                @Html.TextBoxFor(x => x.structureHeader.NetAmount,
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+
+                                                    <table class="table table-condensed table-bordered">
+                                                        @*<thead>
+                            <tr>
+
+                                <th></th>
+                                <th></th>
+                               <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>*@
+                                                        <tbody>
+                                                            <tr>
+
+                                                                <td style="text-align:right;">Gross Amount</td>
+                                                                @*<td>@Html.TextBox("grosstotal",
+                                new { @class = "form-control input-sm", @readonly = "readonly",id="grosstotal" })</td>*@
+                                                                <td style="width:260px;">
+                                                                    <input type="text" id="totalgross" name="totalgross" disabled class="form-control input-sm" />
+                                                                </td>
+
+                                                                <td style="text-align:right;width:290px;">Net Amount</td>
+                                                                <td style="width:280px;">
+                                                                    @Html.TextBoxFor(x => x.structureHeader.NetAmount,
                                                        new { @class = "form-control input-sm decimalCss ", @readonly = "readonly" })
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

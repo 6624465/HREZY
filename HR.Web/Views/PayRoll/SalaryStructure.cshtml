@@ -327,24 +327,35 @@
                                         </table>
                                     </div>
 
-                                    <h4><b>NET SALARY</b></h4>
+                                    <h4><b>GROSS AND NET SALARY</b></h4>
                                     <div>
                                         <div class="col-md-12">
                                             <div class="table-responsive">
-                                                <table class="table table-condensed table-bordered">
-                                                    <thead>
+                                              
+                                                <table class="table table-condensed table-bordered" >
+                                                    @*<thead>
                                                         <tr>
+                                                           
                                                             <th></th>
-                                                            
-                                                            <th style="width:300px;">Total</th>
+                                                            <th></th>
+                                                           <th></th>
+                                                            <th></th>
                                                         </tr>
-                                                    </thead>
+                                                    </thead>*@
                                                     <tbody>
                                                         <tr>
-                                                            <td style="text-align:right;">Amount</td>
-                                                            <td>
+                                                           
+                                                            <td style="text-align:right;">Gross Amount</td>
+                                                            @*<td>@Html.TextBox("grosstotal",
+    new { @class = "form-control input-sm", @readonly = "readonly",id="grosstotal" })</td>*@
+                                                            <td style="width:300px;">
+                                                                <input type="text" id="totalgross" name="totalgross" disabled class= "form-control input-sm"/>
+                                                            </td>
+                                                           
+                                                            <td style="text-align:right;width:200px;">Net Amount</td>
+                                                            <td style="width:300px;">
                                                                 @Html.TextBoxFor(x => x.structureHeader.NetAmount,
-                                                       new { @class = "form-control input-sm", @readonly = "readonly" })
+                                                       new { @class = "form-control input-sm decimalCss ", @readonly = "readonly" })
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -771,7 +782,6 @@
             
         }
         function validateAmount(el, index,code) {
-
             code= $('#structureSalaryPaymentDetail_'+index+'__RegisterCode').val();
             var rowCount=$('.trCssSalaryPayment').length;
             var TotalGross=0;
@@ -839,19 +849,22 @@
 
                 var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
                 var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
-
-                var netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions)-parseFloat(employeeval);
+                var netAmount=0;
+                netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions)-parseFloat(employeeval);
+                if (isNaN(netAmount)) {
+                    netAmount = 0;
+                }
                 $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
+                $('#totalgross').val(TotalGross);
 
+              
+               
             }
             validateDeductAmount(this, 0,code);
 
         }
 
         function validateDeductAmount(el, index,code){
-
-            debugger;
-
             var rowCount=$('.trCssEmployeeContribution').length;
             var netAmount=0;
             
@@ -911,14 +924,17 @@
             var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
             var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
-            var netAmount=parseFloat(totaladd) - parseFloat(_totalDeductions);
+            netAmount=parseFloat(totaladd) - parseFloat(_totalDeductions);
+            if (isNaN(netAmount)) {
+                netAmount = 0;
+            }
             $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
+            $('#totalgross').val(salarypayment);
+           
 
         }
 
         function validateTaxAmount(obj,index,code){
-
-            debugger;
             var rowCount=$('.trCssEmployerContribution').length;
             var netAmount=0;
             var employeeval=$('#structureHeader_TotalDeductions').val();
@@ -969,10 +985,12 @@
                 }
 
                 netAmount=netAmount.toFixed(2);
+                
                 $('#structureHeader_EmpContribution').val(netAmount);
                 var totalgross=$('#structureHeader_TotalGross').val();
                 var amount=parseFloat(netAmount)+parseFloat(totalgross)-parseFloat(employeeval);
                 $('#structureHeader_NetAmount').val(amount);
+                $('#totalgross').val(totalgross);
 
             }
         }

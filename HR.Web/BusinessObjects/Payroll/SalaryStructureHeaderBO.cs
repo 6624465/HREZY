@@ -146,11 +146,12 @@ namespace HR.Web.BusinessObjects.Payroll
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);
-                        if (item.IsActive)
+                        //if (item.IsActive)
                             salaryStructureDetailBO.Add(detail);
                     }
 
                 }
+               
 
                 if (salaryStructureVm.structureEmployerContributionDetail != null)
                 {
@@ -175,7 +176,7 @@ namespace HR.Web.BusinessObjects.Payroll
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);
-                        if (item.IsActive)
+                        //if (item.IsActive)
                             salaryStructureDetailBO.Add(detail);
                     }
 
@@ -204,7 +205,7 @@ namespace HR.Web.BusinessObjects.Payroll
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);
-                        if (item.IsActive)
+                        //if (item.IsActive)
                             salaryStructureDetailBO.Add(detail);
                     }
                 }

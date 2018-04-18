@@ -65,7 +65,7 @@ namespace HR.Web.Controllers
         public JsonResult GetExRateByCurrencyCode(string currencyCode)
         {
             var lookupObj = lookUpBo
-                                .GetByProperty(x => x.LookUpCategory == UTILITY.CURRENCY && x.LookUpDescription == currencyCode);
+                                .GetByProperty(x => x.LookUpCategory == UTILITY.CURRENCY && x.LookUpDescription == currencyCode && x.IsActive==true);
 
             if (lookupObj == null)
                 lookupObj = new LookUp { LookUpCode = "1" };

@@ -17,15 +17,11 @@
             background: #fff;
         }
 
-        #dtid {
-            display: none;
-        }
+        
         .pd-generate{
             padding:15px;
         }
-        #dtid2{
-            display:none;
-        }
+     
          
          th, td { white-space: nowrap; }
     div.dataTables_wrapper {
@@ -89,29 +85,27 @@
                             </div>
                         </div>
                         <div class="row css5">
-
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Month</span>
                             </label>
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm" })
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Year</span>
                             </label>
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 @Html.DropDownListFor(x => x.payslipBatchHeader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
                             </div>
-                        </div>
-                        <div class="row css5">
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Total Salary</span>
                             </label>
                             <div class="col-md-3">
                                 @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm numCss" })
-                            </div>
+                            </div>                          
+                        </div>
+                        <div class="row css5">                            
                             <div class="col-md-2">
-
                             </div>
                             <div class="col-md-5">
                                 <button type="button" class="btn btn-sm btn-primary" id="button-btn"><b>Process</b></button>
@@ -164,11 +158,11 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Tiger</td>
-                                            <td>Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
+                                            <td>1</td>
+                                            <td>1001</td>
+                                            <td>Malaysia</td>
                                             <td>61</td>
+                                            <td>Edinburgh</td>
                                             <td>2011/04/25</td>
                                             <td>$320,800</td>
                                             <td>5421</td>
@@ -202,11 +196,11 @@
                                             <td>t.nixon@datatables.net</td>
                                         </tr>
                                         <tr>
-                                            <td>Tiger</td>
-                                            <td>Nixon</td>
-                                            <td>System Architect</td>
+                                            <td>2</td>
+                                            <td>1002</td>
+                                            <td>Singapore</td>
+                                            <td>65</td>
                                             <td>Edinburgh</td>
-                                            <td>61</td>
                                             <td>2011/04/25</td>
                                             <td>$320,800</td>
                                             <td>5421</td>
@@ -255,7 +249,7 @@
                     
                 </div>
                 <div id="dtid2" class="panel panel-default panel-hovered panel-stacked mb10 pd-generate">
-                    <button type="button" class="btn btn-sm btn-primary"><b>Generate</b></button>
+                    <button type="button" class="btn btn-sm btn-success"><b>Generate</b></button>
                 </div>
                 </div>
         </div>
@@ -297,12 +291,15 @@
                 }
             });
         });
+       
         $("#button-btn").click(function () {
             $("#dtid").show();
             $("#dtid2").show();
         });
-
   
-
+        $(document).ready(function () {
+            $("#dtid").hide();
+            $("#dtid2").hide();
+        });
     </script>
 }

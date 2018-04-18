@@ -91,10 +91,10 @@
                             <div class="col-md-1">
                                 @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm" })
                             </div>
-                            <label class="col-md-2 control-label">
+                            <label class="col-md-1 control-label">
                                 <span class="pull-right">Year</span>
                             </label>
-                            <div class="col-md-1">
+                            <div class="col-md-1 pull-left">
                                 @Html.DropDownListFor(x => x.payslipBatchHeader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
                             </div>
                             <label class="col-md-2 control-label">

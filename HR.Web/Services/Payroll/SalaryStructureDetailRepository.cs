@@ -21,22 +21,24 @@ namespace HR.Web.Services.Payroll
 
                     SalaryStructureDetail SalaryStructureDetail = dbContext.SalaryStructureDetails
                         .Where(x => x.StructureDetailID == entity.StructureDetailID).FirstOrDefault();
+                  
+
                     if (SalaryStructureDetail == null)
                     {
                         dbContext.SalaryStructureDetails.Add(entity);
                     }
                     else
                     {
-                        SalaryStructureDetail.Code = entity.Code;
-                        SalaryStructureDetail.Amount = entity.Amount;
-                        SalaryStructureDetail.ComputationCode = entity.ComputationCode;
-                        SalaryStructureDetail.Description = entity.Description;
-                        SalaryStructureDetail.RegisterCode = entity.RegisterCode;
-                        SalaryStructureDetail.ModifiedBy = entity.ModifiedBy;
-                        SalaryStructureDetail.ModifiedOn = entity.ModifiedOn;
-                        SalaryStructureDetail.IsActive = entity.IsActive;
-                        SalaryStructureDetail.Total = entity.Total;
-                        SalaryStructureDetail.IsVariablePay = entity.IsVariablePay;
+                            SalaryStructureDetail.Code = entity.Code;
+                            SalaryStructureDetail.ComputationCode = entity.ComputationCode;
+                            SalaryStructureDetail.Description = entity.Description;
+                            SalaryStructureDetail.RegisterCode = entity.RegisterCode;
+                            SalaryStructureDetail.ModifiedBy = entity.ModifiedBy;
+                            SalaryStructureDetail.ModifiedOn = entity.ModifiedOn;
+                            SalaryStructureDetail.IsActive = entity.IsActive;
+                            SalaryStructureDetail.Total = entity.Total;
+                            SalaryStructureDetail.IsVariablePay = entity.IsVariablePay;
+                        
                     }
 
                     dbContext.SaveChanges();

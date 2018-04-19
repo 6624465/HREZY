@@ -146,8 +146,16 @@ namespace HR.Web.BusinessObjects.Payroll
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);
-                        //if (item.IsActive)
+                        if (item.IsActive == true)
+                        {
                             salaryStructureDetailBO.Add(detail);
+                        }
+                        else
+                        {
+                            detail.Amount = 0;
+                            salaryStructureDetailBO.Add(detail);
+                        }
+                            
                     }
 
                 }
@@ -176,8 +184,15 @@ namespace HR.Web.BusinessObjects.Payroll
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);
-                        //if (item.IsActive)
+                        if (item.IsActive == true)
+                        {
                             salaryStructureDetailBO.Add(detail);
+                        }
+                        else
+                        {
+                            detail.Amount = 0;
+                            salaryStructureDetailBO.Add(detail);
+                        }
                     }
 
                 }
@@ -205,8 +220,15 @@ namespace HR.Web.BusinessObjects.Payroll
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);
-                        //if (item.IsActive)
+                        if (item.IsActive == true)
+                        {
                             salaryStructureDetailBO.Add(detail);
+                        }
+                        else
+                        {
+                            detail.Amount = 0;
+                            salaryStructureDetailBO.Add(detail);
+                        }
                     }
                 }
 

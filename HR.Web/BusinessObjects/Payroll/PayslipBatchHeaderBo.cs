@@ -88,5 +88,12 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
+
+
+        public System.Data.DataTable GeneratePayslip(Int16 BranchId, int CurrentMonth, int CurrentYear)
+        {
+            return PayslipBatchHeaderRepository.GeneratePayslip(BranchId, CurrentMonth, CurrentYear);
+        }
+
     }
 }

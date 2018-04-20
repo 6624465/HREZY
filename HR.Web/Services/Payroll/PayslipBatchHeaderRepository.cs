@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
+
+
 
 namespace HR.Web.Services.Payroll
 {
@@ -32,7 +35,7 @@ namespace HR.Web.Services.Payroll
                         dbContext.SaveChanges();
 
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -120,6 +123,38 @@ namespace HR.Web.Services.Payroll
                 throw ex;
             }
         }
+        public System.Data.DataTable GeneratePayslip(Int16 BranchId, int CurrentMonth, int CurrentYear)
+        {
+            using (var dbCntx = new HrDataContext())
+            using (SqlConnection Con = new
+                SqlConnection(dbCntx.Database.Connection.ConnectionString))
+            {
+                Con.Open();
+                SqlCommand Cmd = new SqlCommand();
 
+                Cmd.Connection = Con;
+                Cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                Cmd.CommandText = "[Payroll].[GeneratePayslip]";
+
+                Cmd.Parameters.Add("@BranchID", System.Data.SqlDbType.SmallInt);
+                Cmd.Parameters.Add("@CurrentMonth", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@CurrentYear", System.Data.SqlDbType.Int);
+
+                Cmd.Parameters["@BranchID"].Value = BranchId;
+                Cmd.Parameters["@CurrentMonth"].Value = CurrentMonth;
+                Cmd.Parameters["@CurrentYear"].Value = CurrentYear;
+                
+
+                System.Data.DataTable dt = new System.Data.DataTable();
+                var da = new SqlDataAdapter(Cmd);
+                
+                da.Fill(dt);
+
+                Con.Close();
+
+                return dt;
+            }
+
+        }
     }
 }

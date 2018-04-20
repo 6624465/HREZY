@@ -10,5 +10,7 @@ namespace HR.Web.ViewModels
     {
         public PayslipBatchHeader payslipBatchHeader { get; set; }
         public List<PayslipBatchDetail> payslipBatchDetail { get; set; }
+
+        public System.Data.DataTable dt { get; set; }
     }
 }

@@ -63,7 +63,8 @@
                                 @Model.Employeetable[i].ManagerName
                             </td>
                                <td>
-                                   <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;" >
+                                   <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" 
+                                           onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
                                        <i class="fa fa-pencil" style="padding-left: 5px;"></i>
                                    </button>
                                </td>
@@ -79,7 +80,67 @@
             </div>
         </div>
     </div>
+@using (Html.BeginForm("SaveVariablePay", "PayrollBatch", FormMethod.Post, new { id = "Variablepayfrm", name = "Variablepayfrm" }))
+{
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Variable Pay Edit</h4>
+                </div>
+                <div class="modal-body" id="modalContent">
+                   
+                </div>
+                <div class="modal-footer">
+                    <button id="btnsave" type="button"  class="btn btn-primary btn-sm" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
+                </div>
+            </div>
 
+        </div>
+    </div>
+}
 
+@section Scripts{
+    <script type="text/javascript">
+        function EditVariablePay(Employeeid) {
+                //$('#Description').val('');
+                //$('#Date').val('');
+                //$('#CountryId').val('');
+                //$('#myModal').modal('show');
+                $.ajax({
+                    url: '@Url.Content("~/PayrollBatch/EditVariablePay?Employeeid=")' + Employeeid,
+                    contentType: 'text/html',
+                    method: 'GET',
+                    success: function (data) {
+                    $('#myModal').modal('show');
+                    $('#modalContent').html('');
+                    $('#modalContent').html(data);
+                    }
+                    });
+        }
+        function SaveChanges() {
+            if ($('#Variablepayfrm').valid()) {
+             
+                $('#Variablepayfrm').submit();
+                swal({
+                    title: "Saved Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                      function () {
+                          $.loader({
+                              className: "blue-with-image-2",
+                              content: '',
+                          });
+                      })
+            }
+            else {
+                swal("Incorrect Inputs");
+            }
+        }
+</script>
 
-
+    }

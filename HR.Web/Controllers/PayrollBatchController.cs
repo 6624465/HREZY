@@ -19,10 +19,16 @@ namespace HR.Web.Controllers
     {
         PayslipBatchHeaderBo PayslipbatchheaderBo = null;
         EmployeeHeaderBO empheaderBo = null;
+        SalaryStructureDetailBO salarystructuredetailBo = null;
+        SalaryStructureHeaderBO salarystructureheaderBo = null;
+        VariablePaymentDetailBO variabledetailBo = null;
         public PayrollBatchController()
         {
             PayslipbatchheaderBo = new PayslipBatchHeaderBo(SESSIONOBJ);
             empheaderBo = new EmployeeHeaderBO(SESSIONOBJ);
+            salarystructuredetailBo = new SalaryStructureDetailBO(SESSIONOBJ);
+            salarystructureheaderBo = new SalaryStructureHeaderBO(SESSIONOBJ);
+            variabledetailBo = new VariablePaymentDetailBO(SESSIONOBJ);
         }
         // GET: PayrollBatch
         [HttpGet]
@@ -84,6 +90,7 @@ namespace HR.Web.Controllers
                                                 EmployeeName = x.A.FirstName + " " + x.A.LastName,
                                                 EmployeeDesignation  = dbCntx.LookUps.Where(y=>y.LookUpID==x.B.DesignationId).FirstOrDefault().LookUpDescription,
                                                 ManagerName = dbCntx.EmployeeHeaders.Where(y=>y.EmployeeId==x.A.ManagerId).FirstOrDefault().FirstName,
+                                                EmployeeId=x.A.EmployeeId,
                                             }).ToList();
 
 
@@ -101,6 +108,38 @@ namespace HR.Web.Controllers
                 throw ex;
             }
            
+        }
+        public PartialViewResult EditVariablePay(int Employeeid)
+        {
+            var structureID = salarystructureheaderBo.GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true).StructureID;
+            var ComponentsList = salarystructuredetailBo.GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true).ToList();
+            var variablepaymenteditvm = new variablepayEditVm
+            {
+                salarystructuredetail = ComponentsList,
+                variablepaymentdetail = new VariablePaymentDetail(),
+            };
+            return PartialView(variablepaymenteditvm);
+        }
+
+
+        public ActionResult SaveVariablePay(variablepayEditVm varaiablepayeditvm)
+        {
+            
+            foreach (var item in varaiablepayeditvm.salarystructuredetail)
+            {
+                var variablepaymentdetail = new VariablePaymentDetail()
+                {
+                 Amount = item.Amount,
+                ComponentCode = item.Description,
+                EmployeeId = salarystructureheaderBo.GetByProperty(x => x.StructureID == item.StructureID).EmployeeId,
+               
+            };
+                variablepaymentdetail.DetailID = varaiablepayeditvm.variablepaymentdetail.DetailID;
+                variabledetailBo.Add(variablepaymentdetail);
+            }
+            
+
+            return RedirectToAction("UpdateVariablePay");
         }
 
     }

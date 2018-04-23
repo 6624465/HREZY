@@ -29,5 +29,16 @@ namespace HR.Web.ViewModels
         public string EmployeeDesignation { get; set; }
 
         public string ManagerName { get; set; }
+
+        public int Branchid { get; set; }
+
+        public int EmployeeId { get; set; }
+    }
+
+    public class variablepayEditVm
+    {
+        public List<SalaryStructureDetail> salarystructuredetail { get; set; }
+
+        public VariablePaymentDetail variablepaymentdetail { get; set; }
     }
 }

@@ -350,7 +350,6 @@
                     down: 'fa fa-arrow-down',
                     previous: 'fa fa-arrow-left',
                     next: 'fa fa-arrow-right',
-
                 },
                 format: dateFormat,
                 defaultDate:date
@@ -368,7 +367,10 @@
                     leftColumns: 6
                 },
                 columnDefs: [
-      { 'max-width': '20%', 'targets': 0 }
+      {
+          "targets": [1,2,3,4],
+          "visible": false
+      }
                 ],
             });
         });

@@ -572,6 +572,31 @@
           <Property Name="TotalAmtPaid" Type="decimal" Precision="18" Scale="4" />
           <Property Name="TravelPurpose" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <EntityType Name="VariablePaymentDetail">
+          <Key>
+            <PropertyRef Name="DetailID" />
+          </Key>
+          <Property Name="DetailID" Type="int" Nullable="false" />
+          <Property Name="HeaderId" Type="int" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="ComponentCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="VariablePaymentHeader">
+          <Key>
+            <PropertyRef Name="HeaderID" />
+          </Key>
+          <Property Name="HeaderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="WeekendPolicy">
           <Key>
             <PropertyRef Name="BranchId" />
@@ -679,6 +704,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="SalaryStructureHeader" EntityType="Self.SalaryStructureHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="TravelClaimDetail" EntityType="Self.TravelClaimDetail" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="TravelClaimHeader" EntityType="Self.TravelClaimHeader" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="VariablePaymentDetail" EntityType="Self.VariablePaymentDetail" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="VariablePaymentHeader" EntityType="Self.VariablePaymentHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="WeekendPolicy" EntityType="Self.WeekendPolicy" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="Security">
@@ -775,6 +802,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="EmployeeBankdetails" EntityType="DB_9F30C5_HRDBModel.EmployeeBankdetail" />
           <EntitySet Name="PayslipBatchDetails" EntityType="DB_9F30C5_HRDBModel.PayslipBatchDetail" />
           <EntitySet Name="PayslipBatchHeaders" EntityType="DB_9F30C5_HRDBModel.PayslipBatchHeader" />
+          <EntitySet Name="VariablePaymentDetails" EntityType="DB_9F30C5_HRDBModel.VariablePaymentDetail" />
+          <EntitySet Name="VariablePaymentHeaders" EntityType="DB_9F30C5_HRDBModel.VariablePaymentHeader" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1390,6 +1419,31 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="TotalSalary" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="VariablePaymentDetail">
+          <Key>
+            <PropertyRef Name="DetailID" />
+          </Key>
+          <Property Name="DetailID" Type="Int32" Nullable="false" />
+          <Property Name="HeaderId" Type="Int32" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="ComponentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="VariablePaymentHeader">
+          <Key>
+            <PropertyRef Name="HeaderID" />
+          </Key>
+          <Property Name="HeaderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2070,6 +2124,33 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
                 <ScalarProperty Name="BatchHeaderId" ColumnName="BatchHeaderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VariablePaymentDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.VariablePaymentDetail">
+              <MappingFragment StoreEntitySet="VariablePaymentDetail">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ComponentCode" ColumnName="ComponentCode" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="HeaderId" ColumnName="HeaderId" />
+                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VariablePaymentHeaders">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.VariablePaymentHeader">
+              <MappingFragment StoreEntitySet="VariablePaymentHeader">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="TransactionNo" ColumnName="TransactionNo" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

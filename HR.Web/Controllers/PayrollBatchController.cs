@@ -77,7 +77,7 @@ namespace HR.Web.Controllers
                 using (var dbCntx = new HrDataContext())
                 {
                 var list = dbCntx.EmployeeHeaders.Join(dbCntx.EmployeeWorkDetails,
-                                            a => a.BranchId, b => b.BranchId, (a, b) => new { A = a, B = b }).
+                                            a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
                                             Where(x=>x.A.BranchId==BRANCHID).
                                             Select(x => new EmployeeTable
                                             {

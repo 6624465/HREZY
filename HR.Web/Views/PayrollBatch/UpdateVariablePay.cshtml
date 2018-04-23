@@ -1,4 +1,85 @@
 ﻿@model HR.Web.ViewModels.UpdateVariablePayVm
 
+    <div class="page">
+        <div class="page-wrap">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        UPDATE VARIABLE PAY
+                    </div>
+                    <div class="panel-body">
+                        @Html.HiddenFor(x => x.variablepaymentheader.HeaderID)
+                        <div class="row css5">
+
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">TransactionNo</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase" })
+                            </div>
+
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Month</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm" })
+                               
+                            </div>
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Year</span>
+                            </label>
+                            <div class="col-md-1 pull-left">
+                                @Html.DropDownListFor(x => x.variablepaymentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="row css10">
+                            <div class="col-md-12">
+                                <table class="table table-conden table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th> Employee Name</th>
+                                            <th>Employee Designation</th>
+                                            <th>
+                                                Manager Name
+                                            </th>
+                                            <th>
+                                                #Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+    
+                    <tbody>
+                        @for (var i = 0; i < Model.Employeetable.Count(); i++)
+                        {
+
+                            <tr>
+                            <td>
+                                @Model.Employeetable[i].EmployeeName
+                            </td>
+                            <td>
+                                @Model.Employeetable[i].EmployeeDesignation
+                            </td>
+                            <td>
+                                @Model.Employeetable[i].ManagerName
+                            </td>
+                               <td>
+                                   <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;" >
+                                       <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                   </button>
+                               </td>
+                            </tr>
+                            }
+                      </tbody>
+                            </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 

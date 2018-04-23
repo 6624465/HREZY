@@ -63,5 +63,11 @@ namespace HR.Web.Controllers
 
         }
 
+
+        public ActionResult UpdateVariablePay()
+        {
+            return View();
+        }
+
     }
 }

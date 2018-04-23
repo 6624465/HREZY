@@ -13,4 +13,21 @@ namespace HR.Web.ViewModels
 
         public System.Data.DataTable dt { get; set; }
     }
+
+    public class UpdateVariablePayVm
+    {
+        public VariablePaymentHeader variablepaymentheader { get; set; }
+
+        public List<EmployeeTable> Employeetable { get; set; }
+        
+    }
+
+    public class EmployeeTable
+    {
+        public string EmployeeName { get; set; }
+
+        public string EmployeeDesignation { get; set; }
+
+        public string ManagerName { get; set; }
+    }
 }

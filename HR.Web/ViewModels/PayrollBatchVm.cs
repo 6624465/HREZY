@@ -19,7 +19,8 @@ namespace HR.Web.ViewModels
         public VariablePaymentHeader variablepaymentheader { get; set; }
 
         public List<EmployeeTable> Employeetable { get; set; }
-        
+        public List<VariablePaymentDetail> variablepaymentdetail { get; set; }
+
     }
 
     public class EmployeeTable
@@ -35,10 +36,10 @@ namespace HR.Web.ViewModels
         public int EmployeeId { get; set; }
     }
 
-    public class variablepayEditVm
-    {
-        public List<SalaryStructureDetail> salarystructuredetail { get; set; }
+    //public class variablepayEditVm
+    //{
+       
 
-        public VariablePaymentDetail variablepaymentdetail { get; set; }
-    }
+       
+    //}
 }

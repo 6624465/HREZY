@@ -272,7 +272,7 @@ namespace HR.Web.Controllers
                             obj.clPercent = remainingCasualLeavesPercent;
                             obj.plPercent = remainingPaidLeavesPercent;
                             obj.totalCLs = totalCasualLeaves;
-                            obj.totalPLs = totalpaidleaves.Value;
+                            obj.totalPLs = totalPaidLeaves;
                             obj.totalSLs = totalsickleaves;
                             obj.currentcls = obj.totalCLs - obj.remainingcls;
                             obj.currentpls = obj.totalPLs - obj.remainingpls;

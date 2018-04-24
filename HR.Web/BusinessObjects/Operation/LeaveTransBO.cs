@@ -85,19 +85,56 @@ namespace HR.Web.BusinessObjects.Operation
 
         internal void AddLeave(int empId)
         {
+
+            /*
+                --------------------------- START --------------------------------
+               1. get the list of leaves for the given branch.
+               2. get the joining date of the employee.
+               3. compute the total remaining months out of the whole year from joiningdate
+                    pendingMnths = (employee joining month) - ( total months in year)
+               4. loop through the list of leaves.
+               5. get the leaves per month for the particular leave type
+               6. compute the total elegible leaves for the employee from the date of joining till the year end
+                    total eligible leaves = pendingMnths  * leaves per month 
+               7. push the values to the employees leave object.
+               8. push the values to the database.
+
+                --------------------------- END --------------------------------
+            
+            */
+
             using (HrDataContext dbContext = new HrDataContext())
             {
                 List<OtherLeave> leavelist = dbContext.OtherLeaves.Where(x => x.BranchId ==sessionObj.BRANCHID).ToList();
+                var JoiningDate = dbContext.EmployeeWorkDetails.Where(x => x.EmployeeId == empId).Select(x => x.JoiningDate).FirstOrDefault();
+                int month = JoiningDate.Month;
+                int remainingmonths = 12 - (month - 1);
 
                 foreach (OtherLeave leave in leavelist)
                 {
+                    decimal leavespermonth = 0;
+                    decimal totalleavesperyear = 0;
+
+                    try
+                    {
+                        leavespermonth = leavelist.Where(x=> x.LeaveTypeId == leave.LeaveTypeId).Select(x => x.LeavesPerMonth.Value).FirstOrDefault();
+                        totalleavesperyear = remainingmonths * leavespermonth;
+                    }
+                    catch(Exception ex)
+                    {
+                       
+                    }
+
+
+
+
                     LeaveTran leavetrasaction = new LeaveTran()
                     {
                         BranchId =  sessionObj.BRANCHID,
                         CreatedBy = sessionObj.USERID,
                         CreatedOn = UTILITY.SINGAPORETIME,
-                        CurrentLeaves = leave.LeavesPerYear == null ? 0 : leave.LeavesPerYear.Value,
-                        PreviousLeaves = leave.LeavesPerYear == null ? 0 : leave.LeavesPerYear.Value,
+                        CurrentLeaves = leave.LeavesPerYear == null ? 0 : totalleavesperyear,
+                        PreviousLeaves = leave.LeavesPerYear == null ? 0 : totalleavesperyear,
                         EmployeeId = empId,
                         FromDt = UTILITY.SINGAPORETIME,
                         ToDt = UTILITY.SINGAPORETIME,
@@ -116,7 +153,7 @@ namespace HR.Web.BusinessObjects.Operation
         {
             using (HrDataContext dbContext = new HrDataContext())
             {
-                List<OtherLeave> leavelist = dbContext.OtherLeaves.Where(x => x.BranchId == sessionObj.BRANCHID).ToList();
+                List<OtherLeave> leavelist = dbContext.OtherLeaves.Where(x => x.BranchId == sessionObj.BRANCHID).ToList();               
 
                 foreach (OtherLeave leave in leavelist)
                 {

@@ -1,6 +1,7 @@
 ﻿@model HR.Web.ViewModels.UpdateVariablePayVm
 
-
+@*@using (Html.BeginForm("SaveVariablePaytransaction", "PayrollBatch", FormMethod.Post,new { id="variablesave",name= "variablesave" }))
+{*@
     <div class="page">
         <div class="page-wrap">
             <div class="panel-group">
@@ -35,6 +36,8 @@
                         </div>
                         <div class="row css10">
                             <div class="col-md-12">
+                            @if (Model.Employeetable != null && Model.Employeetable.Count()>0)
+                            {
                                 <table class="table table-conden table-bordered">
                                     <thead>
                                         <tr>
@@ -73,6 +76,7 @@
                                         }
                                     </tbody>
                                 </table>
+                            }
                             </div>
 
                         </div>
@@ -84,8 +88,9 @@
             </div>
         </div>
     </div>
+@*}*@
 
-  
+
 
 @using (Html.BeginForm("SaveVariablePay", "PayrollBatch", FormMethod.Post, new { id = "Variablepayfrm", name = "Variablepayfrm" }))
 {
@@ -116,45 +121,27 @@
                 //$('#CountryId').val('');
                 //$('#myModal').modal('show');
                 $.ajax({
-                    url: '@Url.Content("~/PayrollBatch/EditVariablePay?Employeeid=")' + Employeeid,
+            url: '@Url.Content("~/PayrollBatch/EditVariablePay?Employeeid=")' + Employeeid,
                     contentType: 'text/html',
                     method: 'GET',
                     success: function (data) {
                     $('#myModal').modal('show');
                     $('#modalContent').html('');
                     $('#modalContent').html(data);
-                    }
-                    });
-        }
-        function SaveChanges() {
-            if ($('#Variablepayfrm').valid()) {
-                $('#Variablepayfrm').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePay")');
-                $('#Variablepayfrm').submit();
-
-                swal({
-                    title: "Saved Successfully",
-                    text: "",
-                    closeOnConfirm: true,
-                    confirmButtonText: "Ok",
-                    confirmButtonClass: "btn-primary",
-                    timer: 5000
-                },
-                      function () {
-                          $.loader({
-                              className: "blue-with-image-2",
-                              content: '',
-                          });
-                      })
             }
-            else {
-                swal("Incorrect Inputs");
-            }
+        });
+    }
+    function SaveChanges() {
+        if ($('#Variablepayfrm').valid()) {
+            $('#Variablepayfrm').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePay")');
+            $('#Variablepayfrm').submit();
         }
+    }
 
         @*function Savetrans() {
-            if ($('#Variablepayfrmtrans').valid()) {
-                $('#Variablepayfrmtrans').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePaytransaction")');
-                $('#Variablepayfrmtrans').submit();
+            if ($('#variablesave').valid()) {
+                $('#variablesave').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePaytransaction")');
+                $('#variablesave').submit();
                 swal({
                     title: "Saved Successfully",
                     text: "",

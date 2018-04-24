@@ -1,5 +1,6 @@
 ﻿@model HR.Web.ViewModels.UpdateVariablePayVm
 
+
     <div class="page">
         <div class="page-wrap">
             <div class="panel-group">
@@ -23,7 +24,7 @@
                             </label>
                             <div class="col-md-1">
                                 @Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm" })
-                               
+
                             </div>
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">Year</span>
@@ -47,39 +48,45 @@
                                             </th>
                                         </tr>
                                     </thead>
-    
-                    <tbody>
-                        @for (var i = 0; i < Model.Employeetable.Count(); i++)
-                        {
 
-                            <tr>
-                            <td>
-                                @Model.Employeetable[i].EmployeeName
-                            </td>
-                            <td>
-                                @Model.Employeetable[i].EmployeeDesignation
-                            </td>
-                            <td>
-                                @Model.Employeetable[i].ManagerName
-                            </td>
-                               <td>
-                                   <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" 
-                                           onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
-                                       <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                   </button>
-                               </td>
-                            </tr>
-                            }
-                      </tbody>
-                            </table>
+                                    <tbody>
+                                        @for (var i = 0; i < Model.Employeetable.Count(); i++)
+                                        {
+
+                                            <tr>
+                                                <td>
+                                                    @Model.Employeetable[i].EmployeeName
+                                                </td>
+                                                <td>
+                                                    @Model.Employeetable[i].EmployeeDesignation
+                                                </td>
+                                                <td>
+                                                    @Model.Employeetable[i].ManagerName
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
+                                                            onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
+                                                        <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
 
+                        </div>
+                        <div class="row">
+                            <button  type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+  
+
 @using (Html.BeginForm("SaveVariablePay", "PayrollBatch", FormMethod.Post, new { id = "Variablepayfrm", name = "Variablepayfrm" }))
 {
     <div id="myModal" class="modal fade" role="dialog">
@@ -87,6 +94,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Variable Pay Edit</h4>
+                    <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" id="modalContent">
                    
@@ -120,8 +128,9 @@
         }
         function SaveChanges() {
             if ($('#Variablepayfrm').valid()) {
-             
+                $('#Variablepayfrm').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePay")');
                 $('#Variablepayfrm').submit();
+
                 swal({
                     title: "Saved Successfully",
                     text: "",
@@ -141,6 +150,27 @@
                 swal("Incorrect Inputs");
             }
         }
+
+        @*function Savetrans() {
+            if ($('#Variablepayfrmtrans').valid()) {
+                $('#Variablepayfrmtrans').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePaytransaction")');
+                $('#Variablepayfrmtrans').submit();
+                swal({
+                    title: "Saved Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                    function () {
+                        $.loader({
+                            className: "blue-with-image-2",
+                            content: '',
+                        });
+                    })
+            }
+        }*@
 </script>
 
     }

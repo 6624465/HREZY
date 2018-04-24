@@ -1,22 +1,30 @@
-﻿@model HR.Web.ViewModels.variablepayEditVm
+﻿@model HR.Web.ViewModels.UpdateVariablePayVm
 
 <div class="row">
-    <table class="table table-conden table-bordered">
-        @Html.HiddenFor(x=>x.variablepaymentdetail.DetailID)
-@for (int i = 0; i < Model.salarystructuredetail.Count(); i++)
-{
-  <tr>
-            <td>
-                @Html.HiddenFor(x=>x.salarystructuredetail[i].StructureID)
-                @Html.DisplayFor(X => X.salarystructuredetail[i].Code)
-                @Html.HiddenFor(x=>x.salarystructuredetail[i].Description)
-            </td>
-            <td>
-                    @Html.TextBoxFor(x=>x.salarystructuredetail[i].Amount)
-           </td>
-        </tr>
+    @if (Model.variablepaymentdetail != null)
+    {
+        <table class="table table-conden table-bordered">
+
+            @for (int i = 0; i < Model.variablepaymentdetail.Count(); i++)
+            {
+                @Html.HiddenFor(x => x.variablepaymentdetail[i].DetailID)
+                @Html.HiddenFor(x=>x.variablepaymentdetail[i].EmployeeId)
+                @Html.HiddenFor(x=>x.variablepaymentdetail[i].HeaderId)
+                <tr>
+                    <td>
+
+                        @Html.DisplayFor(X => X.variablepaymentdetail[i].ComponentCode)
+                        @Html.HiddenFor(x => x.variablepaymentdetail[i].ComponentCode)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => x.variablepaymentdetail[i].Amount, new { @class = "form-control input-sm" })
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+
     }
-
-
-    </table>
+   
 </div>

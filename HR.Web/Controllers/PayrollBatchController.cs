@@ -147,7 +147,6 @@ namespace HR.Web.Controllers
         }
             else
             {
-                int? employeeid = updatevariablepay.variablepaymentdetail.Select(x => x.EmployeeId).FirstOrDefault();
 
                 foreach (var item in updatevariablepay.variablepaymentdetail)
                 {

@@ -326,7 +326,7 @@
             series: [{
                 name: 'Casual Leaves',
                 colorByPoint: true,
-                data: [{ name: 'Balance', y: casualleaves.totalCLs }, { name: 'Applied', y: casualleaves.currentcls }]
+                data: [{ name: 'Balance', y: casualleaves.remainingcls }, { name: 'Applied', y: casualleaves.currentcls }]
             }]
         });
         var paidleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
@@ -374,7 +374,7 @@
             series: [{
                 name: 'Paid Leaves',
                 colorByPoint: true,
-                data: [{ name: 'Balance', y: paidleaves.totalPLs }, { name: 'Applied', y: paidleaves.currentpls }]
+                data: [{ name: 'Balance', y: paidleaves.remainingpls }, { name: 'Applied', y: paidleaves.currentpls }]
             }]
         });
         var SickLeaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
@@ -422,7 +422,7 @@
             series: [{
                 name: 'Sick Leaves',
                 colorByPoint: true,
-                data: [{ name: 'Balance', y: SickLeaves.totalSLs }, { name: 'Applied', y: SickLeaves.currentsls }]
+                data: [{ name: 'Balance', y: SickLeaves.remainingsls }, { name: 'Applied', y: SickLeaves.currentsls }]
             }]
         });
 

@@ -13,7 +13,8 @@ namespace HR.Web.Helpers
         public decimal GetLeavesCount(int BranchID, int EmployeeID, int LeaveType, DateTime fromDate)
         {
             DateTime date = fromDate;
-            int currentMonth = date.Month;
+            //int currentMonth = date.Month;
+            int currentYear = date.Year;
             decimal eligibleLeaves = 0;
             decimal appliedLeave = 0;
             using (HrDataContext dbContext = new HrDataContext())
@@ -45,29 +46,29 @@ namespace HR.Web.Helpers
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)
-                            eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                            eligibleLeaves = (currentYear * leave.LeavesPerYear.Value) - appliedLeave;
                         else
-                            eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+                            eligibleLeaves = leave.LeavesPerYear.Value - appliedLeave;
 
                     }
                     if (LeaveType == lMaster.CASUALLEAVE(BranchID))
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)
-                            eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                            eligibleLeaves = (currentYear * leave.LeavesPerYear.Value) - appliedLeave;
                         else if(DaysCount==0)
-                            eligibleLeaves = leave.LeavesPerMonth.Value;
+                            eligibleLeaves = leave.LeavesPerYear.Value;
                         else
-                            eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+                            eligibleLeaves = leave.LeavesPerYear.Value - appliedLeave;
 
                     }
                     if (LeaveType == lMaster.PAIDLEAVE(BranchID))
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)
-                            eligibleLeaves = (currentMonth * leave.LeavesPerMonth.Value) - appliedLeave;
+                            eligibleLeaves = (currentYear * leave.LeavesPerYear.Value) - appliedLeave;
                         else
-                            eligibleLeaves = leave.LeavesPerMonth.Value - appliedLeave;
+                            eligibleLeaves = leave.LeavesPerYear.Value - appliedLeave;
 
                     }
                     //else if (LeaveType == UTILITY.PAIDLEAVE)

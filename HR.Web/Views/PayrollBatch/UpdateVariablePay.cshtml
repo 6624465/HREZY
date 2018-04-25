@@ -1,7 +1,7 @@
 ﻿@model HR.Web.ViewModels.UpdateVariablePayVm
 
-@*@using (Html.BeginForm("SaveVariablePaytransaction", "PayrollBatch", FormMethod.Post,new { id="variablesave",name= "variablesave" }))
-{*@
+@using (Html.BeginForm("SaveVariablePaytransaction", "PayrollBatch", FormMethod.Post, new { id = "variablesave", name = "variablesave" }))
+{
     <div class="page">
         <div class="page-wrap">
             <div class="panel-group">
@@ -36,64 +36,117 @@
                         </div>
                         <div class="row css10">
                             <div class="col-md-12">
-                            @if (Model.Employeetable != null && Model.Employeetable.Count()>0)
-                            {
-                                <table class="table table-conden table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th> Employee Name</th>
-                                            <th>Employee Designation</th>
-                                            <th>
-                                                Manager Name
-                                            </th>
-                                            <th>
-                                                #Action
-                                            </th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        @for (var i = 0; i < Model.Employeetable.Count(); i++)
-                                        {
-
+                                @if (Model.Employeetable != null && Model.Employeetable.Count() > 0)
+                                {
+                                    <table class="table table-conden table-bordered">
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    @Model.Employeetable[i].EmployeeName
-                                                </td>
-                                                <td>
-                                                    @Model.Employeetable[i].EmployeeDesignation
-                                                </td>
-                                                <td>
-                                                    @Model.Employeetable[i].ManagerName
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
-                                                            onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
-                                                        <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                                    </button>
-                                                </td>
+                                                <th> Employee Name</th>
+                                                <th>Employee Designation</th>
+                                                <th>
+                                                    Manager Name
+                                                </th>
+                                                <th>
+                                                    #Action
+                                                </th>
                                             </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            }
+                                        </thead>
+
+                                        <tbody>
+                                            @for (var i = 0; i < Model.Employeetable.Count; i++)
+                                            {
+
+                                                <tr>
+                                                    <td>
+                                                        @Model.Employeetable[i].EmployeeName
+                                                    </td>
+                                                    <td>
+                                                        @Model.Employeetable[i].EmployeeDesignation
+                                                    </td>
+                                                    <td>
+                                                        @Model.Employeetable[i].ManagerName
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
+                                                                onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
+                                                            <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
                             </div>
 
                         </div>
+                        @if (Model.variablepaymentdetail != null && Model.variablepaymentdetail.Count > 0)
+                        {
+                        <div class="row css10">
+                            <div class="col-md-12">
+                                <table class="table table-conden table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Component</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.variablepaymentdetail.Count; i++)
+                                        {
+                                    <tr>
+                                        <td>
+                                            @Model.variablepaymentdetail[i].EmployeeId
+                                        </td>
+                                        <td>
+                                            <input id="variablepaymentdetail_@(i)__DetailID"
+                                                   name="variablepaymentdetail[@(i)].DetailID"
+                                                   type="hidden"
+                                                   value="@Model.variablepaymentdetail[i].DetailID">
+                                            <input id="variablepaymentdetail_@(i)EmployeeId"
+                                                   name="variablepaymentdetail[@(i)].EmployeeId"
+                                                   type="hidden"
+                                                   value="@Model.variablepaymentdetail[i].EmployeeId">
+                                            <input id="variablepaymentdetail_@(i)HeaderId"
+                                                   name="variablepaymentdetail[@(i)].HeaderId"
+                                                   type="hidden"
+                                                   value="@Model.variablepaymentdetail[i].HeaderId">
+                                            <input id="variablepaymentdetail_@(i)ComponentCode"
+                                                   name="variablepaymentdetail[@(i)].ComponentCode"
+                                                   type="hidden"
+                                                   value="@Model.variablepaymentdetail[i].ComponentCode">
+                                            @Model.variablepaymentdetail[i].ComponentCode
+                                        </td>
+                                        <td>
+                                            <input type="hidden"
+                                                   value="@Model.variablepaymentdetail[i].Amount"
+                                                   id="variablepaymentdetail_@(i)Amount"
+                                                   name="variablepaymentdetail[@(i)].Amount" />
+                                            @Model.variablepaymentdetail[i].Amount
+                                        </td>
+                                    </tr>
+                                        }
+                                    </tbody>
+                                
+                                </table>
+                            </div>
+                        </div>
+                        }
                         <div class="row">
-                            <button  type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@*}*@
 
 
 
-@using (Html.BeginForm("SaveVariablePay", "PayrollBatch", FormMethod.Post, new { id = "Variablepayfrm", name = "Variablepayfrm" }))
-{
+
+    @*@using (Html.BeginForm("SaveVariablePay", "PayrollBatch", FormMethod.Post, new { id = "Variablepayfrm", name = "Variablepayfrm" }))
+        {*@
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -102,19 +155,20 @@
                     <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" id="modalContent">
-                   
+
                 </div>
                 <div class="modal-footer">
-                    <button id="btnsave" type="button"  class="btn btn-primary btn-sm" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
+                    <button id="btnsave" type="button" class="btn btn-primary btn-sm" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
                 </div>
             </div>
 
         </div>
     </div>
-}
+    @*}*@
+ }
 
-@section Scripts{
-    <script type="text/javascript">
+    @section Scripts{
+        <script type="text/javascript">
         function EditVariablePay(Employeeid) {
                 //$('#Description').val('');
                 //$('#Date').val('');
@@ -132,14 +186,15 @@
         });
     }
     function SaveChanges() {
-        if ($('#Variablepayfrm').valid()) {
-            $('#Variablepayfrm').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePay")');
-            $('#Variablepayfrm').submit();
+        if (true) {//$('#variablesave').valid()
+            $('#variablesave').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePay")');
+            $('#variablesave').submit();
         }
     }
 
-        @*function Savetrans() {
-            if ($('#variablesave').valid()) {
+            function Savetrans() {
+                $('#variablesave').submit();
+            @*if ($('#variablesave').valid()) {
                 $('#variablesave').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePaytransaction")');
                 $('#variablesave').submit();
                 swal({
@@ -156,8 +211,8 @@
                             content: '',
                         });
                     })
-            }
-        }*@
-</script>
+            }*@
+        }
+        </script>
 
     }

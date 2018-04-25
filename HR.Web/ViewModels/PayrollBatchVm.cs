@@ -21,6 +21,8 @@ namespace HR.Web.ViewModels
         public List<EmployeeTable> Employeetable { get; set; }
         public List<VariablePaymentDetail> variablepaymentdetail { get; set; }
 
+        public List<VariablePaymentDetail> CevpdVm { get; set; }
+                                         //Current employee variable payment detail vm
     }
 
     public class EmployeeTable

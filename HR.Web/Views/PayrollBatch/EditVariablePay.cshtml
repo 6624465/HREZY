@@ -3,28 +3,35 @@
 <div class="row">
     @if (Model.variablepaymentdetail != null)
     {
+        <input type="hidden" id="tempEmployeeId" name="tempEmployeeId" value="@ViewBag.TempEmployeeID" />
         <table class="table table-conden table-bordered">
-
-            @for (int i = 0; i < Model.variablepaymentdetail.Count(); i++)
+            @for (int i = 0; i < Model.variablepaymentdetail.Count; i++)
             {
-                @Html.HiddenFor(x => x.variablepaymentdetail[i].DetailID)
-                @Html.HiddenFor(x=>x.variablepaymentdetail[i].EmployeeId)
-                @Html.HiddenFor(x=>x.variablepaymentdetail[i].HeaderId)
                 <tr>
                     <td>
-
-                        @Html.DisplayFor(X => X.variablepaymentdetail[i].ComponentCode)
-                        @Html.HiddenFor(x => x.variablepaymentdetail[i].ComponentCode)
+                        <input id="CevpdVm_@(i)__DetailID"
+                               name="CevpdVm[@(i)].DetailID"
+                               type="hidden"
+                               value="@Model.variablepaymentdetail[i].DetailID">
+                        <input id="CevpdVm_@(i)EmployeeId"
+                               name="CevpdVm[@(i)].EmployeeId"
+                               type="hidden"
+                               value="@Model.variablepaymentdetail[i].EmployeeId">
+                        <input id="CevpdVm_@(i)HeaderId"
+                               name="CevpdVm[@(i)].HeaderId"
+                               type="hidden"
+                               value="@Model.variablepaymentdetail[i].HeaderId">
+                        <input id="CevpdVm_@(i)ComponentCode"
+                               name="CevpdVm[@(i)].ComponentCode"
+                               type="hidden"
+                               value="@Model.variablepaymentdetail[i].ComponentCode">
+                        @Model.variablepaymentdetail[i].ComponentCode
                     </td>
                     <td>
-                        @Html.TextBoxFor(x => x.variablepaymentdetail[i].Amount, new { @class = "form-control input-sm" })
+                        <input type="text" value="@Model.variablepaymentdetail[i].Amount" class="form-control input-sm" id="CevpdVm_@(i)Amount" name="CevpdVm[@(i)].Amount" />
                     </td>
                 </tr>
             }
-
-
         </table>
-
     }
-   
 </div>

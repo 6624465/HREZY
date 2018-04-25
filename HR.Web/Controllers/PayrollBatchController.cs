@@ -71,8 +71,6 @@ namespace HR.Web.Controllers
                // vm.dt = PayslipbatchheaderBo.GeneratePayslip(Convert.ToInt16(BRANCHID), 4, 2018);
                 return RedirectToAction("ProcessPayroll", new { currentmonth, currentyear });
             }
-
-
         }
 
 
@@ -80,53 +78,59 @@ namespace HR.Web.Controllers
         {
             try
             {
-                
-               
                 using (var dbCntx = new HrDataContext())
                 {
-                var list = dbCntx.EmployeeHeaders.Join(dbCntx.EmployeeWorkDetails,
-                                            a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
-                                            Where(x=>x.A.BranchId==BRANCHID && x.A.IsActive==true).
-                                            Select(x => new EmployeeTable
-                                            {
-                                                EmployeeName = x.A.FirstName + " " + x.A.LastName,
-                                                EmployeeDesignation  = dbCntx.LookUps.Where(y=>y.LookUpID==x.B.DesignationId).FirstOrDefault().LookUpDescription,
-                                                ManagerName = dbCntx.EmployeeHeaders.Where(y=>y.EmployeeId==x.A.ManagerId).FirstOrDefault().FirstName,
-                                                EmployeeId=x.A.EmployeeId,
-                                            }).ToList();
-
+                    var list = dbCntx.EmployeeHeaders.Join(dbCntx.EmployeeWorkDetails,
+                        a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
+                        Where(x => x.A.BranchId == BRANCHID && x.A.IsActive == true).
+                        Select(x => new EmployeeTable
+                        {
+                            EmployeeName = x.A.FirstName + " " + x.A.LastName,
+                            EmployeeDesignation = dbCntx.LookUps.Where(y => y.LookUpID == x.B.DesignationId).FirstOrDefault().LookUpDescription,
+                            ManagerName = dbCntx.EmployeeHeaders.Where(y => y.EmployeeId == x.A.ManagerId).FirstOrDefault().FirstName,
+                            EmployeeId = x.A.EmployeeId,
+                        }).ToList();
 
                     var updatevariablepayvm = new UpdateVariablePayVm
                     {
                         Employeetable = list,
                         variablepaymentheader = new VariablePaymentHeader(),
-                       
+                        CevpdVm = null
                     };
                     return View(updatevariablepayvm);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-           
         }
+
         [HttpGet]
         public PartialViewResult EditVariablePay(int Employeeid)
         {
+            ViewBag.TempEmployeeID = Employeeid;
             var updatevariablevm = new UpdateVariablePayVm();
-            var structurelist = salarystructureheaderBo.GetListByProperty(x => x.EmployeeId == Employeeid).ToList();
-            if (structurelist.Count()!=0)
+            var structurelist = salarystructureheaderBo
+                                    .GetListByProperty(x => x.EmployeeId == Employeeid)
+                                    .ToList();
+            if (structurelist.Count != 0)
             {
-                var structureID = salarystructureheaderBo.GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true).StructureID;
-                var ComponentsList = salarystructuredetailBo.GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true).ToList();
+                var structureID = salarystructureheaderBo
+                                    .GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true)
+                                    .StructureID;
+                var ComponentsList = salarystructuredetailBo
+                                        .GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true)
+                                        .ToList();
                 foreach (var item in ComponentsList)
                 {
                     var variablepaymentdetail = new VariablePaymentDetail()
                     {
                         Amount = item.Amount,
                         ComponentCode = item.Description,
-                        EmployeeId = salarystructureheaderBo.GetByProperty(x => x.StructureID == item.StructureID).EmployeeId,
+                        EmployeeId = salarystructureheaderBo
+                                        .GetByProperty(x => x.StructureID == item.StructureID)
+                                        .EmployeeId,
 
                     };
                     if (updatevariablevm.variablepaymentdetail == null)
@@ -137,65 +141,98 @@ namespace HR.Web.Controllers
             }
             
             return PartialView(updatevariablevm);
-        }
+        }        
 
         [HttpPost]
         public ActionResult SaveVariablePay(UpdateVariablePayVm updatevariablepay)
         {
+            using (var dbCntx = new HrDataContext())
+            {
+                var list = dbCntx.EmployeeHeaders.Join(dbCntx.EmployeeWorkDetails,
+                        a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
+                        Where(x => x.A.BranchId == BRANCHID && x.A.IsActive == true).
+                        Select(x => new EmployeeTable
+                        {
+                            EmployeeName = x.A.FirstName + " " + x.A.LastName,
+                            EmployeeDesignation = dbCntx.LookUps.Where(y => y.LookUpID == x.B.DesignationId).FirstOrDefault().LookUpDescription,
+                            ManagerName = dbCntx.EmployeeHeaders.Where(y => y.EmployeeId == x.A.ManagerId).FirstOrDefault().FirstName,
+                            EmployeeId = x.A.EmployeeId,
+                        }).ToList();
+
+                if (updatevariablepay.variablepaymentdetail == null)
+                    updatevariablepay.variablepaymentdetail = new List<VariablePaymentDetail>();
+
+                var tempEmployeeId = Convert.ToInt32(Request.Form["tempEmployeeId"]);
+
+                var empList = updatevariablepay.variablepaymentdetail.Where(x => x.EmployeeId == tempEmployeeId).ToList();
+                if (empList != null)
+                {
+                    empList.ForEach(x =>
+                    {
+                        updatevariablepay.variablepaymentdetail.Remove(x);
+                    });
+                }
+
+                updatevariablepay.variablepaymentdetail.AddRange(updatevariablepay.CevpdVm);
+                updatevariablepay.CevpdVm = null;
+                updatevariablepay.Employeetable = list;
+
+                return View("UpdateVariablePay", updatevariablepay);
+            }
 
             //var variablelist = updatevariablepay.SelectMany(updatevariablepay.variablepaymentdetail).ToList();
             //List<List<VariablePaymentDetail>> variablelist = new List<List<VariablePaymentDetail>>();
 
             //variablelist.Add(updatevariablepay.variablepaymentdetail);
-           //List<VariablePaymentDetail> list = new List<VariablePaymentDetail>();
+            //List<VariablePaymentDetail> list = new List<VariablePaymentDetail>();
 
-           // if (Session["variablelist"] != null)
-           //     list = (List<VariablePaymentDetail>)Session["variablelist"];
-           // for (var i = 0; i < updatevariablepay.variablepaymentdetail.Count; i++)
-           // {
-           //     VariablePaymentDetail variabledetail = new VariablePaymentDetail()
-           //     {
-           //         Amount = updatevariablepay.variablepaymentdetail[i].Amount,
-           //         ComponentCode = updatevariablepay.variablepaymentdetail[i].ComponentCode,
-           //         EmployeeId = updatevariablepay.variablepaymentdetail[i].EmployeeId
-           //     };
-           // list.Add(variabledetail);
-           // }
+            // if (Session["variablelist"] != null)
+            //     list = (List<VariablePaymentDetail>)Session["variablelist"];
+            // for (var i = 0; i < updatevariablepay.variablepaymentdetail.Count; i++)
+            // {
+            //     VariablePaymentDetail variabledetail = new VariablePaymentDetail()
+            //     {
+            //         Amount = updatevariablepay.variablepaymentdetail[i].Amount,
+            //         ComponentCode = updatevariablepay.variablepaymentdetail[i].ComponentCode,
+            //         EmployeeId = updatevariablepay.variablepaymentdetail[i].EmployeeId
+            //     };
+            // list.Add(variabledetail);
+            // }
 
-            Session["variablelist"] = updatevariablepay;
+            //Session["variablelist"] = updatevariablepay;
 
-            return RedirectToAction("UpdateVariablePay", updatevariablepay);
+            //return RedirectToAction("UpdateVariablePay", updatevariablepay);
         }
 
-        //[HttpPost]
-        //public ActionResult SaveVariablePaytransaction(UpdateVariablePayVm updatevariablepay)
-        //{
-        //    VariablePaymentHeader variablepaymentheader = new VariablePaymentHeader()
-        //    {
-        //        TransactionNo = updatevariablepay.variablepaymentheader.TransactionNo,
-        //        Month = updatevariablepay.variablepaymentheader.Month,
-        //        Year = updatevariablepay.variablepaymentheader.Year,
-        //        BranchID = BRANCHID,
-        //        Status = true,
-        //    };
-        //    variablepaymentheaderBo.Add(variablepaymentheader);
-        //    if(updatevariablepay.variablepaymentdetail!=null && updatevariablepay.variablepaymentdetail.Count() > 0)
-        //    {
-        //        for(var i = 0; i < updatevariablepay.variablepaymentdetail.Count; i++)
-        //        {
-        //            VariablePaymentDetail variabledetail = new VariablePaymentDetail()
-        //            {
-        //                HeaderId = variablepaymentheader.HeaderID,
-        //                Amount = updatevariablepay.variablepaymentdetail[i].Amount,
-        //                ComponentCode = updatevariablepay.variablepaymentdetail[i].ComponentCode,
-        //                EmployeeId = updatevariablepay.variablepaymentdetail[i].EmployeeId
-        //            };
-        //            variabledetailBo.Add(variabledetail);
-        //        }
-        //    }
-        //    return View("UpdateVariablePay");
+        [HttpPost]
+        public ActionResult SaveVariablePaytransaction(UpdateVariablePayVm updatevariablepay)
+        {
+            //VariablePaymentHeader variablepaymentheader = new VariablePaymentHeader()
+            //{
+            //    TransactionNo = updatevariablepay.variablepaymentheader.TransactionNo,
+            //    Month = updatevariablepay.variablepaymentheader.Month,
+            //    Year = updatevariablepay.variablepaymentheader.Year,
+            //    BranchID = BRANCHID,
+            //    Status = true,
+            //};
+            //variablepaymentheaderBo.Add(variablepaymentheader);
+            //if (updatevariablepay.variablepaymentdetail != null && updatevariablepay.variablepaymentdetail.Count() > 0)
+            //{
+            //    for (var i = 0; i < updatevariablepay.variablepaymentdetail.Count; i++)
+            //    {
+            //        VariablePaymentDetail variabledetail = new VariablePaymentDetail()
+            //        {
+            //            HeaderId = variablepaymentheader.HeaderID,
+            //            Amount = updatevariablepay.variablepaymentdetail[i].Amount,
+            //            ComponentCode = updatevariablepay.variablepaymentdetail[i].ComponentCode,
+            //            EmployeeId = updatevariablepay.variablepaymentdetail[i].EmployeeId
+            //        };
+            //        variabledetailBo.Add(variabledetail);
+            //    }
+            //}
+            return View("UpdateVariablePay");
 
-        //}
+        }
 
     }
 }

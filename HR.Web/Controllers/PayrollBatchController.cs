@@ -107,30 +107,55 @@ namespace HR.Web.Controllers
 
         [HttpPost]
        
-            public PartialViewResult EditVariablePay(int Employeeid)
+        public PartialViewResult EditVariablePay(UpdateVariablePayVm updatevariablepay, int Employeeid)
         {
             ViewBag.TempEmployeeID = Employeeid;
             var updatevariablevm = new UpdateVariablePayVm();
-            var structurelist = salarystructureheaderBo
-                                    .GetListByProperty(x => x.EmployeeId == Employeeid)
-                                    .ToList();
-            if (structurelist.Count != 0)
+           
+            if (updatevariablepay.variablepaymentdetail == null)
             {
-                var structureID = salarystructureheaderBo
-                                    .GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true)
-                                    .StructureID;
-                var ComponentsList = salarystructuredetailBo
-                                        .GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true)
-                                        .ToList();
-                foreach (var item in ComponentsList)
+
+                var structurelist = salarystructureheaderBo
+                                   .GetListByProperty(x => x.EmployeeId == Employeeid)
+                                   .ToList();
+                if (structurelist.Count != 0)
+                {
+                    var structureID = salarystructureheaderBo
+                                        .GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true)
+                                        .StructureID;
+                    var ComponentsList = salarystructuredetailBo
+                                            .GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true)
+                                            .ToList();
+                    foreach (var item in ComponentsList)
+                    {
+                        var variablepaymentdetail = new VariablePaymentDetail()
+                        {
+                            Amount = item.Amount,
+                            ComponentCode = item.Description,
+                            EmployeeId = salarystructureheaderBo
+                                            .GetByProperty(x => x.StructureID == item.StructureID)
+                                            .EmployeeId,
+
+                        };
+                        if (updatevariablevm.variablepaymentdetail == null)
+                            updatevariablevm.variablepaymentdetail = new List<VariablePaymentDetail>();
+
+                        updatevariablevm.variablepaymentdetail.Add(variablepaymentdetail);
+                    }
+                }
+
+        }
+            else
+            {
+                int? employeeid = updatevariablepay.variablepaymentdetail.Select(x => x.EmployeeId).FirstOrDefault();
+
+                foreach (var item in updatevariablepay.variablepaymentdetail)
                 {
                     var variablepaymentdetail = new VariablePaymentDetail()
                     {
                         Amount = item.Amount,
-                        ComponentCode = item.Description,
-                        EmployeeId = salarystructureheaderBo
-                                        .GetByProperty(x => x.StructureID == item.StructureID)
-                                        .EmployeeId,
+                        ComponentCode = item.ComponentCode,
+                        EmployeeId = item.EmployeeId
 
                     };
                     if (updatevariablevm.variablepaymentdetail == null)
@@ -138,11 +163,14 @@ namespace HR.Web.Controllers
 
                     updatevariablevm.variablepaymentdetail.Add(variablepaymentdetail);
                 }
+
             }
+
+
 
             return PartialView(updatevariablevm);
         }
-  
+
 
         [HttpPost]
         public ActionResult SaveVariablePay(UpdateVariablePayVm updatevariablepay)

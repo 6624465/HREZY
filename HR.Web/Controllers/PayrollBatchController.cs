@@ -8,8 +8,7 @@ using System.Web.Mvc;
 using HR.Web.BusinessObjects.Payroll;
 using HR.Web.ViewModels;
 using HR.Web.BusinessObjects.Operation;
-
-
+using System.Net.Http;
 
 
 namespace HR.Web.Controllers
@@ -34,27 +33,27 @@ namespace HR.Web.Controllers
         }
         // GET: PayrollBatch
         [HttpGet]
-        public ActionResult ProcessPayroll(int? currentmonth,int? currentyear)
+        public ActionResult ProcessPayroll(int? currentmonth, int? currentyear)
         {
-            using (var dbContext=new HrDataContext())
+            using (var dbContext = new HrDataContext())
             {
                 var list = dbContext.SalaryStructureHeaders.GroupJoin(dbContext.SalaryStructureDetails,
                     a => a.StructureID, b => b.StructureID,
                    (a, b) => new { A = a, B = b.ToList() });
                 PayrollBatchVm vm = new PayrollBatchVm();
 
-                if (currentmonth!=null && currentyear != null)
+                if (currentmonth != null && currentyear != null)
                 {
                     vm.dt = PayslipbatchheaderBo.GeneratePayslip(Convert.ToInt16(BRANCHID), currentmonth.Value, currentyear.Value);
                 }
-                   
-               
+
+
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
-             
+
                 return View(vm);
             }
-                
-            
+
+
         }
         [HttpPost]
         public ActionResult ProcessPayrollGeneration(int? currentmonth, int? currentyear)
@@ -68,7 +67,7 @@ namespace HR.Web.Controllers
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
                 PayrollBatchVm vm = new PayrollBatchVm();
-               // vm.dt = PayslipbatchheaderBo.GeneratePayslip(Convert.ToInt16(BRANCHID), 4, 2018);
+                // vm.dt = PayslipbatchheaderBo.GeneratePayslip(Convert.ToInt16(BRANCHID), 4, 2018);
                 return RedirectToAction("ProcessPayroll", new { currentmonth, currentyear });
             }
         }
@@ -106,31 +105,56 @@ namespace HR.Web.Controllers
             }
         }
 
-        [HttpGet]
-        public PartialViewResult EditVariablePay(int Employeeid)
+        [HttpPost]
+       
+        public PartialViewResult EditVariablePay(UpdateVariablePayVm updatevariablepay, int Employeeid)
         {
             ViewBag.TempEmployeeID = Employeeid;
             var updatevariablevm = new UpdateVariablePayVm();
-            var structurelist = salarystructureheaderBo
-                                    .GetListByProperty(x => x.EmployeeId == Employeeid)
-                                    .ToList();
-            if (structurelist.Count != 0)
+           
+            if (updatevariablepay.variablepaymentdetail == null)
             {
-                var structureID = salarystructureheaderBo
-                                    .GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true)
-                                    .StructureID;
-                var ComponentsList = salarystructuredetailBo
-                                        .GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true)
-                                        .ToList();
-                foreach (var item in ComponentsList)
+
+                var structurelist = salarystructureheaderBo
+                                   .GetListByProperty(x => x.EmployeeId == Employeeid)
+                                   .ToList();
+                if (structurelist.Count != 0)
+                {
+                    var structureID = salarystructureheaderBo
+                                        .GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true)
+                                        .StructureID;
+                    var ComponentsList = salarystructuredetailBo
+                                            .GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true)
+                                            .ToList();
+                    foreach (var item in ComponentsList)
+                    {
+                        var variablepaymentdetail = new VariablePaymentDetail()
+                        {
+                            Amount = item.Amount,
+                            ComponentCode = item.Description,
+                            EmployeeId = salarystructureheaderBo
+                                            .GetByProperty(x => x.StructureID == item.StructureID)
+                                            .EmployeeId,
+
+                        };
+                        if (updatevariablevm.variablepaymentdetail == null)
+                            updatevariablevm.variablepaymentdetail = new List<VariablePaymentDetail>();
+
+                        updatevariablevm.variablepaymentdetail.Add(variablepaymentdetail);
+                    }
+                }
+
+        }
+            else
+            {
+
+                foreach (var item in updatevariablepay.variablepaymentdetail)
                 {
                     var variablepaymentdetail = new VariablePaymentDetail()
                     {
                         Amount = item.Amount,
-                        ComponentCode = item.Description,
-                        EmployeeId = salarystructureheaderBo
-                                        .GetByProperty(x => x.StructureID == item.StructureID)
-                                        .EmployeeId,
+                        ComponentCode = item.ComponentCode,
+                        EmployeeId = item.EmployeeId
 
                     };
                     if (updatevariablevm.variablepaymentdetail == null)
@@ -138,10 +162,14 @@ namespace HR.Web.Controllers
 
                     updatevariablevm.variablepaymentdetail.Add(variablepaymentdetail);
                 }
+
             }
-            
+
+
+
             return PartialView(updatevariablevm);
-        }        
+        }
+
 
         [HttpPost]
         public ActionResult SaveVariablePay(UpdateVariablePayVm updatevariablepay)
@@ -180,57 +208,35 @@ namespace HR.Web.Controllers
                 return View("UpdateVariablePay", updatevariablepay);
             }
 
-            //var variablelist = updatevariablepay.SelectMany(updatevariablepay.variablepaymentdetail).ToList();
-            //List<List<VariablePaymentDetail>> variablelist = new List<List<VariablePaymentDetail>>();
-
-            //variablelist.Add(updatevariablepay.variablepaymentdetail);
-            //List<VariablePaymentDetail> list = new List<VariablePaymentDetail>();
-
-            // if (Session["variablelist"] != null)
-            //     list = (List<VariablePaymentDetail>)Session["variablelist"];
-            // for (var i = 0; i < updatevariablepay.variablepaymentdetail.Count; i++)
-            // {
-            //     VariablePaymentDetail variabledetail = new VariablePaymentDetail()
-            //     {
-            //         Amount = updatevariablepay.variablepaymentdetail[i].Amount,
-            //         ComponentCode = updatevariablepay.variablepaymentdetail[i].ComponentCode,
-            //         EmployeeId = updatevariablepay.variablepaymentdetail[i].EmployeeId
-            //     };
-            // list.Add(variabledetail);
-            // }
-
-            //Session["variablelist"] = updatevariablepay;
-
-            //return RedirectToAction("UpdateVariablePay", updatevariablepay);
         }
 
         [HttpPost]
         public ActionResult SaveVariablePaytransaction(UpdateVariablePayVm updatevariablepay)
         {
-            //VariablePaymentHeader variablepaymentheader = new VariablePaymentHeader()
-            //{
-            //    TransactionNo = updatevariablepay.variablepaymentheader.TransactionNo,
-            //    Month = updatevariablepay.variablepaymentheader.Month,
-            //    Year = updatevariablepay.variablepaymentheader.Year,
-            //    BranchID = BRANCHID,
-            //    Status = true,
-            //};
-            //variablepaymentheaderBo.Add(variablepaymentheader);
-            //if (updatevariablepay.variablepaymentdetail != null && updatevariablepay.variablepaymentdetail.Count() > 0)
-            //{
-            //    for (var i = 0; i < updatevariablepay.variablepaymentdetail.Count; i++)
-            //    {
-            //        VariablePaymentDetail variabledetail = new VariablePaymentDetail()
-            //        {
-            //            HeaderId = variablepaymentheader.HeaderID,
-            //            Amount = updatevariablepay.variablepaymentdetail[i].Amount,
-            //            ComponentCode = updatevariablepay.variablepaymentdetail[i].ComponentCode,
-            //            EmployeeId = updatevariablepay.variablepaymentdetail[i].EmployeeId
-            //        };
-            //        variabledetailBo.Add(variabledetail);
-            //    }
-            //}
-            return View("UpdateVariablePay");
+            VariablePaymentHeader variablepaymentheader = new VariablePaymentHeader()
+            {
+                TransactionNo = updatevariablepay.variablepaymentheader.TransactionNo,
+                Month = updatevariablepay.variablepaymentheader.Month,
+                Year = updatevariablepay.variablepaymentheader.Year,
+                BranchID = BRANCHID,
+                Status = true,
+            };
+            variablepaymentheaderBo.Add(variablepaymentheader);
+            if (updatevariablepay.variablepaymentdetail != null && updatevariablepay.variablepaymentdetail.Count() > 0)
+            {
+                for (var i = 0; i < updatevariablepay.CevpdVm.Count; i++)
+                {
+                    VariablePaymentDetail variabledetail = new VariablePaymentDetail()
+                    {
+                        HeaderId = variablepaymentheader.HeaderID,
+                        Amount = updatevariablepay.CevpdVm[i].Amount,
+                        ComponentCode = updatevariablepay.CevpdVm[i].ComponentCode,
+                        EmployeeId = updatevariablepay.CevpdVm[i].EmployeeId
+                    };
+                    variabledetailBo.Add(variabledetail);
+                }
+            }
+            return RedirectToAction("UpdateVariablePay");
 
         }
 

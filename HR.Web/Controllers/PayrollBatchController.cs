@@ -46,7 +46,26 @@ namespace HR.Web.Controllers
                 {
                     vm.dt = PayslipbatchheaderBo.GeneratePayslip(Convert.ToInt16(BRANCHID), currentmonth.Value, currentyear.Value);
                 }
+                decimal? netamount = 0;
+                var headerlist = salarystructureheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.EffectiveDate.Value.Month == currentmonth && x.EffectiveDate.Value.Year == currentyear);
+                if (headerlist != null && headerlist.Count() != 0)
+                {
+                    
+                //       foreach(var item in headerlist)
+                //    {
+                //        decimal sum = 0;
+                //        sum = item.NetAmount.Value;
+                       
+                //        netamount = netamount + sum;
+                //    }
+                   netamount = headerlist.Sum(x=>x.NetAmount).Value;
+                    if (vm.payslipBatchHeader == null)
+                        vm.payslipBatchHeader = new PayslipBatchHeader();
+                    vm.payslipBatchHeader.TotalSalary = netamount;
 
+                }
+
+                
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
 
@@ -67,6 +86,11 @@ namespace HR.Web.Controllers
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
                 PayrollBatchVm vm = new PayrollBatchVm();
+                //var netsalarytotal = salarystructureheaderBo.GetAll();
+                //if (netsalarytotal != null)
+                //{
+                //    vm.payslipBatchHeader.TotalSalary = salarystructureheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive==true).Sum(x => x.NetAmount);
+                //}
                 // vm.dt = PayslipbatchheaderBo.GeneratePayslip(Convert.ToInt16(BRANCHID), 4, 2018);
                 return RedirectToAction("ProcessPayroll", new { currentmonth, currentyear });
             }
@@ -144,7 +168,7 @@ namespace HR.Web.Controllers
                     }
                 }
 
-        }
+                }
             else
             {
 
@@ -164,8 +188,6 @@ namespace HR.Web.Controllers
                 }
 
             }
-
-
 
             return PartialView(updatevariablevm);
         }

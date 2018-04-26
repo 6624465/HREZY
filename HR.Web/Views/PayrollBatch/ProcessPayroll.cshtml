@@ -74,7 +74,8 @@
                                 <span class="pull-right">Batch No</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm uppercase" })
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm uppercase" , disabled = "disabled" })
+                                @Html.HiddenFor(x=>x.payslipBatchHeader.BatchNo)
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Process Date</span>
@@ -385,6 +386,7 @@
             });*@
         }
         function ConfirmProcess() {
+
             $('#confirmprocesspayroll').submit();
         }
 

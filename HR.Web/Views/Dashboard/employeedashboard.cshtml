@@ -167,11 +167,12 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th class="nowrap"> Date Of Application</th>
+                                                <th class="nowrap">Date Of Application</th>
                                                 <th>From Date</th>
                                                 <th>To Date</th>
                                                 <th>Total Days</th>
                                                 <th style="white-space:nowrap"> Type Of Leave</th>
+                                                <th>Reason</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -186,7 +187,7 @@
                                                         <td>@Model.empLeaveDashBoard[i].ToDate.ToShortDateString()</td>
                                                         <td>@Model.empLeaveDashBoard[i].Days</td>
                                                         <td>@Model.empLeaveDashBoard[i].LeaveTypeDesc</td>
-
+                                                        <td>@Model.empLeaveDashBoard[i].Reason</td>
                                                         <td>
                                                             @if (Model.empLeaveDashBoard[i].Status == UTILITY.LEAVEAPPROVED)
                                                             {

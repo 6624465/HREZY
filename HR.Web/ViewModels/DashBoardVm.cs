@@ -52,6 +52,7 @@ namespace HR.Web.ViewModels
         public string LeaveTypeDesc { get; set; }
         public string Status { get; set; }
         public decimal Days { get; set; }
+        public string Reason { get; set; }
     }
 
 

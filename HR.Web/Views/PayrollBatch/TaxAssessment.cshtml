@@ -67,7 +67,7 @@
                     </div>
                     <div class="row css10">
                         <div class="col-md-12">
-                            @if (Model.TaxAssessmentDetail != null && Model.TaxAssessmentDetail.Count() > 0)
+                            @if (Model.TaxAssessmentDetailList != null && Model.TaxAssessmentDetailList.Count() > 0)
                             {
                                 <table class="table table-conden table-bordered">
                                     <thead>
@@ -80,22 +80,22 @@
                                     </thead>
 
                                     <tbody>
-                                        @for (var i = 0; i < Model.TaxAssessmentDetail.Count; i++)
+                                        @for (var i = 0; i < Model.TaxAssessmentDetailList.Count; i++)
                                         {
 
                                             <tr>
                                                 <td>
-                                                    @Model.TaxAssessmentDetail[i].SalaryFrom
+                                                    @Model.TaxAssessmentDetailList[i].SalaryFrom
                                                 </td>
                                                 <td>
-                                                    @Model.TaxAssessmentDetail[i].SalaryTo
+                                                    @Model.TaxAssessmentDetailList[i].SalaryTo
                                                 </td>
                                                 <td>
-                                                    @Model.TaxAssessmentDetail[i].Rate
+                                                    @Model.TaxAssessmentDetailList[i].Rate
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
-                                                            onclick="EditSalaries(@Model.TaxAssessmentDetail[i].HeaderID)">
+                                                            onclick="EditSalaries(@Model.TaxAssessmentDetailList[i].HeaderID)">
                                                         <i class="fa fa-pencil" style="padding-left: 5px;"></i>
                                                     </button>
                                                 </td>

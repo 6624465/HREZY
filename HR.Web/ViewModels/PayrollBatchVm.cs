@@ -27,7 +27,7 @@ namespace HR.Web.ViewModels
     public class TaxAssessmentVm
     {
         public TaxAssessmentHeader taxassessmentheader { get; set; }
-        public List<TaxAssessmentDetail> TaxAssessmentDetail { get; set; }
+        public List<TaxAssessmentDetail> TaxAssessmentDetailList { get; set; }
         public TaxAssessmentDetail taxassessmentdetail { get; set; }
 
 

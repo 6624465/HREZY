@@ -385,23 +385,23 @@ namespace HR.Web.Controllers
         {
             
             TaxAssessmentVm taxassessmentvm = new TaxAssessmentVm();
-        var list = taxassessmentdetailBo.GetAll();
-            if(list!=null&& list.Count() != 0)
+            var list = taxassessmentdetailBo.GetAll();
+            if (list != null && list.Count() != 0)
             {
-                foreach(var item in list)
+                foreach (var item in list)
                 {
                     var obj = new TaxAssessmentDetail()
                     {
-                        SalaryFrom=item.SalaryFrom,
-                        SalaryTo=item.SalaryTo,
+                        SalaryFrom = item.SalaryFrom,
+                        SalaryTo = item.SalaryTo,
                         Rate = item.Rate
                     };
-                    if (taxassessmentvm.TaxAssessmentDetail == null)
-                        taxassessmentvm.TaxAssessmentDetail = new List<TaxAssessmentDetail>();
+                    if (taxassessmentvm.TaxAssessmentDetailList == null)
+                        taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
 
-                    taxassessmentvm.TaxAssessmentDetail.Add(obj);
+                    taxassessmentvm.TaxAssessmentDetailList.Add(obj);
                 }
-               
+
 
             }
             return View(taxassessmentvm);

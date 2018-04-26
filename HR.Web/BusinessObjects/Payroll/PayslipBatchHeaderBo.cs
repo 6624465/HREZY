@@ -93,6 +93,10 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             return PayslipBatchHeaderRepository.GeneratePayslip(BranchId, CurrentMonth, CurrentYear);
         }
+        internal int GetCount(int branchId)
+        {
+            return PayslipBatchHeaderRepository.GetCount(branchId);
+        }
 
     }
 }

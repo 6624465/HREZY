@@ -156,5 +156,20 @@ namespace HR.Web.Services.Payroll
             }
 
         }
+        internal int GetCount(int branchId)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.PayslipBatchHeaders.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

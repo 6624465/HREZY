@@ -529,6 +529,36 @@
           <Property Name="EmployeeId" Type="int" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="TaxAssessmentDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HeaderID" Type="int" />
+          <Property Name="SalaryFrom" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SalaryTo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TaxAssessmentHeader">
+          <Key>
+            <PropertyRef Name="HeaderID" />
+          </Key>
+          <Property Name="HeaderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="AssessmentNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Year" Type="int" />
+          <Property Name="SocialContributionRate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MaximumAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="TravelClaimDetail">
           <Key>
             <PropertyRef Name="TravelClaimDetailId" />
@@ -708,6 +738,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="SalaryRuleInput" EntityType="Self.SalaryRuleInput" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryStructureDetail" EntityType="Self.SalaryStructureDetail" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="SalaryStructureHeader" EntityType="Self.SalaryStructureHeader" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="TaxAssessmentDetail" EntityType="Self.TaxAssessmentDetail" Schema="Payroll" store:Type="Tables" />
+          <EntitySet Name="TaxAssessmentHeader" EntityType="Self.TaxAssessmentHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="TravelClaimDetail" EntityType="Self.TravelClaimDetail" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="TravelClaimHeader" EntityType="Self.TravelClaimHeader" Schema="Payroll" store:Type="Tables" />
           <EntitySet Name="VariablePaymentDetail" EntityType="Self.VariablePaymentDetail" Schema="Payroll" store:Type="Tables" />
@@ -813,6 +845,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySet Name="PayslipBatchHeaders" EntityType="DB_9F30C5_HRDBModel.PayslipBatchHeader" />
           <EntitySet Name="VariablePaymentDetails" EntityType="DB_9F30C5_HRDBModel.VariablePaymentDetail" />
           <EntitySet Name="VariablePaymentHeaders" EntityType="DB_9F30C5_HRDBModel.VariablePaymentHeader" />
+          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
+          <EntitySet Name="TaxAssessmentHeaders" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentHeader" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1451,6 +1485,36 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="BranchID" Type="Int32" />
           <Property Name="Month" Type="Int32" />
           <Property Name="Year" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TaxAssessmentDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeaderID" Type="Int32" />
+          <Property Name="SalaryFrom" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SalaryTo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TaxAssessmentHeader">
+          <Key>
+            <PropertyRef Name="HeaderID" />
+          </Key>
+          <Property Name="HeaderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="AssessmentNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="SocialContributionRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MaximumAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -2168,6 +2232,38 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="BranchID" ColumnName="BranchID" />
                 <ScalarProperty Name="TransactionNo" ColumnName="TransactionNo" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxAssessmentDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
+              <MappingFragment StoreEntitySet="TaxAssessmentDetail">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
+                <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxAssessmentHeaders">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentHeader">
+              <MappingFragment StoreEntitySet="TaxAssessmentHeader">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MaximumAmount" ColumnName="MaximumAmount" />
+                <ScalarProperty Name="SocialContributionRate" ColumnName="SocialContributionRate" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="AssessmentNo" ColumnName="AssessmentNo" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
                 <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
               </MappingFragment>
             </EntityTypeMapping>

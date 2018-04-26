@@ -1920,6 +1920,12 @@
     <Compile Include="Models\SalaryStructureHeader.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TaxAssessmentDetail.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaxAssessmentHeader.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TravelClaimDetail.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

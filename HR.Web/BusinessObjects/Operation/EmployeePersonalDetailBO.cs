@@ -40,7 +40,8 @@ namespace HR.Web.BusinessObjects.Operation
                 CreatedBy = sessionObj.USERID,
                 CreatedOn = UTILITY.SINGAPORETIME,
                 ModifiedBy = sessionObj.USERID,
-                ModifiedOn = UTILITY.SINGAPORETIME
+                ModifiedOn = UTILITY.SINGAPORETIME,
+                SocialWelfareNo= empPerDetail.SocialWelfareNo
             };
 
         }

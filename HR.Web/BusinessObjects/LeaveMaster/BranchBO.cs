@@ -85,7 +85,10 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 CompanyCode = "EZY",
                 CompanyId = 1000,
                 IsActive = true,
-                BranchID = branchVm.branch.BranchID
+                BranchID = branchVm.branch.BranchID,
+                SSFNumber=branchVm.branch.SSFNumber,
+                TaxIdNumber=branchVm.branch.TaxIdNumber,
+                BranchTaxCode=branchVm.branch.BranchTaxCode
             };
             Add(branch);
             Address branchAddress = new Address()

@@ -46,6 +46,7 @@ namespace HR.Web.Services.Operation
                         empPersonalDetail.SpouseName = entity.SpouseName;
                         empPersonalDetail.EPFNO = entity.EPFNO;
                         empPersonalDetail.PasspostNo = entity.PasspostNo;
+                        empPersonalDetail.SocialWelfareNo = entity.SocialWelfareNo;
                     }
                     dbContext.SaveChanges();
                 }

@@ -11,5 +11,6 @@ namespace HR.Web.ViewModels
         public Branch branch { get; set; }
         public AddressVm address { get; set; }
         public List<companyTreeVm> companyTreeVm { get; set; }
+        
     }
 }

@@ -36,6 +36,9 @@ namespace HR.Web.Services.LeaveMaster
                         company.RegNo = entity.RegNo;
                         company.ModifiedBy = entity.ModifiedBy;
                         company.ModifiedOn = entity.ModifiedOn;
+                        company.SSFNumber = entity.SSFNumber;
+                        company.TaxIdNumber = entity.TaxIdNumber;
+                        company.BranchCode = entity.BranchCode;
                     }
                     dbContext.SaveChanges();
                 }

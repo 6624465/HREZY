@@ -51,9 +51,8 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedBy = sessionObj.USERID,
                     ModifiedOn = UTILITY.SINGAPORETIME,
                     ManagerId = empVm.empHeader.ManagerId,
-                    IsReportingAuthority = empVm.empHeader.IsReportingAuthority,
+                    IsReportingAuthority = empVm.empHeader.IsReportingAuthority,          
                    
-
                 };
 
                 Add(empHeader);
@@ -78,7 +77,8 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedBy = sessionObj.USERID,
                     ModifiedOn = UTILITY.SINGAPORETIME,
                     EPFNO = empVm.empPersonalDetail.EPFNO,
-                    PasspostNo = empVm.empPersonalDetail.PasspostNo
+                    PasspostNo = empVm.empPersonalDetail.PasspostNo,
+                    SocialWelfareNo=empVm.empPersonalDetail.SocialWelfareNo
                 };
                 empPersonalDetailBO.Add(empPersonalDetail);
                 var empWorkDetail = new EmployeeWorkDetail
@@ -96,7 +96,8 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedBy = sessionObj.USERID,
                     ModifiedOn = UTILITY.SINGAPORETIME,
                     EmployeeId = empVm.empHeader.EmployeeId,
-                    SendMailsTo=empVm.empWorkDetail.SendMailsTo
+                    SendMailsTo=empVm.empWorkDetail.SendMailsTo,
+                    
                 };
                 empWorkDetailBO.Add(empWorkDetail);
 

@@ -162,6 +162,9 @@ namespace HR.Web.Controllers
                     branchVm.address.TelNo = address.TelNo;
                     branchVm.address.WebSite = address.WebSite;
                     branchVm.address.ZipCode = address.ZipCode;
+
+                   
+
                 }
 
 

@@ -29,27 +29,57 @@
                                         <span class="pull-right">Branch Code</span>
                                     </label>
                                     <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.branch.BranchCode, new { @class = "form-control input-sm" })
+                                        @Html.TextBoxFor(x => x.branch.BranchCode, new { @class = "form-control input-sm uppercase" })
                                     </div>
                                     <label class="col-md-2 control-label">
                                         <span class="pull-right">Branch Name</span>
                                     </label>
                                     <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.branch.BranchName, new { @class = "form-control input-sm" })
+                                        @Html.TextBoxFor(x => x.branch.BranchName, new { @class = "form-control input-sm uppercase" })
                                     </div>                      
                                 </div>
                             </div>
                             <div class="row css5">
                                 <div class="form-group">
-                                   
                                     <label class="col-md-2 control-label">
                                         <span class="pull-right">Registration No</span>
                                     </label>
                                     <div class="col-md-4">
-                                        @Html.TextBoxFor(x => x.branch.RegNo, new { @class = "form-control input-sm" })
+                                        @Html.TextBoxFor(x => x.branch.RegNo, new { @class = "form-control input-sm uppercase" })
+                                    </div>
+
+                                    
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                <span class="pull-right">Branch Tax Code</span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(x => x.branch.BranchTaxCode, new { @class = "form-control input-sm uppercase" })
+                                            </div>
+                                       
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row css5">
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">SSF Number</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.branch.SSFNumber, new { @class = "form-control input-sm uppercase" })
+                                    </div>
+                                    <label class="col-md-2 control-label">
+                                        <span class="pull-right">Tax ID Number</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.branch.TaxIdNumber, new { @class = "form-control input-sm uppercase" })
+                                    </div>
+
+                                </div>
+                            </div>
+                          
 
                         </div>
                     </div>

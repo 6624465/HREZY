@@ -84,6 +84,9 @@ namespace HR.Web.BusinessObjects.LeaveMaster
             company.CreatedOn = UTILITY.SINGAPORETIME;
             company.InCorporationDate = companyVM.company.InCorporationDate;
             company.IsActive = true;
+            company.SSFNumber = companyVM.company.SSFNo;
+            company.TaxIdNumber = companyVM.company.TaxIdNo;
+            company.BranchCode = companyVM.company.BranchCode;
 
             if (companyVM.company.Logo != null && companyVM.company.Logo.ContentLength > 0)
             {

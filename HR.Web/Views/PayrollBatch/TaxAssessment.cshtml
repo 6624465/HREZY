@@ -1,5 +1,4 @@
-﻿
-
+﻿@model HR.Web.ViewModels.TaxAssessmentVm
 
 <div class="page" style="overflow:visible;">
     <div class="row">
@@ -13,14 +12,14 @@
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Tax Assessment No.</span>
                         </label>
-                        <div class="col-md-3">
-                           
+                        <div class="col-md-1">
+                           @Html.TextBoxFor(x=>x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm" })
                         </div>
                         <label class="col-md-1 control-label">
                             <span class="pull-right">Year</span>
                         </label>
-                        <div class="col-md-3">
-
+                        <div class="col-md-1">
+                           @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
                         </div>
                     </div>
                     <div class="row css5">
@@ -28,14 +27,14 @@
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Social Security Contribution</span>
                         </label>
-                        <div class="col-md-3">
-
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm" })
                         </div>
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Max. Amount</span>
                         </label>
-                        <div class="col-md-3">
-
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm" })
                         </div>
                     </div>
                     <div class="row css5">
@@ -43,24 +42,24 @@
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Salary From</span>
                         </label>
-                        <div class="col-md-3">
-
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryFrom, new { @class = "form-control input-sm" })
                         </div>
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Salary To</span>
                         </label>
-                        <div class="col-md-3">
-
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryTo, new { @class = "form-control input-sm" })
                         </div>
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Rate</span>
                         </label>
-                        <div class="col-md-3">
-
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.taxassessmentdetail.Rate, new { @class = "form-control input-sm" })
                         </div>
-                        <div class="col-md-5">
-                            <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick=""><b>Save</b></button>                            
-                        </div>
+                        
+                            <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick=""><i class="fa fa-save"></i><b>Save</b></button>                            
+                        
                     </div>
 
 

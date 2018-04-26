@@ -27,6 +27,9 @@ namespace HR.Web.ViewModels
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public DateTime? InCorporationDate { get; set; }
+        public string SSFNo { get; set; }
+        public string TaxIdNo { get; set; }
+        public int BranchId { get; set; }
     }
 
 

@@ -1,0 +1,169 @@
+﻿
+
+
+<div class="page" style="overflow:visible;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
+                <div class="panel-heading">
+                    Tax Assessment Calculations
+                </div>
+                <div class="panel-body">
+                    <div class="row css5">
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Tax Assessment No.</span>
+                        </label>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(x=>x)
+                        </div>
+                        <label class="col-md-1 control-label">
+                            <span class="pull-right">Year</span>
+                        </label>
+                        <div class="col-md-3">
+
+                        </div>
+                    </div>
+                    <div class="row css5">
+
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Social Security Contribution</span>
+                        </label>
+                        <div class="col-md-3">
+
+                        </div>
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Max. Amount</span>
+                        </label>
+                        <div class="col-md-3">
+
+                        </div>
+                    </div>
+                    <div class="row css5">
+
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Salary From</span>
+                        </label>
+                        <div class="col-md-3">
+
+                        </div>
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Salary To</span>
+                        </label>
+                        <div class="col-md-3">
+
+                        </div>
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Rate</span>
+                        </label>
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick=""><b>Save</b></button>                            
+                        </div>
+                    </div>
+
+
+                </div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+                $('#li_Payroll').addClass('open');
+                $('#li_generatepay').addClass('active');
+                //$('#dtid2').hide();
+
+            var date = new Date();
+            $('.dtCss').datetimepicker({
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-arrow-left',
+                    next: 'fa fa-arrow-right',
+                },
+                format: dateFormat,
+                defaultDate:date
+
+            });
+            var table = $('#example').DataTable({
+                scrollY: "300px",
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+                searching: false,
+                bInfo: false,
+                autoWidth: true,
+                fixedColumns: {
+                    leftColumns: 6
+                },
+                columnDefs: [
+      {
+          "targets": [2,3,4,5],
+          "visible": false
+      }
+                ],
+            });
+
+
+
+        });
+
+        //function getprocesslist() {
+        //    $('#payslipBatchHeader_Month').val($('#payslipBatchHeader_Month').val());
+        //    $('#processpayrolllist').submit();
+        //}
+        function getprocesslist() {
+            debugger;
+            var month=$('#payslipBatchHeader_Month').val();
+            var year = $('#payslipBatchHeader_Year').val();
+
+            $('#currentmonth').val(month);
+            $('#currentyear').val(year);
+            $('#frm2').submit();
+            $('#dtid2').show();
+            @*$.ajax({
+                url: '@Url.Content("~/PayrollBatch/ProcessPayrollGeneration?currentmonth=")' + month + '&currentyear=' + year,
+                contentType: 'application/json',
+                method: 'Post',
+                success: function (data) {
+                    debugger;
+                },
+                error:function (err){
+
+                }
+            });*@
+        }
+        function ConfirmProcess() {
+            $('#confirmprocesspayroll').submit();
+        }
+
+        //$("#button-btn").click(function () {
+        //    $("#dtid").show();
+        //    $("#dtid2").show();
+        //});
+
+        //$(document).ready(function () {
+        //    $("#dtid").hide();
+        //    $("#dtid2").hide();
+        //});
+        //function getpayrolllist(el) {
+
+        //    $('#processpayrolllist').submit();
+        //}
+    </script>
+}

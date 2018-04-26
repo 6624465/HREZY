@@ -359,5 +359,10 @@ namespace HR.Web.Controllers
 
             return RedirectToAction("ProcessPayroll");
         }
+
+        public ActionResult TaxAssessment()
+        {
+            return View();
+        }
     }
 }

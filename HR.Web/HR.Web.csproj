@@ -2149,6 +2149,7 @@
     <Content Include="Views\PayRoll\ApprovedClaimsList.cshtml" />
     <Content Include="Views\PayrollBatch\UpdateVariablePay.cshtml" />
     <Content Include="Views\PayrollBatch\EditVariablePay.cshtml" />
+    <Content Include="Views\PayrollBatch\TaxAssessment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2178,7 +2179,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58960</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

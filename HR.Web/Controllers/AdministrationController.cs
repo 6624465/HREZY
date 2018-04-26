@@ -54,9 +54,9 @@ namespace HR.Web.Controllers
                     companyvm.company.ModifiedBy = company.ModifiedBy;
                     companyvm.company.ModifiedOn = company.ModifiedOn;
                     companyvm.company.RegNo = company.RegNo;
-                    companyvm.company.SSFNo = company.SSFNo;
-                    companyvm.company.TaxIdNo = company.TaxIdNo;
-                    companyvm.company.BranchId = company.BranchId;
+                    companyvm.company.SSFNo = company.SSFNumber;
+                    companyvm.company.TaxIdNo = company.TaxIdNumber;
+                    companyvm.company.BranchCode = company.BranchCode;
 
 
                 }

@@ -28,5 +28,6 @@ namespace HR.Web.Models
         public string SSFNumber { get; set; }
         public string TaxIdNumber { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public string BranchCode { get; set; }
     }
 }

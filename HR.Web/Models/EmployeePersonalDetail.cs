@@ -34,5 +34,6 @@ namespace HR.Web.Models
         public string EmergencyContactName { get; set; }
         public string EPFNO { get; set; }
         public string PasspostNo { get; set; }
+        public string SocialWelfareNo { get; set; }
     }
 }

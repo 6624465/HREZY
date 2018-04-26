@@ -38,6 +38,9 @@
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="CompanyId" Type="int" />
+          <Property Name="BranchTaxCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="SSFNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="TaxIdNumber" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -56,7 +59,7 @@
           <Property Name="InCorporationDate" Type="datetime" />
           <Property Name="SSFNumber" Type="nvarchar" MaxLength="30" />
           <Property Name="TaxIdNumber" Type="nvarchar" MaxLength="30" />
-          <Property Name="BranchId" Type="int" />
+          <Property Name="BranchCode" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Countries">
           <Key>
@@ -275,6 +278,7 @@
           <Property Name="EmergencyContactName" Type="nvarchar" MaxLength="250" />
           <Property Name="EPFNO" Type="nvarchar" MaxLength="50" />
           <Property Name="PasspostNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="SocialWelfareNo" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="EmployeeWorkDetail">
           <Key>
@@ -579,7 +583,7 @@
           <Key>
             <PropertyRef Name="DetailID" />
           </Key>
-          <Property Name="DetailID" Type="int" Nullable="false" />
+          <Property Name="DetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HeaderId" Type="int" />
           <Property Name="EmployeeId" Type="int" />
           <Property Name="ComponentCode" Type="nvarchar" MaxLength="50" />
@@ -744,6 +748,9 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="CompanyId" Type="Int32" />
+          <Property Name="BranchTaxCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SSFNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TaxIdNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -875,6 +882,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="EmergencyContactName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="EPFNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PasspostNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SocialWelfareNo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EmployeeWorkDetail">
           <Key>
@@ -931,6 +939,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="SSFNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="TaxIdNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="BranchId" Type="Int32" />
+          <Property Name="BranchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -1460,6 +1469,9 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="Branches">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Branch">
               <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="TaxIdNumber" ColumnName="TaxIdNumber" />
+                <ScalarProperty Name="SSFNumber" ColumnName="SSFNumber" />
+                <ScalarProperty Name="BranchTaxCode" ColumnName="BranchTaxCode" />
                 <ScalarProperty Name="BranchID" ColumnName="BranchID" />
                 <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
                 <ScalarProperty Name="BranchName" ColumnName="BranchName" />
@@ -1532,6 +1544,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="EmployeePersonalDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeePersonalDetail">
               <MappingFragment StoreEntitySet="EmployeePersonalDetail">
+                <ScalarProperty Name="SocialWelfareNo" ColumnName="SocialWelfareNo" />
                 <ScalarProperty Name="PasspostNo" ColumnName="PasspostNo" />
                 <ScalarProperty Name="EPFNO" ColumnName="EPFNO" />
                 <ScalarProperty Name="EmergencyContactName" ColumnName="EmergencyContactName" />
@@ -1597,7 +1610,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="Companies">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.Company">
               <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
                 <ScalarProperty Name="TaxIdNumber" ColumnName="TaxIdNumber" />
                 <ScalarProperty Name="SSFNumber" ColumnName="SSFNumber" />
                 <ScalarProperty Name="InCorporationDate" ColumnName="InCorporationDate" />

@@ -153,7 +153,8 @@ namespace HR.Web.Controllers
                                                     ApplyDate = x.ApplyDate,
                                                     LeaveTypeDesc = dbCntx.LookUps.Where(y => y.LookUpID == x.LeaveTypeId).FirstOrDefault().LookUpDescription,
                                                     Status = x.Status,
-                                                    Days = x.Days.Value
+                                                    Days = x.Days.Value,
+                                                    Reason=x.Reason
                                                 })
                                                 .ToList()
                                                 .AsEnumerable();

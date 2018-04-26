@@ -406,9 +406,7 @@ namespace HR.Web.Controllers
                 Rate = taxassessmentvm.taxassessmentdetail.Rate,
             };
             taxassessmentdetailBo.Add(taxassessmentdetail);
-
             return RedirectToAction("TaxAssessment");
-
         }
     }
 }

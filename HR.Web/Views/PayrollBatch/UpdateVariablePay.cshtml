@@ -80,7 +80,24 @@
                             </div>
 
                         </div>
-
+                        
+                            <div class="row css10" style="display:none;">
+                                <div class="col-md-12">
+                                    <table class="table table-conden table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Employee ID</th>
+                                                <th>Component</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbodyContent">                                           
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        
 
                         <div class="row">
                             <button type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
@@ -90,12 +107,9 @@
             </div>
         </div>
     </div>
+}
 
-
-
-
-    @*@using (Html.BeginForm("SaveVariablePay", "PayrollBatch", FormMethod.Post, new { id = "Variablepayfrm", name = "Variablepayfrm" }))
-        {*@
+<form id="modalfrm" name="modalfrm">
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -104,73 +118,31 @@
                     <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" id="modalContent">
-                    @if (Model.variablepaymentdetail != null && Model.variablepaymentdetail.Count > 0)
-                    {
-                        <div class="row css10">
-                            <div class="col-md-12">
-                                <table class="table table-conden table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Employee ID</th>
-                                            <th>Component</th>
-                                            <th>Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for (int i = 0; i < Model.variablepaymentdetail.Count; i++)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Model.variablepaymentdetail[i].EmployeeId
-                                                </td>
-                                                <td>
-                                                    <input id="variablepaymentdetail_@(i)__DetailID"
-                                                           name="variablepaymentdetail[@(i)].DetailID"
-                                                           type="hidden"
-                                                           value="@Model.variablepaymentdetail[i].DetailID">
-                                                    <input id="variablepaymentdetail_@(i)EmployeeId"
-                                                           name="variablepaymentdetail[@(i)].EmployeeId"
-                                                           type="hidden"
-                                                           value="@Model.variablepaymentdetail[i].EmployeeId">
-                                                    <input id="variablepaymentdetail_@(i)HeaderId"
-                                                           name="variablepaymentdetail[@(i)].HeaderId"
-                                                           type="hidden"
-                                                           value="@Model.variablepaymentdetail[i].HeaderId">
-                                                    <input id="variablepaymentdetail_@(i)ComponentCode"
-                                                           name="variablepaymentdetail[@(i)].ComponentCode"
-                                                           type="hidden"
-                                                           value="@Model.variablepaymentdetail[i].ComponentCode">
-                                                    @Model.variablepaymentdetail[i].ComponentCode
-                                                </td>
-                                                <td>
-                                                    <input type="hidden"
-                                                           value="@Model.variablepaymentdetail[i].Amount"
-                                                           id="variablepaymentdetail_@(i)Amount"
-                                                           name="variablepaymentdetail[@(i)].Amount" />
-                                                    @Model.variablepaymentdetail[i].Amount
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" id="modalEmpID" name="modalEmpID" />
+                            <input type="hidden" id="arrayLength" name="arrayLength" />
+                            <table class="table table-bordered">
+                                <tbody id="tblContent">
 
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-                    }
-
+                    </div>                   
                 </div>
                 <div class="modal-footer">
-                    <button id="btnsave" type="button" class="btn btn-primary btn-sm" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
+                    <button id="btnsave" type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
                 </div>
             </div>
 
         </div>
     </div>
-    @*}*@
-}
+</form>
+
+
 
 @section Scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
             function getFormData($form) {
                 var unindexed_array = $form.serializeArray();
                 var indexed_array = {};
@@ -182,37 +154,177 @@
                 return indexed_array;
             }
 
-            function EditVariablePay(Employeeid) {
-                debugger;
-                var $form = $("#variablesave");
+            function EditVariablePay(Employeeid) {    
+                $('#tblContent').html('');
+                var isDataExists = $('.trCss_' + Employeeid).length > 0;
+                $('#modalEmpID').val(Employeeid);
+                if (isDataExists) {
+                    var $form = $("#variablesave");
+                    var data = getFormData($form);
+                    var modalContent = '';
+                    $.each($('.trCss_' + Employeeid), function (i, item) {
+                        var trContent = $(item).html();
+                        var rowCount = $(item).data('index');
+                        var rowId = item.id;
+                        var rowClass = item.className;
+                        /*
+                        modalContent +=
+                            `<tr data-index="${dataIndex}" class="${rowClass}" id="${rowId}">
+                                ${trContent}
+                            </tr>`; */
+                        modalContent +=
+                            `<tr data-index="${rowCount}" id="tr_${rowId}" class="${rowClass}">
+                                <td>
+                                    ${data['variablepaymentdetail[' + rowCount + '].EmployeeId']}
+                                </td>
+                                <td>
+                                    <input id="variablepaymentdetail_${rowCount}__DetailID"
+                                            name="variablepaymentdetail[${rowCount}].DetailID"
+                                            type="hidden"
+                                            value="${data['variablepaymentdetail[' + rowCount + '].DetailID']}">
+                                    <input id="variablepaymentdetail_${rowCount}__EmployeeId"
+                                            name="variablepaymentdetail[${rowCount}].EmployeeId"
+                                            type="hidden"
+                                            value="${data['variablepaymentdetail[' + rowCount + '].EmployeeId']}">
+                                    <input id="variablepaymentdetail_${rowCount}__HeaderId"
+                                            name="variablepaymentdetail[${rowCount}].HeaderId"
+                                            type="hidden"
+                                            value="${data['variablepaymentdetail[' + rowCount + '].HeaderId']}">
+                                    <input id="variablepaymentdetail_${rowCount}__ComponentCode"
+                                            name="variablepaymentdetail[${rowCount}].ComponentCode"
+                                            type="hidden"
+                                            value="${data['variablepaymentdetail[' + rowCount + '].ComponentCode']}">
+                                    ${data['variablepaymentdetail[' + rowCount + '].ComponentCode']}
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control input-sm"
+                                            value="${data['variablepaymentdetail[' + rowCount + '].Amount']}"
+                                            id="variablepaymentdetail_${rowCount}__Amount"
+                                            name="variablepaymentdetail[${rowCount}].Amount" />                                    
+                                </td>
+                            </tr>
+                            `;
+                        debugger;
+                    });
+
+                    $('#tblContent').html(modalContent);
+                    $('#myModal').modal('show');
+                } else {
+                    $.ajax({
+                        url: '@Url.Content("~/PayrollBatch/EditVariablePay?Employeeid=")' + Employeeid,
+                        contentType: 'application/json; charset=utf-8',
+                        method: 'GET',
+                        success: function (data) {
+
+                            
+                            $('#arrayLength').val(data.length);
+                            var modalContent = '';
+                            for (var i = 0; i < data.length; i++) {
+                                modalContent +=
+                            `<tr>
+                                <td>
+                                    ${data[i].EmployeeId}
+                                </td>
+                                <td>
+                                    <input id="variablepaymentdetail_${i}__DetailID"
+                                            name="variablepaymentdetail[${i}].DetailID"
+                                            type="hidden"
+                                            value="${data[i].DetailID}">
+                                    <input id="variablepaymentdetail_${i}__EmployeeId"
+                                            name="variablepaymentdetail[${i}].EmployeeId"
+                                            type="hidden"
+                                            value="${data[i].EmployeeId}">
+                                    <input id="variablepaymentdetail_${i}__HeaderId"
+                                            name="variablepaymentdetail[${i}].HeaderId"
+                                            type="hidden"
+                                            value="${data[i].HeaderId}">
+                                    <input id="variablepaymentdetail_${i}__ComponentCode"
+                                            name="variablepaymentdetail[${i}].ComponentCode"
+                                            type="hidden"
+                                            value="${data[i].ComponentCode}">
+                                    ${data[i].ComponentCode}
+                                </td>
+                                <td>
+                                    <input type="text" value="${data[i].Amount}" class="form-control input-sm" id="variablepaymentdetail_${i}__Amount" name="variablepaymentdetail[${i}].Amount" />
+                                </td>
+                            </tr>
+                            `;                                
+                            }
+
+                            $('#tblContent').html(modalContent);
+                            $('#myModal').modal('show');
+                        }
+                    });
+                }
+            }
+            function SaveChanges() {
+                /*
+                if (true) {//$('#variablesave').valid()
+                    $('#variablesave').attr('action', 'Url.Content("~/PayrollBatch/SaveVariablePay")');
+                    $('#variablesave').submit();
+                }
+                */
+
+                var $form = $("#modalfrm");
                 var data = getFormData($form);
 
-                //var jsondata = " ";
-                //jsondata = $("#variablesave").serialize();
-                //var object = JSON.parse(data);
-                //$('#Description').val('');
-                //$('#Date').val('');
-                //$('#CountryId').val('');
-                //$('#myModal').modal('show');
-                $.ajax({
-                    url: '@Url.Content("~/PayrollBatch/EditVariablePay?Employeeid=")' + Employeeid,
-                    contentType: 'application/json; charset=utf-8',
-                    method: 'Post',
-                    data: JSON.stringify(data),
-                    //dataType: 'json',
-                    success: function (data) {
-                    $('#myModal').modal('show');
-                    //$('#modalContent').html('');
-                    $('#modalContent').html(data);
+                var isDataExists = $('.tbodyContent .trCss_' + data.modalEmpID).length > 0;
+                var dataLength = parseInt($('#arrayLength').val());
+                var rowCount = $('.trCss').length;
+                if (isDataExists) {
+                    /*
+                    var temp = $('#tblContent').html();                    
+                    $('.tbodyContent .trCss_' + data.modalEmpID).remove();
+                    $('.tbodyContent').append($('#tblContent').html());
+                    */
+                    debugger;
+                    $.each($('.tbodyContent .trCss_' + data.modalEmpID), function (index, item) {
+                        var rowIndex = $(item).data('index');                        
+                        $('#variablepaymentdetail_' + rowIndex + '__Amount').val(data['variablepaymentdetail[' + rowIndex + '].Amount']);
+                    });
+                } else {
+                    var trContent = '';
+                    for (var i = 0; i < dataLength; i++) {
+                        
+                        trContent +=
+                            `<tr data-index="${rowCount}" id="tr_${rowCount}" class="trCss trCss_${data.modalEmpID}">
+                                <td>
+                                    ${data['variablepaymentdetail[' + i + '].EmployeeId']}
+                                </td>
+                                <td>
+                                    <input id="variablepaymentdetail_${rowCount}__DetailID"
+                                            name="variablepaymentdetail[${rowCount}].DetailID"
+                                            type="hidden"
+                                            value="${data['variablepaymentdetail[' + i + '].DetailID']}">
+                                    <input id="variablepaymentdetail_${rowCount}__EmployeeId"
+                                            name="variablepaymentdetail[${rowCount}].EmployeeId"
+                                            type="hidden"
+                                            value="${data['variablepaymentdetail[' + i + '].EmployeeId']}">
+                                    <input id="variablepaymentdetail_${rowCount}__HeaderId"
+                                            name="variablepaymentdetail[${rowCount}].HeaderId"
+                                            type="hidden"
+                                            value="${data['variablepaymentdetail[' + i + '].HeaderId']}">
+                                    <input id="variablepaymentdetail_${rowCount}__ComponentCode"
+                                            name="variablepaymentdetail[${rowCount}].ComponentCode"
+                                            type="hidden"
+                                            value="${data['variablepaymentdetail[' + i + '].ComponentCode']}">
+                                    ${data['variablepaymentdetail[' + i + '].ComponentCode']}
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control input-sm"
+                                            value="${data['variablepaymentdetail[' + i + '].Amount']}"
+                                            id="variablepaymentdetail_${rowCount}__Amount"
+                                            name="variablepaymentdetail[${rowCount}].Amount" />                                    
+                                </td>
+                            </tr>
+                            `;
+                        rowCount++;                        
+                    }
+
+                    $('.tbodyContent').append(trContent);
+                }
+                $('#tblContent').html('');
             }
-        });
-    }
-    function SaveChanges() {
-        if (true) {//$('#variablesave').valid()
-            $('#variablesave').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePay")');
-            $('#variablesave').submit();
-        }
-    }
 
             function Savetrans() {
                 $('#variablesave').submit();
@@ -235,7 +347,7 @@
                     })
             }*@
         }
-    </script>
+</script>
 
 }
 

@@ -129,8 +129,46 @@ namespace HR.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult EditVariablePay(int Employeeid)
+        {
+            var structurelist = salarystructureheaderBo
+                                   .GetListByProperty(x => x.EmployeeId == Employeeid)
+                                   .ToList();
+
+            if(structurelist != null && structurelist.Count > 0)
+            {
+                var structureID = salarystructureheaderBo
+                                        .GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true)
+                                        .StructureID;
+                var ComponentsList = salarystructuredetailBo
+                                        .GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true)
+                                        .ToList();
+
+                var variablepaymentdetailList = new List<VariablePaymentDetail>();
+                foreach (var item in ComponentsList)
+                {
+                    var variablepaymentdetail = new VariablePaymentDetail()
+                    {
+                        Amount = item.Amount,
+                        ComponentCode = item.Description,
+                        EmployeeId = salarystructureheaderBo
+                                        .GetByProperty(x => x.StructureID == item.StructureID)
+                                        .EmployeeId,
+
+                    };
+
+                    variablepaymentdetailList.Add(variablepaymentdetail);
+                }
+
+                return Json(variablepaymentdetailList, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        /*
         [HttpPost]
-       
         public PartialViewResult EditVariablePay(UpdateVariablePayVm updatevariablepay, int Employeeid)
         {
             ViewBag.TempEmployeeID = Employeeid;
@@ -191,8 +229,8 @@ namespace HR.Web.Controllers
 
             return PartialView(updatevariablevm);
         }
-
-
+        */
+        /*
         [HttpPost]
         public ActionResult SaveVariablePay(UpdateVariablePayVm updatevariablepay)
         {
@@ -231,7 +269,7 @@ namespace HR.Web.Controllers
             }
 
         }
-
+        */
         [HttpPost]
         public ActionResult SaveVariablePaytransaction(UpdateVariablePayVm updatevariablepay)
         {

@@ -29,7 +29,7 @@ namespace HR.Web.ViewModels
         public DateTime? InCorporationDate { get; set; }
         public string SSFNo { get; set; }
         public string TaxIdNo { get; set; }
-        public int BranchId { get; set; }
+        public int? BranchId { get; set; }
     }
 
 

@@ -22,6 +22,8 @@ namespace HR.Web.BusinessObjects.Payroll
         {
             try
             {
+                input.CreatedBy = sessionObj.USERID;
+                input.CreatedOn = UTILITY.SINGAPORETIME;
                 taxassessmentdetailrepository.Add(input);
             }
             catch (Exception ex)

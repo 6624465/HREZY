@@ -8,20 +8,24 @@
                     Tax Assessment Calculations
                 </div>
                 <div class="panel-body">
-                    <div class="row css5">
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Tax Assessment No.</span>
-                        </label>
-                        <div class="col-md-1">
-                           @Html.TextBoxFor(x=>x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm" })
-                        </div>
-                        <label class="col-md-1 control-label">
-                            <span class="pull-right">Year</span>
-                        </label>
-                        <div class="col-md-1">
-                           @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
-                        </div>
-                    </div>
+@using (Html.BeginForm("SaveTaxAssessment", "PayrollBatch", FormMethod.Post, new { id = "saveassessmentfrm", name = "saveassessmentfrm" }))
+{
+
+    <div class="row css5">
+        <label class="col-md-2 control-label">
+            <span class="pull-right">Tax Assessment No.</span>
+        </label>
+        <div class="col-md-1">
+            @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm" })
+        </div>
+        <label class="col-md-1 control-label">
+            <span class="pull-right">Year</span>
+        </label>
+        <div class="col-md-1">
+            @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+            @Html.HiddenFor(x=>x.taxassessmentheader.Year)
+        </div>
+    </div>
                     <div class="row css5">
 
                         <label class="col-md-2 control-label">
@@ -57,17 +61,31 @@
                         <div class="col-md-1">
                             @Html.TextBoxFor(x => x.taxassessmentdetail.Rate, new { @class = "form-control input-sm" })
                         </div>
-                        
-                            <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick=""><i class="fa fa-save"></i><b>Save</b></button>                            
-                        
+
+                        <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="savetaxassessment()"><i class="fa fa-save"></i><b>Save</b></button>
+
                     </div>
 
+}
 
                 </div>
         </div>
     </div>
         </div>
     </div>
+
+@section Scripts{
+    
+    <script type="text/javascript">
+
+        function savetaxassessment() {
+            $('#saveassessmentfrm').submit();
+        }
+    </script>
+}
+
+
+
 
 
 

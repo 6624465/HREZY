@@ -23,6 +23,8 @@ namespace HR.Web.Controllers
         VariablePaymentDetailBO variabledetailBo = null;
         VariablePaymentHeaderBO variablepaymentheaderBo = null;
         PayslipBatchDetailBO payslipbatchdetailBo = null;
+        TaxAssessmentDetailBO taxassessmentdetailBo = null;
+        TaxAssessmentHeaderBO taxassessmentheaderBo = null;
         public PayrollBatchController()
         {
             PayslipbatchheaderBo = new PayslipBatchHeaderBo(SESSIONOBJ);
@@ -32,6 +34,9 @@ namespace HR.Web.Controllers
             variabledetailBo = new VariablePaymentDetailBO(SESSIONOBJ);
             variablepaymentheaderBo = new VariablePaymentHeaderBO(SESSIONOBJ);
             payslipbatchdetailBo = new PayslipBatchDetailBO(SESSIONOBJ);
+            taxassessmentheaderBo = new TaxAssessmentHeaderBO(SESSIONOBJ);
+            taxassessmentdetailBo = new TaxAssessmentDetailBO(SESSIONOBJ);
+
         }
         // GET: PayrollBatch
         [HttpGet]
@@ -381,10 +386,29 @@ namespace HR.Web.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult SaveTaxAssessment(T)
-        //{
+        [HttpPost]
+        public ActionResult SaveTaxAssessment(TaxAssessmentVm taxassessmentvm)
+        {
+            var taxassessmentheader = new TaxAssessmentHeader() {
+                BranchID = BRANCHID,
+                AssessmentNo = taxassessmentvm.taxassessmentheader.AssessmentNo,
+                Year = taxassessmentvm.taxassessmentheader.Year,
+                SocialContributionRate = taxassessmentvm.taxassessmentheader.SocialContributionRate,
+                MaximumAmount = taxassessmentvm.taxassessmentheader.MaximumAmount,
+                Status = true,
+            };
+            taxassessmentheaderBo.Add(taxassessmentheader);
+            var taxassessmentdetail = new TaxAssessmentDetail()
+            {
+                HeaderID = taxassessmentheader.HeaderID,
+                SalaryFrom = taxassessmentvm.taxassessmentdetail.SalaryFrom,
+                SalaryTo = taxassessmentvm.taxassessmentdetail.SalaryTo,
+                Rate = taxassessmentvm.taxassessmentdetail.Rate,
+            };
+            taxassessmentdetailBo.Add(taxassessmentdetail);
 
-        //}
+            return RedirectToAction("TaxAssessment");
+
+        }
     }
 }

@@ -64,7 +64,7 @@
                     Payslip Batch
                 </div>
                 <div class="panel-body">
-                    @using (Html.BeginForm("ProcessPayrollGeneration", "PayrollBatch", FormMethod.Post, new { id = "processpayrolllist", name = "processpayrolllist" }))
+                    @using (Html.BeginForm("confirmprocesspayroll", "PayrollBatch", FormMethod.Post, new { id = "confirmprocesspayroll", name = "confirmprocesspayroll" }))
                     {
                         @Html.HiddenFor(x => x.payslipBatchHeader.BatchHeaderId)
                         @Html.HiddenFor(x => x.payslipBatchHeader.BranchId)
@@ -93,7 +93,7 @@
                                 <span class="pull-right">Month</span>
                             </label>
                             <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(),  new { @class = "form-control input-sm" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.Month)
                             </div>
                             <label class="col-md-1 control-label">
@@ -116,9 +116,10 @@
                             </div>
                             <div class="col-md-5">
                                 <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslist()"><b>Process</b></button>
-                              @*<button type="button" class="btn btn-sm btn-success" id="dtid2"><b>Generate</b></button>*@ 
+                              <button type="button" class="btn btn-sm btn-success" id="dtid2" onclick="ConfirmProcess()"><b>Confirm</b></button>
                             </div>
                         </div>
+                    }
                         <dialog></dialog>
                         <div class="row" id="dtid">
                             <div class="col-md-12">
@@ -156,7 +157,7 @@
                                                 }
                                             </tbody>
                                         </table>
-                                }
+                                    }
 
 
 
@@ -289,7 +290,7 @@
                         </div>
 
 
-                    }
+                    @*}*@
 
                     @using (Html.BeginForm("ProcessPayrollGeneration", "PayrollBatch", FormMethod.Post, new { id = "frm2", name = "frm2" }))
                     {
@@ -314,7 +315,13 @@
     <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
 
     <script type="text/javascript">
+
         $(document).ready(function () {
+            
+                $('#li_Payroll').addClass('open');
+                $('#li_generatepay').addClass('active');
+                //$('#dtid2').hide();
+
             var date = new Date();
             $('.dtCss').datetimepicker({
                 icons: {
@@ -364,6 +371,7 @@
             $('#currentmonth').val(month);
             $('#currentyear').val(year);
             $('#frm2').submit();
+            $('#dtid2').show();
             @*$.ajax({
                 url: '@Url.Content("~/PayrollBatch/ProcessPayrollGeneration?currentmonth=")' + month + '&currentyear=' + year,
                 contentType: 'application/json',
@@ -375,6 +383,9 @@
 
                 }
             });*@
+        }
+        function ConfirmProcess() {
+            $('#confirmprocesspayroll').submit();
         }
 
         //$("#button-btn").click(function () {

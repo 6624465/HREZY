@@ -22,6 +22,7 @@ namespace HR.Web.Controllers
         SalaryStructureHeaderBO salarystructureheaderBo = null;
         VariablePaymentDetailBO variabledetailBo = null;
         VariablePaymentHeaderBO variablepaymentheaderBo = null;
+        PayslipBatchDetailBO payslipbatchdetailBo = null;
         public PayrollBatchController()
         {
             PayslipbatchheaderBo = new PayslipBatchHeaderBo(SESSIONOBJ);
@@ -302,5 +303,61 @@ namespace HR.Web.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult confirmprocesspayroll(PayrollBatchVm payrollvm)
+        {
+            using(var dbcntx = new HrDataContext())
+            {
+                var salaryprocesslist = dbcntx.SalaryStructureHeaders
+                                        .Join(dbcntx.SalaryStructureDetails,
+                                        a => a.StructureID, b => b.StructureID,
+                                        (a, b) => new { A = a, B = b }).
+                                        Where(x => x.A.BranchId == BRANCHID && x.A.EffectiveDate.Value.Month == payrollvm.payslipBatchHeader.Month &&
+                                        x.A.EffectiveDate.Value.Year == payrollvm.payslipBatchHeader.Year && x.A.IsActive == true).
+                                        Select(x => new ProcessTable
+                                        {
+                                            EmployeeId = x.A.EmployeeId.Value,
+                                            RegisterCode = x.B.PaymentType,
+                                            ContributionCode = x.B.ComputationCode,
+                                            Amount = x.B.Amount.Value,
+                                        }).ToList();
+                var payslipheader = new PayslipBatchHeader()
+                {
+                    BatchNo = payrollvm.payslipBatchHeader.BatchNo,
+                    BranchId = BRANCHID,
+                    Month = payrollvm.payslipBatchHeader.Month,
+                    Year = payrollvm.payslipBatchHeader.Year,
+                    ProcessDate = payrollvm.payslipBatchHeader.ProcessDate,
+                    TotalSalary = payrollvm.payslipBatchHeader.TotalSalary,
+                };
+                //if (payrollvm.payslipBatchHeader == null)
+                //   payrollvm.payslipBatchHeader = new PayslipBatchHeader();
+                PayslipbatchheaderBo.Add(payslipheader);
+
+
+                if (salaryprocesslist != null && salaryprocesslist.Count != 0)
+                {
+                    foreach (var item in salaryprocesslist)
+                    {
+                        var payslipbatchdetail = new PayslipBatchDetail()
+                        {
+                            BatchHeaderId = payrollvm.payslipBatchHeader.BatchHeaderId,
+                            BatchNo = payrollvm.payslipBatchHeader.BatchNo,
+                            BranchId = payrollvm.payslipBatchHeader.BranchId,
+                            EmployeeId = item.EmployeeId,
+                            RegisterCode = item.RegisterCode,
+                            ContributionCode = item.ContributionCode,
+                            Amount = item.Amount,
+                        };
+                        payslipbatchdetailBo.Add(payslipbatchdetail);
+
+                    }
+
+                }
+                    
+            }
+
+            return RedirectToAction("ProcessPayroll");
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace HR.Web.BusinessObjects.Payroll
             {
                 entity.CreatedBy = sessionObj.USERID;
                 entity.CreatedOn = UTILITY.SINGAPORETIME;
-                entity.BranchId = sessionObj.BRANCHID;
+                //entity.BranchId = sessionObj.BRANCHID;
                 //entity.EmployeeId = sessionObj.EMPLOYEEID;
                 payslipbatchdetailrepository.Add(entity);
             }

@@ -38,10 +38,28 @@ namespace HR.Web.ViewModels
         public int EmployeeId { get; set; }
     }
 
+
+    //public class ConfirmProcessVm
+    //{
+    //    public PayslipBatchHeader payslipBatchHeader { get; set; }
+    //    public List<PayslipBatchDetail> payslipBatchDetail { get; set; }
+
+    //    public List<ProcessTable> ProcessTable { get; set; }
+
+    //}
+
+    public class ProcessTable
+    {
+        public int EmployeeId { get; set; }
+        public string RegisterCode { get; set; }
+        public string ContributionCode { get; set; }
+        public decimal Amount { get; set; }
+    }
+
     //public class variablepayEditVm
     //{
-       
 
-       
+
+
     //}
 }

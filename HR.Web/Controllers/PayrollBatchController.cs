@@ -64,6 +64,8 @@ namespace HR.Web.Controllers
                     if (vm.payslipBatchHeader == null)
                         vm.payslipBatchHeader = new PayslipBatchHeader();
                     vm.payslipBatchHeader.TotalSalary = netamount;
+                    vm.payslipBatchHeader.Month = Convert.ToByte(currentmonth.Value);
+                    vm.payslipBatchHeader.Year = currentyear.Value;
                     var batchcount = PayslipbatchheaderBo.GetCount(BRANCHID);
                     batchcount = batchcount + 1;
                     vm.payslipBatchHeader.BatchNo = "BATCH" + batchcount.ToString("D4");
@@ -378,5 +380,11 @@ namespace HR.Web.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        //public ActionResult SaveTaxAssessment(T)
+        //{
+
+        //}
     }
 }

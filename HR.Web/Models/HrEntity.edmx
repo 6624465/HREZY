@@ -938,7 +938,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="InCorporationDate" Type="DateTime" Precision="3" />
           <Property Name="SSFNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="TaxIdNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="BranchId" Type="Int32" />
           <Property Name="BranchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Address">

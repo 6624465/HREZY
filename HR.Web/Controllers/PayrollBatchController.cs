@@ -294,7 +294,9 @@ namespace HR.Web.Controllers
                         EmployeeId = updatevariablepay.variablepaymentdetail[i].EmployeeId
                     };
                     variabledetailBo.Add(variabledetail);
+
                 }
+               
             }
             return RedirectToAction("UpdateVariablePay");
 

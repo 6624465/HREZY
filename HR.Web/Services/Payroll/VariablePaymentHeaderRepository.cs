@@ -90,7 +90,21 @@ namespace HR.Web.Services.Payroll
                 throw ex;
             }
         }
+        internal int GetCount(int branchId)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.VariablePaymentHeaders.Count();
+                }
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
 
 
     }

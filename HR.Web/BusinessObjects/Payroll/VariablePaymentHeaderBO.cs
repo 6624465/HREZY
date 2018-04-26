@@ -73,5 +73,10 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
+
+        internal int GetCount(int branchId)
+        {
+            return variablepaymentheaderrepository.GetCount(branchId);
+        }
     }
 }

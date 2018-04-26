@@ -34,6 +34,9 @@
         .table-striped td {
             background: #fff;
         }
+        /*#dtid2{
+            display:none;
+        }*/
         
     </style>
 }
@@ -118,11 +121,7 @@
                             </div>
                             <div class="col-md-5">
                                 <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslist()"><b>Process</b></button>
-                                @*@if ()
-                                {
-                                    <button type="button" class="btn btn-sm btn-success" id="dtid2" onclick="ConfirmProcess()"><b>Confirm</b></button>
-                                }*@
-                              
+                            <button type="button" class="btn btn-sm btn-success" id="dtid2" onclick="ConfirmProcess()" ><b>Confirm</b></button>
                             </div>
                         </div>
                     }
@@ -377,7 +376,6 @@
             $('#currentmonth').val(month);
             $('#currentyear').val(year);
             $('#frm2').submit();
-            $('#dtid2').show();
             @*$.ajax({
                 url: '@Url.Content("~/PayrollBatch/ProcessPayrollGeneration?currentmonth=")' + month + '&currentyear=' + year,
                 contentType: 'application/json',

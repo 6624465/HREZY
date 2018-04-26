@@ -1704,6 +1704,7 @@
     <Content Include="fonts\proximanovalight.ttf" />
     <Content Include="fonts\proximanovalight.woff" />
     <Content Include="Images\sample_pdf.pdf" />
+    <Content Include="Images\samplepayslip.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Calender.js" />

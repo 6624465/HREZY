@@ -25,5 +25,8 @@ namespace HR.Web.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<System.DateTime> InCorporationDate { get; set; }
+        public string SSFNumber { get; set; }
+        public string TaxIdNumber { get; set; }
+        public Nullable<int> BranchId { get; set; }
     }
 }

@@ -284,14 +284,14 @@ namespace HR.Web.Controllers
             variablepaymentheaderBo.Add(variablepaymentheader);
             if (updatevariablepay.variablepaymentdetail != null && updatevariablepay.variablepaymentdetail.Count() > 0)
             {
-                for (var i = 0; i < updatevariablepay.CevpdVm.Count; i++)
+                for (var i = 0; i < updatevariablepay.variablepaymentdetail.Count; i++)
                 {
                     VariablePaymentDetail variabledetail = new VariablePaymentDetail()
                     {
                         HeaderId = variablepaymentheader.HeaderID,
-                        Amount = updatevariablepay.CevpdVm[i].Amount,
-                        ComponentCode = updatevariablepay.CevpdVm[i].ComponentCode,
-                        EmployeeId = updatevariablepay.CevpdVm[i].EmployeeId
+                        Amount = updatevariablepay.variablepaymentdetail[i].Amount,
+                        ComponentCode = updatevariablepay.variablepaymentdetail[i].ComponentCode,
+                        EmployeeId = updatevariablepay.variablepaymentdetail[i].EmployeeId
                     };
                     variabledetailBo.Add(variabledetail);
                 }

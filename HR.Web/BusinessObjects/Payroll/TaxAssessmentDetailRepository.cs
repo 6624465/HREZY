@@ -17,8 +17,6 @@ namespace HR.Web.Services.Payroll
 
                     TaxAssessmentDetail taxassessmentdetail = dbContext.TaxAssessmentDetails
                         .Where(x => x.ID == entity.ID).FirstOrDefault();
-
-
                     if (taxassessmentdetail == null)
                     {
                         dbContext.TaxAssessmentDetails.Add(entity);

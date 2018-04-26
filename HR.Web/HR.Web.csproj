@@ -1781,6 +1781,10 @@
     <Compile Include="BusinessObjects\Payroll\SalaryRuleDetailBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryRuleInputBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryStructureDetailBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\TaxAssessmentDetailBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\TaxAssessmentDetailRepository.cs" />
+    <Compile Include="BusinessObjects\Payroll\TaxAssessmentHeaderBO.cs" />
+    <Compile Include="BusinessObjects\Payroll\TaxAssessmentHeaderRepository.cs" />
     <Compile Include="BusinessObjects\Payroll\TravelClaimDetailBO.cs" />
     <Compile Include="BusinessObjects\Payroll\TravelClaimHeaderBO.cs" />
     <Compile Include="BusinessObjects\Payroll\SalaryStructureHeaderBO.cs" />

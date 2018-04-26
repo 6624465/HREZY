@@ -24,7 +24,14 @@ namespace HR.Web.ViewModels
         public List<VariablePaymentDetail> CevpdVm { get; set; }
                                          //Current employee variable payment detail vm
     }
+    public class TaxAssessmentVm
+    {
+        public TaxAssessmentHeader taxassessmentheader { get; set; }
+        public List<TaxAssessmentDetail> taxassessmentdetaillist { get; set; }
+        public TaxAssessmentDetail taxassessmentdetail { get; set; }
 
+
+    }
     public class EmployeeTable
     {
         public string EmployeeName { get; set; }
@@ -55,6 +62,7 @@ namespace HR.Web.ViewModels
         public string ContributionCode { get; set; }
         public decimal? Amount { get; set; }
     }
+  
 
     //public class variablepayEditVm
     //{

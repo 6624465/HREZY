@@ -17,7 +17,8 @@
                                 <span class="pull-right">TransactionNo</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase" })
+                                @Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase", disabled="disabled" })
+                                @Html.HiddenFor(x=>x.variablepaymentheader.TransactionNo)
                             </div>
 
                             <label class="col-md-2 control-label">

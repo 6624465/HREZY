@@ -121,12 +121,17 @@ namespace HR.Web.Controllers
                             EmployeeId = x.A.EmployeeId,
                         }).ToList();
 
+                    var transactioncount = variablepaymentheaderBo.GetCount(BRANCHID);
+                    transactioncount = transactioncount + 1;
+                   
                     var updatevariablepayvm = new UpdateVariablePayVm
                     {
                         Employeetable = list,
                         variablepaymentheader = new VariablePaymentHeader(),
                         CevpdVm = null
                     };
+                       
+                    updatevariablepayvm.variablepaymentheader.TransactionNo = "TRSAC" + transactioncount.ToString("D4");
                     return View(updatevariablepayvm);
                 }
             }

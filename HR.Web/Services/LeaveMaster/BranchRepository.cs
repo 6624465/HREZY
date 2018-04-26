@@ -27,6 +27,9 @@ namespace HR.Web.Services.LeaveMaster
                         branch.RegNo = entity.RegNo;
                         branch.CompanyCode = entity.CompanyCode;
                         branch.CompanyId = entity.CompanyId;
+                        branch.BranchTaxCode = entity.BranchTaxCode;
+                        branch.SSFNumber = entity.SSFNumber;
+                        branch.TaxIdNumber = entity.TaxIdNumber;
                     }
                     dbContext.SaveChanges();
                 }

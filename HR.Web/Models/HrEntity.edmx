@@ -446,7 +446,6 @@
           <Property Name="BatchHeaderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BatchNo" Type="nvarchar" MaxLength="50" />
           <Property Name="BranchId" Type="int" />
-          <Property Name="EmployeeId" Type="int" />
           <Property Name="Month" Type="tinyint" />
           <Property Name="Year" Type="int" />
           <Property Name="ProcessDate" Type="datetime" />
@@ -1426,7 +1425,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="BatchHeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BatchNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BranchId" Type="Int32" />
-          <Property Name="EmployeeId" Type="Int32" />
           <Property Name="Month" Type="Byte" />
           <Property Name="Year" Type="Int32" />
           <Property Name="ProcessDate" Type="DateTime" Precision="3" />
@@ -2141,7 +2139,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
                 <ScalarProperty Name="BatchHeaderId" ColumnName="BatchHeaderId" />

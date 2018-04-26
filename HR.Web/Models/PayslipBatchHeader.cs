@@ -17,7 +17,6 @@ namespace HR.Web.Models
         public int BatchHeaderId { get; set; }
         public string BatchNo { get; set; }
         public Nullable<int> BranchId { get; set; }
-        public Nullable<int> EmployeeId { get; set; }
         public Nullable<byte> Month { get; set; }
         public Nullable<int> Year { get; set; }
         public Nullable<System.DateTime> ProcessDate { get; set; }

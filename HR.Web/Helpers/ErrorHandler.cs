@@ -10,7 +10,8 @@ namespace HR.Web.Helpers
     public class ErrorHandler : HandleErrorAttribute
     {
         public override void OnException(ExceptionContext filterContext)
-        {
+       
+{
             Exception ex = filterContext.Exception;
             filterContext.ExceptionHandled = true;
             var model = new HandleErrorInfo(filterContext.Exception, "Controller", "Action");

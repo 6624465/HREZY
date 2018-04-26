@@ -383,7 +383,29 @@ namespace HR.Web.Controllers
 
         public ActionResult TaxAssessment()
         {
-            return View();
+            
+            TaxAssessmentVm taxassessmentvm = new TaxAssessmentVm();
+        var list = taxassessmentdetailBo.GetAll();
+            if(list!=null&& list.Count() != 0)
+            {
+                foreach(var item in list)
+                {
+                    var obj = new TaxAssessmentDetail()
+                    {
+                        SalaryFrom=item.SalaryFrom,
+                        SalaryTo=item.SalaryTo,
+                        Rate = item.Rate
+                    };
+                    if (taxassessmentvm.TaxAssessmentDetail == null)
+                        taxassessmentvm.TaxAssessmentDetail = new List<TaxAssessmentDetail>();
+
+                    taxassessmentvm.TaxAssessmentDetail.Add(obj);
+                }
+               
+
+            }
+            return View(taxassessmentvm);
+
         }
 
         [HttpPost]
@@ -406,9 +428,7 @@ namespace HR.Web.Controllers
                 Rate = taxassessmentvm.taxassessmentdetail.Rate,
             };
             taxassessmentdetailBo.Add(taxassessmentdetail);
-
             return RedirectToAction("TaxAssessment");
-
         }
     }
 }

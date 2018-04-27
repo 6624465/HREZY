@@ -51,17 +51,45 @@
             margin-top: -15px;
             font-size: 43.2px;
         }
+        .size > li > a {
+    padding: 6px 10px;
+}
     </style>
 }
 <div class="page page-dashboard">
     <div class="panel panel-default panel-heading">
-        <span>
-            @Model.EmployeeName <a href="@Url.Content("~/Employee/Add?EmployeeId=" + Model.EmployeeId)" style="text-decoration:underline"><small>View Profile</small></a>
-        </span>
+    
+            <span>
+                @Model.EmployeeName <a href="@Url.Content("~/Employee/Add?EmployeeId=" + Model.EmployeeId)" style="text-decoration:underline"><small>View Profile</small></a>
+            </span>
+            @*<div class="dropdown">
+                <button type="button" class="text-light mb0 pull-right btn btn-primary" data-toggle="dropdown">
+                    <i class="fa fa-download"></i><b>Download Pay Slip</b>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Payslip Download</a>
+                    <a class="dropdown-item" href="#">Payslip Download</a>
+                </div>
+            </div>*@
+        
+            <div class="dropdown pull-right">
+                <button class="text-light mb0 btn btn-primary" type="button" data-toggle="dropdown">
+                    <i class="fa fa-download"></i><b>Download</b>
+                </button>
+                <ul class="dropdown-menu size">
+                    <li><a href="@Url.Content("~/Images/samplepayslip.pdf")" download="samplepayslip">Download PaySlip</a></li>
+                    <li><a href="@Url.Content("~/Images/samplepayslip.pdf")" download="samplepayslip">Download W/H Tax form</a></li>
+                </ul>
+            </div>
+    
+       
        
         @*<h4 class="text-light mb0 pull-right"><b class="mt0 mb0 left"><a style="text-decoration:underline" target="_blank" href="@Url.Content("~/Uploads/Sample_PaySlip.pdf")">Download Pay Slip</a></b></h4>*@
-        <button class="text-light mb0 pull-right btn btn-primary" type="button" target="_self" onclick="location.href='@Url.Content("~/Images/samplepayslip.pdf")'" download="samplepayslip"> <i class="fa fa-download"></i><b>Download Pay Slip</b></button>
+        @*<button class="text-light mb0 pull-right btn btn-primary" type="button" target="_self" onclick="location.href='@Url.Content("~/Images/samplepayslip.pdf")'" download="samplepayslip"> <i class="fa fa-download"></i><b>Download Pay Slip</b></button>*@
+       
     </div>
+
+    
     <br />
     <div class="">
         <div class="row css10">

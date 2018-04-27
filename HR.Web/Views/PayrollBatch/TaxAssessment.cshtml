@@ -50,7 +50,7 @@
                         <label class="col-md-1 control-label">
                             <span class="pull-right">Year</span>
                         </label>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
                             @Html.HiddenFor(x=>x.taxassessmentheader.Year)
                         </div>
@@ -59,7 +59,7 @@
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Social Security Contribution</span>
                         </label>
-                        <div class="col-md-2 col-xs-11">
+                        <div class="col-md-1 col-xs-11">
                             @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left" })
 
                         </div>
@@ -70,7 +70,7 @@
                         <label class="col-md-1 control-label">
                             <span class="pull-right">Max. Amount</span>
                         </label>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss" })
                         </div>
                     </div>
@@ -150,13 +150,13 @@
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Salary From</span>
                         </label>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryFrom, new { @class = "form-control input-sm decimalCss" })
                         </div>
                         <label class="col-md-1 control-label">
                             <span class="pull-right">Salary To</span>
                         </label>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryTo, new { @class = "form-control input-sm decimalCss" })
                         </div>
                         <label class="col-md-1 control-label">

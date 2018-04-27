@@ -54,18 +54,18 @@ namespace HR.Web.Controllers
                     vm.dt = PayslipbatchheaderBo.GeneratePayslip(Convert.ToInt16(BRANCHID), currentmonth.Value, currentyear.Value);
                 }
                 decimal? netamount = 0;
-                var headerlist = salarystructureheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.EffectiveDate.Value.Month == currentmonth && x.EffectiveDate.Value.Year == currentyear && x.IsActive==true);
+                var headerlist = salarystructureheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.EffectiveDate.Value.Month == currentmonth && x.EffectiveDate.Value.Year == currentyear && x.IsActive == true);
                 if (headerlist != null && headerlist.Count() != 0)
                 {
-                    
-                //       foreach(var item in headerlist)
-                //    {
-                //        decimal sum = 0;
-                //        sum = item.NetAmount.Value;
-                       
-                //        netamount = netamount + sum;
-                //    }
-                   netamount = headerlist.Sum(x=>x.NetAmount).Value;
+
+                    //       foreach(var item in headerlist)
+                    //    {
+                    //        decimal sum = 0;
+                    //        sum = item.NetAmount.Value;
+
+                    //        netamount = netamount + sum;
+                    //    }
+                    netamount = headerlist.Sum(x => x.NetAmount).Value;
                     if (vm.payslipBatchHeader == null)
                         vm.payslipBatchHeader = new PayslipBatchHeader();
                     vm.payslipBatchHeader.TotalSalary = netamount;
@@ -77,7 +77,7 @@ namespace HR.Web.Controllers
 
                 }
 
-                
+
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
 
@@ -91,7 +91,7 @@ namespace HR.Web.Controllers
         {
             using (var dbContext = new HrDataContext())
             {
-                
+
                 //var list = dbContext.SalaryStructureHeaders.GroupJoin(dbContext.SalaryStructureDetails,
                 //    a => a.StructureID, b => b.StructureID,
                 //   (a, b) => new { A = a, B = b.ToList() });
@@ -99,7 +99,7 @@ namespace HR.Web.Controllers
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
                 PayrollBatchVm vm = new PayrollBatchVm();
-                
+
                 //var netsalarytotal = salarystructureheaderBo.GetAll();
                 //if (netsalarytotal != null)
                 //{
@@ -130,14 +130,14 @@ namespace HR.Web.Controllers
 
                     var transactioncount = variablepaymentheaderBo.GetCount(BRANCHID);
                     transactioncount = transactioncount + 1;
-                   
+
                     var updatevariablepayvm = new UpdateVariablePayVm
                     {
                         Employeetable = list,
                         variablepaymentheader = new VariablePaymentHeader(),
                         CevpdVm = null
                     };
-                       
+
                     updatevariablepayvm.variablepaymentheader.TransactionNo = "TRSAC" + transactioncount.ToString("D4");
                     return View(updatevariablepayvm);
                 }
@@ -155,7 +155,7 @@ namespace HR.Web.Controllers
                                    .GetListByProperty(x => x.EmployeeId == Employeeid)
                                    .ToList();
 
-            if(structurelist != null && structurelist.Count > 0)
+            if (structurelist != null && structurelist.Count > 0)
             {
                 var structureID = salarystructureheaderBo
                                         .GetByProperty(x => x.EmployeeId == Employeeid && x.IsActive == true)
@@ -315,7 +315,7 @@ namespace HR.Web.Controllers
                     variabledetailBo.Add(variabledetail);
 
                 }
-               
+
             }
             return RedirectToAction("UpdateVariablePay");
 
@@ -324,7 +324,7 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult confirmprocesspayroll(PayslipBatchHeader payslipbatchheader)
         {
-            using(var dbcntx = new HrDataContext())
+            using (var dbcntx = new HrDataContext())
             {
                 var salaryprocesslist = dbcntx.SalaryStructureHeaders
                                         .Join(dbcntx.SalaryStructureDetails,
@@ -339,7 +339,7 @@ namespace HR.Web.Controllers
                                             ContributionCode = x.B.Description,
                                             Amount = x.B.Amount,
                                         }).ToList();
-             
+
                 var payslipheader = new PayslipBatchHeader()
                 {
                     BatchNo = payslipbatchheader.BatchNo,
@@ -356,7 +356,7 @@ namespace HR.Web.Controllers
 
                 if (salaryprocesslist != null && salaryprocesslist.Count != 0)
                 {
-                    for (var i=0;i<salaryprocesslist.Count;i++)
+                    for (var i = 0; i < salaryprocesslist.Count; i++)
                     {
                         var payslipbatchdetail = new PayslipBatchDetail()
                         {
@@ -375,16 +375,16 @@ namespace HR.Web.Controllers
                     }
 
                 }
-                    
+
             }
 
             return RedirectToAction("ProcessPayroll");
         }
 
-        
+
         public ActionResult TaxAssessment(TaxAssessmentVm taxAssessmentVm)
         {
-            
+            taxAssessmentVm = (TaxAssessmentVm)Session["taxassessmentvm"];
             //TaxAssessmentVm taxassessmentvm = new TaxAssessmentVm();
             //var list = taxassessmentdetailBo.GetAll();
             //if (list != null && list.Count() != 0)
@@ -405,6 +405,7 @@ namespace HR.Web.Controllers
 
 
             //}
+            taxAssessmentVm = taxAssessmentVm == null ? new TaxAssessmentVm() : taxAssessmentVm;
             return View(taxAssessmentVm);
 
         }
@@ -412,7 +413,8 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveTaxAssessment(TaxAssessmentVm taxassessmentvm)
         {
-            var taxassessmentheader = new TaxAssessmentHeader() {
+            var taxassessmentheader = new TaxAssessmentHeader()
+            {
                 BranchID = BRANCHID,
                 AssessmentNo = taxassessmentvm.taxassessmentheader.AssessmentNo,
                 Year = taxassessmentvm.taxassessmentheader.Year,
@@ -435,31 +437,32 @@ namespace HR.Web.Controllers
         public ActionResult TaxassessmentAdd(TaxAssessmentVm taxassessmentvm)
         {
             var taxassessmentdetail = new TaxAssessmentDetail();
-            if (taxassessmentvm.TaxAssessmentDetailList == null)
-            {
 
-                
-                taxassessmentdetail = new TaxAssessmentDetail()
-                {
-                    SalaryFrom = taxassessmentvm.taxassessmentdetail.SalaryFrom,
-                    SalaryTo = taxassessmentvm.taxassessmentdetail.SalaryTo,
-                    Rate = taxassessmentvm.taxassessmentdetail.Rate
-
-                };
-            }
-            else
+            taxassessmentdetail = new TaxAssessmentDetail()
             {
-                taxassessmentdetail = new TaxAssessmentDetail()
-                {
-                    
-                };
+                SalaryFrom = taxassessmentvm.taxassessmentdetail.SalaryFrom,
+                SalaryTo = taxassessmentvm.taxassessmentdetail.SalaryTo,
+                Rate = taxassessmentvm.taxassessmentdetail.Rate
+
+            };
+
+
+            taxassessmentvm = (TaxAssessmentVm)Session["taxassessmentvm"];
+            if (taxassessmentvm==null)
+            {
+                taxassessmentvm = new TaxAssessmentVm();
             }
-           
 
             if (taxassessmentvm.TaxAssessmentDetailList == null)
                 taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
-                taxassessmentvm.TaxAssessmentDetailList.Add(taxassessmentdetail);
-            return View("TaxAssessment", taxassessmentvm);
+
+
+            taxassessmentvm.TaxAssessmentDetailList.Add(taxassessmentdetail);
+
+            taxassessmentvm.taxassessmentdetail = null;
+
+            Session["taxassessmentvm"] = taxassessmentvm;
+            return RedirectToAction("TaxAssessment", taxassessmentvm);
         }
     }
 }

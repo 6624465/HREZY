@@ -494,5 +494,21 @@ namespace HR.Web.Helpers
 
             return listItem;
         }
+
+        public static IEnumerable<SelectListItem> PayslipDownload()
+        {
+            List<SelectListItem> listItem = new List<SelectListItem>() {
+                                            new SelectListItem() {
+                                                Text="Download Pay Slip",
+                                                Value="Download Pay Slip"
+                                            },
+                                             new SelectListItem() {
+                                                Text="Download Pay Slip",
+                                                Value="Download Pay Slip"
+                                            },
+                                        };
+
+            return listItem;
+        }
     }
 }

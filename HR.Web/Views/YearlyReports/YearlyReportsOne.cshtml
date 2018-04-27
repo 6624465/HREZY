@@ -1,0 +1,37 @@
+﻿<div class="page" style="overflow:visible;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
+                <div class="panel-heading">
+                    Yearly One
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1">
+                            @Html.DropDownList("Years", SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-sm btn-primary"><b>Generate</b></button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#li_yearlyreports').addClass('open');
+        $('#li_yearly1').addClass('active');
+    });
+</script>
+
+    }

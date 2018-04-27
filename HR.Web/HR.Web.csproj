@@ -1806,6 +1806,7 @@
     <Compile Include="Controllers\PayrollBatchController.cs" />
     <Compile Include="Controllers\PayRollController.cs" />
     <Compile Include="Controllers\RoleRightsController.cs" />
+    <Compile Include="Controllers\YearlyReportsController.cs" />
     <Compile Include="Core\UTILITY.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2160,6 +2161,10 @@
     <Content Include="Views\PayrollBatch\UpdateVariablePay.cshtml" />
     <Content Include="Views\PayrollBatch\EditVariablePay.cshtml" />
     <Content Include="Views\PayrollBatch\TaxAssessment.cshtml" />
+    <Content Include="Views\YearlyReports\YearlyReportsTDS.cshtml" />
+    <Content Include="Views\YearlyReports\YearlyReportsSSC.cshtml" />
+    <Content Include="Views\YearlyReports\YearlyReportsOne.cshtml" />
+    <Content Include="Views\YearlyReports\YearlyReportsTwo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

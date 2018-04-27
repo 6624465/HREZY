@@ -430,5 +430,19 @@ namespace HR.Web.Controllers
             taxassessmentdetailBo.Add(taxassessmentdetail);
             return RedirectToAction("TaxAssessment");
         }
+
+        public ActionResult TaxassessmentAdd(TaxAssessmentVm taxassessmentvm)
+        {
+            var taxassessmentdetail = new TaxAssessmentDetail()
+            {
+                SalaryFrom = taxassessmentvm.taxassessmentdetail.SalaryFrom,
+                SalaryTo = taxassessmentvm.taxassessmentdetail.SalaryTo,
+                Rate = taxassessmentvm.taxassessmentdetail.Rate
+
+            };
+            if (taxassessmentvm.TaxAssessmentDetailList == null)
+                taxassessmentvm.TaxAssessmentDetailList.Add(taxassessmentdetail);
+            return RedirectToAction("TaxAssessment", taxassessmentvm);
+        }
     }
 }

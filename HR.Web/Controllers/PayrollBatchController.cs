@@ -381,30 +381,30 @@ namespace HR.Web.Controllers
             return RedirectToAction("ProcessPayroll");
         }
 
-        public ActionResult TaxAssessment()
+        public ActionResult TaxAssessment(TaxAssessmentVm taxAssessmentVm)
         {
             
-            TaxAssessmentVm taxassessmentvm = new TaxAssessmentVm();
-            var list = taxassessmentdetailBo.GetAll();
-            if (list != null && list.Count() != 0)
-            {
-                foreach (var item in list)
-                {
-                    var obj = new TaxAssessmentDetail()
-                    {
-                        SalaryFrom = item.SalaryFrom,
-                        SalaryTo = item.SalaryTo,
-                        Rate = item.Rate
-                    };
-                    if (taxassessmentvm.TaxAssessmentDetailList == null)
-                        taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
+            //TaxAssessmentVm taxassessmentvm = new TaxAssessmentVm();
+            //var list = taxassessmentdetailBo.GetAll();
+            //if (list != null && list.Count() != 0)
+            //{
+            //    foreach (var item in list)
+            //    {
+            //        var obj = new TaxAssessmentDetail()
+            //        {
+            //            SalaryFrom = item.SalaryFrom,
+            //            SalaryTo = item.SalaryTo,
+            //            Rate = item.Rate
+            //        };
+            //        if (taxassessmentvm.TaxAssessmentDetailList == null)
+            //            taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
 
-                    taxassessmentvm.TaxAssessmentDetailList.Add(obj);
-                }
+            //        taxassessmentvm.TaxAssessmentDetailList.Add(obj);
+            //    }
 
 
-            }
-            return View(taxassessmentvm);
+            //}
+            return View(taxAssessmentVm);
 
         }
 
@@ -441,8 +441,9 @@ namespace HR.Web.Controllers
 
             };
             if (taxassessmentvm.TaxAssessmentDetailList == null)
+                taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
                 taxassessmentvm.TaxAssessmentDetailList.Add(taxassessmentdetail);
-            return RedirectToAction("TaxAssessment", taxassessmentvm);
+            return View("TaxAssessment", taxassessmentvm);
         }
     }
 }

@@ -1,5 +1,27 @@
 ﻿@model HR.Web.ViewModels.TaxAssessmentVm
 
+@section Styles{
+    <style>
+        #error {
+            display: none;
+            color: Red;
+        }
+        .rating-percentage{
+            display:inline;
+            line-height:2.5
+        }
+        .form-control {
+    display:initial !important;
+}
+        @@media only screen and (min-width: 1200px) {
+        .custom-btn{
+            position:relative;
+            right:95px;
+        }
+        }
+    </style>
+}
+
 <div class="page" style="overflow:visible;">
     <div class="row">
         <div class="col-md-12">
@@ -16,12 +38,12 @@
             <span class="pull-right">Tax Assessment No.</span>
         </label>
         <div class="col-md-2">
-            @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm" })
+            @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm uppercase" })
         </div>
         <label class="col-md-1 control-label">
             <span class="pull-right">Year</span>
         </label>
-        <div class="col-md-1">
+        <div class="col-md-2">
             @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
             @Html.HiddenFor(x=>x.taxassessmentheader.Year)
         </div>
@@ -31,39 +53,49 @@
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Social Security Contribution</span>
                         </label>
-                        <div class="col-md-1">
-                            @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm" })
+                        <div class="col-md-2 col-xs-11">
+                            @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left" })
+                          
                         </div>
-                        <label class="col-md-2 control-label">
+                        <div class="col-md-1 col-xs-1">
+                            <span class="pull-left rating-percentage"><b>%</b></span>
+                        </div>
+                       
+                        <label class="col-md-1 control-label">
                             <span class="pull-right">Max. Amount</span>
                         </label>
-                        <div class="col-md-1">
-                            @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm" })
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss pull-left" })
+                            
                         </div>
+                       
                     </div>
                     <div class="row css5">
 
                         <label class="col-md-2 control-label">
                             <span class="pull-right">Salary From</span>
                         </label>
-                        <div class="col-md-1">
-                            @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryFrom, new { @class = "form-control input-sm" })
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryFrom, new { @class = "form-control input-sm decimalCss" })
                         </div>
-                        <label class="col-md-2 control-label">
+                        <label class="col-md-1 control-label">
                             <span class="pull-right">Salary To</span>
                         </label>
-                        <div class="col-md-1">
-                            @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryTo, new { @class = "form-control input-sm" })
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryTo, new { @class = "form-control input-sm decimalCss" })
                         </div>
-                        <label class="col-md-2 control-label">
+                        <label class="col-md-1 control-label">
                             <span class="pull-right">Rate</span>
                         </label>
-                        <div class="col-md-1">
-                            @Html.TextBoxFor(x => x.taxassessmentdetail.Rate, new { @class = "form-control input-sm" })
+                        <div class="col-md-1 col-xs-11">
+                            @Html.TextBoxFor(x => x.taxassessmentdetail.Rate, new { @class = "form-control input-sm decimalCss pull-left" })
+                           
                         </div>
-
-                        <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="savetaxassessment()"><i class="fa fa-save"></i><b>Save</b></button>
-
+                        <div class="col-md-1 col-xs-1">
+                            <div class="rating-percentage"><b>%</b></div>
+                        </div>
+                        <button type="button" class="pull-left btn btn-sm btn-primary custom-btn" id="button-btn" onclick="savetaxassessment()"><i class="fa fa-save"></i><b>Save</b></button>
+                        
                     </div>
                     <div class="row css10">
                         <div class="col-md-12">
@@ -110,11 +142,7 @@
 
 
 }
-                   
-
-
-
-
+             
                     </div>
         </div>
     </div>
@@ -126,8 +154,51 @@
     <script type="text/javascript">
 
         function savetaxassessment() {
+            ($('#saveassessmentfrm').valid())
             $('#saveassessmentfrm').submit();
         }
+        function EditSalaries(lookupID) {
+            $.ajax({
+                url: '@Url.Content("~/PayRoll/GetEmployeeDepartment?lookupID=")' + lookupID,
+                contentType: 'text/html',
+                method: 'GET',
+                success: function (data) {
+                    $('#myDepartmentModal').modal('show');
+                    $('#modalContent1').html('');
+                    $('#modalContent1').html(data);
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+
+        $('#saveassessmentfrm').validate({
+            rules: {
+                'taxassessmentheader.AssessmentNo': {
+                    required: true
+                },
+                'taxassessmentheader.Year': {
+                    required: true
+                },
+                'taxassessmentheader.SocialContributionRate': {
+                    required: true
+                },
+                'taxassessmentheader.MaximumAmount': {
+                    required: true
+                },
+                'taxassessmentdetail.SalaryFrom': {
+                    required: true
+                },
+                'taxassessmentdetail.SalaryTo': {
+                    required: true
+                },
+                'taxassessmentdetail.Rate': {
+                    required: true
+                }
+            }
+            });
+               
     </script>
 }
 

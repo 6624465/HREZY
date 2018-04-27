@@ -38,7 +38,7 @@
             <span class="pull-right">Tax Assessment No.</span>
         </label>
         <div class="col-md-2">
-            @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm uppercase" })
+            @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm uppercase", @readonly = "true" })
         </div>
         <label class="col-md-1 control-label">
             <span class="pull-right">Year</span>
@@ -135,11 +135,14 @@
                                         }
                                     </tbody>
                                 </table>
+                               
                             }
                         </div>
 
                     </div>
-
+                    <div class="row">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="savetaxassessment()"><i class="fa fa-floppy-o"></i>Save</button>
+                    </div>
 
 }
              
@@ -175,9 +178,9 @@
 
         $('#saveassessmentfrm').validate({
             rules: {
-                'taxassessmentheader.AssessmentNo': {
-                    required: true
-                },
+                //'taxassessmentheader.AssessmentNo': {
+                //    required: true
+                //},
                 'taxassessmentheader.Year': {
                     required: true
                 },
@@ -187,15 +190,15 @@
                 'taxassessmentheader.MaximumAmount': {
                     required: true
                 },
-                'taxassessmentdetail.SalaryFrom': {
-                    required: true
-                },
-                'taxassessmentdetail.SalaryTo': {
-                    required: true
-                },
-                'taxassessmentdetail.Rate': {
-                    required: true
-                }
+                //'taxassessmentdetail.SalaryFrom': {
+                //    required: true
+                //},
+                //'taxassessmentdetail.SalaryTo': {
+                //    required: true
+                //},
+                //'taxassessmentdetail.Rate': {
+                //    required: true
+                //}
             }
             });
                

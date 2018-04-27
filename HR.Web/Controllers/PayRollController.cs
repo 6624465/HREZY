@@ -424,23 +424,21 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SalaryStructure(SalaryStructureVm salaryStructureVm)
         {
-            //var salarystructure = salaryStructureHeaderBO.GetListByProperty(x=>x.EmployeeId== salaryStructureVm.structureHeader.EmployeeId);
-            //if (salarystructure != null && salarystructure.Count() != 0)
-            //{
-            //   foreach(var item in salarystructure)
-            //    {
-            //        item.IsActive = false;
-            //        salaryStructureHeaderBO.SaveSalaryStructure(salaryStructureVm);
-            //    }
-            //    salaryStructureVm.structureHeader.IsActive = true;
-            //    salaryStructureHeaderBO.SaveSalaryStructure(salaryStructureVm);
-
-            //}
-            //else
-            //{
+            //var salarystructurecode = salaryStructureVm.structureHeader.Code;
                 salaryStructureVm.structureHeader.IsActive = true;
                 salaryStructureHeaderBO.SaveSalaryStructure(salaryStructureVm);
-            //}
+           //var  salarystructurelist = salaryStructureHeaderBO.GetListByProperty(x => x.EmployeeId == salaryStructureVm.structureHeader.EmployeeId && x.Code != salarystructurecode);
+           // foreach(var item in salarystructurelist)
+           // {
+           //     var structureheader = new SalaryStructureHeader() {
+           //         StructureID t
+           //         IsActive = false,
+
+           //     };
+
+           //     salaryStructureHeaderBO.SaveSalaryStructure();
+           // }
+
             
             return RedirectToAction("SalaryStructureHeaderList");
         }

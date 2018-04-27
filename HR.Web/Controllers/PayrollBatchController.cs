@@ -381,6 +381,7 @@ namespace HR.Web.Controllers
             return RedirectToAction("ProcessPayroll");
         }
 
+        
         public ActionResult TaxAssessment(TaxAssessmentVm taxAssessmentVm)
         {
             
@@ -430,16 +431,31 @@ namespace HR.Web.Controllers
             taxassessmentdetailBo.Add(taxassessmentdetail);
             return RedirectToAction("TaxAssessment");
         }
-
+        [HttpPost]
         public ActionResult TaxassessmentAdd(TaxAssessmentVm taxassessmentvm)
         {
-            var taxassessmentdetail = new TaxAssessmentDetail()
+            var taxassessmentdetail = new TaxAssessmentDetail();
+            if (taxassessmentvm.TaxAssessmentDetailList == null)
             {
-                SalaryFrom = taxassessmentvm.taxassessmentdetail.SalaryFrom,
-                SalaryTo = taxassessmentvm.taxassessmentdetail.SalaryTo,
-                Rate = taxassessmentvm.taxassessmentdetail.Rate
 
-            };
+                
+                taxassessmentdetail = new TaxAssessmentDetail()
+                {
+                    SalaryFrom = taxassessmentvm.taxassessmentdetail.SalaryFrom,
+                    SalaryTo = taxassessmentvm.taxassessmentdetail.SalaryTo,
+                    Rate = taxassessmentvm.taxassessmentdetail.Rate
+
+                };
+            }
+            else
+            {
+                taxassessmentdetail = new TaxAssessmentDetail()
+                {
+                    
+                };
+            }
+           
+
             if (taxassessmentvm.TaxAssessmentDetailList == null)
                 taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
                 taxassessmentvm.TaxAssessmentDetailList.Add(taxassessmentdetail);

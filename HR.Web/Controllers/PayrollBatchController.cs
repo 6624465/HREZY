@@ -382,32 +382,46 @@ namespace HR.Web.Controllers
         }
 
 
-        public ActionResult TaxAssessment(TaxAssessmentVm taxAssessmentVm)
+        [HttpGet]
+        public ActionResult TaxAssessment()
         {
-            taxAssessmentVm = (TaxAssessmentVm)Session["taxassessmentvm"];
-            //TaxAssessmentVm taxassessmentvm = new TaxAssessmentVm();
-            //var list = taxassessmentdetailBo.GetAll();
-            //if (list != null && list.Count() != 0)
-            //{
-            //    foreach (var item in list)
-            //    {
-            //        var obj = new TaxAssessmentDetail()
-            //        {
-            //            SalaryFrom = item.SalaryFrom,
-            //            SalaryTo = item.SalaryTo,
-            //            Rate = item.Rate
-            //        };
-            //        if (taxassessmentvm.TaxAssessmentDetailList == null)
-            //            taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
+            int HeaderID = 0;
+            //int empId = EMPLOYEEID;
+            TaxAssessmentVm taxassessmentvm = new TaxAssessmentVm();
+            taxassessmentvm.taxassessmentheader = taxassessmentheaderBo.GetById(HeaderID);
+            taxassessmentvm.taxassessmentheader = taxassessmentvm.taxassessmentheader == null ? new TaxAssessmentHeader() : taxassessmentvm.taxassessmentheader;
+            taxassessmentvm.TaxAssessmentDetailList = taxassessmentdetailBo.GetAll().Where(x => x.HeaderID == taxassessmentvm.taxassessmentheader.HeaderID).ToList();
+            return View("TaxAssessment", taxassessmentvm);
 
-            //        taxassessmentvm.TaxAssessmentDetailList.Add(obj);
-            //    }
+        }
+
+        [HttpPost]
+        public ActionResult TaxAssessment(TaxAssessmentVm taxassessmentvm)
+        {
+            var addOrDelVal = Request["addOrDelete"];
+            var taxAssessmentDetailid = Request["DetailId"];
+
+            TaxAssessmentDetail taxAssessmentDetail = new TaxAssessmentDetail();
+            if (!string.IsNullOrEmpty(addOrDelVal))
+            {
+                if (taxAssessmentDetailid != "0")
+                {
+                    TaxAssessmentDetail tad = taxassessmentdetailBo.GetById(Convert.ToInt32(taxAssessmentDetailid));
+                    taxassessmentdetailBo.Delete(tad);
+                }
+                taxassessmentvm.TaxAssessmentDetailList.RemoveAt(Convert.ToInt32(addOrDelVal));
+            }
+            else
+            {
+                if (taxassessmentvm.TaxAssessmentDetailList == null)
+                    taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
+
+                taxassessmentvm.TaxAssessmentDetailList.Add(taxAssessmentDetail);
+            }
 
 
-            //}
-            taxAssessmentVm = taxAssessmentVm == null ? new TaxAssessmentVm() : taxAssessmentVm;
-            return View(taxAssessmentVm);
-
+            ModelState.Clear();
+            return View("TaxAssessment", taxassessmentvm);
         }
 
         [HttpPost]
@@ -415,6 +429,7 @@ namespace HR.Web.Controllers
         {
             var taxassessmentheader = new TaxAssessmentHeader()
             {
+                HeaderID= taxassessmentvm.taxassessmentheader.HeaderID,
                 BranchID = BRANCHID,
                 AssessmentNo = taxassessmentvm.taxassessmentheader.AssessmentNo,
                 Year = taxassessmentvm.taxassessmentheader.Year,
@@ -423,46 +438,21 @@ namespace HR.Web.Controllers
                 Status = true,
             };
             taxassessmentheaderBo.Add(taxassessmentheader);
-            var taxassessmentdetail = new TaxAssessmentDetail()
+
+            foreach (var item in taxassessmentvm.TaxAssessmentDetailList)
             {
-                HeaderID = taxassessmentheader.HeaderID,
-                SalaryFrom = taxassessmentvm.taxassessmentdetail.SalaryFrom,
-                SalaryTo = taxassessmentvm.taxassessmentdetail.SalaryTo,
-                Rate = taxassessmentvm.taxassessmentdetail.Rate,
-            };
-            taxassessmentdetailBo.Add(taxassessmentdetail);
+                var taxassessmentdetail = new TaxAssessmentDetail()
+                {
+                    HeaderID = taxassessmentheader.HeaderID,
+                    ID = item.ID,
+                    SalaryFrom = item.SalaryFrom,
+                    SalaryTo = item.SalaryTo,
+                    Rate = item.Rate,
+                };
+                taxassessmentdetailBo.Add(taxassessmentdetail);
+            }
             return RedirectToAction("TaxAssessment");
         }
-        [HttpPost]
-        public ActionResult TaxassessmentAdd(TaxAssessmentVm taxassessmentvm)
-        {
-            var taxassessmentdetail = new TaxAssessmentDetail();
 
-            taxassessmentdetail = new TaxAssessmentDetail()
-            {
-                SalaryFrom = taxassessmentvm.taxassessmentdetail.SalaryFrom,
-                SalaryTo = taxassessmentvm.taxassessmentdetail.SalaryTo,
-                Rate = taxassessmentvm.taxassessmentdetail.Rate
-
-            };
-
-
-            taxassessmentvm = (TaxAssessmentVm)Session["taxassessmentvm"];
-            if (taxassessmentvm==null)
-            {
-                taxassessmentvm = new TaxAssessmentVm();
-            }
-
-            if (taxassessmentvm.TaxAssessmentDetailList == null)
-                taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
-
-
-            taxassessmentvm.TaxAssessmentDetailList.Add(taxassessmentdetail);
-
-            taxassessmentvm.taxassessmentdetail = null;
-
-            Session["taxassessmentvm"] = taxassessmentvm;
-            return RedirectToAction("TaxAssessment", taxassessmentvm);
-        }
     }
 }

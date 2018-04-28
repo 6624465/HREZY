@@ -28,7 +28,6 @@ namespace HR.Web.ViewModels
     {
         public TaxAssessmentHeader taxassessmentheader { get; set; }
         public List<TaxAssessmentDetail> TaxAssessmentDetailList { get; set; }
-        public TaxAssessmentDetail taxassessmentdetail { get; set; }
 
 
     }

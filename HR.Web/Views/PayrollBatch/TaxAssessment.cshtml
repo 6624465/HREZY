@@ -1,9 +1,7 @@
 ﻿@using Newtonsoft.Json;
 @model HR.Web.ViewModels.TaxAssessmentVm
 
-@{
-    var ProductData = (HR.Web.Models.TaxAssessmentDetail)Model.taxassessmentdetail;
-}
+
 @section Styles{
     <style>
         #error {
@@ -30,214 +28,197 @@
 }
 
 <div class="page" style="overflow:visible;">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
-                <div class="panel-heading">
-                    Tax Assessment Calculations
-                </div>
-                <div class="panel-body">
-                    @*{
-                        @using (Html.BeginForm("SaveTaxAssessment", "PayrollBatch", FormMethod.Post, new { id = "saveassessmentfrm", name = "saveassessmentfrm" }))*@
 
-                    <div class="row css5">
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Tax Assessment No.</span>
-                        </label>
-                        <div class="col-md-2">
-                            @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm uppercase", @readonly = "true" })
-                        </div>
-                        <label class="col-md-1 control-label">
-                            <span class="pull-right">Year</span>
-                        </label>
-                        <div class="col-md-1">
-                            @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
-                            @Html.HiddenFor(x => x.taxassessmentheader.Year)
-                        </div>
+    @using (Html.BeginForm("TaxAssessment", "PayrollBatch", FormMethod.Post, new { id = "frmTaxAssessment", name = "frmTaxAssessment", enctype = "multipart/form-data" }))
+    {
+        <input type="hidden" id="DetailId" name="DetailId" />
+        <input type="hidden" id="addOrDelete" name="addOrDelete" />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
+                    <div class="panel-heading">
+                        Tax Assessment Calculations
                     </div>
-                    <div class="row css5">
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Social Security Contribution</span>
-                        </label>
-                        <div class="col-md-1 col-xs-11">
-                            @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left" })
-
-                        </div>
-                        <div class="col-md-1 col-xs-1">
-                            <span class="pull-left rating-percentage"><b>%</b></span>
-                        </div>
-
-                        <label class="col-md-1 control-label">
-                            <span class="pull-right">Max. Amount</span>
-                        </label>
-                        <div class="col-md-1">
-                            @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss" })
-                        </div>
-                    </div>
-                    @*<div class="row css5">
-
+                    <div class="panel-body">
+                        @Html.HiddenFor(x => x.taxassessmentheader.HeaderID)
+                        @*@Html.HiddenFor(x => x.claimHeader.EmployeeId)*@
+                        <div class="row css5">
                             <label class="col-md-2 control-label">
-                                <span class="pull-right">Salary From</span>
+                                <span class="pull-right">Tax Assessment No.</span>
                             </label>
                             <div class="col-md-2">
-                                @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryFrom, new { @class = "form-control input-sm decimalCss" })
+                                @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm uppercase", @readonly = "true" })
                             </div>
                             <label class="col-md-1 control-label">
-                                <span class="pull-right">Salary To</span>
+                                <span class="pull-right">Year</span>
                             </label>
-                            <div class="col-md-2">
-                                @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryTo, new { @class = "form-control input-sm decimalCss" })
+                            <div class="col-md-1">
+                                @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                                @Html.HiddenFor(x => x.taxassessmentheader.Year)
                             </div>
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right">Rate</span>
+                        </div>
+                        <div class="row css5">
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Social Security Contribution</span>
                             </label>
                             <div class="col-md-1 col-xs-11">
-                                @Html.TextBoxFor(x => x.taxassessmentdetail.Rate, new { @class = "form-control input-sm decimalCss pull-left" })
-
+                                @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left", required = "required" })
                             </div>
                             <div class="col-md-1 col-xs-1">
-                                <div class="rating-percentage"><b>%</b></div>
+                                <span class="pull-left rating-percentage"><b>%</b></span>
                             </div>
-                            <button type="button" class="pull-left btn btn-sm btn-success custom-btn" id="button-btn" onclick="addsalaries()"><i class="fa fa-plus"></i><b>Add</b></button>
 
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Max. Amount</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss", required = "required" })
+                            </div>
                         </div>
-                        <div class="row css10">
+
+
+                        <div>
+                            <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
+                                <i class="fa fa-plus"></i><span>Add</span>
+                            </button>
+
+                            <div class="clearfix">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive t-height">
+                                            <table class="table table-condensed table-bordered" style="margin-top:10px">
+                                                <thead>
+                                                    <tr style="background:#3f51b5;">
+                                                        <th style="background:#3f51b5; color:#fff;">Salary From</th>
+                                                        <th style="background:#3f51b5; color:#fff;">Salary To</th>
+                                                        <th style="background:#3f51b5; color:#fff;">Rate</th>
+                                                        <th style="background:#3f51b5; color:#fff;">#Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @if (Model.TaxAssessmentDetailList != null && Model.TaxAssessmentDetailList.Count > 0)
+                                                    {
+                                                        for (int i = 0; i < Model.TaxAssessmentDetailList.Count; i++)
+                                                        {
+
+                                                            <tr id="tr_@i" class="cssAirfareLength">
+
+                                                                <td>
+                                                                    @Html.HiddenFor(x => x.TaxAssessmentDetailList[i].ID)
+                                                                    @Html.HiddenFor(x => x.TaxAssessmentDetailList[i].ID)
+
+                                                                    @Html.TextBoxFor(x => x.TaxAssessmentDetailList[i].SalaryFrom, new
+                                                                    {
+                                                                        @class = "form-control input-sm decimalCss",
+                                                                        required = "required",
+                                                                        style = "width:100px;",
+                                                                        data_index = i
+                                                                    })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.TaxAssessmentDetailList[i].SalaryTo, new
+                                                                    {
+                                                                        @class = "form-control input-sm decimalCss",
+                                                                        required = "required",
+                                                                        style = "width:100px;",
+                                                                        data_index = i
+                                                                    })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x => x.TaxAssessmentDetailList[i].Rate, new
+                                                                    {
+                                                                        @class = "form-control  input-sm decimalCss",
+                                                                        required = "required",
+                                                                        style = "width:100px;",
+                                                                        data_index = i
+                                                                    })
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
+                                                                            style="padding-left: 5px;margin-left: 6px;"
+                                                                            onclick="deleteTaxAssessmentDetail(@Model.TaxAssessmentDetailList[i].ID,@i)">
+                                                                        <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mr-top">
                             <div class="col-md-12">
-                                @if (Model.TaxAssessmentDetailList != null && Model.TaxAssessmentDetailList.Count() > 0)
-                                {
-                                    <table class="table table-conden table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Salary From</th>
-                                                <th>Salary To</th>
-                                                <th>Rate</th>
-                                                <th>#Action</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            @for (var i = 0; i < Model.TaxAssessmentDetailList.Count; i++)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @Model.TaxAssessmentDetailList[i].SalaryFrom
-                                                    </td>
-                                                    <td>
-                                                        @Model.TaxAssessmentDetailList[i].SalaryTo
-                                                    </td>
-                                                    <td>
-                                                        @Model.TaxAssessmentDetailList[i].Rate
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
-                                                                onclick="EditSalaries(@Model.TaxAssessmentDetailList[i].HeaderID)">
-                                                            <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                }
-                            </div>
-                        </div>*@
-
-
-                    @*}*@
-
-                    @using (Html.BeginForm("TaxassessmentAdd", "PayrollBatch", FormMethod.Post, new { id = "addtaxassessmentfrm", name = "addtaxassessmentfrm" }))
-                    {
-                        <label class="col-md-2 control-label">
-                            <span class="pull-right">Salary From</span>
-                        </label>
-                        <div class="col-md-1">
-                            @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryFrom, new { @class = "form-control input-sm decimalCss" })
-                        </div>
-                        <label class="col-md-1 control-label">
-                            <span class="pull-right">Salary To</span>
-                        </label>
-                        <div class="col-md-1">
-                            @Html.TextBoxFor(x => x.taxassessmentdetail.SalaryTo, new { @class = "form-control input-sm decimalCss" })
-                        </div>
-                        <label class="col-md-1 control-label">
-                            <span class="pull-right">Rate</span>
-                        </label>
-                        <div class="col-md-1 col-xs-11">
-                            @Html.TextBoxFor(x => x.taxassessmentdetail.Rate, new { @class = "form-control input-sm decimalCss pull-left" })
-                        </div>
-                        <div class="col-md-1 col-xs-1">
-                            <div class="rating-percentage"><b>%</b></div>
-                        </div>
-                        <button type="button" class="pull-left btn btn-sm btn-success custom-btn" id="button-btn" onclick="addsalaries()"><i class="fa fa-plus"></i><b>Add</b></button>
-
-                        <div class="row css10">
-                            <div class="col-md-12">
-                                @if (Model.TaxAssessmentDetailList != null && Model.TaxAssessmentDetailList.Count() > 0)
-                                {
-                                    <table class="table table-conden table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Salary From</th>
-                                                <th>Salary To</th>
-                                                <th>Rate</th>
-                                                <th>#Action</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            @for (var i = 0; i < Model.TaxAssessmentDetailList.Count; i++)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @Model.TaxAssessmentDetailList[i].SalaryFrom
-                                                    </td>
-                                                    <td>
-                                                        @Model.TaxAssessmentDetailList[i].SalaryTo
-                                                    </td>
-                                                    <td>
-                                                        @Model.TaxAssessmentDetailList[i].Rate
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
-                                                                onclick="EditSalaries(@Model.TaxAssessmentDetailList[i].HeaderID)">
-                                                            <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                }
+                                <button type="button" class="btn btn-primary btn-sm"
+                                        onclick="SaveTaxAssessment()">
+                                    <i class="fa fa-floppy-o"></i>
+                                    Save
+                                </button>
                             </div>
                         </div>
-                        <div class="row">
-                            <button type="button" class="btn btn-primary btn-sm" onclick="savetaxassessment()"><i class="fa fa-floppy-o"></i>Save</button>
-                        </div>
-                    }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+    }
+    @using (Html.BeginForm("DeleteTaxAssessment", "PayrollBatch", FormMethod.Post, new { @id = "frmTaxAssessmentDelete", name = "frmTaxAssessmentDelete" }))
+    {
+        <input type="hidden" id="detailId" name="detailId" />
+        <input type="hidden" id="headerId" name="headerId" />
+
+    }
+    @using (Html.BeginForm("SubmitTaxAssessment", "PayrollBatch", FormMethod.Post, new { id = "frmsubmit", name = "frmsubmit" }))
+    {
+        <input type="hidden" id="travelid" name="travelid" />
+    }
+
+
 </div>
 
 @section Scripts{
 
     <script type="text/javascript">
-        function addsalaries() {
-            if ($('#addtaxassessmentfrm').valid()) {
-                debugger;
 
-                @Html.Raw(JsonConvert.SerializeObject(ProductData));
-                $('#addtaxassessmentfrm').submit();
+        $('#frmTaxAssessment').validate({
+            ignore: ""
+        });
+
+        function SaveAndGetData(category, tabId) {
+            debugger;
+            if ($('#frmTaxAssessment').valid()) {
+                $('#frmTaxAssessment').submit();
             }
         }
 
-        function savetaxassessment() {
-            ($('#saveassessmentfrm').valid())
-            $('#saveassessmentfrm').submit();
+        function SaveTaxAssessment() {
+            debugger;
+            if ($('#frmTaxAssessment').valid()) {
+                $('#frmTaxAssessment').attr('action', '@Url.Content("~/PayrollBatch/SaveTaxAssessment")');
+                $('#frmTaxAssessment').submit();
+                swal({
+                    title: "Saved Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                    function () {
+                        $.loader({
+                            className: "blue-with-image-2",
+                            content: '',
+                        });
+                    })
+            }
         }
 
-        $('#saveassessmentfrm').validate({
+
+        $('#frmTaxAssessment').validate({
             rules: {
                 //'taxassessmentheader.AssessmentNo': {
                 //    required: true
@@ -262,20 +243,18 @@
                 //}
             }
         });
-        $('#addtaxassessmentfrm').validate({
-            rules: {
-                'taxassessmentdetail.SalaryFrom': {
-                    required: true
-                },
-                'taxassessmentdetail.SalaryTo': {
-                    required: true
-                },
-                'taxassessmentdetail.Rate': {
-                    required: true
-                },
-            }
-        });
 
+        function deleteTaxAssessmentDetail(detailId, index) {
+
+            $('#addOrDelete').val(index);
+            $('#DetailId').val(detailId);
+            $('#TaxAssessmentDetailList_' + index + '__SalaryFrom').removeAttr('required');
+            $('#TaxAssessmentDetailList_' + index + '__SalaryTo').removeAttr('required');
+            $('#TaxAssessmentDetailList_' + index + '__Rate').removeAttr('required');
+            $('#frmTaxAssessment').attr({ 'action': '@Url.Content("~/PayrollBatch/TaxAssessment")', 'novalidate': 'novalidate' });
+            if ($('#frmTaxAssessment').valid())
+                $('#frmTaxAssessment').submit();
+        }
     </script>
 }
 

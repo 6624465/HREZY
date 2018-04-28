@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using HR.Web.Models;
@@ -52,7 +53,14 @@ namespace HR.Web.Services.Payroll
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    dbContext.TaxAssessmentDetails.Remove(entity);
+                    TaxAssessmentDetail taxAssessmentDetail = dbContext.TaxAssessmentDetails
+                                               .Where(x => x.ID == entity.ID).FirstOrDefault();
+
+                    if (taxAssessmentDetail != null)
+                    {
+                        dbContext.TaxAssessmentDetails.Remove(taxAssessmentDetail);
+                    }
+                    
                     dbContext.SaveChanges();
                 }
             }

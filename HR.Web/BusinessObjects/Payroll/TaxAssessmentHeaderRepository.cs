@@ -95,5 +95,21 @@ namespace HR.Web.Services.Payroll
                 throw ex;
             }
         }
+
+        public TaxAssessmentHeader GetByEmployeeId(int id)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.TaxAssessmentHeaders.Where(x => x.HeaderID == id).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

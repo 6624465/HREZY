@@ -60,6 +60,19 @@ namespace HR.Web.BusinessObjects.Payroll
             }
         }
 
+        public TaxAssessmentHeader GetByEmployeeId(int id)
+        {
+            try
+            {
+                return taxassessmentheaderrepository.GetByEmployeeId(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public IEnumerable<TaxAssessmentHeader> GetAll()
         {
             try

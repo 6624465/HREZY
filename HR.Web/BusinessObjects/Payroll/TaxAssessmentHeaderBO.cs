@@ -85,5 +85,9 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
+        internal int GetCount(int branchId)
+        {
+            return taxassessmentheaderrepository.GetCount(branchId);
+        }
     }
 }

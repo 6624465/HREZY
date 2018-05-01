@@ -24,6 +24,10 @@
                 right: 95px;
             }
         }
+        .width{
+            width:70%;
+            margin:auto;
+        }
     </style>
 }
 
@@ -42,49 +46,53 @@
                     <div class="panel-body">
                         @Html.HiddenFor(x => x.taxassessmentheader.HeaderID)
                         @*@Html.HiddenFor(x => x.claimHeader.EmployeeId)*@
-                        <div class="row css5">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Tax Assessment No.</span>
-                            </label>
-                            <div class="col-md-2">
-                                @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm uppercase", @readonly = "true" })
+                        <div class="width">
+                            <div class="row css5">
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-left">Tax Assessment No.</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.taxassessmentheader.AssessmentNo, new { @class = "form-control input-sm uppercase", @readonly = "true" })
+                                </div>
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-right">Year</span>
+                                </label>
+                                <div class="col-md-1">
+                                    @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", onchange = "gettaxassessment()" })
+                                    @Html.HiddenFor(x => x.taxassessmentheader.Year)
+                                </div>
                             </div>
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right">Year</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", onchange = "gettaxassessment()" })
-                                @Html.HiddenFor(x => x.taxassessmentheader.Year)
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Social Security Contribution</span>
-                            </label>
+                            <div class="row css5">
+                                <label class="col-md-3 control-label">
+                                    <span class="pull-left">Social Security Contribution</span>
+                                </label>
 
 
-                            <div class="col-md-1 col-xs-11">
-                                @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left", required = "required",
-                           })
-                            </div>
-                            <div class="col-md-1 col-xs-1">
-                                <span class="pull-left rating-percentage"><b>%</b></span>
-                            </div>
+                                <div class="col-md-2 col-xs-11">
+                                    @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left", required = "required", onblur = "checkpercentage()" })
+                                </div>
+                                <div class="col-md-1 col-xs-3">
+                                    <span class="pull-left rating-percentage"><b>%</b></span>
+                                </div>
 
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right">Max. Amount</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss", required = "required" })
+                                <label class="col-md-2 control-label">
+                                    <span class="pull-right">Max. Amount</span>
+                                </label>
+                                <div class="col-md-1">
+                                    @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss", required = "required" })
+                                </div>
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
-                                <i class="fa fa-plus"></i><span>Add</span>
-                            </button>
+                            
                             <div class="clearfix">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <div class="width">
+                                        <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
+                                            <i class="fa fa-plus"></i><span>Add</span>
+                                        </button>
+                                        <div class="clearfix"></div>
                                         <div class="table-responsive t-height">
                                             <table class="table table-condensed table-bordered" style="margin-top:10px">
                                                 <thead>
@@ -116,13 +124,13 @@
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.TaxAssessmentDetailList[i].SalaryTo, new
-                                                               {
-                                                                   @class = "form-control input-sm decimalCss",
-                                                                   required = "required",
-                                                                   style = "width:100px;",
-                                                                   data_index = i,
+                                                                    {
+                                                                        @class = "form-control input-sm decimalCss",
+                                                                        required = "required",
+                                                                        style = "width:100px;",
+                                                                        data_index = i,
                                                                         onblur = "CheckAmount(this," + i + ")"
-                                                               })
+                                                                    })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.TaxAssessmentDetailList[i].Rate, new
@@ -130,8 +138,7 @@
                                                                    @class = "form-control  input-sm decimalCss",
                                                                    required = "required",
                                                                    style = "width:100px;",
-                                                                   data_index = i,
-                                                                  
+                                                                   data_index = i,                                                                  
                                                                })
                                                                 </td>
                                                                 <td>
@@ -147,18 +154,16 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-primary btn-sm"onclick="SaveTaxAssessment()"><i class="fa fa-floppy-o"></i>Save</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row mr-top">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn-sm"
-                                        onclick="SaveTaxAssessment()">
-                                    <i class="fa fa-floppy-o"></i>
-                                    Save
-                                </button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -214,10 +219,20 @@
                               content: '',
                           });
                       })
-                }
-                else {
-                    swal("Please enter all Mandatory Fields");
-                }
+            }
+
+                //swal({
+                //    title:"Alert!",
+                //    text: "Salary To is not Lessthan Salary From",
+                //    type:"warning"
+                //});
+                //return;
+            else swal({
+                title: "Alert!",
+                text:"Please Enter All Mandatory Fields",
+                type: "warning"
+            });
+            return;
             }
 
         function gettaxassessment() {
@@ -268,7 +283,23 @@
             if(from>To){
                 $('#TaxAssessmentDetailList_'+ index +'__SalaryFrom').val('');
                 $('#TaxAssessmentDetailList_'+ index +'__SalaryTo').val('');
-                swal("SalaryFrom is not graterthan SalaryTo");
+                swal({
+                    title:"Alert!",
+                    text: "Salary To is not Lessthan Salary From",
+                    type:"warning"
+                });
+                return;
+            }
+        }
+        function checkpercentage(){
+            if( ($('#taxassessmentheader_SocialContributionRate').val())>100){
+                $('#taxassessmentheader_SocialContributionRate').val('');
+                swal({
+                    title: "Alert!",
+                    text: "Percentage value should be less than 100",
+                    type: "warning"
+                });
+                return;
             }
         }
       

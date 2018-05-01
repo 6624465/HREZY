@@ -126,7 +126,7 @@
                                                                    required = "required",
                                                                    style = "width:100px;",
                                                                    data_index = i,
-                                                                   onblur = "percentagecheck(this," + i + ")"
+                                                                   //onblur = "percentagecheck(this," + i + ")"
                                                                })
                                                                 </td>
                                                                 <td>
@@ -261,16 +261,16 @@
                 return;
             }
         }
-        function percentagecheck(el,index){
-            if(($('#TaxAssessmentDetailList_'+ index + '__Rate').val())>100){
-                $('#TaxAssessmentDetailList_'+ index + '__Rate').val('');
-                swal({
-                    title: "Alert!",
-                    text: "Percentage value should be less than 100",
-                    type: "warning"
-                });
-                return;
-            }
+        //function percentagecheck(el,index){
+        //    if(($('#TaxAssessmentDetailList_'+ index + '__Rate').val())>100){
+        //        $('#TaxAssessmentDetailList_'+ index + '__Rate').val('');
+        //        swal({
+        //            title: "Alert!",
+        //            text: "Percentage value should be less than 100",
+        //            type: "warning"
+        //        });
+        //        return;
+        //    }
             
         }
     </script>

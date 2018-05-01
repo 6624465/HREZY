@@ -392,7 +392,7 @@ namespace HR.Web.Controllers
             taxassessmentvm.TaxAssessmentDetailList = taxassessmentdetailBo.GetAll().Where(x => x.HeaderID == taxassessmentvm.taxassessmentheader.HeaderID).ToList();
             //var batchcount = taxassessmentheaderBo.GetCount(BRANCHID);
             //batchcount = batchcount + 1;
-            //taxassessmentheaderBo.GetCount= "TAX-HR0001" + batchcount.ToString("D4");     
+            //taxassessmentheaderBo.GetCount= "TAX-HR" + batchcount.ToString("D4");     
             var batchcount = taxassessmentheaderBo.GetCount(BRANCHID);
             batchcount = batchcount + 1;
             taxassessmentvm.taxassessmentheader.AssessmentNo = "TAX - HR" + batchcount.ToString("D4");

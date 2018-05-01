@@ -60,11 +60,11 @@ namespace HR.Web.BusinessObjects.Payroll
             }
         }
 
-        public TaxAssessmentHeader GetByEmployeeId(int id)
+        public TaxAssessmentHeader GetByBranchId(int branchID, int year)
         {
             try
             {
-                return taxassessmentheaderrepository.GetByEmployeeId(id);
+                return taxassessmentheaderrepository.GetByBranchId(branchID, year);
             }
             catch (Exception ex)
             {

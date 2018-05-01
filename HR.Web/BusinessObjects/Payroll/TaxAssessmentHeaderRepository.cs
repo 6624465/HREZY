@@ -96,13 +96,13 @@ namespace HR.Web.Services.Payroll
             }
         }
 
-        public TaxAssessmentHeader GetByEmployeeId(int id)
+        public TaxAssessmentHeader GetByBranchId(int branchID, int year)
         {
             try
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    return dbContext.TaxAssessmentHeaders.Where(x => x.HeaderID == id).FirstOrDefault();
+                    return dbContext.TaxAssessmentHeaders.Where(x => x.BranchID == branchID && x.Year == year).FirstOrDefault();
                 }
             }
             catch (Exception ex)

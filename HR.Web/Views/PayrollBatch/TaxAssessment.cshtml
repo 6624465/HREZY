@@ -62,7 +62,7 @@
                                 <span class="pull-right">Social Security Contribution</span>
                             </label>
                             <div class="col-md-1 col-xs-11">
-                                @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left", required = "required" })
+                                @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left", required = "required",onblur="checkpercentage()"})
                             </div>
                             <div class="col-md-1 col-xs-1">
                                 <span class="pull-left rating-percentage"><b>%</b></span>
@@ -127,12 +127,13 @@
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.TaxAssessmentDetailList[i].Rate, new
-                                                                    {
-                                                                        @class = "form-control  input-sm decimalCss",
-                                                                        required = "required",
-                                                                        style = "width:100px;",
-                                                                        data_index = i
-                                                                    })
+                                                               {
+                                                                   @class = "form-control  input-sm decimalCss",
+                                                                   required = "required",
+                                                                   style = "width:100px;",
+                                                                   data_index = i,
+                                                                   onblur = "percentagecheck(this," + i + ")"
+                                                               })
                                                                 </td>
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"
@@ -254,6 +255,29 @@
             $('#frmTaxAssessment').attr({ 'action': '@Url.Content("~/PayrollBatch/TaxAssessment")', 'novalidate': 'novalidate' });
             if ($('#frmTaxAssessment').valid())
                 $('#frmTaxAssessment').submit();
+        }
+        function checkpercentage(){
+            if( ($('#taxassessmentheader_SocialContributionRate').val())>100){
+                $('#taxassessmentheader_SocialContributionRate').val('');
+                swal({
+                    title: "Alert!",
+                    text: "Percentage value should be less than 100",
+                    type: "warning"
+                });
+                return;
+            }
+        }
+        function percentagecheck(el,index){
+            if(($('#TaxAssessmentDetailList_'+ index + '__Rate').val())>100){
+                $('#TaxAssessmentDetailList_'+ index + '__Rate').val('');
+                swal({
+                    title: "Alert!",
+                    text: "Percentage value should be less than 100",
+                    type: "warning"
+                });
+                return;
+            }
+            
         }
     </script>
 }

@@ -110,17 +110,19 @@
                                                                         @class = "form-control input-sm decimalCss",
                                                                         required = "required",
                                                                         style = "width:100px;",
-                                                                        data_index = i
+                                                                        data_index = i,
+                                                                        
                                                                     })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.TaxAssessmentDetailList[i].SalaryTo, new
-                                                                    {
-                                                                        @class = "form-control input-sm decimalCss",
-                                                                        required = "required",
-                                                                        style = "width:100px;",
-                                                                        data_index = i
-                                                                    })
+                                                               {
+                                                                   @class = "form-control input-sm decimalCss",
+                                                                   required = "required",
+                                                                   style = "width:100px;",
+                                                                   data_index = i,
+                                                                        onblur = "CheckAmount(this," + i + ")"
+                                                               })
                                                                 </td>
                                                                 <td>
                                                                     @Html.TextBoxFor(x => x.TaxAssessmentDetailList[i].Rate, new
@@ -259,6 +261,15 @@
             $('#frmTaxAssessment').attr({ 'action': '@Url.Content("~/PayrollBatch/TaxAssessment")', 'novalidate': 'novalidate' });
             if ($('#frmTaxAssessment').valid())
                 $('#frmTaxAssessment').submit();
+        }
+        function CheckAmount(el,index){
+            var from = $('#TaxAssessmentDetailList_'+ index +'__SalaryFrom').val();
+            var To = $('#TaxAssessmentDetailList_'+ index +'__SalaryTo').val();
+            if(from>To){
+                $('#TaxAssessmentDetailList_'+ index +'__SalaryFrom').val('');
+                $('#TaxAssessmentDetailList_'+ index +'__SalaryTo').val('');
+                swal("SalaryFrom is not graterthan SalaryTo");
+            }
         }
       
     </script>

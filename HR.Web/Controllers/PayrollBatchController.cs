@@ -383,16 +383,14 @@ namespace HR.Web.Controllers
 
 
         [HttpGet]
-        public ActionResult TaxAssessment()
+        public ActionResult TaxAssessment(int year)
         {
-            int HeaderID = 0;
-            //int empId = EMPLOYEEID;
+            int branchID = BRANCHID;
             TaxAssessmentVm taxassessmentvm = new TaxAssessmentVm();
-            taxassessmentvm.taxassessmentheader = taxassessmentheaderBo.GetById(HeaderID);
+            taxassessmentvm.taxassessmentheader = taxassessmentheaderBo.GetByBranchId(branchID, year);
             taxassessmentvm.taxassessmentheader = taxassessmentvm.taxassessmentheader == null ? new TaxAssessmentHeader() : taxassessmentvm.taxassessmentheader;
             taxassessmentvm.TaxAssessmentDetailList = taxassessmentdetailBo.GetAll().Where(x => x.HeaderID == taxassessmentvm.taxassessmentheader.HeaderID).ToList();
             return View("TaxAssessment", taxassessmentvm);
-
         }
 
         [HttpPost]
@@ -415,11 +413,8 @@ namespace HR.Web.Controllers
             {
                 if (taxassessmentvm.TaxAssessmentDetailList == null)
                     taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
-
                 taxassessmentvm.TaxAssessmentDetailList.Add(taxAssessmentDetail);
             }
-
-
             ModelState.Clear();
             return View("TaxAssessment", taxassessmentvm);
         }
@@ -429,7 +424,7 @@ namespace HR.Web.Controllers
         {
             var taxassessmentheader = new TaxAssessmentHeader()
             {
-                HeaderID= taxassessmentvm.taxassessmentheader.HeaderID,
+                HeaderID = taxassessmentvm.taxassessmentheader.HeaderID,
                 BranchID = BRANCHID,
                 AssessmentNo = taxassessmentvm.taxassessmentheader.AssessmentNo,
                 Year = taxassessmentvm.taxassessmentheader.Year,
@@ -438,7 +433,6 @@ namespace HR.Web.Controllers
                 Status = true,
             };
             taxassessmentheaderBo.Add(taxassessmentheader);
-
             foreach (var item in taxassessmentvm.TaxAssessmentDetailList)
             {
                 var taxassessmentdetail = new TaxAssessmentDetail()
@@ -453,6 +447,5 @@ namespace HR.Web.Controllers
             }
             return RedirectToAction("TaxAssessment");
         }
-
     }
 }

@@ -345,16 +345,19 @@
                         </thead>*@
                                                         <tbody>
                                                             <tr>
-
-                                                                <td style="text-align:right;">Gross Amount</td>
+                                                                <td>Total For Employer</td>
+                                                                <td><input type="text" id="totalforemployer" name="totalforemployer" disabled class="form-control input-sm" /></td>
+                                                                <td>Statuatory Deductions</td>
+                                                                <td><input type="text" id="statuatorydeductions" name="statuatorydeductions" disabled class="form-control input-sm"/></td>
+                                                                <td>Gross Amount</td>
                                                                 @*<td>@Html.TextBox("grosstotal",
                                 new { @class = "form-control input-sm", @readonly = "readonly",id="grosstotal" })</td>*@
-                                                                <td style="width:260px;">
+                                                                <td>
                                                                     <input type="text" id="totalgross" name="totalgross" disabled class="form-control input-sm" />
                                                                 </td>
 
-                                                                <td style="text-align:right;width:290px;">Net Amount</td>
-                                                                <td style="width:280px;">
+                                                                <td>Net Amount</td>
+                                                                <td>
                                                                     @Html.TextBoxFor(x => x.structureHeader.NetAmount,
                                                        new { @class = "form-control input-sm decimalCss ", @readonly = "readonly" })
                                                                 </td>
@@ -788,6 +791,7 @@
             var rowCount=$('.trCssSalaryPayment').length;
             var TotalGross=0;
             var employeeval=$('#structureHeader_TotalDeductions').val();
+            var employercon = $('#structureHeader_EmpContribution').val();
             for(var i=0; i<rowCount;i++){
                 code= $('#structureSalaryPaymentDetail_'+i+'__RegisterCode').val();
                 var basicAmount=$('#structureSalaryPaymentDetail_' + 0 + '__Amount').val();
@@ -858,6 +862,10 @@
                 }
                 $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
                 $('#totalgross').val(TotalGross);
+                var totalforemployer=parseFloat(TotalGross)+parseFloat(employercon);
+                $('#totalforemployer').val(parseFloat(totalforemployer));
+                var statuatoryamount=parseFloat(employercon)+parseFloat(employeeval);
+                $('#statuatorydeductions').val(statuatoryamount);
 
               
                
@@ -877,7 +885,7 @@
                 var basicAmount=$('#structureSalaryPaymentDetail_' + 0 + '__Amount').val();
                 var salarypayment =$('#structureHeader_TotalGross').val();
                 var employercontribution=$('#structureHeader_EmpContribution').val();
-                var totaladd=parseFloat(salarypayment)+parseFloat(employercontribution);
+                var totaladd=parseFloat(salarypayment);
                 if(index == 0 && basicAmount!=""){
                     basicAmount =parseFloat(basicAmount).toFixed(2);
                     $('#structureSalaryPaymentDetail_' + 0 + '__Total').val(basicAmount);
@@ -932,6 +940,10 @@
             }
             $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
             $('#totalgross').val(salarypayment);
+            var totalforemployer=parseFloat(salarypayment)+parseFloat(employercontribution);
+            var statuatoryamount=parseFloat(employercontribution)+parseFloat(_totalDeductions);
+            $('#totalforemployer').val(totalforemployer);
+            $('#statuatorydeductions').val(statuatoryamount);
            
 
         }
@@ -940,6 +952,7 @@
             var rowCount=$('.trCssEmployerContribution').length;
             var netAmount=0;
             var employeeval=$('#structureHeader_TotalDeductions').val();
+            var employercon = $('#structureHeader_EmpContribution').val();
             for(var i=0; i<rowCount;i++){
 
                 code=$('#structureEmployerContributionDetail_'+i+'__RegisterCode').val();
@@ -976,7 +989,7 @@
                 var currentValue=$('#structureEmployerContributionDetail_' + i + '__Total').val() == "" ? 0 :$('#structureEmployerContributionDetail_' + i + '__Total').val();
 
                 if(code !="EMPLOYEE DEDUCTION")
-                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+                    netAmount = parseFloat(netAmount)+parseFloat(currentValue);
                 else
                 {
                     netAmount = parseFloat(netAmount) - parseFloat(currentValue);
@@ -990,9 +1003,13 @@
                 
                 $('#structureHeader_EmpContribution').val(netAmount);
                 var totalgross=$('#structureHeader_TotalGross').val();
-                var amount=parseFloat(netAmount)+parseFloat(totalgross)-parseFloat(employeeval);
+                var amount=parseFloat(totalgross)-parseFloat(employeeval);
                 $('#structureHeader_NetAmount').val(amount);
                 $('#totalgross').val(totalgross);
+                var totalforemployer = totalgross+ parseFloat(employercon);
+                $('#totalforemployer').val(totalforemployer);
+                var statuatoryamount=parseFloat(employercon)+parseFloat(employeeval);
+                $('#statuatoryamount').val(statuatoryamount);
 
             }
         }

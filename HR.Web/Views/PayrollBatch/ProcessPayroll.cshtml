@@ -34,6 +34,9 @@
         .table-striped td {
             background: #fff;
         }
+        /*.dsp-none{
+            display:none;
+        }*/
         /*#dtid2{
             display:none;
         }*/
@@ -121,7 +124,10 @@
                             </div>
                             <div class="col-md-5">
                                 <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslist()"><b>Process</b></button>
-                            <button type="button" class="btn btn-sm btn-success" id="dtid2" onclick="ConfirmProcess()" ><b>Confirm</b></button>
+@if (Model.dt != null && Model.dt.Rows.Count > 0)
+{
+                            <button type="button" class="btn btn-sm btn-success dsp-none" id="dtid2" onclick="ConfirmProcess()"><b>Confirm</b></button>
+}
                             </div>
                         </div>
                     }
@@ -325,7 +331,9 @@
             
                 $('#li_Payroll').addClass('open');
                 $('#li_generatepay').addClass('active');
-                //$('#dtid2').hide();
+           
+              
+
 
             var date = new Date();
             $('.dtCss').datetimepicker({
@@ -354,7 +362,7 @@
                 },
                 columnDefs: [
       {
-          "targets": [2,3,4,5],
+          "targets": [2,3,4,5,8],
           "visible": false
       }
                 ],
@@ -373,6 +381,7 @@
             var month=$('#payslipBatchHeader_Month').val();
             var year = $('#payslipBatchHeader_Year').val();
 
+           
             $('#currentmonth').val(month);
             $('#currentyear').val(year);
             $('#frm2').submit();
@@ -406,6 +415,10 @@
 
         //    $('#processpayrolllist').submit();
         //}
+
+        //$("#button-btn").click(function () {
+        //    $("#dtid2").css("display", "block");
+        //});
     </script>
 }
 

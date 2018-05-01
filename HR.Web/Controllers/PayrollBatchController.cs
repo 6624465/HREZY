@@ -445,7 +445,7 @@ namespace HR.Web.Controllers
                 };
                 taxassessmentdetailBo.Add(taxassessmentdetail);
             }
-            return RedirectToAction("TaxAssessment");
+            return RedirectToAction("TaxAssessment", new { taxassessmentheader.Year });
         }
     }
 }

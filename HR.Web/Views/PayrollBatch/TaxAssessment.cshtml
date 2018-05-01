@@ -53,7 +53,7 @@
                                 <span class="pull-right">Year</span>
                             </label>
                             <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", onchange = "gettaxassessment()" })
                                 @Html.HiddenFor(x => x.taxassessmentheader.Year)
                             </div>
                         </div>
@@ -61,6 +61,8 @@
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Social Security Contribution</span>
                             </label>
+
+
                             <div class="col-md-1 col-xs-11">
                                 @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left", required = "required" })
                             </div>
@@ -88,7 +90,7 @@
                                                     <tr style="background:#3f51b5;">
                                                         <th style="background:#3f51b5; color:#fff;">Salary From</th>
                                                         <th style="background:#3f51b5; color:#fff;">Salary To</th>
-                                                        <th style="background:#3f51b5; color:#fff;">Rate</th>
+                                                        <th style="background:#3f51b5; color:#fff;">Rate (%)</th>
                                                         <th style="background:#3f51b5; color:#fff;">#Action</th>
                                                     </tr>
                                                 </thead>
@@ -202,15 +204,22 @@
                     confirmButtonClass: "btn-primary",
                     timer: 5000
                 },
-                    function () {
-                        $.loader({
-                            className: "blue-with-image-2",
-                            content: '',
-                        });
-                    })
+                      function () {
+                          $.loader({
+                              className: "blue-with-image-2",
+                              content: '',
+                          });
+                      })
+                }
+                else {
+                    swal("Please enter all Mandatory Fields");
+                }
             }
-        }
 
+        function gettaxassessment() {
+            debugger;
+            window.location = '@Url.Action("TaxAssessment", "PayrollBatch")' + '?year=' + $('#taxassessmentheader_Year').val();
+        };
 
         $('#frmTaxAssessment').validate({
             rules: {

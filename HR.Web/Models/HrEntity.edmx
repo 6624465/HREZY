@@ -227,6 +227,7 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="ManagerId" Type="int" />
           <Property Name="IsReportingAuthority" Type="bit" Nullable="false" />
+          <Property Name="SalutationType" Type="int" />
         </EntityType>
         <EntityType Name="EmployeeLeaveList">
           <Key>
@@ -890,6 +891,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="ManagerId" Type="Int32" />
           <Property Name="IsReportingAuthority" Type="Boolean" Nullable="false" />
+          <Property Name="SalutationType" Type="Int32" />
         </EntityType>
         <EntityType Name="EmployeePersonalDetail">
           <Key>
@@ -1580,6 +1582,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="EmployeeHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeHeader">
               <MappingFragment StoreEntitySet="EmployeeHeader">
+                <ScalarProperty Name="SalutationType" ColumnName="SalutationType" />
                 <ScalarProperty Name="IsReportingAuthority" ColumnName="IsReportingAuthority" />
                 <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />

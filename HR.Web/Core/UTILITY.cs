@@ -62,6 +62,7 @@ namespace HR.Web
         public static string CONFIG_TRAVELCLAIM = "TravelClaim";
         public static string CONFIG_CURRENCY = "Currency";
         public static string CONFIG_TRAVELCLAIMTYPE = "TravelClaimType";
+        public static string CONFIG_EMPSALUTATIONTYPE = "salutationtype";
 
 
 

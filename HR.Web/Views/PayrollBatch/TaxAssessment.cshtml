@@ -109,7 +109,8 @@
                                                                         @class = "form-control input-sm decimalCss",
                                                                         required = "required",
                                                                         style = "width:100px;",
-                                                                        data_index = i
+                                                                        data_index = i,
+                                                                        
                                                                     })
                                                                 </td>
                                                                 <td>
@@ -118,7 +119,8 @@
                                                                         @class = "form-control input-sm decimalCss",
                                                                         required = "required",
                                                                         style = "width:100px;",
-                                                                        data_index = i
+                                                                   data_index = i,
+                                                                        onblur = "CheckAmount(this," + i + ")"
                                                                     })
                                                                 </td>
                                                                 <td>
@@ -212,7 +214,7 @@
                           });
                       })
                 }
-            else {
+                else {
                 title: "Alert!",
                 swal("Please Enter All Mandatory Fields");
                 type: "warning"
@@ -261,15 +263,13 @@
             if ($('#frmTaxAssessment').valid())
                 $('#frmTaxAssessment').submit();
         }
-        function checkpercentage(){
-            if( ($('#taxassessmentheader_SocialContributionRate').val())>100){
-                $('#taxassessmentheader_SocialContributionRate').val('');
-                swal({
-                    title: "Alert!",
-                    text: "Percentage value should be less than 100",
-                    type: "warning"
-                });
-                return;
+        function CheckAmount(el,index){
+            var from = $('#TaxAssessmentDetailList_'+ index +'__SalaryFrom').val();
+            var To = $('#TaxAssessmentDetailList_'+ index +'__SalaryTo').val();
+            if(from>To){
+                $('#TaxAssessmentDetailList_'+ index +'__SalaryFrom').val('');
+                $('#TaxAssessmentDetailList_'+ index +'__SalaryTo').val('');
+                swal("SalaryFrom is not graterthan SalaryTo");
             }
         }
       

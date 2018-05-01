@@ -74,7 +74,6 @@ namespace HR.Web.Services.Payroll
             }
         }
 
-
         public VariablePaymentHeader GetById(int id)
         {
             try

@@ -75,13 +75,10 @@
                                 @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss", required = "required" })
                             </div>
                         </div>
-
-
                         <div>
                             <button type="button" class="btn btn-info btn-sm pull-right" onclick="SaveAndGetData()">
                                 <i class="fa fa-plus"></i><span>Add</span>
                             </button>
-
                             <div class="clearfix">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -96,14 +93,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
                                                     @if (Model.TaxAssessmentDetailList != null && Model.TaxAssessmentDetailList.Count > 0)
                                                     {
                                                         for (int i = 0; i < Model.TaxAssessmentDetailList.Count; i++)
                                                         {
-
                                                             <tr id="tr_@i" class="cssAirfareLength">
-
                                                                 <td>
                                                                     @Html.HiddenFor(x => x.TaxAssessmentDetailList[i].ID)
                                                                     @Html.HiddenFor(x => x.TaxAssessmentDetailList[i].ID)

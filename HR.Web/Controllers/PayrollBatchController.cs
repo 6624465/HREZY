@@ -392,7 +392,6 @@ namespace HR.Web.Controllers
             taxassessmentvm.taxassessmentheader = taxassessmentvm.taxassessmentheader == null ? new TaxAssessmentHeader() : taxassessmentvm.taxassessmentheader;
             taxassessmentvm.TaxAssessmentDetailList = taxassessmentdetailBo.GetAll().Where(x => x.HeaderID == taxassessmentvm.taxassessmentheader.HeaderID).ToList();
             return View("TaxAssessment", taxassessmentvm);
-
         }
 
         [HttpPost]
@@ -415,11 +414,8 @@ namespace HR.Web.Controllers
             {
                 if (taxassessmentvm.TaxAssessmentDetailList == null)
                     taxassessmentvm.TaxAssessmentDetailList = new List<TaxAssessmentDetail>();
-
                 taxassessmentvm.TaxAssessmentDetailList.Add(taxAssessmentDetail);
             }
-
-
             ModelState.Clear();
             return View("TaxAssessment", taxassessmentvm);
         }
@@ -438,7 +434,6 @@ namespace HR.Web.Controllers
                 Status = true,
             };
             taxassessmentheaderBo.Add(taxassessmentheader);
-
             foreach (var item in taxassessmentvm.TaxAssessmentDetailList)
             {
                 var taxassessmentdetail = new TaxAssessmentDetail()
@@ -453,6 +448,5 @@ namespace HR.Web.Controllers
             }
             return RedirectToAction("TaxAssessment");
         }
-
     }
 }

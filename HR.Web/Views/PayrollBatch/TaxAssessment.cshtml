@@ -64,8 +64,7 @@
 
 
                             <div class="col-md-1 col-xs-11">
-                                @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left", required = "required",
-                           })
+                                @Html.TextBoxFor(x => x.taxassessmentheader.SocialContributionRate, new { @class = "form-control input-sm decimalCss pull-left", required = "required", onblur = "checkpercentage()" })
                             </div>
                             <div class="col-md-1 col-xs-1">
                                 <span class="pull-left rating-percentage"><b>%</b></span>
@@ -213,8 +212,10 @@
                           });
                       })
                 }
-                else {
-                    swal("Please enter all Mandatory Fields");
+            else {
+                title: "Alert!",
+                swal("Please Enter All Mandatory Fields");
+                type: "warning"
                 }
             }
 
@@ -259,6 +260,17 @@
             $('#frmTaxAssessment').attr({ 'action': '@Url.Content("~/PayrollBatch/TaxAssessment")', 'novalidate': 'novalidate' });
             if ($('#frmTaxAssessment').valid())
                 $('#frmTaxAssessment').submit();
+        }
+        function checkpercentage(){
+            if( ($('#taxassessmentheader_SocialContributionRate').val())>100){
+                $('#taxassessmentheader_SocialContributionRate').val('');
+                swal({
+                    title: "Alert!",
+                    text: "Percentage value should be less than 100",
+                    type: "warning"
+                });
+                return;
+            }
         }
       
     </script>

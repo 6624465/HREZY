@@ -213,12 +213,20 @@
                               content: '',
                           });
                       })
-                }
-                else {
+            }
+
+                //swal({
+                //    title:"Alert!",
+                //    text: "Salary To is not Lessthan Salary From",
+                //    type:"warning"
+                //});
+                //return;
+            else swal({
                 title: "Alert!",
-                swal("Please Enter All Mandatory Fields");
+                text:"Please Enter All Mandatory Fields",
                 type: "warning"
-                }
+            });
+            return;
             }
 
         function gettaxassessment() {
@@ -269,7 +277,23 @@
             if(from>To){
                 $('#TaxAssessmentDetailList_'+ index +'__SalaryFrom').val('');
                 $('#TaxAssessmentDetailList_'+ index +'__SalaryTo').val('');
-                swal("SalaryFrom is not graterthan SalaryTo");
+                swal({
+                    title:"Alert!",
+                    text: "Salary To is not Lessthan Salary From",
+                    type:"warning"
+                });
+                return;
+            }
+        }
+        function checkpercentage(){
+            if( ($('#taxassessmentheader_SocialContributionRate').val())>100){
+                $('#taxassessmentheader_SocialContributionRate').val('');
+                swal({
+                    title: "Alert!",
+                    text: "Percentage value should be less than 100",
+                    type: "warning"
+                });
+                return;
             }
         }
       

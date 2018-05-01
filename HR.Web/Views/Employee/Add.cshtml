@@ -102,7 +102,12 @@
                                 <label class="col-md-1 control-label">
                                     <span>First Name</span>
                                 </label>
-                                <div class="col-md-5">
+                                <div class="col-md-1">
+                                    @Html.DropDownListFor(x => x.empHeader.SalutationType,
+SelectListItemHelper.SalutationType(), "Select Salutation",
+new { @class = "form-control input-sm" })
+                                </div>
+                                <div class="col-md-4">
                                     @Html.TextBoxFor(x => x.empHeader.FirstName,
 new { @class = "form-control validatename input-sm uppercase", @maxlength = 30 })
                                 </div>

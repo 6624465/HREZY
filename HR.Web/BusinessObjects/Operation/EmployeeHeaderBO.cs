@@ -51,7 +51,8 @@ namespace HR.Web.BusinessObjects.Operation
                     ModifiedBy = sessionObj.USERID,
                     ModifiedOn = UTILITY.SINGAPORETIME,
                     ManagerId = empVm.empHeader.ManagerId,
-                    IsReportingAuthority = empVm.empHeader.IsReportingAuthority,          
+                    IsReportingAuthority = empVm.empHeader.IsReportingAuthority,    
+                    SalutationType = empVm.empHeader.SalutationType      
                    
                 };
 

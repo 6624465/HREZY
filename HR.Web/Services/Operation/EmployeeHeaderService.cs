@@ -45,6 +45,7 @@ namespace HR.Web.Services.Operation
                         empHeader.Password = entity.Password;
                         empHeader.UserEmailId = entity.UserEmailId;
                         empHeader.UserId = entity.UserId;
+                        empHeader.SalutationType = entity.SalutationType;
                     }
                     dbContext.SaveChanges();
                 }

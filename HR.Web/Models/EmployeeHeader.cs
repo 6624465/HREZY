@@ -33,5 +33,6 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<int> ManagerId { get; set; }
         public bool IsReportingAuthority { get; set; }
+        public Nullable<int> SalutationType { get; set; }
     }
 }

@@ -80,7 +80,7 @@
                                 <span class="pull-right">Batch No</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm uppercase" , disabled = "disabled" })
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm uppercase" , disabled = "disabled",required="required" })
                                 @Html.HiddenFor(x=>x.payslipBatchHeader.BatchNo)
                             </div>
                             <label class="col-md-2 control-label">
@@ -88,7 +88,7 @@
                             </label>
                             <div class="col-md-3">
                                 <div class="input-group date dtCss" id="ProcessDate">
-                                    @Html.TextBoxFor(x => x.payslipBatchHeader.ProcessDate, new { @class = "form-control input-sm" })
+                                    @Html.TextBoxFor(x => x.payslipBatchHeader.ProcessDate, new { @class = "form-control input-sm", required = "required" })
                                     <span class="input-group-addon">
                                         <i class="ion ion-calendar"></i>
                                     </span>
@@ -100,21 +100,21 @@
                                 <span class="pull-right">Month</span>
                             </label>
                             <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(),  new { @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(),  new { @class = "form-control input-sm", required = "required" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.Month)
                             </div>
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">Year</span>
                             </label>
                             <div class="col-md-1 pull-left">
-                                @Html.DropDownListFor(x => x.payslipBatchHeader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm",required = "required" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.Year)
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Total Salary</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm numCss",disabled="disabled" })
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm numCss",disabled="disabled",required = "required" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.TotalSalary)
                                 
                             </div>
@@ -398,8 +398,27 @@
             });*@
         }
         function ConfirmProcess() {
-
-            $('#confirmprocesspayroll').submit();
+            if ($('#confirmprocesspayroll').valid()) {
+                $('#confirmprocesspayroll').submit();
+                swal({
+                    title: "Payroll Generated Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                          function () {
+                              $.loader({
+                                  className: "blue-with-image-2",
+                                  content: '',
+                              });
+                          })
+            }
+            else {
+                swal("Incorrect Inputs");
+            }
+           
         }
 
         //$("#button-btn").click(function () {

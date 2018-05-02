@@ -17,7 +17,7 @@
                                 <span class="pull-right">TransactionNo</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase", disabled="disabled" })
+                                @Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase", disabled="disabled", required = "required" })
                                 @Html.HiddenFor(x=>x.variablepaymentheader.TransactionNo)
                             </div>
 
@@ -25,14 +25,14 @@
                                 <span class="pull-right">Month</span>
                             </label>
                             <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm",required="required" })
 
                             </div>
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">Year</span>
                             </label>
                             <div class="col-md-1 pull-left">
-                                @Html.DropDownListFor(x => x.variablepaymentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                                @Html.DropDownListFor(x => x.variablepaymentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", required = "required" })
                             </div>
                         </div>
                         <div class="row css10">
@@ -265,7 +265,10 @@
             }
             function SaveChanges() {
                 /*
-                if (true) {//$('#variablesave').valid()
+                if (true) {//$('#
+                
+                
+                ').valid()
                     $('#variablesave').attr('action', 'Url.Content("~/PayrollBatch/SaveVariablePay")');
                     $('#variablesave').submit();
                 }
@@ -333,7 +336,27 @@
             }
 
             function Savetrans() {
-                $('#variablesave').submit();
+                if ($('#variablesave').valid()) {
+                    $('#variablesave').submit();
+                    swal({
+                        title: "VariablePay Updated Successfully",
+                        text: "",
+                        closeOnConfirm: true,
+                        confirmButtonText: "Ok",
+                        confirmButtonClass: "btn-primary",
+                        timer: 5000
+                    },
+                         function () {
+                             $.loader({
+                                 className: "blue-with-image-2",
+                                 content: '',
+                             });
+                         })
+                }
+                else {
+                    swal("Incorrect Inputs");
+                }
+               
             @*if ($('#variablesave').valid()) {
                 $('#variablesave').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePaytransaction")');
                 $('#variablesave').submit();

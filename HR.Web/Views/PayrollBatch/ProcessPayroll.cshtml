@@ -400,6 +400,20 @@
         function ConfirmProcess() {
 
             $('#confirmprocesspayroll').submit();
+            swal({
+                title: "Payroll Generated Successfully",
+                text: "",
+                closeOnConfirm: true,
+                confirmButtonText: "Ok",
+                confirmButtonClass: "btn-primary",
+                timer: 5000
+            },
+                      function () {
+                          $.loader({
+                              className: "blue-with-image-2",
+                              content: '',
+                          });
+                      })
         }
 
         //$("#button-btn").click(function () {

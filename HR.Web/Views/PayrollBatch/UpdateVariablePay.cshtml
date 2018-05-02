@@ -334,6 +334,20 @@
 
             function Savetrans() {
                 $('#variablesave').submit();
+                swal({
+                    title: "VariablePay Updated Successfully",
+                    text: "",
+                    closeOnConfirm: true,
+                    confirmButtonText: "Ok",
+                    confirmButtonClass: "btn-primary",
+                    timer: 5000
+                },
+                     function () {
+                         $.loader({
+                             className: "blue-with-image-2",
+                             content: '',
+                         });
+                     })
             @*if ($('#variablesave').valid()) {
                 $('#variablesave').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePaytransaction")');
                 $('#variablesave').submit();

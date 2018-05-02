@@ -13,19 +13,13 @@
                         <table class="table table-conden table-bordered">
                             <thead>
                                 <tr>
-                                    <th>
-
-                                    </th>
-                                    <th>
-                                        TravelClaim No
-                                    </th>
-                                    <th>
-                                        Employee Name
-                                    </th>
+                                    <th></th>
+                                    <th>TravelClaim No</th>
+                                    <th>Employee Name</th>
                                     <th>Submission Date</th>
                                     <th>Total Claim</th>
-                                    <th>Total Amt Paid</th>
-                                    <th>View</th>
+                                    <th>Total Amount Paid</th>
+                                    <th>#Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,22 +34,13 @@
                                             @Html.HiddenFor(x => Model[i].TravelClaimId)
                                             @Html.HiddenFor(x => Model[i].BranchId)
                                         </td>
-                                        <td>
-                                            @Model[i].ClaimNo
-                                        </td>
+                                        <td>@Model[i].ClaimNo</td>
                                         <td>@Model[i].Name</td>
                                         <td>@Model[i].CreatedOn.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>@Model[i].GrossTotal</td>
+                                        <td>@Html.TextBoxFor(x => Model[i].TotalAmtPaid, new { @class = "form-control input-sm decimalCss txtCss", id =  i + "_TotalAmtPaid" })</td>
                                         <td>
-                                            @Model[i].GrossTotal
-                                        </td>
-                                        <td>
-                                            @Html.TextBoxFor(x => Model[i].TotalAmtPaid, new { @class = "form-control input-sm decimalCss txtCss", id =  i + "_TotalAmtPaid" })
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.ElementAt(i).TravelClaimId)">
-                                                <i class="fa fa-eye"></i>
-                                                View
-                                            </button>
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.ElementAt(i).TravelClaimId)"><i class="fa fa-eye"></i>View</button>
                                         </td>
                                     </tr>
                                 }

@@ -267,16 +267,34 @@
         });
 
         function deleteTaxAssessmentDetail(detailId, index) {
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this Record?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Delete",
+                confirmButtonClass: "btn-danger"
+            },
+                   function (isConfirm) {
 
-            $('#addOrDelete').val(index);
-            $('#DetailId').val(detailId);
-            $('#TaxAssessmentDetailList_' + index + '__SalaryFrom').removeAttr('required');
-            $('#TaxAssessmentDetailList_' + index + '__SalaryTo').removeAttr('required');
-            $('#TaxAssessmentDetailList_' + index + '__Rate').removeAttr('required');
-            $('#frmTaxAssessment').attr({ 'action': '@Url.Content("~/PayrollBatch/TaxAssessment")', 'novalidate': 'novalidate' });
-            if ($('#frmTaxAssessment').valid())
-                $('#frmTaxAssessment').submit();
+                       if (isConfirm) {
+                           $('#addOrDelete').val(index);
+                           $('#DetailId').val(detailId);
+                           $('#TaxAssessmentDetailList_' + index + '__SalaryFrom').removeAttr('required');
+                           $('#TaxAssessmentDetailList_' + index + '__SalaryTo').removeAttr('required');
+                           $('#TaxAssessmentDetailList_' + index + '__Rate').removeAttr('required');
+                           $('#frmTaxAssessment').attr({ 'action': '@Url.Content("~/PayrollBatch/TaxAssessment")', 'novalidate': 'novalidate' });
+                           if ($('#frmTaxAssessment').valid())
+                               $('#frmTaxAssessment').submit();
+                         swal("Deleted!", "You have successfully Deleted", "success");
+                       }
+                       else {
+                           swal("Cancelled", "", "error");
+                       }
+                   })            
         }
+
         function CheckAmount(el,index){
             var from = $('#TaxAssessmentDetailList_'+ index +'__SalaryFrom').val();
             var To = $('#TaxAssessmentDetailList_'+ index +'__SalaryTo').val();

@@ -1,5 +1,9 @@
-﻿using System;
+﻿using HR.Web.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,8 +12,13 @@ namespace HR.Web.Controllers
 {
     public class YearlyReportsController : BaseController
     {
+        public static int PageNo = 1;
+        public static int pageCount = 0;
+        public static decimal? TotalSalary = 0.0M;
+        public static decimal? TotalEmployeeContribution = 0.0M;
+        public static decimal? TotalEmployerContribution = 0.0M;
         // GET: YearlyReports
-       public ActionResult YearlyReportsTDS()
+        public ActionResult YearlyReportsTDS()
         {
             return View();
         }
@@ -24,6 +33,223 @@ namespace HR.Web.Controllers
         public ActionResult YearlyReportsTwo()
         {
             return View();
+        }
+
+        public FileResult PrintSSFReport(int year, int month)
+        {
+            PageNo = 1;
+            try
+            {
+                var outputPdfStream = new MemoryStream();
+                using (Document document = new Document())
+                {
+                    using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
+                    {
+                        document.Open();
+                        AddDataSheets(copy, BRANCHID, year, month);
+                    }
+                }
+
+                byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
+                outputPdfStream.Close();
+
+                Response.Clear();
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment;filename=" + BRANCHID + ".pdf");
+                Response.Buffer = true;
+                Response.BinaryWrite(bytesInStream);
+                Response.End();
+
+                return File(bytesInStream, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+        public void AddDataSheets(PdfCopy copy, int branchID, int year, int month)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                usp_SSFSummaryHeaderByMonthTH_Result sSFHeader = dbCntx.usp_SSFSummaryHeaderByMonthTH(BRANCHID, month, year).FirstOrDefault();
+                List<usp_SSFSummaryDetailByMonthTH_Result> sSFDetail = dbCntx.usp_SSFSummaryDetailByMonthTH(BRANCHID, month, year).ToList();
+
+                pageCount = (sSFDetail.Count() / 10) + 2;
+
+                for (int i = 0; i < sSFDetail.Count(); i++)
+                {
+                    TotalSalary += sSFDetail[i].TotalSalary;
+                    TotalEmployeeContribution += sSFDetail[i].Amount;
+                    TotalEmployerContribution += sSFDetail[i].Amount;
+                }
+
+                var path = "";
+                int sSFDetailCount = sSFDetail.Count();
+                int value = 0;
+                for (int i = 0; i < sSFDetail.Count();)
+                {
+                    path = System.Web.Hosting.HostingEnvironment.MapPath("~/PdfTemplates/แบบประกันสังคม.pdf");
+                    PdfReader reader = new PdfReader(path);
+                    value = (sSFDetailCount - i) % 10;
+
+                    if (value >= 0)
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                            using (PdfStamper stamper = new PdfStamper(reader, ms))
+                            {
+                                Fill(stamper.AcroFields, sSFDetail, i, 10, sSFHeader);
+                                stamper.FormFlattening = true;
+                            }
+                            reader = new PdfReader(ms.ToArray());
+                            if (PageNo == 1)
+                                copy.AddPage(copy.GetImportedPage(reader, 1));
+                            copy.AddPage(copy.GetImportedPage(reader, 2));
+                        }
+                        i = i + 10;
+                        PageNo += PageNo == 1 ? 2 : 1;
+                    }
+                }
+            }
+        }
+
+        public static void Fill(AcroFields pdfFormFields, List<usp_SSFSummaryDetailByMonthTH_Result> sSFDetail, int dcount, int validcount, usp_SSFSummaryHeaderByMonthTH_Result sSFHeader)
+        {
+            try
+            {
+                pdfFormFields.SetField("CompanyName", sSFHeader.CompanyName);
+                pdfFormFields.SetField("BranchName", sSFHeader.BranchName);
+
+                pdfFormFields.SetField("CompanyAddress", sSFHeader.Address1);
+                pdfFormFields.SetField("CompanyAddress1", sSFHeader.Address2 + (sSFHeader.Address3 != null ? ", " + sSFHeader.Address3 : "") + (sSFHeader.Address4 != null ? ", " + sSFHeader.Address4 : "") + (sSFHeader.CityName != null ? ", " + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? ", " + sSFHeader.StateName : "") + (sSFHeader.CountryCode != null ? ", " + sSFHeader.CountryCode : ""));
+                pdfFormFields.SetField("PostalCode", sSFHeader.ZipCode);
+                pdfFormFields.SetField("PhoneNo", sSFHeader.TelNo);
+                pdfFormFields.SetField("FaxNo", sSFHeader.FaxNo);
+
+                pdfFormFields.SetField("TotalSalary", TotalSalary.ToString());
+                pdfFormFields.SetField("TotalEmployeeContribution", TotalEmployeeContribution.ToString());
+                pdfFormFields.SetField("TotalEmployerContribution", TotalEmployerContribution.ToString());
+                pdfFormFields.SetField("Total", (TotalSalary + TotalEmployeeContribution + TotalEmployerContribution).ToString());
+                pdfFormFields.SetField("TotalInWards", "Need to work on this....");
+
+                pdfFormFields.SetField("CountOfEmployee", sSFDetail.Count.ToString());
+                pdfFormFields.SetField("TotalPages", pageCount.ToString());
+                pdfFormFields.SetField("TotalPages1", pageCount.ToString());
+                pdfFormFields.SetField("PageNo", PageNo.ToString());
+
+                pdfFormFields.SetField("Month", MonthName(sSFDetail[0].Month));
+                pdfFormFields.SetField("Month1", MonthName(sSFDetail[0].Month));
+                pdfFormFields.SetField("Year", sSFDetail[0].Year.ToString());
+                pdfFormFields.SetField("Year1", sSFDetail[0].Year.ToString());
+
+                if (sSFHeader.SSFNumber != null)
+                {
+                    char[] SSFNumberArray = sSFHeader.SSFNumber.ToCharArray();
+                    for (int i = 0; i <= SSFNumberArray.Length - 1; i++)
+                    {
+                        pdfFormFields.SetField("SSF" + i, SSFNumberArray[i].ToString());
+                        pdfFormFields.SetField("SSF1" + i, SSFNumberArray[i].ToString());
+                    }
+                }
+                if (sSFHeader.BranchCode != null)
+                {
+                    char[] BranchCodeArray = sSFHeader.BranchCode.ToCharArray();
+                    for (int i = 0; i <= BranchCodeArray.Length - 1; i++)
+                    {
+                        pdfFormFields.SetField("BC" + i, BranchCodeArray[i].ToString());
+                        pdfFormFields.SetField("BC1" + i, BranchCodeArray[i].ToString());
+                    }
+                }
+                pdfFormFields.SetField("SocialWelfarePercent", "100%");
+
+
+                int count = dcount;
+                for (int i = 0; i < validcount; i++)
+                {
+                    if (count < sSFDetail.Count)
+                    {
+                        string title = validateTitle(sSFDetail[i].SalutationType);
+                        pdfFormFields.SetField("SN" + i, (count + 1).ToString());
+                        pdfFormFields.SetField("EName" + i, title + sSFDetail[i].FirstName + (sSFDetail[i].MiddleName != null ? " " + sSFDetail[i].MiddleName : "") + (sSFDetail[i].LastName != null ? " " + sSFDetail[i].LastName : ""));
+
+                        if (sSFDetail[i].IDNumber != null)
+                        {
+                            char[] IDNumberArray = sSFDetail[i].IDNumber.ToCharArray();
+                            for (int id = 0; id <= IDNumberArray.Length - 1; id++)
+                            {
+                                pdfFormFields.SetField("EID" + i + id, IDNumberArray[id].ToString());
+                            }
+                        }
+
+                        pdfFormFields.SetField("ESalary" + i, sSFDetail[i].TotalSalary.ToString());
+                        pdfFormFields.SetField("ECont" + i, sSFDetail[i].Amount.ToString());
+                    }
+                    else if (count == sSFDetail.Count())
+                    {
+                        pdfFormFields.SetField("ESalaryTotal", TotalSalary.ToString());
+                        pdfFormFields.SetField("EContTotal", TotalEmployeeContribution.ToString());
+                        break;
+                    }
+                    count++;
+                }
+                //PageNo = PageNo + 1;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+        private static string MonthName(byte? month)
+        {
+            switch (month)
+            {
+                case 1:
+                    return "January";
+                case 2:
+                    return "February";
+                case 3:
+                    return "March";
+                case 4:
+                    return "April";
+                case 5:
+                    return "May";
+                case 6:
+                    return "June";
+                case 7:
+                    return "July";
+                case 8:
+                    return "August";
+                case 9:
+                    return "September";
+                case 10:
+                    return "October";
+                case 11:
+                    return "November";
+                case 12:
+                    return "December";
+
+                default:
+                    return "";
+                    break;
+            }
+        }
+
+        private static string validateTitle(int? salutationType)
+        {
+            if (salutationType != null)
+            {
+                if (salutationType == 2605)
+                    return "Mr. ";
+                else if (salutationType == 2606)
+                    return "Ms. ";
+                else if (salutationType == 2607)
+                    return "Mrs. ";
+            }
+            return "";
         }
     }
 }

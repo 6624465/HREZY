@@ -12,15 +12,15 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-1">
-                            @Html.DropDownList("Years", SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                            @Html.DropDownList("Year", SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.DropDownList("Month", SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm" })
                         </div>
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-sm btn-primary"><b>Generate</b></button>
+                            <button class="btn btn-default btn-sm" id="c" type="button" onclick="GenerateSSFReportPDF()"><i class='fa fa-download' aria-hidden='true'></i>&nbsp;Download</button>
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -36,7 +36,12 @@
 
         $('#li_yearlyreports').addClass('open');
         $('#li_Yearlyssc').addClass('active');
-    });
+        });
+
+        function GenerateSSFReportPDF() {
+            location.href = '@Url.Content("~/YearlyReports/PrintSSFReport")' + '?year=' + $('#Year').val() + '&month=' + $('#Month').val();
+        }
+
     </script>
 
 }

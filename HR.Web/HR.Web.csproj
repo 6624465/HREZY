@@ -1698,6 +1698,7 @@
       <DependentUpon>HrEntity.edmx</DependentUpon>
       <LastGenOutput>HrEntity.cs</LastGenOutput>
     </Content>
+    <Content Include="PdfTemplates\PND1-K.pdf" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1713,6 +1714,9 @@
     <Content Include="fonts\proximanovalight.woff" />
     <Content Include="Images\sample_pdf.pdf" />
     <Content Include="Images\samplepayslip.pdf" />
+    <Content Include="PdfTemplates\PND1.pdf" />
+    <Content Include="PdfTemplates\แบบประกันสังคม.pdf" />
+    <Content Include="PdfTemplates\แบบฟอร์ม-ทวิ-50.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Calender.js" />
@@ -1952,6 +1956,12 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usp_EmployeeDetail_Result3.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_SSFSummaryDetailByMonthTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_SSFSummaryHeaderByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VariablePaymentDetail.cs">

@@ -428,10 +428,14 @@ namespace HR.Web.Controllers
                 salaryStructureVm.structureHeader.IsActive = true;
                 salaryStructureHeaderBO.SaveSalaryStructure(salaryStructureVm);
            //var  salarystructurelist = salaryStructureHeaderBO.GetListByProperty(x => x.EmployeeId == salaryStructureVm.structureHeader.EmployeeId && x.Code != salarystructurecode);
-           // foreach(var item in salarystructurelist)
+           //foreach(var item in salarystructurelist)
            // {
            //     var structureheader = new SalaryStructureHeader() {
-           //         StructureID t
+           //         StructureID = item.StructureID,
+           //         Code = item.Code,
+           //         EffectiveDate = item.EffectiveDate,
+           //         Remarks = item.Remarks,
+                    
            //         IsActive = false,
 
            //     };
@@ -439,7 +443,7 @@ namespace HR.Web.Controllers
            //     salaryStructureHeaderBO.SaveSalaryStructure();
            // }
 
-            
+
             return RedirectToAction("SalaryStructureHeaderList");
         }
 

@@ -47,7 +47,14 @@ namespace HR.Web.Services.Payroll
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    dbContext.VariablePaymentDetails.Remove(entity);
+                    VariablePaymentDetail vpDtl = dbContext.VariablePaymentDetails
+                                                   .Where(x => x.DetailID == entity.DetailID).FirstOrDefault();
+
+                    if (vpDtl != null)
+                    {
+                        dbContext.VariablePaymentDetails.Remove(vpDtl);
+                    }
+
                     dbContext.SaveChanges();
                 }
             }

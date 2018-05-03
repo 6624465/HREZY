@@ -292,6 +292,18 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveVariablePaytransaction(UpdateVariablePayVm updatevariablepay)
         {
+            VariablePaymentHeader vpHeader = variablepaymentheaderBo.GetAll().Where(x=>x.BranchID== BRANCHID && x.Month== updatevariablepay.variablepaymentheader.Month && x.Year== updatevariablepay.variablepaymentheader.Year).FirstOrDefault();
+            if (vpHeader!=null)
+            {
+                variablepaymentheaderBo.Delete(vpHeader);
+                List<VariablePaymentDetail> vpDetails = variabledetailBo.GetAll().Where(x => x.HeaderId == vpHeader.HeaderID && x.EmployeeId == updatevariablepay.variablepaymentdetail[0].EmployeeId).ToList();
+                for (var i = 0; i < vpDetails.Count; i++)
+                {
+                    VariablePaymentDetail vpDtl = variabledetailBo.GetById(vpDetails[i].DetailID);
+                    variabledetailBo.Delete(vpDtl);
+                }
+            }
+
             VariablePaymentHeader variablepaymentheader = new VariablePaymentHeader()
             {
                 TransactionNo = updatevariablepay.variablepaymentheader.TransactionNo,

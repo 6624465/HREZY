@@ -1958,6 +1958,12 @@
     <Compile Include="Models\usp_EmployeeDetail_Result3.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\usp_PND1SummaryDetailByMonthTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_PND1SummaryHeaderByMonthTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usp_SSFSummaryDetailByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

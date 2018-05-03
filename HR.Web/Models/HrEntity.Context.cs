@@ -150,5 +150,31 @@ namespace HR.Web.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SSFSummaryHeaderByMonthTH_Result>("usp_SSFSummaryHeaderByMonthTH", branchIdParameter, monthParameter, yearParameter);
         }
+    
+        public virtual ObjectResult<usp_PND1SummaryDetailByMonthTH_Result> usp_PND1SummaryDetailByMonthTH(Nullable<int> branchId, Nullable<int> month, Nullable<int> year)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_PND1SummaryDetailByMonthTH_Result>("usp_PND1SummaryDetailByMonthTH", branchIdParameter, monthParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<usp_PND1SummaryHeaderByMonthTH_Result> usp_PND1SummaryHeaderByMonthTH(Nullable<int> branchId)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_PND1SummaryHeaderByMonthTH_Result>("usp_PND1SummaryHeaderByMonthTH", branchIdParameter);
+        }
     }
 }

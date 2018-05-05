@@ -34,7 +34,7 @@ namespace HR.Web.Controllers
         {
             return View();
         }
-
+        #region PrintSSFReport
         public FileResult PrintSSFReport(int year, int month)
         {
             PageNo = 1;
@@ -203,6 +203,8 @@ namespace HR.Web.Controllers
 
         }
 
+        #endregion
+
         private static string MonthName(byte? month)
         {
             switch (month)
@@ -251,6 +253,8 @@ namespace HR.Web.Controllers
             }
             return "";
         }
+
+        #region PrintPND1Report
         public FileResult PrintPND1Report(int year, int month)
         {
             PageNo = 1;
@@ -418,7 +422,7 @@ namespace HR.Web.Controllers
 
         }
 
-
+        #endregion
 
     }
 }

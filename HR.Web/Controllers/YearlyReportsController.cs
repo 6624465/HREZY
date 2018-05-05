@@ -17,6 +17,8 @@ namespace HR.Web.Controllers
         public static decimal? TotalSalary = 0.0M;
         public static decimal? TotalEmployeeContribution = 0.0M;
         public static decimal? TotalEmployerContribution = 0.0M;
+        public static decimal? TotalWHT = 0.0M;
+        public static decimal? TotalTaxableIncome = 0.0M;
         // GET: YearlyReports
         public ActionResult YearlyReportsTDS()
         {
@@ -257,7 +259,7 @@ namespace HR.Web.Controllers
         #region PrintPND1Report
         public FileResult PrintPND1Report(int year, int month)
         {
-            PageNo = 1;
+            PageNo = 2;
             try
             {
                 var outputPdfStream = new MemoryStream();
@@ -275,7 +277,7 @@ namespace HR.Web.Controllers
 
                 Response.Clear();
                 Response.ContentType = "application/pdf";
-                Response.AddHeader("content-disposition", "attachment;filename=" + BRANCHID + ".pdf");
+                Response.AddHeader("content-disposition", "attachment;filename=" + "PND1_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
                 Response.Buffer = true;
                 Response.BinaryWrite(bytesInStream);
                 Response.End();
@@ -299,12 +301,11 @@ namespace HR.Web.Controllers
 
                 pageCount = (PND1Detail.Count() / 8) + 3;
 
-                //for (int i = 0; i < PND1Detail.Count(); i++)
-                //{
-                //    TotalSalary += PND1Detail[i].TotalSalary;
-                //    TotalEmployeeContribution += PND1Detail[i].Amount;
-                //    TotalEmployerContribution += PND1Detail[i].Amount;
-                //}
+                for (int i = 0; i < PND1Detail.Count(); i++)
+                {
+                    TotalSalary += PND1Detail[i].TotalSalary;
+                    TotalWHT += PND1Detail[i].Amount;
+                }
 
                 var path = "";
                 int PND1detailcount = PND1Detail.Count();
@@ -331,7 +332,7 @@ namespace HR.Web.Controllers
                             copy.AddPage(copy.GetImportedPage(reader, 3));
                         }
                         i = i + 8;
-                        PageNo += PageNo == 1 ? 3 : 1;
+                        PageNo += 3;
                     }
                 }
             }
@@ -340,11 +341,6 @@ namespace HR.Web.Controllers
         {
             try
             {
-                for (int i = 0; i < PND1Detail.Count(); i++)
-                {
-                    TotalSalary += PND1Detail[i].TotalSalary;
-                }
-
                 if (PND1Header.TaxIdNumber != null)
                 {
                     char[] taxidnumberarray = PND1Header.TaxIdNumber.ToCharArray();
@@ -368,53 +364,209 @@ namespace HR.Web.Controllers
 
                 pdfFormFields.SetField("Year", PND1Detail[0].Year.ToString());
                 pdfFormFields.SetField("m" + PND1Detail[0].Month, "Yes", true);
+                pdfFormFields.SetField("RadioButton0", "Yes", true);
                 pdfFormFields.SetField("NoOfAttachmentPages", pageCount.ToString());
                 pdfFormFields.SetField("NoOfEmp", PND1Detail.Count().ToString());
                 pdfFormFields.SetField("NoOfEmp1", PND1Detail.Count().ToString());
                 pdfFormFields.SetField("TotalIncome", TotalSalary.ToString());
                 pdfFormFields.SetField("TotalIncome1", TotalSalary.ToString());
+                pdfFormFields.SetField("TotalWHT", TotalWHT.ToString());
+                pdfFormFields.SetField("TotalWHT1", TotalWHT.ToString());
                 pdfFormFields.SetField("PageNo", PageNo.ToString());
                 pdfFormFields.SetField("TotalNoOfPages", pageCount.ToString());
-
 
                 int count = dcount;
                 for (int i = 0; i < validcount; i++)
                 {
                     if (count < PND1Detail.Count)
                     {
-
+                        string title = validateTitle(PND1Detail[i].SalutationType);
                         pdfFormFields.SetField("SN" + i, (count + 1).ToString());
-                       
-                            char[] Employeeidarray = PND1Detail[i].EmployeeId.ToString().ToCharArray();
-                            for (int j = 0; j <= Employeeidarray.Length - 1; j++)
-                            {
-                            
-                                pdfFormFields.SetField("EID" + i + j, Employeeidarray[j].ToString());
-                            
-                            }
-                 
-                        pdfFormFields.SetField("EName" + i, PND1Detail[i].FirstName.ToString() + (PND1Detail[i].MiddleName != null ? " " + PND1Detail[i].MiddleName : ""));
+
+                        char[] Employeeidarray = PND1Detail[i].EmployeeId.ToString().ToCharArray();
+                        for (int j = 0; j <= Employeeidarray.Length - 1; j++)
+                        {
+                            pdfFormFields.SetField("EID" + i + j, Employeeidarray[j].ToString());
+                        }
+
+                        pdfFormFields.SetField("EName" + i, title + PND1Detail[i].FirstName.ToString() + (PND1Detail[i].MiddleName != null ? " " + PND1Detail[i].MiddleName : ""));
                         pdfFormFields.SetField("ESurname" + i, PND1Detail[i].LastName.ToString());
                         pdfFormFields.SetField("PaymentDate" + i, PND1Detail[i].ProcessDate.Value.ToShortDateString().ToString());
                         pdfFormFields.SetField("MonthlyIncome" + i, PND1Detail[i].TotalSalary.ToString());
-                        pdfFormFields.SetField("WHTPerMonth" + i, "need to know");
+                        pdfFormFields.SetField("WHTPerMonth" + i, PND1Detail[i].Amount.ToString());
 
-                        pdfFormFields.SetField("t" + i, (count + 1).ToString());
+                        pdfFormFields.SetField("t" + i, "1");
                     }
-
                     else if (count == PND1Detail.Count())
                     {
-                        pdfFormFields.SetField("TotalIncome", TotalSalary.ToString());
-                        pdfFormFields.SetField("TotalWHT","need to know");
-                        pdfFormFields.SetField("TotalWHT1", "need to know");
-
+                        pdfFormFields.SetField("TotalMonthlyIncome", TotalSalary.ToString());
+                        pdfFormFields.SetField("TotalMonthlyWHT", TotalWHT.ToString());
                         break;
                     }
                     count++;
                 }
             }
-            //PageNo = PageNo + 1;
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
+        #endregion
+
+        #region PrintPND1KReport
+        public FileResult PrintPND1KReport(int year)
+        {
+            PageNo = 2;
+            try
+            {
+                var outputPdfStream = new MemoryStream();
+                using (Document document = new Document())
+                {
+                    using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
+                    {
+                        document.Open();
+                        AddPND1KDataSheets(copy, BRANCHID, year);
+                    }
+                }
+
+                byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
+                outputPdfStream.Close();
+
+                Response.Clear();
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment;filename=" + "PND1-K_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
+                Response.Buffer = true;
+                Response.BinaryWrite(bytesInStream);
+                Response.End();
+
+                return File(bytesInStream, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+
+        public void AddPND1KDataSheets(PdfCopy copy, int branchID, int year)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                usp_PND1KSummaryHeaderByYearTH_Result PND1KHeader = dbCntx.usp_PND1KSummaryHeaderByYearTH(BRANCHID, year).FirstOrDefault();
+                List<usp_PND1KSummaryDetailByYearTH_Result> PND1KDetail = dbCntx.usp_PND1KSummaryDetailByYearTH(BRANCHID, year).ToList();
+
+                pageCount = (PND1KDetail.Count() / 7) + 2;
+
+                for (int i = 0; i < PND1KDetail.Count(); i++)
+                {
+                    TotalWHT += PND1KDetail[i].YearlyWithHoldingTax;
+                    TotalTaxableIncome += PND1KDetail[i].YearlyTaxableIncome;
+                }
+
+                var path = "";
+                int PND1detailcount = PND1KDetail.Count();
+                int value = 0;
+                for (int i = 0; i < PND1KDetail.Count();)
+                {
+                    path = System.Web.Hosting.HostingEnvironment.MapPath("~/PdfTemplates/PND1-K.pdf");
+                    PdfReader reader = new PdfReader(path);
+                    value = (PND1detailcount - i) % 7;
+
+                    if (value >= 0)
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                            using (PdfStamper stamper = new PdfStamper(reader, ms))
+                            {
+                                FillPND1K(stamper.AcroFields, PND1KDetail, i, 7, PND1KHeader);
+                                stamper.FormFlattening = true;
+                            }
+                            reader = new PdfReader(ms.ToArray());
+                            if (PageNo == 1)
+                                copy.AddPage(copy.GetImportedPage(reader, 1));
+                            copy.AddPage(copy.GetImportedPage(reader, 2));
+                        }
+                        i = i + 7;
+                        PageNo += 2;
+                    }
+                }
+            }
+        }
+        public static void FillPND1K(AcroFields pdfFormFields, List<usp_PND1KSummaryDetailByYearTH_Result> PND1KDetail, int dcount, int validcount, usp_PND1KSummaryHeaderByYearTH_Result PND1KHeader)
+        {
+            try
+            {
+                if (PND1KHeader.TaxIdNumber != null)
+                {
+                    char[] taxidnumberarray = PND1KHeader.TaxIdNumber.ToCharArray();
+                    for (int i = 0; i <= taxidnumberarray.Length - 1; i++)
+                    {
+                        pdfFormFields.SetField("tid0" + i, taxidnumberarray[i].ToString());
+                        pdfFormFields.SetField("tid1" + i, taxidnumberarray[i].ToString());
+                    }
+                }
+                if (PND1KHeader.BranchCode != null)
+                {
+                    char[] BranchCodeArray = PND1KHeader.BranchCode.ToCharArray();
+                    for (int i = 0; i <= BranchCodeArray.Length - 1; i++)
+                    {
+                        pdfFormFields.SetField("bc" + i, BranchCodeArray[i].ToString());
+                        pdfFormFields.SetField("bc1" + i, BranchCodeArray[i].ToString());
+
+                    }
+                }
+                pdfFormFields.SetField("CompanyName", PND1KHeader.CompanyName);
+
+                pdfFormFields.SetField("YearThai", "Missing");
+                pdfFormFields.SetField("RadioButton0", "Yes", true);
+                pdfFormFields.SetField("RadioButton1", "Yes", true);
+                pdfFormFields.SetField("NoOfAttachmentPages", pageCount.ToString());
+                pdfFormFields.SetField("NoOfEmp", PND1KDetail.Count().ToString());
+                pdfFormFields.SetField("NoOfEmp1", PND1KDetail.Count().ToString());
+
+                pdfFormFields.SetField("TotalIncome", TotalTaxableIncome.ToString());
+                pdfFormFields.SetField("TotalIncome1", TotalTaxableIncome.ToString());
+                pdfFormFields.SetField("TotalWHT", TotalWHT.ToString());
+                pdfFormFields.SetField("TotalWHT1", TotalWHT.ToString());
+
+                pdfFormFields.SetField("PageNo", PageNo.ToString());
+                pdfFormFields.SetField("NoOfPages", pageCount.ToString());
+
+
+                int count = dcount;
+                for (int i = 0; i < validcount; i++)
+                {
+                    if (count < PND1KDetail.Count)
+                    {
+                        string title = validateTitle(PND1KDetail[i].SalutationType);
+                        pdfFormFields.SetField("sn" + i, (count + 1).ToString());
+
+                        char[] Employeeidarray = PND1KDetail[i].IDNumber.ToString().ToCharArray();
+                        for (int j = 0; j <= Employeeidarray.Length - 1; j++)
+                        {
+                            pdfFormFields.SetField("EID" + i + j, Employeeidarray[j].ToString());
+                        }
+
+                        pdfFormFields.SetField("EName" + i, title + PND1KDetail[i].FirstName.ToString() + (PND1KDetail[i].MiddleName != null ? " " + PND1KDetail[i].MiddleName : ""));
+                        pdfFormFields.SetField("ESurname" + i, PND1KDetail[i].LastName.ToString());
+                        pdfFormFields.SetField("EAddress" + i, "Missing");
+                        pdfFormFields.SetField("MonthlyIncome" + i, PND1KDetail[i].YearlyTaxableIncome.ToString());
+                        pdfFormFields.SetField("MonthWHT" + i, PND1KDetail[i].YearlyWithHoldingTax.ToString());
+
+                        pdfFormFields.SetField("t" + i, "1");
+                    }
+
+                    else if (count == PND1KDetail.Count())
+                    {
+                        pdfFormFields.SetField("TotalIncome", TotalTaxableIncome.ToString());
+                        pdfFormFields.SetField("TotalWHT", TotalTaxableIncome.ToString());
+                        break;
+                    }
+                    count++;
+                }
+            }
             catch (Exception ex)
             {
                 throw;

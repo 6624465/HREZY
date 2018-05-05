@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
                 <div class="panel-heading">
-                   Yearly TDS
+                    Yearly income by employee
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -16,15 +16,15 @@
                             @Html.DropDownList("Years", SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
                         </div>
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-sm btn-primary"  ><b>Generate</b></button>
+                            <button type="button" class="btn btn-sm btn-primary"><b>Generate</b></button>
                         </div>
 
                     </div>
-                 
-                         
+
+
                 </div>
-               </div>
-           </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -33,11 +33,15 @@
 
     <script type="text/javascript">
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $('#li_yearlyreports').addClass('open');
-        $('#li_yearlytds').addClass('active');
-    });
+            $('#li_yearlyreports').addClass('open');
+            $('#li_yearlytds').addClass('active');
+        });
+
+        function GenerateSSFReportPDF() {
+            location.href = '@Url.Content("~/YearlyReports/PrintTDSReport")' + '?year=' + $('#Year').val() + '&month=' + $('#Month').val();
+        }
     </script>
 
 }

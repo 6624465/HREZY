@@ -735,6 +735,11 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Parameter Name="Month" Type="int" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_TAVSummaryByEmployeeTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
+          <Parameter Name="BranchId" Type="int" Mode="In" />
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_9F30C5_HRDBModelStoreContainer">
           <EntitySet Name="LookUp" EntityType="Self.LookUp" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Branches" EntityType="Self.Branches" Schema="Master" store:Type="Tables" />
@@ -898,6 +903,11 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           </FunctionImport>
           <FunctionImport Name="usp_PND1KSummaryHeaderByYearTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_PND1KSummaryHeaderByYearTH_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TAVSummaryByEmployeeTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_TAVSummaryByEmployeeTH_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1684,6 +1694,38 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Type="String" Name="TelNo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
           <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_TAVSummaryByEmployeeTH_Result">
+          <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RegNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchTaxCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchSSFNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchTaxID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchAddress1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchAddress2" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchAddress3" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchAddress4" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchCityName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchStateName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchCountryCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchZipCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchTelNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchFaxNo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EmployeeID" Nullable="true" />
+          <Property Type="String" Name="IDNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SalutationType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SocialWelfareNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EPFNO" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TotalSalary" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalWHTax" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalSSF" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalPF" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2564,6 +2606,42 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="TelNo" ColumnName="TelNo" />
                 <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TAVSummaryByEmployeeTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_TAVSummaryByEmployeeTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_TAVSummaryByEmployeeTH_Result">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="BranchTaxCode" ColumnName="BranchTaxCode" />
+                <ScalarProperty Name="BranchSSFNumber" ColumnName="BranchSSFNumber" />
+                <ScalarProperty Name="BranchTaxID" ColumnName="BranchTaxID" />
+                <ScalarProperty Name="BranchAddress1" ColumnName="BranchAddress1" />
+                <ScalarProperty Name="BranchAddress2" ColumnName="BranchAddress2" />
+                <ScalarProperty Name="BranchAddress3" ColumnName="BranchAddress3" />
+                <ScalarProperty Name="BranchAddress4" ColumnName="BranchAddress4" />
+                <ScalarProperty Name="BranchCityName" ColumnName="BranchCityName" />
+                <ScalarProperty Name="BranchStateName" ColumnName="BranchStateName" />
+                <ScalarProperty Name="BranchCountryCode" ColumnName="BranchCountryCode" />
+                <ScalarProperty Name="BranchZipCode" ColumnName="BranchZipCode" />
+                <ScalarProperty Name="BranchTelNo" ColumnName="BranchTelNo" />
+                <ScalarProperty Name="BranchFaxNo" ColumnName="BranchFaxNo" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="SalutationType" ColumnName="SalutationType" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="SocialWelfareNo" ColumnName="SocialWelfareNo" />
+                <ScalarProperty Name="EPFNO" ColumnName="EPFNO" />
+                <ScalarProperty Name="TotalSalary" ColumnName="TotalSalary" />
+                <ScalarProperty Name="TotalWHTax" ColumnName="TotalWHTax" />
+                <ScalarProperty Name="TotalSSF" ColumnName="TotalSSF" />
+                <ScalarProperty Name="TotalPF" ColumnName="TotalPF" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

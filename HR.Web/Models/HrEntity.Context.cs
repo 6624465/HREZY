@@ -202,5 +202,22 @@ namespace HR.Web.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TAVSummaryByEmployeeTH_Result>("usp_TAVSummaryByEmployeeTH", branchIdParameter, employeeIDParameter, yearParameter);
         }
+    
+        public virtual ObjectResult<usp_SSFSummaryHeaderByMonthTH_Result> usp_SSFSummaryHeaderByMonthTH(Nullable<int> branchId, Nullable<int> month, Nullable<int> year)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SSFSummaryHeaderByMonthTH_Result>("usp_SSFSummaryHeaderByMonthTH", branchIdParameter, monthParameter, yearParameter);
+        }
     }
 }

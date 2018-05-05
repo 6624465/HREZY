@@ -1718,6 +1718,7 @@
     <Content Include="PdfTemplates\แบบประกันสังคม.pdf" />
     <Content Include="PdfTemplates\แบบฟอร์ม-ทวิ-50.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Calender.js" />
     <Content Include="Scripts\charts\exporting.js" />

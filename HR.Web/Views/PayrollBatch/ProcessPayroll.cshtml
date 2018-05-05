@@ -40,25 +40,25 @@
         /*#dtid2{
             display:none;
         }*/
-        
+
     </style>
 }
 @{
     var listMonths = new List<SelectListItem>()
-    {
-    new SelectListItem {Text = "January",   Value = "1"},
-    new SelectListItem {Text = "February", Value = "2"},
-    new SelectListItem {Text = "March", Value = "3"},
-    new SelectListItem {Text = "April",   Value = "4"},
-    new SelectListItem {Text = "May", Value = "5"},
-    new SelectListItem {Text = "June", Value = "6"},
-    new SelectListItem {Text = "July",   Value = "7"},
-    new SelectListItem {Text = "August", Value = "8"},
-    new SelectListItem {Text = "September", Value = "9"},
-    new SelectListItem {Text = "October",   Value = "10"},
-    new SelectListItem {Text = "November", Value = "11"},
-    new SelectListItem {Text = "December", Value = "12"}
-    };
+{
+new SelectListItem {Text = "January",   Value = "1"},
+new SelectListItem {Text = "February", Value = "2"},
+new SelectListItem {Text = "March", Value = "3"},
+new SelectListItem {Text = "April",   Value = "4"},
+new SelectListItem {Text = "May", Value = "5"},
+new SelectListItem {Text = "June", Value = "6"},
+new SelectListItem {Text = "July",   Value = "7"},
+new SelectListItem {Text = "August", Value = "8"},
+new SelectListItem {Text = "September", Value = "9"},
+new SelectListItem {Text = "October",   Value = "10"},
+new SelectListItem {Text = "November", Value = "11"},
+new SelectListItem {Text = "December", Value = "12"}
+};
 }
 
 
@@ -80,8 +80,8 @@
                                 <span class="pull-right">Batch No</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm uppercase" , disabled = "disabled",required="required" })
-                                @Html.HiddenFor(x=>x.payslipBatchHeader.BatchNo)
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.BatchNo, new { @class = "form-control input-sm uppercase", disabled = "disabled", required = "required" })
+                                @Html.HiddenFor(x => x.payslipBatchHeader.BatchNo)
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Process Date</span>
@@ -100,23 +100,23 @@
                                 <span class="pull-right">Month</span>
                             </label>
                             <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(),  new { @class = "form-control input-sm", required = "required" })
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", required = "required" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.Month)
                             </div>
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">Year</span>
                             </label>
                             <div class="col-md-1 pull-left">
-                                @Html.DropDownListFor(x => x.payslipBatchHeader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm",required = "required" })
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", required = "required" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.Year)
                             </div>
                             <label class="col-md-2 control-label">
                                 <span class="pull-right">Total Salary</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm numCss",disabled="disabled",required = "required" })
+                                @Html.TextBoxFor(x => x.payslipBatchHeader.TotalSalary, new { @class = "form-control input-sm numCss", disabled = "disabled", required = "required" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.TotalSalary)
-                                
+
                             </div>
                         </div>
                         <div class="row css5">
@@ -124,181 +124,197 @@
                             </div>
                             <div class="col-md-5">
                                 <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslist()"><b>Process</b></button>
-@if (Model.dt != null && Model.dt.Rows.Count > 0)
-{
-                            <button type="button" class="btn btn-sm btn-success dsp-none" id="dtid2" onclick="ConfirmProcess()"><b>Confirm</b></button>
-}
+                                @if (Model.dt != null && Model.dt.Rows.Count > 0)
+                                {
+                                    <button type="button" class="btn btn-sm btn-success dsp-none" id="dtid2" onclick="ConfirmProcess()"><b>Confirm</b></button>
+                                }
                             </div>
                         </div>
                     }
-                        <dialog></dialog>
-                        <div class="row" id="dtid">
-                            <div class="col-md-12">
-                                @if (Model.dt != null && Model.dt.Rows.Count > 0)
-                                {
-                                    <table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
-                                        <thead>
-                                            <th>pdf</th>
-                                            @for (var i = 0; i < Model.dt.Columns.Count; i++)
-                                            {
-                                                <text>
-                                                <th style="min-width:160px;">@Model.dt.Columns[i].ColumnName</th>
-                                                </text>   
-                                            }
-                                            </thead>
-                                            <tbody>
-
-                                                
-                                                @for (var i = 0; i < Model.dt.Rows.Count; i++)
-                                                {
-                                                    <tr>
-                                                        <td><a type="button" href="@Url.Content("~/Images/sample_pdf.pdf")" download="samplepdf" ><i class="fa fa-file-pdf-o" style="color:red"></i></a></td>
-                                                        @for (var j = 0; j < Model.dt.Columns.Count; j++)
-                                                        {
-                                                            <td>
-                                                                @if (Model.dt.Rows[i][Model.dt.Columns[j].ColumnName] != null)
-                                                                {
-                                                                    <text>
-                                                                        @Model.dt.Rows[i][Model.dt.Columns[j].ColumnName].ToString()
-                                                                    </text>       
-                                                                }
-                                                            </td>     
-                                                        }
-                                                    </tr>   
-                                                }
-                                            </tbody>
-                                        </table>
+                    <dialog></dialog>
+                    <div class="row" id="dtid">
+                        <div class="col-md-12">
+                            @if (Model.dt != null && Model.dt.Rows.Count > 0)
+                            {
+                                <table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
+                                    <thead>
+                                    <th>Payslip</th>
+                                    <th>Tax</th>
+                                    @for (var i = 0; i < Model.dt.Columns.Count; i++)
+                                    {
+                                        <text>
+                                            <th style="min-width:160px;">@Model.dt.Columns[i].ColumnName</th>
+                                        </text>
                                     }
+                                    </thead>
+                                    <tbody>
 
 
-
-                                @*<table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
-                                        <thead>
+                                        @for (var i = 0; i < Model.dt.Rows.Count; i++)
+                                        {
                                             <tr>
-                                                <th>S.No.</th>
-                                                <th>EMP ID</th>
-                                                <th>Location</th>
-                                                <th>F/S</th>
-                                                <th>Name</th>
-                                                <th>Designation</th>
-                                                <th>NIC</th>
-                                                <th>Sub Department</th>
-                                                <th>Basic Salary</th>
-                                                <th>BRA 01</th>
-                                                <th>BRA 02</th>
-                                                <th>BRA 03</th>
-                                                <th>Salary Arrears</th>
-                                                <th>No. of No Pay Days</th>
-                                                <th>No Pay Amount</th>
-                                                <th>Salary for EPF</th>
-                                                <th>"Vehicle  Allow. (Pay Slip)"</th>
-                                                <th>"Special Allow (Pay Slip)"</th>
-                                                <th>"Entertain. Allow. (Pay Slip)"</th>
-                                                <th>"Travel Allow. (Pay Slip)"</th>
-                                                <th>"Additional Allowance (Pay Slip)"</th>
-                                                <th>Other Incentives</th>
-                                                <th>Total Additions</th>
-                                                <th>Mobile</th>
-                                                <th>Advance</th>
-                                                <th>Stamp Duty</th>
-                                                <th>P.A.Y.E</th>
-                                                <th>Loan Repayment</th>
-                                                <th>Other Deductions</th>
-                                                <th>E.P.F (8)</th>
-                                                <th>"Total Deductions (Without No Pay)"</th>
-                                                <th>"Total Deductions (With No Pay)"</th>
-                                                <th>Net Pay</th>
-                                                <th>E.P.F 12%</th>
-                                                <th>E.P.F 20%</th>
-                                                <th>E.T.F 3%</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>1001</td>
-                                                <td>Malaysia</td>
-                                                <td>61</td>
-                                                <td>Edinburgh</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>Tiger</td>
-                                                <td>Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>Tiger</td>
-                                                <td>Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>1002</td>
-                                                <td>Singapore</td>
-                                                <td>65</td>
-                                                <td>Edinburgh</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>Tiger</td>
-                                                <td>Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>Tiger</td>
-                                                <td>Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                                <td>$320,800</td>
-                                                <td>5421</td>
-                                                <td>t.nixon@datatables.net</td>
-                                            </tr>
+                                                <td style="min-width:100px;"><a type="button" href="@Url.Content("~/Images/sample_pdf.pdf")" download="samplepdf"><i class="fa fa-file-pdf-o" style="color:red"></i></a></td>
+                                                <td style="min-width:80px;">
+                                                    <a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])"><i class="fa fa-file-pdf-o" style="color:red"></i></a>
+                                                    @*<div class="btn-group dropup">
+                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                            Download
+                                                            <span class="caret"></span>
+                                                        </button>
 
-                                        </tbody>
-                                    </table>*@
-                            </div>
-                            <div>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="@Url.Content("~/Images/samplepayslip.pdf")" download="samplepayslip">Download PaySlip</a></li>
+                                                            <li><a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])">Download W/H Tax form</a></li>
 
-                            </div>
+                                                        </ul>
+                                                    </div>*@
+                                                </td>
+                                                @for (var j = 0; j < Model.dt.Columns.Count; j++)
+                                                {
+                                                    <td>
+                                                        @if (Model.dt.Rows[i][Model.dt.Columns[j].ColumnName] != null)
+                                                        {
+                                                            <text>
+                                                                @Model.dt.Rows[i][Model.dt.Columns[j].ColumnName].ToString()
+                                                            </text>
+                                                        }
+                                                    </td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+
+
+
+                            @*<table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>EMP ID</th>
+                                            <th>Location</th>
+                                            <th>F/S</th>
+                                            <th>Name</th>
+                                            <th>Designation</th>
+                                            <th>NIC</th>
+                                            <th>Sub Department</th>
+                                            <th>Basic Salary</th>
+                                            <th>BRA 01</th>
+                                            <th>BRA 02</th>
+                                            <th>BRA 03</th>
+                                            <th>Salary Arrears</th>
+                                            <th>No. of No Pay Days</th>
+                                            <th>No Pay Amount</th>
+                                            <th>Salary for EPF</th>
+                                            <th>"Vehicle  Allow. (Pay Slip)"</th>
+                                            <th>"Special Allow (Pay Slip)"</th>
+                                            <th>"Entertain. Allow. (Pay Slip)"</th>
+                                            <th>"Travel Allow. (Pay Slip)"</th>
+                                            <th>"Additional Allowance (Pay Slip)"</th>
+                                            <th>Other Incentives</th>
+                                            <th>Total Additions</th>
+                                            <th>Mobile</th>
+                                            <th>Advance</th>
+                                            <th>Stamp Duty</th>
+                                            <th>P.A.Y.E</th>
+                                            <th>Loan Repayment</th>
+                                            <th>Other Deductions</th>
+                                            <th>E.P.F (8)</th>
+                                            <th>"Total Deductions (Without No Pay)"</th>
+                                            <th>"Total Deductions (With No Pay)"</th>
+                                            <th>Net Pay</th>
+                                            <th>E.P.F 12%</th>
+                                            <th>E.P.F 20%</th>
+                                            <th>E.T.F 3%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>1001</td>
+                                            <td>Malaysia</td>
+                                            <td>61</td>
+                                            <td>Edinburgh</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>1002</td>
+                                            <td>Singapore</td>
+                                            <td>65</td>
+                                            <td>Edinburgh</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>Tiger</td>
+                                            <td>Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                            <td>$320,800</td>
+                                            <td>5421</td>
+                                            <td>t.nixon@datatables.net</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>*@
+                        </div>
+                        <div>
 
                         </div>
+
+                    </div>
 
 
                     @*}*@
@@ -328,11 +344,11 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            
+
                 $('#li_Payroll').addClass('open');
                 $('#li_generatepay').addClass('active');
-           
-              
+
+
 
 
             var date = new Date();
@@ -362,15 +378,19 @@
                 },
                 columnDefs: [
       {
-          "targets": [2,3,4,5,8],
+          "targets": [3,4,5,8],
           "visible": false
       }
                 ],
             });
-           
 
-            
+
+
         });
+
+        function GenerateTAVSummaryByEmployeeReportPDF(empid) {
+            location.href = '@Url.Content("~/YearlyReports/PrintTAVSummaryByEmployeeReport")' + '?year=' + $('#payslipBatchHeader_Year').val() + '&empId=' + empid;
+        }
 
         //function getprocesslist() {
         //    $('#payslipBatchHeader_Month').val($('#payslipBatchHeader_Month').val());
@@ -381,7 +401,7 @@
             var month=$('#payslipBatchHeader_Month').val();
             var year = $('#payslipBatchHeader_Year').val();
 
-           
+
             $('#currentmonth').val(month);
             $('#currentyear').val(year);
             $('#frm2').submit();
@@ -418,7 +438,7 @@
             else {
                 swal("Incorrect Inputs");
             }
-           
+
         }
 
         //$("#button-btn").click(function () {

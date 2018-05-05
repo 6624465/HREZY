@@ -124,8 +124,8 @@ namespace HR.Web.Controllers
             {
                 if (sSFHeader != null)
                 {
-                    pdfFormFields.SetField("CompanyName", sSFHeader.CompanyName);
-                    pdfFormFields.SetField("BranchName", sSFHeader.BranchName);
+                    pdfFormFields.SetField("CompanyName", sSFHeader.BranchName);
+                    pdfFormFields.SetField("BranchName", "");
 
                     pdfFormFields.SetField("CompanyAddress", sSFHeader.Address1);
                     pdfFormFields.SetField("CompanyAddress1", sSFHeader.Address2 + (sSFHeader.Address3 != null ? ", " + sSFHeader.Address3 : "") + (sSFHeader.Address4 != null ? ", " + sSFHeader.Address4 : "") + (sSFHeader.CityName != null ? ", " + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? ", " + sSFHeader.StateName : "") + (sSFHeader.CountryCode != null ? ", " + sSFHeader.CountryCode : ""));
@@ -625,7 +625,7 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("CompanyName", TAVSummaryByEmployee.CompanyName);
                     pdfFormFields.SetField("CompanyAddress", "");
 
-                    pdfFormFields.SetField("EmployeeName", TAVSummaryByEmployee.SalutationType + TAVSummaryByEmployee.FirstName + (TAVSummaryByEmployee.MiddleName != null ? " " + TAVSummaryByEmployee.MiddleName : "") + (TAVSummaryByEmployee.LastName != null ? " " + TAVSummaryByEmployee.LastName : ""));
+                    pdfFormFields.SetField("EmployeeName", TAVSummaryByEmployee.SalutationType + "." + TAVSummaryByEmployee.FirstName + (TAVSummaryByEmployee.MiddleName != null ? " " + TAVSummaryByEmployee.MiddleName : "") + (TAVSummaryByEmployee.LastName != null ? " " + TAVSummaryByEmployee.LastName : ""));
                     char[] Employeeidarray = TAVSummaryByEmployee.IDNumber.ToString().ToCharArray();
                     for (int i = 0; i <= Employeeidarray.Length - 1; i++)
                     {

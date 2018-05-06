@@ -167,7 +167,7 @@ namespace HR.Web.Controllers
                             pdfFormFields.SetField("BC1" + i, BranchCodeArray[i].ToString());
                         }
                     }
-                    pdfFormFields.SetField("SocialWelfarePercent", "100%");
+                    pdfFormFields.SetField("SocialWelfarePercent", sSFHeader.SSFContributionRate.ToString());
 
 
                     int count = dcount;

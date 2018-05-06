@@ -39,6 +39,10 @@ namespace HR.Web.Models
         public string MiddleName { get; set; }
         public string SocialWelfareNo { get; set; }
         public string EPFNO { get; set; }
+        public string EmpAdd1 { get; set; }
+        public string EmpAddCityName { get; set; }
+        public string EmpAddStateName { get; set; }
+        public string EmpAddZipCode { get; set; }
         public Nullable<decimal> TotalSalary { get; set; }
         public Nullable<decimal> TotalWHTax { get; set; }
         public Nullable<decimal> TotalSSF { get; set; }

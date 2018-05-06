@@ -168,9 +168,13 @@ new SelectListItem {Text = "December", Value = "12"}
                                                 <td style="min-width:100px;">
                                                     @if (ispaySlip)
                                                     {
-                                                        <a type="button" href="@Url.Content("~/Images/sample_pdf.pdf")" download="samplepdf"><i class="fa fa-file-pdf-o" style="color:red"></i></a>
+
+                                                        <a href="#" onclick="DownloadPaySlip(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])"><i class="fa fa-file-pdf-o" style="color:red"></i></a>
+
                                                     }
                                                 </td>
+
+
                                                 <td style="min-width:80px;">
                                                     @if (ispaySlip)
                                                     {
@@ -410,6 +414,11 @@ new SelectListItem {Text = "December", Value = "12"}
 
         function GenerateTAVSummaryByEmployeeReportPDF(empid) {
             location.href = '@Url.Content("~/YearlyReports/PrintTAVSummaryByEmployeeReport")' + '?year=' + $('#payslipBatchHeader_Year').val() + '&empId=' + empid;
+        }
+
+        function DownloadPaySlip(empid) {
+            location.href = '@Url.Content("~/YearlyReports/DownloadEmployeePayslip")' + '?year=' + $('#payslipBatchHeader_Year').val() + '?month=' + $('#payslipBatchHeader_Month').val() + '&empId=' + empid;
+
         }
 
         //function getprocesslist() {

@@ -625,13 +625,13 @@ namespace HR.Web.Controllers
                     }
                     //string title = validateTitle(TAVSummaryByEmployee.SalutationType);
 
-                     
+
 
                     pdfFormFields.SetField("RunNo", "");
                     pdfFormFields.SetField("CompanyName", TAVSummaryByEmployee.BranchName);
                     pdfFormFields.SetField("CompanyAddress",
-                        TAVSummaryByEmployee.BranchAddress1 + 
-                        (TAVSummaryByEmployee.BranchAddress2 !=null? "," + TAVSummaryByEmployee.BranchAddress2 : "") + 
+                        TAVSummaryByEmployee.BranchAddress1 +
+                        (TAVSummaryByEmployee.BranchAddress2 != null ? "," + TAVSummaryByEmployee.BranchAddress2 : "") +
                         TAVSummaryByEmployee.BranchCityName + "," + TAVSummaryByEmployee.BranchZipCode
                         );
 
@@ -675,18 +675,27 @@ namespace HR.Web.Controllers
 
 
         #region DownloadEmployeePaySlip
-        public FileResult DownloadEmployeePaySlip(int year,int month,int empid)
+        public FileResult DownloadEmployeePaySlip(int year, int month, int empid)
         {
             PageNo = 1;
             try
             {
+      //          BaseFont bfR;
+      //          bfR = BaseFont.CreateFont("C:\\Windows\\Fonts\\Verdana.ttf",
+      //            BaseFont.IDENTITY_H,
+      //            BaseFont.EMBEDDED);
+      //          Font fntHead =
+      //new Font(bfR, 12, NORMAL, clrBlack);
+
+
+
                 var outputPdfStream = new MemoryStream();
                 using (Document document = new Document())
                 {
                     using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
                     {
                         document.Open();
-                        AddEmployeePaySlipDataSheets(copy, BRANCHID,empid,month, year);
+                        AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, month, year);
                     }
                 }
 
@@ -710,11 +719,11 @@ namespace HR.Web.Controllers
         }
 
 
-        public void AddEmployeePaySlipDataSheets(PdfCopy copy, int branchID,int empid, int year,int month)
+        public void AddEmployeePaySlipDataSheets(PdfCopy copy, int branchID, int empid, int year, int month)
         {
             using (var dbCntx = new HrDataContext())
             {
-                usp_EmployeePaySlipHeaderTH_Result PayslipHeader = dbCntx.usp_EmployeePaySlipHeaderTH(BRANCHID,empid, year, month).FirstOrDefault();
+                usp_EmployeePaySlipHeaderTH_Result PayslipHeader = dbCntx.usp_EmployeePaySlipHeaderTH(BRANCHID, empid, year, month).FirstOrDefault();
                 List<usp_EmployeePaySlipDetailTH_Result> payslipDetail = dbCntx.usp_EmployeePaySlipDetailTH(BRANCHID, empid, year, month).ToList();
 
                 pageCount = (payslipDetail.Count() / 7) + 2;
@@ -724,8 +733,8 @@ namespace HR.Web.Controllers
 
                 for (int i = 0; i < payslipDetail.Count(); i++)
                 {
-                    TotalSalary += payslipDetail[i].RegisterCode== "BASIC SALARY" ? payslipDetail[i].Amount : 0;
-                    TotalDeductions+= payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" ? payslipDetail[i].Amount : 0;
+                    TotalSalary += payslipDetail[i].RegisterCode == "BASIC SALARY" ? payslipDetail[i].Amount : 0;
+                    TotalDeductions += payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" ? payslipDetail[i].Amount : 0;
                 }
 
                 var path = "";
@@ -743,13 +752,13 @@ namespace HR.Web.Controllers
                         {
                             using (PdfStamper stamper = new PdfStamper(reader, ms))
                             {
-                                FillEmployeePaySlip(stamper.AcroFields, payslipDetail, i, 7, PayslipHeader,month,year);
+                                FillEmployeePaySlip(stamper.AcroFields, payslipDetail, i, 7, PayslipHeader, month, year);
                                 stamper.FormFlattening = true;
                             }
                             reader = new PdfReader(ms.ToArray());
                             if (PageNo == 1)
                                 copy.AddPage(copy.GetImportedPage(reader, 1));
-                             
+
                         }
                         i = i + 7;
                         PageNo += 2;
@@ -757,20 +766,20 @@ namespace HR.Web.Controllers
                 }
             }
         }
-        public static void FillEmployeePaySlip(AcroFields pdfFormFields, List<usp_EmployeePaySlipDetailTH_Result> payslipDetail, int dcount, int validcount, usp_EmployeePaySlipHeaderTH_Result payslipHeader,int month, int year)
+        public static void FillEmployeePaySlip(AcroFields pdfFormFields, List<usp_EmployeePaySlipDetailTH_Result> payslipDetail, int dcount, int validcount, usp_EmployeePaySlipHeaderTH_Result payslipHeader, int month, int year)
         {
             try
             {
                 if (payslipHeader != null)
                 {
 
-                    
+
                     pdfFormFields.SetField("BranchName", payslipHeader.BranchName);
 
                     pdfFormFields.SetField("BranchAddress", payslipHeader.Address1);
                     pdfFormFields.SetField("BranchTaxCode", payslipHeader.BranchTaxCode);
 
-                    pdfFormFields.SetField("EmployeeName", payslipHeader.SalutationType + "."  + payslipHeader.FirstName.ToString() + (payslipHeader.MiddleName != null ? " " + payslipHeader.MiddleName : ""));  
+                    pdfFormFields.SetField("EmployeeName", payslipHeader.SalutationType + "." + payslipHeader.FirstName.ToString() + (payslipHeader.MiddleName != null ? " " + payslipHeader.MiddleName : ""));
                     pdfFormFields.SetField("Designation", payslipHeader.EmployeeDescription);
                     pdfFormFields.SetField("Department", payslipHeader.EmployeeDepartment);
                     pdfFormFields.SetField("Month", year.ToString());
@@ -779,7 +788,7 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("ETOTAL", TotalSalary.ToString());
                     pdfFormFields.SetField("DTOTAL", TotalDeductions.ToString());
                     pdfFormFields.SetField("TotalNet", (TotalSalary - TotalDeductions).ToString());
- 
+
 
 
                     int count = dcount;
@@ -787,47 +796,19 @@ namespace HR.Web.Controllers
                     {
                         if (count < payslipDetail.Count)
                         {
-
-
                             if (payslipDetail[i].RegisterCode == "BASIC SALARY")
                             {
-                                pdfFormFields.SetField("E" + i, payslipDetail[i].ContributionCode);
+                                pdfFormFields.SetField("E" + i, payslipDetail[i].ContributionCode.ToString());
                                 pdfFormFields.SetField("EA" + i, payslipDetail[i].Amount.ToString());
-
                             }
-
-
-                        }
-
-                         
-                        count++;
-                    }
-
-
-                    count = dcount;
-                    int p = 0;
-                    for (int i = 0; i < validcount; i++)
-                    {
-                        if (count < payslipDetail.Count)
-                        {
-
-
                             if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION")
                             {
-                                
-                                pdfFormFields.SetField("D" + p, payslipDetail[i].ContributionCode);
-                                pdfFormFields.SetField("DA" + p, payslipDetail[i].Amount.ToString());
-
-                                p++;
+                                pdfFormFields.SetField("D" + i, payslipDetail[i].ContributionCode.ToString());
+                                pdfFormFields.SetField("DA" + i, payslipDetail[i].Amount.ToString());
                             }
-
-
                         }
-
-
                         count++;
                     }
-
                 }
             }
             catch (Exception ex)
@@ -887,6 +868,6 @@ namespace HR.Web.Controllers
             return "";
         }
 
- 
+
     }
 }

@@ -282,7 +282,7 @@ namespace HR.Web.Controllers
                                 stamper.FormFlattening = true;
                             }
                             reader = new PdfReader(ms.ToArray());
-                            if (PageNo == 1)
+                            if (PageNo == 2)
                                 copy.AddPage(copy.GetImportedPage(reader, 1));
                             copy.AddPage(copy.GetImportedPage(reader, 2));
                             copy.AddPage(copy.GetImportedPage(reader, 3));
@@ -444,7 +444,7 @@ namespace HR.Web.Controllers
                                 stamper.FormFlattening = true;
                             }
                             reader = new PdfReader(ms.ToArray());
-                            if (PageNo == 1)
+                            if (PageNo == 2)
                                 copy.AddPage(copy.GetImportedPage(reader, 1));
                             copy.AddPage(copy.GetImportedPage(reader, 2));
                         }

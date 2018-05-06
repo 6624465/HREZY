@@ -714,8 +714,18 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Parameter Name="CurrentMonth" Type="int" Mode="In" />
           <Parameter Name="CurrentYear" Type="int" Mode="In" />
         </Function>
-        
-        
+        <Function Name="usp_EmployeePaySlipDetailTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
+          <Parameter Name="BranchId" Type="int" Mode="In" />
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_EmployeePaySlipHeaderTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
+          <Parameter Name="BranchId" Type="int" Mode="In" />
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_PND1KSummaryDetailByYearTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
           <Parameter Name="BranchId" Type="int" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />
@@ -922,6 +932,18 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <Parameter Name="BranchID" Mode="In" Type="Int16" />
             <Parameter Name="CurrentMonth" Mode="In" Type="Int32" />
             <Parameter Name="CurrentYear" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EmployeePaySlipDetailTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EmployeePaySlipHeaderTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeePaySlipHeaderTH_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="User">
@@ -1740,6 +1762,41 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Type="String" Name="TelNo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="SSFContributionRate" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="usp_EmployeePaySlipDetailTH_Result">
+          <Property Type="String" Name="RegisterCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContributionCode" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="usp_EmployeePaySlipHeaderTH_Result">
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="RegNo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="BranchTaxCode" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SSFNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TaxIdNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address3" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address4" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CityName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CountryCode" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TelNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EmployeeId" Nullable="true" />
+          <Property Type="String" Name="IDNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SalutationType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SocialWelfareNo" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EPFNO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmployeeDescription" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmployeeDepartment" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2661,6 +2718,49 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CommitPayslip" FunctionName="DB_9F30C5_HRDBModel.Store.CommitPayslip" />
+          <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipDetailTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipDetailTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result">
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
+                <ScalarProperty Name="ContributionCode" ColumnName="ContributionCode" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipHeaderTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipHeaderTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeePaySlipHeaderTH_Result">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="BranchTaxCode" ColumnName="BranchTaxCode" />
+                <ScalarProperty Name="SSFNumber" ColumnName="SSFNumber" />
+                <ScalarProperty Name="TaxIdNumber" ColumnName="TaxIdNumber" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="SalutationType" ColumnName="SalutationType" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="SocialWelfareNo" ColumnName="SocialWelfareNo" />
+                <ScalarProperty Name="EPFNO" ColumnName="EPFNO" />
+                <ScalarProperty Name="EmployeeDescription" ColumnName="EmployeeDescription" />
+                <ScalarProperty Name="EmployeeDepartment" ColumnName="EmployeeDepartment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

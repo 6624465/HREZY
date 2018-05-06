@@ -714,6 +714,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Parameter Name="CurrentMonth" Type="int" Mode="In" />
           <Parameter Name="CurrentYear" Type="int" Mode="In" />
         </Function>
+        
+        
         <Function Name="usp_PND1KSummaryDetailByYearTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
           <Parameter Name="BranchId" Type="int" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />

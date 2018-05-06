@@ -417,7 +417,7 @@ new SelectListItem {Text = "December", Value = "12"}
         }
 
         function DownloadPaySlip(empid) {
-            location.href = '@Url.Content("~/YearlyReports/DownloadEmployeePayslip")' + '?year=' + $('#payslipBatchHeader_Year').val() + '?month=' + $('#payslipBatchHeader_Month').val() + '&empId=' + empid;
+            location.href = '@Url.Content("~/YearlyReports/DownloadEmployeePayslip")' + '?year=' + $('#payslipBatchHeader_Year').val() + '&month=' + $('#payslipBatchHeader_Month').val() + '&empId=' + empid;
 
         }
 

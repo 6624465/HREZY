@@ -134,7 +134,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 @*<li><a href="#">Employee Pay Slips</a></li>*@
                     <li><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/TaxAssessment?year="+year)">Tax Calculations</a></li>
                     <li id="li_updatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/UpdateVariablePay")">Update Variable Pay</a></li>
-                    <li id="li_generatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/ProcessPayroll")">Generate Pay Slips</a></li>
+                    <li id="li_generatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/ProcessPayroll?currentmonth="+month+"&currentyear="+year)">Generate Pay Slips</a></li>
             </ul>
         </li>
         <li id="li_PayRollConfig">

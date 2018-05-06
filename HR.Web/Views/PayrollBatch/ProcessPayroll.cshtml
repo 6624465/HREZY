@@ -1,4 +1,6 @@
 ﻿@model HR.Web.ViewModels.PayrollBatchVm
+
+
 @section Styles{
     <link src="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link src="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.bootstrap.min.css" rel="stylesheet" />
@@ -35,11 +37,11 @@
             background: #fff;
         }
         /*.dsp-none{
-            display:none;
-        }*/
+                display:none;
+            }*/
         /*#dtid2{
-            display:none;
-        }*/
+                display:none;
+            }*/
 
     </style>
 }
@@ -59,6 +61,13 @@ new SelectListItem {Text = "October",   Value = "10"},
 new SelectListItem {Text = "November", Value = "11"},
 new SelectListItem {Text = "December", Value = "12"}
 };
+
+    var ispaySlip = false;
+
+    if (Model.dt != null && Model.dt.Rows.Count > 0)
+    {
+        ispaySlip = Convert.ToInt32(@Model.dt.Rows[0][Model.dt.Columns[Model.dt.Columns.Count - 1].ColumnName]) == 1 ? true : false;
+    }
 }
 
 
@@ -100,14 +109,14 @@ new SelectListItem {Text = "December", Value = "12"}
                                 <span class="pull-right">Month</span>
                             </label>
                             <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", required = "required" })
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", required = "required", onchange = "getprocesslist()" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.Month)
                             </div>
                             <label class="col-md-1 control-label">
                                 <span class="pull-right">Year</span>
                             </label>
                             <div class="col-md-1 pull-left">
-                                @Html.DropDownListFor(x => x.payslipBatchHeader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", required = "required" })
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", required = "required", onchange = "getprocesslist()" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.Year)
                             </div>
                             <label class="col-md-2 control-label">
@@ -123,10 +132,13 @@ new SelectListItem {Text = "December", Value = "12"}
                             <div class="col-md-2">
                             </div>
                             <div class="col-md-5">
-                                <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslist()"><b>Process</b></button>
-                                @if (Model.dt != null && Model.dt.Rows.Count > 0)
+                                @if (!ispaySlip)
                                 {
-                                    <button type="button" class="btn btn-sm btn-success dsp-none" id="dtid2" onclick="ConfirmProcess()"><b>Confirm</b></button>
+                                    <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslist()"><b>Process</b></button>
+                                    if (Model.dt != null && Model.dt.Rows.Count > 0)
+                                    {
+                                        <button type="button" class="btn btn-sm btn-success dsp-none" id="dtid2" onclick="ConfirmProcess()"><b>Confirm</b></button>
+                                    }
                                 }
                             </div>
                         </div>
@@ -153,21 +165,29 @@ new SelectListItem {Text = "December", Value = "12"}
                                         @for (var i = 0; i < Model.dt.Rows.Count; i++)
                                         {
                                             <tr>
-                                                <td style="min-width:100px;"><a type="button" href="@Url.Content("~/Images/sample_pdf.pdf")" download="samplepdf"><i class="fa fa-file-pdf-o" style="color:red"></i></a></td>
+                                                <td style="min-width:100px;">
+                                                    @if (ispaySlip)
+                                                    {
+                                                        <a type="button" href="@Url.Content("~/Images/sample_pdf.pdf")" download="samplepdf"><i class="fa fa-file-pdf-o" style="color:red"></i></a>
+                                                    }
+                                                </td>
                                                 <td style="min-width:80px;">
-                                                    <a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])"><i class="fa fa-file-pdf-o" style="color:red"></i></a>
+                                                    @if (ispaySlip)
+                                                    {
+                                                        <a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])"><i class="fa fa-file-pdf-o" style="color:red"></i></a>
+                                                    }
                                                     @*<div class="btn-group dropup">
-                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                            Download
-                                                            <span class="caret"></span>
-                                                        </button>
+                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                Download
+                                                                <span class="caret"></span>
+                                                            </button>
 
-                                                        <ul class="dropdown-menu" role="menu">
-                                                            <li><a href="@Url.Content("~/Images/samplepayslip.pdf")" download="samplepayslip">Download PaySlip</a></li>
-                                                            <li><a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])">Download W/H Tax form</a></li>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <li><a href="@Url.Content("~/Images/samplepayslip.pdf")" download="samplepayslip">Download PaySlip</a></li>
+                                                                <li><a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])">Download W/H Tax form</a></li>
 
-                                                        </ul>
-                                                    </div>*@
+                                                            </ul>
+                                                        </div>*@
                                                 </td>
                                                 @for (var j = 0; j < Model.dt.Columns.Count; j++)
                                                 {

@@ -76,6 +76,11 @@ namespace HR.Web.Controllers
                     vm.payslipBatchHeader.BatchNo = "BATCH" + batchcount.ToString("D4");
 
                 }
+                else {
+                    vm.payslipBatchHeader = new PayslipBatchHeader();
+                    vm.payslipBatchHeader.Month = Convert.ToByte(currentmonth.Value);
+                    vm.payslipBatchHeader.Year = currentyear.Value;
+                }
 
 
 
@@ -348,7 +353,7 @@ namespace HR.Web.Controllers
             {
                 var result = dbCntx.CommitPayslip(Convert.ToInt16(BRANCHID), month, year);
             }
-            return RedirectToAction("ProcessPayroll");
+            return RedirectToAction("ProcessPayroll", new { currentmonth= month, currentyear= year });
         }
 
         [HttpPost]

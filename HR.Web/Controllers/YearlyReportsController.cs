@@ -77,6 +77,10 @@ namespace HR.Web.Controllers
 
         public void AddDataSheets(PdfCopy copy, int branchID, int year, int month)
         {
+            TotalSalary =0.0M;
+            TotalEmployeeContribution = 0.0M;
+            TotalEmployerContribution = 0.0M;
+
             using (var dbCntx = new HrDataContext())
             {
                 usp_SSFSummaryHeaderByMonthTH_Result sSFHeader = dbCntx.usp_SSFSummaryHeaderByMonthTH(BRANCHID, month, year).FirstOrDefault();
@@ -127,11 +131,12 @@ namespace HR.Web.Controllers
             {
                 if (sSFHeader != null)
                 {
+
                     pdfFormFields.SetField("CompanyName", sSFHeader.BranchName);
                     pdfFormFields.SetField("BranchName", "");
 
                     pdfFormFields.SetField("CompanyAddress", sSFHeader.Address1);
-                    pdfFormFields.SetField("CompanyAddress1", sSFHeader.Address2 + (sSFHeader.Address3 != null ? ", " + sSFHeader.Address3 : "") + (sSFHeader.Address4 != null ? ", " + sSFHeader.Address4 : "") + (sSFHeader.CityName != null ? ", " + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? ", " + sSFHeader.StateName : "") + (sSFHeader.CountryCode != null ? ", " + sSFHeader.CountryCode : ""));
+                    pdfFormFields.SetField("CompanyAddress1", (sSFHeader.CityName != null ? ", " + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? ", " + sSFHeader.StateName : "") + (sSFHeader.CountryCode != null ? ", " + sSFHeader.CountryCode : ""));
                     pdfFormFields.SetField("PostalCode", sSFHeader.ZipCode);
                     pdfFormFields.SetField("PhoneNo", sSFHeader.TelNo);
                     pdfFormFields.SetField("FaxNo", sSFHeader.FaxNo);
@@ -139,8 +144,13 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("TotalSalary", TotalSalary.ToString());
                     pdfFormFields.SetField("TotalEmployeeContribution", TotalEmployeeContribution.ToString());
                     pdfFormFields.SetField("TotalEmployerContribution", TotalEmployerContribution.ToString());
-                    pdfFormFields.SetField("Total", (TotalSalary + TotalEmployeeContribution + TotalEmployerContribution).ToString());
-                    pdfFormFields.SetField("TotalInWards", "Need to work on this....");
+                    pdfFormFields.SetField("Total", (TotalEmployeeContribution + TotalEmployerContribution).ToString());
+
+                    string strToBaht = "";
+
+                    strToBaht = HR.Web.Helpers.NumberToWordExtensionMethods.ToBaht(Convert.ToDouble((TotalEmployeeContribution + TotalEmployerContribution)));
+
+                    pdfFormFields.SetField("TotalInWards", strToBaht);
 
                     pdfFormFields.SetField("CountOfEmployee", sSFDetail.Count.ToString());
                     pdfFormFields.SetField("TotalPages", pageCount.ToString());
@@ -253,6 +263,9 @@ namespace HR.Web.Controllers
 
         public void AddPND1DataSheets(PdfCopy copy, int branchID, int year, int month)
         {
+            TotalSalary =0.0M;
+            TotalWHT = 0.0M;
+
             using (var dbCntx = new HrDataContext())
             {
                 usp_PND1SummaryHeaderByMonthTH_Result PND1Header = dbCntx.usp_PND1SummaryHeaderByMonthTH(BRANCHID).FirstOrDefault();
@@ -322,7 +335,7 @@ namespace HR.Web.Controllers
 
                         }
                     }
-                    pdfFormFields.SetField("CompanyName", PND1Header.CompanyName);
+                    pdfFormFields.SetField("CompanyName", PND1Header.BranchName);
 
                     pdfFormFields.SetField("Year", PND1Detail[0].Year.ToString());
                     pdfFormFields.SetField("m" + PND1Detail[0].Month, "Yes", true);
@@ -345,7 +358,7 @@ namespace HR.Web.Controllers
                             string title = validateTitle(PND1Detail[i].SalutationType);
                             pdfFormFields.SetField("SN" + i, (count + 1).ToString());
 
-                            char[] Employeeidarray = PND1Detail[i].EmployeeId.ToString().ToCharArray();
+                            char[] Employeeidarray = PND1Detail[i].IDNumber.ToString().ToCharArray();
                             for (int j = 0; j <= Employeeidarray.Length - 1; j++)
                             {
                                 pdfFormFields.SetField("EID" + i + j, Employeeidarray[j].ToString());
@@ -415,6 +428,9 @@ namespace HR.Web.Controllers
 
         public void AddPND1KDataSheets(PdfCopy copy, int branchID, int year)
         {
+            TotalWHT =0.0M;
+            TotalTaxableIncome = 0.0M;
+
             using (var dbCntx = new HrDataContext())
             {
                 usp_PND1KSummaryHeaderByYearTH_Result PND1KHeader = dbCntx.usp_PND1KSummaryHeaderByYearTH(BRANCHID, year).FirstOrDefault();
@@ -483,9 +499,9 @@ namespace HR.Web.Controllers
 
                         }
                     }
-                    pdfFormFields.SetField("CompanyName", PND1KHeader.CompanyName);
+                    pdfFormFields.SetField("CompanyName", PND1KHeader.BranchName);
 
-                    pdfFormFields.SetField("YearThai", "");
+                    pdfFormFields.SetField("YearThai", DateTime.Now.Year.ToString());
                     pdfFormFields.SetField("RadioButton0", "Yes", true);
                     pdfFormFields.SetField("RadioButton1", "Yes", true);
                     pdfFormFields.SetField("NoOfAttachmentPages", pageCount.ToString());
@@ -512,7 +528,7 @@ namespace HR.Web.Controllers
                             char[] Employeeidarray = PND1KDetail[i].IDNumber.ToString().ToCharArray();
                             for (int j = 0; j <= Employeeidarray.Length - 1; j++)
                             {
-                                pdfFormFields.SetField("EID" + i + j, Employeeidarray[j].ToString());
+                                pdfFormFields.SetField("eid" + i + j, Employeeidarray[j].ToString());
                             }
 
                             pdfFormFields.SetField("EName" + i, title + PND1KDetail[i].FirstName.ToString() + (PND1KDetail[i].MiddleName != null ? " " + PND1KDetail[i].MiddleName : ""));
@@ -646,12 +662,14 @@ namespace HR.Web.Controllers
                     {
                         pdfFormFields.SetField("essfNo" + i, EmployeeSSFNoarray[i].ToString());
                     }
-                    pdfFormFields.SetField("EmployeeAddress", "");
+                    pdfFormFields.SetField("EmployeeAddress", TAVSummaryByEmployee.EmpAdd1 +
+                        (TAVSummaryByEmployee.EmpAddCityName != null ? "," + TAVSummaryByEmployee.EmpAddCityName + ",": ",") +
+                        TAVSummaryByEmployee.EmpAddStateName + "," + TAVSummaryByEmployee.EmpAddZipCode);
                     pdfFormFields.SetField("PageNo", PageNo.ToString());
 
 
                     DateTime lastdayofYear = new DateTime(Convert.ToInt32(DateTime.Now.Year), 12, 31);
-                    pdfFormFields.SetField("YearEndDate", lastdayofYear.ToString());
+                    pdfFormFields.SetField("YearEndDate", lastdayofYear.ToString("dd-MM-yyyy"));
                     pdfFormFields.SetField("CTC", TAVSummaryByEmployee.TotalSalary.ToString());
                     pdfFormFields.SetField("TotalTDS", TAVSummaryByEmployee.TotalWHTax.ToString());
                     pdfFormFields.SetField("CTC1", TAVSummaryByEmployee.TotalSalary.ToString());
@@ -801,10 +819,24 @@ namespace HR.Web.Controllers
                                 pdfFormFields.SetField("E" + i, payslipDetail[i].ContributionCode.ToString());
                                 pdfFormFields.SetField("EA" + i, payslipDetail[i].Amount.ToString());
                             }
+                             
+                        }
+                        count++;
+                    }
+
+                    count = dcount;
+                    int p = 0;
+                    for (int i = 0; i < validcount; i++)
+                    {
+                        if (count < payslipDetail.Count)
+                        {
+                             
                             if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION")
                             {
-                                pdfFormFields.SetField("D" + i, payslipDetail[i].ContributionCode.ToString());
-                                pdfFormFields.SetField("DA" + i, payslipDetail[i].Amount.ToString());
+                                pdfFormFields.SetField("D" + p, payslipDetail[i].ContributionCode.ToString());
+                                pdfFormFields.SetField("DA" + p, payslipDetail[i].Amount.ToString());
+
+                                p++;
                             }
                         }
                         count++;

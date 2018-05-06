@@ -1833,6 +1833,7 @@
     <Compile Include="Helpers\LinqFuncs.cs" />
     <Compile Include="Helpers\MyDateTimeModelBinder.cs" />
     <Compile Include="Helpers\MyStringModelBinder.cs" />
+    <Compile Include="Helpers\NumberToWordExtensionMethods.cs" />
     <Compile Include="Helpers\SelectHelpers.cs" />
     <Compile Include="Helpers\WebGridExtensions.cs" />
     <Compile Include="Models\Address.cs">

@@ -133,6 +133,7 @@ namespace HR.Web.Controllers
                 {
 
                     pdfFormFields.SetField("CompanyName", sSFHeader.BranchName);
+                    pdfFormFields.SetField("CompanyName1", sSFHeader.BranchName);
                     pdfFormFields.SetField("BranchName", "");
 
                     pdfFormFields.SetField("CompanyAddress", sSFHeader.Address1);
@@ -504,6 +505,8 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("YearThai", DateTime.Now.Year.ToString());
                     pdfFormFields.SetField("RadioButton0", "Yes", true);
                     pdfFormFields.SetField("RadioButton1", "Yes", true);
+                    pdfFormFields.SetField("RadioButton2", "Yes", true);
+                    
                     pdfFormFields.SetField("NoOfAttachmentPages", pageCount.ToString());
                     pdfFormFields.SetField("NoOfEmp", PND1KDetail.Count().ToString());
                     pdfFormFields.SetField("NoOfEmp1", PND1KDetail.Count().ToString());
@@ -512,6 +515,8 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("TotalIncome1", TotalTaxableIncome.ToString());
                     pdfFormFields.SetField("TotalWHT", TotalWHT.ToString());
                     pdfFormFields.SetField("TotalWHT1", TotalWHT.ToString());
+                    pdfFormFields.SetField("GrandTotalIncome", TotalTaxableIncome.ToString());
+                    pdfFormFields.SetField("GrandTotalWHT", TotalWHT.ToString());
 
                     pdfFormFields.SetField("PageNo", PageNo.ToString());
                     pdfFormFields.SetField("NoOfPages", pageCount.ToString());
@@ -543,7 +548,7 @@ namespace HR.Web.Controllers
                         else if (count == PND1KDetail.Count())
                         {
                             pdfFormFields.SetField("TotalIncome", TotalTaxableIncome.ToString());
-                            pdfFormFields.SetField("TotalWHT", TotalTaxableIncome.ToString());
+                            pdfFormFields.SetField("TotalWHT", TotalWHT.ToString());
                             break;
                         }
                         count++;

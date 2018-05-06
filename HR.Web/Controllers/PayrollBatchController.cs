@@ -342,6 +342,15 @@ namespace HR.Web.Controllers
 
         }
 
+        public ActionResult confirmprocesspayrollBySP(int year, int month)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var result = dbCntx.CommitPayslip(Convert.ToInt16(BRANCHID), month, year);
+            }
+            return RedirectToAction("ProcessPayroll");
+        }
+
         [HttpPost]
         public ActionResult confirmprocesspayroll(PayslipBatchHeader payslipbatchheader)
         {

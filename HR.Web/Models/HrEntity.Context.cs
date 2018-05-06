@@ -219,5 +219,22 @@ namespace HR.Web.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SSFSummaryHeaderByMonthTH_Result>("usp_SSFSummaryHeaderByMonthTH", branchIdParameter, monthParameter, yearParameter);
         }
+    
+        public virtual int CommitPayslip(Nullable<short> branchID, Nullable<int> currentMonth, Nullable<int> currentYear)
+        {
+            var branchIDParameter = branchID.HasValue ?
+                new ObjectParameter("BranchID", branchID) :
+                new ObjectParameter("BranchID", typeof(short));
+    
+            var currentMonthParameter = currentMonth.HasValue ?
+                new ObjectParameter("CurrentMonth", currentMonth) :
+                new ObjectParameter("CurrentMonth", typeof(int));
+    
+            var currentYearParameter = currentYear.HasValue ?
+                new ObjectParameter("CurrentYear", currentYear) :
+                new ObjectParameter("CurrentYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CommitPayslip", branchIDParameter, currentMonthParameter, currentYearParameter);
+        }
     }
 }

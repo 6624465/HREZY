@@ -54,7 +54,7 @@ namespace HR.Web.Controllers
                     vm.dt = PayslipbatchheaderBo.GeneratePayslip(Convert.ToInt16(BRANCHID), currentmonth.Value, currentyear.Value);
                 }
                 decimal? netamount = 0;
-                var headerlist = salarystructureheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.EffectiveDate.Value.Month == currentmonth && x.EffectiveDate.Value.Year == currentyear && x.IsActive == true);
+                var headerlist = salarystructureheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.EffectiveDate.Value.Month <= currentmonth && x.EffectiveDate.Value.Year == currentyear && x.IsActive == true);
                 if (headerlist != null && headerlist.Count() != 0)
                 {
 

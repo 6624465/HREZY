@@ -11,7 +11,7 @@ namespace HR.Web.Models
 {
     using System;
     
-    public partial class usp_SSFSummaryHeaderByMonthTH_Result
+    public partial class usp_PND1KSummaryHeaderByYearTH_Result
     {
         public string CompanyName { get; set; }
         public string BranchName { get; set; }
@@ -32,6 +32,6 @@ namespace HR.Web.Models
         public string ZipCode { get; set; }
         public string TelNo { get; set; }
         public string FaxNo { get; set; }
-        public Nullable<decimal> SSFContributionRate { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

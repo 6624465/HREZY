@@ -134,23 +134,6 @@ namespace HR.Web.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SSFSummaryDetailByMonthTH_Result>("usp_SSFSummaryDetailByMonthTH", branchIdParameter, monthParameter, yearParameter);
         }
     
-        public virtual ObjectResult<usp_SSFSummaryHeaderByMonthTH_Result> usp_SSFSummaryHeaderByMonthTH(Nullable<int> branchId, Nullable<int> month, Nullable<int> year)
-        {
-            var branchIdParameter = branchId.HasValue ?
-                new ObjectParameter("BranchId", branchId) :
-                new ObjectParameter("BranchId", typeof(int));
-    
-            var monthParameter = month.HasValue ?
-                new ObjectParameter("Month", month) :
-                new ObjectParameter("Month", typeof(int));
-    
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("Year", year) :
-                new ObjectParameter("Year", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SSFSummaryHeaderByMonthTH_Result>("usp_SSFSummaryHeaderByMonthTH", branchIdParameter, monthParameter, yearParameter);
-        }
-    
         public virtual ObjectResult<usp_PND1SummaryDetailByMonthTH_Result> usp_PND1SummaryDetailByMonthTH(Nullable<int> branchId, Nullable<int> month, Nullable<int> year)
         {
             var branchIdParameter = branchId.HasValue ?
@@ -175,6 +158,125 @@ namespace HR.Web.Models
                 new ObjectParameter("BranchId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_PND1SummaryHeaderByMonthTH_Result>("usp_PND1SummaryHeaderByMonthTH", branchIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_PND1KSummaryDetailByYearTH_Result> usp_PND1KSummaryDetailByYearTH(Nullable<int> branchId, Nullable<int> year)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_PND1KSummaryDetailByYearTH_Result>("usp_PND1KSummaryDetailByYearTH", branchIdParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<usp_PND1KSummaryHeaderByYearTH_Result> usp_PND1KSummaryHeaderByYearTH(Nullable<int> branchId, Nullable<int> year)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_PND1KSummaryHeaderByYearTH_Result>("usp_PND1KSummaryHeaderByYearTH", branchIdParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<usp_SSFSummaryHeaderByMonthTH_Result> usp_SSFSummaryHeaderByMonthTH(Nullable<int> branchId, Nullable<int> month, Nullable<int> year)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SSFSummaryHeaderByMonthTH_Result>("usp_SSFSummaryHeaderByMonthTH", branchIdParameter, monthParameter, yearParameter);
+        }
+    
+        public virtual int CommitPayslip(Nullable<short> branchID, Nullable<int> currentMonth, Nullable<int> currentYear)
+        {
+            var branchIDParameter = branchID.HasValue ?
+                new ObjectParameter("BranchID", branchID) :
+                new ObjectParameter("BranchID", typeof(short));
+    
+            var currentMonthParameter = currentMonth.HasValue ?
+                new ObjectParameter("CurrentMonth", currentMonth) :
+                new ObjectParameter("CurrentMonth", typeof(int));
+    
+            var currentYearParameter = currentYear.HasValue ?
+                new ObjectParameter("CurrentYear", currentYear) :
+                new ObjectParameter("CurrentYear", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CommitPayslip", branchIDParameter, currentMonthParameter, currentYearParameter);
+        }
+    
+        public virtual ObjectResult<usp_EmployeePaySlipDetailTH_Result> usp_EmployeePaySlipDetailTH(Nullable<int> branchId, Nullable<int> employeeID, Nullable<int> month, Nullable<int> year)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeePaySlipDetailTH_Result>("usp_EmployeePaySlipDetailTH", branchIdParameter, employeeIDParameter, monthParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<usp_EmployeePaySlipHeaderTH_Result> usp_EmployeePaySlipHeaderTH(Nullable<int> branchId, Nullable<int> employeeID, Nullable<int> year, Nullable<int> month)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeePaySlipHeaderTH_Result>("usp_EmployeePaySlipHeaderTH", branchIdParameter, employeeIDParameter, yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<usp_TAVSummaryByEmployeeTH_Result> usp_TAVSummaryByEmployeeTH(Nullable<int> branchId, Nullable<int> employeeID, Nullable<int> year)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TAVSummaryByEmployeeTH_Result>("usp_TAVSummaryByEmployeeTH", branchIdParameter, employeeIDParameter, yearParameter);
         }
     }
 }

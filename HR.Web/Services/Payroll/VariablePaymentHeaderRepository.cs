@@ -47,9 +47,17 @@ namespace HR.Web.Services.Payroll
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    dbContext.VariablePaymentHeaders.Remove(entity);
+                    VariablePaymentHeader vpHeader = dbContext.VariablePaymentHeaders
+                                                   .Where(x => x.HeaderID == entity.HeaderID).FirstOrDefault();
+
+                    if (vpHeader != null)
+                    {
+                        dbContext.VariablePaymentHeaders.Remove(vpHeader);
+                    }
+
                     dbContext.SaveChanges();
                 }
+
             }
             catch (Exception ex)
             {

@@ -76,6 +76,11 @@ namespace HR.Web.Controllers
                     vm.payslipBatchHeader.BatchNo = "BATCH" + batchcount.ToString("D4");
 
                 }
+                else {
+                    vm.payslipBatchHeader = new PayslipBatchHeader();
+                    vm.payslipBatchHeader.Month = Convert.ToByte(currentmonth.Value);
+                    vm.payslipBatchHeader.Year = currentyear.Value;
+                }
 
 
 
@@ -149,7 +154,7 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult EditVariablePay(int Employeeid)
+        public JsonResult EditVariablePay(int Employeeid, int Month, int Year)
         {
             var structurelist = salarystructureheaderBo
                                    .GetListByProperty(x => x.EmployeeId == Employeeid)
@@ -164,12 +169,20 @@ namespace HR.Web.Controllers
                                         .GetListByProperty(x => x.StructureID == structureID && x.IsActive == true && x.IsVariablePay == true)
                                         .ToList();
 
+                VariablePaymentHeader vpHeader = variablepaymentheaderBo.GetAll().Where(x => x.BranchID == BRANCHID && x.Month == Month && x.Year == Year).FirstOrDefault();
+
+                List<VariablePaymentDetail> vpDetails = new List<VariablePaymentDetail>();
+                if (vpHeader != null)
+                    vpDetails= variabledetailBo.GetAll().Where(x => x.HeaderId == vpHeader.HeaderID && x.EmployeeId == Employeeid).ToList();
+
                 var variablepaymentdetailList = new List<VariablePaymentDetail>();
+
                 foreach (var item in ComponentsList)
                 {
+                    VariablePaymentDetail vpDtl = vpDetails.Where(x => x.ComponentCode == item.Description).FirstOrDefault();
                     var variablepaymentdetail = new VariablePaymentDetail()
                     {
-                        Amount = item.Amount,
+                        Amount = vpDtl != null ? vpDtl.Amount : item.Amount,
                         ComponentCode = item.Description,
                         EmployeeId = salarystructureheaderBo
                                         .GetByProperty(x => x.StructureID == item.StructureID)
@@ -292,10 +305,10 @@ namespace HR.Web.Controllers
         [HttpPost]
         public ActionResult SaveVariablePaytransaction(UpdateVariablePayVm updatevariablepay)
         {
-            VariablePaymentHeader vpHeader = variablepaymentheaderBo.GetAll().Where(x=>x.BranchID== BRANCHID && x.Month== updatevariablepay.variablepaymentheader.Month && x.Year== updatevariablepay.variablepaymentheader.Year).FirstOrDefault();
-            if (vpHeader!=null)
+            VariablePaymentHeader vpHeader = variablepaymentheaderBo.GetAll().Where(x => x.BranchID == BRANCHID && x.Month == updatevariablepay.variablepaymentheader.Month && x.Year == updatevariablepay.variablepaymentheader.Year).FirstOrDefault();
+            if (vpHeader != null)
             {
-                variablepaymentheaderBo.Delete(vpHeader);
+                //variablepaymentheaderBo.Delete(vpHeader);
                 List<VariablePaymentDetail> vpDetails = variabledetailBo.GetAll().Where(x => x.HeaderId == vpHeader.HeaderID && x.EmployeeId == updatevariablepay.variablepaymentdetail[0].EmployeeId).ToList();
                 for (var i = 0; i < vpDetails.Count; i++)
                 {
@@ -306,6 +319,7 @@ namespace HR.Web.Controllers
 
             VariablePaymentHeader variablepaymentheader = new VariablePaymentHeader()
             {
+                HeaderID = vpHeader != null ? vpHeader.HeaderID : 0,
                 TransactionNo = updatevariablepay.variablepaymentheader.TransactionNo,
                 Month = updatevariablepay.variablepaymentheader.Month,
                 Year = updatevariablepay.variablepaymentheader.Year,
@@ -331,6 +345,15 @@ namespace HR.Web.Controllers
             }
             return RedirectToAction("UpdateVariablePay");
 
+        }
+
+        public ActionResult confirmprocesspayrollBySP(int year, int month)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var result = dbCntx.CommitPayslip(Convert.ToInt16(BRANCHID), month, year);
+            }
+            return RedirectToAction("ProcessPayroll", new { currentmonth= month, currentyear= year });
         }
 
         [HttpPost]

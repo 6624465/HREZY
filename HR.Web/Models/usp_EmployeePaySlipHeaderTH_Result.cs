@@ -11,17 +11,16 @@ namespace HR.Web.Models
 {
     using System;
     
-    public partial class usp_SSFSummaryHeaderByMonthTH_Result
+    public partial class usp_EmployeePaySlipHeaderTH_Result
     {
         public string CompanyName { get; set; }
+        public Nullable<int> BranchID { get; set; }
         public string BranchName { get; set; }
         public string RegNo { get; set; }
         public string BranchCode { get; set; }
-        public Nullable<int> AddressID { get; set; }
         public string BranchTaxCode { get; set; }
         public string SSFNumber { get; set; }
         public string TaxIdNumber { get; set; }
-        public Nullable<int> Expr1 { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
@@ -32,6 +31,15 @@ namespace HR.Web.Models
         public string ZipCode { get; set; }
         public string TelNo { get; set; }
         public string FaxNo { get; set; }
-        public Nullable<decimal> SSFContributionRate { get; set; }
+        public Nullable<int> EmployeeId { get; set; }
+        public string IDNumber { get; set; }
+        public string SalutationType { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MiddleName { get; set; }
+        public string SocialWelfareNo { get; set; }
+        public string EPFNO { get; set; }
+        public string EmployeeDescription { get; set; }
+        public string EmployeeDepartment { get; set; }
     }
 }

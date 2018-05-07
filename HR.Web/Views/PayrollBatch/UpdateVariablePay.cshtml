@@ -216,8 +216,9 @@
                     $('#tblContent').html(modalContent);
                     $('#myModal').modal('show');
                 } else {
+                    debugger;
                     $.ajax({
-                        url: '@Url.Content("~/PayrollBatch/EditVariablePay?Employeeid=")' + Employeeid,
+                        url: '@Url.Content("~/PayrollBatch/EditVariablePay?Employeeid=")' + Employeeid + '&Month=' + $('#variablepaymentheader_Month').val() + '&Year=' + $('#variablepaymentheader_Year').val(),
                         contentType: 'application/json; charset=utf-8',
                         method: 'GET',
                         success: function (data) {

@@ -119,6 +119,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -1717,7 +1718,9 @@
     <Content Include="PdfTemplates\PND1.pdf" />
     <Content Include="PdfTemplates\แบบประกันสังคม.pdf" />
     <Content Include="PdfTemplates\แบบฟอร์ม-ทวิ-50.pdf" />
+    <Content Include="PdfTemplates\samplepayslip.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Calender.js" />
     <Content Include="Scripts\charts\exporting.js" />
@@ -1830,6 +1833,7 @@
     <Compile Include="Helpers\LinqFuncs.cs" />
     <Compile Include="Helpers\MyDateTimeModelBinder.cs" />
     <Compile Include="Helpers\MyStringModelBinder.cs" />
+    <Compile Include="Helpers\NumberToWordExtensionMethods.cs" />
     <Compile Include="Helpers\SelectHelpers.cs" />
     <Compile Include="Helpers\WebGridExtensions.cs" />
     <Compile Include="Models\Address.cs">
@@ -1958,6 +1962,18 @@
     <Compile Include="Models\usp_EmployeeDetail_Result3.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\usp_EmployeePaySlipDetailTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_EmployeePaySlipHeaderTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_PND1KSummaryDetailByYearTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_PND1KSummaryHeaderByYearTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usp_PND1SummaryDetailByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1968,6 +1984,9 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usp_SSFSummaryHeaderByMonthTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_TAVSummaryByEmployeeTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VariablePaymentDetail.cs">

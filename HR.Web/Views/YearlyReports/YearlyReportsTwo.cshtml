@@ -3,21 +3,18 @@
         <div class="col-md-12">
             <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
                 <div class="panel-heading">
-                    Yearly Two
+                    Yearly PND1-K
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-1">
-                            @Html.DropDownList("Years", SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                            @Html.DropDownList("Year", SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
                         </div>
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-sm btn-primary"><b>Generate</b></button>
+                            <button class="btn btn-default btn-sm" id="c" type="button" onclick="GeneratePND1KReportPDF()"><i class='fa fa-download' aria-hidden='true'></i>&nbsp;Download</button>
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -28,11 +25,15 @@
 
     <script type="text/javascript">
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $('#li_yearlyreports').addClass('open');
-        $('#li_Yearly2').addClass('active');
-    });
+            $('#li_yearlyreports').addClass('open');
+            $('#li_Yearly2').addClass('active');
+        });
+
+        function GeneratePND1KReportPDF() {
+            location.href = '@Url.Content("~/YearlyReports/PrintPND1KReport")' + '?year=' + $('#Year').val();
+        }
     </script>
 
 }

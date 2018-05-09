@@ -28,6 +28,9 @@
             width:70%;
             margin:auto;
         }
+        .custom-width{
+        width: 100px;
+        }
     </style>
 }
 
@@ -58,7 +61,7 @@
                                     <span class="pull-right">Year</span>
                                 </label>
                                 <div class="col-md-1">
-                                    @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", onchange = "gettaxassessment()" })
+                                    @Html.DropDownListFor(x => x.taxassessmentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm custom-width", onchange = "gettaxassessment()" })
                                     @Html.HiddenFor(x => x.taxassessmentheader.Year)
                                 </div>
                             </div>
@@ -79,7 +82,7 @@
                                     <span class="pull-right">Max. Amount</span>
                                 </label>
                                 <div class="col-md-1">
-                                    @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss", required = "required" })
+                                    @Html.TextBoxFor(x => x.taxassessmentheader.MaximumAmount, new { @class = "form-control input-sm decimalCss custom-width", required = "required" })
                                 </div>
                             </div>
                         </div>

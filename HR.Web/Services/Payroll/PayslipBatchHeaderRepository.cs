@@ -162,7 +162,7 @@ namespace HR.Web.Services.Payroll
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    return dbContext.PayslipBatchHeaders.Count();
+                    return dbContext.PayslipBatchHeaders.Where(x=>x.BranchId==branchId).Count();
                 }
             }
             catch (Exception ex)

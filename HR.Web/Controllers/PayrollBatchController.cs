@@ -122,7 +122,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                    var list = dbCntx.EmployeeHeaders.Join(dbCntx.EmployeeWorkDetails,
+                     var list = dbCntx.EmployeeHeaders.Join(dbCntx.EmployeeWorkDetails,
                         a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
                         Where(x => x.A.BranchId == BRANCHID && x.A.IsActive == true).
                         Select(x => new EmployeeTable
@@ -179,11 +179,11 @@ namespace HR.Web.Controllers
 
                 foreach (var item in ComponentsList)
                 {
-                    VariablePaymentDetail vpDtl = vpDetails.Where(x => x.ComponentCode == item.Description).FirstOrDefault();
+                    VariablePaymentDetail vpDtl = vpDetails.Where(x => x.ComponentCode == item.Code).FirstOrDefault();
                     var variablepaymentdetail = new VariablePaymentDetail()
                     {
                         Amount = vpDtl != null ? vpDtl.Amount : item.Amount,
-                        ComponentCode = item.Description,
+                        ComponentCode = item.Code,
                         EmployeeId = salarystructureheaderBo
                                         .GetByProperty(x => x.StructureID == item.StructureID)
                                         .EmployeeId,
@@ -371,7 +371,7 @@ namespace HR.Web.Controllers
                                         {
                                             EmployeeId = x.A.EmployeeId.Value,
                                             RegisterCode = x.B.PaymentType,
-                                            ContributionCode = x.B.Description,
+                                            ContributionCode = x.B.Code,
                                             Amount = x.B.Amount,
                                         }).ToList();
 
@@ -431,6 +431,7 @@ namespace HR.Web.Controllers
             var batchcount = taxassessmentheaderBo.GetCount(BRANCHID);
             batchcount = batchcount + 1;
             taxassessmentvm.taxassessmentheader.AssessmentNo = "TAX - HR" + batchcount.ToString("D4");
+            taxassessmentvm.taxassessmentheader.Year = year;
             return View("TaxAssessment", taxassessmentvm);
         }
 

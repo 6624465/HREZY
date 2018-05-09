@@ -135,11 +135,11 @@ new SelectListItem {Text = "December", Value = "12"}
                                 @if (!ispaySlip)
                                 {
                                     <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslist()"><b>Process</b></button>
-                                    <script type="text/javascript">
+                                    @*<script type="text/javascript">
                                         $(function () {
                                             $('#payslipBatchHeader_TotalSalary').val('');
                                         });
-                                    </script>
+                                    </script>*@
                                     if (Model.dt != null && Model.dt.Rows.Count > 0)
                                     {
                                         <button type="button" class="btn btn-sm btn-success dsp-none" id="dtid2" onclick="ConfirmProcess()"><b>Confirm</b></button>

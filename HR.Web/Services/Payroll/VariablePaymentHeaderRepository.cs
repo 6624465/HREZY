@@ -103,7 +103,7 @@ namespace HR.Web.Services.Payroll
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    return dbContext.VariablePaymentHeaders.Count();
+                    return dbContext.VariablePaymentHeaders.Where(x=>x.BranchID== branchId).Count();
                 }
             }
             catch (Exception ex)

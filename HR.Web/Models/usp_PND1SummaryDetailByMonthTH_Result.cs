@@ -28,5 +28,10 @@ namespace HR.Web.Models
         public string RegisterCode { get; set; }
         public string ContributionCode { get; set; }
         public Nullable<decimal> Amount { get; set; }
+        public string Address1 { get; set; }
+        public string CityName { get; set; }
+        public string StateName { get; set; }
+        public string CountryCode { get; set; }
+        public string ZipCode { get; set; }
     }
 }

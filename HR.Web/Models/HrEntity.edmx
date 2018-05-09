@@ -904,10 +904,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <FunctionImport Name="usp_PND1SummaryHeaderByMonthTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_PND1SummaryHeaderByMonthTH_Result)">
           <Parameter Name="BranchId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_PND1KSummaryDetailByYearTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_PND1KSummaryDetailByYearTH_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_PND1KSummaryHeaderByYearTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_PND1KSummaryHeaderByYearTH_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
@@ -942,6 +938,10 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <FunctionImport Name="usp_PND1SummaryDetailByMonthTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_PND1SummaryDetailByMonthTH_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="Month" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PND1KSummaryDetailByYearTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_PND1KSummaryDetailByYearTH_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1660,16 +1660,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
           <Property Type="Boolean" Name="IsActive" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="usp_PND1KSummaryDetailByYearTH_Result">
-          <Property Type="Int32" Name="EmployeeId" Nullable="true" />
-          <Property Type="String" Name="IDNumber" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="SalutationType" Nullable="true" />
-          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="YearlyTaxableIncome" Nullable="true" Precision="38" Scale="2" />
-          <Property Type="Decimal" Name="YearlyWithHoldingTax" Nullable="true" Precision="38" Scale="2" />
-        </ComplexType>
+        
         <ComplexType Name="usp_PND1KSummaryHeaderByYearTH_Result">
           <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="250" />
           <Property Type="String" Name="BranchName" Nullable="true" MaxLength="255" />
@@ -1802,6 +1793,21 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Type="String" Name="RegisterCode" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ContributionCode" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CityName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CountryCode" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_PND1KSummaryDetailByYearTH_Result">
+          <Property Type="Int32" Name="EmployeeId" Nullable="true" />
+          <Property Type="String" Name="IDNumber" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SalutationType" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="YearlyTaxableIncome" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="YearlyWithHoldingTax" Nullable="true" Precision="38" Scale="2" />
           <Property Type="String" Name="Address1" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="CityName" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="StateName" Nullable="true" MaxLength="255" />
@@ -2605,20 +2611,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_PND1KSummaryDetailByYearTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_PND1KSummaryDetailByYearTH">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_PND1KSummaryDetailByYearTH_Result">
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
-                <ScalarProperty Name="SalutationType" ColumnName="SalutationType" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="YearlyTaxableIncome" ColumnName="YearlyTaxableIncome" />
-                <ScalarProperty Name="YearlyWithHoldingTax" ColumnName="YearlyWithHoldingTax" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          
           <FunctionImportMapping FunctionImportName="usp_PND1KSummaryHeaderByYearTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_PND1KSummaryHeaderByYearTH">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_PND1KSummaryHeaderByYearTH_Result">
@@ -2774,6 +2767,25 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
                 <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
                 <ScalarProperty Name="ContributionCode" ColumnName="ContributionCode" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PND1KSummaryDetailByYearTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_PND1KSummaryDetailByYearTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_PND1KSummaryDetailByYearTH_Result">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="SalutationType" ColumnName="SalutationType" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="YearlyTaxableIncome" ColumnName="YearlyTaxableIncome" />
+                <ScalarProperty Name="YearlyWithHoldingTax" ColumnName="YearlyWithHoldingTax" />
                 <ScalarProperty Name="Address1" ColumnName="Address1" />
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />

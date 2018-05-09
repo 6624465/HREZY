@@ -21,5 +21,10 @@ namespace HR.Web.Models
         public string MiddleName { get; set; }
         public Nullable<decimal> YearlyTaxableIncome { get; set; }
         public Nullable<decimal> YearlyWithHoldingTax { get; set; }
+        public string Address1 { get; set; }
+        public string CityName { get; set; }
+        public string StateName { get; set; }
+        public string CountryCode { get; set; }
+        public string ZipCode { get; set; }
     }
 }

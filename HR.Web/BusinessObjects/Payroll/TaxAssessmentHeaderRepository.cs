@@ -117,7 +117,7 @@ namespace HR.Web.Services.Payroll
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    return dbContext.TaxAssessmentHeaders.Count();
+                    return dbContext.TaxAssessmentHeaders.Where(x=>x.BranchID==branchId).Count();
                 }
             }
             catch (Exception ex)

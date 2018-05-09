@@ -340,6 +340,7 @@ namespace HR.Web.Controllers
 
                     pdfFormFields.SetField("Year", PND1Detail[0].Year.ToString());
                     pdfFormFields.SetField("m" + PND1Detail[0].Month, "Yes", true);
+                    pdfFormFields.SetField("RB2" , "Yes", true);
                     pdfFormFields.SetField("RadioButton0", "Yes", true);
                     pdfFormFields.SetField("NoOfAttachmentPages", pageCount.ToString());
                     pdfFormFields.SetField("NoOfEmp", PND1Detail.Count().ToString());
@@ -348,6 +349,7 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("TotalIncome1", TotalSalary.ToString());
                     pdfFormFields.SetField("TotalWHT", TotalWHT.ToString());
                     pdfFormFields.SetField("TotalWHT1", TotalWHT.ToString());
+                    pdfFormFields.SetField("GrandTotalWHT", TotalWHT.ToString());
                     pdfFormFields.SetField("PageNo", PageNo.ToString());
                     pdfFormFields.SetField("TotalNoOfPages", pageCount.ToString());
 
@@ -538,7 +540,8 @@ namespace HR.Web.Controllers
 
                             pdfFormFields.SetField("EName" + i, title + PND1KDetail[i].FirstName.ToString() + (PND1KDetail[i].MiddleName != null ? " " + PND1KDetail[i].MiddleName : ""));
                             pdfFormFields.SetField("ESurname" + i, PND1KDetail[i].LastName.ToString());
-                            pdfFormFields.SetField("EAddress" + i, "");
+                            //pdfFormFields.SetField("EAddress" + i, PND1KDetail.BranchAddress1 + +"," +
+                            //PND1KDetail.BranchCityName + "," + PND1KDetail.BranchZipCode);
                             pdfFormFields.SetField("MonthlyIncome" + i, PND1KDetail[i].YearlyTaxableIncome.ToString());
                             pdfFormFields.SetField("MonthWHT" + i, PND1KDetail[i].YearlyWithHoldingTax.ToString());
 

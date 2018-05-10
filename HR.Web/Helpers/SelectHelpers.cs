@@ -538,7 +538,7 @@ namespace HR.Web.Helpers
                     int? titleid = empheader[i].SalutationType;
                     string title = validateTitle(titleid);
 
-                    var listItem1 = new SelectListItem()
+                    var listItemobj = new SelectListItem()
                     {
                         Value = empheader[i].EmployeeId.ToString(),
                         Text = title + " " + empheader[i].FirstName
@@ -552,7 +552,7 @@ namespace HR.Web.Helpers
 
                     //}
                     //).ToList().AsEnumerable();
-                    listItem.Add(listItem1);
+                    listItem.Add(listItemobj);
 
 
                 }

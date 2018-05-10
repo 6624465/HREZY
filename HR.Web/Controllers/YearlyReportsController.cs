@@ -540,8 +540,8 @@ namespace HR.Web.Controllers
 
                             pdfFormFields.SetField("EName" + i, title + PND1KDetail[i].FirstName.ToString() + (PND1KDetail[i].MiddleName != null ? " " + PND1KDetail[i].MiddleName : ""));
                             pdfFormFields.SetField("ESurname" + i, PND1KDetail[i].LastName.ToString());
-                            //pdfFormFields.SetField("EAddress" + i, PND1KDetail.BranchAddress1 + +"," +
-                            //PND1KDetail.BranchCityName + "," + PND1KDetail.BranchZipCode);
+                            pdfFormFields.SetField("EAddress" + i, PND1KDetail[i].Address1 +"," +
+                            PND1KDetail[i].CityName + "," + PND1KDetail[i].StateName + "," + PND1KDetail[i].ZipCode);
                             pdfFormFields.SetField("MonthlyIncome" + i, PND1KDetail[i].YearlyTaxableIncome.ToString());
                             pdfFormFields.SetField("MonthWHT" + i, PND1KDetail[i].YearlyWithHoldingTax.ToString());
 
@@ -841,7 +841,7 @@ namespace HR.Web.Controllers
                              
                             if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION")
                             {
-                                pdfFormFields.SetField("D" + p, payslipDetail[i].ContributionCode.ToString());
+                                pdfFormFields.SetField("DE" + p, payslipDetail[i].ContributionCode.ToString());
                                 pdfFormFields.SetField("DA" + p, payslipDetail[i].Amount.ToString());
 
                                 p++;

@@ -525,5 +525,59 @@ namespace HR.Web.Helpers
                                 .ToList<System.Web.Mvc.SelectListItem>().AsEnumerable();
             }
         }
+
+        public static IEnumerable<SelectListItem> EmployeeListWithSalutation(int BranchId)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                List<EmployeeHeader> empheader = new List<EmployeeHeader>();
+                empheader = dbCntx.EmployeeHeaders.Where(x => x.BranchId == BranchId && x.IsActive == true).ToList();
+                List<SelectListItem> listItem = new List<SelectListItem>();
+                for (var i = 0; i < empheader.Count(); i++)
+                {
+                    int? titleid = empheader[i].SalutationType;
+                    string title = validateTitle(titleid);
+
+                    var listItem1 = new SelectListItem()
+                    {
+                        Value = empheader[i].EmployeeId.ToString(),
+                        Text = title + " " + empheader[i].FirstName
+                    };
+                   
+
+                    //return empheader.Select(x => new SelectListItem
+                    //{
+                    //    Value = empheader[i].EmployeeId.ToString(),
+                    //    Text = title + " " + empheader[i].FirstName
+
+                    //}
+                    //).ToList().AsEnumerable();
+                    listItem.Add(listItem1);
+
+
+                }
+                return listItem.ToList().AsEnumerable();
+
+                //return dbCntx.EmployeeHeaders.Where(x => x.BranchId == BranchId && x.IsActive == true)
+                //    .Select(x => new SelectListItem
+                //    {
+                //        Value = x.EmployeeId.ToString(),
+                //        Text = x.SalutationType + " " + x.FirstName
+                //    }).OrderBy(x => x.Text).ToList().AsEnumerable();
+            }
+        }
+        public static string validateTitle(int? salutationType)
+        {
+            if (salutationType != null)
+            {
+                if (salutationType == 2605)
+                    return "Mr. ";
+                else if (salutationType == 2606)
+                    return "Ms. ";
+                else if (salutationType == 2607)
+                    return "Mrs. ";
+            }
+            return "";
+        }
     }
 }

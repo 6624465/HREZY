@@ -1,13 +1,15 @@
 ﻿
 
 
-
+@{
+    var baseObj = new BaseController();
+}﻿
 <div class="page" style="overflow:visible;">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
                 <div class="panel-heading">
-                    Yearly income by employee
+                    Yearly Withholding Tax
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -15,13 +17,14 @@
                         <div class="col-md-1">
                             @Html.DropDownList("Year", SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
                         </div>
+                        <div class="col-md-2" >
+                            @Html.DropDownList("EmployeeId", SelectListItemHelper.EmployeeListWithSalutation(baseObj.BRANCHID),"Select Employee", new { @class = "form-control input-sm" })
+                        </div>
                         <div class="col-md-4">
-                            <button class="btn btn-default btn-sm" id="c" type="button" onclick="GenerateTAVSummaryByEmployeeReportPDF()"><i class='fa fa-download' aria-hidden='true'></i>&nbsp;Download</button>
+                            <button class="btn btn-default btn-sm"  type="button" onclick="GenerateTAVSummaryByEmployeeReportPDF()"><i class='fa fa-download' aria-hidden='true'></i>&nbsp;Download</button>
                         </div>
 
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -40,7 +43,7 @@
         });
 
         function GenerateTAVSummaryByEmployeeReportPDF() {
-            location.href = '@Url.Content("~/YearlyReports/PrintTAVSummaryByEmployeeReport")' + '?year=' + $('#Year').val();
+            location.href = '@Url.Content("~/YearlyReports/PrintTAVSummaryByEmployeeReport")' + '?Year=' + $('#Year').val() + '&empId=' + $('#EmployeeId').val();
         }
     </script>
 

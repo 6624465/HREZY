@@ -428,7 +428,7 @@
             $('#li_PayRollConfig').addClass('open');
             $('#li_SalaryStructureHeaderList').addClass('active');
             showHide();
-            @if(Model.structureHeader.EffectiveDate != null && Model.structureHeader.EffectiveDate != DateTime.MinValue)
+            @*@if(Model.structureHeader.EffectiveDate != null && Model.structureHeader.EffectiveDate != DateTime.MinValue)
             {
                 var effDt = Model.structureHeader.EffectiveDate.Value.ToString("dd/MM/yyyy");
                 if(DateTime.Parse(effDt) < DateTime.Now)
@@ -447,7 +447,7 @@
             else
             {
                 <text>var dateObj = moment();</text>
-            }
+            }*@
             var date = new Date();
             $('.dtCss').datetimepicker({
             icons: {

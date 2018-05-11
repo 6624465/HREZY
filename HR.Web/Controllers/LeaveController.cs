@@ -277,15 +277,15 @@ namespace HR.Web.Controllers
             ViewBag.BranchID = BRANCHID;
             GetHolidayWeekends();
 
-            var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
-            if (empHeader != null)
-            {
-                int managerId = empHeader.ManagerId == null ? 0 : empHeader.ManagerId.Value;
-                if (managerId == 0)
-                {
-                    return View("Error");
-                }
-            }
+            //var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+            //if (empHeader != null)
+            //{
+            //    int managerId = empHeader.ManagerId == null ? 0 : empHeader.ManagerId.Value;
+            //    if (managerId == 0)
+            //    {
+            //        return View("Error");
+            //    }
+            //}
 
             return View(new EmployeeLeaveList
             {
@@ -296,6 +296,7 @@ namespace HR.Web.Controllers
         public ActionResult SaveEmployeeLeaveForm(EmployeeLeaveList EmployeeLeaveList)
         {
             ViewBag.BranchID = BRANCHID;
+            var managerid = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID).ManagerId;
             //    if (ModelState.IsValid)
             //    {
             //        EmployeeWorkDetail workdetails = empworkdetailsBo.GetByProperty(x=>x.EmployeeId==EMPLOYEEID);
@@ -434,10 +435,18 @@ namespace HR.Web.Controllers
                         obj.ModifiedOn = UTILITY.SINGAPORETIME;
                         obj.ApplyDate = UTILITY.SINGAPORETIME;
                         //obj.ManagerId = 0;
-                        obj.ManagerId = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == EMPLOYEEID)
-                                            .FirstOrDefault() == null ? 0 : dbCntx.EmployeeHeaders
-                                            .Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault()
-                                            .ManagerId.Value;
+                        if (managerid == null)
+                        {
+                            obj.ManagerId = 0;
+                        }
+                        else
+                        {
+                            obj.ManagerId = dbCntx.EmployeeHeaders.Where(x => x.EmployeeId == EMPLOYEEID)
+                                          .FirstOrDefault() == null ? 0 : dbCntx.EmployeeHeaders
+                                          .Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault()
+                                          .ManagerId.Value;
+                        }
+                      
 
                         obj.Status = UTILITY.LEAVEPENDING;
                         obj.Session = EmployeeLeaveList.Session;
@@ -559,7 +568,7 @@ namespace HR.Web.Controllers
                 var val = Request["isLOP"];
 
                 EmployeeLeaveList obj = new EmployeeLeaveList();
-
+                var managerid = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID).ManagerId;
                 var isPreviousLeaveExists = dbCntx.EmployeeLeaveLists
                                             .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
                                             .Between(EmployeeLeaveList.FromDate, EmployeeLeaveList.ToDate)
@@ -591,12 +600,20 @@ namespace HR.Web.Controllers
                 obj.ModifiedBy = USERID;
                 obj.ModifiedOn = UTILITY.SINGAPORETIME;
                 obj.ApplyDate = UTILITY.SINGAPORETIME;
-                obj.ManagerId = dbCntx.EmployeeHeaders
+                if (managerid == null)
+                {
+                    obj.ManagerId = 0;
+                }
+                else
+                {
+                    obj.ManagerId = dbCntx.EmployeeHeaders
                                     .Where(x => x.EmployeeId == EMPLOYEEID)
                                     .FirstOrDefault() == null ? 0 : dbCntx.EmployeeHeaders
                                     .Where(x => x.EmployeeId == EMPLOYEEID)
                                     .FirstOrDefault()
                                     .ManagerId.Value;
+                }
+
                 obj.Status = UTILITY.LEAVEPENDING;
 
                 dbCntx.EmployeeLeaveLists.Add(obj);
@@ -673,50 +690,140 @@ namespace HR.Web.Controllers
         [HttpGet]
         public ActionResult GrantLeaveFormList(int? page = 1)
         {
+            //if (ROLECODE == UTILITY.ROLE_ADMIN)
+            //{
 
-            using (var dbcntx = new HrDataContext())
-            {
-                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
-                var skip = (page - 1) * offset;
+            //    using (var dbcntx = new HrDataContext())
+            //    {
+            //        var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+            //        var skip = (page - 1) * offset;
 
-                var grantleaveform = dbcntx.EmployeeHeaders.
-                    Join(dbcntx.EmployeeLeaveLists,
-                    a => a.EmployeeId, b => b.EmployeeId,
-                    (a, b) => new { A = a, B = b })
-                    .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
-                    .Select(x => new GrantLeaveListVm
-                    {
+            //        var grantleaveform = dbcntx.EmployeeHeaders.
+            //            Join(dbcntx.EmployeeLeaveLists,
+            //            a => a.EmployeeId, b => b.EmployeeId,
+            //            (a, b) => new { A = a, B = b })
+            //            .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
+            //            .Select(x => new GrantLeaveListVm
+            //            {
 
-                        ToDate = x.B.ToDate,
-                        FromDate = x.B.FromDate,
-                        Name = x.A.FirstName + " " + x.A.LastName,
-                        EmployeeId = x.A.EmployeeId,
-                        EmployeeLeaveID = x.B.EmployeeLeaveID,
-                        Status = x.B.Status,
-                        ApplyDate = x.B.ApplyDate,
-                        Reason = x.B.Reason,
-                        Remarks = x.B.Remarks,
-                        LeaveTypeDesc = dbcntx.LookUps
-                                            .Where(y => y.LookUpID == x.B.LeaveTypeId)
-                                            .FirstOrDefault()
-                                            .LookUpDescription,
-                        TotalDays = x.B.Days
-                    });
-                var grantleaveformlist = grantleaveform.OrderByDescending(x => x.ApplyDate)
-                     .Skip(skip.Value)
-                     .Take(offset)
-                     .ToList();
+            //                ToDate = x.B.ToDate,
+            //                FromDate = x.B.FromDate,
+            //                Name = x.A.FirstName + " " + x.A.LastName,
+            //                EmployeeId = x.A.EmployeeId,
+            //                EmployeeLeaveID = x.B.EmployeeLeaveID,
+            //                Status = x.B.Status,
+            //                ApplyDate = x.B.ApplyDate,
+            //                Reason = x.B.Reason,
+            //                Remarks = x.B.Remarks,
+            //                LeaveTypeDesc = dbcntx.LookUps
+            //                                    .Where(y => y.LookUpID == x.B.LeaveTypeId)
+            //                                    .FirstOrDefault()
+            //                                    .LookUpDescription,
+            //                TotalDays = x.B.Days
+            //            });
+            //        var grantleaveformlist = grantleaveform.OrderByDescending(x => x.ApplyDate)
+            //             .Skip(skip.Value)
+            //             .Take(offset)
+            //             .ToList();
 
-                var count = grantleaveform.Count();
+            //        var count = grantleaveform.Count();
+            //        decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
+
+            //        HtmlTblVm<GrantLeaveListVm> HtmlTblVm = new HtmlTblVm<GrantLeaveListVm>();
+            //        HtmlTblVm.TableData = grantleaveformlist;
+            //        HtmlTblVm.TotalRows = count;
+            //        HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+            //        HtmlTblVm.CurrentPage = page.Value;
+            //        return View(HtmlTblVm);
+            //    }
+            //}
+            //else
+            //{
+                using (var dbcntx = new HrDataContext())
+                {
+                    var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+                    var skip = (page - 1) * offset;
+                List<GrantLeaveListVm> grantleaveformlist = new List<GrantLeaveListVm>();
+                var count = 0;
+                if (ROLECODE == UTILITY.ROLE_ADMIN)
+                {
+                    var grantleaveform = dbcntx.EmployeeHeaders.
+                           Join(dbcntx.EmployeeLeaveLists,
+                            a => a.EmployeeId, b => b.EmployeeId,
+                               (a, b) => new { A = a, B = b })
+                           .Where(x => x.B.ManagerId == 0 && x.B.Status != UTILITY.LEAVECANCELLED && x.B.BranchId == BRANCHID)
+                           .Select(x => new GrantLeaveListVm
+                           {
+
+                               ToDate = x.B.ToDate,
+                               FromDate = x.B.FromDate,
+                               Name = x.A.FirstName + " " + x.A.LastName,
+                               EmployeeId = x.A.EmployeeId,
+                               EmployeeLeaveID = x.B.EmployeeLeaveID,
+                               Status = x.B.Status,
+                               ApplyDate = x.B.ApplyDate,
+                               Reason = x.B.Reason,
+                               Remarks = x.B.Remarks,
+                               LeaveTypeDesc = dbcntx.LookUps
+                                             .Where(y => y.LookUpID == x.B.LeaveTypeId)
+                                             .FirstOrDefault()
+                                             .LookUpDescription,
+                               TotalDays = x.B.Days
+                           });
+
+                    grantleaveformlist = grantleaveform.OrderByDescending(x => x.ApplyDate)
+                       .Skip(skip.Value)
+                       .Take(offset)
+                       .ToList();
+
+                    count = grantleaveform.Count();
+                }
+                else
+                {
+                  var grantleaveform = dbcntx.EmployeeHeaders.
+                            Join(dbcntx.EmployeeLeaveLists,
+                             a => a.EmployeeId, b => b.EmployeeId,
+                                (a, b) => new { A = a, B = b })
+                            .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
+                            .Select(x => new GrantLeaveListVm
+                      {
+
+                          ToDate = x.B.ToDate,
+                          FromDate = x.B.FromDate,
+                          Name = x.A.FirstName + " " + x.A.LastName,
+                          EmployeeId = x.A.EmployeeId,
+                          EmployeeLeaveID = x.B.EmployeeLeaveID,
+                          Status = x.B.Status,
+                          ApplyDate = x.B.ApplyDate,
+                          Reason = x.B.Reason,
+                          Remarks = x.B.Remarks,
+                          LeaveTypeDesc = dbcntx.LookUps
+                                              .Where(y => y.LookUpID == x.B.LeaveTypeId)
+                                              .FirstOrDefault()
+                                              .LookUpDescription,
+                          TotalDays = x.B.Days
+                      });
+
+                    grantleaveformlist = grantleaveform.OrderByDescending(x => x.ApplyDate)
+                       .Skip(skip.Value)
+                       .Take(offset)
+                       .ToList();
+
+                    count = grantleaveform.Count();
+
+                }
+               
+
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
 
-                HtmlTblVm<GrantLeaveListVm> HtmlTblVm = new HtmlTblVm<GrantLeaveListVm>();
-                HtmlTblVm.TableData = grantleaveformlist;
-                HtmlTblVm.TotalRows = count;
-                HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
-                HtmlTblVm.CurrentPage = page.Value;
-                return View(HtmlTblVm);
-            }
+                    HtmlTblVm<GrantLeaveListVm> HtmlTblVm = new HtmlTblVm<GrantLeaveListVm>();
+                    HtmlTblVm.TableData = grantleaveformlist;
+                    HtmlTblVm.TotalRows = count;
+                    HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+                    HtmlTblVm.CurrentPage = page.Value;
+                    return View(HtmlTblVm);
+                }
+            //}
 
 
         }
@@ -1066,39 +1173,105 @@ namespace HR.Web.Controllers
                 ViewData["RoleCode"] = ROLECODE;
                 var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
                 var skip = (page - 1) * offset;
+                #region Comment
+                //var managerid = dbcntx.EmployeeLeaveLists.Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault().ManagerId;
+                //var  totalRows = 0;
+                //List<ViewLeaveVm> viewleavelist = new List<ViewLeaveVm>();
+                //if (managerid == 0)
+                //{
 
-                var Query = dbcntx.EmployeeLeaveLists
-                                        .Join(dbcntx.EmployeeHeaders,
-                                        a => a.ManagerId, b => b.EmployeeId,
-                                        (a, b) => new { A = a, B = b })
-                                        .Where(x => x.A.EmployeeId == EMPLOYEEID)
-                                        .Select(x => new ViewLeaveVm
-                                        {
-                                            EmployeeLeaveID = x.A.EmployeeLeaveID,
-                                            EmployeeId = x.A.EmployeeId,
-                                            LeaveTypeId = x.A.LeaveTypeId,
-                                            LeaveTypeDesc = dbcntx.LookUps
-                                                                .Where(y => y.LookUpID == x.A.LeaveTypeId)
-                                                                .Select(y => y.LookUpDescription)
-                                                                .FirstOrDefault(),
-                                            BranchId = x.A.BranchId,
-                                            FromDate = x.A.FromDate,
-                                            ToDate = x.A.ToDate,
-                                            Days = x.A.Days,
-                                            Reason = x.A.Reason,
-                                            Remarks = x.A.Remarks,
-                                            Status = x.A.Status,
-                                            ApplyDate = x.A.ApplyDate,
-                                            ManagerId = x.A.ManagerId,
-                                            ManagerName = x.B.FirstName + " " + x.B.LastName
-                                        });
+                //    var Query = dbcntx.EmployeeLeaveLists.
+                //                Where(x => x.EmployeeId == EMPLOYEEID).
+                //                Select(x=>new ViewLeaveVm {
+                //                    EmployeeLeaveID = x.EmployeeLeaveID,
+                //                    EmployeeId = x.EmployeeId,
+                //                    LeaveTypeId = x.LeaveTypeId,
+                //                    LeaveTypeDesc = dbcntx.LookUps
+                //                                           .Where(y => y.LookUpID == x.LeaveTypeId)
+                //                                           .Select(y => y.LookUpDescription)
+                //                                           .FirstOrDefault(),
+                //                    BranchId = x.BranchId,
+                //                    FromDate = x.FromDate,
+                //                    ToDate = x.ToDate,
+                //                    Days = x.Days,
+                //                    Reason = x.Reason,
+                //                    Remarks = x.Remarks,
+                //                    Status = x.Status,
+                //                    ApplyDate = x.ApplyDate,
+                //                    ManagerName = "Admin"
 
-                var viewleavelist = Query
+                //                });
+                // viewleavelist = Query
+                //                         .OrderByDescending(x => x.EmployeeLeaveID)
+                //                         .Skip(skip.Value)
+                //                         .Take(offset)
+                //                         .ToList();
+                // totalRows = Query.Count();
+
+                //}
+                //else
+                //{
+                //     var Query = dbcntx.EmployeeLeaveLists
+                //                   .Join(dbcntx.EmployeeHeaders,
+                //                   a => a.ManagerId, b => b.EmployeeId,
+                //                   (a, b) => new { A = a, B = b })
+                //                   .Where(x => x.A.EmployeeId == EMPLOYEEID)
+                //                   .Select(x => new ViewLeaveVm
+                //                   {
+                //                       EmployeeLeaveID = x.A.EmployeeLeaveID,
+                //                       EmployeeId = x.A.EmployeeId,
+                //                       LeaveTypeId = x.A.LeaveTypeId,
+                //                       LeaveTypeDesc = dbcntx.LookUps
+                //                                           .Where(y => y.LookUpID == x.A.LeaveTypeId)
+                //                                           .Select(y => y.LookUpDescription)
+                //                                           .FirstOrDefault(),
+                //                       BranchId = x.A.BranchId,
+                //                       FromDate = x.A.FromDate,
+                //                       ToDate = x.A.ToDate,
+                //                       Days = x.A.Days,
+                //                       Reason = x.A.Reason,
+                //                       Remarks = x.A.Remarks,
+                //                       Status = x.A.Status,
+                //                       ApplyDate = x.A.ApplyDate,
+                //                       ManagerId = x.A.ManagerId,
+                //                       ManagerName = x.B.FirstName + " " + x.B.LastName
+                //                   });
+
+                //     viewleavelist = Query
+                //                            .OrderByDescending(x => x.EmployeeLeaveID)
+                //                            .Skip(skip.Value)
+                //                            .Take(offset)
+                //                            .ToList();
+
+                //totalRows = Query.Count();
+
+                //}
+                #endregion Comment
+                var Query = dbcntx.EmployeeLeaveLists.
+                                Where(x => x.EmployeeId == EMPLOYEEID).
+                                Select(x => new ViewLeaveVm
+                                {
+                                    EmployeeLeaveID = x.EmployeeLeaveID,
+                                    EmployeeId = x.EmployeeId,
+                                    LeaveTypeId = x.LeaveTypeId,
+                                    LeaveTypeDesc = dbcntx.LookUps
+                                                           .Where(y => y.LookUpID == x.LeaveTypeId)
+                                                           .Select(y => y.LookUpDescription)
+                                                           .FirstOrDefault(),
+                                    BranchId = x.BranchId,
+                                    FromDate = x.FromDate,
+                                    ToDate = x.ToDate,
+                                    Days = x.Days,
+                                    Reason = x.Reason,
+                                    Remarks = x.Remarks,
+                                    Status = x.Status,
+                                    ApplyDate = x.ApplyDate,
+                                });
+               var viewleavelist = Query
                                         .OrderByDescending(x => x.EmployeeLeaveID)
                                         .Skip(skip.Value)
                                         .Take(offset)
                                         .ToList();
-
                 var totalRows = Query.Count();
 
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalRows), Convert.ToDecimal(offset));
@@ -1110,7 +1283,7 @@ namespace HR.Web.Controllers
                 HtmlTblVm.CurrentPage = page.Value;
                 return View(HtmlTblVm);
             }
-
+           
         }
         [HttpPost]
         public ActionResult CancelLeave(FormCollection collection)

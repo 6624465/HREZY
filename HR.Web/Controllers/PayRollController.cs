@@ -709,15 +709,15 @@ namespace HR.Web.Controllers
         {
 
 
-            var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
-            if (empHeader != null)
-            {
-                int managerId = empHeader.ManagerId == null ? 0 : empHeader.ManagerId.Value;
-                if (managerId == 0)
-                {
-                    return View("Error");
-                }
-            }
+            //var empHeader = empHeaderBO.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
+            //if (empHeader != null)
+            //{
+            //    int managerId = empHeader.ManagerId == null ? 0 : empHeader.ManagerId.Value;
+            //    if (managerId == 0)
+            //    {
+            //        return View("Error");
+            //    }
+            //}
 
             ViewData["RoleCode"] = ROLECODE;
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
@@ -1620,12 +1620,18 @@ namespace HR.Web.Controllers
             var empObj = employeeHeaderBo.GetByProperty(x => x.EmployeeId == SESSIONOBJ.EMPLOYEEID);
             var employeename = empObj.FirstName + " " + empObj.LastName;
             var employeeemail = empObj.UserEmailId;
-            var managerEmail = employeeHeaderBo.GetByProperty(x => x.EmployeeId == empObj.ManagerId).UserEmailId;
-            //if (string.IsNullOrWhiteSpace(managerEmail))
-            //{
-            //    return View("Error");
-            //}
+            var managerEmail = "";
             var hrAdminEmail = userBo.GetByProperty(x => x.BranchId == empObj.BranchId && x.RoleCode == UTILITY.ROLE_ADMIN).Email;
+
+            if (empObj.ManagerId == null)
+            {
+                managerEmail = hrAdminEmail;
+            }
+            else
+            {
+                managerEmail = employeeHeaderBo.GetByProperty(x => x.EmployeeId == empObj.ManagerId).UserEmailId;
+            }
+           
 
             var subject = string.Empty;
             subject = "Travel claim submission";
@@ -1639,12 +1645,19 @@ namespace HR.Web.Controllers
             body += "Your expenses claim submitted successfully.";
 
             EmailGenerator emailgenerator = new EmailGenerator();
-            emailgenerator.ConfigMail(managerEmail, hrAdminEmail, true, subject, strbody);
-            emailgenerator.ConfigMail(employeeemail, true, subject, body);
-
-
-
+            if (managerEmail == hrAdminEmail)
+            {
+                emailgenerator.ConfigMail(hrAdminEmail, true, subject, strbody);
+                emailgenerator.ConfigMail(employeeemail, true, subject, body);
+            }
+            else
+            {
+                emailgenerator.ConfigMail(managerEmail, hrAdminEmail, true, subject, strbody);
+                emailgenerator.ConfigMail(employeeemail, true, subject, body);
+            }
+            
             return RedirectToAction("TravelClaimList");
+
         }
 
         public ActionResult DeleteTravelRecord(int travelclaimid)

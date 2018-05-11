@@ -104,12 +104,13 @@ namespace HR.Web.BusinessObjects.LeaveMaster
         {
             try
             {
-               
+
                 OtherLeave Leave = new OtherLeave
                 {
                     LeaveTypeId = lookup.LookUpID,
                     Description = lookup.LookUpCode,
                     IsCarryForward = lookup.IsCarryForward,
+                    IsActive = lookup.IsActive,
                     BranchId=sessionObj.BRANCHID
                 };
                 OtherLeaveRepository.AddFromLookUp(Leave);

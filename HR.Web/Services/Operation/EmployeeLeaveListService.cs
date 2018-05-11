@@ -39,10 +39,18 @@ namespace HR.Web.Services.Operation
                         leaveList.ModifiedBy = entity.ModifiedBy;
                         leaveList.ModifiedOn = UTILITY.SINGAPORETIME;
                         leaveList.ApplyDate = UTILITY.SINGAPORETIME;
-                        leaveList.ManagerId = dbContext.EmployeeHeaders
-                                            .Where(x => x.EmployeeId == leaveList.EmployeeId)
-                                            .FirstOrDefault()
-                                            .ManagerId.Value;
+                        if (entity.ManagerId == 0)
+                        {
+                            leaveList.ManagerId = 0;
+                        }
+                        else
+                        {
+                            leaveList.ManagerId = dbContext.EmployeeHeaders
+                                       .Where(x => x.EmployeeId == leaveList.EmployeeId)
+                                       .FirstOrDefault()
+                                       .ManagerId.Value;
+                        }
+                   
                         leaveList.Status =entity.Status;
                     }
                     dbContext.SaveChanges();

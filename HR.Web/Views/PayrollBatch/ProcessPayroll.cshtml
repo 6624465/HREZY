@@ -444,6 +444,11 @@ new SelectListItem {Text = "December", Value = "12"}
             $('#currentmonth').val(month);
             $('#currentyear').val(year);
             $('#frm2').submit();
+                           $.loader({
+                               className: "blue-with-image-2",
+                               content: '',
+                           });
+                 
             @*$.ajax({
                 url: '@Url.Content("~/PayrollBatch/ProcessPayrollGeneration?currentmonth=")' + month + '&currentyear=' + year,
                 contentType: 'application/json',

@@ -106,6 +106,10 @@
 
         function getStructureList(el){
             $('#frmSalaryStructureList').submit();
+            $.loader({
+                className: "blue-with-image-2",
+                content: '',
+            });
         }
 
         function deleteStructure(StructureID){

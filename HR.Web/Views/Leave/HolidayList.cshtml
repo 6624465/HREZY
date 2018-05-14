@@ -152,8 +152,12 @@
             });
 
             function getHolidayBranch(el) {
-                debugger;
+              
                 $('#frmHolidayList').submit();
+                $.loader({
+                    className: "blue-with-image-2",
+                    content: '',
+                });
             }
 
             function AddHoliday(holidayId) {

@@ -47,28 +47,19 @@
                     </div>
             @if (ViewBag.RoleCode == UTILITY.ROLE_SUPERADMIN)
             {
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-default panel-hovered panel-stacked mb10">
-
-                            <div class="panel-body">
-                                <div class="row css5">
-                                    <div class="col-md-8">
-                                        <label class="col-md-2 control-label">
-                                            <span class="pull-right">Branch</span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            @Html.DropDownListFor(x => x.BranchId,
+                <div class="row css10">
+                        <label class="col-md-2 control-label">
+                            <span class="pull-right">Branch</span>
+                        </label>
+                        <div class="col-md-2">
+                            @Html.DropDownListFor(x => x.BranchId,
                                          SelectListItemHelper.Branches(),
                                          "Select Branch",
                                          new { @class = "form-control input-sm", onchange = "GetBranchData(this)" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                </div>
+            
+                                  
             }
             else
             {
@@ -301,6 +292,11 @@
 
             $('#hdnBranchId').val(el.value);
             $('#frmGetLeaves').submit();
+
+            $.loader({
+                className: "blue-with-image-2",
+                content: '',
+            });
         }
 
     </script>

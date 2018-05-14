@@ -232,6 +232,10 @@
 
         function getappliedlist(el) {
             $('#appliedleavelist').submit();
+            $.loader({
+                className: "blue-with-image-2",
+                content: '',
+            });
         }
 
         function downloadexcel() {

@@ -68,7 +68,7 @@
                                                         @Model.Employeetable[i].ManagerName
                                                     </td>
                                                     <td>
-                                                        <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;"
+                                                        <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
                                                                 onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
                                                             <i class="fa fa-pencil" style="padding-left: 5px;"></i>
                                                         </button>
@@ -223,7 +223,7 @@
                         method: 'GET',
                         success: function (data) {
 
-                            
+                            StopLoadingAnimation();
                             $('#arrayLength').val(data.length);
                             var modalContent = '';
                             for (var i = 0; i < data.length; i++) {

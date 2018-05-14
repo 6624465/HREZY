@@ -509,7 +509,7 @@ namespace HR.Web.Controllers
                      list = query.Where(y=>y.BranchId == BranchId).OrderBy(y => y.BranchId).ToList();
                 else
                     list = query.Where(y => y.BranchId == BRANCHID).ToList();
-                var count = query.Count();
+                var count = list.Count();
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
 
                 HtmlTblVm<structurelistVm> HtmlTblVm = new HtmlTblVm<structurelistVm>();

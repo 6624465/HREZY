@@ -31,7 +31,7 @@
                     <div class="box-header">
                         <h4>Employee Type</h4>
                         <div class="box-tools">
-                            <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="editEmpType(-1);"><i class="fa fa-plus"></i> Add</button>
+                            <button class="btn btn-info btn-raised waves-effect btn-sm ajaxCss" type="button" onclick="editEmpType(-1);"><i class="fa fa-plus"></i> Add</button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -53,7 +53,7 @@
                     </div>
             </text>),*@
                 grid.Column("", "#Action", canSort: false, format: @<text>
-                <button class="btn btn-xs btn-raised waves-effect btn-sm" onclick="editEmpType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
+                <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" onclick="editEmpType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
                                 <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteEmployeeType(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table table-condensed table-bordered")
                             </div>
@@ -102,6 +102,7 @@
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
+                    StopLoadingAnimation();
                     $('#myModal').modal('show');
                     $('#modalContent').html('');
                     $('#modalContent').html(data);

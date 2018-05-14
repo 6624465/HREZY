@@ -26,7 +26,7 @@
                     <div class="box-header">
                         <h4>Employee Status</h4>
                         <div class="box-tools">
-                            <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="editEmpStatus(-1);"><i class="fa fa-plus"></i> Add</button>
+                            <button class="btn btn-info btn-raised waves-effect btn-sm ajaxCss" type="button" onclick="editEmpStatus(-1);"><i class="fa fa-plus"></i> Add</button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -39,7 +39,7 @@
                 grid.Column("LookUpDescription", "Status Description", canSort: true),
                 //grid.Column("IsActive", "Status"),
                 grid.Column("", "#Action", canSort: false, format: @<text>
-                <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpStatus(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
+                <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpStatus(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
                                 <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteEmployeeStatus(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button></text>)),
                 tableStyle: "table table-condensed table-bordered")
                             </div>
@@ -90,6 +90,7 @@
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
+                    StopLoadingAnimation();
                     $('#myStatusModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);

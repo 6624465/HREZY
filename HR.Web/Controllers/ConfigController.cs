@@ -47,7 +47,7 @@ namespace HR.Web.Controllers
         public ActionResult SaveEmployeeDesignation(LookUp lookup)
         {
             lookup.LookUpCategory = UTILITY.CONFIG_EMPLOYEEDESIGNATION;
-            
+            lookup.BranchId = BRANCHID;
             lookUpBO.Add(lookup);
             return RedirectToAction("EmployeeDesignationList");
         }

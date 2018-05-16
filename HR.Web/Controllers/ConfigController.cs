@@ -27,7 +27,7 @@ namespace HR.Web.Controllers
         #region Designation
         public ActionResult EmployeeDesignationList()
         {
-            var EmployeeData = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION && x.IsActive == true)
+            var EmployeeData = lookUpBO.GetListByProperty(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION && x.IsActive == true && x.BranchId == BRANCHID)
        .ToList().AsEnumerable();
             return View(EmployeeData);
         }
@@ -60,7 +60,7 @@ namespace HR.Web.Controllers
         }
         public bool IsEmployeeDesignationExist(string Designation)
         {
-            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == Designation.ToUpper()) && x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEEDESIGNATION)).ToList();
+            var list = lookUpBO.GetListByProperty(x => (x.LookUpCode.ToUpper() == Designation.ToUpper()) && x.IsActive==true && (x.LookUpCategory==UTILITY.CONFIG_EMPLOYEEDESIGNATION) && x.BranchId == BRANCHID).ToList();
             int count = list.Count();
             return (count > 0 ? true : false);
         }

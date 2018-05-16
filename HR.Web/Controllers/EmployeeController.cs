@@ -54,6 +54,7 @@ namespace HR.Web.Controllers
         {
             using (var dbCntx = new HrDataContext())
             {
+                ViewData["BranchId"] = BRANCHID;
                 var empDirectoryVm = new EmpDirectoryVm
                 {
 

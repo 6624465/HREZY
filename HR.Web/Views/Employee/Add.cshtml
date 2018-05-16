@@ -357,7 +357,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
-      SelectListItemHelper.Designation(),
+      SelectListItemHelper.Designation((int)ViewData["BranchId"]),
       "Select Designation",
       new { @class = "form-control input-sm" })
                                 </div>

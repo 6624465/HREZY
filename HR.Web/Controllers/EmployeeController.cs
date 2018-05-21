@@ -182,7 +182,7 @@ namespace HR.Web.Controllers
                 empObj.empHeader = empHeaderBO.GetById(EmployeeId.Value);
                 empObj.empPersonalDetail = empPersonalDetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
                 empObj.empWorkDetail = empWorkDetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
-                empObj.address = addressBO.GetByProperty(x => x.LinkID == EmployeeId.Value);
+                empObj.address = addressBO.GetByProperty(x => x.LinkID == EmployeeId.Value && x.AddressType==UTILITY.EMPLOYEE);
                 empObj.empBankdetail = empbankdetailBO.GetByProperty(x => x.EmployeeId == EmployeeId.Value);
                 List<EmployeeDocumentDetail> empDocumentDetList = empDocDetailBO.GetAll().ToList();
 

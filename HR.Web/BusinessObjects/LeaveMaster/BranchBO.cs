@@ -96,7 +96,7 @@ namespace HR.Web.BusinessObjects.LeaveMaster
                 Address1 = addressVm.Address1,
                 Address2 = addressVm.Address2,
 
-                AddressType = "Branch",
+                AddressType = UTILITY.BRANCH,
                 CityName = addressVm.CityName,
                 Contact = addressVm.Contact,
                 CountryCode = addressVm.CountryCode,

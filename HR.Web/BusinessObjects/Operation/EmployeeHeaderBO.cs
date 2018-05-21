@@ -114,7 +114,7 @@ namespace HR.Web.BusinessObjects.Operation
                     ZipCode = empVm.address.ZipCode,
                     MobileNo = empVm.address.MobileNo,
                     CountryCode = empHeader.Nationality,
-                    AddressType = "Employee",
+                    AddressType = UTILITY.EMPLOYEE,
                     Contact = empVm.address.MobileNo,
                     Email = empHeader.UserEmailId,
                     IsActive = true,

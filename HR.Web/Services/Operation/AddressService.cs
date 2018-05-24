@@ -19,10 +19,9 @@ namespace HR.Web.Services.Operation
                 using (HrDataContext dbContext = new HrDataContext())
                 {
                     Address address = dbContext.Addresses
-                        .Where(x => x.LinkID == entity.LinkID).FirstOrDefault();
+                        .Where(x => x.AddressId == entity.AddressId).FirstOrDefault();
                     if (address == null)
                     {
-                       
                         dbContext.Addresses.Add(entity);
                     }
                     else

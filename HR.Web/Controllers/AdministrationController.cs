@@ -62,7 +62,7 @@ namespace HR.Web.Controllers
                 }
                 companyvm.companyAddress = new AddressVm();
 
-                Address address = dbContext.Addresses.Where(x => x.LinkID == companyId).FirstOrDefault();
+                Address address = dbContext.Addresses.Where(x => x.LinkID == companyId && x.AddressType == UTILITY.COMPANY).FirstOrDefault();
                 if (address != null)
                 {
                     companyvm.companyAddress.Address1 = address.Address1;
@@ -137,7 +137,7 @@ namespace HR.Web.Controllers
             {
                 Branch branch = dbContext.Branches.Where(x => x.BranchID == branchId).FirstOrDefault();
                 branchVm.branch = branch;
-                Address address = dbContext.Addresses.Where(x => x.LinkID == branchId).FirstOrDefault();
+                Address address = dbContext.Addresses.Where(x => x.LinkID == branchId && x.AddressType == UTILITY.BRANCH).FirstOrDefault();
 
                 if (branchId !=0 && address != null)
                 {
@@ -201,24 +201,24 @@ namespace HR.Web.Controllers
             try
             {
                 branchBO.SaveBranch(branchVm, addressVm);
-                var list = contributionBO.GetListByProperty(x => (x.BranchId == branchVm.branch.BranchID) && (x.Name==UTILITY.BASICSALARYCOMPONENT)).ToList();
-                var count = list.Count();
-                if (count == 0)
-                {
-                    Contribution contribution = new Contribution
-                    {
-                        Name = UTILITY.BASICSALARYCOMPONENT,
-                        Description = UTILITY.BASICSALARYCOMPONENT,
-                        IsActive = true,
-                        CreatedBy = SESSIONOBJ.USERID,
-                        CreatedOn = UTILITY.SINGAPORETIME,
-                        RegisterCode = "PAYMENTS",
-                        BranchId = branchVm.branch.BranchID,
-                        SortBy = -1
-                    };
-                    contributionBO.Add(contribution);
+                //var list = contributionBO.GetListByProperty(x => (x.BranchId == branchVm.branch.BranchID) && (x.Name==UTILITY.BASICSALARYCOMPONENT)).ToList();
+                //var count = list.Count();
+                //if (count == 0)
+                //{
+                //    Contribution contribution = new Contribution
+                //    {
+                //        Name = UTILITY.BASICSALARYCOMPONENT,
+                //        Description = UTILITY.BASICSALARYCOMPONENT,
+                //        IsActive = true,
+                //        CreatedBy = SESSIONOBJ.USERID,
+                //        CreatedOn = UTILITY.SINGAPORETIME,
+                //        RegisterCode = "PAYMENTS",
+                //        BranchId = branchVm.branch.BranchID,
+                //        SortBy = -1
+                //    };
+                //    contributionBO.Add(contribution);
 
-                }
+                //}
 
 
             }

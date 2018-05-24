@@ -29,7 +29,7 @@
                         <div class="box-header">
                             <h4>Employee Designation</h4>
                             <div class="box-tools">
-                                <button class="btn btn-info btn-raised waves-effect btn-sm" type="button" onclick="editEmpDesignation(-1);"><i class="fa fa-plus"></i> Add</button>
+                                <button class="btn btn-info btn-raised waves-effect btn-sm ajaxCss" type="button" onclick="editEmpDesignation(-1);"><i class="fa fa-plus"></i> Add</button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -42,7 +42,7 @@
      //grid.Column("IsActive", "Status"),
      grid.Column("", "#Action", canSort: false,
      format: @<text>
-        <button class="btn btn-xs btn-raised waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
+        <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;" onclick="editEmpDesignation(@item.LookUpID)"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
         <button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deletedesignation(@item.LookUpID)"><i class="fa fa-trash-o" style="padding-left: 5px;"></i></button>
     </text>)),
      tableStyle: "table table-condensed table-bordered")
@@ -93,6 +93,7 @@
                 contentType: 'text/html',
                 method: 'GET',
                 success: function (data) {
+                    StopLoadingAnimation();
                     $('#myDesignationModal').modal('show');
                     $('#modalContent1').html('');
                     $('#modalContent1').html(data);

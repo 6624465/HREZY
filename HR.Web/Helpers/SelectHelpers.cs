@@ -60,12 +60,12 @@ namespace HR.Web.Helpers
             }
         }
 
-        public static IEnumerable<System.Web.Mvc.SelectListItem> Designation()
+        public static IEnumerable<System.Web.Mvc.SelectListItem> Designation(int branchid)
         {
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.LookUps
-                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION && x.IsActive == true)
+                                .Where(x => x.LookUpCategory == UTILITY.CONFIG_EMPLOYEEDESIGNATION && x.IsActive == true && x.BranchId == branchid)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.LookUpDescription,

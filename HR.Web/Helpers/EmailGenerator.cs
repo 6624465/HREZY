@@ -26,7 +26,7 @@ namespace HR.Web.Helpers
         public bool SendMail(MailMessage msg)
         {
             //var settings = new EmailSettingsBO().GetList().FirstOrDefault();
-            msg.From = new MailAddress("cit.dc@ezy-corp.com");
+            msg.From = new MailAddress("dc.cit@ezy-corp.com");
             
             SmtpClient client = new SmtpClient();
             client.Host = "smtp.office365.com";
@@ -35,7 +35,7 @@ namespace HR.Web.Helpers
             client.Timeout = 900000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("cit.dc@ezy-corp.com", "Say33125");
+            client.Credentials = new NetworkCredential("dc.cit@ezy-corp.com", "cit@2018");
             try
             {
                 client.Send(msg);
@@ -47,9 +47,8 @@ namespace HR.Web.Helpers
                 return false;
             }
         }
-
-
        
+
         public bool ConfigMail(string to, string cc, string bcc, bool isHtml, string subject, string body, string[] attachments)
         {
             MailMessage msg = new MailMessage();

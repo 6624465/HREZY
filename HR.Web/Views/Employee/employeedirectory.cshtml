@@ -77,7 +77,7 @@
                                 </label>
                                 <div class="col-md-3">
                                     @Html.DropDownListFor(x => x.empSearch.Designation,
-                             SelectListItemHelper.Designation(),
+                             SelectListItemHelper.Designation((int)ViewData["BranchId"]),
                              "Select Designation",
                              new { @class = "form-control input-sm" })
                                 </div>

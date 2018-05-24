@@ -357,7 +357,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
-      SelectListItemHelper.Designation(),
+      SelectListItemHelper.Designation((int)ViewData["BranchId"]),
       "Select Designation",
       new { @class = "form-control input-sm" })
                                 </div>
@@ -457,7 +457,7 @@ new
                                     <span>Send Mails To</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(x => x.empWorkDetail.SendMailsTo, new { @class = "form-control input-sm uppercase" })
+                                    @Html.TextBoxFor(x => x.empWorkDetail.SendMailsTo, new { @class = "form-control input-sm uppercase",required="required" })
                                 </div>
                             </div>
                         </div>

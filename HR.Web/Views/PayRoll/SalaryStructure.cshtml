@@ -941,6 +941,9 @@
             $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
             $('#totalgross').val(salarypayment);
             var totalforemployer=parseFloat(salarypayment)+parseFloat(employercontribution);
+            if (isNaN(totalforemployer)) {
+                totalforemployer = 0;
+            }
             var statuatoryamount=parseFloat(employercontribution)+parseFloat(_totalDeductions);
             $('#totalforemployer').val(totalforemployer);
             $('#statuatorydeductions').val(statuatoryamount);

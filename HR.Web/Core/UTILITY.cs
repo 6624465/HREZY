@@ -128,6 +128,13 @@ namespace HR.Web
         public static int TRAVELCLAIMDOCUMENTID = 2581;
 
 
+        /* addresstype for fetching address */
+        public static string COMPANY = "Company";
+        public static string EMPLOYEE = "Employee";
+        public static string BRANCH = "Branch";
+
+
+
 
 
         //public static int PAIDLEAVE(int BRANCHID)

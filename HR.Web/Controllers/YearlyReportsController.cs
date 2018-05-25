@@ -849,7 +849,8 @@ namespace HR.Web.Controllers
 
                     count = dcount;
                     int p = 0;
-                    for (int i = 0; i < validcount; i++)
+                    int validcount2 = validcount * 2;
+                    for (int i = 0; i < validcount2; i++)
                     {
                         if (count < payslipDetail.Count)
                         {

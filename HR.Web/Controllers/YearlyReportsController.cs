@@ -8,10 +8,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using HR.Web.BusinessObjects.Payroll;
+using HR.Web.BusinessObjects.Operation;
+
+
 namespace HR.Web.Controllers
 {
     public class YearlyReportsController : BaseController
     {
+
+        PayslipBatchHeaderBo PayslipbatchheaderBo = null;
+        PayslipBatchDetailBO payslipbatchdetailBo = null;
+
         public static int PageNo = 1;
         public static int pageCount = 0;
         public static decimal? TotalSalary = 0.0M;
@@ -22,6 +30,16 @@ namespace HR.Web.Controllers
 
         public static decimal? TotalIncome = 0.0M;
         public static decimal? TotalDeductions = 0.0M;
+
+        
+        public YearlyReportsController() {
+
+            PayslipbatchheaderBo = new PayslipBatchHeaderBo(SESSIONOBJ);
+            payslipbatchdetailBo = new PayslipBatchDetailBO(SESSIONOBJ);
+
+
+        }
+
         // GET: YearlyReports
         public ActionResult YearlyReportsTDS()
         {
@@ -716,6 +734,60 @@ namespace HR.Web.Controllers
 
 
         #region DownloadEmployeePaySlip
+
+        public FileResult DownloadEmployeeLatestPaySlip(int empid)
+        {
+            PageNo = 1;
+            try
+            {
+
+                int month = 0;
+                int year = 0;
+
+                //var payslipbatchheaderItem = PayslipbatchheaderBo.GetByProperty(x=>x.BranchId==BRANCHID).
+                //using(var dbcnx= new HrDataContext())
+                //{
+                //    var obj = dbcnx.PayslipBatchHeaders.
+                //        Join(dbcnx.PayslipBatchDetails,
+                //       hd=>hd.Batchheaderid,dt=>dt.Batchheaderid,
+                //       (hd, dt) =>new {Hd=hd, Dt=dt}
+                //        )
+                //}
+
+                var outputPdfStream = new MemoryStream();
+                using (Document document = new Document())
+                {
+                    using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
+
+                    {
+                        document.Open();
+                        AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, month, year);
+                    }
+                }
+
+                byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
+                outputPdfStream.Close();
+
+                Response.Clear();
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment;filename=" + "PaySlip_" + empid.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
+                Response.Buffer = true;
+                Response.BinaryWrite(bytesInStream);
+                Response.End();
+
+                return File(bytesInStream, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+
+
+
+
         public FileResult DownloadEmployeePaySlip(int year, int month, int empid)
         {
             PageNo = 1;

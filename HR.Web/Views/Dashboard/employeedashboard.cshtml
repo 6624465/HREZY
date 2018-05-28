@@ -61,6 +61,7 @@
     
             <span>
                 @Model.EmployeeName <a class="ajaxCss" href="@Url.Content("~/Employee/Add?EmployeeId=" + Model.EmployeeId)" style="text-decoration:underline"><small>View Profile</small></a>
+                <span style="color:#ff0000">@ViewData["Alert"]</span>
             </span>
             @*<div class="dropdown">
                 <button type="button" class="text-light mb0 pull-right btn btn-primary" data-toggle="dropdown">

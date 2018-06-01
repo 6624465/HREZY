@@ -174,7 +174,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td></td>
+                                                    <td><input type="hidden" id="totalnonapplicablevalue"/></td>
                                                     <td style="text-align:right;">Total-A</td>
                                                     <td>@Html.TextBoxFor(x => x.structureHeader.TotalGross, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                                 </tr>
@@ -852,6 +852,7 @@
                     $('#structureHeader_TotalGross').val(TotalGross);
 
                 }
+               
 
                 var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
                 var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
@@ -870,6 +871,20 @@
               
                
             }
+            debugger;
+            var  NotapplicableAmount = 0;
+            for(var i=0; i<rowCount;i++){
+
+                var computecode = $('#structureSalaryPaymentDetail_' + i + '__ComputationCode').val();
+                    
+                if(computecode=="NA"){
+                    var Amount = parseFloat($('#structureSalaryPaymentDetail_' + i + '__Amount').val());
+                    
+                    NotapplicableAmount += Amount;
+                }
+                $('#totalnonapplicablevalue').val(NotapplicableAmount);
+            }
+            
             validateDeductAmount(this, 0,code);
 
         }
@@ -890,6 +905,16 @@
                     basicAmount =parseFloat(basicAmount).toFixed(2);
                     $('#structureSalaryPaymentDetail_' + 0 + '__Total').val(basicAmount);
                 }
+                var totalGross=$('#structureHeader_TotalGross').val();
+                var totalnonapplicable = $('#totalnonapplicablevalue').val();
+                if(index == 0 && totalGross!=""){
+                    totalGross =parseFloat(totalGross).toFixed(2);
+                    totalnonapplicable =parseFloat(totalnonapplicable).toFixed(2);
+
+                    //$('#structureEmployerContributionDetail_' + 0 + '__Total').val(totalGross);
+                }
+                var percentagecal = totalGross-totalnonapplicable;
+
 
                 var total = $('#structureEmployeeContributionDetail_' + i + '__Amount').val();
                 if(total!="")
@@ -906,7 +931,7 @@
                         });
                         return;
                     }
-                    var grandTotal=(basicAmount* total)/100;
+                    var grandTotal=(percentagecal * total)/100;
                     grandTotal=parseFloat(grandTotal).toFixed(2);
                     $('#structureEmployeeContributionDetail_' + i + '__Total').val(grandTotal);
                 }else{
@@ -961,10 +986,14 @@
                 code=$('#structureEmployerContributionDetail_'+i+'__RegisterCode').val();
 
                 var totalGross=$('#structureHeader_TotalGross').val();
+                var totalnonapplicable = $('#totalnonapplicablevalue').val();
                 if(index == 0 && totalGross!=""){
                     totalGross =parseFloat(totalGross).toFixed(2);
+                    totalnonapplicable =parseFloat(totalnonapplicable).toFixed(2);
+
                     //$('#structureEmployerContributionDetail_' + 0 + '__Total').val(totalGross);
                 }
+                var percentagecal = totalGross-totalnonapplicable;
 
                 var total = $('#structureEmployerContributionDetail_' + i + '__Amount').val();
                 if(total!="")
@@ -981,7 +1010,7 @@
                         });
                         return;
                     }
-                    var grandTotal=(totalGross* total)/100;
+                    var grandTotal=(percentagecal * total)/100;
                     grandTotal=parseFloat(grandTotal).toFixed(2);
                     $('#structureEmployerContributionDetail_' + i + '__Total').val(grandTotal);
                 }else{

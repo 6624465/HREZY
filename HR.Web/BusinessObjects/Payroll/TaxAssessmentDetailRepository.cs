@@ -29,12 +29,11 @@ namespace HR.Web.Services.Payroll
                         taxassessmentdetail.SalaryFrom = entity.SalaryFrom;
                         taxassessmentdetail.SalaryTo = entity.SalaryTo;
                         taxassessmentdetail.Rate = entity.Rate;
+                        taxassessmentdetail.Maxamount = entity.Maxamount;
                         taxassessmentdetail.CreatedBy = entity.CreatedBy;
                         taxassessmentdetail.CreatedOn = entity.CreatedOn;
                         taxassessmentdetail.ModifiedBy = entity.ModifiedBy;
                         taxassessmentdetail.ModifiedOn = entity.ModifiedOn;
-
-
                     }
 
                     dbContext.SaveChanges();

@@ -7,9 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HR.Web.ViewModels;
 
 using HR.Web.BusinessObjects.Payroll;
-using HR.Web.BusinessObjects.Operation;
+
 
 
 namespace HR.Web.Controllers
@@ -601,6 +602,62 @@ namespace HR.Web.Controllers
         #endregion
 
         #region PrintTAVSummaryByEmployeeReport
+
+        public FileResult PrintTAVSummaryByEmployeeReportForEmployee(int empId)
+        {
+            PageNo = 1;
+            try
+            {
+                using (var dbcnx = new HrDataContext())
+                {
+                    
+                    var obj = dbcnx.PayslipBatchHeaders.
+                        Join(dbcnx.PayslipBatchDetails,
+                       hd => hd.BatchHeaderId, dt => dt.BatchHeaderId,
+                       (hd, dt) => new { Hd = hd, Dt = dt }).
+                       Where(x => x.Dt.EmployeeId == empId && x.Hd.BranchId == BRANCHID).
+                       OrderByDescending(x => x.Hd.BatchHeaderId).
+                       Select(x => new EmployeeMonthlyPayslipVM
+                       {
+                           Month = x.Hd.Month,
+                           Year = x.Hd.Year
+                       }).FirstOrDefault();
+
+
+
+                    var outputPdfStream = new MemoryStream();
+                    using (Document document = new Document())
+                    {
+                        using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
+                        {
+                            document.Open();
+                            AddTAVSummaryByEmployeeDataSheets(copy, BRANCHID, obj.Year.Value, empId);
+                        }
+                    }
+
+                    byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
+                    outputPdfStream.Close();
+
+                    Response.Clear();
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment;filename=" + "แบบฟอร์ม-ทวิ-50_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
+                    Response.Buffer = true;
+                    Response.BinaryWrite(bytesInStream);
+                    Response.End();
+
+                    return File(bytesInStream, "application/pdf");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+
+
+
         public FileResult PrintTAVSummaryByEmployeeReport(int year, int empId)
         {
             PageNo = 1;
@@ -741,18 +798,22 @@ namespace HR.Web.Controllers
             try
             {
 
-                int month = 0;
-                int year = 0;
-
                 //var payslipbatchheaderItem = PayslipbatchheaderBo.GetByProperty(x=>x.BranchId==BRANCHID).
-                //using(var dbcnx= new HrDataContext())
-                //{
-                //    var obj = dbcnx.PayslipBatchHeaders.
-                //        Join(dbcnx.PayslipBatchDetails,
-                //       hd=>hd.Batchheaderid,dt=>dt.Batchheaderid,
-                //       (hd, dt) =>new {Hd=hd, Dt=dt}
-                //        )
-                //}
+                using (var dbcnx = new HrDataContext())
+                {
+                    
+                    var payslipObj = dbcnx.PayslipBatchHeaders.
+                        Join(dbcnx.PayslipBatchDetails,
+                       hd => hd.BatchHeaderId, dt => dt.BatchHeaderId,
+                       (hd, dt) => new { Hd = hd, Dt = dt }).
+                       Where(x => x.Dt.EmployeeId == empid && x.Hd.BranchId == BRANCHID).
+                       OrderByDescending(x=>x.Hd.BatchHeaderId).
+                       Select(x => new EmployeeMonthlyPayslipVM
+                       {
+                           Month = x.Hd.Month,
+                           Year = x.Hd.Year
+                       }).FirstOrDefault();
+                
 
                 var outputPdfStream = new MemoryStream();
                 using (Document document = new Document())
@@ -761,7 +822,7 @@ namespace HR.Web.Controllers
 
                     {
                         document.Open();
-                        AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, month, year);
+                        AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, Convert.ToInt32(payslipObj.Month), payslipObj.Year.Value);
                     }
                 }
 
@@ -776,6 +837,7 @@ namespace HR.Web.Controllers
                 Response.End();
 
                 return File(bytesInStream, "application/pdf");
+                }
             }
             catch (Exception ex)
             {

@@ -10,8 +10,8 @@
             <PropertyRef Name="LookUpID" />
           </Key>
           <Property Name="LookUpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LookUpCode" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LookUpDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LookUpCode" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LookUpDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LookUpCategory" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
@@ -543,6 +543,7 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Maxamount" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="TaxAssessmentHeader">
           <Key>
@@ -1040,8 +1041,8 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
             <PropertyRef Name="LookUpID" />
           </Key>
           <Property Name="LookUpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LookUpCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LookUpDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LookUpCode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LookUpDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LookUpCategory" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1602,6 +1603,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="TaxAssessmentHeader">
           <Key>
@@ -2533,6 +2535,7 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="TaxAssessmentDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
               <MappingFragment StoreEntitySet="TaxAssessmentDetail">
+                <ScalarProperty Name="Maxamount" ColumnName="Maxamount" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />

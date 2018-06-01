@@ -274,6 +274,15 @@ namespace HR.Web.Controllers
 
         public ActionResult EmployeeRequestFrom()
         {
+            List<OtherLeave> LeavePolicyList = otherLeaveBO.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true).ToList();
+            if (LeavePolicyList.Count() != 0)
+            {
+                ViewData["Alert"] = "";
+            }
+            else
+            {
+                ViewData["Alert"] = UTILITY.MISSINGLEAVEPOLICYALERT;
+            }
             ViewBag.BranchID = BRANCHID;
             GetHolidayWeekends();
 

@@ -134,6 +134,9 @@ namespace HR.Web
         public static string BRANCH = "Branch";
 
 
+        public static string MISSINGLEAVEPOLICYALERT = "Master leave policy is not setup yet. Please contact HR-Admin for further details.";
+
+
 
 
 

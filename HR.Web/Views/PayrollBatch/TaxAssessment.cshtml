@@ -103,6 +103,7 @@
                                                         <th style="background:#3f51b5; color:#fff;">Salary From</th>
                                                         <th style="background:#3f51b5; color:#fff;">Salary To</th>
                                                         <th style="background:#3f51b5; color:#fff;">Rate (%)</th>
+                                                        <th style="background:#3f51b5; color:#fff;">Max Amount</th>
                                                         <th style="background:#3f51b5; color:#fff;">#Action</th>
                                                     </tr>
                                                 </thead>
@@ -143,6 +144,9 @@
                                                                    style = "width:100px;",
                                                                    data_index = i,                                                                  
                                                                })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.TextBoxFor(x=>x.TaxAssessmentDetailList[i].Maxamount, new { @class = "form-control input-sm decimalCss", required = "required", style = "width:100px;" })
                                                                 </td>
                                                                 <td>
                                                                     <button type="button" class="btn btn-xs btn-danger btn-sm waves-effect" formnovalidate="formnovalidate"

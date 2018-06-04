@@ -99,7 +99,6 @@ namespace HR.Web.Controllers
                 return Json(empDirectoryVm, JsonRequestBehavior.AllowGet);
             }
         }
-
         [HttpPost]
         public ActionResult empsearchajax(EmpSearch empSearch)
         {
@@ -114,8 +113,8 @@ namespace HR.Web.Controllers
                             .Join(dbCntx.EmployeeWorkDetails.AdvSearchEmpWorkDetailWhere(empSearch.DOJ, empSearch.Designation, BRANCHID, ROLECODE),
                             c => c.A.EmployeeId, d => d.EmployeeId,
                             (c, d) => new { C = c, D = d })
-                            .Join(dbCntx.Addresses,
-                            e => e.C.A.EmployeeId, f => f.LinkID,
+                            .Join(dbCntx.Users,
+                            e => e.C.A.EmployeeId, f => f.EmployeeId,
                             (e, f) => new { E = e, F = f })
                             //.Join(dbCntx.EmployeeDocumentDetails,
                             //g => g.E.C.A.EmployeeId, h => h.EmployeeId,
@@ -129,19 +128,19 @@ namespace HR.Web.Controllers
                                 JobTitle = dbCntx.LookUps
                                             .Where(y => y.LookUpID == x.E.D.DesignationId)
                                             .FirstOrDefault().LookUpDescription,
-                                ContactNo = x.F.Contact,
+                                ContactNo = x.F.MobileNumber,
                                 PersonalEmailId = x.F.Email,
                                 OfficialEmailId = x.F.Email,
                                 DocumentDetailID = dbCntx.EmployeeDocumentDetails
-                                .Where(z => z.DocumentType == UTILITY.DOCUMENTTYPEID && z.EmployeeId== x.E.C.A.EmployeeId).FirstOrDefault() == null ? 0 :
+                                .Where(z => z.DocumentType == UTILITY.DOCUMENTTYPEID && z.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault() == null ? 0 :
                                 dbCntx.EmployeeDocumentDetails
                                 .Where(z => z.DocumentType == UTILITY.DOCUMENTTYPEID && z.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().DocumentDetailID,//x.H.DocumentDetailID,
                                 DateOfBirth = x.E.C.B.DOB,
                                 branchid = x.E.C.A.BranchId,
                                 ProfilePic = dbCntx.EmployeeDocumentDetails
-                                .Where(a => a.DocumentType == UTILITY.DOCUMENTTYPEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault() == null ?  "" :
+                                .Where(a => a.DocumentType == UTILITY.DOCUMENTTYPEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault() == null ? "" :
                                 dbCntx.EmployeeDocumentDetails
-                                .Where(a=> a.DocumentType == UTILITY.DOCUMENTTYPEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().FileName
+                                .Where(a => a.DocumentType == UTILITY.DOCUMENTTYPEID && a.EmployeeId == x.E.C.A.EmployeeId).FirstOrDefault().FileName
                             });
                 var emplist = list.Where(x => x.branchid == BRANCHID).ToList();
                 var query = emplist.OrderByDescending(x => x.EmployeeId).Skip(skipRows).Take(offSet).ToList().AsEnumerable();

@@ -484,6 +484,7 @@ namespace HR.Web.Controllers
                     SalaryFrom = item.SalaryFrom,
                     SalaryTo = item.SalaryTo,
                     Rate = item.Rate,
+                    Maxamount = item.Maxamount
                 };
                 taxassessmentdetailBo.Add(taxassessmentdetail);
             }

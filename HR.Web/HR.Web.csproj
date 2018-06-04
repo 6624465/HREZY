@@ -2055,6 +2055,7 @@
     <Compile Include="ViewModels\SalaryStructureVm.cs" />
     <Compile Include="ViewModels\TravelClaimVm.cs" />
     <Compile Include="ViewModels\WeekendPolicyVm.cs" />
+    <Compile Include="ViewModels\YearlyReportsVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

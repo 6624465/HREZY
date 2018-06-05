@@ -63,8 +63,8 @@ namespace HR.Web.Models
         public virtual DbSet<PayslipBatchHeader> PayslipBatchHeaders { get; set; }
         public virtual DbSet<VariablePaymentDetail> VariablePaymentDetails { get; set; }
         public virtual DbSet<VariablePaymentHeader> VariablePaymentHeaders { get; set; }
-        public virtual DbSet<TaxAssessmentDetail> TaxAssessmentDetails { get; set; }
         public virtual DbSet<TaxAssessmentHeader> TaxAssessmentHeaders { get; set; }
+        public virtual DbSet<TaxAssessmentDetail> TaxAssessmentDetails { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)
         {

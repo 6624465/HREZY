@@ -41,8 +41,8 @@
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.PayslipBatchHeader" Width="1.5" PointX="19.375" PointY="9.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.VariablePaymentDetail" Width="1.5" PointX="19.375" PointY="13.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.VariablePaymentHeader" Width="1.5" PointX="15.375" PointY="19.75" />
-        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" Width="2.75" PointX="20.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.TaxAssessmentHeader" Width="2.75" PointX="20.375" PointY="16.75" />
+        <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" Width="1.5" PointX="20.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

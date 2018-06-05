@@ -543,6 +543,7 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Maxamount" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="TaxAssessmentHeader">
           <Key>
@@ -894,7 +895,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <EntitySet Name="PayslipBatchHeaders" EntityType="DB_9F30C5_HRDBModel.PayslipBatchHeader" />
           <EntitySet Name="VariablePaymentDetails" EntityType="DB_9F30C5_HRDBModel.VariablePaymentDetail" />
           <EntitySet Name="VariablePaymentHeaders" EntityType="DB_9F30C5_HRDBModel.VariablePaymentHeader" />
-          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
           <EntitySet Name="TaxAssessmentHeaders" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentHeader" />
           <FunctionImport Name="usp_SSFSummaryDetailByMonthTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_SSFSummaryDetailByMonthTH_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
@@ -944,6 +944,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1589,21 +1590,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="TaxAssessmentDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HeaderID" Type="Int32" />
-          <Property Name="SalaryFrom" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SalaryTo" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
+        
         <EntityType Name="TaxAssessmentHeader">
           <Key>
             <PropertyRef Name="HeaderID" />
@@ -1815,6 +1802,21 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="String" Name="CountryCode" Nullable="true" MaxLength="2" />
           <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="TaxAssessmentDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeaderID" Type="Int32" />
+          <Property Name="SalaryFrom" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SalaryTo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2531,21 +2533,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TaxAssessmentDetails">
-            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
-              <MappingFragment StoreEntitySet="TaxAssessmentDetail">
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
-                <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
-                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          
           <EntitySetMapping Name="TaxAssessmentHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentHeader">
               <MappingFragment StoreEntitySet="TaxAssessmentHeader">
@@ -2795,6 +2783,22 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="TaxAssessmentDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
+              <MappingFragment StoreEntitySet="TaxAssessmentDetail">
+                <ScalarProperty Name="Maxamount" ColumnName="Maxamount" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
+                <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

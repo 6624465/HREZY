@@ -543,7 +543,6 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
-          <Property Name="Maxamount" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="TaxAssessmentHeader">
           <Key>
@@ -663,7 +662,7 @@
           <Property Name="SundaySession" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -2535,7 +2534,6 @@ warning 6002: The table/view 'DB_9F30C5_HRDB.Security.Role' does not have a prim
           <EntitySetMapping Name="TaxAssessmentDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
               <MappingFragment StoreEntitySet="TaxAssessmentDetail">
-                <ScalarProperty Name="Maxamount" ColumnName="Maxamount" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />

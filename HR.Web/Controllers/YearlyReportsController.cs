@@ -163,7 +163,7 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("BranchName", "");
 
                     pdfFormFields.SetField("CompanyAddress", sSFHeader.Address1);
-                    pdfFormFields.SetField("CompanyAddress1", (sSFHeader.CityName != null ? ", " + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? ", " + sSFHeader.StateName : "") + (sSFHeader.CountryCode != null ? ", " + sSFHeader.CountryCode : ""));
+                    pdfFormFields.SetField("CompanyAddress1", (sSFHeader.Address2 != null ? sSFHeader.Address2 : "") + (sSFHeader.CityName != null ? "," + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? "," + sSFHeader.StateName : ""));
                     pdfFormFields.SetField("PostalCode", sSFHeader.ZipCode);
                     pdfFormFields.SetField("PhoneNo", sSFHeader.TelNo);
                     pdfFormFields.SetField("FaxNo", sSFHeader.FaxNo);

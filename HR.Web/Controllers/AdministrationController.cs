@@ -139,7 +139,7 @@ namespace HR.Web.Controllers
                 branchVm.branch = branch;
                 Address address = dbContext.Addresses.Where(x => x.LinkID == branchId && x.AddressType == UTILITY.BRANCH).FirstOrDefault();
 
-                if (branchId !=0 && address != null)
+                if (branchId !=-1 && address != null)
                 {
                     branchVm.address.Address1 = address.Address1;
                     branchVm.address.Address2 = address.Address2;

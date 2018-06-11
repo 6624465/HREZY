@@ -98,5 +98,17 @@ namespace HR.Web.BusinessObjects.Payroll
             return PayslipBatchHeaderRepository.GetCount(branchId);
         }
 
+        public PayslipBatchHeader GetLatestRecord(Func<PayslipBatchHeader, bool> predicate)
+        {
+            try
+            {
+                return PayslipBatchHeaderRepository.GetLatestRecord(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

@@ -76,7 +76,7 @@ new SelectListItem {Text = "December", Value = "12"}
         <div class="col-md-12">
             <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
                 <div class="panel-heading">
-                    Payslip Batch
+                    Payslip Batch <span style="color:#ff0000">@Session["ConfirmError"]</span>
                 </div>
                 <div class="panel-body">
                     @using (Html.BeginForm("confirmprocesspayroll", "PayrollBatch", FormMethod.Post, new { id = "confirmprocesspayroll", name = "confirmprocesspayroll" }))
@@ -448,7 +448,7 @@ new SelectListItem {Text = "December", Value = "12"}
                                className: "blue-with-image-2",
                                content: '',
                            });
-                 
+
             @*$.ajax({
                 url: '@Url.Content("~/PayrollBatch/ProcessPayrollGeneration?currentmonth=")' + month + '&currentyear=' + year,
                 contentType: 'application/json',
@@ -465,7 +465,8 @@ new SelectListItem {Text = "December", Value = "12"}
             if ($('#confirmprocesspayroll').valid()) {
                 location.href = '@Url.Content("~/PayrollBatch/confirmprocesspayrollBySP")' + '?year=' + $('#payslipBatchHeader_Year').val() + '&month=' + $('#payslipBatchHeader_Month').val();
                 //$('#confirmprocesspayroll').submit();
-                swal({
+                if ('@Session["ConfirmError"]' == "") {
+                     swal({
                     title: "Payroll Generated Successfully",
                     text: "",
                     closeOnConfirm: true,
@@ -479,6 +480,8 @@ new SelectListItem {Text = "December", Value = "12"}
                                   content: '',
                               });
                           })
+                }
+               
             }
             else {
                 swal("Incorrect Inputs");

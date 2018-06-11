@@ -74,12 +74,13 @@ namespace HR.Web.Controllers
                     var batchcount = PayslipbatchheaderBo.GetCount(BRANCHID);
                     batchcount = batchcount + 1;
                     vm.payslipBatchHeader.BatchNo = "BATCH" + batchcount.ToString("D4");
-
+                   
                 }
                 else {
                     vm.payslipBatchHeader = new PayslipBatchHeader();
                     vm.payslipBatchHeader.Month = Convert.ToByte(currentmonth.Value);
                     vm.payslipBatchHeader.Year = currentyear.Value;
+                   
                 }
 
 
@@ -104,7 +105,7 @@ namespace HR.Web.Controllers
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
                 PayrollBatchVm vm = new PayrollBatchVm();
-
+                Session["ConfirmError"] = "";
                 //var netsalarytotal = salarystructureheaderBo.GetAll();
                 //if (netsalarytotal != null)
                 //{
@@ -349,11 +350,33 @@ namespace HR.Web.Controllers
 
         public ActionResult confirmprocesspayrollBySP(int year, int month)
         {
-            using (var dbCntx = new HrDataContext())
+            var nullcheck = PayslipbatchheaderBo.GetAll().Where(x => x.BranchId == BRANCHID).ToList();
+            if(nullcheck.Count()!=0)
             {
-                var result = dbCntx.CommitPayslip(Convert.ToInt16(BRANCHID), month, year);
+                var confirmMonth = PayslipbatchheaderBo.GetLatestRecord(x => x.BranchId == BRANCHID).Month;
+                if (confirmMonth == (month - 1))
+                {
+                    using (var dbCntx = new HrDataContext())
+                    {
+                        var result = dbCntx.CommitPayslip(Convert.ToInt16(BRANCHID), month, year);
+                    }
+                    Session["ConfirmError"] = "";
+                }
+                else
+                {
+                    Session["ConfirmError"] = "The previous Month Payslip is not Generated";
+                }
+
             }
-            return RedirectToAction("ProcessPayroll", new { currentmonth= month, currentyear= year });
+            else
+            {
+                using (var dbCntx = new HrDataContext())
+                {
+                    var result = dbCntx.CommitPayslip(Convert.ToInt16(BRANCHID), month, year);
+                }
+            }
+
+            return RedirectToAction("ProcessPayroll", new { currentmonth= month, currentyear= year});
         }
 
         [HttpPost]

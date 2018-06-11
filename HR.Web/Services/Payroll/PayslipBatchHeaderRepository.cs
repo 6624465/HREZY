@@ -171,5 +171,22 @@ namespace HR.Web.Services.Payroll
                 throw ex;
             }
         }
+
+        public PayslipBatchHeader GetLatestRecord(Func<PayslipBatchHeader, bool> predicate)
+        {
+            try
+            {
+                using (HrDataContext dbContext = new HrDataContext())
+                {
+                    return dbContext.PayslipBatchHeaders.Where(predicate).OrderByDescending(x=>x.BatchHeaderId).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

@@ -162,8 +162,12 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("CompanyName1", sSFHeader.BranchName);
                     pdfFormFields.SetField("BranchName", "");
 
-                    pdfFormFields.SetField("CompanyAddress", sSFHeader.Address1);
-                    pdfFormFields.SetField("CompanyAddress1", (sSFHeader.Address2 != null ? sSFHeader.Address2 : "") + (sSFHeader.CityName != null ? "," + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? "," + sSFHeader.StateName : ""));
+                    pdfFormFields.SetField("CompanyAddress", (sSFHeader.Address1 != null ? sSFHeader.Address1 : "") + (sSFHeader.Address2 != null ? sSFHeader.Address2 : ""));
+                    pdfFormFields.SetField("CompanyAddress1", (sSFHeader.Address3 != null ? "," + sSFHeader.Address3 : "")+ (sSFHeader.Address4 != null ? "," + sSFHeader.Address4 : "") +
+                        (sSFHeader.Address5 != null ? "," + sSFHeader.Address5 : "") + (sSFHeader.Address6 != null ? "," +  sSFHeader.Address6 : "") + (sSFHeader.Address7 != null ? "," + sSFHeader.Address7 : "")+
+                        (sSFHeader.Address8 != null ? "," + sSFHeader.Address8 : "") + (sSFHeader.Address9 != null ? "," + sSFHeader.Address9 : "") + (sSFHeader.Address10 != null ? "," + sSFHeader.Address10 : "") +
+                        (sSFHeader.Address11 != null ? "," + sSFHeader.Address11 : "") + (sSFHeader.Address12 != null ? "," +  sSFHeader.Address12 : "") + (sSFHeader.Address13 != null ? "," +  sSFHeader.Address13 : "")+
+                        (sSFHeader.CityName != null ? "," + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? "," + sSFHeader.StateName : ""));
                     pdfFormFields.SetField("PostalCode", sSFHeader.ZipCode);
                     pdfFormFields.SetField("PhoneNo", sSFHeader.TelNo);
                     pdfFormFields.SetField("FaxNo", sSFHeader.FaxNo);

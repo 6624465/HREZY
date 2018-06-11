@@ -128,8 +128,8 @@
           <Property Name="AddressType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address1" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Address2" Type="nvarchar" MaxLength="100" />
-          <Property Name="Address3" Type="varchar" MaxLength="50" />
-          <Property Name="Address4" Type="varchar" MaxLength="50" />
+          <Property Name="Address3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address4" Type="nvarchar" MaxLength="50" />
           <Property Name="CityName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="255" />
           <Property Name="CountryCode" Type="varchar" MaxLength="2" Nullable="false" />
@@ -950,8 +950,14 @@ warning 6002: The table/view 'DB_9F30C5_HRTH.Security.Role' does not have a prim
             <Parameter Name="Year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_PND1SummaryHeaderByMonthTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_PND1SummaryHeaderByMonthTH_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+          <Parameter Name="BranchId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_SSFSummaryHeaderByMonthTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_SSFSummaryHeaderByMonthTH_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+          </FunctionImport>
+       
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1089,8 +1095,8 @@ warning 6002: The table/view 'DB_9F30C5_HRTH.Security.Role' does not have a prim
           <Property Name="AddressType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Address1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CityName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="StateName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CountryCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
@@ -1822,6 +1828,38 @@ warning 6002: The table/view 'DB_9F30C5_HRTH.Security.Role' does not have a prim
           <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
           <Property Type="Boolean" Name="IsActive" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="usp_SSFSummaryHeaderByMonthTH_Result">
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="RegNo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="AddressID" Nullable="true" />
+          <Property Type="String" Name="BranchTaxCode" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SSFNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TaxIdNumber" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Expr1" Nullable="true" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address3" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address4" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CityName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Address5" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address6" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address7" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address8" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address9" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address10" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address11" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address12" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address13" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CountryCode" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TelNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SSFContributionRate" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2798,6 +2836,42 @@ warning 6002: The table/view 'DB_9F30C5_HRTH.Security.Role' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SSFSummaryHeaderByMonthTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_SSFSummaryHeaderByMonthTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_SSFSummaryHeaderByMonthTH_Result">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="BranchTaxCode" ColumnName="BranchTaxCode" />
+                <ScalarProperty Name="SSFNumber" ColumnName="SSFNumber" />
+                <ScalarProperty Name="TaxIdNumber" ColumnName="TaxIdNumber" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="Address5" ColumnName="Address5" />
+                <ScalarProperty Name="Address6" ColumnName="Address6" />
+                <ScalarProperty Name="Address7" ColumnName="Address7" />
+                <ScalarProperty Name="Address8" ColumnName="Address8" />
+                <ScalarProperty Name="Address9" ColumnName="Address9" />
+                <ScalarProperty Name="Address10" ColumnName="Address10" />
+                <ScalarProperty Name="Address11" ColumnName="Address11" />
+                <ScalarProperty Name="Address12" ColumnName="Address12" />
+                <ScalarProperty Name="Address13" ColumnName="Address13" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="SSFContributionRate" ColumnName="SSFContributionRate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

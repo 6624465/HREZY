@@ -67,6 +67,17 @@ namespace HR.Web.Controllers
                 {
                     companyvm.companyAddress.Address1 = address.Address1;
                     companyvm.companyAddress.Address2 = address.Address2;
+                    companyvm.companyAddress.Address3 = address.Address3;
+                    companyvm.companyAddress.Address4 = address.Address4;
+                    companyvm.companyAddress.Address5 = address.Address5;
+                    companyvm.companyAddress.Address6 = address.Address6;
+                    companyvm.companyAddress.Address7 = address.Address7;
+                    companyvm.companyAddress.Address8 = address.Address8;
+                    companyvm.companyAddress.Address9 = address.Address9;
+                    companyvm.companyAddress.Address10 = address.Address10;
+                    companyvm.companyAddress.Address11 = address.Address11;
+                    companyvm.companyAddress.Address12 = address.Address12;
+                    companyvm.companyAddress.Address13 = address.Address13;
                     companyvm.companyAddress.AddressId = address.AddressId;
                     companyvm.companyAddress.AddressType = address.AddressType;
                     companyvm.companyAddress.CityName = address.CityName;
@@ -143,6 +154,17 @@ namespace HR.Web.Controllers
                 {
                     branchVm.address.Address1 = address.Address1;
                     branchVm.address.Address2 = address.Address2;
+                    branchVm.address.Address3 = address.Address3;
+                    branchVm.address.Address4 = address.Address4;
+                    branchVm.address.Address5 = address.Address5;
+                    branchVm.address.Address6 = address.Address6;
+                    branchVm.address.Address7 = address.Address7;
+                    branchVm.address.Address8 = address.Address8;
+                    branchVm.address.Address9 = address.Address9;
+                    branchVm.address.Address10 = address.Address10;
+                    branchVm.address.Address11 = address.Address11;
+                    branchVm.address.Address12 = address.Address12;
+                    branchVm.address.Address13 = address.Address13;
                     branchVm.address.AddressId = address.AddressId;
                     branchVm.address.AddressType = address.AddressType;
                     branchVm.address.CityName = address.CityName;

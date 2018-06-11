@@ -38,5 +38,14 @@ namespace HR.Web.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public int BranchId { get; set; }
+        public string Address5 { get; set; }
+        public string Address6 { get; set; }
+        public string Address7 { get; set; }
+        public string Address8 { get; set; }
+        public string Address9 { get; set; }
+        public string Address10 { get; set; }
+        public string Address11 { get; set; }
+        public string Address12 { get; set; }
+        public string Address13 { get; set; }
     }
 }

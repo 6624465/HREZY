@@ -28,6 +28,15 @@ namespace HR.Web.Models
         public string Address4 { get; set; }
         public string CityName { get; set; }
         public string StateName { get; set; }
+        public string Address5 { get; set; }
+        public string Address6 { get; set; }
+        public string Address7 { get; set; }
+        public string Address8 { get; set; }
+        public string Address9 { get; set; }
+        public string Address10 { get; set; }
+        public string Address11 { get; set; }
+        public string Address12 { get; set; }
+        public string Address13 { get; set; }
         public string CountryCode { get; set; }
         public string ZipCode { get; set; }
         public string TelNo { get; set; }

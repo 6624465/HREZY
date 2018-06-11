@@ -42,7 +42,6 @@
         /*#dtid2{
                 display:none;
             }*/
-
     </style>
 }
 @{
@@ -76,7 +75,7 @@ new SelectListItem {Text = "December", Value = "12"}
         <div class="col-md-12">
             <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
                 <div class="panel-heading">
-                    Payslip Batch <span style="color:#ff0000">@Session["ConfirmError"]</span>
+                    Payslip Batch <span style="color:#ff0000" id="errorMsg"></span>
                 </div>
                 <div class="panel-body">
                     @using (Html.BeginForm("confirmprocesspayroll", "PayrollBatch", FormMethod.Post, new { id = "confirmprocesspayroll", name = "confirmprocesspayroll" }))
@@ -154,9 +153,9 @@ new SelectListItem {Text = "December", Value = "12"}
                             @if (Model.dt != null && Model.dt.Rows.Count > 0)
                             {
                                 <script type="text/javascript">
-                                        $(function () {
-                                            $('#payslipBatchHeader_BatchNo').val('');
-                                        });
+                                    $(function () {
+                                        $('#payslipBatchHeader_BatchNo').val('');
+                                    });
                                 </script>
                                 <table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
                                     <thead>
@@ -186,22 +185,22 @@ new SelectListItem {Text = "December", Value = "12"}
 
 
                                                 @*<td style="min-width:80px;">*@
-                                                    @*@if (ispaySlip)
+                                                @*@if (ispaySlip)
                                                     {
                                                         <a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])"><i class="fa fa-file-pdf-o" style="color:red"></i></a>
                                                     }*@
-                                                    @*<div class="btn-group dropup">
-                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                                Download
-                                                                <span class="caret"></span>
-                                                            </button>
+                                                @*<div class="btn-group dropup">
+                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                            Download
+                                                            <span class="caret"></span>
+                                                        </button>
 
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <li><a href="@Url.Content("~/Images/samplepayslip.pdf")" download="samplepayslip">Download PaySlip</a></li>
-                                                                <li><a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])">Download W/H Tax form</a></li>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="@Url.Content("~/Images/samplepayslip.pdf")" download="samplepayslip">Download PaySlip</a></li>
+                                                            <li><a href="#" onclick="GenerateTAVSummaryByEmployeeReportPDF(@Model.dt.Rows[i][Model.dt.Columns[1].ColumnName])">Download W/H Tax form</a></li>
 
-                                                            </ul>
-                                                        </div>*@
+                                                        </ul>
+                                                    </div>*@
                                                 @*</td>*@
                                                 @for (var j = 0; j < Model.dt.Columns.Count; j++)
                                                 {
@@ -379,8 +378,8 @@ new SelectListItem {Text = "December", Value = "12"}
 
         $(document).ready(function () {
 
-                $('#li_Payroll').addClass('open');
-                $('#li_generatepay').addClass('active');
+            $('#li_Payroll').addClass('open');
+            $('#li_generatepay').addClass('active');
 
 
 
@@ -396,7 +395,7 @@ new SelectListItem {Text = "December", Value = "12"}
                     next: 'fa fa-arrow-right',
                 },
                 format: dateFormat,
-                defaultDate:date
+                defaultDate: date
 
             });
             var table = $('#example').DataTable({
@@ -412,7 +411,7 @@ new SelectListItem {Text = "December", Value = "12"}
                 },
                 columnDefs: [
       {
-          "targets": [2,3,4,5,8],
+          "targets": [2, 3, 4, 5, 8],
           "visible": false
       }
                 ],
@@ -437,17 +436,17 @@ new SelectListItem {Text = "December", Value = "12"}
         //}
         function getprocesslist() {
             debugger;
-            var month=$('#payslipBatchHeader_Month').val();
+            var month = $('#payslipBatchHeader_Month').val();
             var year = $('#payslipBatchHeader_Year').val();
 
 
             $('#currentmonth').val(month);
             $('#currentyear').val(year);
             $('#frm2').submit();
-                           $.loader({
-                               className: "blue-with-image-2",
-                               content: '',
-                           });
+            $.loader({
+                className: "blue-with-image-2",
+                content: '',
+            });
 
             @*$.ajax({
                 url: '@Url.Content("~/PayrollBatch/ProcessPayrollGeneration?currentmonth=")' + month + '&currentyear=' + year,
@@ -462,26 +461,42 @@ new SelectListItem {Text = "December", Value = "12"}
             });*@
         }
         function ConfirmProcess() {
+            debugger
             if ($('#confirmprocesspayroll').valid()) {
-                location.href = '@Url.Content("~/PayrollBatch/confirmprocesspayrollBySP")' + '?year=' + $('#payslipBatchHeader_Year').val() + '&month=' + $('#payslipBatchHeader_Month').val();
-                //$('#confirmprocesspayroll').submit();
-                if ('@Session["ConfirmError"]' == "") {
-                     swal({
-                    title: "Payroll Generated Successfully",
-                    text: "",
-                    closeOnConfirm: true,
-                    confirmButtonText: "Ok",
-                    confirmButtonClass: "btn-primary",
-                    timer: 5000
-                },
-                          function () {
-                              $.loader({
-                                  className: "blue-with-image-2",
-                                  content: '',
-                              });
-                          })
-                }
-               
+                $('#errorMsg').html('');
+                $.ajax({
+                    url: '@Url.Content("~/PayrollBatch/IsValidProcessPayrollGeneration?year=")' + $('#payslipBatchHeader_Year').val() + '&month=' + $('#payslipBatchHeader_Month').val(),
+                    contentType: 'application/json',
+                    method: 'Post',
+                    success: function (data) {
+                        debugger;
+                        if (data.success) {
+                            $('#errorMsg').html(data.message);
+                        }
+                        else {
+                            location.href = '@Url.Content("~/PayrollBatch/confirmprocesspayrollBySP")' + '?year=' + $('#payslipBatchHeader_Year').val() + '&month=' + $('#payslipBatchHeader_Month').val();
+                            //$('#confirmprocesspayroll').submit();
+                            debugger;
+                            swal({
+                                title: "Payroll Generated Successfully",
+                                text: "",
+                                closeOnConfirm: true,
+                                confirmButtonText: "Ok",
+                                confirmButtonClass: "btn-primary",
+                                timer: 5000
+                            },
+                                 function () {
+                                     $.loader({
+                                         className: "blue-with-image-2",
+                                         content: '',
+                                     });
+                                 })
+                        }
+                    },
+                    error: function (err) {
+
+                    }
+                });
             }
             else {
                 swal("Incorrect Inputs");

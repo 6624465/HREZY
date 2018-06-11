@@ -74,16 +74,21 @@ namespace HR.Web.Controllers
                     var batchcount = PayslipbatchheaderBo.GetCount(BRANCHID);
                     batchcount = batchcount + 1;
                     vm.payslipBatchHeader.BatchNo = "BATCH" + batchcount.ToString("D4");
-                   
+
                 }
-                else {
+                else
+                {
                     vm.payslipBatchHeader = new PayslipBatchHeader();
                     vm.payslipBatchHeader.Month = Convert.ToByte(currentmonth.Value);
                     vm.payslipBatchHeader.Year = currentyear.Value;
-                   
+
                 }
-
-
+                ViewData["ConfirmError"] = "";
+                if (Session["IsError"] != null && Convert.ToBoolean(Session["IsError"]))
+                {
+                    ViewData["ConfirmError"] = "Please Generate The Previous Months Payslip";
+                    Session.Remove("IsError");
+                }
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
 
@@ -105,7 +110,7 @@ namespace HR.Web.Controllers
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
                 PayrollBatchVm vm = new PayrollBatchVm();
-                Session["ConfirmError"] = "";
+                //Session["ConfirmError"] = "";
                 //var netsalarytotal = salarystructureheaderBo.GetAll();
                 //if (netsalarytotal != null)
                 //{
@@ -123,16 +128,16 @@ namespace HR.Web.Controllers
             {
                 using (var dbCntx = new HrDataContext())
                 {
-                     var list = dbCntx.EmployeeHeaders.Join(dbCntx.EmployeeWorkDetails,
-                        a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
-                        Where(x => x.A.BranchId == BRANCHID && x.A.IsActive == true).
-                        Select(x => new EmployeeTable
-                        {
-                            EmployeeName = x.A.FirstName + " " + x.A.LastName,
-                            EmployeeDesignation = dbCntx.LookUps.Where(y => y.LookUpID == x.B.DesignationId).FirstOrDefault().LookUpDescription,
-                            ManagerName = dbCntx.EmployeeHeaders.Where(y => y.EmployeeId == x.A.ManagerId).FirstOrDefault().FirstName,
-                            EmployeeId = x.A.EmployeeId,
-                        }).ToList();
+                    var list = dbCntx.EmployeeHeaders.Join(dbCntx.EmployeeWorkDetails,
+                       a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
+                       Where(x => x.A.BranchId == BRANCHID && x.A.IsActive == true).
+                       Select(x => new EmployeeTable
+                       {
+                           EmployeeName = x.A.FirstName + " " + x.A.LastName,
+                           EmployeeDesignation = dbCntx.LookUps.Where(y => y.LookUpID == x.B.DesignationId).FirstOrDefault().LookUpDescription,
+                           ManagerName = dbCntx.EmployeeHeaders.Where(y => y.EmployeeId == x.A.ManagerId).FirstOrDefault().FirstName,
+                           EmployeeId = x.A.EmployeeId,
+                       }).ToList();
 
                     var transactioncount = variablepaymentheaderBo.GetCount(BRANCHID);
                     transactioncount = transactioncount + 1;
@@ -174,7 +179,7 @@ namespace HR.Web.Controllers
 
                 List<VariablePaymentDetail> vpDetails = new List<VariablePaymentDetail>();
                 if (vpHeader != null)
-                    vpDetails= variabledetailBo.GetAll().Where(x => x.HeaderId == vpHeader.HeaderID && x.EmployeeId == Employeeid).ToList();
+                    vpDetails = variabledetailBo.GetAll().Where(x => x.HeaderId == vpHeader.HeaderID && x.EmployeeId == Employeeid).ToList();
 
                 var variablepaymentdetailList = new List<VariablePaymentDetail>();
 
@@ -351,7 +356,7 @@ namespace HR.Web.Controllers
         public ActionResult confirmprocesspayrollBySP(int year, int month)
         {
             var nullcheck = PayslipbatchheaderBo.GetAll().Where(x => x.BranchId == BRANCHID).ToList();
-            if(nullcheck.Count()!=0)
+            if (nullcheck.Count() != 0)
             {
                 var confirmMonth = PayslipbatchheaderBo.GetLatestRecord(x => x.BranchId == BRANCHID).Month;
                 if (confirmMonth == (month - 1))
@@ -360,11 +365,11 @@ namespace HR.Web.Controllers
                     {
                         var result = dbCntx.CommitPayslip(Convert.ToInt16(BRANCHID), month, year);
                     }
-                    Session["ConfirmError"] = "";
+                    //Session["IsError"] = false;
                 }
                 else
                 {
-                    Session["ConfirmError"] = "The previous Month Payslip is not Generated";
+                    //Session["IsError"] = true;// "Please Generate The Previous Months Payslip";
                 }
 
             }
@@ -376,7 +381,47 @@ namespace HR.Web.Controllers
                 }
             }
 
-            return RedirectToAction("ProcessPayroll", new { currentmonth= month, currentyear= year});
+            return RedirectToAction("ProcessPayroll", new { currentmonth = month, currentyear = year });
+        }
+
+
+        [HttpPost]
+        public ActionResult IsValidProcessPayrollGeneration(int year, int month)
+        {
+            bool success = false;
+            string message = "";
+            var nullcheck = PayslipbatchheaderBo.GetAll().Where(x => x.BranchId == BRANCHID).ToList();
+            if (nullcheck.Count() != 0)
+            {
+                var confirmMonth = PayslipbatchheaderBo.GetLatestRecord(x => x.BranchId == BRANCHID).Month;
+                if (confirmMonth != (month - 1))
+                {
+                    success = true;
+                    message = "Please Generate The Previous Months Payslip";
+                }
+                else
+                {
+                    success = false;
+                    message = "";
+                }
+
+            }
+            else
+            {
+                if (month == 1)
+                {
+                    success = false;
+                    message = "";
+                }
+                else
+                {
+                    success = true;
+                    message = "Please Generate The Previous Months Payslip";
+                }
+              
+            }
+
+            return Json(new { success, message });
         }
 
         [HttpPost]

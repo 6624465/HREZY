@@ -1983,9 +1983,6 @@
     <Compile Include="Models\usp_SSFSummaryDetailByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\usp_SSFSummaryHeaderByMonthTH_Result.cs">
-      <DependentUpon>HrEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\usp_TAVSummaryByEmployeeTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

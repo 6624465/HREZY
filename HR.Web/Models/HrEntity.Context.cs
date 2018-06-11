@@ -147,23 +147,7 @@ namespace HR.Web.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_PND1KSummaryHeaderByYearTH_Result>("usp_PND1KSummaryHeaderByYearTH", branchIdParameter, yearParameter);
         }
     
-        public virtual ObjectResult<usp_SSFSummaryHeaderByMonthTH_Result> usp_SSFSummaryHeaderByMonthTH(Nullable<int> branchId, Nullable<int> month, Nullable<int> year)
-        {
-            var branchIdParameter = branchId.HasValue ?
-                new ObjectParameter("BranchId", branchId) :
-                new ObjectParameter("BranchId", typeof(int));
-    
-            var monthParameter = month.HasValue ?
-                new ObjectParameter("Month", month) :
-                new ObjectParameter("Month", typeof(int));
-    
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("Year", year) :
-                new ObjectParameter("Year", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SSFSummaryHeaderByMonthTH_Result>("usp_SSFSummaryHeaderByMonthTH", branchIdParameter, monthParameter, yearParameter);
-        }
-    
+       
         public virtual int CommitPayslip(Nullable<short> branchID, Nullable<int> currentMonth, Nullable<int> currentYear)
         {
             var branchIDParameter = branchID.HasValue ?

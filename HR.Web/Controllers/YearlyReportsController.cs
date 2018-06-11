@@ -370,20 +370,20 @@ namespace HR.Web.Controllers
 
                         }
                     }
-                    pdfFormFields.SetField("CompanyName", PND1Header.BranchName);
-                    pdfFormFields.SetField("Address1", PND1Header.Address1);
-                    pdfFormFields.SetField("Address2", PND1Header.Address2);
-                    pdfFormFields.SetField("Address3", PND1Header.Address3);
-                    pdfFormFields.SetField("Address4", PND1Header.Address4);
-                    pdfFormFields.SetField("Address5", PND1Header.Address5);
-                    pdfFormFields.SetField("Address6", PND1Header.Address6);
-                    pdfFormFields.SetField("Address7", PND1Header.Address7);
-                    pdfFormFields.SetField("Address8", PND1Header.Address8);
-                    pdfFormFields.SetField("Address9", PND1Header.Address9);
-                    pdfFormFields.SetField("Address10", PND1Header.Address10);
-                    pdfFormFields.SetField("Address11", PND1Header.Address11);
-                    pdfFormFields.SetField("Address12", PND1Header.Address12);
-                    pdfFormFields.SetField("Address13", PND1Header.Address13);
+                    pdfFormFields.SetField("CompanyName", PND1Header.BranchName==null?"": PND1Header.BranchName);
+                    pdfFormFields.SetField("Address1", PND1Header.Address1 == null?"":PND1Header.Address1);
+                    pdfFormFields.SetField("Address2", PND1Header.Address2 == null?"":PND1Header.Address2);
+                    pdfFormFields.SetField("Address3", PND1Header.Address3 == null?"":PND1Header.Address3);
+                    pdfFormFields.SetField("Address4", PND1Header.Address4 == null?"":PND1Header.Address4);
+                    pdfFormFields.SetField("Address5", PND1Header.Address5 == null?"":PND1Header.Address5);
+                    pdfFormFields.SetField("Address6", PND1Header.Address6 == null?"":PND1Header.Address6);
+                    pdfFormFields.SetField("Address7", PND1Header.Address7 == null?"":PND1Header.Address7);
+                    pdfFormFields.SetField("Address8", PND1Header.Address8 == null?"":PND1Header.Address8);
+                    pdfFormFields.SetField("Address9", PND1Header.Address9 == null?"":PND1Header.Address9);
+                    pdfFormFields.SetField("Address10",PND1Header.Address10 == null?"": PND1Header.Address10);
+                    pdfFormFields.SetField("Address11",PND1Header.Address11 == null?"": PND1Header.Address11);
+                    pdfFormFields.SetField("Address12",PND1Header.Address12 == null?"": PND1Header.Address12);
+                    pdfFormFields.SetField("Address13", PND1Header.Address13 == null ? "" : PND1Header.Address13);
 
                     if (PND1Header.ZipCode != null)
                     {

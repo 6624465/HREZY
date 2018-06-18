@@ -35,15 +35,6 @@ namespace HR.Web.Services.Operation
                         address.Address2 = entity.Address2;
                         address.Address3 = entity.Address3;
                         address.Address4 = entity.Address4;
-                        address.Address5 = entity.Address5;
-                        address.Address6 = entity.Address6;
-                        address.Address7 = entity.Address7;
-                        address.Address8 = entity.Address8;
-                        address.Address9 = entity.Address9;
-                        address.Address10 = entity.Address10;
-                        address.Address11 = entity.Address11;
-                        address.Address12 = entity.Address12;
-                        address.Address13 = entity.Address13;
                         address.CityName = entity.CityName;
                         address.TelNo = entity.TelNo;
                         address.FaxNo = entity.FaxNo;
@@ -74,7 +65,7 @@ namespace HR.Web.Services.Operation
             {
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                 return   dbContext.Addresses.Where(predicate).FirstOrDefault();
+                    return dbContext.Addresses.Where(predicate).FirstOrDefault();
                 }
             }
             catch (Exception ex)

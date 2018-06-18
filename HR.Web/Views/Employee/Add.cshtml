@@ -14,8 +14,9 @@
         .iradio_flat-blue.checked.disabled {
             background-position: -110px 0;
         }
-        .panel-height{
-            min-height:461px;
+
+        .panel-height {
+            min-height: 461px;
         }
     </style>
 }
@@ -111,7 +112,7 @@ new { @class = "form-control input-sm" })
                                     @Html.TextBoxFor(x => x.empHeader.FirstName,
 new { @class = "form-control validatename input-sm uppercase", @maxlength = 30 })
                                 </div>
-                                
+
                                 <label class="col-md-1 control-label">
                                     <span>Gender</span>
                                 </label>
@@ -136,8 +137,8 @@ new { @class = "form-control validatename input-sm uppercase", @maxlength = 30 }
                                 <div class="col-md-5 name">
                                     @Html.TextBoxFor(x => x.empHeader.MiddleName,
 new { @class = "form-control validatename input-sm uppercase", @maxlength = 30 })
-                                </div>                                
-                                
+                                </div>
+
                                 <label class="col-md-1 control-label">
                                     <span>Marital Status</span>
                                 </label>
@@ -163,7 +164,7 @@ new { @class = "form-control validatename input-sm uppercase", @maxlength = 30 }
                                 @Html.TextBoxFor(x => x.empPersonalDetail.FatherName,
 new { @class = "form-control input-sm maxlength uppercase", @maxlength = "30" })
                             </div>
-                            
+
                         </div>
                         <div class="row css5">
                             <label class="col-md-1 control-label">
@@ -185,15 +186,15 @@ new { @class = "form-control input-sm maxlength uppercase", @maxlength = "30" })
 SelectListItemHelper.CountryList(), "Select Country",
 new { @class = "form-control input-sm" })
                                 @*<label class="col-md-2 control-label">
-                                           <span class="pull-right">Emg. Contact Name</span>
-                                       </label>
-                                       <div class="col-md-4">
-                                           @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
-            new { @class = "form-control input-sm" })
-                                       </div>*@
+                                                                   <span class="pull-right">Emg. Contact Name</span>
+                                                               </label>
+                                                               <div class="col-md-4">
+                                                                   @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
+                                    new { @class = "form-control input-sm" })
+                                                               </div>*@
                             </div>
-                            
-                            
+
+
                         </div>
                         <div class="row css5">
                             <div class="form-group">
@@ -202,23 +203,23 @@ new { @class = "form-control input-sm" })
                                 </label>
 
 
-                                @if (Model.empHeader.EmployeeId != -1)
-                                {
-                                    <div class="col-md-5">
-                                        @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-        new { @class = "form-control input-sm uppercase", @readonly = "true" })
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="col-md-5">
-                                        @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-new { @class = "form-control input-sm uppercase", onblur = "appendEmail(this)" })
-                                        <label id="error">Email Already Exists.Please enter another one</label>
-                                    </div>
-                                }
+                                @*@if (Model.empHeader.EmployeeId != -1)
+                                                            {
+                                                                <div class="col-md-5">
+                                                                    @Html.TextBoxFor(x => x.empHeader.UserEmailId,
+                                    new { @class = "form-control input-sm uppercase", @readonly = "true" })
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {*@
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(x => x.empHeader.UserEmailId,
+new { @class = "form-control input-sm uppercase", onblur = "appendEmail(this," + Model.empHeader.EmployeeId + ")" })
+                                    <label id="error">Email Already Exists.Please enter another one</label>
+                                </div>
+                                @*}*@
 
-                                
+
                                 <label class="col-md-1 control-label">
                                     <span>ID/Passport No</span>
                                 </label>
@@ -226,7 +227,7 @@ new { @class = "form-control input-sm uppercase", onblur = "appendEmail(this)" }
                                     @Html.TextBoxFor(x => x.empPersonalDetail.PasspostNo,
                                         new { @class = "form-control input-sm uppercase" })
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="row css5">
@@ -242,7 +243,7 @@ new
     @maxlength = "15"
 })
                                 </div>
-                                
+
                                 <label class="col-md-1 control-label">
                                     <span>EPF No</span>
                                 </label>
@@ -250,7 +251,7 @@ new
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EPFNO,
                                         new { @class = "form-control input-sm uppercase" })
                                     @*@Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-            new { @class = "form-control numCssPlus input-sm" })*@
+                                        new { @class = "form-control numCssPlus input-sm" })*@
                                 </div>
                             </div>
 
@@ -263,7 +264,7 @@ new
                                     <span>Employee SSF Number</span>
                                 </label>
                                 <div class="col-md-5">
-                                    @Html.TextBoxFor(x => x.empPersonalDetail.SocialWelfareNo,new
+                                    @Html.TextBoxFor(x => x.empPersonalDetail.SocialWelfareNo, new
                                {
                                    @class = "form-control input-sm uppercase"
                                })
@@ -293,8 +294,8 @@ new
                                     <span>Address 1</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextAreaFor(x => x.address.Address1,new
-                                        { @class = "form-control input-sm uppercase",@cols = 80,@rows = 2})
+                                    @Html.TextAreaFor(x => x.address.Address1, new
+                               { @class = "form-control input-sm uppercase", @cols = 80, @rows = 2 })
                                 </div>
                             </div>
                         </div>
@@ -434,7 +435,7 @@ new
                         </div>
                         <div class="row css5">
                             <div class="form-group" style="white-space:nowrap">
-                                
+
                                 <label class="col-md-2 control-label">
                                     <span>Reporting To</span>
                                 </label>
@@ -457,7 +458,7 @@ new
                                     <span>Send Mails To</span>
                                 </label>
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(x => x.empWorkDetail.SendMailsTo, new { @class = "form-control input-sm uppercase",required="required" })
+                                    @Html.TextBoxFor(x => x.empWorkDetail.SendMailsTo, new { @class = "form-control input-sm uppercase", required = "required" })
                                 </div>
                             </div>
                         </div>
@@ -509,7 +510,7 @@ new
                             </div>
                         </div>
                         <div class="row css5">
-                            
+
                             <label class="col-md-2 control-label">
                                 <span>Status</span>
                             </label>
@@ -684,7 +685,7 @@ new
             </div>
         </div>
     </div>
-                                       }
+                                            }
 
 
 
@@ -749,9 +750,9 @@ new
 
             $('#loginEmail').val($('#empHeader_UserEmailId').val());
         });
-        function appendEmail(el) {
+        function appendEmail(el,employeeid) {
             $.ajax({
-                url: '@Url.Content("~/Employee/IsEmailExists?Email=")' + $('#empHeader_UserEmailId').val(),
+                url: '@Url.Content("~/Employee/IsEmailExists?Email=")' + $('#empHeader_UserEmailId').val() + '&Employeeid=' + employeeid,
                 method: 'get',
                 contentType: 'Json',
                 success: function (result) {

@@ -35,7 +35,6 @@ namespace HR.Web.Models
         public virtual DbSet<EmployeeWorkDetail> EmployeeWorkDetails { get; set; }
         public virtual DbSet<LookUp> LookUps { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
-        public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
         public virtual DbSet<LeaveDetail> LeaveDetails { get; set; }
         public virtual DbSet<LeaveHeader> LeaveHeaders { get; set; }
@@ -64,6 +63,7 @@ namespace HR.Web.Models
         public virtual DbSet<VariablePaymentDetail> VariablePaymentDetails { get; set; }
         public virtual DbSet<VariablePaymentHeader> VariablePaymentHeaders { get; set; }
         public virtual DbSet<TaxAssessmentHeader> TaxAssessmentHeaders { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<TaxAssessmentDetail> TaxAssessmentDetails { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)

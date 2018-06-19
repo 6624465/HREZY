@@ -14,7 +14,7 @@ namespace HR.Web
         {
             if (!string.IsNullOrWhiteSpace(EmployeeName))
             {
-                empHeader = empHeader.Where(x => x.FirstName.Contains(EmployeeName) || x.LastName.Contains(EmployeeName) || x.MiddleName.Contains(EmployeeName));
+                empHeader = empHeader.Where(x => (x.FirstName.Contains(EmployeeName) || x.LastName.Contains(EmployeeName) || x.MiddleName.Contains(EmployeeName)) && (x.IsActive == true));
             }
 
             if (EmployeeType != null)

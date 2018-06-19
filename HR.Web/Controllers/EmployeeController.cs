@@ -317,6 +317,15 @@ namespace HR.Web.Controllers
 
         }
 
+        public ActionResult EmployeeDelete(int EmployeeId)
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var result = dbCntx.usp_EmployeeDelete(BRANCHID,EmployeeId);
+            }
+            return RedirectToAction("employeedirectory");
+        }
+
         /*
         private EmployeePersonalDetail PrepareEmployeePersonalInfo(EmployeePersonalDetail employeePersonalInfo, EmployeeHeader employeeHeader)
         {

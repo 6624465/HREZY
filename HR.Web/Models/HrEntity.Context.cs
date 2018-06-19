@@ -35,7 +35,6 @@ namespace HR.Web.Models
         public virtual DbSet<EmployeeWorkDetail> EmployeeWorkDetails { get; set; }
         public virtual DbSet<LookUp> LookUps { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
-        public virtual DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
         public virtual DbSet<LeaveDetail> LeaveDetails { get; set; }
         public virtual DbSet<LeaveHeader> LeaveHeaders { get; set; }
         public virtual DbSet<HolidayList> HolidayLists { get; set; }
@@ -64,6 +63,7 @@ namespace HR.Web.Models
         public virtual DbSet<VariablePaymentHeader> VariablePaymentHeaders { get; set; }
         public virtual DbSet<TaxAssessmentHeader> TaxAssessmentHeaders { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
         public virtual DbSet<TaxAssessmentDetail> TaxAssessmentDetails { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)
@@ -277,6 +277,19 @@ namespace HR.Web.Models
                 new ObjectParameter("Year", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SSFSummaryHeaderByMonthTH_Result>("usp_SSFSummaryHeaderByMonthTH", branchIdParameter, monthParameter, yearParameter);
+        }
+    
+        public virtual int usp_EmployeeDelete(Nullable<int> branchId, Nullable<int> employeeId)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("branchId", branchId) :
+                new ObjectParameter("branchId", typeof(int));
+    
+            var employeeIdParameter = employeeId.HasValue ?
+                new ObjectParameter("EmployeeId", employeeId) :
+                new ObjectParameter("EmployeeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_EmployeeDelete", branchIdParameter, employeeIdParameter);
         }
     }
 }

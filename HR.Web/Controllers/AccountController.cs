@@ -28,7 +28,7 @@ namespace HR.Web.Controllers
            
                 using (HrDataContext dbContext = new HrDataContext())
                 {
-                    User userObj = dbContext.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
+                    User userObj = dbContext.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password && x.IsActive == true).FirstOrDefault();
 
                     if (userObj != null)
                     {

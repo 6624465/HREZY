@@ -175,15 +175,6 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
-          <Property Name="Address5" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address6" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address7" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address8" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address9" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address10" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address11" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address12" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address13" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EmployeeBankdetail">
           <Key>
@@ -708,6 +699,10 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Parameter Name="CurrentDt" Type="datetime" Mode="In" />
           <Parameter Name="BranchId" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_EmployeeDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Operation">
+          <Parameter Name="branchId" Type="int" Mode="In" />
+          <Parameter Name="EmployeeId" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_EmployeeDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Operation">
           <Parameter Name="branchId" Type="int" Mode="In" />
           <Parameter Name="role" Type="nvarchar" Mode="In" />
@@ -861,7 +856,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <EntitySet Name="EmployeeWorkDetails" EntityType="DB_9F30C5_HRDBModel.EmployeeWorkDetail" />
           <EntitySet Name="LookUps" EntityType="DB_9F30C5_HRDBModel.LookUp" />
           <EntitySet Name="Companies" EntityType="DB_9F30C5_HRDBModel.Company" />
-          <EntitySet Name="EmployeeAddresses" EntityType="DB_9F30C5_HRDBModel.EmployeeAddress" />
           <EntitySet Name="LeaveDetails" EntityType="DB_9F30C5_HRDBModel.LeaveDetail" />
           <EntitySet Name="LeaveHeaders" EntityType="DB_9F30C5_HRDBModel.LeaveHeader" />
           <EntitySet Name="HolidayLists" EntityType="DB_9F30C5_HRDBModel.HolidayList" />
@@ -956,7 +950,12 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Year" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Addresses" EntityType="DB_9F30C5_HRDBModel.Address" />
+          <EntitySet Name="EmployeeAddresses" EntityType="DB_9F30C5_HRDBModel.EmployeeAddress" />
           <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
+          <FunctionImport Name="usp_EmployeeDelete">
+            <Parameter Name="branchId" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+          </FunctionImport>
        
         </EntityContainer>
         <EntityType Name="User">
@@ -1084,44 +1083,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="SSFNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="TaxIdNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="BranchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="EmployeeAddress">
-          <Key>
-            <PropertyRef Name="AddressId" />
-          </Key>
-          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="BranchId" Type="Int32" Nullable="false" />
-          <Property Name="SeqNo" Type="Int16" Nullable="false" />
-          <Property Name="AddressType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CityName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="StateName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CountryCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TelNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MobileNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Contact" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WebSite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Address5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address6" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address8" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address9" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address10" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address11" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address12" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address13" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LeaveDetail">
           <Key>
@@ -1844,6 +1805,35 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="BranchId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="EmployeeAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="SeqNo" Type="Int16" Nullable="false" />
+          <Property Name="AddressType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CityName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StateName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TelNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WebSite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="TaxAssessmentDetail">
           <Key>
             <PropertyRef Name="ID" />
@@ -2025,45 +2015,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeAddresses">
-            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeAddress">
-              <MappingFragment StoreEntitySet="EmployeeAddress">
-                <ScalarProperty Name="Address13" ColumnName="Address13" />
-                <ScalarProperty Name="Address12" ColumnName="Address12" />
-                <ScalarProperty Name="Address11" ColumnName="Address11" />
-                <ScalarProperty Name="Address10" ColumnName="Address10" />
-                <ScalarProperty Name="Address9" ColumnName="Address9" />
-                <ScalarProperty Name="Address8" ColumnName="Address8" />
-                <ScalarProperty Name="Address7" ColumnName="Address7" />
-                <ScalarProperty Name="Address6" ColumnName="Address6" />
-                <ScalarProperty Name="Address5" ColumnName="Address5" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="WebSite" ColumnName="WebSite" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
-                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="Address4" ColumnName="Address4" />
-                <ScalarProperty Name="Address3" ColumnName="Address3" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="AddressType" ColumnName="AddressType" />
-                <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2855,6 +2806,36 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeAddresses">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeAddress">
+              <MappingFragment StoreEntitySet="EmployeeAddress">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="AddressType" ColumnName="AddressType" />
+                <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TaxAssessmentDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
               <MappingFragment StoreEntitySet="TaxAssessmentDetail">
@@ -2871,6 +2852,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_EmployeeDelete" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDelete" />
           
         </EntityContainerMapping>
       </Mapping>

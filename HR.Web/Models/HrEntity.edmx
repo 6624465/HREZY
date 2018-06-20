@@ -920,12 +920,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Month" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_EmployeePaySlipHeaderTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeePaySlipHeaderTH_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
-            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="Month" Mode="In" Type="Int32" />
-          </FunctionImport>
+        
           <FunctionImport Name="usp_TAVSummaryByEmployeeTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_TAVSummaryByEmployeeTH_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
@@ -955,6 +950,12 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <FunctionImport Name="usp_EmployeeDelete">
             <Parameter Name="branchId" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EmployeePaySlipHeaderTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeePaySlipHeaderTH_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>
        
         </EntityContainer>
@@ -1610,36 +1611,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="String" Name="ContributionCode" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
-        <ComplexType Name="usp_EmployeePaySlipHeaderTH_Result">
-          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="250" />
-          <Property Type="Int32" Name="BranchID" Nullable="true" />
-          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="RegNo" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="BranchTaxCode" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="SSFNumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="TaxIdNumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Address1" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Address3" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Address4" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="CityName" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="StateName" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="CountryCode" Nullable="true" MaxLength="2" />
-          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="TelNo" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="EmployeeId" Nullable="true" />
-          <Property Type="String" Name="IDNumber" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SalutationType" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SocialWelfareNo" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="EPFNO" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EmployeeDescription" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EmployeeDepartment" Nullable="true" MaxLength="50" />
-        </ComplexType>
+        
         <ComplexType Name="usp_TAVSummaryByEmployeeTH_Result">
           <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="BranchID" Nullable="true" />
@@ -1849,6 +1821,38 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
+        <ComplexType Name="usp_EmployeePaySlipHeaderTH_Result">
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="RegNo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="BranchTaxCode" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SSFNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TaxIdNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address3" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address4" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CityName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CountryCode" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TelNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EmployeeId" Nullable="true" />
+          <Property Type="String" Name="IDNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SalutationType" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SocialWelfareNo" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EPFNO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmployeeDescription" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EmployeeDepartment" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="LossOfPayDays" Nullable="false" Precision="38" Scale="2" />
+          <Property Type="String" Name="PasspostNo" Nullable="true" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -2586,40 +2590,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipHeaderTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipHeaderTH">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeePaySlipHeaderTH_Result">
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
-                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
-                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
-                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="BranchTaxCode" ColumnName="BranchTaxCode" />
-                <ScalarProperty Name="SSFNumber" ColumnName="SSFNumber" />
-                <ScalarProperty Name="TaxIdNumber" ColumnName="TaxIdNumber" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address3" ColumnName="Address3" />
-                <ScalarProperty Name="Address4" ColumnName="Address4" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
-                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
-                <ScalarProperty Name="SalutationType" ColumnName="SalutationType" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="SocialWelfareNo" ColumnName="SocialWelfareNo" />
-                <ScalarProperty Name="EPFNO" ColumnName="EPFNO" />
-                <ScalarProperty Name="EmployeeDescription" ColumnName="EmployeeDescription" />
-                <ScalarProperty Name="EmployeeDepartment" ColumnName="EmployeeDepartment" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_TAVSummaryByEmployeeTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_TAVSummaryByEmployeeTH">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_TAVSummaryByEmployeeTH_Result">
@@ -2853,6 +2823,42 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_EmployeeDelete" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDelete" />
+          <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipHeaderTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipHeaderTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeePaySlipHeaderTH_Result">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="BranchTaxCode" ColumnName="BranchTaxCode" />
+                <ScalarProperty Name="SSFNumber" ColumnName="SSFNumber" />
+                <ScalarProperty Name="TaxIdNumber" ColumnName="TaxIdNumber" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="SalutationType" ColumnName="SalutationType" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="SocialWelfareNo" ColumnName="SocialWelfareNo" />
+                <ScalarProperty Name="EPFNO" ColumnName="EPFNO" />
+                <ScalarProperty Name="EmployeeDescription" ColumnName="EmployeeDescription" />
+                <ScalarProperty Name="EmployeeDepartment" ColumnName="EmployeeDepartment" />
+                <ScalarProperty Name="LossOfPayDays" ColumnName="LossOfPayDays" />
+                <ScalarProperty Name="PasspostNo" ColumnName="PasspostNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           
         </EntityContainerMapping>
       </Mapping>

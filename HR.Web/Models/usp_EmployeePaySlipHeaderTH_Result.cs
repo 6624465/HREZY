@@ -41,5 +41,7 @@ namespace HR.Web.Models
         public string EPFNO { get; set; }
         public string EmployeeDescription { get; set; }
         public string EmployeeDepartment { get; set; }
+        public decimal LossOfPayDays { get; set; }
+        public string PasspostNo { get; set; }
     }
 }

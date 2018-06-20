@@ -32,8 +32,9 @@ namespace HR.Web.Controllers
         public static decimal? TotalIncome = 0.0M;
         public static decimal? TotalDeductions = 0.0M;
 
-        
-        public YearlyReportsController() {
+
+        public YearlyReportsController()
+        {
 
             PayslipbatchheaderBo = new PayslipBatchHeaderBo(SESSIONOBJ);
             payslipbatchdetailBo = new PayslipBatchDetailBO(SESSIONOBJ);
@@ -136,7 +137,7 @@ namespace HR.Web.Controllers
                         {
                             using (PdfStamper stamper = new PdfStamper(reader, ms))
                             {
-                                Fill(stamper.AcroFields, sSFDetail, i, 10, sSFHeader,month,year);
+                                Fill(stamper.AcroFields, sSFDetail, i, 10, sSFHeader, month, year);
                                 stamper.FormFlattening = true;
                             }
                             reader = new PdfReader(ms.ToArray());
@@ -151,7 +152,7 @@ namespace HR.Web.Controllers
             }
         }
 
-        public static void Fill(AcroFields pdfFormFields, List<usp_SSFSummaryDetailByMonthTH_Result> sSFDetail, int dcount, int validcount, usp_SSFSummaryHeaderByMonthTH_Result sSFHeader,int month,int year)
+        public static void Fill(AcroFields pdfFormFields, List<usp_SSFSummaryDetailByMonthTH_Result> sSFDetail, int dcount, int validcount, usp_SSFSummaryHeaderByMonthTH_Result sSFHeader, int month, int year)
         {
             try
             {
@@ -163,10 +164,10 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("BranchName", "");
 
                     pdfFormFields.SetField("CompanyAddress", (sSFHeader.Address1 != null ? sSFHeader.Address1 : "") + (sSFHeader.Address2 != null ? sSFHeader.Address2 : ""));
-                    pdfFormFields.SetField("CompanyAddress1", (sSFHeader.Address3 != null ? "," + sSFHeader.Address3 : "")+ (sSFHeader.Address4 != null ? "," + sSFHeader.Address4 : "") +
-                        (sSFHeader.Address5 != null ? "," + sSFHeader.Address5 : "") + (sSFHeader.Address6 != null ? "," +  sSFHeader.Address6 : "") + (sSFHeader.Address7 != null ? "," + sSFHeader.Address7 : "")+
+                    pdfFormFields.SetField("CompanyAddress1", (sSFHeader.Address3 != null ? "," + sSFHeader.Address3 : "") + (sSFHeader.Address4 != null ? "," + sSFHeader.Address4 : "") +
+                        (sSFHeader.Address5 != null ? "," + sSFHeader.Address5 : "") + (sSFHeader.Address6 != null ? "," + sSFHeader.Address6 : "") + (sSFHeader.Address7 != null ? "," + sSFHeader.Address7 : "") +
                         (sSFHeader.Address8 != null ? "," + sSFHeader.Address8 : "") + (sSFHeader.Address9 != null ? "," + sSFHeader.Address9 : "") + (sSFHeader.Address10 != null ? "," + sSFHeader.Address10 : "") +
-                        (sSFHeader.Address11 != null ? "," + sSFHeader.Address11 : "") + (sSFHeader.Address12 != null ? "," +  sSFHeader.Address12 : "") + (sSFHeader.Address13 != null ? "," +  sSFHeader.Address13 : "")+
+                        (sSFHeader.Address11 != null ? "," + sSFHeader.Address11 : "") + (sSFHeader.Address12 != null ? "," + sSFHeader.Address12 : "") + (sSFHeader.Address13 != null ? "," + sSFHeader.Address13 : "") +
                         (sSFHeader.CityName != null ? "," + sSFHeader.CityName : "") + (sSFHeader.StateName != null ? "," + sSFHeader.StateName : ""));
                     pdfFormFields.SetField("PostalCode", sSFHeader.ZipCode);
                     pdfFormFields.SetField("PhoneNo", sSFHeader.TelNo);
@@ -362,7 +363,7 @@ namespace HR.Web.Controllers
                         {
                             pdfFormFields.SetField("TID0" + i, taxidnumberarray[i].ToString());
                             pdfFormFields.SetField("TID" + i, taxidnumberarray[i].ToString());
-                         }
+                        }
                     }
                     if (PND1Header.BranchCode != null)
                     {
@@ -374,19 +375,19 @@ namespace HR.Web.Controllers
 
                         }
                     }
-                    pdfFormFields.SetField("CompanyName", PND1Header.BranchName==null?"": PND1Header.BranchName);
-                    pdfFormFields.SetField("Address1", PND1Header.Address1 == null?"":PND1Header.Address1);
-                    pdfFormFields.SetField("Address2", PND1Header.Address2 == null?"":PND1Header.Address2);
-                    pdfFormFields.SetField("Address3", PND1Header.Address3 == null?"":PND1Header.Address3);
-                    pdfFormFields.SetField("Address4", PND1Header.Address4 == null?"":PND1Header.Address4);
-                    pdfFormFields.SetField("Address5", PND1Header.Address5 == null?"":PND1Header.Address5);
-                    pdfFormFields.SetField("Address6", PND1Header.Address6 == null?"":PND1Header.Address6);
-                    pdfFormFields.SetField("Address7", PND1Header.Address7 == null?"":PND1Header.Address7);
-                    pdfFormFields.SetField("Address8", PND1Header.Address8 == null?"":PND1Header.Address8);
-                    pdfFormFields.SetField("Address9", PND1Header.Address9 == null?"":PND1Header.Address9);
-                    pdfFormFields.SetField("Address10",PND1Header.Address10 == null?"": PND1Header.Address10);
-                    pdfFormFields.SetField("Address11",PND1Header.Address11 == null?"": PND1Header.Address11);
-                    pdfFormFields.SetField("Address12",PND1Header.Address12 == null?"": PND1Header.Address12);
+                    pdfFormFields.SetField("CompanyName", PND1Header.BranchName == null ? "" : PND1Header.BranchName);
+                    pdfFormFields.SetField("Address1", PND1Header.Address1 == null ? "" : PND1Header.Address1);
+                    pdfFormFields.SetField("Address2", PND1Header.Address2 == null ? "" : PND1Header.Address2);
+                    pdfFormFields.SetField("Address3", PND1Header.Address3 == null ? "" : PND1Header.Address3);
+                    pdfFormFields.SetField("Address4", PND1Header.Address4 == null ? "" : PND1Header.Address4);
+                    pdfFormFields.SetField("Address5", PND1Header.Address5 == null ? "" : PND1Header.Address5);
+                    pdfFormFields.SetField("Address6", PND1Header.Address6 == null ? "" : PND1Header.Address6);
+                    pdfFormFields.SetField("Address7", PND1Header.Address7 == null ? "" : PND1Header.Address7);
+                    pdfFormFields.SetField("Address8", PND1Header.Address8 == null ? "" : PND1Header.Address8);
+                    pdfFormFields.SetField("Address9", PND1Header.Address9 == null ? "" : PND1Header.Address9);
+                    pdfFormFields.SetField("Address10", PND1Header.Address10 == null ? "" : PND1Header.Address10);
+                    pdfFormFields.SetField("Address11", PND1Header.Address11 == null ? "" : PND1Header.Address11);
+                    pdfFormFields.SetField("Address12", PND1Header.Address12 == null ? "" : PND1Header.Address12);
                     pdfFormFields.SetField("Address13", PND1Header.Address13 == null ? "" : PND1Header.Address13);
 
                     if (PND1Header.ZipCode != null)
@@ -397,7 +398,7 @@ namespace HR.Web.Controllers
                             pdfFormFields.SetField("PC" + i, ZipCodeArray[i].ToString());
                         }
                     }
-                    
+
 
                     pdfFormFields.SetField("Year", PND1Detail[0].Year.ToString());
                     pdfFormFields.SetField("m" + PND1Detail[0].Month, "Yes", true);
@@ -637,7 +638,7 @@ namespace HR.Web.Controllers
             {
                 using (var dbcnx = new HrDataContext())
                 {
-                    
+
                     var obj = dbcnx.PayslipBatchHeaders.
                         Join(dbcnx.PayslipBatchDetails,
                        hd => hd.BatchHeaderId, dt => dt.BatchHeaderId,
@@ -828,42 +829,42 @@ namespace HR.Web.Controllers
                 //var payslipbatchheaderItem = PayslipbatchheaderBo.GetByProperty(x=>x.BranchId==BRANCHID).
                 using (var dbcnx = new HrDataContext())
                 {
-                    
+
                     var payslipObj = dbcnx.PayslipBatchHeaders.
                         Join(dbcnx.PayslipBatchDetails,
                        hd => hd.BatchHeaderId, dt => dt.BatchHeaderId,
                        (hd, dt) => new { Hd = hd, Dt = dt }).
                        Where(x => x.Dt.EmployeeId == empid && x.Hd.BranchId == BRANCHID).
-                       OrderByDescending(x=>x.Hd.BatchHeaderId).
+                       OrderByDescending(x => x.Hd.BatchHeaderId).
                        Select(x => new EmployeeMonthlyPayslipVM
                        {
                            Month = x.Hd.Month,
                            Year = x.Hd.Year
                        }).FirstOrDefault();
-                
 
-                var outputPdfStream = new MemoryStream();
-                using (Document document = new Document())
-                {
-                    using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
 
+                    var outputPdfStream = new MemoryStream();
+                    using (Document document = new Document())
                     {
-                        document.Open();
-                        AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, Convert.ToInt32(payslipObj.Month), payslipObj.Year.Value);
+                        using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
+
+                        {
+                            document.Open();
+                            AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, Convert.ToInt32(payslipObj.Month), payslipObj.Year.Value);
+                        }
                     }
-                }
 
-                byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
-                outputPdfStream.Close();
+                    byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
+                    outputPdfStream.Close();
 
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("content-disposition", "attachment;filename=" + "PaySlip_" + empid.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
-                Response.Buffer = true;
-                Response.BinaryWrite(bytesInStream);
-                Response.End();
+                    Response.Clear();
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment;filename=" + "PaySlip_" + empid.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
+                    Response.Buffer = true;
+                    Response.BinaryWrite(bytesInStream);
+                    Response.End();
 
-                return File(bytesInStream, "application/pdf");
+                    return File(bytesInStream, "application/pdf");
                 }
             }
             catch (Exception ex)
@@ -928,8 +929,6 @@ namespace HR.Web.Controllers
                 usp_EmployeePaySlipHeaderTH_Result PayslipHeader = dbCntx.usp_EmployeePaySlipHeaderTH(BRANCHID, empid, year, month).FirstOrDefault();
                 List<usp_EmployeePaySlipDetailTH_Result> payslipDetail = dbCntx.usp_EmployeePaySlipDetailTH(BRANCHID, empid, year, month).ToList();
 
-                pageCount = (payslipDetail.Count() / 7) + 2;
-
                 TotalSalary = 0.0M;
                 TotalDeductions = 0.0M;
 
@@ -941,91 +940,76 @@ namespace HR.Web.Controllers
 
                 var path = "";
                 int PND1detailcount = payslipDetail.Count();
-                int value = 0;
-                for (int i = 0; i < payslipDetail.Count();)
+                path = System.Web.Hosting.HostingEnvironment.MapPath("~/PdfTemplates/PaySlipEZY.pdf");
+                PdfReader reader = new PdfReader(path);
+
+
+
+                using (var ms = new MemoryStream())
                 {
-                    path = System.Web.Hosting.HostingEnvironment.MapPath("~/PdfTemplates/samplepayslip.pdf");
-                    PdfReader reader = new PdfReader(path);
-                    value = (PND1detailcount - i) % 7;
-
-                    if (value >= 0)
+                    using (PdfStamper stamper = new PdfStamper(reader, ms))
                     {
-                        using (var ms = new MemoryStream())
-                        {
-                            using (PdfStamper stamper = new PdfStamper(reader, ms))
-                            {
-                                FillEmployeePaySlip(stamper.AcroFields, payslipDetail, i, 7, PayslipHeader, month, year);
-                                stamper.FormFlattening = true;
-                            }
-                            reader = new PdfReader(ms.ToArray());
-                            if (PageNo == 1)
-                                copy.AddPage(copy.GetImportedPage(reader, 1));
-
-                        }
-                        i = i + 7;
-                        PageNo += 2;
+                        FillEmployeePaySlip(stamper.AcroFields, payslipDetail, PayslipHeader, month, year);
+                        stamper.FormFlattening = true;
                     }
+                    reader = new PdfReader(ms.ToArray());
+
+                    copy.AddPage(copy.GetImportedPage(reader, 1));
+
                 }
             }
         }
-        public static void FillEmployeePaySlip(AcroFields pdfFormFields, List<usp_EmployeePaySlipDetailTH_Result> payslipDetail, int dcount, int validcount, usp_EmployeePaySlipHeaderTH_Result payslipHeader, int month, int year)
+        public static void FillEmployeePaySlip(AcroFields pdfFormFields, List<usp_EmployeePaySlipDetailTH_Result> payslipDetail, usp_EmployeePaySlipHeaderTH_Result payslipHeader, int month, int year)
         {
             try
             {
                 if (payslipHeader != null)
                 {
+                    pdfFormFields.SetField("CompanyAddress", payslipHeader.CompanyName + Environment.NewLine + payslipHeader.Address1
+                        + Environment.NewLine + payslipHeader.CityName + Environment.NewLine + payslipHeader.StateName + Environment.NewLine + payslipHeader.ZipCode
+                        );
 
-
-                    pdfFormFields.SetField("BranchName", payslipHeader.BranchName);
-
-                    pdfFormFields.SetField("BranchAddress", payslipHeader.Address1);
-                    pdfFormFields.SetField("BranchTaxCode", payslipHeader.BranchTaxCode);
-
-                    pdfFormFields.SetField("EmployeeName", payslipHeader.SalutationType + "." + payslipHeader.FirstName.ToString() + (payslipHeader.MiddleName != null ? " " + payslipHeader.MiddleName : ""));
-                    pdfFormFields.SetField("Designation", payslipHeader.EmployeeDescription);
-                    pdfFormFields.SetField("Department", payslipHeader.EmployeeDepartment);
-                    pdfFormFields.SetField("Month", year.ToString());
+                    pdfFormFields.SetField("Month", MonthName(year));
                     pdfFormFields.SetField("Year", month.ToString());
 
-                    pdfFormFields.SetField("ETOTAL", TotalSalary.ToString());
-                    pdfFormFields.SetField("DTOTAL", TotalDeductions.ToString());
-                    pdfFormFields.SetField("TotalNet", (TotalSalary - TotalDeductions).ToString());
+                    pdfFormFields.SetField("EmpName", payslipHeader.SalutationType + "." + payslipHeader.FirstName.ToString() + (payslipHeader.MiddleName != null ? " " + payslipHeader.MiddleName : ""));
+                    pdfFormFields.SetField("Title", payslipHeader.EmployeeDescription);
+                    pdfFormFields.SetField("NICNo", payslipHeader.PasspostNo);
+
+                    pdfFormFields.SetField("Department", payslipHeader.EmployeeDepartment);
+                    pdfFormFields.SetField("EmpNo", payslipHeader.EmployeeId.ToString());
+                    pdfFormFields.SetField("EpfNo", payslipHeader.EPFNO == null ? "" : payslipHeader.EPFNO.ToString());
+                    pdfFormFields.SetField("PayeNo", "");
+                    pdfFormFields.SetField("Location", payslipHeader.BranchName);
+                    pdfFormFields.SetField("Total", TotalSalary.ToString());
+                    pdfFormFields.SetField("Total1", TotalDeductions.ToString());
+                    pdfFormFields.SetField("EpfEmployer", "");
+                    pdfFormFields.SetField("EtfEmployer", "");
+                    pdfFormFields.SetField("NoPayDays", payslipHeader.LossOfPayDays.ToString());
+                    pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
 
 
-
-                    int count = dcount;
-                    for (int i = 0; i < validcount; i++)
+                    for (int i = 0; i < payslipDetail.Count; i++)
                     {
-                        if (count < payslipDetail.Count)
+                        if (payslipDetail[i].RegisterCode == "BASIC SALARY")
                         {
-                            if (payslipDetail[i].RegisterCode == "BASIC SALARY")
-                            {
-                                pdfFormFields.SetField("E" + i, payslipDetail[i].ContributionCode.ToString());
-                                pdfFormFields.SetField("EA" + i, payslipDetail[i].Amount.ToString());
-                            }
-
+                            pdfFormFields.SetField("Desc" + i, payslipDetail[i].ContributionCode.ToString());
+                            pdfFormFields.SetField("Item" + i, payslipDetail[i].Amount.ToString());
                         }
-                        count++;
+                    }
+                    int j = 0;
+
+                    for (int p = 0; p < payslipDetail.Count; p++)
+                    {
+                        if (payslipDetail[p].RegisterCode == "EMPLOYEE CONTRIBUTION")
+                        {
+                            pdfFormFields.SetField("Deduct" + j, payslipDetail[p].ContributionCode.ToString());
+                            pdfFormFields.SetField("Amount" + j, payslipDetail[p].Amount.ToString());
+                            j++;
+                        }
+                      
                     }
 
-                    count = dcount;
-                    int p = 0;
-                    int validcount2 = validcount * 2;
-                    for (int i = 0; i < validcount2; i++)
-                    {
-                        if (count < payslipDetail.Count)
-                        {
-
-                            if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION")
-                            {
-                                pdfFormFields.SetField("DE" + p, payslipDetail[i].ContributionCode.ToString());
-                                pdfFormFields.SetField("DA" + p, payslipDetail[i].Amount.ToString());
-
-                                p++;
-                            }
-                        }
-                        count++;
-                    }
                 }
             }
             catch (Exception ex)
@@ -1036,7 +1020,7 @@ namespace HR.Web.Controllers
         }
 
         #endregion
-        private static string MonthName(byte? month)
+        private static string MonthName(int? month)
         {
             switch (month)
             {

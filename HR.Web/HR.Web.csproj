@@ -1719,6 +1719,7 @@
     <Content Include="PdfTemplates\แบบประกันสังคม.pdf" />
     <Content Include="PdfTemplates\แบบฟอร์ม-ทวิ-50.pdf" />
     <Content Include="PdfTemplates\samplepayslip.pdf" />
+    <Content Include="PdfTemplates\PaySlipEZY.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

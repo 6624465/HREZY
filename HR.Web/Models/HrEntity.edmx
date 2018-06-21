@@ -957,6 +957,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>
+         
        
         </EntityContainer>
         <EntityType Name="User">
@@ -1836,7 +1837,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="String" Name="Address4" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="CityName" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="StateName" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="CountryCode" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CountryName" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="TelNo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="50" />
@@ -1853,7 +1854,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="Decimal" Name="LossOfPayDays" Nullable="false" Precision="38" Scale="2" />
           <Property Type="String" Name="PasspostNo" Nullable="true" MaxLength="50" />
         </ComplexType>
-        
+      
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2840,7 +2841,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
                 <ScalarProperty Name="Address4" ColumnName="Address4" />
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
-                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
                 <ScalarProperty Name="TelNo" ColumnName="TelNo" />
                 <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
@@ -2859,6 +2860,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          
           
         </EntityContainerMapping>
       </Mapping>

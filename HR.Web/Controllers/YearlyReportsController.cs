@@ -965,9 +965,12 @@ namespace HR.Web.Controllers
             {
                 if (payslipHeader != null)
                 {
-                    pdfFormFields.SetField("CompanyAddress", payslipHeader.CompanyName + Environment.NewLine + payslipHeader.Address1
-                        + Environment.NewLine + payslipHeader.CityName + Environment.NewLine + payslipHeader.StateName + Environment.NewLine + payslipHeader.ZipCode
-                        );
+
+                    pdfFormFields.SetField("CompanyName", payslipHeader.BranchName.Trim() == null ? "" : payslipHeader.BranchName.Trim());
+                    pdfFormFields.SetField("Address1", (payslipHeader.Address1 == null ? "" : payslipHeader.Address1.Trim()) + "," + (payslipHeader.Address2 == null ? "" : payslipHeader.Address2.Trim()));
+                    pdfFormFields.SetField("Address2", payslipHeader.CityName == null ? "" : payslipHeader.CityName.Trim());
+                    pdfFormFields.SetField("Address3", payslipHeader.StateName == null ? "" : payslipHeader.StateName.Trim());
+                    pdfFormFields.SetField("Address4", (payslipHeader.CountryName == null ? "" : payslipHeader.CountryName.Trim()) + "-" + (payslipHeader.ZipCode == null ? "" : payslipHeader.ZipCode.Trim()));
 
                     pdfFormFields.SetField("Month", MonthName(year));
                     pdfFormFields.SetField("Year", month.ToString());
@@ -980,7 +983,7 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("EmpNo", payslipHeader.EmployeeId.ToString());
                     pdfFormFields.SetField("EpfNo", payslipHeader.EPFNO == null ? "" : payslipHeader.EPFNO.ToString());
                     pdfFormFields.SetField("PayeNo", "");
-                    pdfFormFields.SetField("Location", payslipHeader.BranchName);
+                    pdfFormFields.SetField("Location", payslipHeader.CountryName);
                     pdfFormFields.SetField("Total", TotalSalary.ToString());
                     pdfFormFields.SetField("Total1", TotalDeductions.ToString());
                     pdfFormFields.SetField("EpfEmployer", "");

@@ -127,11 +127,23 @@
         <div class="row css5">
             <div class="form-group">
                 <label class="col-md-2 control-label">
+                    <span class="pull-right">City Name</span>
+                </label>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(x => x.CityName, new { @class = "form-control input-sm" })
+                </div>
+                <label class="col-md-2 control-label">
                     <span class="pull-right">State Name</span>
                 </label>
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.StateName, new { @class = "form-control input-sm" })
                 </div>
+                
+            </div>
+        </div>
+
+        <div class="row css5">
+            <div class="form-group">
                 <label class="col-md-2 control-label">
                     <span class="pull-right">Country Code</span>
                 </label>
@@ -139,23 +151,13 @@
                     @Html.DropDownListFor(x => x.CountryCode, SelectListItemHelper.CountryList(),
                                    "--Select--", new { @class = "form-control input-sm" })
                 </div>
-            </div>
-        </div>
-
-        <div class="row css5">
-            <div class="form-group">
                 <label class="col-md-2 control-label">
                     <span class="pull-right">Zip Code</span>
                 </label>
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.ZipCode, new { @class = "form-control number input-sm" })
                 </div>
-                <label class="col-md-2 control-label">
-                    <span class="pull-right">Tel No</span>
-                </label>
-                <div class="col-md-4">
-                    @Html.TextBoxFor(x => x.TelNo, new { @class = "form-control validatenumber input-sm" })
-                </div>
+                
             </div>
         </div>
 
@@ -163,38 +165,46 @@
             <div class="form-group">
                
                 <label class="col-md-2 control-label">
+                    <span class="pull-right">Tel No</span>
+                </label>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(x => x.TelNo, new { @class = "form-control validatenumber input-sm" })
+                </div>
+                <label class="col-md-2 control-label">
                     <span class="pull-right">Fax No</span>
                 </label>
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.FaxNo, new { @class = "form-control validatenumber input-sm" })
                 </div>
+               
+            </div>
+        </div>
+        <div class="row css5">
+            <div class="form-group">
                 <label class="col-md-2 control-label">
                     <span class="pull-right">Mobile No</span>
                 </label>
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.MobileNo, new { @class = "form-control validatenumber input-sm" })
                 </div>
-            </div>
-        </div>
-        <div class="row css5">
-            <div class="form-group">
                 <label class="col-md-2 control-label">
                     <span class="pull-right">Contact</span>
                 </label>
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.Contact, new { @class = "form-control validatenumber input-sm" })
                 </div>
+                
+            </div>
+        </div>
+
+        <div class="row css5">
+            <div class="form-group">
                 <label class="col-md-2 control-label">
                     <span class="pull-right">Email</span>
                 </label>
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-sm" })
                 </div>
-            </div>
-        </div>
-
-        <div class="row css5">
-            <div class="form-group">
                 <label class="col-md-2 control-label">
                     <span class="pull-right">WebSite</span>
                 </label>

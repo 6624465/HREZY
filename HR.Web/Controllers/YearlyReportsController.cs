@@ -986,8 +986,37 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("Location", payslipHeader.CountryName);
                     pdfFormFields.SetField("Total", TotalSalary.ToString());
                     pdfFormFields.SetField("Total1", TotalDeductions.ToString());
-                    pdfFormFields.SetField("EpfEmployer", "");
-                    pdfFormFields.SetField("EtfEmployer", "");
+                    for (int i = 0; i < payslipDetail.Count; i++)
+                    {
+                        if (payslipHeader.BranchID == 10008)
+                        {
+                            if (payslipDetail[i].RegisterCode == "EMPLOYER CONTRIBUTION")
+                            {
+                           
+                                pdfFormFields.SetField("EpfEmployer0" , "E.P.F Employer 12%");
+                                pdfFormFields.SetField("EtfEmployer0" , "E.T.F Employer 3%");
+
+                                if (payslipDetail[i].ContributionCode == "E.P.F - 12%")
+                                {
+                                    pdfFormFields.SetField("EpfEmployer", payslipDetail[i].Amount.ToString());
+                                }
+                                else if (payslipDetail[i].ContributionCode == "ETF 3 %")
+                                {
+                                    pdfFormFields.SetField("EtfEmployer", payslipDetail[i].Amount.ToString());
+                                }
+                            }
+                          
+                        }
+                        else
+                        {
+                            pdfFormFields.SetField("EpfEmployer" + i, "");
+                            pdfFormFields.SetField("EtfEmployer" + i, "");
+                            pdfFormFields.SetField("EpfEmployer", "");
+                            pdfFormFields.SetField("EtfEmployer", "");
+                        }
+                    }
+
+                    pdfFormFields.SetField("NoPayDays0", "No Pay Days");
                     pdfFormFields.SetField("NoPayDays", payslipHeader.LossOfPayDays.ToString());
                     pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
 

@@ -2212,6 +2212,7 @@
     <Content Include="Views\YearlyReports\YearlyReportsSSC.cshtml" />
     <Content Include="Views\YearlyReports\YearlyReportsOne.cshtml" />
     <Content Include="Views\YearlyReports\YearlyReportsTwo.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

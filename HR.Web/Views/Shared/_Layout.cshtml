@@ -186,43 +186,47 @@
             </li>
         </ul>
                 
-            <ul class="list-unstyled right-elems">
-                <!-- profile drop -->
-                <span>@baseObj.USERID</span>
-                <li class="profile-drop hidden-xs dropdown">
-                    <a href="javascript:;" data-toggle="dropdown">
+        <ul class="list-unstyled right-elems">
+            <!-- profile drop -->
+            <span>@baseObj.USERID</span>
+            <li class="profile-drop hidden-xs dropdown">
+                <a href="javascript:;" data-toggle="dropdown">
 
-                        @*@if (UTILITY.ROLE_ADMIN == baseObj.ROLECODE)
+                    @*@if (UTILITY.ROLE_ADMIN == baseObj.ROLECODE)
+                    {
+                        <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
+                    }*@
+
+                    @if (UTILITY.ROLE_EMPLOYEE == baseObj.ROLECODE)
+                    {
+                        if (baseObj.DocumentDetailID != 0)
                         {
-                            <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
-                        }*@
-
-                        @if (UTILITY.ROLE_EMPLOYEE == baseObj.ROLECODE)
-                        {
-                            if (baseObj.DocumentDetailID != 0)
-                            {
-                                <img src="@Url.Content("~/Uploads/"+ baseObj.EMPLOYEEID + "/" + baseObj.DocumentDetailID + "/" + baseObj.FILENAME)" onerror="this.src='@Url.Content("~/Images/user.png")'">
-                            }
-                            else
-                            {
-
-                                <img src="@Url.Content("~/Images/user.png")" onerror="this.src='@Url.Content("~/images/admin.jpg")'">
-                            }
-
+                            <img src="@Url.Content("~/Uploads/"+ baseObj.EMPLOYEEID + "/" + baseObj.DocumentDetailID + "/" + baseObj.FILENAME)" onerror="this.src='@Url.Content("~/Images/user.png")'">
                         }
                         else
                         {
-                            <img src="@Url.Content("~/images/admin.jpg")" onerror="this.src='@Url.Content("~/images/user.jpg")'">
+
+                            <img src="@Url.Content("~/Images/user.png")" onerror="this.src='@Url.Content("~/images/admin.jpg")'">
                         }
 
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        @*<li><a href="javascript:;"><span class="ion ion-person">&nbsp;&nbsp;</span>Profile</a></li>
-                        <li><a href="javascript:;"><span class="ion ion-settings">&nbsp;&nbsp;</span>Settings</a></li>
-                        <li class="divider"></li>
-                        <li><a href="javascript:;"><span class="ion ion-lock-combination">&nbsp;&nbsp;</span>Lock Screen</a></li>*@
-                        <li><a href="#"><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;@baseObj.BRANCHNAME</a></li>
-                        <li><a href="#"><i class="fa fa-user-circle-o"></i>&nbsp;@baseObj.USERID</a></li>
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/images/admin.jpg")" onerror="this.src='@Url.Content("~/images/user.jpg")'">
+                    }
+
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    @*<li><a href="javascript:;"><span class="ion ion-person">&nbsp;&nbsp;</span>Profile</a></li>
+                    <li><a href="javascript:;"><span class="ion ion-settings">&nbsp;&nbsp;</span>Settings</a></li>
+                    <li class="divider"></li>
+                    <li><a href="javascript:;"><span class="ion ion-lock-combination">&nbsp;&nbsp;</span>Lock Screen</a></li>*@
+                    <li><a href="#"><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;@baseObj.BRANCHNAME</a></li>
+                    <li><a href="#"><i class="fa fa-user-circle-o"></i>&nbsp;@baseObj.USERID</a></li>
+                    <li>
+                          <a href="#" onclick="Changepassword(@baseObj.USERNUMBER)"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;CHANGE PASSWORD</a>
+                    </li>
+
                         <li class="divider"></li>
                         <li><a href="@Url.Content("~/Account/LogOut")"><span class="ion ion-power">&nbsp;&nbsp;</span>LogOut</a></li>
                     </ul>
@@ -320,9 +324,68 @@
     <!-- #end theme settings -->
     <!-- Dev only -->
     <!-- Vendors -->
+    <!-- Modal-->
+    @using (Html.BeginForm("SaveNewPassword", "Account", FormMethod.Post, new { id = "frm", name = "frm" }))
+    {
+        <div id="changepassword" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Change Password</h4>
+                    </div>
+                    <div class="modal-body" id="modalContent1">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="SaveNewPassword()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
 
     <script type="text/javascript">
         var dateFormat = 'DD/MM/YYYY';
+    </script>
+    <script type="text/javascript">
+        function Changepassword(userid) {
+            debugger;
+            $.ajax({
+               url: '@Url.Content("~/Account/ChangePassword?userid=")' + userid,
+                contentType: 'text/html',
+                method: 'GET',
+                success: function (data) {
+                    $('#changepassword').modal('show');
+                    $('#modalContent1').html('');
+                    $('#modalContent1').html(data);
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+        function SaveNewPassword() {
+            debugger;
+            var NewPassword = $('#newPassword').val();
+            var ConfirmPassword = $('#confirmPassword').val();
+            if ($('#frm').valid()) {
+                if (NewPassword == ConfirmPassword) {
+                    swal("Saved Successfully");
+                    $('#frm').submit();
+                    
+                }
+                else {
+                    swal("Please Enter the newpassword and confirmpassword correct");
+                }
+              
+            }
+            else {
+                swal("Please Enter all the Mandatory Fields");
+            }
+        }
+
     </script>
 
     <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>

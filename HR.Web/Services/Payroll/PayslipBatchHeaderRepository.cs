@@ -51,6 +51,7 @@ namespace HR.Web.Services.Payroll
             {
                 using (var dbcntx = new HrDataContext())
                 {
+                    dbcntx.PayslipBatchHeaders.Attach(entity);
                     dbcntx.PayslipBatchHeaders.Remove(entity);
                     dbcntx.SaveChanges();
                 }

@@ -40,6 +40,9 @@ namespace HR.Web
         public static string SSN_FIRSTNAME = "SSN_FIRSTNAME";
 
 
+        public static string SSN_USERNUMBER = "SSN_USERNUMBER";
+
+
 
 
         /* Config Keys Start */

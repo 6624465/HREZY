@@ -558,5 +558,45 @@ namespace HR.Web.Controllers
             }
             return RedirectToAction("TaxAssessment", new { taxassessmentheader.Year });
         }
+
+
+        public ActionResult DeleteProcessedPayroll(int month,int year)
+        {
+            int Currentmonth = DateTime.Now.Month;
+            int Currentyear = DateTime.Now.Year;
+            var checkpreviousmonths = PayslipbatchheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.Month < month && x.Year == year).ToList();
+            if (checkpreviousmonths.Count() > 0)
+            {
+                ViewData["message"] = "Please delete the previous months Payroll first.";
+
+            }
+            else
+            {
+                PayslipBatchHeader DeletePayrollObjheader = PayslipbatchheaderBo.GetByProperty(x => x.BranchId == BRANCHID && x.Month == month && x.Year == year);
+                List<PayslipBatchDetail> DeletePayrollObjdetail = payslipbatchdetailBo.GetListByProperty(x => x.BatchHeaderId == DeletePayrollObjheader.BatchHeaderId).ToList();
+                if (DeletePayrollObjheader != null)
+                {
+                    PayslipbatchheaderBo.Delete(DeletePayrollObjheader);
+                    foreach(var item in DeletePayrollObjdetail)
+                    {
+                        payslipbatchdetailBo.Delete(item);
+                    }
+                   
+                    ViewData["message"] = "Deleted Successfully";
+                }
+                else
+                {
+                    ViewData["message"] = "Payroll is not generated yet For this Month.Please check.";
+                }
+            }
+            return View("ProcessPayroll",new PayrollBatchVm
+            {
+                payslipBatchHeader = new PayslipBatchHeader()
+                {
+                Month = Convert.ToByte(Currentmonth),
+                Year = Currentyear
+                }
+             } );
+        }
     }
 }

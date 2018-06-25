@@ -995,12 +995,14 @@ namespace HR.Web.Controllers
                            
                                 pdfFormFields.SetField("EpfEmployer0" , "E.P.F Employer 12%");
                                 pdfFormFields.SetField("EtfEmployer0" , "E.T.F Employer 3%");
+                                string epf = "E.P.F - 12%";
 
-                                if (payslipDetail[i].ContributionCode == "E.P.F - 12%")
+                                string etf = "ETF 3 %";
+                                if (payslipDetail[i].ContributionCode.ToUpper() == epf)
                                 {
                                     pdfFormFields.SetField("EpfEmployer", payslipDetail[i].Amount.ToString());
                                 }
-                                else if (payslipDetail[i].ContributionCode == "ETF 3 %")
+                                else if (payslipDetail[i].ContributionCode.ToUpper() == etf)
                                 {
                                     pdfFormFields.SetField("EtfEmployer", payslipDetail[i].Amount.ToString());
                                 }
@@ -1009,8 +1011,8 @@ namespace HR.Web.Controllers
                         }
                         else
                         {
-                            pdfFormFields.SetField("EpfEmployer" + i, "");
-                            pdfFormFields.SetField("EtfEmployer" + i, "");
+                            pdfFormFields.SetField("EpfEmployer0" , "");
+                            pdfFormFields.SetField("EtfEmployer0" , "");
                             pdfFormFields.SetField("EpfEmployer", "");
                             pdfFormFields.SetField("EtfEmployer", "");
                         }

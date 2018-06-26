@@ -23,6 +23,7 @@ namespace HR.Web.Controllers
 
         public static int PageNo = 1;
         public static int pageCount = 0;
+
         public static decimal? TotalSalary = 0.0M;
         public static decimal? TotalEmployeeContribution = 0.0M;
         public static decimal? TotalEmployerContribution = 0.0M;
@@ -31,6 +32,8 @@ namespace HR.Web.Controllers
 
         public static decimal? TotalIncome = 0.0M;
         public static decimal? TotalDeductions = 0.0M;
+
+        public static decimal? taxamount = 0.0M;
 
 
         public YearlyReportsController()
@@ -936,6 +939,10 @@ namespace HR.Web.Controllers
                 {
                     TotalSalary += payslipDetail[i].RegisterCode == "BASIC SALARY" ? payslipDetail[i].Amount : 0;
                     TotalDeductions += payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" ? payslipDetail[i].Amount : 0;
+                    if(payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" && payslipDetail[i].ContributionCode== "INCOME TAX")
+                    {
+                        taxamount = payslipDetail[i].Amount;
+                    }
                 }
 
                 var path = "";
@@ -1020,7 +1027,22 @@ namespace HR.Web.Controllers
 
                     pdfFormFields.SetField("NoPayDays0", "No Pay Days");
                     pdfFormFields.SetField("NoPayDays", payslipHeader.LossOfPayDays.ToString());
-                    pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
+                    if (payslipHeader.BranchID == 10003)
+                    {
+                        if (taxamount > 0)
+                        {
+                            pdfFormFields.SetField("NetPay", (TotalSalary - taxamount).ToString());
+                        }
+                        else
+                        {
+                            pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
+                        }
+                    }
+                    else
+                    {
+                        pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
+                    }
+                    
 
 
                     for (int i = 0; i < payslipDetail.Count; i++)

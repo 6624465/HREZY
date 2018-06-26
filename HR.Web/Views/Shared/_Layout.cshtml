@@ -368,18 +368,35 @@
         }
         function SaveNewPassword() {
             debugger;
+            var OldPassword = $('#Password').val();
             var NewPassword = $('#newPassword').val();
             var ConfirmPassword = $('#confirmPassword').val();
             if ($('#frm').valid()) {
                 if (NewPassword == ConfirmPassword) {
-                    swal("Saved Successfully");
-                    $('#frm').submit();
-                    
+                    $.ajax({
+                        url: '@Url.Content("~/Account/SaveNewPassword?Password=")' + OldPassword + '&newpassword=' + NewPassword,
+                        contentType: 'text/html',
+                        method: 'POST',
+                        success: function (data) {
+                            debugger;
+                            if (data.success != "") {
+                                $('#errormessage').html(data.success);
+                            }
+                            else {
+                                swal("Saved SuccessFully");
+                                window.location="@Url.Content("~/Account/Logout")"
+                            }
+                        },
+                        error: function (err) {
+
+                        }
+                    });
+
                 }
                 else {
                     swal("Please Enter the newpassword and confirmpassword correct");
                 }
-              
+
             }
             else {
                 swal("Please Enter all the Mandatory Fields");

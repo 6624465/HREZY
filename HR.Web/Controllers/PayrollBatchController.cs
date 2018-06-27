@@ -71,10 +71,19 @@ namespace HR.Web.Controllers
                     vm.payslipBatchHeader.TotalSalary = netamount;
                     vm.payslipBatchHeader.Month = Convert.ToByte(currentmonth.Value);
                     vm.payslipBatchHeader.Year = currentyear.Value;
-                    var batchcount = PayslipbatchheaderBo.GetCount(BRANCHID);
-                    batchcount = batchcount + 1;
-                    vm.payslipBatchHeader.BatchNo = "BATCH" + batchcount.ToString("D4");
 
+                    var header = PayslipbatchheaderBo.GetByProperty(x => x.Month == Convert.ToByte(currentmonth.Value) && x.Year == currentyear && x.BranchId == BRANCHID);
+                    if (header != null)
+                    {
+                        vm.payslipBatchHeader.BatchNo = PayslipbatchheaderBo.GetByProperty(x => x.Month == Convert.ToByte(currentmonth.Value) && x.Year == currentyear && x.BranchId == BRANCHID).BatchNo;
+                    }
+                    else
+                    {
+
+                        var batchcount = PayslipbatchheaderBo.GetCount(BRANCHID);
+                        batchcount = batchcount + 1;
+                        vm.payslipBatchHeader.BatchNo = "BATCH" + batchcount.ToString("D4");
+                    }
                 }
                 else
                 {

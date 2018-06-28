@@ -361,6 +361,7 @@ namespace HR.Web.Controllers
                             Total = item.Total,
                             PaymentType = item.PaymentType,
                             IsVariablePay = item.IsVariablePay,
+                            IsSatuatoryPay = item.IsSatuatoryPay
                         };
                         if (item.PaymentType == UTILITY.SALARYPAYMENTS)
                             salaryStructureVm.structureSalaryPaymentDetail.Add(salaryDetail);

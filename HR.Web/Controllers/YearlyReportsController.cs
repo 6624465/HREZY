@@ -33,7 +33,9 @@ namespace HR.Web.Controllers
         public static decimal? TotalIncome = 0.0M;
         public static decimal? TotalDeductions = 0.0M;
 
-        public static decimal? taxamount = 0.0M;
+        public static decimal? SatuatorypayEmployee = 0.0M;
+
+        public static decimal? SatuatorypayEmployer = 0.0M;
 
 
         public YearlyReportsController()
@@ -934,15 +936,27 @@ namespace HR.Web.Controllers
 
                 TotalSalary = 0.0M;
                 TotalDeductions = 0.0M;
+                SatuatorypayEmployee = 0.0M;
+                SatuatorypayEmployer = 0.0M;
+
 
                 for (int i = 0; i < payslipDetail.Count(); i++)
                 {
                     TotalSalary += payslipDetail[i].RegisterCode == "BASIC SALARY" ? payslipDetail[i].Amount : 0;
-                    TotalDeductions += payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" ? payslipDetail[i].Amount : 0;
-                    if(payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" && payslipDetail[i].ContributionCode== "INCOME TAX")
+                    if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" && payslipDetail[i].IsSatuatoryPay == false)
                     {
-                        taxamount = payslipDetail[i].Amount;
+                        TotalDeductions += payslipDetail[i].Amount ;
                     }
+                    
+                     if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" && payslipDetail[i].IsSatuatoryPay == true)
+                    {
+                        SatuatorypayEmployee += payslipDetail[i].Amount;
+                    }
+                    if (payslipDetail[i].RegisterCode == "EMPLOYER CONTRIBUTION" && payslipDetail[i].IsSatuatoryPay == true)
+                    {
+                        SatuatorypayEmployer += payslipDetail[i].Amount;
+                    }
+
                 }
 
                 var path = "";
@@ -991,79 +1005,108 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("EpfNo", payslipHeader.EPFNO == null ? "" : payslipHeader.EPFNO.ToString());
                     pdfFormFields.SetField("PayeNo", "");
                     pdfFormFields.SetField("Location", payslipHeader.CountryName);
-                    pdfFormFields.SetField("Total", TotalSalary.ToString());
-                    pdfFormFields.SetField("Total1", TotalDeductions.ToString());
-                    for (int i = 0; i < payslipDetail.Count; i++)
-                    {
-                        if (payslipHeader.BranchID == 10008)
-                        {
-                            if (payslipDetail[i].RegisterCode == "EMPLOYER CONTRIBUTION")
-                            {
-                           
-                                pdfFormFields.SetField("EpfEmployer0" , "E.P.F Employer 12%");
-                                pdfFormFields.SetField("EtfEmployer0" , "E.T.F Employer 3%");
-                                string epf = "E.P.F - 12%";
+                    pdfFormFields.SetField("Total", (TotalSalary + SatuatorypayEmployer).ToString());
+                    pdfFormFields.SetField("Total1", (TotalDeductions + SatuatorypayEmployee).ToString());
+                    pdfFormFields.SetField("NetPay", ((TotalSalary) - (TotalDeductions + SatuatorypayEmployee)).ToString());
+                    //for (int i = 0; i < payslipDetail.Count; i++)
+                    //{
+                    //    if (payslipHeader.BranchID == 10008)
+                    //    {
+                    //        if (payslipDetail[i].RegisterCode == "EMPLOYER CONTRIBUTION")
+                    //        {
 
-                                string etf = "ETF 3 %";
-                                if (payslipDetail[i].ContributionCode.ToUpper() == epf)
-                                {
-                                    pdfFormFields.SetField("EpfEmployer", payslipDetail[i].Amount.ToString());
-                                }
-                                else if (payslipDetail[i].ContributionCode.ToUpper() == etf)
-                                {
-                                    pdfFormFields.SetField("EtfEmployer", payslipDetail[i].Amount.ToString());
-                                }
-                            }
-                          
-                        }
-                        else
-                        {
-                            pdfFormFields.SetField("EpfEmployer0" , "");
-                            pdfFormFields.SetField("EtfEmployer0" , "");
-                            pdfFormFields.SetField("EpfEmployer", "");
-                            pdfFormFields.SetField("EtfEmployer", "");
-                        }
-                    }
+                    //            pdfFormFields.SetField("EpfEmployer0" , "E.P.F Employer 12%");
+                    //            pdfFormFields.SetField("EtfEmployer0" , "E.T.F Employer 3%");
+                    //            string epf = "E.P.F - 12%";
+
+                    //            string etf = "ETF 3 %";
+                    //            if (payslipDetail[i].ContributionCode.ToUpper() == epf)
+                    //            {
+                    //                pdfFormFields.SetField("EpfEmployer", payslipDetail[i].Amount.ToString());
+                    //            }
+                    //            else if (payslipDetail[i].ContributionCode.ToUpper() == etf)
+                    //            {
+                    //                pdfFormFields.SetField("EtfEmployer", payslipDetail[i].Amount.ToString());
+                    //            }
+                    //        }
+
+                    //    }
+                    //    else
+                    //    {
+                    //        pdfFormFields.SetField("EpfEmployer0" , "");
+                    //        pdfFormFields.SetField("EtfEmployer0" , "");
+                    //        pdfFormFields.SetField("EpfEmployer", "");
+                    //        pdfFormFields.SetField("EtfEmployer", "");
+                    //    }
+                    //}
 
                     pdfFormFields.SetField("NoPayDays0", "No Pay Days");
                     pdfFormFields.SetField("NoPayDays", payslipHeader.LossOfPayDays.ToString());
-                    if (payslipHeader.BranchID == 10003)
-                    {
-                        if (taxamount > 0)
-                        {
-                            pdfFormFields.SetField("NetPay", (TotalSalary - taxamount).ToString());
-                        }
-                        else
-                        {
-                            pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
-                        }
-                    }
-                    else
-                    {
-                        pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
-                    }
-                    
+                    //if (payslipHeader.BranchID == 10003)
+                    //{
+                    //    if (taxamount > 0)
+                    //    {
+                    //        pdfFormFields.SetField("NetPay", (TotalSalary - taxamount).ToString());
+                    //    }
+                    //    else
+                    //    {
+                    //        pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    pdfFormFields.SetField("NetPay", (TotalSalary - TotalDeductions).ToString());
+                    //}
 
+                    var temp = 0;
 
                     for (int i = 0; i < payslipDetail.Count; i++)
                     {
+                       
                         if (payslipDetail[i].RegisterCode == "BASIC SALARY")
                         {
                             pdfFormFields.SetField("Desc" + i, payslipDetail[i].ContributionCode.ToString());
                             pdfFormFields.SetField("Item" + i, payslipDetail[i].Amount.ToString());
+                            temp = i;
+                        }
+                        
+                    }
+                    temp=temp+2;
+                    pdfFormFields.SetField("Desc" + temp, "SATUATORY PAYMENTS");
+                    temp++;
+                    for (int i = 0; i < payslipDetail.Count; i++)
+                    {
+                          if (payslipDetail[i].RegisterCode == "EMPLOYER CONTRIBUTION" && payslipDetail[i].IsSatuatoryPay == true)
+                        {
+                        pdfFormFields.SetField("Desc" + temp, payslipDetail[i].ContributionCode.ToString());
+                        pdfFormFields.SetField("Item" + temp, payslipDetail[i].Amount.ToString());
+                            temp++;
                         }
                     }
+
                     int j = 0;
 
                     for (int p = 0; p < payslipDetail.Count; p++)
                     {
-                        if (payslipDetail[p].RegisterCode == "EMPLOYEE CONTRIBUTION" || payslipDetail[p].RegisterCode == "EMPLOYER CONTRIBUTION")
+                        if (payslipDetail[p].RegisterCode == "EMPLOYEE CONTRIBUTION" && payslipDetail[p].IsSatuatoryPay==false)
                         {
                             pdfFormFields.SetField("Deduct" + j, payslipDetail[p].ContributionCode.ToString());
                             pdfFormFields.SetField("Amount" + j, payslipDetail[p].Amount.ToString());
                             j++;
                         }
-                      
+
+                    }
+                   j++;
+                    pdfFormFields.SetField("Deduct" + j, "SATUATORY PAYMENTS");
+                    j++;
+                    for (int i = 0; i < payslipDetail.Count; i++)
+                    {
+                        if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" && payslipDetail[i].IsSatuatoryPay == true)
+                        {
+                            pdfFormFields.SetField("Deduct" + j, payslipDetail[i].ContributionCode.ToString());
+                            pdfFormFields.SetField("Amount" + j, payslipDetail[i].Amount.ToString());
+                            j++;
+                        }
                     }
 
                 }

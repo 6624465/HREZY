@@ -148,9 +148,7 @@
                                                             @Html.DisplayFor(x => x.structureSalaryPaymentDetail[i].Description)
                                                         </td>
                                                         <td>
-
                                                             @Html.CheckBoxFor(x => x.structureSalaryPaymentDetail[i].IsVariablePay)
-                                                           
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureSalaryPaymentDetail[i].ComputationCode,
@@ -195,6 +193,7 @@
                                                     <th>Code</th>
                                                     <th>Description</th>
                                                     <th class="no-wrap">Variable Pay</th>
+                                                    <th>SP</th>
                                                     <th>Computation</th>
                                                     <th>Amount</th>
                                                     <th>Total</th>
@@ -220,7 +219,9 @@
                                                         <td style="width:250px;">@Html.DisplayFor(x => x.structureEmployerContributionDetail[i].Description)</td>
                                                         <td>
                                                             @Html.CheckBoxFor(x => x.structureEmployerContributionDetail[i].IsVariablePay)
-                                                            
+                                                        </td>
+                                                        <td>
+                                                            @Html.CheckBoxFor(x => x.structureEmployerContributionDetail[i].IsSatuatoryPay)
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureEmployerContributionDetail[i].ComputationCode,
@@ -267,6 +268,7 @@
                                                     <th>Code</th>
                                                     <th>Description</th>
                                                     <th class="no-wrap">Variable Pay</th>
+                                                    <th>SP</th>
                                                     <th>Computation</th>
                                                     <th>Amount</th>
                                                     <th>Total</th>
@@ -292,6 +294,9 @@
                                                         <td style="width:250px;">@Html.DisplayFor(x => x.structureEmployeeContributionDetail[i].Description)</td>
                                                         <td>
                                                             @Html.CheckBoxFor(x => x.structureEmployeeContributionDetail[i].IsVariablePay)
+                                                        </td>
+                                                        <td>
+                                                            @Html.CheckBoxFor(x => x.structureEmployeeContributionDetail[i].IsSatuatoryPay)
                                                         </td>
                                                         <td>
                                                             @Html.DropDownListFor(x => x.structureEmployeeContributionDetail[i].ComputationCode,
@@ -563,19 +568,21 @@
                 $('#structureSalaryPaymentDetail_' + index + '__RegisterCode').removeAttr('disabled');
                 $('#structureSalaryPaymentDetail_' + index + '__Amount').removeAttr('disabled');
                 $('#structureSalaryPaymentDetail_' + index + '__IsVariablePay').removeAttr('disabled');
+                $('#structureSalaryPaymentDetail_' + index + '__IsSatuatoryPay').removeAttr('disabled');
             }
             else{
                 $('#structureSalaryPaymentDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
                 $('#structureSalaryPaymentDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
                 $('#structureSalaryPaymentDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
                 $('#structureSalaryPaymentDetail_' + index + '__IsVariablePay').attr('disabled','disabled');
-
+                $('#structureSalaryPaymentDetail_' + index + '__IsSatuatoryPay').attr('disabled','disabled');
                 $('#structureEmployerContributionDetail_' + index + '__Total').val('');
                 $('#structureSalaryPaymentDetail_' + index + '__Total').val('');
                 $('#structureSalaryPaymentDetail_' + index + '__ComputationCode').removeAttr('required');
                 $('#structureSalaryPaymentDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#structureSalaryPaymentDetail_' + index + '__Amount').removeAttr('required');
                 $('#structureSalaryPaymentDetail_' + index + '__IsVariablePay').parent().removeClass('checked');
+                $('#structureSalaryPaymentDetail_' + index + '__IsSatuatoryPay').parent().removeClass('checked');
                 calculateTotal();
             }
 
@@ -594,11 +601,11 @@
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').attr('required','required');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').attr('required','required');
                 $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').removeAttr('disabled');
-
-
+               
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').removeAttr('disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').removeAttr('disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__ComputationCode').removeAttr('disabled');
+                $('#structureEmployeeContributionDetail_' + index + '__IsSatuatoryPay').removeAttr('disabled');
                 var code=  $('#structureEmployeeContributionDetail_' + index + '__Code').val();
                 calculateByEmployeeCode(code,index);
 
@@ -608,7 +615,7 @@
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').val('').attr('disabled', 'disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').attr('disabled','disabled');
-
+                $('#structureEmployeeContributionDetail_' + index + '__IsSatuatoryPay').attr('disabled','disabled');
                 $('#structureEmployeeContributionDetail_' + index + '__Total').val('')
                 $('#structureSalaryPaymentDetail_' + index + '__Total').val('')
 
@@ -616,6 +623,7 @@
                 $('#structureEmployeeContributionDetail_' + index + '__RegisterCode').removeAttr('required');
                 $('#structureEmployeeContributionDetail_' + index + '__Amount').removeAttr('required');
                 $('#structureEmployeeContributionDetail_' + index + '__IsVariablePay').parent().removeClass('checked');
+                $('#structureEmployeeContributionDetail_' + index + '__IsSatuatoryPay').parent().removeClass('checked');
                 calculateTotal();
             }
 
@@ -687,7 +695,7 @@
                 //$('#structureEmployerContributionDetail_' + index + '__ComputationCode').val("AMOUNT");
                 $('#structureEmployerContributionDetail_' + index + '__ComputationCode').attr('required','required');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').attr('required','required');
-
+                $('#structureEmployerContributionDetail_' + index + '__IsSatuatoryPay').removeAttr('disabled');
 
                 //$('#structureEmployerContributionDetail_' + index + '__IsVariablePay').removeAttr('disabled');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').removeAttr('disabled');
@@ -700,7 +708,7 @@
                 $('#structureEmployerContributionDetail_' + index + '__ComputationCode').val('').attr('disabled', 'disabled');
                 $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').val('').attr('disabled', 'disabled');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').val('').attr('disabled', 'disabled');
-
+                $('#structureEmployerContributionDetail_' + index + '__IsSatuatoryPay').attr('disabled','disabled');
                 $('#structureEmployerContributionDetail_' + index + '__Total').val('')
                 $('#structureSalaryPaymentDetail_' + index + '__Total').val('')
 
@@ -708,6 +716,7 @@
                 $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').removeAttr('required');
                 $('#structureEmployerContributionDetail_' + index + '__Amount').removeAttr('required');
                 $('#structureEmployerContributionDetail_' + index + '__IsVariablePay').parent().removeClass('checked');
+                $('#structureEmployerContributionDetail_' + index + '__IsSatuatoryPay').parent().removeClass('checked');
                 calculateTotal();
             }
 

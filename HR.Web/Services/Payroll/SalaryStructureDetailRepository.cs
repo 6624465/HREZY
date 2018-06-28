@@ -38,6 +38,7 @@ namespace HR.Web.Services.Payroll
                             SalaryStructureDetail.IsActive = entity.IsActive;
                             SalaryStructureDetail.Total = entity.Total;
                             SalaryStructureDetail.IsVariablePay = entity.IsVariablePay;
+                        SalaryStructureDetail.IsSatuatoryPay = entity.IsSatuatoryPay;
                         
                     }
 

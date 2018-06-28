@@ -508,6 +508,7 @@
           <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
           <Property Name="BranchId" Type="int" />
           <Property Name="IsVariablePay" Type="bit" Nullable="false" />
+          <Property Name="IsSatuatoryPay" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
@@ -880,7 +881,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <EntitySet Name="SalaryRuleHeaders" EntityType="DB_9F30C5_HRDBModel.SalaryRuleHeader" />
           <EntitySet Name="SalaryRuleInputs" EntityType="DB_9F30C5_HRDBModel.SalaryRuleInput" />
           <EntitySet Name="WeekendPolicies" EntityType="DB_9F30C5_HRDBModel.WeekendPolicy" />
-          <EntitySet Name="SalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.SalaryStructureDetail" />
           <EntitySet Name="SalaryStructureHeaders" EntityType="DB_9F30C5_HRDBModel.SalaryStructureHeader" />
           <EntitySet Name="EmpSalaryStructureHeaders" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureHeader" />
           <EntitySet Name="EmpSalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.EmpSalaryStructureDetail" />
@@ -914,12 +914,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="CurrentMonth" Mode="In" Type="Int32" />
             <Parameter Name="CurrentYear" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_EmployeePaySlipDetailTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
-            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
-            <Parameter Name="Month" Mode="In" Type="Int32" />
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-          </FunctionImport>
         
           <FunctionImport Name="usp_TAVSummaryByEmployeeTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_TAVSummaryByEmployeeTH_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
@@ -946,7 +940,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           </FunctionImport>
           <EntitySet Name="Addresses" EntityType="DB_9F30C5_HRDBModel.Address" />
           <EntitySet Name="EmployeeAddresses" EntityType="DB_9F30C5_HRDBModel.EmployeeAddress" />
-          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
+          
           <FunctionImport Name="usp_EmployeeDelete">
             <Parameter Name="branchId" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
@@ -957,7 +951,15 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>
-         
+          <EntitySet Name="SalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.SalaryStructureDetail" />
+          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
+          <FunctionImport Name="usp_EmployeePaySlipDetailTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          
        
         </EntityContainer>
         <EntityType Name="User">
@@ -1306,27 +1308,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="SaturdaySession" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="SundaySession" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="SalaryStructureDetail">
-          <Key>
-            <PropertyRef Name="StructureDetailID" />
-          </Key>
-          <Property Name="StructureDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ComputationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="StructureID" Type="Int32" Nullable="false" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BranchId" Type="Int32" />
-          <Property Name="IsVariablePay" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="SalaryStructureHeader">
           <Key>
             <PropertyRef Name="StructureID" />
@@ -1607,11 +1588,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="Boolean" Name="IsActive" Nullable="true" />
         </ComplexType>
      
-        <ComplexType Name="usp_EmployeePaySlipDetailTH_Result">
-          <Property Type="String" Name="RegisterCode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ContributionCode" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
-        </ComplexType>
+     
         
         <ComplexType Name="usp_TAVSummaryByEmployeeTH_Result">
           <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="100" />
@@ -1807,21 +1784,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="TaxAssessmentDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HeaderID" Type="Int32" />
-          <Property Name="SalaryFrom" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SalaryTo" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
+       
         <ComplexType Name="usp_EmployeePaySlipHeaderTH_Result">
           <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="250" />
           <Property Type="Int32" Name="BranchID" Nullable="true" />
@@ -1854,6 +1817,50 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="Decimal" Name="LossOfPayDays" Nullable="false" Precision="38" Scale="2" />
           <Property Type="String" Name="PasspostNo" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="SalaryStructureDetail">
+          <Key>
+            <PropertyRef Name="StructureDetailID" />
+          </Key>
+          <Property Name="StructureDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ComputationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="StructureID" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="IsVariablePay" Type="Boolean" Nullable="false" />
+          <Property Name="IsSatuatoryPay" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaxAssessmentDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeaderID" Type="Int32" />
+          <Property Name="SalaryFrom" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SalaryTo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <ComplexType Name="usp_EmployeePaySlipDetailTH_Result">
+          <Property Type="String" Name="RegisterCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContributionCode" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="IsSatuatoryPay" Nullable="true" />
+        </ComplexType>
+  
       
       </Schema>
     </edmx:ConceptualModels>
@@ -2257,28 +2264,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SalaryStructureDetails">
-            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureDetail">
-              <MappingFragment StoreEntitySet="SalaryStructureDetail">
-                <ScalarProperty Name="IsVariablePay" ColumnName="IsVariablePay" />
-                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="StructureID" ColumnName="StructureID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="ComputationCode" ColumnName="ComputationCode" />
-                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="StructureDetailID" ColumnName="StructureDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SalaryStructureHeaders">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureHeader">
               <MappingFragment StoreEntitySet="SalaryStructureHeader">
@@ -2582,15 +2567,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           
           
           <FunctionImportMapping FunctionImportName="CommitPayslip" FunctionName="DB_9F30C5_HRDBModel.Store.CommitPayslip" />
-          <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipDetailTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipDetailTH">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result">
-                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
-                <ScalarProperty Name="ContributionCode" ColumnName="ContributionCode" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+    
           <FunctionImportMapping FunctionImportName="usp_TAVSummaryByEmployeeTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_TAVSummaryByEmployeeTH">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_TAVSummaryByEmployeeTH_Result">
@@ -2807,22 +2784,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TaxAssessmentDetails">
-            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
-              <MappingFragment StoreEntitySet="TaxAssessmentDetail">
-                <ScalarProperty Name="Maxamount" ColumnName="Maxamount" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
-                <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
-                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+     
           <FunctionImportMapping FunctionImportName="usp_EmployeeDelete" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeeDelete" />
           <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipHeaderTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipHeaderTH">
             <ResultMapping>
@@ -2860,6 +2822,56 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="SalaryStructureDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.SalaryStructureDetail">
+              <MappingFragment StoreEntitySet="SalaryStructureDetail">
+                <ScalarProperty Name="IsSatuatoryPay" ColumnName="IsSatuatoryPay" />
+                <ScalarProperty Name="IsVariablePay" ColumnName="IsVariablePay" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="StructureID" ColumnName="StructureID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ComputationCode" ColumnName="ComputationCode" />
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="StructureDetailID" ColumnName="StructureDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxAssessmentDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
+              <MappingFragment StoreEntitySet="TaxAssessmentDetail">
+                <ScalarProperty Name="Maxamount" ColumnName="Maxamount" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
+                <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipDetailTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipDetailTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result">
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
+                <ScalarProperty Name="ContributionCode" ColumnName="ContributionCode" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="IsSatuatoryPay" ColumnName="IsSatuatoryPay" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          
           
           
         </EntityContainerMapping>

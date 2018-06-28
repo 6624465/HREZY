@@ -30,5 +30,6 @@ namespace HR.Web.Models
         public string PaymentType { get; set; }
         public Nullable<int> BranchId { get; set; }
         public bool IsVariablePay { get; set; }
+        public bool IsSatuatoryPay { get; set; }
     }
 }

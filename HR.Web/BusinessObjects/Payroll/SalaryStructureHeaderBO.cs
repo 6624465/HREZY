@@ -142,7 +142,8 @@ namespace HR.Web.BusinessObjects.Payroll
                             Total = item.Total,
                             PaymentType = item.PaymentType,
                             BranchId = structureHeader.BranchId,
-                            IsVariablePay = item.IsVariablePay
+                            IsVariablePay = item.IsVariablePay,
+                            IsSatuatoryPay = item.IsSatuatoryPay
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);
@@ -180,7 +181,8 @@ namespace HR.Web.BusinessObjects.Payroll
                             Total = item.Total,
                             PaymentType = item.PaymentType,
                             BranchId = structureHeader.BranchId,
-                            IsVariablePay = item.IsVariablePay
+                            IsVariablePay = item.IsVariablePay,
+                            IsSatuatoryPay = item.IsSatuatoryPay
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);
@@ -217,6 +219,7 @@ namespace HR.Web.BusinessObjects.Payroll
                             PaymentType = item.PaymentType,
                             BranchId = structureHeader.BranchId,
                             IsVariablePay = item.IsVariablePay,
+                            IsSatuatoryPay = item.IsSatuatoryPay
                         };
                         if (item.StructureDetailID > 0)
                             salaryStructureDetailBO.Delete(detail);

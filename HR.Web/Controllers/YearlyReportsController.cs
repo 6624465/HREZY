@@ -1057,7 +1057,7 @@ namespace HR.Web.Controllers
 
                     for (int p = 0; p < payslipDetail.Count; p++)
                     {
-                        if (payslipDetail[p].RegisterCode == "EMPLOYEE CONTRIBUTION")
+                        if (payslipDetail[p].RegisterCode == "EMPLOYEE CONTRIBUTION" || payslipDetail[p].RegisterCode == "EMPLOYER CONTRIBUTION")
                         {
                             pdfFormFields.SetField("Deduct" + j, payslipDetail[p].ContributionCode.ToString());
                             pdfFormFields.SetField("Amount" + j, payslipDetail[p].Amount.ToString());

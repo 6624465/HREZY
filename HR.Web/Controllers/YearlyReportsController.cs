@@ -1040,8 +1040,8 @@ namespace HR.Web.Controllers
                     //    }
                     //}
 
-                    pdfFormFields.SetField("NoPayDays0", "No Pay Days");
-                    pdfFormFields.SetField("NoPayDays", payslipHeader.LossOfPayDays.ToString());
+                    //pdfFormFields.SetField("NoPayDays0", "No Pay Days");
+                    //pdfFormFields.SetField("NoPayDays", payslipHeader.LossOfPayDays.ToString());
                     //if (payslipHeader.BranchID == 10003)
                     //{
                     //    if (taxamount > 0)
@@ -1083,6 +1083,8 @@ namespace HR.Web.Controllers
                             temp++;
                         }
                     }
+                    pdfFormFields.SetField("Desc" + temp, "Total Deductions Employer");
+                    pdfFormFields.SetField("Item" + temp, SatuatorypayEmployer.ToString());
 
                     int j = 0;
 
@@ -1097,7 +1099,7 @@ namespace HR.Web.Controllers
 
                     }
                    j++;
-                    pdfFormFields.SetField("Deduct" + j, "SATUATORY PAYMENTS");
+                    pdfFormFields.SetField("Deduct" + j, "SATUATORY DEDUCTIONS");
                     j++;
                     for (int i = 0; i < payslipDetail.Count; i++)
                     {
@@ -1108,6 +1110,8 @@ namespace HR.Web.Controllers
                             j++;
                         }
                     }
+                    pdfFormFields.SetField("Deduct" + j, "Total Deductions Employee");
+                    pdfFormFields.SetField("Amount" + j, SatuatorypayEmployee.ToString());
 
                 }
             }

@@ -568,44 +568,47 @@ namespace HR.Web.Controllers
             return RedirectToAction("TaxAssessment", new { taxassessmentheader.Year });
         }
 
-
+        [HttpGet]
         public ActionResult DeleteProcessedPayroll(int month,int year)
         {
+
+            bool success = false;
+            string message = "";
             int Currentmonth = DateTime.Now.Month;
             int Currentyear = DateTime.Now.Year;
-            var checkpreviousmonths = PayslipbatchheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.Month < month && x.Year == year).ToList();
+            var checkpreviousmonths = PayslipbatchheaderBo.GetListByProperty(x => x.BranchId == BRANCHID && x.Month > month && x.Year == year).ToList();
             if (checkpreviousmonths.Count() > 0)
             {
-                ViewData["message"] = "Please delete the previous months Payroll first.";
-
+                success = true;
+                message = "Please delete the next months Payroll first.";
             }
             else
             {
                 PayslipBatchHeader DeletePayrollObjheader = PayslipbatchheaderBo.GetByProperty(x => x.BranchId == BRANCHID && x.Month == month && x.Year == year);
-                List<PayslipBatchDetail> DeletePayrollObjdetail = payslipbatchdetailBo.GetListByProperty(x => x.BatchHeaderId == DeletePayrollObjheader.BatchHeaderId).ToList();
                 if (DeletePayrollObjheader != null)
                 {
-                    PayslipbatchheaderBo.Delete(DeletePayrollObjheader);
-                    foreach(var item in DeletePayrollObjdetail)
+                    List<PayslipBatchDetail> DeletePayrollObjdetail = payslipbatchdetailBo.GetListByProperty(x => x.BatchHeaderId == DeletePayrollObjheader.BatchHeaderId).ToList();
+                    if (DeletePayrollObjheader != null)
                     {
-                        payslipbatchdetailBo.Delete(item);
+                        PayslipbatchheaderBo.Delete(DeletePayrollObjheader);
+                        foreach (var item in DeletePayrollObjdetail)
+                        {
+                            payslipbatchdetailBo.Delete(item);
+                        }
+                        success = false;
+                        message = "";
                     }
-                   
-                    ViewData["message"] = "Deleted Successfully";
                 }
+               
                 else
                 {
-                    ViewData["message"] = "Payroll is not generated yet For this Month.Please check.";
+                    success = true;
+                    message = "Deletion Is Not Possible Because Payroll is not generated yet For this Month.Please check.";
+                    //ViewData["message"] = "Payroll is not generated yet For this Month.Please check.";
                 }
             }
-            return View("ProcessPayroll",new PayrollBatchVm
-            {
-                payslipBatchHeader = new PayslipBatchHeader()
-                {
-                Month = Convert.ToByte(Currentmonth),
-                Year = Currentyear
-                }
-             } );
+            return Json(new { success, message }, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

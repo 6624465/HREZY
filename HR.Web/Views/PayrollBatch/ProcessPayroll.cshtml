@@ -75,7 +75,7 @@ new SelectListItem {Text = "December", Value = "12"}
         <div class="col-md-12">
             <div class="panel panel-default panel-hovered panel-stacked mb10" style="min-height:800px;">
                 <div class="panel-heading">
-                    Payslip Batch <span style="color:#ff0000" id="errorMsg"></span> <span style="color:#ff0000">@ViewData["message"]</span>
+                    Payslip Batch <span style="color:#ff0000" id="errorMsg"></span> @*<span style="color:#ff0000">@ViewData["message"]</span>*@
                    
                 </div>
                 <div class="panel-body">
@@ -149,7 +149,7 @@ new SelectListItem {Text = "December", Value = "12"}
                                     }
                                     
                                 }
-                                <button type="button" class="btn btn-sm btn-danger" onclick="location.href = '@Url.Content("~/PayrollBatch/DeleteProcessedPayroll?month=" + Model.payslipBatchHeader.Month + "&year=" + Model.payslipBatchHeader.Year)'">Delete</button>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="DeleteProcess()">Delete</button>
                             </div>
                         </div>
                     }
@@ -508,6 +508,37 @@ new SelectListItem {Text = "December", Value = "12"}
                 swal("Incorrect Inputs");
             }
 
+        }
+        function DeleteProcess() {
+            $.ajax({
+                url: '@Url.Content("~/PayrollBatch/DeleteProcessedPayroll?month=")' + $('#payslipBatchHeader_Month').val()  + '&year=' + $('#payslipBatchHeader_Year').val(),
+                contentType: 'application/json',
+                method: 'GET',
+                success: function (data) {
+                    debugger;
+                    if (data.success) {
+                        $('#errorMsg').html(data.message);
+                    }
+                    else {
+                        location.href = '@Url.Content("~/PayrollBatch/ProcessPayroll")' + '?currentmonth=' + $('#payslipBatchHeader_Month').val() + '&currentyear=' + $('#payslipBatchHeader_Year').val();
+                        //$('#confirmprocesspayroll').submit();
+                        debugger;
+                        swal({
+                            title: "Payroll Deleted Successfully",
+                            text: "",
+                            closeOnConfirm: true,
+                            confirmButtonText: "Ok",
+                            confirmButtonClass: "btn-primary",
+                            timer: 5000
+                        })
+                    }
+
+                },
+                error: function (err) {
+
+                }
+
+            });
         }
 
         //$("#button-btn").click(function () {

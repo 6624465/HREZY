@@ -1099,6 +1099,8 @@ namespace HR.Web.Controllers
 
                     }
                    j++;
+                    //var bold = "bold:true";
+                    //pdfFormFields.SetFieldProperty("Deduct" + j, "textfont", bold, null);
                     pdfFormFields.SetField("Deduct" + j, "SATUATORY DEDUCTIONS");
                     j++;
                     for (int i = 0; i < payslipDetail.Count; i++)

@@ -100,9 +100,9 @@
                               
                             </div>
 
-                            @*<div class="clearfix text-center small">
-                                <p>Don't have an account? <a href="signup.html">Create Now</a></p>
-                            </div>*@
+                            <div class="clearfix text-center small">
+                                <a href="@Url.Content("~/Account/ForgotPassword?emailID=" + Model.UserName)">Forgot Password?</a>
+                            </div>
                         }
                         <div class="row">
                             <div class="col-md-12 pull-right" style="color:#ff0000;font-family:bold;text-align:center">

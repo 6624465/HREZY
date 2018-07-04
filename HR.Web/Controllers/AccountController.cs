@@ -7,9 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using HR.Web.Helpers;
 using HR.Web.BusinessObjects.Security;
-
-
-
+using HR.Web.BusinessObjects.Operation;
 
 namespace HR.Web.Controllers
 {
@@ -18,9 +16,11 @@ namespace HR.Web.Controllers
     {
         // GET: Account
         UserBO userBo = null;
+        //EmployeeHeaderBO empHeaderBO = null;
         public AccountController()
         {
             userBo = new UserBO(SESSIONOBJ);
+            //empHeaderBO = new EmployeeHeaderBO(SESSIONOBJ);
         }
 
         public ActionResult Login()
@@ -120,6 +120,47 @@ namespace HR.Web.Controllers
             }
             return Json(new { success });
            // return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword(string emailID)
+        {
+
+
+            var strbody = string.Empty;
+            var subject = "Reset Password - EZY HR";
+
+            //EmployeeHeader empobj = empHeaderBO.GetByProperty(x => x.UserEmailId == emailID);
+
+            var newPassword = UTILITY.CreateRandomPassword();
+
+            strbody =
+                string.Format(
+                "Dear {0} {1} <BR>" +
+                "As you requested, your password for EZY-HR login has now been reset. Your new login details are as follows: <BR>" +
+                "Email ID :{2} <BR>" +
+                "Password : {3} <BR>" +
+                "To change your password to something more memorable, after logging in go to My Profile, Change Password.<BR>" +
+                "<BR>" +
+                "Regards<BR>" +
+                "Administrator<BR>" +
+                "EZY-CORP<BR>",
+                emailID,
+                emailID,
+                newPassword);
+            //}
+            /*
+             "From:" + empleavelist.FromDate.ToShortDateString() + "to"  + empleavelist.ToDate.ToShortDateString() + "<BR>" 
+                + "Reason:" + empleavelist.Reason;
+             */
+
+
+            EmailGenerator emailgenerator = new EmailGenerator();
+            emailgenerator.ConfigMail(true, subject, strbody);
+
+
+            var success = "Your new password is sent to your login email ID : " + emailID;
+            return Json(new { success, JsonRequestBehavior.AllowGet } );
         }
     }
 }

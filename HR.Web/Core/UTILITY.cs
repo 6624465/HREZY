@@ -194,7 +194,20 @@ namespace HR.Web
 
         public static string RAZORDATEFORMAT = "{0:dd/MM/yyyy}";
 
+        public static string CreateRandomPassword()
+        {
+            int passwordLength = 8;
+            string allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789!@$?_-";
+            char[] chars = new char[passwordLength];
+            Random rd = new Random();
 
+            for (int i = 0; i < passwordLength; i++)
+            {
+                chars[i] = allowedChars[rd.Next(0, allowedChars.Length)];
+            }
+
+            return new string(chars);
+        }
 
     }
 }

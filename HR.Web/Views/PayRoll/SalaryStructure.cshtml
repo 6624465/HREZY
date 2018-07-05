@@ -246,6 +246,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+													<td></td>
                                                     <td style="text-align:right;">Total-B</td>
                                                     <td>@Html.TextBoxFor(x => x.structureHeader.EmpContribution, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                                 </tr>
@@ -321,6 +322,8 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+													<td></td>
+											
                                                     <td style="text-align:right;">Total-C</td>
                                                     <td>
                                                         @Html.TextBoxFor(x => x.structureHeader.TotalDeductions,
@@ -872,8 +875,8 @@
                 }
                 $('#structureHeader_NetAmount').val(netAmount.toFixed(2));
                 $('#totalgross').val(TotalGross);
-                var totalforemployer=parseFloat(TotalGross)+parseFloat(employercon);
-                $('#totalforemployer').val(parseFloat(totalforemployer));
+				var totalforemployer = parseFloat(TotalGross) + parseFloat(employercon);
+				$('#totalforemployer').val(parseFloat(totalforemployer).toFixed(2));
                 var statuatoryamount=parseFloat(employercon)+parseFloat(employeeval);
                 $('#statuatorydeductions').val(statuatoryamount);
 
@@ -978,8 +981,8 @@
             if (isNaN(totalforemployer)) {
                 totalforemployer = 0;
             }
-            var statuatoryamount=parseFloat(employercontribution)+parseFloat(_totalDeductions);
-            $('#totalforemployer').val(totalforemployer);
+			var statuatoryamount = parseFloat(employercontribution) + parseFloat(_totalDeductions);
+			$('#totalforemployer').val(parseFloat(totalforemployer).toFixed(2));
             $('#statuatorydeductions').val(statuatoryamount);
            
 
@@ -1048,7 +1051,7 @@
                 $('#structureHeader_NetAmount').val(amount);
                 $('#totalgross').val(totalgross);
                 var totalforemployer = totalgross+ parseFloat(employercon);
-                $('#totalforemployer').val(totalforemployer);
+				$('#totalforemployer').val(parseFloat(totalforemployer).toFixed(2));
                 var statuatoryamount=parseFloat(employercon)+parseFloat(employeeval);
                 $('#statuatoryamount').val(statuatoryamount);
 

@@ -15,85 +15,86 @@
                     <div class="panel-heading">
                         Contribution registers
                     </div>
-                    <div class="panel-body">
-                        @Html.HiddenFor(x => x.ContributionId)
-                        @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
-                        {
-                        <div class="row">
-                            <label class="col-md-2 control-label">
-                                    <span class="pull-right">Branch</span>
-                                </label>
-                                <div class="col-md-8">
-                                    @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm" })
-                                </div>
-                            </div>
+					<div class="panel-body">
+						@Html.HiddenFor(x => x.ContributionId)
+						@if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+						{
+							<div class="row">
+								<label class="col-md-2 control-label">
+									<span class="pull-right">Branch</span>
+								</label>
+								<div class="col-md-8">
+									@Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm" })
+								</div>
+							</div>
 
-                        }
-                        else
-                        {
-                            @Html.HiddenFor(x => x.BranchId)
-                        }
+						}
+						else
+						{
+							@Html.HiddenFor(x => x.BranchId)
+						}
 
-                        <div class="row">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Name</span>
-                            </label>
-                                <div class="col-md-4">
-                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm uppercase" })
-                                </div>
-                        </div>
-                        <div class="row css5">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Register Code</span>
-                            </label>
-                            @{
-                                var ContributionRegister = SelectListItemHelper.Deductions();
-                            }
-                            @if (Model.ContributionId != 0)
-                            {
-                                <div class="col-md-4">
-                                    @Html.DropDownListFor(x => x.RegisterCode,
-                                                                    new SelectList(ContributionRegister,
-                                                                    "Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm"})
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="col-md-4">
-                                    @Html.DropDownListFor(x => x.RegisterCode,
-                                                                    new SelectList(ContributionRegister,
-                                                                    "Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm", onchange = "checkComponent(this)" })
-                                    <label id="error">Salary Component Already Exists.</label>
-                                </div>
-                            }
-                            
-                        </div>
-                        <div class="row css5">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Description</span>
-                            </label>
-                            <div class="col-md-4">
-                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control input-sm uppercase" })
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Sort Order</span>
-                            </label>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(x => x.SortBy, new { @class = "form-control input-sm numCss" })
-                            </div>
-                        </div>
-                        <div class="row css10">
-                            <div class="form-group ">
-                                <div class="col-md-6"></div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-primary btn-sm" onclick="ContributionSave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
-                                    <button class="btn btn-primary btn-sm ajaxCss" type="reset" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegisterList/")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+						<div class="row">
+							<label class="col-md-2 control-label">
+								<span class="pull-right">Code</span>
+							</label>
+							<div class="col-md-4">
+								@Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm uppercase" })
+							</div>
+						</div>
+
+						<div class="row css5">
+							<label class="col-md-2 control-label">
+								<span class="pull-right">Title</span>
+							</label>
+							<div class="col-md-4">
+								@Html.TextAreaFor(x => x.Description, new { @class = "form-control input-sm uppercase" })
+							</div>
+						</div>
+						<div class="row css5">
+							<label class="col-md-2 control-label">
+								<span class="pull-right">Component Group</span>
+							</label>
+							@{
+								var ContributionRegister = SelectListItemHelper.Deductions();
+							}
+							@if (Model.ContributionId != 0)
+							{
+								<div class="col-md-4">
+									@Html.DropDownListFor(x => x.RegisterCode,
+																	new SelectList(ContributionRegister,
+																	"Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm"})
+								</div>
+							}
+							else
+							{
+								<div class="col-md-4">
+									@Html.DropDownListFor(x => x.RegisterCode,
+																	new SelectList(ContributionRegister,
+																	"Value", "Text", Model.RegisterCode), "", new { @class = "form-control input-sm", onchange = "checkComponent(this)" })
+									<label id="error">Salary Component Already Exists.</label>
+								</div>
+							}
+
+						</div>
+						<div class="row css5">
+							<label class="col-md-2 control-label">
+								<span class="pull-right">Sort Order</span>
+							</label>
+							<div class="col-md-4">
+								@Html.TextBoxFor(x => x.SortBy, new { @class = "form-control input-sm numCss" })
+							</div>
+						</div>
+						<div class="row css10">
+							<div class="form-group ">
+								<div class="col-md-6"></div>
+								<div class="col-md-4">
+									<button class="btn btn-primary btn-sm" onclick="ContributionSave()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+									<button class="btn btn-primary btn-sm ajaxCss" type="reset" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegisterList/")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
+								</div>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
         </div>

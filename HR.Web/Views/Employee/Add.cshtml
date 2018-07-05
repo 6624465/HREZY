@@ -354,7 +354,7 @@ new
                         <div class="row">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
-                                    <span>Designation</span>
+                                    <span>Job Title</span>
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
@@ -434,23 +434,25 @@ new
                             </div>
                         </div>
                         <div class="row css5">
-                            <div class="form-group" style="white-space:nowrap">
+							<div class="form-group" style="white-space:nowrap">
 
-                                <label class="col-md-2 control-label">
-                                    <span>Reporting To</span>
-                                </label>
-                                <div class="col-md-1" style="margin-top:10px">
-                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
+								<label class="col-md-2 control-label">
+									<span>Reporting To</span>
+								</label>
 
-                                </div>
-                                <div id="isReportingTo">
-
-                                    <div class="col-md-9">
-                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
+								<div id="isReportingTo">
+									<div class="col-md-6">
+										@Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
  new { @class = "form-control input-sm" })
-                                    </div>
-                                </div>
-                            </div>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<label class="col-md-2 control-label"><span>Authorize</span></label>
+								</div>
+								<div class="col-md-1 pull-left" style="margin-top:10px">
+								@Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
+								</div>
+							</div>
                         </div>
                         <div class="row css5">
                             <div class="form-group">

@@ -1005,8 +1005,11 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("EpfNo", payslipHeader.EPFNO == null ? "" : payslipHeader.EPFNO.ToString());
                     pdfFormFields.SetField("PayeNo", "");
                     pdfFormFields.SetField("Location", payslipHeader.CountryName);
-                    pdfFormFields.SetField("Total", (TotalSalary + SatuatorypayEmployer).ToString());
+					pdfFormFields.SetField("TotalDesc", "Total Deductions Employer");
+					pdfFormFields.SetField("Total", (TotalSalary + SatuatorypayEmployer).ToString());
+					pdfFormFields.SetField("Total1Desc", "Total Deductions Employee");
                     pdfFormFields.SetField("Total1", (TotalDeductions + SatuatorypayEmployee).ToString());
+					pdfFormFields.SetField("DeductNetPayDesc", "NetPay");
                     pdfFormFields.SetField("NetPay", ((TotalSalary) - (TotalDeductions + SatuatorypayEmployee)).ToString());
                     //for (int i = 0; i < payslipDetail.Count; i++)
                     //{
@@ -1072,7 +1075,7 @@ namespace HR.Web.Controllers
                         
                     }
                     temp=temp+2;
-                    pdfFormFields.SetField("Desc" + temp, "SATUATORY PAYMENTS");
+                    pdfFormFields.SetField("Desc" + temp, "STATUTORY PAYMENTS");
                     temp++;
                     for (int i = 0; i < payslipDetail.Count; i++)
                     {
@@ -1083,8 +1086,8 @@ namespace HR.Web.Controllers
                             temp++;
                         }
                     }
-                    pdfFormFields.SetField("Desc" + temp, "Total Deductions Employer");
-                    pdfFormFields.SetField("Item" + temp, SatuatorypayEmployer.ToString());
+                    pdfFormFields.SetField("Desc14", "Total statutory Payments");
+                    pdfFormFields.SetField("Item14", SatuatorypayEmployer.ToString());
 
                     int j = 0;
 
@@ -1101,7 +1104,7 @@ namespace HR.Web.Controllers
                    j++;
                     //var bold = "bold:true";
                     //pdfFormFields.SetFieldProperty("Deduct" + j, "textfont", bold, null);
-                    pdfFormFields.SetField("Deduct" + j, "SATUATORY DEDUCTIONS");
+                    pdfFormFields.SetField("Deduct" + j, "STATUTORY DEDUCTIONS");
                     j++;
                     for (int i = 0; i < payslipDetail.Count; i++)
                     {
@@ -1112,8 +1115,8 @@ namespace HR.Web.Controllers
                             j++;
                         }
                     }
-                    pdfFormFields.SetField("Deduct" + j, "Total Deductions Employee");
-                    pdfFormFields.SetField("Amount" + j, SatuatorypayEmployee.ToString());
+                    pdfFormFields.SetField("Deduct14", "Total statutory Deductions");
+                    pdfFormFields.SetField("Amount14", SatuatorypayEmployee.ToString());
 
                 }
             }

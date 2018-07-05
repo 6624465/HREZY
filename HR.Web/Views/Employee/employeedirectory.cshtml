@@ -73,12 +73,12 @@
                         <div class="row css10">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">
-                                    <span class="pull-right">Designation</span>
+                                    <span class="pull-right">Job Title</span>
                                 </label>
                                 <div class="col-md-3">
                                     @Html.DropDownListFor(x => x.empSearch.Designation,
                              SelectListItemHelper.Designation((int)ViewData["BranchId"]),
-                             "Select Designation",
+                             "Select Job Title",
                              new { @class = "form-control input-sm" })
                                 </div>
                                 <label class="col-md-1 control-label">

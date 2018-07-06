@@ -1,149 +1,162 @@
 ﻿@model HR.Web.ViewModels.UpdateVariablePayVm
 
+
+@section Styles {
+	<style type="text/css">
+		.width {
+			width: 60%;
+		}
+	</style>
+
+}
+
 @using (Html.BeginForm("SaveVariablePaytransaction", "PayrollBatch", FormMethod.Post, new { id = "variablesave", name = "variablesave" }))
 {
-    <div class="page">
-        <div class="page-wrap">
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        UPDATE VARIABLE PAY
-                    </div>
-                    <div class="panel-body">
-                        @Html.HiddenFor(x => x.variablepaymentheader.HeaderID)
-                        <div class="row css5">
+	<div class="page">
+		<div class="page-wrap">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						UPDATE VARIABLE PAY
+					</div>
+					<div class="panel-body">
+						@Html.HiddenFor(x => x.variablepaymentheader.HeaderID)
+						<div class="row css5">
+							<div class="col-md-1">
 
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">TransactionNo</span>
-                            </label>
-                            <div class="col-md-3">
-                                @Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase", disabled="disabled", required = "required" })
-                                @Html.HiddenFor(x=>x.variablepaymentheader.TransactionNo)
-                            </div>
+							</div>
+							<label class="col-md-2 control-label">
+								<span class="pull-right">TransactionNo</span>
+							</label>
+							<div class="col-md-1">
+								@Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase", disabled = "disabled", required = "required" })
+								@Html.HiddenFor(x => x.variablepaymentheader.TransactionNo)
+							</div>
 
-                            <label class="col-md-2 control-label">
-                                <span class="pull-right">Month</span>
-                            </label>
-                            <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm",required="required" })
+							<label class="col-md-1 control-label">
+								<span class="pull-right">Month</span>
+							</label>
+							<div class="col-md-1">
+								@Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", required = "required" })
 
-                            </div>
-                            <label class="col-md-1 control-label">
-                                <span class="pull-right">Year</span>
-                            </label>
-                            <div class="col-md-1 pull-left">
-                                @Html.DropDownListFor(x => x.variablepaymentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", required = "required" })
-                            </div>
-                        </div>
-                        <div class="row css10">
-                            <div class="col-md-12">
-                                @if (Model.Employeetable != null && Model.Employeetable.Count() > 0)
-                                {
-                                    <table class="table table-conden table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th> Employee Name</th>
-                                                <th>Job Title</th>
-                                                <th>
-                                                    Manager Name
-                                                </th>
-                                                <th>
-                                                    #Action
-                                                </th>
-                                            </tr>
-                                        </thead>
+							</div>
+							<label class="col-md-1 control-label">
+								<span class="pull-right">Year</span>
+							</label>
+							<div class="col-md-1 pull-left">
+								@Html.DropDownListFor(x => x.variablepaymentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", required = "required" })
+							</div>
+							<div class="col-md-1">
+								<button type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
+							</div>
+							<div class="col-md-3">
 
-                                        <tbody>
-                                            @for (var i = 0; i < Model.Employeetable.Count; i++)
-                                            {
+							</div>
+						</div>
+						<div class="row css10">
+							<div class="col-md-12">
+								<div class="center-block width">
+									@if (Model.Employeetable != null && Model.Employeetable.Count() > 0)
+									{
+										<table class="table table-conden table-bordered">
+											<thead>
+												<tr>
+													<th> Employee Name</th>
+													<th>Job Title</th>
+													<th>
+														Manager Name
+													</th>
+													<th>
+														#Action
+													</th>
+												</tr>
+											</thead>
 
-                                                <tr>
-                                                    <td>
-                                                        @Model.Employeetable[i].EmployeeName
-                                                    </td>
-                                                    <td>
-                                                        @Model.Employeetable[i].EmployeeDesignation
-                                                    </td>
-                                                    <td>
-                                                        @Model.Employeetable[i].ManagerName
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
-                                                                onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
-                                                            <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                }
-                            </div>
+											<tbody>
+												@for (var i = 0; i < Model.Employeetable.Count; i++)
+												{
 
-                        </div>
-                        
-                            <div class="row css10" style="display:none;">
-                                <div class="col-md-12">
-                                    <table class="table table-conden table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Employee ID</th>
-                                                <th>Component</th>
-                                                <th>Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="tbodyContent">                                           
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        
+													<tr>
+														<td>
+															@Model.Employeetable[i].EmployeeName
+														</td>
+														<td>
+															@Model.Employeetable[i].EmployeeDesignation
+														</td>
+														<td>
+															@Model.Employeetable[i].ManagerName
+														</td>
+														<td>
+															<button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
+																	onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
+																<i class="fa fa-pencil" style="padding-left: 5px;"></i>
+															</button>
+														</td>
+													</tr>
+												}
+											</tbody>
+										</table>
+									}
+								</div>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <button type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="row css10" style="display:none;">
+							<div class="col-md-12">
+								<table class="table table-conden table-bordered">
+									<thead>
+										<tr>
+											<th>Employee ID</th>
+											<th>Component</th>
+											<th>Value</th>
+										</tr>
+									</thead>
+									<tbody class="tbodyContent"></tbody>
+								</table>
+							</div>
+						</div>
+
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 }
 
 <form id="modalfrm" name="modalfrm">
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Variable Pay Edit</h4>
-                    <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body" id="modalContent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="hidden" id="modalEmpID" name="modalEmpID" />
-                            <input type="hidden" id="arrayLength" name="arrayLength" />
-                            <table class="table table-bordered">
-                                <tbody id="tblContent">
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Variable Pay Edit</h4>
+					<button class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+				<div class="modal-body" id="modalContent">
+					<div class="row">
+						<div class="col-md-12">
+							<input type="hidden" id="modalEmpID" name="modalEmpID" />
+							<input type="hidden" id="arrayLength" name="arrayLength" />
+							<table class="table table-bordered">
+								<tbody id="tblContent"></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="btnsave" type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
+				</div>
+			</div>
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>                   
-                </div>
-                <div class="modal-footer">
-                    <button id="btnsave" type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
+		</div>
+	</div>
 </form>
 
 
 
 @section Scripts{
-<script type="text/javascript">
+	<script type="text/javascript">
     $(function () {
         $('#li_Payroll').addClass('open');
         $('#li_updatepay').addClass('active');
@@ -160,7 +173,7 @@
                 return indexed_array;
             }
 
-            function EditVariablePay(Employeeid) {    
+            function EditVariablePay(Employeeid) {
                 $('#tblContent').html('');
                 var isDataExists = $('.trCss_' + Employeeid).length > 0;
                 $('#modalEmpID').val(Employeeid);
@@ -206,7 +219,7 @@
                                     <input type="text" class="form-control input-sm"
                                             value="${data['variablepaymentdetail[' + rowCount + '].Amount']}"
                                             id="variablepaymentdetail_${rowCount}__Amount"
-                                            name="variablepaymentdetail[${rowCount}].Amount" />                                    
+                                            name="variablepaymentdetail[${rowCount}].Amount" />
                                 </td>
                             </tr>
                             `;
@@ -255,7 +268,7 @@
                                     <input type="text" value="${data[i].Amount}" class="form-control input-sm" id="variablepaymentdetail_${i}__Amount" name="variablepaymentdetail[${i}].Amount" />
                                 </td>
                             </tr>
-                            `;                                
+                            `;
                             }
 
                             $('#tblContent').html(modalContent);
@@ -267,8 +280,8 @@
             function SaveChanges() {
                 /*
                 if (true) {//$('#
-                
-                
+
+
                 ').valid()
                     $('#variablesave').attr('action', 'Url.Content("~/PayrollBatch/SaveVariablePay")');
                     $('#variablesave').submit();
@@ -283,19 +296,19 @@
                 var rowCount = $('.trCss').length;
                 if (isDataExists) {
                     /*
-                    var temp = $('#tblContent').html();                    
+                    var temp = $('#tblContent').html();
                     $('.tbodyContent .trCss_' + data.modalEmpID).remove();
                     $('.tbodyContent').append($('#tblContent').html());
                     */
                     debugger;
                     $.each($('.tbodyContent .trCss_' + data.modalEmpID), function (index, item) {
-                        var rowIndex = $(item).data('index');                        
+                        var rowIndex = $(item).data('index');
                         $('#variablepaymentdetail_' + rowIndex + '__Amount').val(data['variablepaymentdetail[' + rowIndex + '].Amount']);
                     });
                 } else {
                     var trContent = '';
                     for (var i = 0; i < dataLength; i++) {
-                        
+
                         trContent +=
                             `<tr data-index="${rowCount}" id="tr_${rowCount}" class="trCss trCss_${data.modalEmpID}">
                                 <td>
@@ -324,11 +337,11 @@
                                     <input type="text" class="form-control input-sm"
                                             value="${data['variablepaymentdetail[' + i + '].Amount']}"
                                             id="variablepaymentdetail_${rowCount}__Amount"
-                                            name="variablepaymentdetail[${rowCount}].Amount" />                                    
+                                            name="variablepaymentdetail[${rowCount}].Amount" />
                                 </td>
                             </tr>
                             `;
-                        rowCount++;                        
+                        rowCount++;
                     }
 
                     $('.tbodyContent').append(trContent);
@@ -357,7 +370,7 @@
                 else {
                     swal("Incorrect Inputs");
                 }
-               
+
             @*if ($('#variablesave').valid()) {
                 $('#variablesave').attr('action', '@Url.Content("~/PayrollBatch/SaveVariablePaytransaction")');
                 $('#variablesave').submit();
@@ -377,7 +390,7 @@
                     })
             }*@
         }
-</script>
+	</script>
 
 }
 

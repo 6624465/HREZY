@@ -952,13 +952,13 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="SalaryStructureDetails" EntityType="DB_9F30C5_HRDBModel.SalaryStructureDetail" />
-          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
           <FunctionImport Name="usp_EmployeePaySlipDetailTH" ReturnType="Collection(DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
             <Parameter Name="Month" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
           
        
         </EntityContainer>
@@ -1839,6 +1839,12 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="IsVariablePay" Type="Boolean" Nullable="false" />
           <Property Name="IsSatuatoryPay" Type="Boolean" Nullable="false" />
         </EntityType>
+        <ComplexType Name="usp_EmployeePaySlipDetailTH_Result">
+          <Property Type="String" Name="RegisterCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ContributionCode" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="IsSatuatoryPay" Nullable="true" />
+        </ComplexType>
         <EntityType Name="TaxAssessmentDetail">
           <Key>
             <PropertyRef Name="ID" />
@@ -1854,12 +1860,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
-        <ComplexType Name="usp_EmployeePaySlipDetailTH_Result">
-          <Property Type="String" Name="RegisterCode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ContributionCode" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="IsSatuatoryPay" Nullable="true" />
-        </ComplexType>
   
       
       </Schema>
@@ -2845,6 +2845,16 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipDetailTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipDetailTH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result">
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
+                <ScalarProperty Name="ContributionCode" ColumnName="ContributionCode" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="IsSatuatoryPay" ColumnName="IsSatuatoryPay" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="TaxAssessmentDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
               <MappingFragment StoreEntitySet="TaxAssessmentDetail">
@@ -2861,16 +2871,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_EmployeePaySlipDetailTH" FunctionName="DB_9F30C5_HRDBModel.Store.usp_EmployeePaySlipDetailTH">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.usp_EmployeePaySlipDetailTH_Result">
-                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
-                <ScalarProperty Name="ContributionCode" ColumnName="ContributionCode" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="IsSatuatoryPay" ColumnName="IsSatuatoryPay" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           
           
           

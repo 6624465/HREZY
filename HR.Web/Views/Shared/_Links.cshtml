@@ -154,21 +154,22 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <span class="text">Leave</span>
                 <i class="arrow ion-chevron-left"></i>
             </a>
-            <ul class="inner-drop list-unstyled">
-                <li id="li_appliedleavelist"><a class="ajaxCss" href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
-                <li id="li_Leavepolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/Leave")">Set Leave Policy</a></li>
-                <li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">Set Holidays</a></li>
-              
-                @*<li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>*@
-                @*<li id="li_emprequestleave"><a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>*@
-                @*<li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>*@
-                <li id="li_weekendpolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/WeekendPolicyList")">Set Weekend Policy</a></li>
-                <li id="li_grantleaveform">
-                    <a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">
-                     Grant Leave Form
-                    </a>
-                </li>
-            </ul>
+			<ul class="inner-drop list-unstyled">
+				<li id="li_grantleaveform">
+					<a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">
+						Grant Leave Form
+					</a>
+				</li>
+				<li id="li_appliedleavelist"><a class="ajaxCss" href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+				<li id="li_Leavepolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/Leave")">Set Leave Policy</a></li>
+				<li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">Set Holidays</a></li>
+
+				@*<li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>*@
+				@*<li id="li_emprequestleave"><a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>*@
+				@*<li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>*@
+				<li id="li_weekendpolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/WeekendPolicyList")">Set Weekend Policy</a></li>
+
+			</ul>
         </li>
 
         <li id="li_claims">
@@ -178,8 +179,8 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <i class="arrow ion-chevron-left"></i>
             </a>
             <ul class="inner-drop list-unstyled">
-                <li id="li_TravelClaim"><a class="ajaxCss" href="@Url.Content("~/PayRoll/ProcessTravelClaim")">Submitted Claims List</a></li>
-                <li id="li_Approvedlist"><a class="ajaxCss" href="@Url.Content("~/PayRoll/ApprovedClaimsList")">Approved Claims List</a></li>
+                <li id="li_TravelClaim"><a class="ajaxCss" href="@Url.Content("~/PayRoll/ProcessTravelClaim")">Submitted Claims</a></li>
+                <li id="li_Approvedlist"><a class="ajaxCss" href="@Url.Content("~/PayRoll/ApprovedClaimsList")">Approved Claims</a></li>
             </ul>
         </li>
 

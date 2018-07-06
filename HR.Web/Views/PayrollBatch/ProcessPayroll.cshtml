@@ -441,13 +441,13 @@ new SelectListItem {Text = "December", Value = "12"}
         //    $('#processpayrolllist').submit();
         //}
         function getprocesslist() {
-            debugger;
             var month = $('#payslipBatchHeader_Month').val();
             var year = $('#payslipBatchHeader_Year').val();
 
 
             $('#currentmonth').val(month);
-            $('#currentyear').val(year);
+			$('#currentyear').val(year);
+
             $('#frm2').submit();
             $.loader({
                 className: "blue-with-image-2",

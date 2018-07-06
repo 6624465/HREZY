@@ -4,7 +4,7 @@
 @section Styles {
 	<style type="text/css">
 		.width {
-			width: 60%;
+			width: 80%;
 		}
 	</style>
 
@@ -28,7 +28,7 @@
 							<label class="col-md-2 control-label">
 								<span class="pull-right">TransactionNo</span>
 							</label>
-							<div class="col-md-1">
+							<div class="col-md-2">
 								@Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase", disabled = "disabled", required = "required" })
 								@Html.HiddenFor(x => x.variablepaymentheader.TransactionNo)
 							</div>
@@ -48,9 +48,6 @@
 							</div>
 							<div class="col-md-1">
 								<button type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
-							</div>
-							<div class="col-md-3">
-
 							</div>
 						</div>
 						<div class="row css10">

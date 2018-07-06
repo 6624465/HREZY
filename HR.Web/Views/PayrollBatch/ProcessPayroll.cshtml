@@ -137,7 +137,7 @@ new SelectListItem {Text = "December", Value = "12"}
                             <div class="col-md-5">
                                 @if (!ispaySlip)
                                 {
-                                    <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslist()"><b>Process</b></button>
+                                    <button type="button" class="btn btn-sm btn-primary" id="button-btn" onclick="getprocesslistwithalert()"><b>Process</b></button>
                                     <script type="text/javascript">
                                         $(function () {
                                             $('#payslipBatchHeader_TotalSalary').val('');
@@ -442,29 +442,10 @@ new SelectListItem {Text = "December", Value = "12"}
         //}
         function getprocesslist() {
             var month = $('#payslipBatchHeader_Month').val();
-            var year = $('#payslipBatchHeader_Year').val();
-
-
-            $('#currentmonth').val(month);
+			var year = $('#payslipBatchHeader_Year').val();
+			$('#currentmonth').val(month);
 			$('#currentyear').val(year);
-
-            $('#frm2').submit();
-            $.loader({
-                className: "blue-with-image-2",
-                content: '',
-            });
-
-            @*$.ajax({
-                url: '@Url.Content("~/PayrollBatch/ProcessPayrollGeneration?currentmonth=")' + month + '&currentyear=' + year,
-                contentType: 'application/json',
-                method: 'Post',
-                success: function (data) {
-                    debugger;
-                },
-                error:function (err){
-
-                }
-            });*@
+			$('#frm2').submit();
         }
         function ConfirmProcess() {
             debugger
@@ -529,7 +510,6 @@ new SelectListItem {Text = "December", Value = "12"}
                             closeOnConfirm: true,
                             confirmButtonText: "Ok",
                             confirmButtonClass: "btn-primary",
-                            timer: 5000
                         })
                     }
 
@@ -539,7 +519,33 @@ new SelectListItem {Text = "December", Value = "12"}
                 }
 
             });
-        }
+		}
+		function getprocesslistwithalert() {
+
+			  var month = $('#payslipBatchHeader_Month').val();
+			var year = $('#payslipBatchHeader_Year').val();
+			$('#currentmonth').val(month);
+			$('#currentyear').val(year);
+	
+			swal({
+					title: "Caution!",
+					text: "Please Update the Variable Pay Before You Confirm",
+					type: "warning",
+					showCancelButton: true,
+					closeOnConfirm: false,
+					confirmButtonText: "Update",
+					confirmButtonClass: "btn-Success",
+				},
+					function (isConfirm) {
+						if (isConfirm) {
+							location.href = '@Url.Content("~/PayrollBatch/UpdateVariablePay")';
+						}
+						else {
+							$('#frm2').submit();
+						}
+					});
+      
+		}
 
         //$("#button-btn").click(function () {
         //    $("#dtid").show();

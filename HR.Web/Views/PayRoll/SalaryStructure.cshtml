@@ -798,7 +798,8 @@
             validateDeductAmount(obj,0,code);
             
         }
-        function validateAmount(el, index,code) {
+		function validateAmount(el, index, code) {
+			debugger;
             code= $('#structureSalaryPaymentDetail_'+index+'__RegisterCode').val();
             var rowCount=$('.trCssSalaryPayment').length;
             var TotalGross=0;
@@ -901,7 +902,8 @@
 
         }
 
-        function validateDeductAmount(el, index,code){
+		function validateDeductAmount(el, index, code) {
+			debugger;
             var rowCount=$('.trCssEmployeeContribution').length;
             var netAmount=0;
             
@@ -928,25 +930,59 @@
                 var percentagecal = totalGross-totalnonapplicable;
 
 
-                var total = $('#structureEmployeeContributionDetail_' + i + '__Amount').val();
+				var total = $('#structureEmployeeContributionDetail_' + i + '__Amount').val();
+			
+				var incentivetax = $('#structureEmployerContributionDetail_' + 0 + '__ComputationCode').val() == "AMOUNT" ?
+					$('#structureEmployerContributionDetail_' + 0 + '__Amount').val() : $('#structureEmployerContributionDetail_' + 0 + '__Total').val() ;
+
+				//var rowCount = $('.trCssEmployerContribution').length;
+				//for (var i = 0; i <= rowCount; i++) {
+				//	if ((($('#structureEmployerContributionDetail_' + i + '__Code').val()) == "INCENTIVE") &&
+				//		(($('#structureEmployerContributionDetail_' + i + '__ComputationCode').val()) != "PERCENTAGE")) {
+				//		 incentivetax = $('#structureEmployerContributionDetail_' + i + '__Amount').val();
+				//	}
+				//	else if ((($('#structureEmployerContributionDetail_' + i + '__Code').val()) == "INCENTIVE") &&
+				//		(($('#structureEmployerContributionDetail_' + i + '__ComputationCode').val()) == "PERCENTAGE")) {
+
+				//		 incentivetax = $('#structureEmployerContributionDetail_' + i + '__Total').val();
+				//	}
+				//}
                 if(total!="")
                     total=parseFloat(total).toFixed(2);
-                var ComputationCode = $('#structureEmployeeContributionDetail_' + i + '__ComputationCode').val();
-                if (ComputationCode == percentage) {
+				var ComputationCode = $('#structureEmployeeContributionDetail_' + i + '__ComputationCode').val();
+				var computationincentive = $('#structureEmployeeContributionDetail_' + i + '__Code').val();
+				var percentageincentive = $('#structureEmployeeContributionDetail_' + i + '__Amount').val();
+				if (ComputationCode == percentage && computationincentive == "INCENTIVE-EE") {
+				
+					if (total > 100) {
+						$('#structureEmployeeContributionDetail_' + i + '__Amount').val('');
+						swal({
+							title: "Alert!",
+							text: "Percentage value should be less than 100",
+							type: "warning"
+						});
+						return;
+					}
+					var grandTotal = (percentageincentive * incentivetax) / 100;
+					grandTotal = parseFloat(grandTotal).toFixed(2);
+					$('#structureEmployeeContributionDetail_' + i + '__Total').val(grandTotal);
 
-                    if(total>100){
-                        $('#structureEmployeeContributionDetail_' + i + '__Amount').val('');
-                        swal({
-                            title: "Alert!",
-                            text: "Percentage value should be less than 100",
-                            type: "warning"
-                        });
-                        return;
-                    }
-                    var grandTotal=(percentagecal * total)/100;
-                    grandTotal=parseFloat(grandTotal).toFixed(2);
-                    $('#structureEmployeeContributionDetail_' + i + '__Total').val(grandTotal);
-                }else{
+				}
+				else if (ComputationCode == percentage && computationincentive != "INCENTIVE-EE") {
+					if (total > 100) {
+						$('#structureEmployeeContributionDetail_' + i + '__Amount').val('');
+						swal({
+							title: "Alert!",
+							text: "Percentage value should be less than 100",
+							type: "warning"
+						});
+						return;
+					}
+					var grandTotal = (percentagecal * total) / 100;
+					grandTotal = parseFloat(grandTotal).toFixed(2);
+					$('#structureEmployeeContributionDetail_' + i + '__Total').val(grandTotal);
+				}
+				else {
                     $('#structureEmployeeContributionDetail_' + i + '__Total').val(total);
                 }
 
@@ -988,7 +1024,8 @@
 
         }
 
-        function validateTaxAmount(obj,index,code){
+		function validateTaxAmount(obj, index, code) {
+			debugger;
             var rowCount=$('.trCssEmployerContribution').length;
             var netAmount=0;
             var employeeval=$('#structureHeader_TotalDeductions').val();

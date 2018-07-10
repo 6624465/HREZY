@@ -201,27 +201,52 @@ namespace HR.Web.Controllers
             try
             {
                 branchBO.SaveBranch(branchVm, addressVm);
-                //var list = contributionBO.GetListByProperty(x => (x.BranchId == branchVm.branch.BranchID) && (x.Name==UTILITY.BASICSALARYCOMPONENT)).ToList();
-                //var count = list.Count();
-                //if (count == 0)
-                //{
-                //    Contribution contribution = new Contribution
-                //    {
-                //        Name = UTILITY.BASICSALARYCOMPONENT,
-                //        Description = UTILITY.BASICSALARYCOMPONENT,
-                //        IsActive = true,
-                //        CreatedBy = SESSIONOBJ.USERID,
-                //        CreatedOn = UTILITY.SINGAPORETIME,
-                //        RegisterCode = "PAYMENTS",
-                //        BranchId = branchVm.branch.BranchID,
-                //        SortBy = -1
-                //    };
-                //    contributionBO.Add(contribution);
+				var list = contributionBO.GetListByProperty(x => x.BranchId == branchVm.branch.BranchID).ToList();
+				var count = list.Count();
+				if (count == 0)
+				{
+					Contribution contribution = new Contribution
+					{
+						Name = UTILITY.BASICSALARYCOMPONENT,
+						Description = UTILITY.BASICSALARYCOMPONENT,
+						IsActive = true,
+						CreatedBy = SESSIONOBJ.USERID,
+						CreatedOn = UTILITY.SINGAPORETIME,
+						RegisterCode = "BASIC SALARY",
+						BranchId = branchVm.branch.BranchID,
+						SortBy = -1
+					};
+					contributionBO.Add(contribution);
 
-                //}
+					Contribution contribution1 = new Contribution
+					{
+						Name = UTILITY.INCENTIVEEMPLOYERCONTRIBUTION,
+						Description = UTILITY.INCENTIVEEMPLOYERCONTRIBUTION,
+						IsActive = true,
+						CreatedBy = SESSIONOBJ.USERID,
+						CreatedOn = UTILITY.SINGAPORETIME,
+						RegisterCode = "EMPLOYER CONTRIBUTION",
+						BranchId = branchVm.branch.BranchID,
+						SortBy = 0
+					};
+					contributionBO.Add(contribution1);
+
+					Contribution contribution2 = new Contribution
+					{
+						Name = UTILITY.INCENTIVEEMPLOYEECONTRIBUTION,
+						Description = UTILITY.INCENTIVEEMPLOYEECONTRIBUTION,
+						IsActive = true,
+						CreatedBy = SESSIONOBJ.USERID,
+						CreatedOn = UTILITY.SINGAPORETIME,
+						RegisterCode = "EMPLOYEE CONTRIBUTION",
+						BranchId = branchVm.branch.BranchID,
+						SortBy = 0
+					};
+					contributionBO.Add(contribution2);
+				}
 
 
-            }
+			}
             catch (Exception ex)
             {
 

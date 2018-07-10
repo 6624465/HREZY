@@ -108,9 +108,11 @@ namespace HR.Web
         public static int MEDICALTREATMENTLEAVE = 2489;
         public static int DOCUMENTTYPEID = 1112;
         public static string BASICSALARYCOMPONENT = "BASIC";
+		public static string INCENTIVEEMPLOYERCONTRIBUTION = "INCENTIVE";
+		public static string INCENTIVEEMPLOYEECONTRIBUTION = "INCENTIVE-EE";
 
-        // Travel Claim Categories
-        public const string AIRFARE = "AIRFARE";
+		// Travel Claim Categories
+		public const string AIRFARE = "AIRFARE";
         public const string VISA = "VISA";
         public const string ACCOMMODATION = "ACCOMMODATION";
         public const string TAXILOCAL = "TAXILOCAL";

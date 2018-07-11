@@ -246,7 +246,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-													<td></td>
+													<td><input type="hidden" id="totalnonapplicablevalueForEmployer" /></td>
                                                     <td style="text-align:right;">Total-B</td>
                                                     <td>@Html.TextBoxFor(x => x.structureHeader.EmpContribution, new { @class = "form-control input-sm decimalCss", @readonly = "readonly" })</td>
                                                 </tr>
@@ -322,7 +322,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-													<td></td>
+													<td><input type="hidden" id="totalnonapplicablevalueForEmployee" /></td>
 											
                                                     <td style="text-align:right;">Total-C</td>
                                                     <td>
@@ -799,18 +799,23 @@
             
         }
 		function validateAmount(el, index, code) {
-			debugger;
             code= $('#structureSalaryPaymentDetail_'+index+'__RegisterCode').val();
             var rowCount=$('.trCssSalaryPayment').length;
             var TotalGross=0;
             var employeeval=$('#structureHeader_TotalDeductions').val();
-            var employercon = $('#structureHeader_EmpContribution').val();
+			var employercon = $('#structureHeader_EmpContribution').val();
+			var totalnonapplicable = $('#totalnonapplicablevalue').val();
+			var totalnonapplicableEmployer = $('#totalnonapplicablevalueForEmployer').val();
+			var totalnonapplicableEmployee = $('#totalnonapplicablevalueForEmployee').val();
             for(var i=0; i<rowCount;i++){
                 code= $('#structureSalaryPaymentDetail_'+i+'__RegisterCode').val();
                 var basicAmount=$('#structureSalaryPaymentDetail_' + 0 + '__Amount').val();
 
                 if(index == 0 && basicAmount!=""){
-                    basicAmount =parseFloat(basicAmount).toFixed(2);
+					basicAmount = parseFloat(basicAmount).toFixed(2);
+					totalnonapplicable = parseFloat(totalnonapplicable).toFixed(2);
+					totalnonapplicableEmployer = parseFloat(totalnonapplicableEmployer).toFixed(2);
+					totalnonapplicableEmployee = parseFloat(totalnonapplicableEmployee).toFixed(2);
                     $('#structureSalaryPaymentDetail_' + 0 + '__Total').val(basicAmount);
                 }
 
@@ -854,10 +859,10 @@
                 var currentValue=$('#structureSalaryPaymentDetail_' + i + '__Total').val();
                 if(currentValue!="" && currentValue!=null){
                     if(code !="EMPLOYEE DEDUCTION")
-                        TotalGross = parseFloat(TotalGross)+ parseFloat(currentValue);
+						TotalGross = parseFloat(TotalGross) + parseFloat(currentValue);
                     else{
                         if(TotalGross!=0)
-                            TotalGross = parseFloat(TotalGross) + parseFloat(currentValue);
+							TotalGross = parseFloat(TotalGross) + parseFloat(currentValue);
                         else
                             TotalGross =parseFloat(currentValue);
                     }
@@ -870,7 +875,7 @@
                 var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
                 var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
                 var netAmount=0;
-                netAmount=parseFloat(_totalGross) - parseFloat(_totalDeductions)-parseFloat(employeeval);
+				netAmount = parseFloat(_totalGross) - parseFloat(_totalDeductions) - parseFloat(employeeval) + parseFloat(totalnonapplicableEmployee) - parseFloat(totalnonapplicable);
                 if (isNaN(netAmount)) {
                     netAmount = 0;
                 }
@@ -903,10 +908,21 @@
         }
 
 		function validateDeductAmount(el, index, code) {
-			debugger;
+		
             var rowCount=$('.trCssEmployeeContribution').length;
             var netAmount=0;
-            
+			var NotapplicableAmountForEmployeecontribution = 0;
+			for (var i = 0; i < rowCount; i++) {
+
+				var computecode = $('#structureEmployeeContributionDetail_' + i + '__ComputationCode').val();
+
+				if (computecode == "NA") {
+					var Amount = parseFloat($('#structureEmployeeContributionDetail_' + i + '__Amount').val());
+
+					NotapplicableAmountForEmployeecontribution += Amount;
+				}
+				$('#totalnonapplicablevalueForEmployee').val(NotapplicableAmountForEmployeecontribution);
+			}
             for(var i=0; i<rowCount;i++){
 
                 code=$('#structureEmployeeContributionDetail_'+i+'__RegisterCode').val();
@@ -920,10 +936,14 @@
                     $('#structureSalaryPaymentDetail_' + 0 + '__Total').val(basicAmount);
                 }
                 var totalGross=$('#structureHeader_TotalGross').val();
-                var totalnonapplicable = $('#totalnonapplicablevalue').val();
+				var totalnonapplicable = $('#totalnonapplicablevalue').val();
+				var totalnonapplicableEmployer = $('#totalnonapplicablevalueForEmployer').val();
+				var totalnonapplicableEmployee = $('#totalnonapplicablevalueForEmployee').val();
                 if(index == 0 && totalGross!=""){
                     totalGross =parseFloat(totalGross).toFixed(2);
-                    totalnonapplicable =parseFloat(totalnonapplicable).toFixed(2);
+					totalnonapplicable = parseFloat(totalnonapplicable).toFixed(2);
+					totalnonapplicableEmployer = parseFloat(totalnonapplicableEmployer).toFixed(2);
+					totalnonapplicableEmployee = parseFloat(totalnonapplicableEmployee).toFixed(2);
 
                     //$('#structureEmployerContributionDetail_' + 0 + '__Total').val(totalGross);
                 }
@@ -990,24 +1010,26 @@
                 var currentValue=$('#structureEmployeeContributionDetail_' + i + '__Total').val() == "" ? 0 :$('#structureEmployeeContributionDetail_' + i + '__Total').val();
 
                 if(code !="EMPLOYEE DEDUCTION")
-                    netAmount = parseFloat(netAmount)+ parseFloat(currentValue);
+					netAmount = parseFloat(netAmount) + parseFloat(currentValue);
                 else
                 {
-                    netAmount = parseFloat(netAmount) - parseFloat(currentValue);
-                    var currentVal=  $('#structureEmployeeContributionDetail_' + i + '__Total').val();
-                    if(currentVal!="" && currentVal !=null && currentVal>0)
-                        currentValue =0- parseFloat(currentValue).toFixed(2);
-                    $('#structureEmployeeContributionDetail_' + i + '__Total').val(currentValue);
+					netAmount = parseFloat(netAmount) - parseFloat(currentValue) + parseFloat(totalnonapplicableEmployee) - parseFloat(totalnonapplicable);
+                    //var currentVal=  $('#structureEmployeeContributionDetail_' + i + '__Total').val();
+                    //if(currentVal!="" && currentVal !=null && currentVal>0)
+                    //    currentValue =0- parseFloat(currentValue).toFixed(2);
+                    //$('#structureEmployeeContributionDetail_' + i + '__Total').val(currentValue);
                 }
 
                 netAmount=netAmount.toFixed(2);
                 $('#structureHeader_TotalDeductions').val(netAmount);
 
-            }
+			}
+			
             var _totalGross= $('#structureHeader_TotalGross').val() == "" ? 0 :  $('#structureHeader_TotalGross').val();
             var _totalDeductions= $('#structureHeader_TotalDeductions').val()== "" ? 0 : $('#structureHeader_TotalDeductions').val();
 
-            netAmount=parseFloat(totaladd) - parseFloat(_totalDeductions);
+		
+			netAmount = parseFloat(totaladd) - parseFloat(_totalDeductions) + parseFloat(totalnonapplicableEmployee) - parseFloat(totalnonapplicable);
             if (isNaN(netAmount)) {
                 netAmount = 0;
             }
@@ -1025,8 +1047,20 @@
         }
 
 		function validateTaxAmount(obj, index, code) {
-			debugger;
-            var rowCount=$('.trCssEmployerContribution').length;
+		
+			var rowCount = $('.trCssEmployerContribution').length;
+			var NotapplicableAmountForEmployercontribution = 0;
+			for (var i = 0; i < rowCount; i++) {
+
+				var computecode = $('#structureEmployerContributionDetail_' + i + '__ComputationCode').val();
+
+				if (computecode == "NA") {
+					var Amount = parseFloat($('#structureEmployerContributionDetail_' + i + '__Amount').val());
+
+					NotapplicableAmountForEmployercontribution += Amount;
+				}
+				$('#totalnonapplicablevalueForEmployer').val(NotapplicableAmountForEmployercontribution);
+			}
             var netAmount=0;
             var employeeval=$('#structureHeader_TotalDeductions').val();
             var employercon = $('#structureHeader_EmpContribution').val();
@@ -1035,11 +1069,14 @@
                 code=$('#structureEmployerContributionDetail_'+i+'__RegisterCode').val();
 
                 var totalGross=$('#structureHeader_TotalGross').val();
-                var totalnonapplicable = $('#totalnonapplicablevalue').val();
+				var totalnonapplicable = $('#totalnonapplicablevalue').val();
+				var totalnonapplicableEmployer = $('#totalnonapplicablevalueForEmployer').val();
+				var totalnonapplicableEmployee = $('#totalnonapplicablevalueForEmployee').val();
                 if(index == 0 && totalGross!=""){
                     totalGross =parseFloat(totalGross).toFixed(2);
                     totalnonapplicable =parseFloat(totalnonapplicable).toFixed(2);
-
+					totalnonapplicableEmployer = parseFloat(totalnonapplicableEmployer).toFixed(2);
+					totalnonapplicableEmployee = parseFloat(totalnonapplicableEmployee).toFixed(2);
                     //$('#structureEmployerContributionDetail_' + 0 + '__Total').val(totalGross);
                 }
                 var percentagecal = totalGross-totalnonapplicable;
@@ -1070,21 +1107,21 @@
                 var currentValue=$('#structureEmployerContributionDetail_' + i + '__Total').val() == "" ? 0 :$('#structureEmployerContributionDetail_' + i + '__Total').val();
 
                 if(code !="EMPLOYEE DEDUCTION")
-                    netAmount = parseFloat(netAmount)+parseFloat(currentValue);
+					netAmount = parseFloat(netAmount) + parseFloat(currentValue);
                 else
                 {
-                    netAmount = parseFloat(netAmount) - parseFloat(currentValue);
-                    var currentVal=  $('#structureEmployerContributionDetail_' + i + '__Total').val();
-                    if(currentVal!="" && currentVal !=null && currentVal>0)
-                        currentValue =0- parseFloat(currentValue).toFixed(2);
-                    $('#structureEmployerContributionDetail_' + i + '__Total').val(currentValue);
+					netAmount = parseFloat(netAmount) - parseFloat(currentValue) + parseFloat(totalnonapplicableEmployee) - parseFloat(totalnonapplicable);
+                    //var currentVal=  $('#structureEmployerContributionDetail_' + i + '__Total').val();
+                    //if(currentVal!="" && currentVal !=null && currentVal>0)
+                    //    currentValue =0- parseFloat(currentValue).toFixed(2);
+                    //$('#structureEmployerContributionDetail_' + i + '__Total').val(currentValue);
                 }
-
-                netAmount=netAmount.toFixed(2);
+			
+				netAmount = netAmount.toFixed(2);
                 
                 $('#structureHeader_EmpContribution').val(netAmount);
                 var totalgross=$('#structureHeader_TotalGross').val();
-                var amount=parseFloat(totalgross)-parseFloat(employeeval);
+				var amount = parseFloat(totalgross) - parseFloat(employeeval) + parseFloat(totalnonapplicableEmployee) - parseFloat(totalnonapplicable);
                 $('#structureHeader_NetAmount').val(amount);
                 $('#totalgross').val(totalgross);
                 var totalforemployer = totalgross+ parseFloat(employercon);

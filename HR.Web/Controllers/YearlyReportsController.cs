@@ -37,6 +37,9 @@ namespace HR.Web.Controllers
 
         public static decimal? SatuatorypayEmployer = 0.0M;
 
+		public static decimal? nonapplicablebasicsalary = 0.0M;
+		public static decimal? nonapplicableEmployee = 0.0M;
+
 
         public YearlyReportsController()
         {
@@ -826,7 +829,7 @@ namespace HR.Web.Controllers
         #region DownloadEmployeePaySlip
 
         public FileResult DownloadEmployeeLatestPaySlip(int empid)
-        {
+         {
             PageNo = 1;
             try
             {
@@ -938,9 +941,11 @@ namespace HR.Web.Controllers
                 TotalDeductions = 0.0M;
                 SatuatorypayEmployee = 0.0M;
                 SatuatorypayEmployer = 0.0M;
+				nonapplicablebasicsalary = 0.0M;
+				nonapplicableEmployee = 0.0M;
 
 
-                for (int i = 0; i < payslipDetail.Count(); i++)
+				for (int i = 0; i < payslipDetail.Count(); i++)
                 {
                     TotalSalary += payslipDetail[i].RegisterCode == "BASIC SALARY" ? payslipDetail[i].Amount : 0;
                     if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" && payslipDetail[i].IsSatuatoryPay == false)
@@ -956,8 +961,15 @@ namespace HR.Web.Controllers
                     {
                         SatuatorypayEmployer += payslipDetail[i].Amount;
                     }
-
-                }
+					if (payslipDetail[i].RegisterCode == "EMPLOYEE CONTRIBUTION" && payslipDetail[i].Code == "NA")
+					{
+						nonapplicableEmployee += payslipDetail[i].Amount;
+					}
+					if (payslipDetail[i].RegisterCode == "BASIC SALARY" && payslipDetail[i].Code == "NA")
+					{
+						nonapplicablebasicsalary += payslipDetail[i].Amount;
+					}
+				}
 
                 var path = "";
                 int PND1detailcount = payslipDetail.Count();
@@ -1005,12 +1017,12 @@ namespace HR.Web.Controllers
                     pdfFormFields.SetField("EpfNo", payslipHeader.EPFNO == null ? "" : payslipHeader.EPFNO.ToString());
                     pdfFormFields.SetField("PayeNo", "");
                     pdfFormFields.SetField("Location", payslipHeader.CountryName);
-					pdfFormFields.SetField("TotalDesc", "Total Deductions Employer");
+					pdfFormFields.SetField("TotalDesc", "Total Gross Employer");
 					pdfFormFields.SetField("Total", (TotalSalary + SatuatorypayEmployer).ToString());
 					pdfFormFields.SetField("Total1Desc", "Total Deductions Employee");
                     pdfFormFields.SetField("Total1", (TotalDeductions + SatuatorypayEmployee).ToString());
 					pdfFormFields.SetField("DeductNetPayDesc", "NetPay");
-                    pdfFormFields.SetField("NetPay", ((TotalSalary) - (TotalDeductions + SatuatorypayEmployee)).ToString());
+                    pdfFormFields.SetField("NetPay", ((TotalSalary) - (TotalDeductions + SatuatorypayEmployee)-(nonapplicablebasicsalary)+(nonapplicableEmployee)).ToString());
                     //for (int i = 0; i < payslipDetail.Count; i++)
                     //{
                     //    if (payslipHeader.BranchID == 10008)
@@ -1075,7 +1087,7 @@ namespace HR.Web.Controllers
                         
                     }
                     temp=temp+2;
-                    pdfFormFields.SetField("Desc" + temp, "STATUTORY PAYMENTS");
+                    pdfFormFields.SetField("Desc" + temp, "--STATUTORY PAYMENTS--");
                     temp++;
                     for (int i = 0; i < payslipDetail.Count; i++)
                     {
@@ -1104,7 +1116,7 @@ namespace HR.Web.Controllers
                    j++;
                     //var bold = "bold:true";
                     //pdfFormFields.SetFieldProperty("Deduct" + j, "textfont", bold, null);
-                    pdfFormFields.SetField("Deduct" + j, "STATUTORY DEDUCTIONS");
+                    pdfFormFields.SetField("Deduct" + j, "--STATUTORY DEDUCTIONS--");
                     j++;
                     for (int i = 0; i < payslipDetail.Count; i++)
                     {

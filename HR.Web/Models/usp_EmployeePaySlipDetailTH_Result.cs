@@ -17,5 +17,6 @@ namespace HR.Web.Models
         public string ContributionCode { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<bool> IsSatuatoryPay { get; set; }
+        public string Code { get; set; }
     }
 }

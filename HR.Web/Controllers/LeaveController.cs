@@ -396,20 +396,20 @@ namespace HR.Web.Controllers
                     LeaveMaster lMaster = new LeaveMaster();
                     if (EmployeeLeaveList.LeaveTypeId == lMaster.CASUALLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
-                        ViewData["Message"] = "You do not have enough casual leaves or applied leave,other leaves will be LOP";
+                        ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
                     else if (EmployeeLeaveList.LeaveTypeId == lMaster.SICKLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
 
-                        ViewData["Message"] = "You do not have enough paid leaves or applied leave,other leaves will be LOP";
+                        ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
                     else if (EmployeeLeaveList.LeaveTypeId == lMaster.PAIDLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
-                        ViewData["Message"] = "You do not have enough paid leaves or applied leave,other leaves will be LOP";
+                        ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
@@ -482,22 +482,23 @@ namespace HR.Web.Controllers
 
 
                         }
-                        LeaveTran leaveTransaction = new LeaveTran()
-                        {
-                            BranchId = BRANCHID,
-                            CreatedBy = USERID,
-                            CreatedOn = UTILITY.SINGAPORETIME,
-                            CurrentLeaves = leaveListCalc.currentLeaves,
-                            PreviousLeaves = leaveListCalc.previousLeaves,
+							LeaveTran leaveTransaction = new LeaveTran()
+							{
+								BranchId = BRANCHID,
+								CreatedBy = USERID,
+								CreatedOn = UTILITY.SINGAPORETIME,
+								CurrentLeaves = leaveListCalc.currentLeaves,
+								PreviousLeaves = leaveListCalc.previousLeaves,
 
-                            EmployeeId = EMPLOYEEID,
-                            FromDt = obj.FromDate,
-                            ToDt = obj.ToDate,
-                            LeaveType = EmployeeLeaveList.LeaveTypeId,
-                            ModifiedBy = USERID,
-                            ModifiedOn = UTILITY.SINGAPORETIME
-                        };
-                        dbCntx.LeaveTrans.Add(leaveTransaction);
+								EmployeeId = EMPLOYEEID,
+								FromDt = obj.FromDate,
+								ToDt = obj.ToDate,
+								LeaveType = EmployeeLeaveList.LeaveTypeId,
+								ModifiedBy = USERID,
+								ModifiedOn = UTILITY.SINGAPORETIME
+							};
+							dbCntx.LeaveTrans.Add(leaveTransaction);
+						
 
                         dbCntx.SaveChanges();
                         //EmployeeWorkDetail workdetail = empworkdetailsBo.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
@@ -551,8 +552,10 @@ namespace HR.Web.Controllers
                     else
                     {
                         ViewData["IsLop"] = true;
-                        ViewData["Message"] = "You are not eligible for applied number of leaves or applied leave,other leaves will be LOP";
-                        return View("EmployeeRequestFrom", EmployeeLeaveList);
+						
+						ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
+						
+						return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
                 }
                 else

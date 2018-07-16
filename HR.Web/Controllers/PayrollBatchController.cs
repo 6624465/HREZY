@@ -9,7 +9,7 @@ using HR.Web.BusinessObjects.Payroll;
 using HR.Web.ViewModels;
 using HR.Web.BusinessObjects.Operation;
 using System.Net.Http;
-
+using System.Drawing;
 
 namespace HR.Web.Controllers
 {
@@ -100,6 +100,23 @@ namespace HR.Web.Controllers
                 }
 
                 //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
+                DataRow totalsRow = vm.dt.NewRow();
+                totalsRow["EmployeeName"] = "Total";
+                for (int j = 5; j < vm.dt.Columns.Count; j++)
+                {
+                    DataColumn col = vm.dt.Columns[j];
+
+                    decimal colTotal = 0;
+                    for (int i = 0; i < col.Table.Rows.Count; i++)
+                    {
+                        DataRow row = col.Table.Rows[i];
+                        colTotal += Convert.ToDecimal(row[col]);
+                    }
+                    //col.Table.Rows[j]. = Color.Red;
+                    totalsRow[col.ColumnName] = colTotal;
+                }
+            
+                vm.dt.Rows.Add(totalsRow);
 
                 return View(vm);
             }
@@ -427,7 +444,7 @@ namespace HR.Web.Controllers
                     success = true;
                     message = "Please Generate The Previous Months Payslip";
                 }
-              
+
             }
 
             return Json(new { success, message });
@@ -569,7 +586,7 @@ namespace HR.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteProcessedPayroll(int month,int year)
+        public ActionResult DeleteProcessedPayroll(int month, int year)
         {
 
             bool success = false;
@@ -599,7 +616,7 @@ namespace HR.Web.Controllers
                         message = "";
                     }
                 }
-               
+
                 else
                 {
                     success = true;

@@ -292,7 +292,7 @@ namespace HR.Web.Controllers
 
             if (Employeeid == -1 && Email != "")
             {
-                var list = empHeaderBO.GetListByProperty(x => (x.UserEmailId.ToLower() == Email.ToLower())).ToList();
+                var list = empHeaderBO.GetListByProperty(x => (x.UserEmailId.ToLower() == Email.ToLower()) && x.IsActive == true).ToList();
                 int count = list.Count();
                 return (count > 0 ? true : false);
             }
@@ -302,7 +302,7 @@ namespace HR.Web.Controllers
             }
             else
             {
-                var list = empHeaderBO.GetListByProperty(x => (x.UserEmailId.ToLower() == Email.ToLower())).Where(x => x.EmployeeId != Employeeid).ToList();
+                var list = empHeaderBO.GetListByProperty(x => (x.UserEmailId.ToLower() == Email.ToLower()) && x.IsActive == true).Where(x => x.EmployeeId != Employeeid).ToList();
                 int count = list.Count();
                 return (count > 0 ? true : false);
             }

@@ -5,7 +5,7 @@
 
 }
 @section Styles{
-    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+    <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
           rel="stylesheet" type="text/css" />
     <style>
         time.icon {
@@ -1595,31 +1595,36 @@
                                     <i class="fa fa-floppy-o"></i>
                                     Save
                                 </button>
-                                <button type="button" class="btn btn-primary btn-sm ajaxCss" onclick="Preview(@Model.claimHeader.TravelClaimId)">
-                                    <i class="fa fa-eye"></i><b>Preview</b>                                    
-                                </button>
 
-                                @if (Model.claimHeader.TravelClaimId != 0 && 
-                                    ((Model.claimDetailAirfareVm != null && Model.claimDetailAirfareVm.Count > 0) ||
-                                    (Model.claimDetailVisaVm != null && Model.claimDetailVisaVm.Count > 0) ||
-                                    (Model.claimDetailFoodLocalVm != null && Model.claimDetailFoodLocalVm.Count > 0) ||
-                                    (Model.claimDetailAccomdationVm != null && Model.claimDetailAccomdationVm.Count > 0) ||
-                                    (Model.claimDetailFoodOverseasVm != null && Model.claimDetailFoodOverseasVm.Count > 0) ||
-                                    (Model.claimDetailTaxiLocalVm != null && Model.claimDetailTaxiLocalVm.Count > 0) ||
-                                    (Model.claimDetailTaxiOverseasVm != null && Model.claimDetailTaxiOverseasVm.Count > 0) ||
-                                    (Model.claimDetailOtherExpensesVm != null && Model.claimDetailOtherExpensesVm.Count > 0)
-                                    )) 
-                                {
-                                    <button type="button" class="btn btn-primary btn-sm ajaxCss" onclick="Submit()">
-                                        <i class="fa fa fa-check-circle"></i><b>Submit</b>
-                                    </button>
-                                }
-                                else
-                                {
-                                    <button type="button" class="btn btn-primary btn-sm " onclick="Submit()" disabled="disabled">
-                                        <i class="fa fa fa-check-circle"></i><b>Submit</b>
-                                    </button>
-                                }
+
+                                @if (Model.claimHeader.TravelClaimId != 0 &&
+((Model.claimDetailAirfareVm != null && Model.claimDetailAirfareVm.Count > 0) ||
+(Model.claimDetailVisaVm != null && Model.claimDetailVisaVm.Count > 0) ||
+(Model.claimDetailFoodLocalVm != null && Model.claimDetailFoodLocalVm.Count > 0) ||
+(Model.claimDetailAccomdationVm != null && Model.claimDetailAccomdationVm.Count > 0) ||
+(Model.claimDetailFoodOverseasVm != null && Model.claimDetailFoodOverseasVm.Count > 0) ||
+(Model.claimDetailTaxiLocalVm != null && Model.claimDetailTaxiLocalVm.Count > 0) ||
+(Model.claimDetailTaxiOverseasVm != null && Model.claimDetailTaxiOverseasVm.Count > 0) ||
+(Model.claimDetailOtherExpensesVm != null && Model.claimDetailOtherExpensesVm.Count > 0)
+))
+    {
+                            <button type="button" class="btn btn-primary btn-sm ajaxCss" onclick="Preview(@Model.claimHeader.TravelClaimId)">
+                                <i class="fa fa-eye"></i><b>Preview</b>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm ajaxCss" onclick="Submit()">
+                                <i class="fa fa fa-check-circle"></i><b>Submit</b>
+                            </button>
+
+}
+else
+{
+                            <button type="button" class="btn btn-primary btn-sm ajaxCss" onclick="Preview(@Model.claimHeader.TravelClaimId)" disabled ="disabled">
+                                <i class="fa fa-eye"></i><b>Preview</b>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm " onclick="Submit()" disabled="disabled">
+                                <i class="fa fa fa-check-circle"></i><b>Submit</b>
+                            </button>
+}
 
                                 <button type="button" class="btn btn-primary btn-sm"
                                         onclick="location.href='@Url.Content("~/PayRoll/TravelClaimList")'">
@@ -1672,7 +1677,7 @@
 </div>
 @section Scripts{
 
-    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+    <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
             type="text/javascript"></script>
     <script type="text/javascript">
         function CheckFileName(el) {

@@ -59,11 +59,31 @@ namespace HR.Web.Controllers
 
             if (ROLECODE == UTILITY.ROLE_ADMIN)
             {
-                holidayVm holidayVm = new holidayVm()
-                {
-                    calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
-                    HolidayList = new HolidayList()
-                }; return View("HolidayList", holidayVm);
+				//List<calendarVM> holidayslist = new List<calendarVM>();
+				//calendarVM holidayobj = new calendarVM();
+				//holidayVm holidayVm = new holidayVm()
+				//{
+				//	calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
+				//	HolidayList = new HolidayList()
+				//};
+				//List<calendarVM> holidaysBybranchList = holidayListBO.GetHolidayListByBranch(BRANCHID);
+				//foreach (var item in holidaysBybranchList)
+				//{
+				//	holidayobj.title = item.title.Replace("'", "");
+				//	holidayslist.Add(holidayobj);
+				//}
+				//holidayVm holidayVm = new holidayVm()
+				//{
+				//	calendarVM = holidayslist,
+				//	HolidayList = new HolidayList()
+				//};
+				holidayVm holidayVm = new holidayVm()
+				{
+					calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
+					//holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList()
+					HolidayList = new HolidayList()
+				}; return View("HolidayList", holidayVm);
+		
             }
             else
             {

@@ -65,8 +65,9 @@ namespace HR.Web.BusinessObjects.LeaveMaster
 
             foreach (HolidayList item in obj)
             {
+
                 calendarVM list = new calendarVM();
-                list.title = item.Description;
+                list.title = item.Description.Replace("'","");
                 list.date = item.Date;
 
                 var strHref = "";

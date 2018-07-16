@@ -160,12 +160,12 @@ new SelectListItem {Text = "December", Value = "12"}
                             {
                                 <script type="text/javascript">
                                     $(function () {
-                                        //$('#payslipBatchHeader_BatchNo').val('');
+                                        // //$('#payslipBatchHeader_BatchNo').val('');
                                     });
                                 </script>
                                 <table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
                                     <thead>
-                                    <th>Payslip</th>
+                                    <th>PAYSLIP</th>
                                     @for (var i = 0; i < Model.dt.Columns.Count; i++)
                                     {
                                         <text>
@@ -291,7 +291,7 @@ new SelectListItem {Text = "December", Value = "12"}
                 },
                 columnDefs: [
       {
-          "targets": [2, 3, 4, 5, 8],
+          "targets": [2, 3, 4, 5, 8, 6],
           "visible": false
       }
                 ],

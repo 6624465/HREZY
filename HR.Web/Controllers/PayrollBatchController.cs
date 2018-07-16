@@ -98,25 +98,28 @@ namespace HR.Web.Controllers
                     ViewData["ConfirmError"] = "Please Generate The Previous Months Payslip";
                     Session.Remove("IsError");
                 }
-
-                //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
-                DataRow totalsRow = vm.dt.NewRow();
-                totalsRow["EmployeeName"] = "Total";
-                for (int j = 5; j < vm.dt.Columns.Count; j++)
+                if (vm.dt != null && vm.dt.Columns.Count>0)
                 {
-                    DataColumn col = vm.dt.Columns[j];
-
-                    decimal colTotal = 0;
-                    for (int i = 0; i < col.Table.Rows.Count; i++)
+                    DataRow totalsRow = vm.dt.NewRow();
+                    totalsRow["EMPLOYEE NAME"] = "Total";
+                    for (int j = 5; j < vm.dt.Columns.Count; j++)
                     {
-                        DataRow row = col.Table.Rows[i];
-                        colTotal += Convert.ToDecimal(row[col]);
+                        DataColumn col = vm.dt.Columns[j];
+
+                        decimal colTotal = 0;
+                        for (int i = 0; i < col.Table.Rows.Count; i++)
+                        {
+                            DataRow row = col.Table.Rows[i];
+                            colTotal += Convert.ToDecimal(row[col]);
+                        }
+                        //col.Table.Rows[j]. = Color.Red;
+                        totalsRow[col.ColumnName] = colTotal;
                     }
-                    //col.Table.Rows[j]. = Color.Red;
-                    totalsRow[col.ColumnName] = colTotal;
+
+                    vm.dt.Rows.Add(totalsRow);
                 }
-            
-                vm.dt.Rows.Add(totalsRow);
+                //var structureList = dbContext.SalaryStructureDetails.Where(x => x.BranchId == 10006).ToList();
+              
 
                 return View(vm);
             }

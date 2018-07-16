@@ -110,6 +110,9 @@ namespace HR.Web.Controllers
                         for (int i = 0; i < col.Table.Rows.Count; i++)
                         {
                             DataRow row = col.Table.Rows[i];
+                            if (row[col] == null) {
+                                row[col] = 0;
+                            }
                             colTotal += Convert.ToDecimal(row[col]);
                         }
                         //col.Table.Rows[j]. = Color.Red;

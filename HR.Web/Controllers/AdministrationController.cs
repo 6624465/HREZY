@@ -214,7 +214,7 @@ namespace HR.Web.Controllers
 						CreatedOn = UTILITY.SINGAPORETIME,
 						RegisterCode = "BASIC SALARY",
 						BranchId = branchVm.branch.BranchID,
-						SortBy = -1
+						SortBy = 0
 					};
 					contributionBO.Add(contribution);
 

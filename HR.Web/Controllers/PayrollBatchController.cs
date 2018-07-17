@@ -633,5 +633,35 @@ namespace HR.Web.Controllers
             return Json(new { success, message }, JsonRequestBehavior.AllowGet);
 
         }
+        [HttpGet]
+        public ActionResult GetEmployeeList(string Name) {
+            using (var dbCntx = new HrDataContext())
+            {
+                var list = dbCntx.EmployeeHeaders.Where(x=>x.FirstName.Contains(Name)|| x.LastName.Contains(Name)).Join(dbCntx.EmployeeWorkDetails,
+                   a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
+                   Where(x => x.A.BranchId == BRANCHID && x.A.IsActive == true).
+                   Select(x => new EmployeeTable
+                   {
+                       EmployeeName = x.A.FirstName + " " + x.A.LastName,
+                       EmployeeDesignation = dbCntx.LookUps.Where(y => y.LookUpID == x.B.DesignationId).FirstOrDefault().LookUpDescription,
+                       ManagerName = dbCntx.EmployeeHeaders.Where(y => y.EmployeeId == x.A.ManagerId).FirstOrDefault().FirstName,
+                       EmployeeId = x.A.EmployeeId,
+                   }).ToList();
+
+                var transactioncount = variablepaymentheaderBo.GetCount(BRANCHID);
+                transactioncount = transactioncount + 1;
+
+                var updatevariablepayvm = new UpdateVariablePayVm
+                {
+                    Employeetable = list,
+                    variablepaymentheader = new VariablePaymentHeader(),
+                    CevpdVm = null
+                };
+
+                updatevariablepayvm.variablepaymentheader.TransactionNo = "TRSAC" + transactioncount.ToString("D4");
+                return View("UpdateVariablePay", updatevariablepayvm );
+            }
+
+        }
     }
 }

@@ -21,10 +21,26 @@
 					</div>
 					<div class="panel-body">
 						@Html.HiddenFor(x => x.variablepaymentheader.HeaderID)
-						<div class="row css5">
-							<div class="col-md-1">
+                        <div class="row css5">
+                            <div class="col-md-1">
 
-							</div>
+                            </div>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">Name</span>
+                            </label>
+                            <div class="col-md-2">
+                                @Html.TextBox("Name", "", new { @class = "form-control input-sm uppercase" })
+
+                            </div>
+                            <div class="col-md-2 pull-left">
+                                <button class ="btn btn-sm btn-primary" onclick="getName()">Search</button>
+                            </div>
+                        </div>
+						<div class="row css5">
+							
+                               <div class="col-md-1">
+
+                               </div>
 							<label class="col-md-2 control-label">
 								<span class="pull-right">TransactionNo</span>
 							</label>
@@ -37,7 +53,7 @@
 								<span class="pull-right">Month</span>
 							</label>
 							<div class="col-md-1">
-								@Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", required = "required" })
+								@Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonthsPayroll(), new { @class = "form-control input-sm", required = "required" })
 
 							</div>
 							<label class="col-md-1 control-label">
@@ -153,7 +169,7 @@
 
 
 @section Scripts{
-	<script type="text/javascript">
+<script type="text/javascript">
     $(function () {
         $('#li_Payroll').addClass('open');
         $('#li_updatepay').addClass('active');
@@ -170,7 +186,7 @@
                 return indexed_array;
             }
 
-            function EditVariablePay(Employeeid) {
+        function EditVariablePay(Employeeid) {
                 $('#tblContent').html('');
                 var isDataExists = $('.trCss_' + Employeeid).length > 0;
                 $('#modalEmpID').val(Employeeid);
@@ -228,11 +244,11 @@
                 } else {
                     debugger;
                     $.ajax({
+
                         url: '@Url.Content("~/PayrollBatch/EditVariablePay?Employeeid=")' + Employeeid + '&Month=' + $('#variablepaymentheader_Month').val() + '&Year=' + $('#variablepaymentheader_Year').val(),
                         contentType: 'application/json; charset=utf-8',
                         method: 'GET',
                         success: function (data) {
-
                             StopLoadingAnimation();
                             $('#arrayLength').val(data.length);
                             var modalContent = '';
@@ -268,8 +284,8 @@
                             `;
                             }
 
-                            $('#tblContent').html(modalContent);
-                            $('#myModal').modal('show');
+                                $('#tblContent').html(modalContent);
+                                $('#myModal').modal('show');
                         }
                     });
                 }
@@ -387,7 +403,22 @@
                     })
             }*@
         }
-	</script>
+    function getName() {
+        $.ajax({
+            url: '@Url.Content("~/PayrollBatch/GetEmployeeList?Name=")' + $('#Name').val(),
+               contentType: 'application/json',
+                method: 'GET',
+            success: function (data) {
+                debugger;
+            },
+                error: function (err) {
+
+                }
+
+            })
+
+        }
+</script>
 
 }
 

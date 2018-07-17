@@ -47,11 +47,11 @@
 @{
     var listMonths = new List<SelectListItem>()
 {
-new SelectListItem {Text = "January",   Value = "1"},
-new SelectListItem {Text = "February", Value = "2"},
-new SelectListItem {Text = "March", Value = "3"},
-new SelectListItem {Text = "April",   Value = "4"},
-new SelectListItem {Text = "May", Value = "5"},
+new SelectListItem {Text = "January",   Value = "1",Disabled=true},
+new SelectListItem {Text = "February", Value = "2",Disabled=true},
+new SelectListItem {Text = "March", Value = "3",Disabled=true},
+new SelectListItem {Text = "April",   Value = "4",Disabled=true},
+new SelectListItem {Text = "May", Value = "5",Disabled=true},
 new SelectListItem {Text = "June", Value = "6"},
 new SelectListItem {Text = "July",   Value = "7"},
 new SelectListItem {Text = "August", Value = "8"},
@@ -109,7 +109,7 @@ new SelectListItem {Text = "December", Value = "12"}
                                 <span class="pull-right">Month</span>
                             </label>
                             <div class="col-md-1">
-                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", required = "required", onchange = "getprocesslist()" })
+                                @Html.DropDownListFor(x => x.payslipBatchHeader.Month, SelectListItemHelper.GetMonthsPayroll(), new { @class = "form-control input-sm", required = "required", onchange = "getprocesslist()" })
                                 @Html.HiddenFor(x => x.payslipBatchHeader.Month)
                             </div>
                             <label class="col-md-1 control-label">
@@ -265,6 +265,8 @@ new SelectListItem {Text = "December", Value = "12"}
 
 
             var date = new Date();
+            //var datemonth = date.getMonth();
+            //var defaultdate = '06-01-2018'
             $('.dtCss').datetimepicker({
                 icons: {
                     time: 'fa fa-clock-o',
@@ -275,9 +277,12 @@ new SelectListItem {Text = "December", Value = "12"}
                     next: 'fa fa-arrow-right',
                 },
                 format: dateFormat,
-                defaultDate: date
+                defaultDate: date,
+                minDate: new Date(2018,5,1)
+               
 
             });
+           
             var table = $('#example').DataTable({
                 scrollY: "300px",
                 scrollX: true,
@@ -400,15 +405,16 @@ new SelectListItem {Text = "December", Value = "12"}
 			var year = $('#payslipBatchHeader_Year').val();
 			$('#currentmonth').val(month);
 			$('#currentyear').val(year);
-
 			swal({
 					title: "Caution!",
 					text: "Please Update the Variable Pay Before You Confirm",
 					type: "warning",
-					showCancelButton: true,
 					closeOnConfirm: false,
-					confirmButtonText: "Update",
-					confirmButtonClass: "btn-Success",
+					confirmButtonText: "yes",
+                    confirmButtonColor: "btn-Success",
+                    showCancelButton: true,
+                cancelButtonText: "No",
+                
 				},
 					function (isConfirm) {
 						if (isConfirm) {

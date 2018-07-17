@@ -42,7 +42,7 @@ namespace HR.Web.Helpers
                 {
                     LeaveMaster lMaster = new LeaveMaster();
 
-                    if (LeaveType == lMaster.SICKLEAVE(BranchID))
+                    if (LeaveType == lMaster.MEDICALLEAVE(BranchID))
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)
@@ -62,7 +62,7 @@ namespace HR.Web.Helpers
                             eligibleLeaves = leave.LeavesPerYear.Value - appliedLeave;
 
                     }
-                    if (LeaveType == lMaster.PAIDLEAVE(BranchID))
+                    if (LeaveType == lMaster.ANNUALLEAVE(BranchID))
                     {
                         appliedLeave = leave.LeavesPerYear.Value - leaveTransaction.CurrentLeaves;
                         if (leave.IsCarryForward)

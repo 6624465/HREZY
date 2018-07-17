@@ -175,9 +175,9 @@ namespace HR.Web.Controllers
                         LeaveMaster lMaster = new LeaveMaster();
                         if (leaveStartTransactions != null)
                         {
-                            var paidLeave = lMaster.PAIDLEAVE(BRANCHID);
+                            var paidLeave = lMaster.ANNUALLEAVE(BRANCHID);
                             var casualLeave = lMaster.CASUALLEAVE(BRANCHID);
-                            var sickLeave = lMaster.SICKLEAVE(BRANCHID);
+                            var sickLeave = lMaster.MEDICALLEAVE(BRANCHID);
 
                            List<OtherLeave> leavepolicy = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.IsActive == true).ToList();
                             if (leavepolicy.Count != 0)

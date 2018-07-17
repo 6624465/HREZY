@@ -45,7 +45,7 @@
                             @*grid.Column("IsActive", "Status", format:@<text><input type="checkbox" value="@item.IsActive" data-toggle="toggle"></text>),*@
                             grid.Column("", "#Action", canSort: false, format: 
                             @<text>
-                                @if (item.LookUpCode == "CASUALLEAVE" || item.LookUpCode == "PAIDLEAVE" || item.LookUpCode=="SICKLEAVE")
+                                @if (item.LookUpCode == "MEDICAL LEAVE" || item.LookUpCode== "ANNUAL LEAVE")
                                 {
                                     <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" onclick="editLeaveType(@item.LookUpID)" style="padding-left: 5px;margin-left: 6px;"><i class="fa fa-pencil" style="padding-left: 5px;"></i></button>
                                     @*<button class="btn btn-xs btn-danger btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteLeaveList(@item.LookUpID)" hidden>

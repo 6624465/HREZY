@@ -188,14 +188,14 @@ namespace HR.Web.Controllers
 
     public class LeaveMaster
     {
-        public int PAIDLEAVE(int BRANCHID)
+        public int ANNUALLEAVE(int BRANCHID)
         {
-            return Convert.ToInt32(ConfigurationManager.AppSettings["PAIDLEAVE_" + BRANCHID.ToString()]);
+            return Convert.ToInt32(ConfigurationManager.AppSettings["ANNUALLEAVE_" + BRANCHID.ToString()]);
         }
 
-        public int SICKLEAVE(int BRANCHID)
+        public int MEDICALLEAVE(int BRANCHID)
         {
-            return Convert.ToInt32(ConfigurationManager.AppSettings["SICKLEAVE_" + BRANCHID.ToString()]);
+            return Convert.ToInt32(ConfigurationManager.AppSettings["MEDICALLEAVE_" + BRANCHID.ToString()]);
         }
 
         public int CASUALLEAVE(int BRANCHID)

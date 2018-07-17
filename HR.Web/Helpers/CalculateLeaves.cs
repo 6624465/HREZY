@@ -60,9 +60,9 @@ namespace HR.Web.Helpers
             LeaveMaster lMaster = new LeaveMaster();
             if (obj.LeaveTypeId == lMaster.CASUALLEAVE(branchId))
                 leaveListCalc.currentLeaves = leaveListCalc.currentLeaves - obj.Days.Value;
-            else if (obj.LeaveTypeId == lMaster.PAIDLEAVE(branchId))
+            else if (obj.LeaveTypeId == lMaster.ANNUALLEAVE(branchId))
                 leaveListCalc.currentLeaves = leaveListCalc.currentLeaves - obj.Days.Value;
-            if (obj.LeaveTypeId == lMaster.SICKLEAVE(branchId))
+            if (obj.LeaveTypeId == lMaster.MEDICALLEAVE(branchId))
                 leaveListCalc.currentLeaves = leaveListCalc.currentLeaves - obj.Days.Value;
         }
 

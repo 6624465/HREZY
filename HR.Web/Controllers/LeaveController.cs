@@ -420,14 +420,14 @@ namespace HR.Web.Controllers
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
-                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.SICKLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
+                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.MEDICALLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
 
                         ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
-                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.PAIDLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
+                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.ANNUALLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
                         ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
                         ViewData["IsLop"] = true;

@@ -2,158 +2,158 @@
 
 
 @section Styles {
-	<style type="text/css">
-		.width {
-			width: 80%;
-		}
-	</style>
+    <style type="text/css">
+        .width {
+            width: 80%;
+        }
+    </style>
 
 }
 
 @using (Html.BeginForm("SaveVariablePaytransaction", "PayrollBatch", FormMethod.Post, new { id = "variablesave", name = "variablesave" }))
 {
-	<div class="page">
-		<div class="page-wrap">
-			<div class="panel-group">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						UPDATE VARIABLE PAY
-					</div>
-					<div class="panel-body">
-						@Html.HiddenFor(x => x.variablepaymentheader.HeaderID)
-						<div class="row css5">
-							<div class="col-md-1">
+    <div class="page">
+        <div class="page-wrap">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        UPDATE VARIABLE PAY
+                    </div>
+                    <div class="panel-body">
+                        @Html.HiddenFor(x => x.variablepaymentheader.HeaderID)
+                        <div class="row css5">
+                            <div class="col-md-1">
 
-							</div>
-							<label class="col-md-2 control-label">
-								<span class="pull-right">TransactionNo</span>
-							</label>
-							<div class="col-md-2">
-								@Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase", disabled = "disabled", required = "required" })
-								@Html.HiddenFor(x => x.variablepaymentheader.TransactionNo)
-							</div>
+                            </div>
+                            <label class="col-md-2 control-label">
+                                <span class="pull-right">TransactionNo</span>
+                            </label>
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(x => x.variablepaymentheader.TransactionNo, new { @class = "form-control input-sm uppercase", disabled = "disabled", required = "required" })
+                                @Html.HiddenFor(x => x.variablepaymentheader.TransactionNo)
+                            </div>
 
-							<label class="col-md-1 control-label">
-								<span class="pull-right">Month</span>
-							</label>
-							<div class="col-md-1">
-								@Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", required = "required" })
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Month</span>
+                            </label>
+                            <div class="col-md-1">
+                                @Html.DropDownListFor(x => x.variablepaymentheader.Month, SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", required = "required" })
 
-							</div>
-							<label class="col-md-1 control-label">
-								<span class="pull-right">Year</span>
-							</label>
-							<div class="col-md-1 pull-left">
-								@Html.DropDownListFor(x => x.variablepaymentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", required = "required" })
-							</div>
-							<div class="col-md-1">
-								<button type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
-							</div>
-						</div>
-						<div class="row css10">
-							<div class="col-md-12">
-								<div class="center-block width">
-									@if (Model.Employeetable != null && Model.Employeetable.Count() > 0)
-									{
-										<table class="table table-conden table-bordered">
-											<thead>
-												<tr>
-													<th> Employee Name</th>
-													<th>Job Title</th>
-													<th>
-														Manager Name
-													</th>
-													<th>
-														#Action
-													</th>
-												</tr>
-											</thead>
+                            </div>
+                            <label class="col-md-1 control-label">
+                                <span class="pull-right">Year</span>
+                            </label>
+                            <div class="col-md-1 pull-left">
+                                @Html.DropDownListFor(x => x.variablepaymentheader.Year, SelectListItemHelper.GetYears(), new { @class = "form-control input-sm", required = "required" })
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="Savetrans()"><i class="fa fa-floppy-o"></i>Save</button>
+                            </div>
+                        </div>
+                        <div class="row css10">
+                            <div class="col-md-12">
+                                <div class="center-block width">
+                                    @if (Model.Employeetable != null && Model.Employeetable.Count() > 0)
+                                    {
+                                        <table class="table table-conden table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th> Employee Name</th>
+                                                    <th>Job Title</th>
+                                                    <th>
+                                                        Manager Name
+                                                    </th>
+                                                    <th>
+                                                        #Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
 
-											<tbody>
-												@for (var i = 0; i < Model.Employeetable.Count; i++)
-												{
+                                            <tbody>
+                                                @for (var i = 0; i < Model.Employeetable.Count; i++)
+                                                {
 
-													<tr>
-														<td>
-															@Model.Employeetable[i].EmployeeName
-														</td>
-														<td>
-															@Model.Employeetable[i].EmployeeDesignation
-														</td>
-														<td>
-															@Model.Employeetable[i].ManagerName
-														</td>
-														<td>
-															<button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
-																	onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
-																<i class="fa fa-pencil" style="padding-left: 5px;"></i>
-															</button>
-														</td>
-													</tr>
-												}
-											</tbody>
-										</table>
-									}
-								</div>
-							</div>
-						</div>
+                                                    <tr>
+                                                        <td>
+                                                            @Model.Employeetable[i].EmployeeName
+                                                        </td>
+                                                        <td>
+                                                            @Model.Employeetable[i].EmployeeDesignation
+                                                        </td>
+                                                        <td>
+                                                            @Model.Employeetable[i].ManagerName
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
+                                                                    onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
+                                                                <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="row css10" style="display:none;">
-							<div class="col-md-12">
-								<table class="table table-conden table-bordered">
-									<thead>
-										<tr>
-											<th>Employee ID</th>
-											<th>Component</th>
-											<th>Value</th>
-										</tr>
-									</thead>
-									<tbody class="tbodyContent"></tbody>
-								</table>
-							</div>
-						</div>
+                        <div class="row css10" style="display:none;">
+                            <div class="col-md-12">
+                                <table class="table table-conden table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Component</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbodyContent"></tbody>
+                                </table>
+                            </div>
+                        </div>
 
 
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 <form id="modalfrm" name="modalfrm">
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Variable Pay Edit</h4>
-					<button class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				</div>
-				<div class="modal-body" id="modalContent">
-					<div class="row">
-						<div class="col-md-12">
-							<input type="hidden" id="modalEmpID" name="modalEmpID" />
-							<input type="hidden" id="arrayLength" name="arrayLength" />
-							<table class="table table-bordered">
-								<tbody id="tblContent"></tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button id="btnsave" type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
-				</div>
-			</div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Variable Pay Edit</h4>
+                    <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" id="modalEmpID" name="modalEmpID" />
+                            <input type="hidden" id="arrayLength" name="arrayLength" />
+                            <table class="table table-bordered">
+                                <tbody id="tblContent"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnsave" type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="SaveChanges()"><i class="fa fa-floppy-o"></i>Save</button>
+                </div>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </form>
 
 
 
 @section Scripts{
-	<script type="text/javascript">
+    <script type="text/javascript">
     $(function () {
         $('#li_Payroll').addClass('open');
         $('#li_updatepay').addClass('active');
@@ -170,7 +170,8 @@
                 return indexed_array;
             }
 
-            function EditVariablePay(Employeeid) {
+        function EditVariablePay(Employeeid) {
+            debugger;
                 $('#tblContent').html('');
                 var isDataExists = $('.trCss_' + Employeeid).length > 0;
                 $('#modalEmpID').val(Employeeid);
@@ -232,13 +233,14 @@
                         contentType: 'application/json; charset=utf-8',
                         method: 'GET',
                         success: function (data) {
-
-                            StopLoadingAnimation();
-                            $('#arrayLength').val(data.length);
-                            var modalContent = '';
-                            for (var i = 0; i < data.length; i++) {
-                                modalContent +=
-                            `<tr>
+                            debugger;
+                            if (data.length>0) {
+                                StopLoadingAnimation();
+                                $('#arrayLength').val(data.length);
+                                var modalContent = '';
+                                for (var i = 0; i < data.length; i++) {
+                                    modalContent +=
+                                        `<tr>
                                 <td>
                                     ${data[i].EmployeeId}
                                 </td>
@@ -266,10 +268,32 @@
                                 </td>
                             </tr>
                             `;
-                            }
+                                }
 
-                            $('#tblContent').html(modalContent);
-                            $('#myModal').modal('show');
+                                $('#tblContent').html(modalContent);
+                                $('#myModal').modal('show');
+                            }
+                            else {
+                                StopLoadingAnimation();
+                                debugger;
+                                swal({
+                                    title: "Caution!",
+                                    text: "Please Update the Variable Pay Before You Confirm",
+                                    type: "warning",
+                                    showCancelButton: true,
+                                    closeOnConfirm: false,
+                                    confirmButtonText: "Update",
+                                    confirmButtonClass: "btn-Success",
+                                },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.href = '@Url.Content("~/PayrollBatch/UpdateVariablePay")';
+                                        }
+                                        else {
+                                            $('#frm2').submit();
+                                        }
+                                    });
+                            }
                         }
                     });
                 }
@@ -387,7 +411,7 @@
                     })
             }*@
         }
-	</script>
+    </script>
 
 }
 

@@ -637,7 +637,7 @@ namespace HR.Web.Controllers
         public ActionResult GetEmployeeList(string Name) {
             using (var dbCntx = new HrDataContext())
             {
-                var list = dbCntx.EmployeeHeaders.Where(x=>x.FirstName.Contains(Name)|| x.LastName.Contains(Name)).Join(dbCntx.EmployeeWorkDetails,
+                var list = dbCntx.EmployeeHeaders.Where(x=>x.FirstName.StartsWith(Name)|| x.LastName.StartsWith(Name)).Join(dbCntx.EmployeeWorkDetails,
                    a => a.EmployeeId, b => b.EmployeeId, (a, b) => new { A = a, B = b }).
                    Where(x => x.A.BranchId == BRANCHID && x.A.IsActive == true).
                    Select(x => new EmployeeTable

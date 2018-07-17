@@ -163,7 +163,7 @@ namespace HR.Web
         /* for generating app keys
         Set nocount On;
         Select * into #TempLookup From Config.Lookup 
-        Where LookupCode in ('CASUALLEAVE','PAIDLEAVE','SICKLEAVE')
+        Where LookupCode in ('MEDICAL LEAVE','ANNUAL LEAVE')
         Select * From #TempLookup
 
 
@@ -174,7 +174,7 @@ namespace HR.Web
         Begin
             Select Top(1) @lookupId = LookUpID, @lookupCode = LookUpCode, @branchId = BranchId From #TempLookup Order By LookupCategory asc
             --print 'public static string ' + UPPER(@lookupCode) + '_' + convert(nvarchar(20), @branchId) + ' = "' + convert(nvarchar(20), @lookupId) + '";'
-	        print '<add key="' + UPPER(@lookupCode) + '_' + convert(nvarchar(20), @branchId) + '" value="' + convert(nvarchar(20), @lookupId) + '" />'
+	        print '<add key="' + UPPER(replace(@lookupCode,' ','')) + '_' + convert(nvarchar(20), @branchId) + '" value="' + convert(nvarchar(20), @lookupId) + '" />'
 
             Delete From #TempLookup Where LookUpID = @lookupId;
         End

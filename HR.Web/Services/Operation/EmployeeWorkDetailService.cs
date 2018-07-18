@@ -39,7 +39,7 @@ namespace HR.Web.Services.Operation
                         empWorkDetail.ModifiedBy = entity.ModifiedBy;
                         empWorkDetail.ModifiedOn = entity.ModifiedOn;
                         empWorkDetail.NoticePeriod = entity.NoticePeriod;
-                        empWorkDetail.ProbationPeriod = entity.NoticePeriod;
+                        empWorkDetail.ProbationPeriod = entity.ProbationPeriod;
                         empWorkDetail.ResignationDate = entity.ResignationDate;
                         empWorkDetail.SendMailsTo = entity.SendMailsTo;
 

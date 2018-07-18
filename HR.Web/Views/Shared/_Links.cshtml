@@ -109,6 +109,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <li id="li_paymenttype"><a class="ajaxCss" href="@Url.Content("~/Config/PaymentTypeList")">Payment Mode</a></li>
                 <li id="li_travelclaim"><a class="ajaxCss" href="@Url.Content("~/Config/TravelClaimList")">Travel Claim</a></li>
                 <li id="li_currency"><a class="ajaxCss" href="@Url.Content("~/Config/CurrencyList")">Currencies</a></li>
+                <li id="li_taxassessment"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/TaxAssessment?year="+year)">Tax Calculations</a></li>
             </ul>
         </li>
 
@@ -132,7 +133,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
             </a>
             <ul class="inner-drop list-unstyled">
                 @*<li><a href="#">Employee Pay Slips</a></li>*@
-                    <li id="li_taxassessment"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/TaxAssessment?year="+year)">Tax Calculations</a></li>
+                   
                     <li id="li_updatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/UpdateVariablePay")">Update Variable Pay</a></li>
                     <li id="li_generatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/ProcessPayroll?currentmonth="+month+"&currentyear="+year)">Generate Pay Slips</a></li>
             </ul>

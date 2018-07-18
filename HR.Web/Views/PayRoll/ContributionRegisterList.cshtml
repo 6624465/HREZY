@@ -18,84 +18,84 @@
 
 
 <div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default">
-            <div class="center-block width">
-                <div class="panel-heading">
-                    Salary Components
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
-                            {
-                                using (Html.BeginForm("ContributionRegisterList", "PayRoll", FormMethod.Get, new { id = "frmcontributionlist", name = "frmcontributionlist" }))
-                                {
-                                    @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm", onchange = "getcontributionlist(this)" })
-                                }
-                            }
-                        </div>
+  
+    <div class="panel panel-default panel-hovered panel-stacked mb10">
 
-                        <div class="col-md-12">
-                            <button class="btn btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'"><i class="fa fa-plus-square"></i>&nbsp;Create</button>
-                        </div>
+        <div class="panel-heading">
+            SALARY COMPONENTS
+        </div>
+        <div class="center-block width">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                    {
+                        using (Html.BeginForm("ContributionRegisterList", "PayRoll", FormMethod.Get, new { id = "frmcontributionlist", name = "frmcontributionlist" }))
+                        {
+                            @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "Select Branch", new { @class = "form-control input-sm", onchange = "getcontributionlist(this)" })
+                    }
+                }
                     </div>
-                    <table class="table table-conden table-bordered">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Code
-                                </th>
-                                <th>
-                                    Title
-                                </th>
-                                <th>
-                                    Component Group
-                                </th>
-                                <th>
-                                    #Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (var i = 0; i < Model.TableData.Count(); i++)
-                            {
 
-							<tr>
-								<td>
-									@Model.TableData[i].Name
-								</td>
-								<td>
-									@Model.TableData[i].Description
-								</td>
-								<td>
-									@Model.TableData[i].RegisterCode
-								</td>
-								<td>
-									<button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
-											onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.TableData[i].ContributionId)'">
-										<i class="fa fa-pencil" style="padding-left: 5px;"></i>
-									</button>
-									@*<button class="btn btn-xs btn-danger waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteRecord(@Model.TableData[i].ContributionId)">
-				<i class="fa fa-trash-o" style="padding-left: 5px;" aria-hidden="true"> </i>
-			</button>*@
-								</td>
-							</tr>
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=-1")'"><i class="fa fa-plus-square"></i>&nbsp;Create</button>
+                    </div>
+                </div>
+                <table class="table table-conden table-bordered css10">
+                    <thead>
+                        <tr>
+                            <th>
+                                Code
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Component Group
+                            </th>
+                            <th>
+                                #Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.TableData.Count(); i++)
+                    {
 
-                            }
-                        </tbody>
+                        <tr>
+                            <td>
+                                @Model.TableData[i].Name
+                            </td>
+                            <td>
+                                @Model.TableData[i].Description
+                            </td>
+                            <td>
+                                @Model.TableData[i].RegisterCode
+                            </td>
+                            <td>
+                                <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
+                                        onclick="location.href='@Url.Content("~/PayRoll/ContributionRegister?ContributionId=" + Model.TableData[i].ContributionId)'">
+                                    <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                </button>
+                                @*<button class="btn btn-xs btn-danger waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteRecord(@Model.TableData[i].ContributionId)">
+                                    <i class="fa fa-trash-o" style="padding-left: 5px;" aria-hidden="true"> </i>
+                                </button>*@
+                            </td>
+                        </tr>
 
-                    </table>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="pagination"></div>
-                        </div>
+                }
+                    </tbody>
+
+                </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="pagination"></div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>
 
 <link href="~/Css/sweetalert.css" rel="stylesheet" />

@@ -30,49 +30,56 @@
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default panel-hovered panel-stacked mb10">
-            <div class="center-block width">
-                <div class="box">
-                    <div class="box-header">
-                        <h4>HOLIDAY LIST</h4>
+
+
+            <div class="panel-heading">
+              HOLIDAY LIST
+            </div>
+            <div class="box css10">
+                <div class="center-block width">
+                    <div class="box-body">
+
                         @if (ViewData["RoleCode"].ToString() != UTILITY.ROLE_EMPLOYEE)
-                        {
+                {
 
-                            <button type="button" onclick="AddHoliday(-1)"
-                                    class="btn btn-info btn-raised waves-effect btn-sm pull-right">
-                                <i class="fa fa-plus"></i>Add
-                            </button>
+                    <button type="button" onclick="AddHoliday(-1)"
+                            class="btn btn-info btn-raised waves-effect btn-sm pull-right">
+                        <i class="fa fa-plus"></i>Add
+                    </button>
 
-                        }
-                        <div class="box-body">
-                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
-                            {
+        }
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        @using (Html.BeginForm("HolidayListByBranch", "Leave", FormMethod.Post, new { id = "frmHolidayList", name = "frmHolidayList" }))
-                                        {
-                                            @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "--Select--",
-                            new { @class = "form-control input-sm", onchange = "getHolidayBranch(this)" })
-                                        }
+                        @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                {
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            @using (Html.BeginForm("HolidayListByBranch", "Leave", FormMethod.Post, new { id = "frmHolidayList", name = "frmHolidayList" }))
+                    {
+                        @Html.DropDownListFor(x => x.BranchId, SelectListItemHelper.Branches(), "--Select--",
+     new { @class = "form-control input-sm", onchange = "getHolidayBranch(this)" })
+            }
+                        </div>
+
+                    </div>
+        }
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="calendar-toolbar mb20 text-center">
+                                    <div class="btn-group btn-group-sm left">
+                                        <button type="button" class="btn btn-default ion ion-arrow-left-c prev-btn"></button>
+                                        <button type="button" class="btn btn-default ion ion-arrow-right-c next-btn"></button>
                                     </div>
-
+                                    <button type="button" class="btn btn-default btn-sm ml15 left today-btn">Today</button>
+                                    <strong class="text-uppercase current-date"></strong>
                                 </div>
-                            }
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="calendar-toolbar mb20 text-center">
-                                        <div class="btn-group btn-group-sm left">
-                                            <button type="button" class="btn btn-default ion ion-arrow-left-c prev-btn"></button>
-                                            <button type="button" class="btn btn-default ion ion-arrow-right-c next-btn"></button>
-                                        </div>
-                                        <button type="button" class="btn btn-default btn-sm ml15 left today-btn">Today</button>
-                                        <strong class="text-uppercase current-date"></strong>
-                                    </div>
-                                    <div id="fullCalendar" style="z-index:9;"></div>
-                                </div>
+                                <div id="fullCalendar" style="z-index:9;"></div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -4,7 +4,16 @@
 @section Styles {
     <style type="text/css">
         .width {
-            width: 80%;
+            width: 90%;
+        }
+        @@media only screen and (min-width: 1200px) {
+            .custom-btn {
+                position: relative;
+                right: 95px;
+            }
+        }
+        .custom-width {
+            width: 100px;
         }
     </style>
 
@@ -15,38 +24,39 @@
 
 <div class="page">
     <div class="page-wrap">
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    UPDATE VARIABLE PAY
-                </div>
+      
+        <div class="panel panel-default  panel-hovered panel-stacked mb10">
+            <div class="panel-heading">
+                UPDATE VARIABLE PAY
+            </div>
+            <div class="panel-body">
                 @using (Html.BeginForm("GetEmployeeList", "PayrollBatch", FormMethod.Get))
-    {
+        {
 
-                <div class="row css5">
-                    <div class="col-md-1">
+            <div class="row css10">
+                <div class="col-md-1">
 
-                    </div>
-                    <label class="col-md-2 control-label">
-                        <span class="pull-right">Name</span>
-                    </label>
-                    <div class="col-md-2">
-                        @Html.TextBox("Name", "", new { @class = "form-control input-sm uppercase" })
-
-                    </div>
-                    <div class="col-md-1">
-                        <button class="btn btn-sm btn-primary" type="submit">Search</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-sm btn-primary" type="button" onclick="location.href='@Url.Content("~/PayrollBatch/UpdateVariablePay")'">Refresh</button>
-                    </div>
                 </div>
+                <label class="col-md-2 control-label">
+                    <span class="pull-right">Name</span>
+                </label>
+                <div class="col-md-2">
+                    @Html.TextBox("Name", "", new { @class = "form-control input-sm uppercase" })
+
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-sm btn-primary" type="submit">Search</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="location.href='@Url.Content("~/PayrollBatch/UpdateVariablePay")'">Refresh</button>
+                </div>
+            </div>
 
 
 
 }
                 @using (Html.BeginForm("SaveVariablePaytransaction", "PayrollBatch", FormMethod.Post, new { id = "variablesave", name = "variablesave" }))
-    {
+        {
 
             <div class="panel-body">
                 @Html.HiddenFor(x => x.variablepaymentheader.HeaderID)
@@ -85,46 +95,46 @@
                     <div class="col-md-12">
                         <div class="center-block width">
                             @if (Model.Employeetable != null && Model.Employeetable.Count() > 0)
-                {
-                    <table class="table table-conden table-bordered">
-                        <thead>
+                    {
+                        <table class="table table-conden table-bordered">
+                            <thead>
+                                <tr>
+                                    <th> Employee Name</th>
+                                    <th>Job Title</th>
+                                    <th>
+                                        Manager Name
+                                    </th>
+                                    <th>
+                                        #Action
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @for (var i = 0; i < Model.Employeetable.Count; i++)
+                        {
+
                             <tr>
-                                <th> Employee Name</th>
-                                <th>Job Title</th>
-                                <th>
-                                    Manager Name
-                                </th>
-                                <th>
-                                    #Action
-                                </th>
+                                <td>
+                                    @Model.Employeetable[i].EmployeeName
+                                </td>
+                                <td>
+                                    @Model.Employeetable[i].EmployeeDesignation
+                                </td>
+                                <td>
+                                    @Model.Employeetable[i].ManagerName
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
+                                            onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
+                                        <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                    </button>
+                                </td>
                             </tr>
-                        </thead>
-
-                        <tbody>
-                            @for (var i = 0; i < Model.Employeetable.Count; i++)
-                {
-
-                    <tr>
-                        <td>
-                            @Model.Employeetable[i].EmployeeName
-                        </td>
-                        <td>
-                            @Model.Employeetable[i].EmployeeDesignation
-                        </td>
-                        <td>
-                            @Model.Employeetable[i].ManagerName
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
-                                    onclick="EditVariablePay(@Model.Employeetable[i].EmployeeId)">
-                                <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                            </button>
-                        </td>
-                    </tr>
-    }
-                        </tbody>
-                    </table>
-    }
+                }
+                            </tbody>
+                        </table>
+            }
                         </div>
                     </div>
                 </div>

@@ -9,9 +9,9 @@
 @using (Html.BeginForm("ContributionSave", "PayRoll", FormMethod.Post, new { id = "contributionfrm", name = "contributionfrm" }))
 {
     <div class="page">
-        <div class="page-wrap">
-            <div class="panel-group">
-                <div class="panel panel-default">
+        @*<div class="page-wrap">
+            <div class="panel-group">*@
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">
                         Contribution registers
                     </div>
@@ -97,8 +97,8 @@
 					</div>
                 </div>
             </div>
-        </div>
-    </div>
+        @*</div>
+    </div>*@
                                 }
 <link href="~/Css/sweetalert.css" rel="stylesheet" />
 <script src="~/Scripts/Core/sweetalert.js"></script>

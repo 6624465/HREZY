@@ -500,6 +500,27 @@ namespace HR.Web.Controllers
                 );
             }
         }
+
+        public ActionResult DashboardofEmployeeData()
+        {
+            return View();
+        }
+        public ActionResult DashboardofSalaryComponents()
+        {
+            return View();
+        }
+        public ActionResult DashboardofSalaryReport()
+        {
+            return View();
+        }
+        public ActionResult DashboardofSalaryData()
+        {
+            return View();
+        }
+        public ActionResult DashboardofLeaveReport()
+        {
+            return View();
+        }
     }
 
     //public class DashBoard {

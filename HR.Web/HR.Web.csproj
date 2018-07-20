@@ -2214,6 +2214,11 @@
     <Content Include="Views\YearlyReports\YearlyReportsOne.cshtml" />
     <Content Include="Views\YearlyReports\YearlyReportsTwo.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Dashboard\DashboardofEmployeeData.cshtml" />
+    <Content Include="Views\Dashboard\DashboardofSalaryComponents.cshtml" />
+    <Content Include="Views\Dashboard\DashboardofSalaryReport.cshtml" />
+    <Content Include="Views\Dashboard\DashboardofSalaryData.cshtml" />
+    <Content Include="Views\Dashboard\DashboardofLeaveReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

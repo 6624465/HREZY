@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "DashboardofSalaryReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    var listMonths = new List<SelectListItem>()
+    {
+    new SelectListItem {Text = "January",   Value = "1"},
+    new SelectListItem {Text = "February", Value = "2"},
+    new SelectListItem {Text = "March", Value = "3"},
+    new SelectListItem {Text = "April",   Value = "4"},
+    new SelectListItem {Text = "May", Value = "5"},
+    new SelectListItem {Text = "June", Value = "6"},
+    new SelectListItem {Text = "July",   Value = "7"},
+    new SelectListItem {Text = "August", Value = "8"},
+    new SelectListItem {Text = "September", Value = "9"},
+    new SelectListItem {Text = "October",   Value = "10"},
+    new SelectListItem {Text = "November", Value = "11"},
+    new SelectListItem {Text = "December", Value = "12"}
+};
+}
+@section Styles{
+    <style type="text/css">
+        .widthcss {
+            width: 40%
+        }
+
+        .css5 {
+            padding-top: 5px
+        }
+    </style>
+}
+
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="center-block width">
+                <div class="box" id="grid">
+                    <div class="box-header">
+                        <h4>Salary Report</h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Year</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Year", Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
+                                </div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Month</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Month", listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:70%" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-12">
+                                <div class="col-md-6 widthcss">
+                                    <div id="jqChart0" style="width: 500px; height: 300px;"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="jqChart1" style="width: 500px; height: 300px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-12">
+                                <div class="col-md-6 widthcss">
+                                    <div id="jqChart2" style="width: 500px; height: 300px;"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="jqChart3" style="width: 500px; height: 300px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-12">
+                                <div class="col-md-6 widthcss">
+                                    <div id="jqChart4" style="width: 500px; height: 300px;"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="jqChart5" style="width: 500px; height: 300px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-12">
+                                <div class="col-md-6 widthcss">
+                                    <div id="jqChart6" style="width: 500px; height: 300px;"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="jqChart7" style="width: 500px; height: 300px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div id="jqChart8" style="width: 500px; height: 300px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="http://www.jqchart.com/jquery/chart/Scripts/jquery.jqChart.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jqchart.com/jquery/chart/Content/jquery.jqChart.css" />
+    <script>
+        $(function () {
+            $('#li_Dashboard').addClass('open');
+            $('#li_salaryReport').addClass('active');
+        });
+    </script>
+
+    <script lang="javascript" type="text/javascript">
+        $(document).ready(function () {
+            for (var i = 0; i <= 8; i++) {
+                $('#jqChart' + i).jqChart({
+                    title: { text: 'srilanka' },
+                    animation: { duration: 1 },
+                    shadows: {
+                        enabled: true
+                    },
+                    series: [
+                        {
+                            type: 'column',
+                            title: '',
+                            fillStyles: [
+                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69',
+                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69',
+                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69'],
+                            data: [
+                                ['Jan', 33], ['Feb', 57], ['Mar', 33], ['Apr', 12],
+                                ['May', 35], ['Jun', 7], ['Jul', 24], ['Aug', 24],
+                                ['Sep', 35], ['Oct', 7], ['Nov', 24], ['Dec', 24]
+                            ]
+                        }
+                    ]
+                });
+
+            }
+        });
+
+    </script>
+}

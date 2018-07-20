@@ -1,4 +1,4 @@
-﻿@model List<HR.Web.Models.TravelClaimHeader>
+﻿@model List<HR.Web.ViewModels.TravelClaimFormVm>
 
 @using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frm", name = "frm" }))
 {
@@ -10,6 +10,17 @@
                         Process Travel Claim
                     </div>
                     <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-1">
+                                @Html.DropDownList("Year", SelectListItemHelper.GetYears(), new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.DropDownList("Month", SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
                         <table class="table table-conden table-bordered">
                             <thead>
                                 <tr>
@@ -18,29 +29,29 @@
                                     <th>Employee Name</th>
                                     <th>Submission Date</th>
                                     <th>Total Claim</th>
-                                    <th>Total Amount Paid</th>
+                                    @*<th>Total Amount Paid</th>*@
                                     <th>#Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @for (var i = 0; i < Model.Count; i++)
+                                @for (var i = 0; i < Model.Count(); i++)
                                 {
 
                                     <tr id="len_@i" class="length">
                                         <td>
                                             @Html.CheckBox("[" + i + "].IsChecked", new { @class = "myChk", id = i + "_IsChecked", data_index = i })
-                                            @Html.HiddenFor(x => Model[i].EmployeeId)
-                                            @Html.HiddenFor(x => Model[i].TravelClaimId)
+                                            @Html.HiddenFor(x => Model[i].Employeeid)
+                                            @Html.HiddenFor(x => Model[i].TravelclaimId)
                                             @Html.HiddenFor(x => Model[i].BranchId)
                                         </td>
-                                        <td>@Model[i].ClaimNo</td>
-                                        <td>@Model[i].Name</td>
-                                        <td>@Model[i].CreatedOn.Value.ToString("dd/MM/yyyy")</td>
-                                        <td>@Model[i].GrossTotal</td>
-                                        <td>@Html.TextBoxFor(x => Model[i].TotalAmtPaid, new { @class = "form-control input-sm decimalCss txtCss", id =  i + "_TotalAmtPaid" })</td>
+                                        <td>@Model[i].TravelClaimNo</td>
+                                        <td>@Model[i].EmployeeName</td>
+                                        <td>@Model[i].SubmissionDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@Model[i].TotalClaim</td>
+                                        @*<td>@Html.TextBoxFor(x => Model[i].TotalAmtPaid, new { @class = "form-control input-sm decimalCss txtCss", id =  i + "_TotalAmtPaid" })</td>*@
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.ElementAt(i).TravelClaimId)"><i class="fa fa-eye"></i>View</button>
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.ElementAt(i).TravelclaimId)"><i class="fa fa-eye"></i>View</button>
                                         </td>
                                     </tr>
                                 }
@@ -90,15 +101,15 @@
 
             var atleastOneChecked = $('.myChk').is(':checked');
 
-            if (atleastOneChecked) {
-                var chksArr = $('.myChk');
-                $.each(chksArr, function (index, item) {
-                    if (item.checked) {
-                        var index = item.dataset['index'];
-                        $('#' + index + '_TotalAmtPaid').attr('required', 'required');
-                    }
-                });
-            }
+            //if (atleastOneChecked) {
+            //    var chksArr = $('.myChk');
+            //    $.each(chksArr, function (index, item) {
+            //        if (item.checked) {
+            //            var index = item.dataset['index'];
+            //            $('#' + index + '_TotalAmtPaid').attr('required', 'required');
+            //        }
+            //    });
+            //}
             
             if (!atleastOneChecked) {
                 swal("Please Select the Checkbox which you want to approve");

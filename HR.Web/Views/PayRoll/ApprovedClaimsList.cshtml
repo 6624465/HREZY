@@ -14,26 +14,37 @@
     </style>
 }
 
+@using (Html.BeginForm("ApproveTravelClaim", "PayRoll", FormMethod.Post, new { id = "frm", name = "frm" }))
+{
+    <div class="page">
+        <div class="page-wrap">
+            <div class="panel panel-default">
 
-<div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default">
-           
                 <div class="panel-heading">
-                   List Of Approved Claims
+                    List Of Approved Claims
                 </div>
                 <div class="panel-body">
                     <table class="table table-condensed table-bordered">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Claim No</th>
                                 <th>Employee Name</th>
-                                <th>
+                                @*<th>
                                     Submitted On
-                                </th>
+                                </th>*@
                                 <th>
                                     Amount
                                 </th>
+                                <th>
+                                    Total Amount Paid
+                                </th>
+                                <th>
+                                    Approved On
+                                </th>
+                                @*<th>
+                                    Approved By
+                                </th>*@
                                 <th>
                                     View
                                 </th>
@@ -42,56 +53,74 @@
                         <tbody>
                             @for (var i = 0; i < Model.TableData.Count(); i++)
                             {
-                                <tr>
-                                    <td>@Model.TableData[i].ClaimNo</td>
-                                    <td>@Model.TableData[i].Name</td>
-                                    <td>
-                                        @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
-                                    </td>
-                                    <td>@Model.TableData[i].GrossTotal</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.TableData[i].TravelClaimId)">
-                                            <i class="fa fa-eye"></i>
-                                            View
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tr id="len_@i" class="length">
+                                <td>
+                                    @Html.CheckBox("[" + i + "].IsChecked", new { @class = "myChk", id = i + "_IsChecked", data_index = i })
+                                    @Html.HiddenFor(x => Model.TableData[i].EmployeeId)
+                                    @Html.HiddenFor(x => Model.TableData[i].TravelClaimId)
+                                    @Html.HiddenFor(x => Model.TableData[i].BranchId)
+                                </td>
+                                <td>@Model.TableData[i].ClaimNo</td>
+                                <td>@Model.TableData[i].Name</td>
+                                @*<td>
+                                    @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
+                                </td>*@
+                                <td>@Model.TableData[i].GrossTotal</td>
+
+                                <td>@Html.TextBoxFor(x => Model.TableData[i].TotalAmtPaid, new { @class = "form-control input-sm decimalCss txtCss", id = i + "_TotalAmtPaid" })</td>
+                                <td>@Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")</td>
+                                @*<td>@Model.TableData[i].CreatedBy</td>*@
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="view(@Model.TableData[i].TravelClaimId)">
+                                        <i class="fa fa-eye"></i>
+                                        View
+                                    </button>
+                                </td>
+                            </tr>
                             }
                         </tbody>
 
                     </table>
+                    <div class="row">
+                        <button class="btn btn-primary btn-sm" type="button" onclick="Save()">
+                            <i class="fa fa-floppy-o"></i>
+                            Save
+                        </button>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div id="pagination"></div>
                         </div>
                     </div>
                 </div>
-          
+
+            </div>
+
         </div>
-
     </div>
-</div>
-<div id="myPreviewModal" class="modal fade" role="dialog">
-    <div class="modal-dialog" style="width:1250px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"><b>Preview</b></h4>
-                <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body" id="modalContent1">
 
-            </div>
-            <div class="modal-footer">
+}
+    <div id="myPreviewModal" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="width:1250px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Preview</b></h4>
+                    <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" id="modalContent1">
 
+                </div>
+                <div class="modal-footer">
+
+                </div>
             </div>
+
         </div>
-
     </div>
-</div>
 
-@section Scripts{
-    <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
-    <script type="text/javascript">
+    @section Scripts{
+        <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>
+        <script type="text/javascript">
 
         $(function () {
             $('#li_claims').addClass('open');
@@ -159,7 +188,45 @@
 
                 }
             });
-        }
+            }
+            function Save() {
 
-    </script>
-}
+                var atleastOneChecked = $('.myChk').is(':checked');
+
+                if (atleastOneChecked) {
+                    var chksArr = $('.myChk');
+                    $.each(chksArr, function (index, item) {
+                        if (item.checked) {
+                            var index = item.dataset['index'];
+                            $('#' + index + '_TotalAmtPaid').attr('required', 'required');
+                        }
+                    });
+                }
+
+                if (!atleastOneChecked) {
+                    swal("Please Select the Checkbox which you want to approve");
+                }
+                else {
+                    if ($('#frm').valid()) {
+                        $('#frm').submit();
+
+                        swal({
+                            title: "Saved Successfully",
+                            text: "",
+                            closeOnConfirm: true,
+                            confirmButtonText: "Ok",
+                            confirmButtonClass: "btn-primary",
+                            timer: 5000
+                        },
+                            function () {
+                                $.loader({
+                                    className: "blue-with-image-2",
+                                    content: '',
+                                });
+                            })
+                    }
+                }
+            }
+
+        </script>
+    }

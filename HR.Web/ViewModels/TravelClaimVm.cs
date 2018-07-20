@@ -258,4 +258,17 @@ namespace HR.Web.ViewModels
         public int EmployeeId { get; set; }
     }
 
+    public class TravelClaimFormVm
+    {
+       public string TravelClaimNo { get; set; }
+
+        public string EmployeeName { get; set; }
+        public DateTime SubmissionDate { get; set; }
+        public decimal TotalClaim { get; set; }
+        public int Employeeid { get; set; }
+        public int ManagerId { get; set; }
+        public int TravelclaimId { get; set; }
+        public int BranchId { get; set; }
+
+    }
 }

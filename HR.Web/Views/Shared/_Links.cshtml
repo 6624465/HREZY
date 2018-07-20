@@ -11,40 +11,40 @@
         <li id="li_dashboard">
             <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
                 <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;Dashboard
+            </a>            
+        </li>
+@if (Model.IsManager)
+{
+
+
+        <li id="li_travelclaim">
+            <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
+                <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
             </a>
         </li>
-        @if (Model.IsManager)
-        {
+
+        <li id="li_emprequestleave">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">
+                <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Application
+            </a>
+        </li>
+}
+else
+{
 
 
-            <li id="li_travelclaim">
-                <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
-                    <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
-                </a>
-            </li>
+        <li id="li_emprequestleave">
+            <a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">
+                <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Application
+            </a>
+        </li>
 
-            <li id="li_emprequestleave">
-                <a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">
-                    <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Application
-                </a>
-            </li>
-        }
-        else
-        {
-
-
-            <li id="li_emprequestleave">
-                <a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">
-                    <i class="ion ion-calculator" aria-hidden="true"></i>&nbsp;&nbsp;Leave Application
-                </a>
-            </li>
-
-            <li id="li_travelclaim">
-                <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
-                    <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
-                </a>
-            </li>
-        }
+        <li id="li_travelclaim">
+            <a class="ajaxCss" href="@Url.Content("~/Payroll/TravelClaimList")">
+                <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Travel Claim
+            </a>
+        </li>
+}
 
         @if (Model.IsManager)
         {
@@ -62,13 +62,12 @@
 
         <li id="li_holidaylist">
             <a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">
-                <i class="ion ion-paper-airplane" aria-hidden="true"></i>&nbsp;&nbsp;Holiday List
-            </a>
+            <i class="ion ion-paper-airplane" aria-hidden="true"></i>&nbsp;&nbsp;Holiday List</a>
         </li>
-
-
-
-
+       
+        
+       
+        
     </ul>
 }
 else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
@@ -77,34 +76,22 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
     <ul class="list-unstyled clearfix nav-list mb15">
         <li id="li_Dashboard">
             @*<a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
-            <i class="ion ion-monitor"></i>
-            <span class="text">Dashboard</span>
-            <i class="arrow ion-chevron-left"></i>
-        </a>*@
-            @*<ul class="inner-drop list-unstyled">
-            <li>
-                <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
-            </li>
-        </ul>*@
-
-
-            @*<a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
-            <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard
-        </a>*@
-            <a href="javascript:;">
-                <i class="ion ion-android-options"></i>
+                <i class="ion ion-monitor"></i>
                 <span class="text">Dashboard</span>
                 <i class="arrow ion-chevron-left"></i>
-            </a>
-            <ul class="inner-drop list-unstyled">
-                <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofEmployeeData")">Employee Data</a></li>
-                <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryComponents")">Salary Components</a></li>
-                <li id="li_salaryReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryReport")">Salary Report</a></li>
-                <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData")">Salary Data</a></li>
-                <li id="li_leaveReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofLeaveReport")">Leave Report</a></li>
-            </ul>
-
-        </li>
+            </a>*@
+            @*<ul class="inner-drop list-unstyled">
+                <li>
+                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
+                </li>
+            </ul>*@
+          
+               
+                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
+                        <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard
+                    </a>
+              
+</li>
         <li id="li_Master">
             <a href="javascript:;">
                 <i class="ion ion-android-options"></i>
@@ -122,6 +109,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <li id="li_paymenttype"><a class="ajaxCss" href="@Url.Content("~/Config/PaymentTypeList")">Payment Mode</a></li>
                 <li id="li_travelclaim"><a class="ajaxCss" href="@Url.Content("~/Config/TravelClaimList")">Travel Claim</a></li>
                 <li id="li_currency"><a class="ajaxCss" href="@Url.Content("~/Config/CurrencyList")">Currencies</a></li>
+                <li id="li_taxassessment"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/TaxAssessment?year="+year)">Tax Calculations</a></li>
             </ul>
         </li>
 
@@ -145,9 +133,9 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
             </a>
             <ul class="inner-drop list-unstyled">
                 @*<li><a href="#">Employee Pay Slips</a></li>*@
-                <li id="li_taxassessment"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/TaxAssessment?year="+year)">Tax Calculations</a></li>
-                <li id="li_updatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/UpdateVariablePay")">Update Variable Pay</a></li>
-                <li id="li_generatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/ProcessPayroll?currentmonth="+month+"&currentyear="+year)">Generate Pay Slips</a></li>
+                   
+                    <li id="li_updatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/UpdateVariablePay")">Update Variable Pay</a></li>
+                    <li id="li_generatepay"><a class="ajaxCss" href="@Url.Content("~/PayrollBatch/ProcessPayroll?currentmonth="+month+"&currentyear="+year)">Generate Pay Slips</a></li>
             </ul>
         </li>
         <li id="li_PayRollConfig">
@@ -167,22 +155,22 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <span class="text">Leave</span>
                 <i class="arrow ion-chevron-left"></i>
             </a>
-            <ul class="inner-drop list-unstyled">
-                <li id="li_grantleaveform">
-                    <a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">
-                        Grant Leave Form
-                    </a>
-                </li>
-                <li id="li_appliedleavelist"><a class="ajaxCss" href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
-                <li id="li_Leavepolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/Leave")">Set Leave Policy</a></li>
-                <li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">Set Holidays</a></li>
+			<ul class="inner-drop list-unstyled">
+				<li id="li_grantleaveform">
+					<a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">
+						Grant Leave Form
+					</a>
+				</li>
+				<li id="li_appliedleavelist"><a class="ajaxCss" href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+				<li id="li_Leavepolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/Leave")">Set Leave Policy</a></li>
+				<li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">Set Holidays</a></li>
 
-                @*<li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>*@
-                @*<li id="li_emprequestleave"><a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>*@
-                @*<li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>*@
-                <li id="li_weekendpolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/WeekendPolicyList")">Set Weekend Policy</a></li>
+				@*<li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>*@
+				@*<li id="li_emprequestleave"><a class="ajaxCss" href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>*@
+				@*<li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>*@
+				<li id="li_weekendpolicy"><a class="ajaxCss" href="@Url.Content("~/Leave/WeekendPolicyList")">Set Weekend Policy</a></li>
 
-            </ul>
+			</ul>
         </li>
 
         <li id="li_claims">
@@ -198,18 +186,18 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
         </li>
 
         @*<li id="li_yearlyreports">
-                <a href="javascript:;">
-                    <i class="ion ion-document"></i>
-                    <span class="text">Yearly Reports</span>
-                    <i class="arrow ion-chevron-left"></i>
-                </a>
-                <ul class="inner-drop list-unstyled">
-                    <li id="li_Yearlyssc"><a class="ajaxCss" href="@Url.Content("~/YearlyReports/YearlyReportsSSC")">Monthly SSF</a></li>
-                    <li id="li_yearly1"><a class="ajaxCss" href="@Url.Content("~/YearlyReports/YearlyReportsOne")">Monthly PND1</a></li>
-                    <li id="li_Yearly2"><a class="ajaxCss" href="@Url.Content("~/YearlyReports/YearlyReportsTwo")">Yearly PND1-K</a></li>
-                    <li id="li_yearlytds"><a class="ajaxCss" href="@Url.Content("~/YearlyReports/YearlyReportsTDS")">Yearly WithholdingTax</a></li>
-                </ul>
-            </li>*@
+            <a href="javascript:;">
+                <i class="ion ion-document"></i>
+                <span class="text">Yearly Reports</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_Yearlyssc"><a class="ajaxCss" href="@Url.Content("~/YearlyReports/YearlyReportsSSC")">Monthly SSF</a></li>
+                <li id="li_yearly1"><a class="ajaxCss" href="@Url.Content("~/YearlyReports/YearlyReportsOne")">Monthly PND1</a></li>
+                <li id="li_Yearly2"><a class="ajaxCss" href="@Url.Content("~/YearlyReports/YearlyReportsTwo")">Yearly PND1-K</a></li>
+                <li id="li_yearlytds"><a class="ajaxCss" href="@Url.Content("~/YearlyReports/YearlyReportsTDS")">Yearly WithholdingTax</a></li>
+            </ul>
+        </li>*@
 
     </ul>
 }
@@ -218,15 +206,15 @@ else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
     <ul class="list-unstyled clearfix nav-list mb15">
         <li id="li_Dashboard">
             @*<a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
-                    <i class="ion ion-monitor"></i>
-                    <span class="text">Dashboard</span>
-                    <i class="arrow ion-chevron-left"></i>
-                </a>*@
+                <i class="ion ion-monitor"></i>
+                <span class="text">Dashboard</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>*@
             @*<ul class="inner-drop list-unstyled">
-                    <li>
-                        <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
-                    </li>
-                </ul>*@
+                <li>
+                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
+                </li>
+            </ul>*@
             <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
                 <i class="ion ion-monitor" aria-hidden="true"></i>
                 &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
@@ -234,45 +222,45 @@ else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
 
         </li>
         @*<li id="li_Payroll">
-                <a href="javascript:;">
-                    <i class="ion ion-calendar"></i>
-                    <span class="text">PayRoll</span>
-                    <i class="arrow ion-chevron-left"></i>
-                </a>
-                <ul class="inner-drop list-unstyled">
-                    <li><a href="#">Employee Payslips</a></li>
-                    <li><a href="#">Payslips Batches</a></li>
-                </ul>
-            </li>
-            <li id="li_PayRollConfig">
-                <a href="javascript:;">
-                    <i class="ion ion-calendar"></i>
-                    <span class="text">Payroll Setup</span>
-                    <i class="arrow ion-chevron-left"></i>
-                </a>
-                <ul class="inner-drop list-unstyled">
-                    <li id="li_ContributionRegisterList"><a class="ajaxCss" href="@Url.Content("~/PayRoll/ContributionRegisterList")">Salary Components</a></li>
-                    <li id="li_SalaryStructureHeaderList">
-                        <a class="ajaxCss" href='@Url.Content("~/PayRoll/SalaryStructureHeaderList")'>Salary Structures List</a>
-                    </li>
-                </ul>
-            </li>
-            <li id="li_Leave">
-                <a href="javascript:;">
-                    <i class="ion ion-ionic"></i>
-                    <span class="text">Leave</span>
-                    <i class="arrow ion-chevron-left"></i>
-                </a>
-                <ul class="inner-drop list-unstyled">
-                    <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
-                    <li id="li_empdir"><a class="ajaxCss" href="@Url.Content("~/Leave/LeaveList")">Set Leave Policy</a></li>
-                    <li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">Set Holidays</a></li>
-
-                    @*<li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>*@
-        @*<li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>*@
-        @*<li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>*@
-        @*</ul>
-            </li>*@
+            <a href="javascript:;">
+                <i class="ion ion-calendar"></i>
+                <span class="text">PayRoll</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li><a href="#">Employee Payslips</a></li>
+                <li><a href="#">Payslips Batches</a></li>
+            </ul>
+        </li>
+        <li id="li_PayRollConfig">
+            <a href="javascript:;">
+                <i class="ion ion-calendar"></i>
+                <span class="text">Payroll Setup</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_ContributionRegisterList"><a class="ajaxCss" href="@Url.Content("~/PayRoll/ContributionRegisterList")">Salary Components</a></li>
+                <li id="li_SalaryStructureHeaderList">
+                    <a class="ajaxCss" href='@Url.Content("~/PayRoll/SalaryStructureHeaderList")'>Salary Structures List</a>
+                </li>
+            </ul>
+        </li>
+        <li id="li_Leave">
+            <a href="javascript:;">
+                <i class="ion ion-ionic"></i>
+                <span class="text">Leave</span>
+                <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_appliedleavelist"><a href="@Url.Content("~/Leave/AppliedLeaveList")">Applied Leave List</a></li>
+                <li id="li_empdir"><a class="ajaxCss" href="@Url.Content("~/Leave/LeaveList")">Set Leave Policy</a></li>
+                <li id="li_holidaylist"><a class="ajaxCss" href="@Url.Content("~/Leave/HolidayList")">Set Holidays</a></li>
+               
+                @*<li id="li_empadd"><a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">View Leaves</a></li>*@
+                @*<li id="li_emprequestleave"><a href="@Url.Content("~/Leave/EmployeeRequestFrom")">Leave Request</a></li>*@
+                @*<li id="li_grantleaveform"><a class="ajaxCss" href="@Url.Content("~/Leave/GrantLeaveFormList")">Grant Leave Form</a></li>*@
+            @*</ul>
+        </li>*@
         <li id="li_Admin">
             <a href="javascript:;">
                 <i class="ion ion-monitor"></i>

@@ -175,15 +175,15 @@ namespace HR.Web.Controllers
                         LeaveMaster lMaster = new LeaveMaster();
                         if (leaveStartTransactions != null)
                         {
-                            var paidLeave = lMaster.PAIDLEAVE(BRANCHID);
+                            var paidLeave = lMaster.ANNUALLEAVE(BRANCHID);
                             var casualLeave = lMaster.CASUALLEAVE(BRANCHID);
-                            var sickLeave = lMaster.SICKLEAVE(BRANCHID);
+                            var sickLeave = lMaster.MEDICALLEAVE(BRANCHID);
 
                            List<OtherLeave> leavepolicy = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.IsActive == true).ToList();
                             if (leavepolicy.Count != 0)
                             {
 								
-                                var totalcasualLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == casualLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
+                                //var totalcasualLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == casualLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
                                 var totalpaidleaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == paidLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
                                 var totalsickLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == sickLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
 
@@ -209,25 +209,25 @@ namespace HR.Web.Controllers
 									if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
 										remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
 
-									LeaveTran prevCasualLeaves = leaveStartTransactions.Where(x => x.LeaveType == casualLeave)
-										.OrderBy(x => x.TransactionId).FirstOrDefault();
+									//LeaveTran prevCasualLeaves = leaveStartTransactions.Where(x => x.LeaveType == casualLeave)
+									//	.OrderBy(x => x.TransactionId).FirstOrDefault();
 
-									LeaveTran curCasualLeaves = leaveCurrentTransactions.Where(x => x.LeaveType == casualLeave).OrderBy(x => x.TransactionId)
-										.OrderByDescending(x => x.TransactionId).FirstOrDefault();
+									//LeaveTran curCasualLeaves = leaveCurrentTransactions.Where(x => x.LeaveType == casualLeave).OrderBy(x => x.TransactionId)
+									//	.OrderByDescending(x => x.TransactionId).FirstOrDefault();
 
 
-									decimal totalCasualLeaves = 0;
+									//decimal totalCasualLeaves = 0;
 
-									if (prevCasualLeaves != null)
-										totalCasualLeaves = prevCasualLeaves.PreviousLeaves;
+									//if (prevCasualLeaves != null)
+									//	totalCasualLeaves = prevCasualLeaves.PreviousLeaves;
 
-									decimal currentCasualLeaves = 0;
-									if (curCasualLeaves != null)
-										currentCasualLeaves = curCasualLeaves.CurrentLeaves;
+									//decimal currentCasualLeaves = 0;
+									//if (curCasualLeaves != null)
+									//	currentCasualLeaves = curCasualLeaves.CurrentLeaves;
 
-									obj.remainingcls = currentCasualLeaves;
-									if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
-										remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
+									//obj.remainingcls = currentCasualLeaves;
+									//if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
+									//	remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
 
 									DateTime now = DateTime.Now;
 									var startDate = new DateTime(now.Year, now.Month, 1);
@@ -281,7 +281,7 @@ namespace HR.Web.Controllers
 									obj.empLeaveDashBoard = empLeaveDetails.ToList();
 									obj.clPercent = remainingCasualLeavesPercent;
 									obj.plPercent = remainingPaidLeavesPercent;
-									obj.totalCLs = totalCasualLeaves;
+									//obj.totalCLs = totalCasualLeaves;
 									obj.totalPLs = totalPaidLeaves;
 									obj.totalSLs = totalsickleaves;
 									obj.currentcls = obj.totalCLs - obj.remainingcls;
@@ -294,7 +294,7 @@ namespace HR.Web.Controllers
 								else {
 
 									obj.empLeaveDashBoard = empLeaveDetails.ToList();
-									obj.totalCLs = totalcasualLeaves.Value;
+									//obj.totalCLs = totalcasualLeaves.Value;
 									obj.totalPLs = totalpaidleaves.Value;
 									obj.totalSLs = totalsickLeaves.Value;
 									obj.currentcls = 0;
@@ -302,7 +302,7 @@ namespace HR.Web.Controllers
 									obj.currentsls = 0;
 									obj.remainingpls = totalpaidleaves.Value;
 									obj.remainingsls = totalsickLeaves.Value;
-									obj.remainingcls = totalcasualLeaves.Value;
+									//obj.remainingcls = totalcasualLeaves.Value;
 									obj.EmployeeId = EMPLOYEEID;
 									obj.EmployeeName = empheader.FirstName + " " + empheader.LastName;
 									ViewData["Alert"] = "";

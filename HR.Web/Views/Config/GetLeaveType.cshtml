@@ -22,7 +22,7 @@
         }
         else
         {
-            if (Model.LookUpCode == "SICKLEAVE" || Model.LookUpCode == "PAIDLEAVE" || Model.LookUpCode == "CASUALLEAVE")
+            if (Model.LookUpCode == "MEDICAL LEAVE" || Model.LookUpCode == "ANNUAL LEAVE")
             {
                 <div class="col-md-8">
                     @Html.TextBoxFor(x => x.LookUpCode,
@@ -46,7 +46,7 @@
             <span class="pull-right"> Leave Description</span>
         </label>
         <div class="col-md-8">
-            @if (Model.LookUpCode == "SICKLEAVE" || Model.LookUpCode == "PAIDLEAVE" || Model.LookUpCode == "CASUALLEAVE")
+            @if (Model.LookUpCode == "MEDICAL LEAVE" || Model.LookUpCode == "ANNUAL LEAVE")
             {
                 @Html.TextAreaFor(x => x.LookUpDescription,
             new { @class = "form-control input-sm uppercase", @maxlength = "50", @readonly = "true" })

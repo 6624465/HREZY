@@ -96,13 +96,13 @@
     <div class="">
         <div class="row css10">
 
-            <div class="col-md-4">
+            @*<div class="col-md-4">
                 <div id="CasualLeavesContainer"></div>
-            </div>
-            <div class="col-md-4">
+            </div>*@
+            <div class="col-md-6">
                 <div id="paidLeavesContainer"></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div id="SickLeavesContainer"></div>
             </div>
         </div>
@@ -312,7 +312,7 @@
         //        });
         //    });
         //}
-        var casualleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+        @*var casualleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
         debugger;
 
         Highcharts.chart('CasualLeavesContainer', {
@@ -359,7 +359,7 @@
                 colorByPoint: true,
                 data: [{ name: 'Balance', y: casualleaves.remainingcls }, { name: 'Applied', y: casualleaves.currentcls }]
             }]
-        });
+        });*@
         var paidleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
         debugger;
 
@@ -383,7 +383,7 @@
        "#4d3d5a"],
 
             title: {
-                text: 'Total Paid Leaves Per Year :' + " " + paidleaves.totalPLs
+                text: 'Total Annual Leaves Per Year :' + " " + paidleaves.totalPLs
             },
             tooltip: {
                 formatter: function () {
@@ -431,7 +431,7 @@
        "#4d3d5a"],
 
             title: {
-                text: 'Total Sick Leaves Per Year :' + " " + SickLeaves.totalSLs
+                text: 'Total Medical Leaves Per Year :' + " " + SickLeaves.totalSLs
             },
             tooltip: {
                 formatter: function () {

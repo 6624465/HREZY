@@ -462,7 +462,7 @@ namespace HR.Web.Helpers
                 sItem = new SelectListItem {
                     Text = names[i],
                     Value = loopCount.ToString(),
-                    Selected = names[i] == currentMonth ? true : false
+                    Selected = names[i] == currentMonth ? true : false,
                 };
 
                 listItem.Add(sItem);
@@ -578,6 +578,35 @@ namespace HR.Web.Helpers
                     return "Mrs. ";
             }
             return "";
+        }
+
+        public static IEnumerable<SelectListItem> GetMonthsPayroll()
+        {
+            string[] names = DateTimeFormatInfo.CurrentInfo.MonthNames;
+            string currentMonth = DateTimeFormatInfo.CurrentInfo.GetMonthName(DateTime.Now.Month);
+            int currentmonthnumber = DateTime.Now.Month;
+
+            List<SelectListItem> listItem = new List<SelectListItem>();
+            SelectListItem sItem = null;
+            int loopCount = 0;
+            for (var i = 0; i < names.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(names[i]))
+                    continue;
+
+                loopCount++;
+                sItem = new SelectListItem
+                {
+                    Text = names[i],
+                    Value = loopCount.ToString(),
+                    Selected = names[i] == currentMonth ? true : false,
+                    Disabled = i >= (currentmonthnumber-2) ? false : true
+                };
+
+                listItem.Add(sItem);
+            }
+
+            return listItem;
         }
     }
 }

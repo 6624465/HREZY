@@ -10,78 +10,79 @@
         }
 
         .width {
-            width: 60%;
+            width: 80%;
         }
     </style>
 }
  @using (Html.BeginForm("SalaryStructureHeaderList", "PayRoll", FormMethod.Get, new { id = "frmSalaryStructureList", name = "frmSalaryStructureList" }))
                                 {
 <div class="page">
-    <div class="page-wrap">
-        <div class="panel panel-default panel-hovered panel-stacked mb10">
-            <div class="center-block width">
-                <div class="panel-heading">
-                    Salary Structure List
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
-                            {
+    @*<div class="page-wrap">*@
+    <div class="panel panel-default panel-hovered panel-stacked mb10">
 
-                                @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "--Select--", new { @class = "form-control input-sm", onchange = "getStructureList(this)" })
-                            }
-                        </div>
+        <div class="panel-heading">
+            Salary Structure List
+        </div>
+        <div class="center-block width">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_SUPERADMIN)
+                    {
 
-                        <div class="col-md-8">
-                            <button   type="button"  class="btn  btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/PayRoll/SalaryStructure")'"><i class="fa fa-plus-square"></i>Create</button>
-                        </div>
+                        @Html.DropDownList("BranchId", SelectListItemHelper.Branches(), "--Select--", new { @class = "form-control input-sm", onchange = "getStructureList(this)" })
+                }
                     </div>
 
-                    <table class="table table-bordered" style="margin-top:10px">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Employee Name</th>
-                                <th style="white-space:nowrap">Effective Date</th>
-                                <th>Remarks</th>
-                                <th>#Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (var i = 0; i < Model.TableData.Count(); i++)
-                            {
-                                @Html.HiddenFor(x => x.TableData[i].StructureID)
-                                <tr>
-                                    <td>@Model.TableData[i].Code</td>
-                                    <td>@Model.TableData[i].EmployeeName</td>
-                                    <td>@Model.TableData[i].EffectiveDate.Value.ToString("dd/MM/yyyy")</td>
-                                    <td>@Model.TableData[i].Remarks</td>
-                                    <td>
-                                        <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
-                                                onclick="getSalaryStrucure(@Model.TableData[i].StructureID)">
-                                            <i class="fa fa-pencil" style="padding-left: 5px;"></i>
-                                        </button>
-                                        @*<button class="btn btn-xs btn-danger waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteStructure(@Model.TableData[i].StructureID)">
-                                                <i class="fa fa-trash-o" style="padding-left: 5px;" aria-hidden="true"> </i>
-                                            </button>*@
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="pagination"></div>
-                        </div>
+                    <div class="col-md-8">
+                        <button type="button" class="btn  btn-primary btn-sm ajaxCss pull-right" onclick="location.href='@Url.Content("~/PayRoll/SalaryStructure")'"><i class="fa fa-plus-square"></i>Create</button>
                     </div>
                 </div>
 
-
+                <table class="table table-bordered" style="margin-top:10px">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Employee Name</th>
+                            <th style="white-space:nowrap">Effective Date</th>
+                            <th>Remarks</th>
+                            <th>#Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.TableData.Count(); i++)
+                    {
+                        @Html.HiddenFor(x => x.TableData[i].StructureID)
+                        <tr>
+                            <td>@Model.TableData[i].Code</td>
+                            <td>@Model.TableData[i].EmployeeName</td>
+                            <td>@Model.TableData[i].EffectiveDate.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@Model.TableData[i].Remarks</td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" style="padding-left: 5px;margin-left: 6px;"
+                                        onclick="getSalaryStrucure(@Model.TableData[i].StructureID)">
+                                    <i class="fa fa-pencil" style="padding-left: 5px;"></i>
+                                </button>
+                                @*<button class="btn btn-xs btn-danger waves-effect btn-sm" style="padding-left: 5px;margin-left: 6px;" onclick="deleteStructure(@Model.TableData[i].StructureID)">
+                                    <i class="fa fa-trash-o" style="padding-left: 5px;" aria-hidden="true"> </i>
+                                </button>*@
+                            </td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="pagination"></div>
+                    </div>
+                </div>
             </div>
+
+
         </div>
     </div>
-</div>
+    </div>
+@*</div>*@
                                 }
 @section Scripts{
     <script src="~/Scripts/Core/jquery.bootpag.min.js"></script>

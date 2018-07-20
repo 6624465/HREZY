@@ -59,11 +59,31 @@ namespace HR.Web.Controllers
 
             if (ROLECODE == UTILITY.ROLE_ADMIN)
             {
-                holidayVm holidayVm = new holidayVm()
-                {
-                    calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
-                    HolidayList = new HolidayList()
-                }; return View("HolidayList", holidayVm);
+				//List<calendarVM> holidayslist = new List<calendarVM>();
+				//calendarVM holidayobj = new calendarVM();
+				//holidayVm holidayVm = new holidayVm()
+				//{
+				//	calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
+				//	HolidayList = new HolidayList()
+				//};
+				//List<calendarVM> holidaysBybranchList = holidayListBO.GetHolidayListByBranch(BRANCHID);
+				//foreach (var item in holidaysBybranchList)
+				//{
+				//	holidayobj.title = item.title.Replace("'", "");
+				//	holidayslist.Add(holidayobj);
+				//}
+				//holidayVm holidayVm = new holidayVm()
+				//{
+				//	calendarVM = holidayslist,
+				//	HolidayList = new HolidayList()
+				//};
+				holidayVm holidayVm = new holidayVm()
+				{
+					calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
+					//holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList()
+					HolidayList = new HolidayList()
+				}; return View("HolidayList", holidayVm);
+		
             }
             else
             {
@@ -400,14 +420,14 @@ namespace HR.Web.Controllers
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
-                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.SICKLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
+                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.MEDICALLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
 
                         ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
                         ViewData["IsLop"] = true;
                         return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
-                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.PAIDLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
+                    else if (EmployeeLeaveList.LeaveTypeId == lMaster.ANNUALLEAVE(BRANCHID) && leavetransaction.CurrentLeaves == 0)
                     {
                         ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
                         ViewData["IsLop"] = true;

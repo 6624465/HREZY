@@ -76,22 +76,34 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
     <ul class="list-unstyled clearfix nav-list mb15">
         <li id="li_Dashboard">
             @*<a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
-                <i class="ion ion-monitor"></i>
+            <i class="ion ion-monitor"></i>
+            <span class="text">Dashboard</span>
+            <i class="arrow ion-chevron-left"></i>
+        </a>*@
+            @*<ul class="inner-drop list-unstyled">
+            <li>
+                <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
+            </li>
+        </ul>*@
+
+            <a href="@Url.Content("~/Dashboard/Index")">
+                <i class="ion ion-android-options"></i>
                 <span class="text">Dashboard</span>
                 <i class="arrow ion-chevron-left"></i>
+            </a>
+            <ul class="inner-drop list-unstyled">
+                <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofEmployeeData")">Employee Data</a></li>
+                <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryComponents")">Salary Components</a></li>
+                <li id="li_salaryReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryReport")">Salary Report</a></li>
+                <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData")">Salary Data</a></li>
+                <li id="li_leaveReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofLeaveReport")">Leave Report</a></li>
+            </ul>
+
+            @*<a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
+                <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard
             </a>*@
-            @*<ul class="inner-drop list-unstyled">
-                <li>
-                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/LeaveTransaction?Month="+month+"&Year="+year)">Leave Transaction Reports</a>
-                </li>
-            </ul>*@
-          
-               
-                    <a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
-                        <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard
-                    </a>
-              
-</li>
+
+        </li>
         <li id="li_Master">
             <a href="javascript:;">
                 <i class="ion ion-android-options"></i>

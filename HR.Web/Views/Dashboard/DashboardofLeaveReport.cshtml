@@ -15,23 +15,23 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-5">
-                                
-                                        <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                            <div id="chartContainer" style="height: 120px; width: 100%;"></div>
-                                        </div>
-                                        <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                            <div id="chartContainer1" style="height: 120px; width: 100%;"></div>
-                                        </div>
-                                        <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                            <div id="chartContainer2" style="height: 120px; width: 100%;"></div>
-                                        </div>
-                                        <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                            <div id="chartContainer3" style="height: 120px; width: 100%;"></div>
-                                        </div>
-                                        <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                            <div id="chartContainer4" style="height: 120px; width: 100%;"></div>
-                                        </div>
-                                   
+
+                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
+                                    <div id="chartContainer" style="height: 120px; width: 100%;"></div>
+                                </div>
+                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
+                                    <div id="chartContainer1" style="height: 120px; width: 100%;"></div>
+                                </div>
+                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
+                                    <div id="chartContainer2" style="height: 120px; width: 100%;"></div>
+                                </div>
+                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
+                                    <div id="chartContainer3" style="height: 120px; width: 100%;"></div>
+                                </div>
+                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
+                                    <div id="chartContainer4" style="height: 120px; width: 100%;"></div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -43,58 +43,61 @@
 </div>
 
 @section Scripts{
-<script>
+    <script src="https://canvasjs.com/docs/charts/chart-types/html5-line-chart/" type="text/javascript"></script>
+    <script src="https://canvasjs.com/javascript-charts/line-chart-data-markers/" type="text/javascript"></script>
+    <script>
+
         $(function () {
             $('#li_Dashboard').addClass('open');
             $('#li_leaveReport').addClass('active');
-    });
-    var count = 0;
-    for (var i = 0; i < 5; i++) {
-    var chart = new CanvasJS.Chart("chartContainer" + count, {
-            theme: "light2", // "light1", "light2", "dark1", "dark2"
-            animationEnabled: true,
-            title:{
-                text: 'leaves'
-            },
-            axisX: {
-                interval: 1,
-                intervalType: "month",
-                valueFormatString: "MMM"
-            },
-            toolTip: {
-                borderColor: "red"   //change color
-            },
-            axisY:{
-                title: "",
-                valueFormatString: "$#0",
-                stripLines: [{
-                    value: 1,
-                    label: 'leave',
-                    labelFontSize: 9,
-                }],
-            },
-            data: [{
-                type: "line",
-                markerSize: 12,
-                dataPoints: [
-					{ y: 1, x: 1},
-					{ y: 10, x: 2 },
-					{ y: 11, x:3 },
-					{ y:12, x: 4},
-					{ y: 13, x: 5 },
-					{ y: 14, x: 6 },
-					{ y: 16, x: 7 },
-					{ y: 17, x:8 },
-					{ y: 18, x: 9 },
-					{ y:19, x: 10},
-					{ y: 19, x: 11 },
-					{ y: 10, x: 12},
-                ]
-            }]
-            
-    });
-    chart.render();
-        count++;
-    }
-</script>
+        });
+        var count = 0;
+        for (var i = 0; i < 5; i++) {
+            var chart = new CanvasJS.Chart("chartContainer" + count, {
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                animationEnabled: true,
+                title: {
+                    text: 'leaves'
+                },
+                axisX: {
+                    interval: 1,
+                    intervalType: "month",
+                    valueFormatString: "MMM"
+                },
+                toolTip: {
+                    borderColor: "red"   //change color
+                },
+                axisY: {
+                    title: "",
+                    valueFormatString: "$#0",
+                    stripLines: [{
+                        value: 1,
+                        label: 'leave',
+                        labelFontSize: 9,
+                    }],
+                },
+                data: [{
+                    type: "line",
+                    markerSize: 12,
+                    dataPoints: [
+                        { y: 1, x: 1 },
+                        { y: 10, x: 2 },
+                        { y: 11, x: 3 },
+                        { y: 12, x: 4 },
+                        { y: 13, x: 5 },
+                        { y: 14, x: 6 },
+                        { y: 16, x: 7 },
+                        { y: 17, x: 8 },
+                        { y: 18, x: 9 },
+                        { y: 19, x: 10 },
+                        { y: 19, x: 11 },
+                        { y: 10, x: 12 },
+                    ]
+                }]
+
+            });
+            chart.render();
+            count++;
+        }
+    </script>
 }

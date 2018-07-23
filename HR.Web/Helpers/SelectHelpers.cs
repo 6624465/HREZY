@@ -608,5 +608,27 @@ namespace HR.Web.Helpers
 
             return listItem;
         }
+
+        public static IEnumerable<SelectListItem> ClaimStatus()
+        {
+            using (HrDataContext dbContext = new HrDataContext())
+            {
+                List<SelectListItem> listItem = new List<SelectListItem>() {
+                                            new SelectListItem() {
+                                                Text="APPROVED",
+                                                Value="APPROVED"
+                                            },
+                                             new SelectListItem() {
+                                                Text="REJECTED",
+                                                Value="REJECTED"
+                                            },
+                                             new SelectListItem() {
+                                                 Text="PAID",
+                                                 Value="PAID"
+                                             }
+                                        };
+                return listItem;
+            }
+        }
     }
 }

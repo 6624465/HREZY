@@ -1558,8 +1558,14 @@ namespace HR.Web.Controllers
 
         }
 
-        public ActionResult ProcessTravelClaim(int month=0,int year=0)
+        public ActionResult ProcessTravelClaim(int? month,int? year)
         {
+
+            if(month==null && year == null)
+            {
+                month = DateTime.Now.Month;
+                year = DateTime.Now.Year;
+            }
             //var travelobj = travelClaimHeaderBO
             //    .GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true && x.Status == UTILITY.TRAVELCLAIMSUBMITTED).ToList();
             //return View(travelobj);
@@ -1575,7 +1581,8 @@ namespace HR.Web.Controllers
                             a => a.EmployeeId, b => b.EmployeeId,
                                (a, b) => new { A = a, B = b })
                            .Where(x => (x.A.ManagerId == 0 || x.A.ManagerId==null) &&
-                           x.B.Status == UTILITY.TRAVELCLAIMSUBMITTED && x.B.BranchId == BRANCHID)
+                           x.B.Status == UTILITY.TRAVELCLAIMSUBMITTED && x.B.BranchId == BRANCHID &&
+                           x.B.ModifiedOn.Value.Month==month && x.B.ModifiedOn.Value.Year==year)
                            .Select(x => new TravelClaimFormVm
                            {
 
@@ -1595,7 +1602,8 @@ namespace HR.Web.Controllers
                               Join(dbcntx.TravelClaimHeaders,
                                a => a.EmployeeId, b => b.EmployeeId,
                                   (a, b) => new { A = a, B = b })
-                              .Where(x => x.A.ManagerId == EMPLOYEEID && x.B.Status == UTILITY.TRAVELCLAIMSUBMITTED)
+                              .Where(x => x.A.ManagerId == EMPLOYEEID && x.B.Status == UTILITY.TRAVELCLAIMSUBMITTED &&
+                              x.B.ModifiedOn.Value.Month == month && x.B.ModifiedOn.Value.Year == year)
                               .Select(x => new TravelClaimFormVm
                               {
                                   TravelClaimNo = x.B.ClaimNo,
@@ -2031,37 +2039,67 @@ namespace HR.Web.Controllers
             return RedirectToAction("TravelClaim","PayRoll",new { travelClaimId = travelclaimid });
         }
 
-        public ActionResult ApprovedClaimsList(int? page=1)
+        public ActionResult ApprovedClaimsList(int? year, int? month,string ClaimsStatus, int? page=1)
         {
             var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
             int skip = (page.Value - 1) * offset;
-            
-            List<TravelClaimHeader> travelobjlist = new List<TravelClaimHeader>();
-            var approvedlist = travelClaimHeaderBO.GetListByProperty(x => x.Status == UTILITY.TRAVELCLAIMAPPROVED && x.BranchId == BRANCHID);
-            foreach (var item in approvedlist) {
-                TravelClaimHeader travelobj = new TravelClaimHeader();
-                travelobj.TravelClaimId = item.TravelClaimId;
-                travelobj.TotalAmtPaid = null;
-                travelobj.BranchId = item.BranchId;
-                travelobj.ClaimNo = item.ClaimNo;
-                travelobj.CreatedOn = item.ModifiedOn;
-                travelobj.Name = item.Name;
-                travelobj.GrossTotal = item.GrossTotal;
-                travelobj.EmployeeId = item.EmployeeId;
-                travelobj.CreatedOn = item.CreatedOn;
-                //travelobj.CreatedBy = empHeaderBO.GetByProperty(x => x.UserEmailId == item.ModifiedBy).FirstName;
-                 
-                travelobjlist.Add(travelobj);
+            if (year == null && month == null && ClaimsStatus == null) {
+                ClaimsStatus = "APPROVED";
+                year = DateTime.Now.Year;
+                month = DateTime.Now.Month;
             }
-            
-            var count = travelobjlist.Count();
+            ViewData["Status"] = ClaimsStatus;
+            var List = travelClaimHeaderBO.
+                GetListByProperty(x => x.Status == ClaimsStatus && x.ModifiedOn.Value.Month == month && x.ModifiedOn.Value.Year == year && x.BranchId == BRANCHID)
+                .ToList();
+            List<TravelClaimHeader> claimheaderlist = new List<TravelClaimHeader>();
+            foreach(var item in List)
+            {
+                TravelClaimHeader claimheader = new TravelClaimHeader();
+                claimheader.ClaimNo = item.ClaimNo;
+                claimheader.Name = item.Name;
+                claimheader.GrossTotal = item.GrossTotal;
+                claimheader.TotalAmtPaid = item.TotalAmtPaid;
+                claimheader.CreatedOn = item.ModifiedOn;
+                claimheader.EmployeeId = item.EmployeeId;
+                claimheader.BranchId = BRANCHID;
+                claimheader.TravelClaimId = item.TravelClaimId;
+               var modifiedbyRolecode = userBo.GetByProperty(x=>x.UserName.ToUpper()==
+               item.ModifiedBy.ToUpper()).RoleCode;
+                if (modifiedbyRolecode == UTILITY.ROLE_ADMIN)
+                {
+                    claimheader.CreatedBy = "ADMIN";
+                }
+                else 
+                {
+                    claimheader.CreatedBy = empHeaderBO.GetByProperty(x=>x.UserEmailId.ToUpper()==
+                    item.ModifiedBy.ToUpper()).FirstName;
+                }
+                claimheaderlist.Add(claimheader);
+            }
+            var count = claimheaderlist.Count();
             decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
             HtmlTblVm<TravelClaimHeader> HtmlTblVm = new HtmlTblVm<TravelClaimHeader>();
-            HtmlTblVm.TableData = travelobjlist.Skip(skip).Take(offset).ToList();
+            HtmlTblVm.TableData = claimheaderlist.Skip(skip).Take(offset).ToList();
             HtmlTblVm.TotalRows = count;
             HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
             HtmlTblVm.CurrentPage = page.Value;
+           
             return View(HtmlTblVm);
+        }
+
+        [HttpPost]
+        public ActionResult ApproveTravelClaimSave(HtmlTblVm<TravelClaimHeader> travelclaimheader)
+        {
+            for (var i = 0; i < travelclaimheader.TableData.Count; i++)
+            {
+               
+                var travelclaimid = travelclaimheader.TableData[i].TravelClaimId;
+                var travelclaim = travelClaimHeaderBO.GetById(travelclaimid);
+                travelclaim.TotalAmtPaid = travelclaimheader.TableData[i].TotalAmtPaid;
+                travelClaimHeaderBO.ApproveTravelClaimSave(travelclaim);
+            }
+            return RedirectToAction("ApprovedClaimsList");
         }
     }
 }

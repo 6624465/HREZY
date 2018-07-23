@@ -123,5 +123,14 @@ namespace HR.Web.BusinessObjects.Payroll
                 throw ex;
             }
         }
+        public TravelClaimHeader ApproveTravelClaimSave(TravelClaimHeader travelclaim)
+        {
+            var travelclaimobj = GetById(travelclaim.TravelClaimId);
+            travelclaimobj.Status = "PAID";
+            travelclaimobj.IsApproved = true;
+            travelclaimobj.TotalAmtPaid = travelclaim.TotalAmtPaid;
+            Add(travelclaimobj);
+            return travelclaimobj;
+        }
     }
 }

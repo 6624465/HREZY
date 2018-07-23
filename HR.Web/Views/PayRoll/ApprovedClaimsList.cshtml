@@ -185,6 +185,7 @@ else
     <script type="text/javascript">
 
         $(function () {
+            $('#ClaimsStatus').val('@ViewData["Status"]');
             $('#li_claims').addClass('open');
             $('#li_Approvedlist').addClass('active');
             $('#pagination').bootpag({

@@ -169,6 +169,7 @@ new SelectListItem {Text = "December", Value = "12"}
                 shadows: {
                     enabled: true
                 },
+                border: { visible: false },
                 series: [
                     {
                         type: 'column',
@@ -205,12 +206,13 @@ new SelectListItem {Text = "December", Value = "12"}
             $('#jqChartPie').jqChart({
                 title: { text: '' },
                 legend: { title: 'Countries' },
-                border: { strokeStyle: 'black' },
+                //border: { strokeStyle: 'black' },
                 background: background,
                 animation: { duration: 1 },
                 shadows: {
                     enabled: true
                 },
+                border: { visible: false },
                 series: [
                     {
                         type: 'doughnut',

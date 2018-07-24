@@ -36,7 +36,7 @@
                     @Html.DropDownList("Month", SelectListItemHelper.GetMonths(), new { @class = "form-control input-sm", onchange = "getclaimslist()" })
                 </div>
                 <div class="col-md-2">
-                    @Html.DropDownList("ClaimsStatus", SelectListItemHelper.ClaimStatus(), "Select Claims Status", new { @class = "form-control input-sm", onchange = "getclaimslist()" })
+                    @Html.DropDownList("ClaimsStatus", SelectListItemHelper.ClaimStatus(),  new { @class = "form-control input-sm", onchange = "getclaimslist()" })
                 </div>
             </div>
 }
@@ -113,7 +113,7 @@ else
     {
                     <td>@Html.TextBoxFor(x => Model.TableData[i].TotalAmtPaid, new { @class = "form-control input-sm decimalCss txtCss", id = i + "_TotalAmtPaid" })</td>
 }
-                        @if (ViewData["Status"].ToString() == "PAID")
+                        @if (ViewData["Status"].ToString() == "PROCESSED")
                          {
                              <td>@Model.TableData[i].TotalAmtPaid</td>
                             }

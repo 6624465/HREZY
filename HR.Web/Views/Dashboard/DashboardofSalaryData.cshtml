@@ -45,13 +45,13 @@
                     <div class="box-body">
                         <div class="row css5">
                             <div class="form-group">
-                                <label class="col-md-1 control-label">
+                                <label class="col-md-2 control-label">
                                     <span class="pull-right">Year</span>
                                 </label>
                                 <div class="col-md-2">
                                     @Html.DropDownList("Year", Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
                                 </div>
-                                <label class="col-md-1 control-label">
+                                <label class="col-md-3 control-label">
                                     <span class="pull-right">Month</span>
                                 </label>
                                 <div class="col-md-2">
@@ -60,12 +60,10 @@
                             </div>
                         </div>
                         <div class="row css5" style="margin-left:8%">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div id="jqChartPie" style="width: 500px; height: 300px;"></div>
                             </div>
-                        </div>
-                        <div class="row css5" style="margin-left:8%">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div id="jqChart" style="width: 500px; height: 300px;"></div>
                             </div>
                         </div>

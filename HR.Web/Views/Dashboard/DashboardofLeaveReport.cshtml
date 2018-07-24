@@ -3,7 +3,37 @@
     ViewBag.Title = "DashboardofLeaveReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
 
+    var listMonths = new List<SelectListItem>()
+{
+new SelectListItem {Text = "January",   Value = "1"},
+new SelectListItem {Text = "February", Value = "2"},
+new SelectListItem {Text = "March", Value = "3"},
+new SelectListItem {Text = "April",   Value = "4"},
+new SelectListItem {Text = "May", Value = "5"},
+new SelectListItem {Text = "June", Value = "6"},
+new SelectListItem {Text = "July",   Value = "7"},
+new SelectListItem {Text = "August", Value = "8"},
+new SelectListItem {Text = "September", Value = "9"},
+new SelectListItem {Text = "October",   Value = "10"},
+new SelectListItem {Text = "November", Value = "11"},
+new SelectListItem {Text = "December", Value = "12"}
+};
+}
+<style>
+    .oval {
+        width: 200px;
+        height: 100px;
+        background: #3f51b5;
+        -moz-border-radius: 100px / 50px;
+        -webkit-border-radius: 100px / 50px;
+        border-radius: 100px / 50px;
+    }
+    .css10{
+        margin-top:30px
+    }
+</style>
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
@@ -14,27 +44,141 @@
                     </div>
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-5">
-
-                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                    <div id="chartContainer" style="height: 120px; width: 100%;"></div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Year</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Year", Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
                                 </div>
-                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                    <div id="chartContainer1" style="height: 120px; width: 100%;"></div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Month</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Month", listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:70%" })
                                 </div>
-                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                    <div id="chartContainer2" style="height: 120px; width: 100%;"></div>
+                                <div>
+                                    <h3 style="color:red">
+                                        LEAVE BALANCE
+                                    </h3>
                                 </div>
-                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                    <div id="chartContainer3" style="height: 120px; width: 100%;"></div>
-                                </div>
-                                <div class="row" style="margin-top:5px; border:1px solid #d2d6de">
-                                    <div id="chartContainer4" style="height: 120px; width: 100%;"></div>
-                                </div>
-
                             </div>
                         </div>
-
+                        <div class="row" style="padding-left:20px">
+                            <div class="col-md-5">
+                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
+                                    <div id="chartContainer0" style="height: 120px; width: 100%;"></div>
+                                </div>
+                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
+                                    <div id="chartContainer1" style="height: 120px; width: 100%;"></div>
+                                </div>
+                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
+                                    <div id="chartContainer2" style="height: 120px; width: 100%;"></div>
+                                </div>
+                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
+                                    <div id="chartContainer3" style="height: 120px; width: 100%;"></div>
+                                </div>
+                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
+                                    <div id="chartContainer4" style="height: 120px; width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="padding-left:135px">
+                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
+                                    <h2 style="color:white">6</h2>
+                                </div>
+                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
+                                    <h2 style="color:white">10</h2>
+                                </div>
+                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
+                                    <h2 style="color:white">1</h2>
+                                </div>
+                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
+                                    <h2 style="color:white">3</h2>
+                                </div>
+                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
+                                    <h2 style="color:white">6</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css10">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Casual Leave</th>
+                                                <th>Annual Leave</th>
+                                                <th>Medical Leave</th>
+                                                <th>Other Leave</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                               
+                                            </tr>
+                                            <tr>
+                                                <td>Mary</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                               
+                                            </tr>
+                                            <tr>
+                                                <td>July</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Casual Leave</th>
+                                                <th>Annual Leave</th>
+                                                <th>Medical Leave</th>
+                                                <th>Other Leave</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mary</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>July</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                                <td>3</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,8 +187,9 @@
 </div>
 
 @section Scripts{
-    <script src="https://canvasjs.com/docs/charts/chart-types/html5-line-chart/" type="text/javascript"></script>
-    <script src="https://canvasjs.com/javascript-charts/line-chart-data-markers/" type="text/javascript"></script>
+    @*<script src="https://canvasjs.com/docs/charts/chart-types/html5-line-chart/" type="text/javascript"></script>
+        <script src="https://canvasjs.com/javascript-charts/line-chart-data-markers/" type="text/javascript"></script>*@
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script>
 
         $(function () {
@@ -79,19 +224,21 @@
                 data: [{
                     type: "line",
                     markerSize: 12,
+                    xValueFormatString: "MMM, YYYY",
+                    yValueFormatString: "$###.#",
                     dataPoints: [
-                        { y: 1, x: 1 },
-                        { y: 10, x: 2 },
-                        { y: 11, x: 3 },
-                        { y: 12, x: 4 },
-                        { y: 13, x: 5 },
-                        { y: 14, x: 6 },
-                        { y: 16, x: 7 },
-                        { y: 17, x: 8 },
-                        { y: 18, x: 9 },
-                        { y: 19, x: 10 },
-                        { y: 19, x: 11 },
-                        { y: 10, x: 12 },
+                        { x: new Date(new Date().getFullYear(), 00, 1), y: 61, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 01, 1), y: 71, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 02, 1), y: 55, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 03, 1), y: 50, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 04, 1), y: 65, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 05, 1), y: 85, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 06, 1), y: 68, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 07, 1), y: 28, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 08, 1), y: 34, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 09, 1), y: 24, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 10, 1), y: 44, markerType: "circle", markerColor: "lightblue" },
+                        { x: new Date(new Date().getFullYear(), 11, 1), y: 34, markerType: "circle", markerColor: "lightblue" }
                     ]
                 }]
 

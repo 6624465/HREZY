@@ -45,13 +45,19 @@ new SelectListItem {Text = "December", Value = "12"}
                     <div class="box-body">
                         <div class="row css5">
                             <div class="form-group">
-                                <label class="col-md-2 control-label">
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Country</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("EmployeeId", SelectListItemHelper.CountryListById(), "Select Country", new { @class = "form-control input-sm" })
+                                </div>
+                                <label class="col-md-1 control-label">
                                     <span class="pull-right">Year</span>
                                 </label>
                                 <div class="col-md-2">
                                     @Html.DropDownList("Year", Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
                                 </div>
-                                <label class="col-md-3 control-label">
+                                <label class="col-md-1 control-label">
                                     <span class="pull-right">Month</span>
                                 </label>
                                 <div class="col-md-2">

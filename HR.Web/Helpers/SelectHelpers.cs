@@ -623,8 +623,8 @@ namespace HR.Web.Helpers
                                                 Value="REJECTED"
                                             },
                                              new SelectListItem() {
-                                                 Text="PAID",
-                                                 Value="PAID"
+                                                 Text="PROCESSED",
+                                                 Value="PROCESSED"
                                              }
                                         };
                 return listItem;

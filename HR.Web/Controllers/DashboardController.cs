@@ -519,6 +519,7 @@ namespace HR.Web.Controllers
         }
         public ActionResult DashboardofLeaveReport()
         {
+
             return View();
         }
     }

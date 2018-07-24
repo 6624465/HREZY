@@ -126,7 +126,7 @@ namespace HR.Web.BusinessObjects.Payroll
         public TravelClaimHeader ApproveTravelClaimSave(TravelClaimHeader travelclaim)
         {
             var travelclaimobj = GetById(travelclaim.TravelClaimId);
-            travelclaimobj.Status = "PAID";
+            travelclaimobj.Status = "PROCESSED";
             travelclaimobj.IsApproved = true;
             travelclaimobj.TotalAmtPaid = travelclaim.TotalAmtPaid;
             Add(travelclaimobj);

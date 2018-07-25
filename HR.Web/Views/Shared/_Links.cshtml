@@ -97,11 +97,11 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <i class="arrow ion-chevron-left"></i>
             </a>
                 <ul class="inner-drop list-unstyled">
-                    <li id="li_leaveReport"><a class="ajaxCss" href="@Url.Content(" ~/Dashboard/DashboardofLeaveReport")">Leave Report</a></li>
-                    <li id="li_salaryReport"><a class="ajaxCss" href="@Url.Content(" ~/Dashboard/DashboardofSalaryReport")">Salary Report</a></li>
-                    <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content(" ~/Dashboard/DashboardofSalaryComponents?BranchId="+branchid+"&Year="+year+"&Month=null&EmployeeId=null")">Salary Components</a></li>
-                    <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content(" ~/Dashboard/DashboardofEmployeeData?branchid="+0+"&role="+Model.RoleCode)">Employee Data Report</a></li>
-                    <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content(" ~/Dashboard/DashboardofSalaryData")">Claims Report</a></li>
+                    <li id="li_leaveReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofLeaveReport")">Leave Report</a></li>
+                    <li id="li_salaryReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryReport")">Salary Report</a></li>
+                    <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryComponents?BranchId="+branchid+"&Year="+year+"&Month=0&EmployeeId=0")">Salary Components</a></li>
+                    <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofEmployeeData?branchid="+0+"&role="+Model.RoleCode)">Employee Data Report</a></li>
+                    <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData")">Claims Report</a></li>
                 </ul>
 
             @*<a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">

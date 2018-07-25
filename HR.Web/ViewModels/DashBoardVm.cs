@@ -76,4 +76,10 @@ namespace HR.Web.ViewModels
         public List<USP_SALARYCOMPONENTREPORT_Result> SalaryComponantReport { get; set; }
         public List<USP_SALARYCOMPONENTREPORTYTD_Result> SalaryComponantReportYTD { get; set; }
     }
+
+    public class ClaimsReportVm
+    {
+        public List<USP_TRAVELCLAIMREPORT_Result> TravelClaimReport { get; set; }
+        //public List<USP_TRAVELCLAIMREPORTYTD_Result> TravelClaimReportYTD { get; set; }
+    }
 }

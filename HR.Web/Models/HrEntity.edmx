@@ -976,11 +976,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Month" Mode="In" Type="Byte" />
             <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="USP_TRAVELCLAIMREPORTYTD" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORTYTD_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
-          </FunctionImport>
+          
           <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
           <FunctionImport Name="USP_SALARYCOMPONENTREPORT" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORT_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
@@ -993,11 +989,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="USP_TRAVELCLAIMREPORTYTD1" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORTYTD1_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
-          </FunctionImport>
+          
          
         </EntityContainer>
         <EntityType Name="User">
@@ -1895,10 +1887,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="String" Name="ClaimCategory" Nullable="true" MaxLength="100" />
           <Property Type="Decimal" Name="Amount" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
-        <ComplexType Name="USP_TRAVELCLAIMREPORTYTD_Result">
-          <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="18" Scale="2" />
-        </ComplexType>
+        
         <EntityType Name="TaxAssessmentDetail">
           <Key>
             <PropertyRef Name="ID" />
@@ -1922,10 +1911,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
           <Property Type="Decimal" Name="TotalSalary" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
-        <ComplexType Name="USP_TRAVELCLAIMREPORTYTD1_Result">
-          <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="18" Scale="2" />
-        </ComplexType>
+        
       
       </Schema>
     </edmx:ConceptualModels>
@@ -2965,14 +2951,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_TRAVELCLAIMREPORTYTD1" FunctionName="DB_9F30C5_HRDBModel.Store.USP_TRAVELCLAIMREPORTYTD">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORTYTD1_Result">
-                <ScalarProperty Name="YTDMonth" ColumnName="YTDMonth" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

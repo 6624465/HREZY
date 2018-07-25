@@ -101,7 +101,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                     <li id="li_salaryReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryReport")">Salary Report</a></li>
                     <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryComponents?BranchId="+branchid+"&Year="+year+"&Month=0&EmployeeId=0")">Salary Components</a></li>
                     <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofEmployeeData?branchid="+branchid+"&role="+Model.RoleCode)">Employee Data Report</a></li>
-                    <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData")">Claims Report</a></li>
+                    <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData?BranchId="+branchid+"&Year="+year+"&Month=0&EmployeeId=0")">Claims Report</a></li>
                 </ul>
 
             @*<a class="ajaxCss" href="@Url.Content("~/Dashboard/Index")">
@@ -246,7 +246,7 @@ else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
                 <li id="li_salaryReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryReport")">Salary Report</a></li>
                 <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryComponents?BranchId="+branchid+"&Year="+year+"&Month=0&EmployeeId=0")">Salary Components</a></li>
                 <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofEmployeeData?branchid="+branchid+"&role="+Model.RoleCode)">Employee Data Report</a></li>
-                <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData")">Claims Report</a></li>
+                <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData?BranchId="+branchid+"&Year="+year+"&Month=0&EmployeeId=0")">Claims Report</a></li>
             </ul>
 
         </li>

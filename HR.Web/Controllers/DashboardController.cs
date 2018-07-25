@@ -577,6 +577,7 @@ namespace HR.Web.Controllers
             vm.Month = Month;
             vm.EmployeeID = EmployeeId;
             ViewData["BranchId"] = BRANCHID;
+            ViewData["RoleCode"] = ROLECODE.ToUpper();
             return View(vm);
         }
         public ActionResult DashboardofLeaveReport()

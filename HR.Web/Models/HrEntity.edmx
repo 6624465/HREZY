@@ -952,17 +952,8 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="branchId" Mode="In" Type="Int32" />
             <Parameter Name="role" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="USP_SALARYCOMPONENTREPORT" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORT_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="Month" Mode="In" Type="Byte" />
-            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="USP_SALARYCOMPONENTREPORTYTD" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORTYTD_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
-          </FunctionImport>
+          
+          
           <FunctionImport Name="USP_TRAVELCLAIMREPORT" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORT_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
@@ -1866,14 +1857,8 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="String" Name="ProfilePic" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="branchid" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="USP_SALARYCOMPONENTREPORT_Result">
-          <Property Type="String" Name="ComponentName" Nullable="false" MaxLength="50" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="38" Scale="2" />
-        </ComplexType>
-        <ComplexType Name="USP_SALARYCOMPONENTREPORTYTD_Result">
-          <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="TotalSalary" Nullable="true" Precision="18" Scale="2" />
-        </ComplexType>
+        
+        
         <ComplexType Name="USP_TRAVELCLAIMREPORT_Result">
           <Property Type="String" Name="ClaimCategory" Nullable="true" MaxLength="100" />
           <Property Type="Decimal" Name="Amount" Nullable="true" Precision="38" Scale="2" />

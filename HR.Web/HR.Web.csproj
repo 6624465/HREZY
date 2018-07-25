@@ -1990,12 +1990,6 @@
     <Compile Include="Models\usp_PND1SummaryHeaderByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\USP_SALARYCOMPONENTREPORTYTD_Result.cs">
-      <DependentUpon>HrEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\USP_SALARYCOMPONENTREPORT_Result.cs">
-      <DependentUpon>HrEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\usp_SSFSummaryDetailByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

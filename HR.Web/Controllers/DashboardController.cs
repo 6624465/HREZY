@@ -510,7 +510,15 @@ namespace HR.Web.Controllers
             List<usp_EmployeeDetail_Result> employeeDataReportList = new List<usp_EmployeeDetail_Result>();
             using (HrDataContext dbcontext = new HrDataContext())
             {
-                branchid = BRANCHID;
+                if (role=="ADMIN")
+                {
+                    branchid = BRANCHID;
+                }
+                else
+                {
+                    branchid = 10001;
+                }
+                
                 employeeDataReportList = dbcontext.usp_EmployeeDetail(branchid, role).ToList();
                 foreach (var item in employeeDataReportList)
                 {

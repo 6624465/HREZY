@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HR.Web.Helpers;
+using System.Data.SqlClient;
 
 namespace HR.Web.Controllers
 {
@@ -570,6 +571,7 @@ namespace HR.Web.Controllers
             {
                 vm.TravelClaimReport = dbCntx.USP_TRAVELCLAIMREPORT(BranchId, Year, Month, EmployeeId).ToList();
                 vm.TravelClaimReportYTD = dbCntx.USP_TRAVELCLAIMREPORTYTD(BranchId, Year, EmployeeId).ToList();
+                vm.dt = TRAVELCLAIMEMPLOYEEYTD(BranchId, Year, Month);
 
             }
             vm.BranchID = BranchId;
@@ -579,6 +581,34 @@ namespace HR.Web.Controllers
             ViewData["BranchId"] = BRANCHID;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
             return View(vm);
+        }
+        public System.Data.DataTable TRAVELCLAIMEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month)
+        {
+            using (var dbCntx = new HrDataContext())
+            using (SqlConnection Con = new
+                SqlConnection(dbCntx.Database.Connection.ConnectionString))
+            {
+                Con.Open();
+                SqlCommand Cmd = new SqlCommand();
+
+                Cmd.Connection = Con;
+                Cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                Cmd.CommandText = "[Reports].[USP_TRAVELCLAIMEMPLOYEEYTD]";
+
+                Cmd.Parameters.Add("@BranchId", System.Data.SqlDbType.SmallInt);
+                Cmd.Parameters.Add("@Year", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@Month", System.Data.SqlDbType.Int);
+
+                Cmd.Parameters["@BranchId"].Value = BranchId;
+                Cmd.Parameters["@Year"].Value = Year;
+                Cmd.Parameters["@Month"].Value = Month;
+                System.Data.DataTable dt = new System.Data.DataTable();
+                var da = new SqlDataAdapter(Cmd);
+                da.Fill(dt);
+                Con.Close();
+                return dt;
+            }
+
         }
         public ActionResult DashboardofLeaveReport()
         {
@@ -590,30 +620,5 @@ namespace HR.Web.Controllers
     //public class DashBoard {
     //public   regionWiseEmployees
     //}
-
-    public class EmployeeDataReport
-    {
-        //public int EmployeeId { get; set; }
-        //public string EmployeeNo { get; set; }
-        //public string EmployeeName { get; set; }
-        //public Nullable<System.DateTime> JoiningDate { get; set; }
-        //public string JobTitle { get; set; }
-        //public Nullable<short> gender { get; set; }
-        //public string ContactNo { get; set; }
-        //public string PersonalEmailId { get; set; }
-        //public string OfficialEmailId { get; set; }
-        //public Nullable<System.DateTime> DateOfBirth { get; set; }
-        //public Nullable<int> DocumentDetailID { get; set; }
-        //public string ProfilePic { get; set; }
-        public Int32 EmployeeId { get; set; }
-        public Int32 MaleCount { get; set; }
-        public Int32 FemaleCount { get; set; }
-        public Int32 EmployeeNo { get; set; }
-        public Int64 ContactNo { get; set; }
-        public string EmployeeName { get; set; }
-        public DateTime JoiningDate { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string JobTitle { get; set; }
-        public string PersonalEmailId { get; set; }
-    }
+    
 }

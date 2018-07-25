@@ -33,7 +33,7 @@ namespace HR.Web.ViewModels
         public decimal? remainingpls { get; set; }
         public decimal? remainingsls { get; set; }
 
-       public decimal currentcls { get; set; }
+        public decimal currentcls { get; set; }
         public decimal? currentpls { get; set; }
         public decimal? currentsls { get; set; }
 
@@ -86,6 +86,7 @@ namespace HR.Web.ViewModels
     {
         public List<USP_TRAVELCLAIMREPORT_Result> TravelClaimReport { get; set; }
         public List<USP_TRAVELCLAIMREPORTYTD_Result> TravelClaimReportYTD { get; set; }
+        public System.Data.DataTable dt { get; set; }
         public Int32? BranchID { get; set; }
         public Int32? Year { get; set; }
         public Byte? Month { get; set; }

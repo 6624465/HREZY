@@ -526,6 +526,7 @@ namespace HR.Web.Controllers
             }
 
             ViewData["BranchId"] = BRANCHID;
+            ViewData["RoleCode"] = role;
             ViewData["MaleCount"] = maleCount;
             ViewData["FeMaleCount"] = femalCount;
             return View(employeeDataReportList);

@@ -7,6 +7,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HR.Web.Helpers;
+using HR.Web.BusinessObjects;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace HR.Web.Controllers
 {
@@ -539,11 +542,12 @@ namespace HR.Web.Controllers
             SalaryComponantReportVm vm = new SalaryComponantReportVm();
             vm.SalaryComponantReport = new List<USP_SALARYCOMPONENTREPORT_Result>();
             vm.SalaryComponantReportYTD = new List<USP_SALARYCOMPONENTREPORTYTD_Result>();
+            
             using (var dbCntx = new HrDataContext())
             {
                 vm.SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(BranchId, Year, Month, EmployeeId).ToList();
                 vm.SalaryComponantReportYTD = dbCntx.USP_SALARYCOMPONENTREPORTYTD(BranchId, Year, EmployeeId).ToList();
-
+                vm.dt = SALARYCOMPONENTEMPLOYEEYTD(BranchId, Year,Convert.ToInt32(Month));
             }
             vm.BranchID = BranchId;
             vm.Year = Year;
@@ -551,6 +555,32 @@ namespace HR.Web.Controllers
             vm.EmployeeID = EmployeeId;
             ViewData["BranchId"] = BranchId;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
+
+            if (vm.dt != null && vm.dt.Columns.Count > 0)
+            {
+                DataRow totalsRow = vm.dt.NewRow();
+                totalsRow["EMPLOYEE NAME"] = "Total";
+                for (int j = 1; j < vm.dt.Columns.Count; j++)
+                {
+                    DataColumn col = vm.dt.Columns[j];
+
+                    decimal colTotal = 0;
+                    for (int i = 0; i < col.Table.Rows.Count; i++)
+                    {
+                        DataRow row = col.Table.Rows[i];
+                        if (row[col] == null || row[col].ToString() == "")
+                        {
+                            row[col] = "0.00";
+                        }
+                        colTotal += Convert.ToDecimal(row[col]);
+                    }
+                    //col.Table.Rows[j]. = Color.Red;
+                    totalsRow[col.ColumnName] = colTotal;
+                }
+
+                vm.dt.Rows.Add(totalsRow);
+            }
+
             return View(vm);
         }
         public ActionResult DashboardofSalaryReport()
@@ -584,6 +614,40 @@ namespace HR.Web.Controllers
         {
             ViewData["BranchId"] = BRANCHID;
             return View();
+        }
+
+        public System.Data.DataTable SALARYCOMPONENTEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month)
+        {
+            using (var dbCntx = new HrDataContext())
+            using (SqlConnection Con = new
+                SqlConnection(dbCntx.Database.Connection.ConnectionString))
+            {
+                Con.Open();
+                SqlCommand Cmd = new SqlCommand();
+
+                Cmd.Connection = Con;
+                Cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                Cmd.CommandText = "[Reports].[USP_SALARYCOMPONENTEMPLOYEEYTD]";
+
+                Cmd.Parameters.Add("@BranchId", System.Data.SqlDbType.SmallInt);
+                Cmd.Parameters.Add("@Year", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@Month", System.Data.SqlDbType.Int);
+
+                Cmd.Parameters["@BranchId"].Value = BranchId;
+                Cmd.Parameters["@Year"].Value = Year;
+                Cmd.Parameters["@Month"].Value = Month;
+
+
+                System.Data.DataTable dt = new System.Data.DataTable();
+                var da = new SqlDataAdapter(Cmd);
+
+                da.Fill(dt);
+
+                Con.Close();
+
+                return dt;
+            }
+
         }
     }
 

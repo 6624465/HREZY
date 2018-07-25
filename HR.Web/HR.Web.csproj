@@ -1951,9 +1951,6 @@
     <Compile Include="Models\SalaryStructureHeader.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TaxAssessmentDetail.cs">
-      <DependentUpon>HrEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TaxAssessmentHeader.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1990,6 +1987,12 @@
     <Compile Include="Models\usp_PND1SummaryHeaderByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\USP_SALARYCOMPONENTREPORTYTD_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USP_SALARYCOMPONENTREPORT_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usp_SSFSummaryDetailByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1997,6 +2000,12 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usp_TAVSummaryByEmployeeTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USP_TRAVELCLAIMREPORTYTD_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USP_TRAVELCLAIMREPORT_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VariablePaymentDetail.cs">

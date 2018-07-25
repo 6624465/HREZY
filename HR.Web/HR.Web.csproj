@@ -1706,7 +1706,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\HrEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HrEntity.Designer.cs</LastGenOutput>
+      <LastGenOutput>HrEntity1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\HrEntity.edmx.diagram">
       <DependentUpon>HrEntity.edmx</DependentUpon>
@@ -1899,6 +1899,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HrEntity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\HrEntity1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HrEntity.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Leave.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1962,7 +1967,7 @@
     <Compile Include="Models\usp_EmployeeDateOfJoiningDate_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\usp_EmployeeDetail_Result3.cs">
+    <Compile Include="Models\usp_EmployeeDetail_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usp_EmployeePaySlipDetailTH_Result.cs">

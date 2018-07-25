@@ -54,7 +54,7 @@ namespace HR.Web.Controllers
                                 superadminGenderCount.Add(employeeDataVm);
                             }
                         }
-
+                        ViewData["BranchId"] = BRANCHID;
                         return View("index", superadminGenderCount);
                     }
                 }
@@ -119,6 +119,7 @@ namespace HR.Web.Controllers
                         //    }
                         //    obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
                         //}
+                        ViewData["BranchId"] = BRANCHID;
                         return View("admindashboard", obj);
                     }
                 }
@@ -503,23 +504,27 @@ namespace HR.Web.Controllers
 
         public ActionResult DashboardofEmployeeData()
         {
+            ViewData["BranchId"] = BRANCHID;
             return View();
         }
         public ActionResult DashboardofSalaryComponents()
         {
+            ViewData["BranchId"] = BRANCHID;
             return View();
         }
         public ActionResult DashboardofSalaryReport()
         {
+            ViewData["BranchId"] = BRANCHID;
             return View();
         }
         public ActionResult DashboardofSalaryData()
         {
+            ViewData["BranchId"] = BRANCHID;
             return View();
         }
         public ActionResult DashboardofLeaveReport()
         {
-
+            ViewData["BranchId"] = BRANCHID;
             return View();
         }
     }

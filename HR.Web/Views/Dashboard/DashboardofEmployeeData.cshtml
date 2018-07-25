@@ -1,7 +1,8 @@
-﻿
+﻿@model IEnumerable<HR.Web.Models.usp_EmployeeDetail_Result>
 @{
     ViewBag.Title = "DashboardofEmployeeData";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = 1;
 }
 
 @{
@@ -53,7 +54,7 @@ new SelectListItem {Text = "December", Value = "12"}
                                     </label>
                                     <div class="col-md-3">
                                         <div class="row oval" style="padding-left:60px;padding-top:4px">
-                                            <h2 style="color:white">6</h2>
+                                            <h2 style="color:white">@ViewData["MaleCount"]</h2>
                                         </div>
                                     </div>
                                     <label class="col-md-1 control-label">
@@ -61,7 +62,7 @@ new SelectListItem {Text = "December", Value = "12"}
                                     </label>
                                     <div class="col-md-3">
                                         <div class="row oval" style="padding-left:60px;padding-top:4px">
-                                            <h2 style="color:white">6</h2>
+                                            <h2 style="color:white">@ViewData["FeMaleCount"]</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -75,67 +76,35 @@ new SelectListItem {Text = "December", Value = "12"}
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Casual Leave</th>
-                                            <th>Annual Leave</th>
-                                            <th>Medical Leave</th>
-                                            <th>Other Leave</th>
-                                            <th>Annual Leave</th>
-                                            <th>Medical Leave</th>
-                                            <th>Other Leave</th>
+                                            <th>S.No</th>
+                                            <th>Employee Id</th>
+                                            <th>Employee No</th>
+                                            <th>Employee Name</th>
+                                            <th>Job Title</th>
+                                            <th>Contact No</th>
+                                            <th>Personal EmailId</th>
+                                            <th>Joining Date</th>
+                                            <th>Date Of Birth</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>John</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mary</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>July</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>July</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>July</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                        </tr>
+                                    
+                                        @foreach (var item in Model.ToList())
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+                                                <td>@item.EmployeeId</td>
+                                                <td>@item.EmployeeNo</td>
+                                                <td>@item.EmployeeName</td>
+                                                <td>@item.JobTitle</td>
+                                                <td>@item.ContactNo</td>
+                                                <td>@item.PersonalEmailId</td>
+                                                <td>@item.JoiningDate.Value.ToString("dd/MM/yyyy")</td>
+                                                <td>@item.DateOfBirth.Value.ToString("dd/MM/yyyy")</td>
+                                            </tr>
+                                            count++;
+                                        }
+
                                     </tbody>
                                 </table>
                             </div>

@@ -947,6 +947,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="branchId" Mode="In" Type="Int32" />
             <Parameter Name="role" Mode="In" Type="String" />
           </FunctionImport>
+         
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1849,6 +1850,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="DateTime" Name="DateOfBirth" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="DocumentDetailID" Nullable="true" />
           <Property Type="String" Name="ProfilePic" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="branchid" Nullable="true" />
         </ComplexType>
       
       </Schema>
@@ -2860,6 +2862,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="DocumentDetailID" ColumnName="DocumentDetailID" />
                 <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+                <ScalarProperty Name="branchid" ColumnName="branchid" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

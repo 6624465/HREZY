@@ -81,4 +81,10 @@ namespace HR.Web.ViewModels
         public Byte? Month { get; set; }
         public Int32? EmployeeID { get; set; }
     }
+
+    public class ClaimsReportVm
+    {
+        public List<USP_TRAVELCLAIMREPORT_Result> TravelClaimReport { get; set; }
+        //public List<USP_TRAVELCLAIMREPORTYTD_Result> TravelClaimReportYTD { get; set; }
+    }
 }

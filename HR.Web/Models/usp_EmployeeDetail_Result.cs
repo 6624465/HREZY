@@ -18,6 +18,7 @@ namespace HR.Web.Models
         public string EmployeeName { get; set; }
         public Nullable<System.DateTime> JoiningDate { get; set; }
         public string JobTitle { get; set; }
+        public Nullable<short> gender { get; set; }
         public string ContactNo { get; set; }
         public string PersonalEmailId { get; set; }
         public string OfficialEmailId { get; set; }

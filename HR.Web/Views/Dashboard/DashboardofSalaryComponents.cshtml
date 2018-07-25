@@ -1,11 +1,11 @@
 ﻿@model HR.Web.ViewModels.SalaryComponantReportVm
-    @{
-        ViewBag.Title = "DashboardofSalaryComponents";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    @{
+@{
+    ViewBag.Title = "DashboardofSalaryComponents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
 
-        var listMonths = new List<SelectListItem>()
+    var listMonths = new List<SelectListItem>()
 {
 new SelectListItem {Text = "All",   Value = "0"},
 new SelectListItem {Text = "January",   Value = "1"},
@@ -21,152 +21,173 @@ new SelectListItem {Text = "October",   Value = "10"},
 new SelectListItem {Text = "November", Value = "11"},
 new SelectListItem {Text = "December", Value = "12"}
 };
-    }
+}
 
-    @section Styles{
-        <style type="text/css">
-            .widthcss {
-                width: 40%
-            }
+@section Styles{
+    <style type="text/css">
+        .widthcss {
+            width: 40%
+        }
 
-            .css5 {
-                padding-top: 10px
-            }
-        </style>
-    }
+        .css5 {
+            padding-top: 10px
+        }
+    </style>
+}
 
-    <div class="page">
-        <div class="page-wrap">
-            <div class="panel panel-default">
-                <div class="center-block width">
-                    <div class="box" id="grid">
-                        <div class="box-header">
-                            <h4>Salary Components</h4>
-                        </div>
-                        <div class="box-body">
-                            <div class="row css5">
-                                <div class="form-group">
-                                    <label class="col-md-1 control-label">
-                                        <span class="pull-right">Country</span>
-                                    </label>
-                                    <div class="col-md-2">
-                                        @Html.DropDownListFor(x=>x.BranchID, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm" })
-                                    </div>
-                                    <label class="col-md-1 control-label">
-                                        <span class="pull-right">Year</span>
-                                    </label>
-                                    <div class="col-md-2">
-                                        @Html.DropDownListFor(x=>x.Year, Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
-                                    </div>
-                                    <label class="col-md-1 control-label">
-                                        <span class="pull-right">Month</span>
-                                    </label>
-                                    <div class="col-md-2">
-                                        @Html.DropDownListFor(x=>x.Month, listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:70%" })
-                                    </div>
-                                    <label class="col-md-1 control-label">
-                                        <span class="pull-right">Employee</span>
-                                    </label>
-                                    <div class="col-md-2">
-                                        @Html.DropDownListFor(x=>x.EmployeeID, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"]), "All", new { @class = "form-control input-sm" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-6">
-                                    <div id="jqChartPie" style="width: 500px; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="jqChart" style="width: 500px; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css10">
-                                <h4>Summary Report</h4>
-                                <div class="col-md-12 css10">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Casual Leave</th>
-                                                <th>Annual Leave</th>
-                                                <th>Medical Leave</th>
-                                                <th>Other Leave</th>
-                                                <th>Annual Leave</th>
-                                                <th>Medical Leave</th>
-                                                <th>Other Leave</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mary</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>July</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>July</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>July</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-
+<div class="page">
+    <div class="page-wrap">
+        <div class="panel panel-default">
+            <div class="center-block width">
+                <div class="box" id="grid">
+                    <div class="box-header">
+                        <h4>Salary Components</h4>
                     </div>
+                    <div class="box-body">
+                        <div class="row css5">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Country</span>
+                                </label>
+                                @if (ViewData["RoleCode"].ToString() == "ADMIN")
+                                {
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm", disabled = true })
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
+                                    </div>
+                                }
+                                @*<div class="col-md-2">
+                                        @Html.DropDownListFor(x=>x.BranchID, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm" })
+                                    </div>*@
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Year</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.Year, Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth()", @style = "width:60%" })
+                                </div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Month</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.Month, listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth()", @style = "width:70%" })
+                                </div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Employee</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.EmployeeID, SelectListItemHelper.EmployeeList(Model.BranchID.Value), "All", new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-6">
+                                <div id="jqChartPie" style="width: 500px; height: 300px;"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="jqChart" style="width: 500px; height: 300px;"></div>
+                            </div>
+                        </div>
+                        <div class="row css10">
+                            <h4>Summary Report</h4>
+                            <div class="col-md-12 css10">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Casual Leave</th>
+                                            <th>Annual Leave</th>
+                                            <th>Medical Leave</th>
+                                            <th>Other Leave</th>
+                                            <th>Annual Leave</th>
+                                            <th>Medical Leave</th>
+                                            <th>Other Leave</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>John</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mary</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>July</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>July</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>July</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-    @section Scripts{
-        <script>
-            $(function () {
-                $('#li_Dashboard').addClass('open');
-                $('#li_salaryComponents').addClass('active');
-            });
-        </script>
-        <script lang="javascript" type="text/javascript">
+</div>
+@section Scripts{
+    <script>
+        $(function () {
+            $('#li_Dashboard').addClass('open');
+            $('#li_salaryComponents').addClass('active');
+        });
+        function ChangeMonth() {
+            debugger;
+            var Branchid = $('#BranchID').val();
+            var Year = $('#Year').val();
+            var Month = $('#Month').val();
+            var EmployeeID = $('#EmployeeID').val() != ""?$('#EmployeeID').val():0;
+            window.location = '@Url.Content("~/Dashboard/DashboardofSalaryComponents?BranchId=")' + Branchid + "&Year=" + Year + "&Month=" + Month + "&EmployeeId=" + EmployeeID
+        }
+
+    </script>
+    <script lang="javascript" type="text/javascript">
             $(document).ready(function () {
                 $('#jqChart').jqChart({
                     title: { text: 'YTD' },
@@ -181,22 +202,31 @@ new SelectListItem {Text = "December", Value = "12"}
                             type: 'column',
                             title: '',
                             fillStyles: [
-                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69',
-                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69',
-                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69'
+                                '#fb0000', '#00a65a', '#333333', '#8cb1f3', '#8a2be2',
+                                '#bcb7c1', '#A52A2A', '#DEB887', '#5F9EA0', '#D2691E', '#FF7F50',
+                                '#6495ED', '#DC143C', '#00FFFF', '#00008B', '#008B8B', '#B8860B',
+                                '#006400', '#8B008B', '#556B2F', '#FF8C00', '#8B0000', '#FF1493',
+                                '#1E90FF', '#B22222', '#228B22', '#008000', '#4B0082', '#F08080',
+                                '#00FF00', '#0000CD', '#FF4500', '#800080', '#9ACD32', '#008080',
                             ],
                             data: [
-                                ['Jan', 33], ['Feb', 57], ['Mar', 33], ['Apr', 12],
-                                ['May', 35], ['Jun', 7], ['Jul', 24], ['Aug', 24],
-                                ['Sep', 35], ['Oct', 7], ['Nov', 24], ['Dec', 24]
+                                @foreach (var item in Model.SalaryComponantReportYTD.ToList())
+                                        {
+                                            <text>
+                                                [
+                                                    '@item.YTDMonth',
+                                                      @item.TotalSalary
+                                                ],
+                                            </text>
+                                        }
                             ]
                         }
                     ]
                 });
             });
 
-        </script>
-        <script lang="javascript" type="text/javascript">
+    </script>
+    <script lang="javascript" type="text/javascript">
             $(document).ready(function () {
 
                 var background = {
@@ -215,21 +245,40 @@ new SelectListItem {Text = "December", Value = "12"}
                     shadows: {
                         enabled: true
                     },
+                    legend: {
+                        visible: false
+                    },
                     border: { visible: false },
                     series: [
                         {
                             type: 'doughnut',
                             innerExtent: 0.5,
                             outerExtent: 1.0,
-                            fillStyles: ['#418CF0', '#FCB441', '#E0400A', '#056492', '#BFBFBF', '#1A3B69', '#FFE382'],
+                            fillStyles: [
+                                '#fb0000', '#00a65a', '#333333', '#8cb1f3', '#8a2be2',
+                                '#bcb7c1', '#A52A2A', '#DEB887', '#5F9EA0', '#D2691E', '#FF7F50',
+                                '#6495ED', '#DC143C', '#00FFFF', '#00008B', '#008B8B', '#B8860B',
+                                '#006400', '#8B008B', '#556B2F', '#FF8C00', '#8B0000', '#FF1493',
+                                '#1E90FF', '#B22222', '#228B22', '#008000', '#4B0082', '#F08080',
+                                '#00FF00', '#0000CD', '#FF4500', '#800080', '#9ACD32', '#008080',
+                            ],
                             labels: {
                                 stringFormat: '%.1f%%',
                                 valueType: 'percentage',
                                 font: '15px sans-serif',
                                 fillStyle: 'balck'
                             },
-                            data: [['United States', 65], ['United Kingdom', 58], ['Germany', 30],
-                            ['India', 60], ['Russia', 65], ['China', 75]],
+                            data: [
+                                @foreach (var item in Model.SalaryComponantReport.ToList())
+                                        {
+                                            <text>
+                                                [
+                                                    '@item.ComponentName',
+                                                      @item.Amount
+                                                ],
+                                            </text>
+                                        }
+                            ],
                             labelsPosition: 'outside', // inside, outside
                             labelsAlign: 'circle', // circle, column
                             labelsExtend: 20,
@@ -239,5 +288,5 @@ new SelectListItem {Text = "December", Value = "12"}
                     ]
                 });
             });
-        </script>
-    }
+    </script>
+}

@@ -525,7 +525,7 @@ namespace HR.Web.Controllers
                 }
             }
 
-            ViewData["BranchId"] = BRANCHID;
+            ViewData["BranchId"] = branchid;
             ViewData["RoleCode"] = role;
             ViewData["MaleCount"] = maleCount;
             ViewData["FeMaleCount"] = femalCount;
@@ -549,7 +549,8 @@ namespace HR.Web.Controllers
             vm.Year = Year;
             vm.Month = Month;
             vm.EmployeeID = EmployeeId;
-            ViewData["BranchId"] = BRANCHID;
+            ViewData["BranchId"] = BranchId;
+            ViewData["RoleCode"] = ROLECODE.ToUpper();
             return View(vm);
         }
         public ActionResult DashboardofSalaryReport()

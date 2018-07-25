@@ -70,4 +70,9 @@ namespace HR.Web.ViewModels
         public int y { get; set; }
         public int custom { get; set; }
     }
+
+    public class SalaryComponantReportVm
+    {
+        //public List<USP_SALARYCOMPONENTREPORT_Result> SalaryComponantReport { get; set; }
+    }
 }

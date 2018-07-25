@@ -1,4 +1,4 @@
-﻿
+﻿@model HR.Web.ViewModels.DashBoardVm
 @{
     ViewBag.Title = "DashboardofSalaryComponents";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +7,7 @@
 
     var listMonths = new List<SelectListItem>()
 {
-        new SelectListItem {Text = "All",   Value = "0"},
+new SelectListItem {Text = "All",   Value = "0"},
 new SelectListItem {Text = "All",   Value = "0"},
 new SelectListItem {Text = "January",   Value = "1"},
 new SelectListItem {Text = "February", Value = "2"},
@@ -69,7 +69,7 @@ new SelectListItem {Text = "December", Value = "12"}
                                     <span class="pull-right">Employee</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.DropDownList("EmployeeId",SelectListItemHelper.EmployeeList((int)ViewData["BranchId"]), "All", new { @class = "form-control input-sm" })
+                                    @Html.DropDownList("EmployeeId", SelectListItemHelper.EmployeeList((int)ViewData["BranchId"]), "All", new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -84,74 +84,74 @@ new SelectListItem {Text = "December", Value = "12"}
                         <div class="row css10">
                             <h4>Summary Report</h4>
                             <div class="col-md-12 css10">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Casual Leave</th>
-                                                <th>Annual Leave</th>
-                                                <th>Medical Leave</th>
-                                                <th>Other Leave</th>
-                                                <th>Annual Leave</th>
-                                                <th>Medical Leave</th>
-                                                <th>Other Leave</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mary</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>July</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>July</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>July</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Casual Leave</th>
+                                            <th>Annual Leave</th>
+                                            <th>Medical Leave</th>
+                                            <th>Other Leave</th>
+                                            <th>Annual Leave</th>
+                                            <th>Medical Leave</th>
+                                            <th>Other Leave</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>John</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mary</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>July</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>July</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>July</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                             
+
                         </div>
                     </div>
 

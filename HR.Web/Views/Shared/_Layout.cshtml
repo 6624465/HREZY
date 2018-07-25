@@ -26,6 +26,7 @@
     <script src="@Url.Content("~/Scripts/jquery-2.2.3.min.js")"></script>
     <link href="@Url.Content("~/Css/sweetalert.css")" rel="stylesheet" />
     <link href="https://demos.mimiz.fr/css/jquery.loader.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Scripts/charts/jquery.jqChart.css")" rel="stylesheet" />
     <style type="text/css">
         /*.icheckbox_flat {
             margin-top: 10px;
@@ -185,7 +186,7 @@
                 <a href="javascript:;" class="nav-trigger ion ion-drag"></a><!--onclick="onNavBarClick();"-->
             </li>
         </ul>
-                
+
         <ul class="list-unstyled right-elems">
             <!-- profile drop -->
             <span>@baseObj.USERID</span>
@@ -193,9 +194,9 @@
                 <a href="javascript:;" data-toggle="dropdown">
 
                     @*@if (UTILITY.ROLE_ADMIN == baseObj.ROLECODE)
-                    {
-                        <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
-                    }*@
+                        {
+                            <img src="@Url.Content("~/images/admin.jpg")" alt="admin-pic">
+                        }*@
 
                     @if (UTILITY.ROLE_EMPLOYEE == baseObj.ROLECODE)
                     {
@@ -213,30 +214,30 @@
                     else
                     {
                         <img style="background-color: #f7f7f7;"
-						src="@Url.Content("~/images/ezy-corporation-logo" +
+                             src="@Url.Content("~/images/ezy-corporation-logo" +
 								 ".png")" onerror="this.src='@Url.Content("~/images/user.jpg")'">
                     }
 
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     @*<li><a href="javascript:;"><span class="ion ion-person">&nbsp;&nbsp;</span>Profile</a></li>
-                    <li><a href="javascript:;"><span class="ion ion-settings">&nbsp;&nbsp;</span>Settings</a></li>
-                    <li class="divider"></li>
-                    <li><a href="javascript:;"><span class="ion ion-lock-combination">&nbsp;&nbsp;</span>Lock Screen</a></li>*@
+                        <li><a href="javascript:;"><span class="ion ion-settings">&nbsp;&nbsp;</span>Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:;"><span class="ion ion-lock-combination">&nbsp;&nbsp;</span>Lock Screen</a></li>*@
                     <li><a href="#"><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;@baseObj.BRANCHNAME</a></li>
                     <li><a href="#"><i class="fa fa-user-circle-o"></i>&nbsp;@baseObj.USERID</a></li>
                     <li>
-                          <a href="#" onclick="Changepassword(@baseObj.USERNUMBER)"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;CHANGE PASSWORD</a>
+                        <a href="#" onclick="Changepassword(@baseObj.USERNUMBER)"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;CHANGE PASSWORD</a>
                     </li>
 
-                        <li class="divider"></li>
-                        <li><a href="@Url.Content("~/Account/LogOut")"><span class="ion ion-power">&nbsp;&nbsp;</span>LogOut</a></li>
-                    </ul>
-                </li>
+                    <li class="divider"></li>
+                    <li><a href="@Url.Content("~/Account/LogOut")"><span class="ion ion-power">&nbsp;&nbsp;</span>LogOut</a></li>
+                </ul>
+            </li>
 
-            </ul>
+        </ul>
 
-</header>
+    </header>
     <div class="main-container clearfix">
         <!-- main-navigation -->
         <aside class="nav-wrap" id="site-nav" data-perfect-scrollbar>
@@ -428,7 +429,8 @@
     <script src="@Url.Content("~/Scripts/charts/highcharts.js")"></script>
     <script src="@Url.Content("~/Scripts/charts/series-label.js")"></script>
     <script src="@Url.Content("~/Scripts/charts/exporting.js")"></script>
-   
+    <script src="@Url.Content("~/Scripts/charts/jquery.jqChart.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/charts/canvasjs.min.js")"></script>
     @RenderSection("Scripts", false)
 
 </body>

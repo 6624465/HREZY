@@ -7,6 +7,7 @@
 
     var listMonths = new List<SelectListItem>()
 {
+        new SelectListItem {Text = "All",   Value = "0"},
 new SelectListItem {Text = "January",   Value = "1"},
 new SelectListItem {Text = "February", Value = "2"},
 new SelectListItem {Text = "March", Value = "3"},
@@ -153,8 +154,6 @@ new SelectListItem {Text = "December", Value = "12"}
     </div>
 </div>
 @section Scripts{
-    <script src="http://www.jqchart.com/jquery/chart/Scripts/jquery.jqChart.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://www.jqchart.com/jquery/chart/Content/jquery.jqChart.css" />
     <script>
         $(function () {
             $('#li_Dashboard').addClass('open');
@@ -169,6 +168,7 @@ new SelectListItem {Text = "December", Value = "12"}
                 shadows: {
                     enabled: true
                 },
+                legend: { visible: false },
                 border: { visible: false },
                 series: [
                     {

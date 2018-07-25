@@ -1728,6 +1728,8 @@
     <Content Include="Scripts\charts\canvasjs.min.js" />
     <Content Include="Scripts\charts\exporting.js" />
     <Content Include="Scripts\charts\highcharts.js" />
+    <Content Include="Scripts\charts\jquery.jqChart.css" />
+    <Content Include="Scripts\charts\jquery.jqChart.min.js" />
     <Content Include="Scripts\charts\series-label.js" />
     <Content Include="Scripts\Core\app.js" />
     <Content Include="Scripts\Core\bootstrap-rating.min.js" />

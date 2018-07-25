@@ -51,7 +51,7 @@ new SelectListItem {Text = "December", Value = "12"}
                                     <span class="pull-right">Country</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.DropDownList("EmployeeId", SelectListItemHelper.CountryListById(), "Select Country", new { @class = "form-control input-sm" })
+                                    @Html.DropDownList("EmployeeId", SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm" })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Year</span>

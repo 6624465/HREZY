@@ -128,7 +128,7 @@ namespace HR.Web.Helpers
         {
             using (var dbCntx = new HrDataContext())
             {
-                return dbCntx.Countries.OrderBy(x=>x.CountryName)
+                return dbCntx.Countries.OrderBy(x => x.CountryName)
                                 .Select(x => new System.Web.Mvc.SelectListItem
                                 {
                                     Text = x.CountryName,
@@ -242,6 +242,26 @@ namespace HR.Web.Helpers
             using (var dbCntx = new HrDataContext())
             {
                 return dbCntx.Branches.Select(x => new SelectListItem
+                {
+                    Value = x.BranchID.ToString(),
+                    Text = x.BranchName
+                }).ToList().AsEnumerable();
+            }
+        }
+
+        public static IEnumerable<SelectListItem> ActiveCountryList()
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var list = new List<int>();
+                list.Add(10000);
+                list.Add(10002);
+                list.Add(10004);
+                list.Add(10005);
+                list.Add(10007);
+                list.Add(10012);
+
+                return dbCntx.Branches.Where(x => !list.Contains(x.BranchID)).Select(x => new SelectListItem
                 {
                     Value = x.BranchID.ToString(),
                     Text = x.BranchName
@@ -448,25 +468,26 @@ namespace HR.Web.Helpers
         public static IEnumerable<SelectListItem> GetMonths()
         {
             string[] names = DateTimeFormatInfo.CurrentInfo.MonthNames;
-            string currentMonth = DateTimeFormatInfo.CurrentInfo.GetMonthName(DateTime.Now.Month);            
+            string currentMonth = DateTimeFormatInfo.CurrentInfo.GetMonthName(DateTime.Now.Month);
 
             List<SelectListItem> listItem = new List<SelectListItem>();
             SelectListItem sItem = null;
             int loopCount = 0;
-            for(var i = 0; i < names.Length; i++)
+            for (var i = 0; i < names.Length; i++)
             {
                 if (string.IsNullOrWhiteSpace(names[i]))
                     continue;
 
                 loopCount++;
-                sItem = new SelectListItem {
+                sItem = new SelectListItem
+                {
                     Text = names[i],
                     Value = loopCount.ToString(),
                     Selected = names[i] == currentMonth ? true : false,
                 };
 
                 listItem.Add(sItem);
-            }            
+            }
 
             return listItem;
         }
@@ -484,13 +505,14 @@ namespace HR.Web.Helpers
             };
             listItem.Add(obj2);
 
-            var obj1 = new SelectListItem {
+            var obj1 = new SelectListItem
+            {
                 Value = currentYear.ToString(),
                 Text = currentYear.ToString(),
                 Selected = true
             };
             listItem.Add(obj1);
-            
+
 
             return listItem;
         }
@@ -543,7 +565,7 @@ namespace HR.Web.Helpers
                         Value = empheader[i].EmployeeId.ToString(),
                         Text = title + " " + empheader[i].FirstName
                     };
-                   
+
 
                     //return empheader.Select(x => new SelectListItem
                     //{
@@ -600,7 +622,7 @@ namespace HR.Web.Helpers
                     Text = names[i],
                     Value = loopCount.ToString(),
                     Selected = names[i] == currentMonth ? true : false,
-                    Disabled = i >= (currentmonthnumber-2) ? false : true
+                    Disabled = i >= (currentmonthnumber - 2) ? false : true
                 };
 
                 listItem.Add(sItem);

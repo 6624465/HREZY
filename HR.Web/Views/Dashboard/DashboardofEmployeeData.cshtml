@@ -49,13 +49,13 @@ new SelectListItem {Text = "December", Value = "12"}
                                     @if (ViewData["RoleCode"].ToString() == "ADMIN")
                                     {
                                         <div class="col-md-3">
-                                            @Html.DropDownListFor(x => x.FirstOrDefault().branchid, SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm" ,disabled=true})
+                                            @Html.DropDownListFor(x => x.FirstOrDefault().branchid, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm" ,disabled=true})
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="col-md-3">
-                                            @Html.DropDownListFor(x => x.FirstOrDefault().branchid, SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm", onchage="EmployeeDataByCountry()" })
+                                            @Html.DropDownListFor(x => x.FirstOrDefault().branchid, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm", onchange="EmployeeDataByCountry(this)" })
                                         </div>
                                     }
 
@@ -131,8 +131,16 @@ new SelectListItem {Text = "December", Value = "12"}
         $(function () {
             $('#li_Dashboard').addClass('open');
             $('#li_employeeData').addClass('active');
-            $('#branchid').val('@Model.FirstOrDefault().branchid');
+            @if(Model.ToList().Count!=0) {
+                <text>
+                $('#branchid').val('@Model.FirstOrDefault().branchid');
+                </text>
+            }
+           
         });
+        function EmployeeDataByCountry(el) {
+            window.location = '@Url.Content("~/Dashboard/DashboardofEmployeeData?branchid=")'+el.value +"&role=SUPERADMIN"
+        }
     </script>
     <script lang="javascript" type="text/javascript">
         $(document).ready(function () {

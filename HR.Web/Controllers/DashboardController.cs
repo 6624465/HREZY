@@ -571,6 +571,10 @@ namespace HR.Web.Controllers
                 vm.TravelClaimReportYTD = dbCntx.USP_TRAVELCLAIMREPORTYTD(BranchId, Year, EmployeeId).ToList();
 
             }
+            vm.BranchID = BranchId;
+            vm.Year = Year;
+            vm.Month = Month;
+            vm.EmployeeID = EmployeeId;
             ViewData["BranchId"] = BRANCHID;
             return View(vm);
         }

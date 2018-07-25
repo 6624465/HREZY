@@ -545,6 +545,10 @@ namespace HR.Web.Controllers
                 vm.SalaryComponantReportYTD = dbCntx.USP_SALARYCOMPONENTREPORTYTD(BranchId, Year, EmployeeId).ToList();
 
             }
+            vm.BranchID = BranchId;
+            vm.Year = Year;
+            vm.Month = Month;
+            vm.EmployeeID = EmployeeId;
             ViewData["BranchId"] = BRANCHID;
             return View(vm);
         }

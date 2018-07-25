@@ -75,5 +75,10 @@ namespace HR.Web.ViewModels
     {
         public List<USP_SALARYCOMPONENTREPORT_Result> SalaryComponantReport { get; set; }
         public List<USP_SALARYCOMPONENTREPORTYTD_Result> SalaryComponantReportYTD { get; set; }
+
+        public Int32? BranchID { get; set; }
+        public Int32? Year { get; set; }
+        public Byte? Month { get; set; }
+        public Int32? EmployeeID { get; set; }
     }
 }

@@ -505,20 +505,12 @@ namespace HR.Web.Controllers
 
         public ActionResult DashboardofEmployeeData(int? branchid, string role)
         {
+            branchid = branchid == 0 ? BRANCHID : branchid;
             int maleCount = 0;
             int femalCount = 0;
             List<usp_EmployeeDetail_Result> employeeDataReportList = new List<usp_EmployeeDetail_Result>();
             using (HrDataContext dbcontext = new HrDataContext())
             {
-                if (role=="ADMIN")
-                {
-                    branchid = BRANCHID;
-                }
-                else
-                {
-                    branchid = 10001;
-                }
-                
                 employeeDataReportList = dbcontext.usp_EmployeeDetail(branchid, role).ToList();
                 foreach (var item in employeeDataReportList)
                 {

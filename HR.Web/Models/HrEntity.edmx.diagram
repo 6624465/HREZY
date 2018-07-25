@@ -44,6 +44,7 @@
 
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.SalaryStructureDetail" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" Width="1.5" PointX="3.375" PointY="8.75" />
+        
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

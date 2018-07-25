@@ -947,8 +947,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="branchId" Mode="In" Type="Int32" />
             <Parameter Name="role" Mode="In" Type="String" />
           </FunctionImport>
-          
-       
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1844,6 +1842,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="DateTime" Name="JoiningDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="JobTitle" Nullable="true" MaxLength="100" />
           <Property Type="Int16" Name="gender" Nullable="true" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="PersonalEmailId" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="OfficialEmailId" Nullable="true" MaxLength="50" />
@@ -1851,7 +1850,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="Int32" Name="DocumentDetailID" Nullable="true" />
           <Property Type="String" Name="ProfilePic" Nullable="true" MaxLength="100" />
         </ComplexType>
-  
       
       </Schema>
     </edmx:ConceptualModels>
@@ -2855,6 +2853,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
                 <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
                 <ScalarProperty Name="PersonalEmailId" ColumnName="PersonalEmailId" />
                 <ScalarProperty Name="OfficialEmailId" ColumnName="OfficialEmailId" />
@@ -2864,7 +2863,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -99,7 +99,7 @@ else if (Model.RoleCode == UTILITY.ROLE_ADMIN)
                 <li id="li_leaveReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofLeaveReport")">Leave Report</a></li>
                 <li id="li_salaryReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryReport")">Salary Report</a></li>
                 <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryComponents")">Salary Components</a></li>
-                <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofEmployeeData")">Employee Data Report</a></li>
+                <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofEmployeeData?branchid="+0+"&role="+Model.RoleCode)">Employee Data Report</a></li>
                 <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData")">Claims Report</a></li>
             </ul>
 

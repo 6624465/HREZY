@@ -539,10 +539,20 @@ namespace HR.Web.Controllers
             ViewData["FeMaleCount"] = femalCount;
             return View(employeeDataReportList);
         }
-        public ActionResult DashboardofSalaryComponents()
+        public ActionResult DashboardofSalaryComponents(int? BranchId, int? Year, byte? Month, int? EmployeeId)
         {
+            BranchId = BranchId == 0 ? BRANCHID : BranchId;
+            Month = Month == 0 ? null : Month;
+            EmployeeId = EmployeeId == 0 ? null : EmployeeId;
+            SalaryComponantReportVm vm = new SalaryComponantReportVm();
+            //vm.SalaryComponantReport = new List<USP_SALARYCOMPONENTREPORT_Result>();
+            using (var dbCntx = new HrDataContext())
+            {
+                //vm.SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(BranchId, Year, Month, EmployeeId).ToList();
+
+            }
             ViewData["BranchId"] = BRANCHID;
-            return View();
+            return View(vm);
         }
         public ActionResult DashboardofSalaryReport()
         {

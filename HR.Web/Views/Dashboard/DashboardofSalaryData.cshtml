@@ -24,6 +24,47 @@ new SelectListItem {Text = "December", Value = "12"}
 }
 
 @section Styles{
+    <link src="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link src="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.bootstrap.min.css" rel="stylesheet" />
+    <style>
+        th, td {
+            white-space: nowrap;
+        }
+
+        div.dataTables_wrapper {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .table-striped td {
+            background: #fff;
+        }
+
+
+        .pd-generate {
+            padding: 15px;
+        }
+
+
+        th, td {
+            white-space: nowrap;
+        }
+
+        div.dataTables_wrapper {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .table-striped td {
+            background: #fff;
+        }
+        /*.dsp-none{
+                display:none;
+            }*/
+        /*#dtid2{
+                display:none;
+            }*/
+    </style>
     <style type="text/css">
         .widthcss {
             width: 40%
@@ -158,11 +199,11 @@ new SelectListItem {Text = "December", Value = "12"}
     </div>
 </div>
 @section Scripts{
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
     <script>
-        $(function () {
-            $('#li_Dashboard').addClass('open');
-            $('#li_salaryData').addClass('active');
-        });
             function ChangeMonth() {
             var Branchid = $('#BranchID').val();
             var Year = $('#Year').val();
@@ -170,9 +211,29 @@ new SelectListItem {Text = "December", Value = "12"}
             var EmployeeID = $('#EmployeeID').val() != ""?$('#EmployeeID').val():0;
             window.location = '@Url.Content("~/Dashboard/DashboardofSalaryData?BranchId=")' + Branchid + "&Year=" + Year + "&Month=" + Month + "&EmployeeId=" + EmployeeID
         }
-    </script>
-    <script lang="javascript" type="text/javascript">
-        $(document).ready(function () {
+        $(function () {
+            var table = $('#example').DataTable({
+                scrollY: "300px",
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+                searching: false,
+                bInfo: false,
+                autoWidth: true,
+                fixedColumns: {
+                    leftColumns: 1
+                },
+                columnDefs: [
+                    {
+                        "targets": [],
+                        "visible": false
+                    }
+                ],
+            });
+
+            $('#li_Dashboard').addClass('open');
+            $('#li_salaryData').addClass('active');
+
             $('#jqChart').jqChart({
                 title: { text: 'YTD' },
                 animation: { duration: 1 },
@@ -207,11 +268,7 @@ new SelectListItem {Text = "December", Value = "12"}
                     }
                 ]
             });
-        });
 
-    </script>
-    <script lang="javascript" type="text/javascript">
-        $(document).ready(function () {
 
             var background = {
                 type: 'linearGradient',

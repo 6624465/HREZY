@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using HR.Web.Helpers;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace HR.Web.Controllers
 {
@@ -607,6 +608,32 @@ namespace HR.Web.Controllers
             vm.EmployeeID = EmployeeId;
             ViewData["BranchId"] = BRANCHID;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
+
+            if (vm.dt != null && vm.dt.Columns.Count > 0)
+            {
+                DataRow totalsRow = vm.dt.NewRow();
+                totalsRow["EMPLOYEE NAME"] = "Total";
+                for (int j = 1; j < vm.dt.Columns.Count; j++)
+                {
+                    DataColumn col = vm.dt.Columns[j];
+
+                    decimal colTotal = 0;
+                    for (int i = 0; i < col.Table.Rows.Count; i++)
+                    {
+                        DataRow row = col.Table.Rows[i];
+                        if (row[col] == null || row[col].ToString() == "")
+                        {
+                            row[col] = "0.00";
+                        }
+                        colTotal += Convert.ToDecimal(row[col]);
+                    }
+                    //col.Table.Rows[j]. = Color.Red;
+                    totalsRow[col.ColumnName] = colTotal;
+                }
+
+                vm.dt.Rows.Add(totalsRow);
+            }
+
             return View(vm);
         }
         public System.Data.DataTable TRAVELCLAIMEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month)

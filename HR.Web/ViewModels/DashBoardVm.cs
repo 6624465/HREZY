@@ -73,7 +73,7 @@ namespace HR.Web.ViewModels
 
     public class SalaryComponantReportVm
     {
-        public List<USP_SALARYCOMPONENTREPORT_Result> SalaryComponantReport { get; set; }
-        public List<USP_SALARYCOMPONENTREPORTYTD_Result> SalaryComponantReportYTD { get; set; }
+        //public List<USP_SALARYCOMPONENTREPORT_Result> SalaryComponantReport { get; set; }
+        //public List<USP_SALARYCOMPONENTREPORTYTD_Result> SalaryComponantReportYTD { get; set; }
     }
 }

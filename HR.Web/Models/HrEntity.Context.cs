@@ -267,8 +267,6 @@ namespace HR.Web.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_EmployeeDetail_Result>("usp_EmployeeDetail", branchIdParameter, roleParameter);
         }
     
-
-       
         public virtual ObjectResult<USP_TRAVELCLAIMREPORT_Result> USP_TRAVELCLAIMREPORT(Nullable<int> branchId, Nullable<int> year, Nullable<byte> month, Nullable<int> employeeId)
         {
             var branchIdParameter = branchId.HasValue ?
@@ -305,6 +303,61 @@ namespace HR.Web.Models
                 new ObjectParameter("EmployeeId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_TRAVELCLAIMREPORTYTD_Result>("USP_TRAVELCLAIMREPORTYTD", branchIdParameter, yearParameter, employeeIdParameter);
+        }
+    
+        public virtual ObjectResult<USP_SALARYCOMPONENTREPORT_Result> USP_SALARYCOMPONENTREPORT(Nullable<int> branchId, Nullable<int> year, Nullable<byte> month, Nullable<int> employeeId)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(byte));
+    
+            var employeeIdParameter = employeeId.HasValue ?
+                new ObjectParameter("EmployeeId", employeeId) :
+                new ObjectParameter("EmployeeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_SALARYCOMPONENTREPORT_Result>("USP_SALARYCOMPONENTREPORT", branchIdParameter, yearParameter, monthParameter, employeeIdParameter);
+        }
+    
+        public virtual ObjectResult<USP_SALARYCOMPONENTREPORTYTD_Result> USP_SALARYCOMPONENTREPORTYTD(Nullable<int> branchId, Nullable<int> year, Nullable<int> employeeId)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var employeeIdParameter = employeeId.HasValue ?
+                new ObjectParameter("EmployeeId", employeeId) :
+                new ObjectParameter("EmployeeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_SALARYCOMPONENTREPORTYTD_Result>("USP_SALARYCOMPONENTREPORTYTD", branchIdParameter, yearParameter, employeeIdParameter);
+        }
+    
+        public virtual ObjectResult<USP_TRAVELCLAIMREPORTYTD1_Result> USP_TRAVELCLAIMREPORTYTD1(Nullable<int> branchId, Nullable<int> year, Nullable<int> employeeId)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("BranchId", branchId) :
+                new ObjectParameter("BranchId", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var employeeIdParameter = employeeId.HasValue ?
+                new ObjectParameter("EmployeeId", employeeId) :
+                new ObjectParameter("EmployeeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_TRAVELCLAIMREPORTYTD1_Result>("USP_TRAVELCLAIMREPORTYTD1", branchIdParameter, yearParameter, employeeIdParameter);
         }
     }
 }

@@ -1990,6 +1990,12 @@
     <Compile Include="Models\usp_PND1SummaryHeaderByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\USP_SALARYCOMPONENTREPORTYTD_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USP_SALARYCOMPONENTREPORT_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usp_SSFSummaryDetailByMonthTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
@@ -1997,6 +2003,9 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usp_TAVSummaryByEmployeeTH_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USP_TRAVELCLAIMREPORTYTD1_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\USP_TRAVELCLAIMREPORTYTD_Result.cs">

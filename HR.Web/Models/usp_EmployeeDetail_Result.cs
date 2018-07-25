@@ -26,5 +26,6 @@ namespace HR.Web.Models
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public Nullable<int> DocumentDetailID { get; set; }
         public string ProfilePic { get; set; }
+        public Nullable<int> branchid { get; set; }
     }
 }

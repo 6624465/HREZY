@@ -46,16 +46,16 @@ new SelectListItem {Text = "December", Value = "12"}
                                     <label class="col-md-1 control-label">
                                         <span class="pull-right">Country</span>
                                     </label>
-                                    @if (ViewData["RoleCode"].ToString() == "Admin")
+                                    @if (ViewData["RoleCode"].ToString() == "ADMIN")
                                     {
                                         <div class="col-md-3">
-                                            @Html.DropDownListFor(x => x.FirstOrDefault().BranchID, SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm" ,disabled=true})
+                                            @Html.DropDownListFor(x => x.FirstOrDefault().branchid, SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm" ,disabled=true})
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="col-md-3">
-                                            @Html.DropDownListFor(x => x.FirstOrDefault().BranchID, SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm",onchage="EmployeeDataByCountry()" })
+                                            @Html.DropDownListFor(x => x.FirstOrDefault().branchid, SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm", onchage="EmployeeDataByCountry()" })
                                         </div>
                                     }
 
@@ -131,6 +131,7 @@ new SelectListItem {Text = "December", Value = "12"}
         $(function () {
             $('#li_Dashboard').addClass('open');
             $('#li_employeeData').addClass('active');
+            $('#branchid').val('@Model.FirstOrDefault().branchid');
         });
     </script>
     <script lang="javascript" type="text/javascript">
@@ -141,9 +142,7 @@ new SelectListItem {Text = "December", Value = "12"}
                 x0: 0,
                 y0: 0,
                 x1: 0,
-                y1: 1,
-                //colorStops: [{ offset: 0, color: '#d2e6c9' },
-                //{ offset: 1, color: 'white' }]
+                y1: 1
             };
 
             $('#jqChartPie').jqChart({

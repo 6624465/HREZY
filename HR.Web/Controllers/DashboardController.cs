@@ -545,10 +545,12 @@ namespace HR.Web.Controllers
             Month = Month == 0 ? null : Month;
             EmployeeId = EmployeeId == 0 ? null : EmployeeId;
             SalaryComponantReportVm vm = new SalaryComponantReportVm();
-            //vm.SalaryComponantReport = new List<USP_SALARYCOMPONENTREPORT_Result>();
+            vm.SalaryComponantReport = new List<USP_SALARYCOMPONENTREPORT_Result>();
+            vm.SalaryComponantReportYTD = new List<USP_SALARYCOMPONENTREPORTYTD_Result>();
             using (var dbCntx = new HrDataContext())
             {
-                //vm.SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(BranchId, Year, Month, EmployeeId).ToList();
+                vm.SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(BranchId, Year, Month, EmployeeId).ToList();
+                vm.SalaryComponantReportYTD = dbCntx.USP_SALARYCOMPONENTREPORTYTD(BranchId, Year, EmployeeId).ToList();
 
             }
             ViewData["BranchId"] = BRANCHID;

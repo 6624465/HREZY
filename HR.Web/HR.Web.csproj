@@ -2005,6 +2005,9 @@
     <Compile Include="Models\usp_TAVSummaryByEmployeeTH_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\USP_TRAVELCLAIMREPORTYTD_Result.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\USP_TRAVELCLAIMREPORT_Result.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>

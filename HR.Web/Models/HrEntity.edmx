@@ -989,6 +989,11 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="USP_TRAVELCLAIMREPORTYTD" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORTYTD_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+          </FunctionImport>
           
          
         </EntityContainer>
@@ -1910,6 +1915,10 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
         <ComplexType Name="USP_SALARYCOMPONENTREPORTYTD_Result">
           <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
           <Property Type="Decimal" Name="TotalSalary" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="USP_TRAVELCLAIMREPORTYTD_Result">
+          <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
         
       
@@ -2948,6 +2957,14 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORTYTD_Result">
                 <ScalarProperty Name="YTDMonth" ColumnName="YTDMonth" />
                 <ScalarProperty Name="TotalSalary" ColumnName="TotalSalary" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_TRAVELCLAIMREPORTYTD" FunctionName="DB_9F30C5_HRDBModel.Store.USP_TRAVELCLAIMREPORTYTD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORTYTD_Result">
+                <ScalarProperty Name="YTDMonth" ColumnName="YTDMonth" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

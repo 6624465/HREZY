@@ -553,10 +553,22 @@ namespace HR.Web.Controllers
             ViewData["BranchId"] = BRANCHID;
             return View();
         }
-        public ActionResult DashboardofSalaryData()
+        public ActionResult DashboardofSalaryData(int? BranchId, int? Year, byte? Month, int? EmployeeId)
         {
+            BranchId = BranchId == 0 ? BRANCHID : BranchId;
+            Month = Month == 0 ? null : Month;
+            EmployeeId = EmployeeId == 0 ? null : EmployeeId;
+            ClaimsReportVm vm = new ClaimsReportVm();
+            vm.TravelClaimReport = new List<USP_TRAVELCLAIMREPORT_Result>();
+            vm.TravelClaimReportYTD = new List<USP_TRAVELCLAIMREPORTYTD_Result>();
+            using (var dbCntx = new HrDataContext())
+            {
+                vm.TravelClaimReport = dbCntx.USP_TRAVELCLAIMREPORT(BranchId, Year, Month, EmployeeId).ToList();
+                vm.TravelClaimReportYTD = dbCntx.USP_TRAVELCLAIMREPORTYTD(BranchId, Year, EmployeeId).ToList();
+
+            }
             ViewData["BranchId"] = BRANCHID;
-            return View();
+            return View(vm);
         }
         public ActionResult DashboardofLeaveReport()
         {

@@ -11,7 +11,7 @@ namespace HR.Web.Models
 {
     using System;
     
-    public partial class usp_EmployeeDetail_Result3
+    public partial class usp_EmployeeDetail_Result
     {
         public int EmployeeId { get; set; }
         public string EmployeeNo { get; set; }

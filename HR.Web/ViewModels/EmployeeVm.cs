@@ -28,7 +28,7 @@ namespace HR.Web.ViewModels
 
     public class EmpDirectoryResultVm
     {
-        public IEnumerable<usp_EmployeeDetail_Result3> employeeVm { get; set; }
+        public IEnumerable<usp_EmployeeDetail_Result> employeeVm { get; set; }
         public EmpSearch empSearch { get; set; }
         public int count { get; set; }
 

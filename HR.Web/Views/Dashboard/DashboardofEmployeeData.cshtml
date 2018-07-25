@@ -23,6 +23,13 @@ new SelectListItem {Text = "November", Value = "11"},
 new SelectListItem {Text = "December", Value = "12"}
 };
 }
+<style>
+    .oval {
+        width: 150px;
+        height: 75px;
+        background: #3f51b5;
+    }
+</style>
 <div class="page">
     <div class="page-wrap">
         <div class="panel panel-default">
@@ -42,16 +49,20 @@ new SelectListItem {Text = "December", Value = "12"}
                                         @Html.DropDownList("EmployeeId", SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm" })
                                     </div>
                                     <label class="col-md-1 control-label">
-                                        <span class="pull-right">Year</span>
+                                        <span class="pull-right">Male</span>
                                     </label>
                                     <div class="col-md-3">
-                                        @Html.DropDownList("Year", Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
+                                        <div class="row oval" style="padding-left:60px;padding-top:4px">
+                                            <h2 style="color:white">6</h2>
+                                        </div>
                                     </div>
                                     <label class="col-md-1 control-label">
-                                        <span class="pull-right">Month</span>
+                                        <span class="pull-right">Female</span>
                                     </label>
                                     <div class="col-md-3">
-                                        @Html.DropDownList("Month", listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:70%" })
+                                        <div class="row oval" style="padding-left:60px;padding-top:4px">
+                                            <h2 style="color:white">6</h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

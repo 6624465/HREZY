@@ -703,13 +703,27 @@ namespace HR.Web.Controllers
             }
 
         }
-        public ActionResult DashboardofLeaveReport()
+        public ActionResult DashboardofLeaveReport(int? BranchId, int? Year, int? EmployeeId)
         {
-            ViewData["BranchId"] = BRANCHID;
-            return View();
-        }
+            BranchId = BranchId == 0 ? BRANCHID : BranchId;
+            EmployeeId = EmployeeId == 0 ? null : EmployeeId;
+            LeaveReportVm vm = new LeaveReportVm();
 
-        public System.Data.DataTable SALARYCOMPONENTEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month, int? EmployeeId)
+            using (var dbCntx = new HrDataContext())
+            {
+                vm.dtAvailed = EMPLOYEELEAVESUMMARYYTD(BranchId, Year, 0);
+                vm.dtBalance = EMPLOYEELEAVESUMMARYYTD(BranchId, Year, 1);
+            }
+            vm.BranchID = BranchId;
+            vm.Year = Year;
+            vm.EmployeeID = EmployeeId;
+            ViewData["BranchId"] = BranchId;
+            ViewData["RoleCode"] = ROLECODE.ToUpper();
+            
+
+            return View(vm);
+        }
+ public System.Data.DataTable SALARYCOMPONENTEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month, int? EmployeeId)
         {
             using (var dbCntx = new HrDataContext())
             using (SqlConnection Con = new
@@ -731,6 +745,39 @@ namespace HR.Web.Controllers
                 Cmd.Parameters["@Year"].Value = Year;
                 Cmd.Parameters["@Month"].Value = Month;
                 Cmd.Parameters["@EmployeeID"].Value = EmployeeId;
+
+
+                System.Data.DataTable dt = new System.Data.DataTable();
+                var da = new SqlDataAdapter(Cmd);
+
+                da.Fill(dt);
+
+                Con.Close();
+
+                return dt;
+            }
+
+        }
+        public System.Data.DataTable EMPLOYEELEAVESUMMARYYTD(Int32? BranchId, int? Year, int? IsBalance)
+        {
+            using (var dbCntx = new HrDataContext())
+            using (SqlConnection Con = new
+                SqlConnection(dbCntx.Database.Connection.ConnectionString))
+            {
+                Con.Open();
+                SqlCommand Cmd = new SqlCommand();
+
+                Cmd.Connection = Con;
+                Cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                Cmd.CommandText = "[Operation].[usp_EMPLOYEELEAVESUMMARYYTD]";
+
+                Cmd.Parameters.Add("@BranchID", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@LeaveYear", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@IsBalance", System.Data.SqlDbType.Int);
+
+                Cmd.Parameters["@BranchID"].Value = BranchId;
+                Cmd.Parameters["@LeaveYear"].Value = Year;
+                Cmd.Parameters["@IsBalance"].Value = IsBalance;
 
 
                 System.Data.DataTable dt = new System.Data.DataTable();

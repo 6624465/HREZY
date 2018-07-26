@@ -92,4 +92,13 @@ namespace HR.Web.ViewModels
         public Byte? Month { get; set; }
         public Int32? EmployeeID { get; set; }
     }
+    public class LeaveReportVm
+    {
+        public System.Data.DataTable dtAvailed { get; set; }
+        public System.Data.DataTable dtBalance { get; set; }
+
+        public Int32? BranchID { get; set; }
+        public Int32? Year { get; set; }
+        public Int32? EmployeeID { get; set; }
+    }
 }

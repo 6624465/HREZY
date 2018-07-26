@@ -190,9 +190,13 @@ new SelectListItem {Text = "December", Value = "12"}
 @section Scripts{
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-
     <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/select2/select2/master/dist/js/select2.full.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://rawgit.com/select2/select2/master/dist/css/select2.min.css">
     <script>
+        $(window).load(function () {
+            $('select').select2({});
+        });
          function ChangeMonth() {
             var Branchid = $('#BranchID').val();
             var Year = $('#Year').val();
@@ -225,5 +229,5 @@ new SelectListItem {Text = "December", Value = "12"}
         });
     </script>
 
-   
+
 }

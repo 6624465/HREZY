@@ -895,7 +895,7 @@ namespace HR.Web.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet]l
         public ActionResult ApproveLeave(int employeeleaveid)
         {
             employeeLeaveListBO.ApproveLeave(employeeleaveid);

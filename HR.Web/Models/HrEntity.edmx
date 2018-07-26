@@ -117,6 +117,7 @@
           <Property Name="BranchId" Type="int" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="LeaveYear" Type="smallint" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -664,7 +665,7 @@
           <Property Name="SundaySession" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -741,12 +742,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
         <Function Name="usp_PND1SummaryHeaderByMonthTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
           <Parameter Name="BranchId" Type="int" Mode="In" />
         </Function>
-        <Function Name="USP_SALARYCOMPONENTREPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
-          <Parameter Name="BranchId" Type="int" Mode="In" />
-          <Parameter Name="Year" Type="int" Mode="In" />
-          <Parameter Name="Month" Type="tinyint" Mode="In" />
-          <Parameter Name="EmployeeId" Type="int" Mode="In" />
-        </Function>
         <Function Name="USP_SALARYCOMPONENTREPORTYTD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
           <Parameter Name="BranchId" Type="int" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />
@@ -766,12 +761,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Parameter Name="BranchId" Type="int" Mode="In" />
           <Parameter Name="EmployeeID" Type="int" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />
-        </Function>
-        <Function Name="USP_TRAVELCLAIMREPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
-          <Parameter Name="BranchId" Type="int" Mode="In" />
-          <Parameter Name="Year" Type="int" Mode="In" />
-          <Parameter Name="Month" Type="tinyint" Mode="In" />
-          <Parameter Name="EmployeeId" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_TRAVELCLAIMREPORTYTD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
           <Parameter Name="BranchId" Type="int" Mode="In" />
@@ -1415,6 +1404,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Name="BranchId" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="LeaveYear" Type="Int16" />
         </EntityType>
         <EntityType Name="LeaveTran">
           <Key>
@@ -2385,6 +2375,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <EntitySetMapping Name="OtherLeaves">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.OtherLeave">
               <MappingFragment StoreEntitySet="OtherLeave">
+                <ScalarProperty Name="LeaveYear" ColumnName="LeaveYear" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
@@ -2920,14 +2911,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_TRAVELCLAIMREPORT" FunctionName="DB_9F30C5_HRDBModel.Store.USP_TRAVELCLAIMREPORT">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORT_Result">
-                <ScalarProperty Name="ClaimCategory" ColumnName="ClaimCategory" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="TaxAssessmentDetails">
             <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
               <MappingFragment StoreEntitySet="TaxAssessmentDetail">
@@ -2944,14 +2927,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="USP_SALARYCOMPONENTREPORT" FunctionName="DB_9F30C5_HRDBModel.Store.USP_SALARYCOMPONENTREPORT">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORT_Result">
-                <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_SALARYCOMPONENTREPORTYTD" FunctionName="DB_9F30C5_HRDBModel.Store.USP_SALARYCOMPONENTREPORTYTD">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORTYTD_Result">

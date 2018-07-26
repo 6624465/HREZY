@@ -665,7 +665,7 @@
           <Property Name="SundaySession" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -742,6 +742,12 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
         <Function Name="usp_PND1SummaryHeaderByMonthTH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
           <Parameter Name="BranchId" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_SALARYCOMPONENTREPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
+          <Parameter Name="BranchId" Type="int" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="tinyint" Mode="In" />
+          <Parameter Name="EmployeeId" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_SALARYCOMPONENTREPORTYTD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
           <Parameter Name="BranchId" Type="int" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />
@@ -761,6 +767,12 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
           <Parameter Name="BranchId" Type="int" Mode="In" />
           <Parameter Name="EmployeeID" Type="int" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_TRAVELCLAIMREPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
+          <Parameter Name="BranchId" Type="int" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="tinyint" Mode="In" />
+          <Parameter Name="EmployeeId" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_TRAVELCLAIMREPORTYTD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reports">
           <Parameter Name="BranchId" Type="int" Mode="In" />
@@ -959,14 +971,22 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
           </FunctionImport>
           
           
+          
+          
+          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
+          
+          
           <FunctionImport Name="USP_TRAVELCLAIMREPORT" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORT_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Month" Mode="In" Type="Byte" />
             <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
           </FunctionImport>
-          
-          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
+          <FunctionImport Name="USP_TRAVELCLAIMREPORTYTD" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORTYTD_Result)">
+            <Parameter Name="BranchId" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="USP_SALARYCOMPONENTREPORT" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORT_Result)">
             <Parameter Name="BranchId" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
@@ -978,11 +998,7 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="USP_TRAVELCLAIMREPORTYTD" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORTYTD_Result)">
-            <Parameter Name="BranchId" Mode="In" Type="Int32" />
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
-          </FunctionImport>
+          
           
          
         </EntityContainer>
@@ -1878,10 +1894,7 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
         </ComplexType>
         
         
-        <ComplexType Name="USP_TRAVELCLAIMREPORT_Result">
-          <Property Type="String" Name="ClaimCategory" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="38" Scale="2" />
-        </ComplexType>
+        
         
         <EntityType Name="TaxAssessmentDetail">
           <Key>
@@ -1898,6 +1911,16 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
+        
+        
+        <ComplexType Name="USP_TRAVELCLAIMREPORT_Result">
+          <Property Type="String" Name="ClaimCategory" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="USP_TRAVELCLAIMREPORTYTD_Result">
+          <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
         <ComplexType Name="USP_SALARYCOMPONENTREPORT_Result">
           <Property Type="String" Name="ComponentName" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="Amount" Nullable="true" Precision="38" Scale="2" />
@@ -1906,10 +1929,7 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
           <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
           <Property Type="Decimal" Name="TotalSalary" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
-        <ComplexType Name="USP_TRAVELCLAIMREPORTYTD_Result">
-          <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="18" Scale="2" />
-        </ComplexType>
+        
         
       
       </Schema>
@@ -2927,11 +2947,12 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="USP_SALARYCOMPONENTREPORTYTD" FunctionName="DB_9F30C5_HRDBModel.Store.USP_SALARYCOMPONENTREPORTYTD">
+          
+          <FunctionImportMapping FunctionImportName="USP_TRAVELCLAIMREPORT" FunctionName="DB_9F30C5_HRDBModel.Store.USP_TRAVELCLAIMREPORT">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORTYTD_Result">
-                <ScalarProperty Name="YTDMonth" ColumnName="YTDMonth" />
-                <ScalarProperty Name="TotalSalary" ColumnName="TotalSalary" />
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORT_Result">
+                <ScalarProperty Name="ClaimCategory" ColumnName="ClaimCategory" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2943,6 +2964,23 @@ warning 6002: The table/view 'EZYHRMS20180725.Security.Role' does not have a pri
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_SALARYCOMPONENTREPORT" FunctionName="DB_9F30C5_HRDBModel.Store.USP_SALARYCOMPONENTREPORT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORT_Result">
+                <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_SALARYCOMPONENTREPORTYTD" FunctionName="DB_9F30C5_HRDBModel.Store.USP_SALARYCOMPONENTREPORTYTD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_9F30C5_HRDBModel.USP_SALARYCOMPONENTREPORTYTD_Result">
+                <ScalarProperty Name="YTDMonth" ColumnName="YTDMonth" />
+                <ScalarProperty Name="TotalSalary" ColumnName="TotalSalary" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          
           
         </EntityContainerMapping>
       </Mapping>

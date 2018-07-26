@@ -73,6 +73,9 @@ new SelectListItem {Text = "December", Value = "12"}
         .css10 {
             margin-top: 30px
         }
+        .canvasjs-chart-credit{
+            display:none!important
+        }
     </style>
 }
 <div class="page">
@@ -127,24 +130,12 @@ new SelectListItem {Text = "December", Value = "12"}
 
                         </div>
                         <div class="row" style="padding-left:20px">
-                            <div class="col-md-8">
+                            <div class="col-md-8" style="padding-top:100px">
                                 <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
-                                    <div id="chartContainer0" style="height: 120px; width: 100%;"></div>
-                                </div>
-                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
-                                    <div id="chartContainer1" style="height: 120px; width: 100%;"></div>
-                                </div>
-                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
-                                    <div id="chartContainer2" style="height: 120px; width: 100%;"></div>
-                                </div>
-                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
-                                    <div id="chartContainer3" style="height: 120px; width: 100%;"></div>
-                                </div>
-                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
-                                    <div id="chartContainer4" style="height: 120px; width: 100%;"></div>
+                                    <div id="chartContainer0" style="height: 100%; width: 100%;"></div>
                                 </div>
                             </div>
-                            <div class="col-md-4" style="padding-left:100px">
+                            <div class="col-md-4" style="padding-left:120px">
                                 <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
                                     <h2 style="color:white">6</h2>
                                 </div>
@@ -310,9 +301,7 @@ new SelectListItem {Text = "December", Value = "12"}
 
 
         });
-        var count = 0;
-        for (var i = 0; i < 5; i++) {
-            var chart = new CanvasJS.Chart("chartContainer" + count, {
+            var chart = new CanvasJS.Chart("chartContainer0", {
                 theme: "light2", // "light1", "light2", "dark1", "dark2"
                 animationEnabled: true,
                 title: {
@@ -354,11 +343,52 @@ new SelectListItem {Text = "December", Value = "12"}
                         { x: new Date(new Date().getFullYear(), 10, 1), y: 44, markerType: "circle", markerColor: "lightblue" },
                         { x: new Date(new Date().getFullYear(), 11, 1), y: 34, markerType: "circle", markerColor: "lightblue" }
                     ]
-                }]
+                },
+                    {
+                        type: "line",
+                        markerSize: 12,
+                        xValueFormatString: "MMM, YYYY",
+                        yValueFormatString: "$###.#",
+                        dataPoints: [
+                            { x: new Date(new Date().getFullYear(), 00, 1), y: 10, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 01, 1), y: 20, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 02, 1), y: 40, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 03, 1), y: 50, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 04, 1), y: 60, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 05, 1), y: 85, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 06, 1), y: 68, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 07, 1), y: 80, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 08, 1), y: 100, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 09, 1), y: 40, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 10, 1), y: 44, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 11, 1), y: 34, markerType: "circle", markerColor: "lightblue" }
+                        ]
+                    },
+                    {
+                        type: "line",
+                        markerSize: 12,
+                        xValueFormatString: "MMM, YYYY",
+                        yValueFormatString: "$###.#",
+                        dataPoints: [
+                            { x: new Date(new Date().getFullYear(), 00, 1), y: 100, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 01, 1), y: 94, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 02, 1), y: 40, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 03, 1), y: 50, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 04, 1), y: 60, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 05, 1), y: 85, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 06, 1), y: 70, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 07, 1), y: 80, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 08, 1), y: 100, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 09, 1), y: 40, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 10, 1), y: 44, markerType: "circle", markerColor: "lightblue" },
+                            { x: new Date(new Date().getFullYear(), 11, 1), y: 34, markerType: "circle", markerColor: "lightblue" }
+                        ]
+                    }
+                ]
 
             });
             chart.render();
-            count++;
-        }
+            //count++;
+       // }
     </script>
 }

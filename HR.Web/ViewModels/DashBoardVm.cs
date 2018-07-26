@@ -81,6 +81,14 @@ namespace HR.Web.ViewModels
         public Byte? Month { get; set; }
         public Int32? EmployeeID { get; set; }
     }
+    public class SalaryReportVm
+    {
+        public System.Data.DataTable dt { get; set; }
+        public Int32? BranchID { get; set; }
+        public Int32? Year { get; set; }
+        public Byte? Month { get; set; }
+        public Int32? EmployeeID { get; set; }
+    }
 
     public class ClaimsReportVm
     {

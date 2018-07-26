@@ -541,12 +541,12 @@ namespace HR.Web.Controllers
             SalaryComponantReportVm vm = new SalaryComponantReportVm();
             vm.SalaryComponantReport = new List<USP_SALARYCOMPONENTREPORT_Result>();
             vm.SalaryComponantReportYTD = new List<USP_SALARYCOMPONENTREPORTYTD_Result>();
-            
+
             using (var dbCntx = new HrDataContext())
             {
                 vm.SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(BranchId, Year, Month, EmployeeId).ToList();
                 vm.SalaryComponantReportYTD = dbCntx.USP_SALARYCOMPONENTREPORTYTD(BranchId, Year, EmployeeId).ToList();
-                vm.dt = SALARYCOMPONENTEMPLOYEEYTD(BranchId, Year,Convert.ToInt32(Month), EmployeeId);
+                vm.dt = SALARYCOMPONENTEMPLOYEEYTD(BranchId, Year, Convert.ToInt32(Month), EmployeeId);
             }
             vm.BranchID = BranchId;
             vm.Year = Year;
@@ -582,11 +582,50 @@ namespace HR.Web.Controllers
 
             return View(vm);
         }
-        public ActionResult DashboardofSalaryReport()
+        public ActionResult DashboardofSalaryReport(int? BranchId, int? Year, byte? Month, int? EmployeeId)
         {
-            ViewData["BranchId"] = BRANCHID;
-            return View();
+            BranchId = BranchId == 0 ? BRANCHID : BranchId;
+            Month = Month == 0 ? null : Month;
+            EmployeeId = EmployeeId == 0 ? null : EmployeeId;
+            SalaryReportVm vm = new SalaryReportVm();
+            using (var dbcntx = new HrDataContext())
+            {
+                vm.dt = SALARYCOMPONENTEMPLOYEEYTD(BranchId, Year, Convert.ToInt32(Month), EmployeeId);
+            }
+            vm.BranchID = BranchId;
+            vm.Year = Year;
+            vm.Month = Month;
+            vm.EmployeeID = EmployeeId;
+            ViewData["BranchId"] = BranchId;
+            ViewData["RoleCode"] = ROLECODE.ToUpper();
+
+            if (vm.dt != null && vm.dt.Columns.Count > 0)
+            {
+                DataRow totalsRow = vm.dt.NewRow();
+                totalsRow["EMPLOYEE NAME"] = "Total";
+                for (int j = 1; j < vm.dt.Columns.Count; j++)
+                {
+                    DataColumn col = vm.dt.Columns[j];
+
+                    decimal colTotal = 0;
+                    for (int i = 0; i < col.Table.Rows.Count; i++)
+                    {
+                        DataRow row = col.Table.Rows[i];
+                        if (row[col] == null || row[col].ToString() == "")
+                        {
+                            row[col] = "0.00";
+                        }
+                        colTotal += Convert.ToDecimal(row[col]);
+                    }
+                    totalsRow[col.ColumnName] = colTotal;
+                }
+
+                vm.dt.Rows.Add(totalsRow);
+            }
+
+            return View(vm);
         }
+
         public ActionResult DashboardofSalaryData(int? BranchId, int? Year, byte? Month, int? EmployeeId)
         {
             BranchId = BranchId == 0 ? BRANCHID : BranchId;
@@ -710,5 +749,5 @@ namespace HR.Web.Controllers
     //public class DashBoard {
     //public   regionWiseEmployees
     //}
-    
+
 }

@@ -126,7 +126,6 @@ new SelectListItem {Text = "December", Value = "12"}
                                     <thead>
                                         <tr>
                                             <th>S.No</th>
-                                            <th>Employee Id</th>
                                             <th>Employee No</th>
                                             <th>Employee Name</th>
                                             <th>Job Title</th>
@@ -142,7 +141,6 @@ new SelectListItem {Text = "December", Value = "12"}
                                         {
                                             <tr>
                                                 <td>@count</td>
-                                                <td>@item.EmployeeId</td>
                                                 <td>@item.EmployeeNo</td>
                                                 <td>@item.EmployeeName</td>
                                                 <td>@item.JobTitle</td>
@@ -180,7 +178,7 @@ new SelectListItem {Text = "December", Value = "12"}
                 bInfo: false,
                 autoWidth: true,
                 fixedColumns: {
-                    leftColumns: 1
+                    leftColumns: 3
                 },
                 columnDefs: [
                     {

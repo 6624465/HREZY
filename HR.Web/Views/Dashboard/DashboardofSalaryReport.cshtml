@@ -1,4 +1,4 @@
-﻿
+﻿@model HR.Web.ViewModels.SalaryReportVm
 @{
     ViewBag.Title = "DashboardofSalaryReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,23 +6,58 @@
 @{
 
     var listMonths = new List<SelectListItem>()
-    {
-        new SelectListItem {Text = "All",   Value = "0"},
-    new SelectListItem {Text = "January",   Value = "1"},
-    new SelectListItem {Text = "February", Value = "2"},
-    new SelectListItem {Text = "March", Value = "3"},
-    new SelectListItem {Text = "April",   Value = "4"},
-    new SelectListItem {Text = "May", Value = "5"},
-    new SelectListItem {Text = "June", Value = "6"},
-    new SelectListItem {Text = "July",   Value = "7"},
-    new SelectListItem {Text = "August", Value = "8"},
-    new SelectListItem {Text = "September", Value = "9"},
-    new SelectListItem {Text = "October",   Value = "10"},
-    new SelectListItem {Text = "November", Value = "11"},
-    new SelectListItem {Text = "December", Value = "12"}
+{
+new SelectListItem {Text = "All",   Value = "0"},
+new SelectListItem {Text = "January",   Value = "1"},
+new SelectListItem {Text = "February", Value = "2"},
+new SelectListItem {Text = "March", Value = "3"},
+new SelectListItem {Text = "April",   Value = "4"},
+new SelectListItem {Text = "May", Value = "5"},
+new SelectListItem {Text = "June", Value = "6"},
+new SelectListItem {Text = "July",   Value = "7"},
+new SelectListItem {Text = "August", Value = "8"},
+new SelectListItem {Text = "September", Value = "9"},
+new SelectListItem {Text = "October",   Value = "10"},
+new SelectListItem {Text = "November", Value = "11"},
+new SelectListItem {Text = "December", Value = "12"}
 };
 }
 @section Styles{
+    <link src="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link src="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.bootstrap.min.css" rel="stylesheet" />
+    <style>
+        th, td {
+            white-space: nowrap;
+        }
+
+        div.dataTables_wrapper {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .table-striped td {
+            background: #fff;
+        }
+
+
+        .pd-generate {
+            padding: 15px;
+        }
+
+
+        th, td {
+            white-space: nowrap;
+        }
+
+        div.dataTables_wrapper {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .table-striped td {
+            background: #fff;
+        }
+    </style>
     <style type="text/css">
         .widthcss {
             /*width: 40%*/
@@ -48,68 +83,101 @@
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Country</span>
                                 </label>
-                                <div class="col-md-2">
-                                    @Html.DropDownList("EmployeeId", SelectListItemHelper.ActiveCountryList(), "Select Country", new { @class = "form-control input-sm" })
-                                </div>
+                                @if (ViewData["RoleCode"].ToString() == "ADMIN")
+                                {
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm", disabled = true })
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
+                                    </div>
+                                }
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Year</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.DropDownList("Year", Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:60%" })
+                                    @Html.DropDownListFor(x => x.Year, Enumerable.Range(2016, 20).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control input-sm", onchange = "ChangeMonth()", @style = "width:60%" })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Month</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.DropDownList("Month", listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth();", @style = "width:70%" })
+                                    @Html.DropDownListFor(x => x.Month, listMonths, new { @class = "form-control input-sm", onchange = "ChangeMonth()", @style = "width:70%" })
+                                </div>
+                                <label class="col-md-1 control-label">
+                                    <span class="pull-right">Employee</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(x => x.EmployeeID, SelectListItemHelper.EmployeeList(Model.BranchID.Value), "All", new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
                                 </div>
                             </div>
                         </div>
-                        <div class="row css5">
-                            <div class="col-md-12">
-                                <div class="col-md-6 widthcss">
-                                    <div id="jqChart0" style="width: 500px; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="jqChart1" style="width: 500px; height: 300px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="col-md-12">
-                                <div class="col-md-6 widthcss">
-                                    <div id="jqChart2" style="width: 500px; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="jqChart3" style="width: 500px; height: 300px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="col-md-12">
-                                <div class="col-md-6 widthcss">
-                                    <div id="jqChart4" style="width: 500px; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="jqChart5" style="width: 500px; height: 300px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="col-md-12">
-                                <div class="col-md-6 widthcss">
-                                    <div id="jqChart6" style="width: 500px; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="jqChart7" style="width: 500px; height: 300px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row css5">
-                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <div id="jqChart8" style="width: 500px; height: 300px;"></div>
-                                </div>
+                        <div class="row css10">
+                            <h4>Summary Report</h4>
+                            <div class="col-md-12 css10">
+                                @if (Model.dt != null && Model.dt.Rows.Count > 0)
+                                {
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            // //$('#payslipBatchHeader_BatchNo').val('');
+                                        });
+                                    </script>
+                                    <table id="example" class="table table-striped table-bordered nowrap stripe order-column" style="width:100%">
+                                        <thead>
+                                            @for (var i = 0; i < Model.dt.Columns.Count; i++)
+                                            {
+                                                <text>
+                                                <th style="min-width:160px;">@Model.dt.Columns[i].ColumnName</th>
+                                                </text>
+                                            }
+                                            </thead>
+                                            <tbody>
+                                                @for (var i = 0; i < Model.dt.Rows.Count; i++)
+                                                {
+                                                    if (i == Model.dt.Rows.Count - 1)
+                                                    {
+                                                        <text>
+                                                            <tr style="color:red">
+                                                                @for (var j = 0; j < Model.dt.Columns.Count; j++)
+                                                                {
+                                                                    <td>
+                                                                        @if (Model.dt.Rows[i][Model.dt.Columns[j].ColumnName] != null)
+                                                                        {
+                                                                            <text>
+                                                                                @Model.dt.Rows[i][Model.dt.Columns[j].ColumnName].ToString()
+                                                                            </text>
+                                                                        }
+                                                                    </td>
+                                                                }
+                                                            </tr>
+                                                        </text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>
+                                                            <tr>
+                                                                @for (var j = 0; j < Model.dt.Columns.Count; j++)
+                                                                {
+                                                                    <td>
+                                                                        @if (Model.dt.Rows[i][Model.dt.Columns[j].ColumnName] != null)
+                                                                        {
+                                                                            <text>
+                                                                                @Model.dt.Rows[i][Model.dt.Columns[j].ColumnName].ToString()
+                                                                            </text>
+                                                                        }
+                                                                    </td>
+                                                                }
+                                                            </tr>
+                                                        </text>
+                                                    }
+
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
                             </div>
                         </div>
                     </div>
@@ -120,43 +188,41 @@
     </div>
 </div>
 @section Scripts{
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
     <script>
+         function ChangeMonth() {
+            var Branchid = $('#BranchID').val();
+            var Year = $('#Year').val();
+            var Month = $('#Month').val();
+            var EmployeeID = $('#EmployeeID').val() != ""?$('#EmployeeID').val():0;
+            window.location = '@Url.Content("~/Dashboard/DashboardofSalaryReport?BranchId=")' + Branchid + "&Year=" + Year + "&Month=" + Month + "&EmployeeId=" + EmployeeID
+        }
         $(function () {
+            var table = $('#example').DataTable({
+                scrollY: "300px",
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+                searching: false,
+                bInfo: false,
+                autoWidth: true,
+                fixedColumns: {
+                    leftColumns: 1
+                },
+                columnDefs: [
+                    {
+                        "targets": [],
+                        "visible": false
+                    }
+                ],
+            });
             $('#li_Dashboard').addClass('open');
             $('#li_salaryReport').addClass('active');
         });
     </script>
 
-    <script lang="javascript" type="text/javascript">
-        $(document).ready(function () {
-            for (var i = 0; i <= 8; i++) {
-                $('#jqChart' + i).jqChart({
-                    title: { text: 'srilanka' },
-                    animation: { duration: 1 },
-                    legend: { visible: false },
-                    shadows: {
-                        enabled: true
-                    },
-                    border: { visible: false },
-                    series: [
-                        {
-                            type: 'column',
-                            title: '',
-                            fillStyles: [
-                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69',
-                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69',
-                                '#1A3B69', '#1A3B69', '#1A3B69', '#1A3B69'],
-                            data: [
-                                ['Jan', 33], ['Feb', 57], ['Mar', 33], ['Apr', 12],
-                                ['May', 35], ['Jun', 7], ['Jul', 24], ['Aug', 24],
-                                ['Sep', 35], ['Oct', 7], ['Nov', 24], ['Dec', 24]
-                            ]
-                        }
-                    ]
-                });
-
-            }
-        });
-
-    </script>
+   
 }

@@ -17,6 +17,7 @@ using System.Web.Routing;
 using NsExcel = Microsoft.Office.Interop.Excel;
 using ClosedXML.Excel;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace HR.Web.Controllers
 {
@@ -59,31 +60,31 @@ namespace HR.Web.Controllers
 
             if (ROLECODE == UTILITY.ROLE_ADMIN)
             {
-				//List<calendarVM> holidayslist = new List<calendarVM>();
-				//calendarVM holidayobj = new calendarVM();
-				//holidayVm holidayVm = new holidayVm()
-				//{
-				//	calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
-				//	HolidayList = new HolidayList()
-				//};
-				//List<calendarVM> holidaysBybranchList = holidayListBO.GetHolidayListByBranch(BRANCHID);
-				//foreach (var item in holidaysBybranchList)
-				//{
-				//	holidayobj.title = item.title.Replace("'", "");
-				//	holidayslist.Add(holidayobj);
-				//}
-				//holidayVm holidayVm = new holidayVm()
-				//{
-				//	calendarVM = holidayslist,
-				//	HolidayList = new HolidayList()
-				//};
-				holidayVm holidayVm = new holidayVm()
-				{
-					calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
-					//holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList()
-					HolidayList = new HolidayList()
-				}; return View("HolidayList", holidayVm);
-		
+                //List<calendarVM> holidayslist = new List<calendarVM>();
+                //calendarVM holidayobj = new calendarVM();
+                //holidayVm holidayVm = new holidayVm()
+                //{
+                //	calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
+                //	HolidayList = new HolidayList()
+                //};
+                //List<calendarVM> holidaysBybranchList = holidayListBO.GetHolidayListByBranch(BRANCHID);
+                //foreach (var item in holidaysBybranchList)
+                //{
+                //	holidayobj.title = item.title.Replace("'", "");
+                //	holidayslist.Add(holidayobj);
+                //}
+                //holidayVm holidayVm = new holidayVm()
+                //{
+                //	calendarVM = holidayslist,
+                //	HolidayList = new HolidayList()
+                //};
+                holidayVm holidayVm = new holidayVm()
+                {
+                    calendarVM = holidayListBO.GetHolidayListByBranch(BRANCHID),
+                    //holidayListBO.GetListByProperty(x => x.CountryId == BRANCHID).ToList()
+                    HolidayList = new HolidayList()
+                }; return View("HolidayList", holidayVm);
+
             }
             else
             {
@@ -179,18 +180,18 @@ namespace HR.Web.Controllers
                         LeaveType = dbcntx.LookUps.Where(y => y.LookUpID == x.B.LeaveTypeId).FirstOrDefault().LookUpDescription
                     });
                 var fromdate = DateTime.Now;
-                if(month==0 && year == 0)
+                if (month == 0 && year == 0)
                 {
                     query = query.Where(x => x.FromDate.Month == fromdate.Month);
                     query = query.Where(x => x.FromDate.Year == fromdate.Year);
                 }
-             else if (month != 0)
+                else if (month != 0)
                 {
                     query = query.Where(x => x.FromDate.Month == month);
 
                     query = query.Where(x => x.FromDate.Year == year);
                 }
-                   
+
 
                 if (ROLECODE == UTILITY.ROLE_SUPERADMIN)
                 {
@@ -475,7 +476,7 @@ namespace HR.Web.Controllers
                                           .Where(x => x.EmployeeId == EMPLOYEEID).FirstOrDefault()
                                           .ManagerId.Value;
                         }
-                      
+
 
                         obj.Status = UTILITY.LEAVEPENDING;
                         obj.Session = EmployeeLeaveList.Session;
@@ -502,23 +503,23 @@ namespace HR.Web.Controllers
 
 
                         }
-							LeaveTran leaveTransaction = new LeaveTran()
-							{
-								BranchId = BRANCHID,
-								CreatedBy = USERID,
-								CreatedOn = UTILITY.SINGAPORETIME,
-								CurrentLeaves = leaveListCalc.currentLeaves,
-								PreviousLeaves = leaveListCalc.previousLeaves,
+                        LeaveTran leaveTransaction = new LeaveTran()
+                        {
+                            BranchId = BRANCHID,
+                            CreatedBy = USERID,
+                            CreatedOn = UTILITY.SINGAPORETIME,
+                            CurrentLeaves = leaveListCalc.currentLeaves,
+                            PreviousLeaves = leaveListCalc.previousLeaves,
 
-								EmployeeId = EMPLOYEEID,
-								FromDt = obj.FromDate,
-								ToDt = obj.ToDate,
-								LeaveType = EmployeeLeaveList.LeaveTypeId,
-								ModifiedBy = USERID,
-								ModifiedOn = UTILITY.SINGAPORETIME
-							};
-							dbCntx.LeaveTrans.Add(leaveTransaction);
-						
+                            EmployeeId = EMPLOYEEID,
+                            FromDt = obj.FromDate,
+                            ToDt = obj.ToDate,
+                            LeaveType = EmployeeLeaveList.LeaveTypeId,
+                            ModifiedBy = USERID,
+                            ModifiedOn = UTILITY.SINGAPORETIME
+                        };
+                        dbCntx.LeaveTrans.Add(leaveTransaction);
+
 
                         dbCntx.SaveChanges();
                         //EmployeeWorkDetail workdetail = empworkdetailsBo.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
@@ -542,29 +543,29 @@ namespace HR.Web.Controllers
                         //      }).FirstOrDefault();
 
 
-                            
-                            strbody =
-                                string.Format(
-                                "You have received a new leave application. <BR>" +
-                                "Leave Applied By : {0} <BR>" +
-                                "From :{1} <BR>" +
-                                "To : {2} <BR>" +
-                                "No. of Days : {3} <BR>"+
-                                "Reason : {4} <BR>" +
-                                "Applied On : {5} <BR>",
-                                empname,
-                                empleavelist.FromDate.ToShortDateString(),
-                                empleavelist.ToDate.ToShortDateString(),
-                                empleavelist.Days.Value.ToString("#0.0"),
-                                empleavelist.Reason,
-                                empleavelist.ApplyDate.ToShortDateString());
+
+                        strbody =
+                            string.Format(
+                            "You have received a new leave application. <BR>" +
+                            "Leave Applied By : {0} <BR>" +
+                            "From :{1} <BR>" +
+                            "To : {2} <BR>" +
+                            "No. of Days : {3} <BR>" +
+                            "Reason : {4} <BR>" +
+                            "Applied On : {5} <BR>",
+                            empname,
+                            empleavelist.FromDate.ToShortDateString(),
+                            empleavelist.ToDate.ToShortDateString(),
+                            empleavelist.Days.Value.ToString("#0.0"),
+                            empleavelist.Reason,
+                            empleavelist.ApplyDate.ToShortDateString());
                         //}
                         /*
                          "From:" + empleavelist.FromDate.ToShortDateString() + "to"  + empleavelist.ToDate.ToShortDateString() + "<BR>" 
                             + "Reason:" + empleavelist.Reason;
                          */
 
-                        
+
                         EmailGenerator emailgenerator = new EmailGenerator();
                         emailgenerator.ConfigMail(true, subject, strbody);
                         return RedirectToAction("ViewLeavesList");
@@ -572,10 +573,10 @@ namespace HR.Web.Controllers
                     else
                     {
                         ViewData["IsLop"] = true;
-						
-						ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
-						
-						return View("EmployeeRequestFrom", EmployeeLeaveList);
+
+                        ViewData["Message"] = "You do not have leave balance, the applied leaves will be LOP";
+
+                        return View("EmployeeRequestFrom", EmployeeLeaveList);
                     }
                 }
                 else
@@ -691,22 +692,22 @@ namespace HR.Web.Controllers
                 var empname = empobj.FirstName + " " + empobj.LastName;
                 var strbody = string.Empty;
                 var subject = "New Leave Application";
-                    strbody =
-                        string.Format(
-                        "You have received a new leave application. <BR>" +
-                        "Leave Applied By : {0} <BR>" +
-                        "From :{1} <BR>" +
-                        "To : {2} <BR>" +
-                        "No. of Days : {3} <BR>"+
-                        "Reason : {4} <BR>" +
-                        "Applied On : {5} <BR>",
-                        empname,
-                        empleavelist.FromDate.ToShortDateString(),
-                        empleavelist.ToDate.ToShortDateString(),
-                        empleavelist.Days.Value.ToString("#0.0"),
-                        empleavelist.Reason,
-                        empleavelist.ApplyDate.ToShortDateString());
-                
+                strbody =
+                    string.Format(
+                    "You have received a new leave application. <BR>" +
+                    "Leave Applied By : {0} <BR>" +
+                    "From :{1} <BR>" +
+                    "To : {2} <BR>" +
+                    "No. of Days : {3} <BR>" +
+                    "Reason : {4} <BR>" +
+                    "Applied On : {5} <BR>",
+                    empname,
+                    empleavelist.FromDate.ToShortDateString(),
+                    empleavelist.ToDate.ToShortDateString(),
+                    empleavelist.Days.Value.ToString("#0.0"),
+                    empleavelist.Reason,
+                    empleavelist.ApplyDate.ToShortDateString());
+
                 //strbody = "Leave Applied:" + "<BR>"
                 //    + "Leave Applied From:" + empleavelist.FromDate.ToShortDateString() + "to" + empleavelist.ToDate.ToShortDateString() + "<BR>"
                 //    + "Reason:" + empleavelist.Reason;
@@ -771,10 +772,10 @@ namespace HR.Web.Controllers
             //}
             //else
             //{
-                using (var dbcntx = new HrDataContext())
-                {
-                    var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
-                    var skip = (page - 1) * offset;
+            using (var dbcntx = new HrDataContext())
+            {
+                var offset = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["appTableOffSet"]);
+                var skip = (page - 1) * offset;
                 List<GrantLeaveListVm> grantleaveformlist = new List<GrantLeaveListVm>();
                 var count = 0;
                 if (ROLECODE == UTILITY.ROLE_ADMIN)
@@ -812,29 +813,29 @@ namespace HR.Web.Controllers
                 }
                 else
                 {
-                  var grantleaveform = dbcntx.EmployeeHeaders.
-                            Join(dbcntx.EmployeeLeaveLists,
-                             a => a.EmployeeId, b => b.EmployeeId,
-                                (a, b) => new { A = a, B = b })
-                            .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
-                            .Select(x => new GrantLeaveListVm
-                      {
+                    var grantleaveform = dbcntx.EmployeeHeaders.
+                              Join(dbcntx.EmployeeLeaveLists,
+                               a => a.EmployeeId, b => b.EmployeeId,
+                                  (a, b) => new { A = a, B = b })
+                              .Where(x => x.B.ManagerId == EMPLOYEEID && x.B.Status != UTILITY.LEAVECANCELLED)
+                              .Select(x => new GrantLeaveListVm
+                              {
 
-                          ToDate = x.B.ToDate,
-                          FromDate = x.B.FromDate,
-                          Name = x.A.FirstName + " " + x.A.LastName,
-                          EmployeeId = x.A.EmployeeId,
-                          EmployeeLeaveID = x.B.EmployeeLeaveID,
-                          Status = x.B.Status,
-                          ApplyDate = x.B.ApplyDate,
-                          Reason = x.B.Reason,
-                          Remarks = x.B.Remarks,
-                          LeaveTypeDesc = dbcntx.LookUps
-                                              .Where(y => y.LookUpID == x.B.LeaveTypeId)
-                                              .FirstOrDefault()
-                                              .LookUpDescription,
-                          TotalDays = x.B.Days
-                      });
+                                  ToDate = x.B.ToDate,
+                                  FromDate = x.B.FromDate,
+                                  Name = x.A.FirstName + " " + x.A.LastName,
+                                  EmployeeId = x.A.EmployeeId,
+                                  EmployeeLeaveID = x.B.EmployeeLeaveID,
+                                  Status = x.B.Status,
+                                  ApplyDate = x.B.ApplyDate,
+                                  Reason = x.B.Reason,
+                                  Remarks = x.B.Remarks,
+                                  LeaveTypeDesc = dbcntx.LookUps
+                                                .Where(y => y.LookUpID == x.B.LeaveTypeId)
+                                                .FirstOrDefault()
+                                                .LookUpDescription,
+                                  TotalDays = x.B.Days
+                              });
 
                     grantleaveformlist = grantleaveform.OrderByDescending(x => x.ApplyDate)
                        .Skip(skip.Value)
@@ -844,17 +845,17 @@ namespace HR.Web.Controllers
                     count = grantleaveform.Count();
 
                 }
-               
+
 
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(count), Convert.ToDecimal(offset));
 
-                    HtmlTblVm<GrantLeaveListVm> HtmlTblVm = new HtmlTblVm<GrantLeaveListVm>();
-                    HtmlTblVm.TableData = grantleaveformlist;
-                    HtmlTblVm.TotalRows = count;
-                    HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
-                    HtmlTblVm.CurrentPage = page.Value;
-                    return View(HtmlTblVm);
-                }
+                HtmlTblVm<GrantLeaveListVm> HtmlTblVm = new HtmlTblVm<GrantLeaveListVm>();
+                HtmlTblVm.TableData = grantleaveformlist;
+                HtmlTblVm.TotalRows = count;
+                HtmlTblVm.PageLength = Math.Ceiling(Convert.ToDecimal(pagerLength));
+                HtmlTblVm.CurrentPage = page.Value;
+                return View(HtmlTblVm);
+            }
             //}
 
 
@@ -895,12 +896,16 @@ namespace HR.Web.Controllers
             }
         }
 
-        [HttpGet]l
+        [HttpGet]
         public ActionResult ApproveLeave(int employeeleaveid)
         {
             employeeLeaveListBO.ApproveLeave(employeeleaveid);
-            var employeeid = employeeLeaveListBO.GetById(employeeleaveid).EmployeeId;
-            var mail = empHeaderBO.GetById(employeeid).UserEmailId;
+            var employeeleave = employeeLeaveListBO.GetById(employeeleaveid);
+
+            //Update Balance leaves
+            UpdateEmployeeLeaveBalance(BRANCHID, employeeleave.EmployeeId, employeeleave.LeaveTypeId, employeeleaveid);
+
+            var mail = empHeaderBO.GetById(employeeleave.EmployeeId).UserEmailId;
             var subject = string.Empty;
             subject = "Leave Approved";
             var strbody = string.Empty;
@@ -908,6 +913,37 @@ namespace HR.Web.Controllers
             EmailGenerator emailgenerator = new EmailGenerator();
             emailgenerator.ConfigMail(mail, true, subject, strbody);
             return RedirectToAction("GrantLeaveFormList");
+        }
+
+        public void UpdateEmployeeLeaveBalance(Int32? BranchID, int? EmployeeID, int? LeaveType, int? EmployeeLeaveID)
+        {
+            using (var dbCntx = new HrDataContext())
+            using (SqlConnection Con = new
+                SqlConnection(dbCntx.Database.Connection.ConnectionString))
+            {
+                Con.Open();
+                SqlCommand Cmd = new SqlCommand();
+
+                Cmd.Connection = Con;
+                Cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                Cmd.CommandText = "[Operation].[usp_UpdateEmployeeLeaveBalance]";
+
+                Cmd.Parameters.Add("@BranchID", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@EmployeeID", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@LeaveType", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@EmployeeLeaveID", System.Data.SqlDbType.Int);
+
+                Cmd.Parameters["@BranchID"].Value = BranchID;
+                Cmd.Parameters["@EmployeeID"].Value = EmployeeID;
+                Cmd.Parameters["@LeaveType"].Value = LeaveType;
+                Cmd.Parameters["@EmployeeLeaveID"].Value = EmployeeLeaveID;
+
+                Cmd.ExecuteNonQuery();
+
+                Con.Close();
+
+            }
+
         }
 
         [HttpPost]
@@ -1299,11 +1335,11 @@ namespace HR.Web.Controllers
                                     Status = x.Status,
                                     ApplyDate = x.ApplyDate,
                                 });
-               var viewleavelist = Query
-                                        .OrderByDescending(x => x.EmployeeLeaveID)
-                                        .Skip(skip.Value)
-                                        .Take(offset)
-                                        .ToList();
+                var viewleavelist = Query
+                                         .OrderByDescending(x => x.EmployeeLeaveID)
+                                         .Skip(skip.Value)
+                                         .Take(offset)
+                                         .ToList();
                 var totalRows = Query.Count();
 
                 decimal pagerLength = decimal.Divide(Convert.ToDecimal(totalRows), Convert.ToDecimal(offset));
@@ -1315,7 +1351,7 @@ namespace HR.Web.Controllers
                 HtmlTblVm.CurrentPage = page.Value;
                 return View(HtmlTblVm);
             }
-           
+
         }
         [HttpPost]
         public ActionResult CancelLeave(FormCollection collection)

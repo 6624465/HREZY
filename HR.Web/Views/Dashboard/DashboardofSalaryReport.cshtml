@@ -201,6 +201,7 @@ new SelectListItem {Text = "December", Value = "12"}
             window.location = '@Url.Content("~/Dashboard/DashboardofSalaryReport?BranchId=")' + Branchid + "&Year=" + Year + "&Month=" + Month + "&EmployeeId=" + EmployeeID
         }
         $(function () {
+            $('#BranchID').val('@Model.BranchID.Value');
             var table = $('#example').DataTable({
                 scrollY: "300px",
                 scrollX: true,

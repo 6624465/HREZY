@@ -283,6 +283,7 @@ new SelectListItem {Text = "December", Value = "12"}
         $(function () {
             $('#li_Dashboard').addClass('open');
             $('#li_leaveReport').addClass('active');
+            $('#BranchID').val('@Model.BranchID.Value');
 
             var table = $('.example').DataTable({
                 scrollY: "300px",

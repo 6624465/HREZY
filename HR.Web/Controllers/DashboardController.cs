@@ -638,14 +638,13 @@ namespace HR.Web.Controllers
             {
                 vm.TravelClaimReport = dbCntx.USP_TRAVELCLAIMREPORT(BranchId, Year, Month, EmployeeId).ToList();
                 vm.TravelClaimReportYTD = dbCntx.USP_TRAVELCLAIMREPORTYTD(BranchId, Year, EmployeeId).ToList();
-                vm.dt = TRAVELCLAIMEMPLOYEEYTD(BranchId, Year, Month);
+                vm.dt = TRAVELCLAIMEMPLOYEEYTD(BranchId, Year, Month, EmployeeId);
 
             }
             vm.BranchID = BranchId;
             vm.Year = Year;
             vm.Month = Month;
             vm.EmployeeID = EmployeeId;
-            ViewData["BranchId"] = BRANCHID;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
 
             if (vm.dt != null && vm.dt.Columns.Count > 0)
@@ -675,7 +674,7 @@ namespace HR.Web.Controllers
 
             return View(vm);
         }
-        public System.Data.DataTable TRAVELCLAIMEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month)
+        public System.Data.DataTable TRAVELCLAIMEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month, int? EmployeeId)
         {
             using (var dbCntx = new HrDataContext())
             using (SqlConnection Con = new
@@ -691,10 +690,13 @@ namespace HR.Web.Controllers
                 Cmd.Parameters.Add("@BranchId", System.Data.SqlDbType.SmallInt);
                 Cmd.Parameters.Add("@Year", System.Data.SqlDbType.Int);
                 Cmd.Parameters.Add("@Month", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@EmployeeID", System.Data.SqlDbType.Int);
 
                 Cmd.Parameters["@BranchId"].Value = BranchId;
                 Cmd.Parameters["@Year"].Value = Year;
                 Cmd.Parameters["@Month"].Value = Month;
+                Cmd.Parameters["@EmployeeID"].Value = EmployeeId;
+
                 System.Data.DataTable dt = new System.Data.DataTable();
                 var da = new SqlDataAdapter(Cmd);
                 da.Fill(dt);
@@ -717,7 +719,6 @@ namespace HR.Web.Controllers
             vm.BranchID = BranchId;
             vm.Year = Year;
             vm.EmployeeID = EmployeeId;
-            ViewData["BranchId"] = BranchId;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
             
 

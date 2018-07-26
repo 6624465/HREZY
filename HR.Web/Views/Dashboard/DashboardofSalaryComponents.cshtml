@@ -218,7 +218,7 @@ new SelectListItem {Text = "December", Value = "12"}
             var Year = $('#Year').val();
             var Month = $('#Month').val();
             var EmployeeID = $('#EmployeeID').val() != ""?$('#EmployeeID').val():0;
-            window.location = '@Url.Content("~/Dashboard/DashboardofSalaryData?BranchId=")' + Branchid + "&Year=" + Year + "&Month=" + Month + "&EmployeeId=" + EmployeeID
+            window.location = '@Url.Content("~/Dashboard/DashboardofSalaryComponents?BranchId=")' + Branchid + "&Year=" + Year + "&Month=" + Month + "&EmployeeId=" + EmployeeID
         }
         $(function () {
             var table = $('#example').DataTable({

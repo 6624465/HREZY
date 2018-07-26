@@ -546,7 +546,7 @@ namespace HR.Web.Controllers
             {
                 vm.SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(BranchId, Year, Month, EmployeeId).ToList();
                 vm.SalaryComponantReportYTD = dbCntx.USP_SALARYCOMPONENTREPORTYTD(BranchId, Year, EmployeeId).ToList();
-                vm.dt = SALARYCOMPONENTEMPLOYEEYTD(BranchId, Year,Convert.ToInt32(Month));
+                vm.dt = SALARYCOMPONENTEMPLOYEEYTD(BranchId, Year,Convert.ToInt32(Month), EmployeeId);
             }
             vm.BranchID = BranchId;
             vm.Year = Year;
@@ -670,7 +670,7 @@ namespace HR.Web.Controllers
             return View();
         }
 
-        public System.Data.DataTable SALARYCOMPONENTEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month)
+        public System.Data.DataTable SALARYCOMPONENTEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month, int? EmployeeId)
         {
             using (var dbCntx = new HrDataContext())
             using (SqlConnection Con = new
@@ -686,10 +686,12 @@ namespace HR.Web.Controllers
                 Cmd.Parameters.Add("@BranchId", System.Data.SqlDbType.SmallInt);
                 Cmd.Parameters.Add("@Year", System.Data.SqlDbType.Int);
                 Cmd.Parameters.Add("@Month", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@EmployeeID", System.Data.SqlDbType.Int);
 
                 Cmd.Parameters["@BranchId"].Value = BranchId;
                 Cmd.Parameters["@Year"].Value = Year;
                 Cmd.Parameters["@Month"].Value = Month;
+                Cmd.Parameters["@EmployeeID"].Value = EmployeeId;
 
 
                 System.Data.DataTable dt = new System.Data.DataTable();

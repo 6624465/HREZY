@@ -715,16 +715,17 @@ namespace HR.Web.Controllers
             {
                 vm.dtAvailed = EMPLOYEELEAVESUMMARYYTD(BranchId, Year, 0);
                 vm.dtBalance = EMPLOYEELEAVESUMMARYYTD(BranchId, Year, 1);
+                vm.consReport = LEAVEREPORTYTD(BranchId, Year, EmployeeId);
             }
             vm.BranchID = BranchId;
             vm.Year = Year;
             vm.EmployeeID = EmployeeId;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
-            
+
 
             return View(vm);
         }
- public System.Data.DataTable SALARYCOMPONENTEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month, int? EmployeeId)
+        public System.Data.DataTable SALARYCOMPONENTEMPLOYEEYTD(Int32? BranchId, int? Year, int? Month, int? EmployeeId)
         {
             using (var dbCntx = new HrDataContext())
             using (SqlConnection Con = new
@@ -789,6 +790,49 @@ namespace HR.Web.Controllers
                 Con.Close();
 
                 return dt;
+            }
+
+        }
+        public List<ConsReport> LEAVEREPORTYTD(Int32? BranchId, int? Year, int? EmployeeId)
+        {
+            using (var dbCntx = new HrDataContext())
+            using (SqlConnection Con = new
+                SqlConnection(dbCntx.Database.Connection.ConnectionString))
+            {
+                Con.Open();
+                SqlCommand Cmd = new SqlCommand();
+
+                Cmd.Connection = Con;
+                Cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                Cmd.CommandText = "[Reports].[USP_LEAVEREPORTYTD]";
+
+                Cmd.Parameters.Add("@BranchID", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@Year", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@EmployeeId", System.Data.SqlDbType.Int);
+
+                Cmd.Parameters["@BranchID"].Value = BranchId;
+                Cmd.Parameters["@Year"].Value = Year;
+                Cmd.Parameters["@EmployeeId"].Value = EmployeeId;
+
+
+                System.Data.DataTable dt = new System.Data.DataTable();
+                var da = new SqlDataAdapter(Cmd);
+
+                da.Fill(dt);
+
+                Con.Close();
+
+                List<ConsReport> consReport = (from DataRow row in dt.Rows
+                       select new ConsReport
+                       {
+                           YTDMonth = row["YTDMonth"].ToString(),
+                           TotalLeaves =Convert.ToDecimal(row["TotalLeaves"]),
+                           LeaveType = row["LeaveType"].ToString(),
+                           BalanceLeaves = Convert.ToDecimal(row["BalanceLeaves"])
+
+                       }).ToList();
+
+                return consReport;
             }
 
         }

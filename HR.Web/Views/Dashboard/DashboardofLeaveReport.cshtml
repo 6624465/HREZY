@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "DashboardofLeaveReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LeaveType = Model.consReport.Select(x => x.LeaveType).Distinct();
+    var colorCnt = 0;
 }
 @{
 
@@ -62,8 +65,8 @@ new SelectListItem {Text = "December", Value = "12"}
     </style>
     <style>
         .oval {
-            width: 200px;
-            height: 100px;
+            width: 150px;
+            height: 75px;
             background: #3f51b5;
             -moz-border-radius: 100px / 50px;
             -webkit-border-radius: 100px / 50px;
@@ -73,8 +76,9 @@ new SelectListItem {Text = "December", Value = "12"}
         .css10 {
             margin-top: 30px
         }
-        .canvasjs-chart-credit{
-            display:none!important
+
+        .canvasjs-chart-credit {
+            display: none !important
         }
     </style>
 }
@@ -129,27 +133,22 @@ new SelectListItem {Text = "December", Value = "12"}
                             </div>
 
                         </div>
-                        <div class="row" style="padding-left:20px">
-                            <div class="col-md-8" style="padding-top:100px">
-                                <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
-                                    <div id="chartContainer0" style="height: 100%; width: 100%;"></div>
+                        <div class="row" style="padding-left:20px;">
+                            <div class="col-md-12" style="height:370px">
+                                <div class="col-md-8">
+                                    <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
+                                        <div id="chartContainer0" style="height: 100%; width: 100%;"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4" style="padding-left:120px">
-                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
-                                    <h2 style="color:white">6</h2>
-                                </div>
-                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
-                                    <h2 style="color:white">10</h2>
-                                </div>
-                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
-                                    <h2 style="color:white">1</h2>
-                                </div>
-                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
-                                    <h2 style="color:white">3</h2>
-                                </div>
-                                <div class="row css10 oval" style="padding-left:90px;padding-top:20px">
-                                    <h2 style="color:white">6</h2>
+                                <div class="col-md-4" style="padding-left:120px">
+                                    @foreach (var item in Model.consReport.Select(x => x.LeaveType).Distinct())
+                                    {
+                                        <text>                                        
+                                        <div class="row oval" style="text-align:center;padding-top:20px">
+                                            <span style="color:white">@item<br />@Model.consReport.Where(x=>x.LeaveType==item).FirstOrDefault().BalanceLeaves</span>
+                                        </div>
+                                        </text>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -302,89 +301,66 @@ new SelectListItem {Text = "December", Value = "12"}
 
 
         });
-            var chart = new CanvasJS.Chart("chartContainer0", {
-                theme: "light2", // "light1", "light2", "dark1", "dark2"
-                animationEnabled: true,
-                title: {
-                    text: 'leaves'
-                },
-                axisX: {
-                    interval: 1,
-                    intervalType: "month",
-                    valueFormatString: "MMM"
-                },
-                toolTip: {
-                    borderColor: "red"   //change color
-                },
-                axisY: {
-                    title: "",
-                    valueFormatString: "$#0",
-                    stripLines: [{
-                        value: 1,
-                        label: 'leave',
-                        labelFontSize: 9,
-                    }],
-                },
-                data: [{
-                    type: "line",
-                    markerSize: 12,
-                    xValueFormatString: "MMM, YYYY",
-                    yValueFormatString: "$###.#",
-                    dataPoints: [
-                        { x: new Date(new Date().getFullYear(), 00, 1), y: 61, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 01, 1), y: 71, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 02, 1), y: 55, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 03, 1), y: 50, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 04, 1), y: 65, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 05, 1), y: 85, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 06, 1), y: 68, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 07, 1), y: 28, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 08, 1), y: 34, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 09, 1), y: 24, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 10, 1), y: 44, markerType: "circle", markerColor: "lightblue" },
-                        { x: new Date(new Date().getFullYear(), 11, 1), y: 34, markerType: "circle", markerColor: "lightblue" }
-                    ]
-                },
+        debugger;
+        var fillStyles = ['#6495ED', '#DC143C', '#00FFFF', '#00008B', '#008B8B', '#B8860B',
+            '#418CF0', '#FCB441', '#E0400A', '#056492', '#1A3B69', '#0000FF',
+            '#8A2BE2', '#A52A2A', '#DEB887', '#5F9EA0', '#D2691E', '#FF7F50',
+
+            '#006400', '#8B008B', '#556B2F', '#FF8C00', '#8B0000', '#FF1493',
+            '#1E90FF', '#B22222', '#228B22', '#008000', '#4B0082', '#F08080',
+            '#00FF00', '#0000CD', '#FF4500', '#800080', '#9ACD32', '#008080',
+        ];
+
+        var chart = new CanvasJS.Chart("chartContainer0", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            animationEnabled: true,
+            title: {
+                text: 'leaves'
+            },
+            axisX: {
+                interval: 1,
+                intervalType: "month",
+                valueFormatString: "MMM"
+            },
+            toolTip: {
+                borderColor: "red"   //change color
+            },
+            axisY: {
+                title: "",
+                //valueFormatString: "$#0",
+                stripLines: [{
+                    value: 1,
+                    label: 'leave',
+                    labelFontSize: 9,
+                }],
+            },
+            data: [
+                @foreach (var item in LeaveType.ToList())
+                {
+                    var cnt = 0;
+                    <text>
                     {
-                        type: "line",
+                    type: "spline",
+                    //lineColor: fillStyles[@colorCnt],
                         markerSize: 12,
                         xValueFormatString: "MMM, YYYY",
-                        yValueFormatString: "$###.#",
+                        //yValueFormatString: "$###.#",
+                    showInLegend: true,
+                    name: '@item',
                         dataPoints: [
-                            { x: new Date(new Date().getFullYear(), 00, 1), y: 10, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 01, 1), y: 20, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 02, 1), y: 40, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 03, 1), y: 50, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 04, 1), y: 60, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 05, 1), y: 85, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 06, 1), y: 68, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 07, 1), y: 80, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 08, 1), y: 100, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 09, 1), y: 40, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 10, 1), y: 44, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 11, 1), y: 34, markerType: "circle", markerColor: "lightblue" }
-                        ]
-                    },
-                    {
-                        type: "line",
-                        markerSize: 12,
-                        xValueFormatString: "MMM, YYYY",
-                        yValueFormatString: "$###.#",
-                        dataPoints: [
-                            { x: new Date(new Date().getFullYear(), 00, 1), y: 100, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 01, 1), y: 94, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 02, 1), y: 40, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 03, 1), y: 50, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 04, 1), y: 60, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 05, 1), y: 85, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 06, 1), y: 70, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 07, 1), y: 80, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 08, 1), y: 100, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 09, 1), y: 40, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 10, 1), y: 44, markerType: "circle", markerColor: "lightblue" },
-                            { x: new Date(new Date().getFullYear(), 11, 1), y: 34, markerType: "circle", markerColor: "lightblue" }
-                        ]
-                    }
+                                @foreach (var info in Model.consReport.Where(l => l.LeaveType == item).ToList())
+                                {
+                                <text>
+                                    { x: new Date(@Model.Year, @cnt, 1), y: @info.TotalLeaves, markerType: "circle", markerColor: "lightblue" },
+
+                                </text>
+                                    cnt++;
+                                }
+                            ]
+                        },
+                    </text>
+                    colorCnt++;
+                }
                 ]
 
             });

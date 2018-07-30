@@ -104,9 +104,15 @@ namespace HR.Web.ViewModels
     {
         public System.Data.DataTable dtAvailed { get; set; }
         public System.Data.DataTable dtBalance { get; set; }
-
+        public List<ConsReport> consReport { get; set; }
         public Int32? BranchID { get; set; }
         public Int32? Year { get; set; }
         public Int32? EmployeeID { get; set; }
+    }
+    public class ConsReport {
+        public string YTDMonth { get; set; }
+        public decimal TotalLeaves { get; set; }
+        public string LeaveType { get; set; }
+        public decimal BalanceLeaves { get; set; }
     }
 }

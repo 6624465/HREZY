@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "DashboardofSalaryComponents";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //var count = 0;
 }
 @{
 
@@ -122,14 +123,20 @@ new SelectListItem {Text = "December", Value = "12"}
                                 </div>
                             </div>
                         </div>
-                        <div class="row css5">
-                            <div class="col-md-7">
-                                <div id="jqChartPie" style="width: 100%; height: 300px;"></div>
+
+                        @for (int i = 0; i < Model.SalaryComponantReport.Select(x => x.BranchID).Distinct().Count(); i++)
+                        {
+                            <div class="row css5">
+                                <div class="col-md-7">
+                                    <div id="jqChartPie"@i style="width: 100%; height: 300px;"></div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div id="jqChart"@i style="width: 100%; height: 300px;"></div>
+                                </div>
                             </div>
-                            <div class="col-md-5">
-                                <div id="jqChart" style="width: 100%; height: 300px;"></div>
-                            </div>
-                        </div>
+
+                        }
+
                         @if (ViewData["RoleCode"].ToString() == "ADMIN")
                         {
                             <div class="row css10">
@@ -247,18 +254,23 @@ new SelectListItem {Text = "December", Value = "12"}
 
             $('#li_Dashboard').addClass('open');
             $('#li_salaryComponents').addClass('active');
+            var count = 0;
+            @foreach (var item in Model.SalaryComponantReportYTD.Select(x =>new { x.BranchID }).Distinct())
+            {
 
-                $('#jqChart').jqChart({
-                    title: { text: 'YTD' },
+                             <text>
+            $('#jqChart' + count).jqChart({
+                                 title: { text: 'YTD' },
                     animation: { duration: 1 },
-                    shadows: {
-                        enabled: true
+                    shadows:
+                                 {
+                                     enabled: true
                     },
                     legend: { visible: false },
                     border: { visible: false },
                     series: [
                         {
-                            type: 'column',
+                                     type: 'column',
                             title: '',
                             fillStyles: [
                                 '#fb0000', '#00a65a', '#333333', '#8cb1f3', '#8a2be2',
@@ -269,19 +281,24 @@ new SelectListItem {Text = "December", Value = "12"}
                                 '#00FF00', '#0000CD', '#FF4500', '#800080', '#9ACD32', '#008080',
                             ],
                             data: [
-                                @foreach (var item in Model.SalaryComponantReportYTD.ToList())
-                                        {
+                                @foreach (var info in Model.SalaryComponantReportYTD.Where(x => x.BranchID == item.BranchID).ToList())
+                                {
                                             <text>
                                                 [
-                                                    '@item.YTDMonth',
-                                                      @item.TotalSalary
+                                                    '@info.YTDMonth',
+                                                      @info.TotalSalary
                                                 ],
                                             </text>
                                         }
                             ]
                         }
                     ]
-                });
+            });
+            count = count+1;
+            </text>
+}
+
+
 
                 var background = {
                     type: 'linearGradient',
@@ -290,22 +307,25 @@ new SelectListItem {Text = "December", Value = "12"}
                     x1: 0,
                     y1: 1
                 };
-
-                $('#jqChartPie').jqChart({
-                    title: { text: '' },
+              var count = 0;
+            @foreach (var item in Model.SalaryComponantReport.Select(x => new { x.BranchID }).Distinct())
+{
+        <text>
+                $('#jqChartPie' + count).jqChart({
+        title: { text: '' },
                     legend: { title: 'Countries' },
                     background: background,
                     animation: { duration: 1 },
                     shadows: {
-                        enabled: true
+            enabled: true
                     },
                     legend: {
-                        border: { visible: false },
+            border: { visible: false },
                     },
                     border: { visible: false },
                     series: [
                         {
-                            type: 'doughnut',
+            type: 'doughnut',
                             innerExtent: 0.5,
                             outerExtent: 1.0,
                             fillStyles: [
@@ -317,18 +337,18 @@ new SelectListItem {Text = "December", Value = "12"}
                                 '#00FF00', '#0000CD', '#FF4500', '#800080', '#9ACD32', '#008080',
                             ],
                             labels: {
-                                stringFormat: '%.1f%%',
+                stringFormat: '%.1f%%',
                                 valueType: 'percentage',
                                 font: '15px sans-serif',
                                 fillStyle: 'balck'
                             },
                             data: [
-                                @foreach (var item in Model.SalaryComponantReport.ToList())
+                                @foreach (var info in Model.SalaryComponantReport.Where(x=>x.BranchID==item.BranchID).ToList())
                                         {
                                             <text>
                                                 [
-                                                    '@item.ComponentName',
-                                                      @item.Amount
+                                                    '@info.ComponentName',
+                                                      @info.Amount
                                                 ],
                                             </text>
                                         }
@@ -340,7 +360,10 @@ new SelectListItem {Text = "December", Value = "12"}
                             leaderLineStrokeStyle: 'black'
                         }
                     ]
-                });
+            });
+             count = count+1;
+            </text>
+}
             });
     </script>
 }

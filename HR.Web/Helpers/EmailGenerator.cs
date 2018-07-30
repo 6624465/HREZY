@@ -67,7 +67,11 @@ namespace HR.Web.Helpers
         {
             MailMessage msg = new MailMessage();
             EmployeeWorkDetail workdetail = empworkdetailsBo.GetByProperty(x => x.EmployeeId == EMPLOYEEID);
-            msg.To.Add(workdetail.SendMailsTo);
+            foreach (var sendMailTo in workdetail.SendMailsTo.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                msg.To.Add(sendMailTo);
+            }
+            //msg.To.Add(workdetail.SendMailsTo);
             msg.Subject = subject;
             msg.Body = body;
             msg.BodyEncoding = UTF8Encoding.UTF8;

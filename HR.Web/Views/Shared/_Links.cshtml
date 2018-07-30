@@ -244,7 +244,7 @@ else if (Model.RoleCode == UTILITY.ROLE_SUPERADMIN)
             <ul class="inner-drop list-unstyled">
                 <li id="li_leaveReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofLeaveReport?BranchId="+branchid+"&Year="+year+"&EmployeeId=0")">Leave Report</a></li>
                 <li id="li_salaryReport"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryReport?BranchId="+branchid+"&Year="+year+"&Month=0&EmployeeId=0")">Salary Report</a></li>
-                <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryComponents?BranchId="+branchid+"&Year="+year+"&Month=0&EmployeeId=0")">Salary Components</a></li>
+                <li id="li_salaryComponents"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryComponents?BranchId=-1&Year="+year+"&Month=0&EmployeeId=0")">Salary Components</a></li>
                 <li id="li_employeeData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofEmployeeData?branchid="+branchid+"&role="+Model.RoleCode)">Employee Data Report</a></li>
                 <li id="li_salaryData"><a class="ajaxCss" href="@Url.Content("~/Dashboard/DashboardofSalaryData?BranchId="+branchid+"&Year="+year+"&Month=0&EmployeeId=0")">Claims Report</a></li>
             </ul>

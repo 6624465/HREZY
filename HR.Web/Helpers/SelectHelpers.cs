@@ -268,6 +268,30 @@ namespace HR.Web.Helpers
                 }).ToList().AsEnumerable();
             }
         }
+        public static IEnumerable<SelectListItem> ActiveCountryListForSC()
+        {
+            using (var dbCntx = new HrDataContext())
+            {
+                var list = new List<int>();
+                list.Add(10000);
+                List<SelectListItem> cList = new List<SelectListItem>();
+                cList.Add(new SelectListItem { Value = "-1", Text = "ALL" });
+
+                var list1= dbCntx.Branches.Where(x => !list.Contains(x.BranchID)).Select(x => new SelectListItem
+                {
+                    Value = x.BranchID.ToString(),
+                    Text = x.BranchName
+                }).ToList();
+                foreach (var item in list1)
+                {
+                    SelectListItem info = new SelectListItem();
+                    info.Text = item.Text;
+                    info.Value = item.Value;
+                    cList.Add(info);
+                }
+                return cList;
+            }
+        }
 
         public static IEnumerable<SelectListItem> Branches()
         {
@@ -281,7 +305,7 @@ namespace HR.Web.Helpers
             }
         }
 
-        public static IEnumerable<SelectListItem> EmployeeList(int BranchId)
+        public static IEnumerable<SelectListItem> EmployeeList(int? BranchId)
         {
             using (var dbCntx = new HrDataContext())
             {

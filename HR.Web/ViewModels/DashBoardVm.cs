@@ -73,8 +73,8 @@ namespace HR.Web.ViewModels
 
     public class SalaryComponantReportVm
     {
-        public List<USP_SALARYCOMPONENTREPORT_Result> SalaryComponantReport { get; set; }
-        public List<USP_SALARYCOMPONENTREPORTYTD_Result> SalaryComponantReportYTD { get; set; }
+        public List<Salarycomponentreport> SalaryComponantReport { get; set; }
+        public List<Salarycomponentreportytd> SalaryComponantReportYTD { get; set; }
         public System.Data.DataTable dt { get; set; }
         public Int32? BranchID { get; set; }
         public Int32? Year { get; set; }
@@ -114,5 +114,19 @@ namespace HR.Web.ViewModels
         public decimal TotalLeaves { get; set; }
         public string LeaveType { get; set; }
         public decimal BalanceLeaves { get; set; }
+    }
+
+    public partial class Salarycomponentreportytd
+    {
+        public Int32 BranchID { get; set; }
+        public string YTDMonth { get; set; }
+        public Nullable<decimal> TotalSalary { get; set; }
+    }
+
+    public partial class Salarycomponentreport
+    {
+        public Int32 BranchID { get; set; }
+        public string ComponentName { get; set; }
+        public Nullable<decimal> Amount { get; set; }
     }
 }

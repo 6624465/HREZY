@@ -539,20 +539,73 @@ namespace HR.Web.Controllers
             Month = Month == 0 ? null : Month;
             EmployeeId = EmployeeId == 0 ? null : EmployeeId;
             SalaryComponantReportVm vm = new SalaryComponantReportVm();
-            vm.SalaryComponantReport = new List<USP_SALARYCOMPONENTREPORT_Result>();
-            vm.SalaryComponantReportYTD = new List<USP_SALARYCOMPONENTREPORTYTD_Result>();
+            vm.SalaryComponantReport = new List<Salarycomponentreport>();
+            vm.SalaryComponantReportYTD = new List<Salarycomponentreportytd>();
 
             using (var dbCntx = new HrDataContext())
             {
-                vm.SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(BranchId, Year, Month, EmployeeId).ToList();
-                vm.SalaryComponantReportYTD = dbCntx.USP_SALARYCOMPONENTREPORTYTD(BranchId, Year, EmployeeId).ToList();
-                vm.dt = SALARYCOMPONENTEMPLOYEEYTD(BranchId, Year, Convert.ToInt32(Month), EmployeeId);
+                List<Salarycomponentreportytd> salarycomponentreportytd = new List<Salarycomponentreportytd>();
+                List<Salarycomponentreport> salarycomponentreport = new List<Salarycomponentreport>();
+                if (BranchId == -1 || BranchId == null)
+                {
+                    var countryList = SelectListItemHelper.ActiveCountryListForSC();
+                    foreach (var item in countryList)
+                    {
+                        var list = dbCntx.USP_SALARYCOMPONENTREPORTYTD(Convert.ToInt32(item.Value), Year, EmployeeId).ToList();
+                        foreach (var info in list)
+                        {
+                            Salarycomponentreportytd countryItem = new Salarycomponentreportytd();
+                            countryItem.BranchID = Convert.ToInt32(item.Value);
+                            countryItem.YTDMonth = info.YTDMonth;
+                            countryItem.TotalSalary = info.TotalSalary;
+                            salarycomponentreportytd.Add(countryItem);
+                        }
+
+                        var SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(Convert.ToInt32(item.Value), Year, Month, EmployeeId).ToList();
+                        foreach (var info in SalaryComponantReport)
+                        {
+                            Salarycomponentreport countryItem = new Salarycomponentreport();
+                            countryItem.BranchID = Convert.ToInt32(item.Value);
+                            countryItem.ComponentName = info.ComponentName;
+                            countryItem.Amount = info.Amount;
+                            salarycomponentreport.Add(countryItem);
+                        }
+                    }
+                    vm.SalaryComponantReportYTD = salarycomponentreportytd;
+                    vm.SalaryComponantReport = salarycomponentreport.ToList();
+
+                }
+                else
+                {
+                    var SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(BranchId, Year, Month, EmployeeId).ToList();
+                    foreach (var info in SalaryComponantReport)
+                    {
+                        Salarycomponentreport countryItem = new Salarycomponentreport();
+                        countryItem.BranchID = BranchId.Value;
+                        countryItem.ComponentName = info.ComponentName;
+                        countryItem.Amount = info.Amount;
+                        salarycomponentreport.Add(countryItem);
+                    }
+                    vm.SalaryComponantReport = salarycomponentreport.ToList();
+
+                    var list = dbCntx.USP_SALARYCOMPONENTREPORTYTD(BranchId, Year, EmployeeId).ToList();
+                    foreach (var info in list)
+                    {
+                        Salarycomponentreportytd countryItem = new Salarycomponentreportytd();
+                        countryItem.BranchID = BranchId.Value;
+                        countryItem.YTDMonth = info.YTDMonth;
+                        countryItem.TotalSalary = info.TotalSalary;
+                        salarycomponentreportytd.Add(countryItem);
+                    }
+                    vm.SalaryComponantReportYTD = salarycomponentreportytd.ToList();
+
+                    vm.dt = SALARYCOMPONENTEMPLOYEEYTD(BranchId, Year, Convert.ToInt32(Month), EmployeeId);
+                }
             }
-            vm.BranchID = BranchId;
+            vm.BranchID = BranchId == null ? -1 : BranchId;
             vm.Year = Year;
             vm.Month = Month;
             vm.EmployeeID = EmployeeId;
-            ViewData["BranchId"] = BranchId;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
 
             if (vm.dt != null && vm.dt.Columns.Count > 0)
@@ -738,7 +791,7 @@ namespace HR.Web.Controllers
                 Cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 Cmd.CommandText = "[Reports].[USP_SALARYCOMPONENTEMPLOYEEYTD]";
 
-                Cmd.Parameters.Add("@BranchId", System.Data.SqlDbType.SmallInt);
+                Cmd.Parameters.Add("@BranchId", System.Data.SqlDbType.Int);
                 Cmd.Parameters.Add("@Year", System.Data.SqlDbType.Int);
                 Cmd.Parameters.Add("@Month", System.Data.SqlDbType.Int);
                 Cmd.Parameters.Add("@EmployeeID", System.Data.SqlDbType.Int);
@@ -823,14 +876,14 @@ namespace HR.Web.Controllers
                 Con.Close();
 
                 List<ConsReport> consReport = (from DataRow row in dt.Rows
-                       select new ConsReport
-                       {
-                           YTDMonth = row["YTDMonth"].ToString(),
-                           TotalLeaves =Convert.ToDecimal(row["TotalLeaves"]),
-                           LeaveType = row["LeaveType"].ToString(),
-                           BalanceLeaves = Convert.ToDecimal(row["BalanceLeaves"])
+                                               select new ConsReport
+                                               {
+                                                   YTDMonth = row["YTDMonth"].ToString(),
+                                                   TotalLeaves = Convert.ToDecimal(row["TotalLeaves"]),
+                                                   LeaveType = row["LeaveType"].ToString(),
+                                                   BalanceLeaves = Convert.ToDecimal(row["BalanceLeaves"])
 
-                       }).ToList();
+                                               }).ToList();
 
                 return consReport;
             }

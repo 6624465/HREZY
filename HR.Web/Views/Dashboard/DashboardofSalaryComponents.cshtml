@@ -86,16 +86,17 @@ new SelectListItem {Text = "December", Value = "12"}
                                 <label class="col-md-1 control-label">
                                     <span class="pull-right">Country</span>
                                 </label>
+
                                 @if (ViewData["RoleCode"].ToString() == "ADMIN")
                                 {
                                     <div class="col-md-2">
-                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), "All", new { @class = "form-control input-sm", disabled = true })
+                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryListForSC(), new { @class = "form-control input-sm", disabled = true })
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="col-md-2">
-                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), "All", new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
+                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryListForSC(), new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
                                     </div>
                                 }
                                 @*<div class="col-md-2">
@@ -117,7 +118,7 @@ new SelectListItem {Text = "December", Value = "12"}
                                     <span class="pull-right">Employee</span>
                                 </label>
                                 <div class="col-md-2">
-                                    @Html.DropDownListFor(x => x.EmployeeID, SelectListItemHelper.EmployeeList(Model.BranchID.Value), "All", new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
+                                    @Html.DropDownListFor(x => x.EmployeeID, SelectListItemHelper.EmployeeList(Model.BranchID == null ? -1 : Model.BranchID.Value), "All", new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
                                 </div>
                             </div>
                         </div>

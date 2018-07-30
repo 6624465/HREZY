@@ -124,18 +124,74 @@ new SelectListItem {Text = "December", Value = "12"}
                             </div>
                         </div>
 
-                        @for (int i = 0; i < Model.SalaryComponantReport.Select(x => x.BranchID).Distinct().Count(); i++)
-                        {
-                            <div class="row css5">
+                        @*@for (int i = 0; i < 10; i++)
+                            {
+                                <div class="row css5">
+                                    <div class="col-md-7">
+                                        <div id="jqChartPie"@i style="width: 100%; height: 300px;"></div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div id="jqChart"@i style="width: 100%; height: 300px;"></div>
+                                    </div>
+                                </div>
+
+                            }*@
+                        <div class="row css5">
+                            <div class="col-md-7">
+                                <div id="jqChartPie0" style="width: 100%; height: 300px;"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="jqChart0" style="width: 100%; height: 300px;"></div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-7">
+                                <div id="jqChartPie1" style="width: 100%; height: 300px;"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="jqChart1" style="width: 100%; height: 300px;"></div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-7">
+                                <div id="jqChartPie2" style="width: 100%; height: 300px;"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="jqChart2" style="width: 100%; height: 300px;"></div>
+                            </div>
+                        </div>
+                        <div class="row css5">
+                            <div class="col-md-7">
+                                <div id="jqChartPie3" style="width: 100%; height: 300px;"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="jqChart3" style="width: 100%; height: 300px;"></div>
+                            </div>
+                        </div>
+                        @*<div class="row css5">
                                 <div class="col-md-7">
-                                    <div id="jqChartPie"@i style="width: 100%; height: 300px;"></div>
+                                    <div id="jqChartPie4" style="width: 100%; height: 300px;"></div>
                                 </div>
                                 <div class="col-md-5">
-                                    <div id="jqChart"@i style="width: 100%; height: 300px;"></div>
+                                    <div id="jqChart4" style="width: 100%; height: 300px;"></div>
                                 </div>
                             </div>
-
-                        }
+                            <div class="row css5">
+                                <div class="col-md-7">
+                                    <div id="jqChartPie5" style="width: 100%; height: 300px;"></div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div id="jqChart5" style="width: 100%; height: 300px;"></div>
+                                </div>
+                            </div>
+                            <div class="row css5">
+                                <div class="col-md-7">
+                                    <div id="jqChartPie6" style="width: 100%; height: 300px;"></div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div id="jqChart7" style="width: 100%; height: 300px;"></div>
+                                </div>
+                            </div>*@
 
                         @if (ViewData["RoleCode"].ToString() == "ADMIN")
                         {
@@ -255,10 +311,10 @@ new SelectListItem {Text = "December", Value = "12"}
             $('#li_Dashboard').addClass('open');
             $('#li_salaryComponents').addClass('active');
             var count = 0;
-            @foreach (var item in Model.SalaryComponantReportYTD.Select(x =>new { x.BranchID }).Distinct())
+            @foreach (var item in Model.SalaryComponantReportYTD.Select(x =>new { x.BranchID, x.BranchName }).Distinct())
             {
 
-                             <text>
+               <text>
             $('#jqChart' + count).jqChart({
                                  title: { text: 'YTD' },
                     animation: { duration: 1 },
@@ -294,7 +350,7 @@ new SelectListItem {Text = "December", Value = "12"}
                         }
                     ]
             });
-            count = count+1;
+            count++;
             </text>
 }
 
@@ -308,11 +364,11 @@ new SelectListItem {Text = "December", Value = "12"}
                     y1: 1
                 };
               var count = 0;
-            @foreach (var item in Model.SalaryComponantReport.Select(x => new { x.BranchID }).Distinct())
+            @foreach (var item in Model.SalaryComponantReport.Select(x => new { x.BranchID, x.BranchName }).Distinct())
 {
         <text>
-                $('#jqChartPie' + count).jqChart({
-        title: { text: '' },
+            $('#jqChartPie' + count).jqChart({
+        title: { text: '@item.BranchName' },
                     legend: { title: 'Countries' },
                     background: background,
                     animation: { duration: 1 },
@@ -361,7 +417,8 @@ new SelectListItem {Text = "December", Value = "12"}
                         }
                     ]
             });
-             count = count+1;
+            debugger;
+            count++;
             </text>
 }
             });

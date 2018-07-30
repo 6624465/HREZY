@@ -558,7 +558,7 @@ namespace HR.Web.Controllers
             if (vm.dt != null && vm.dt.Columns.Count > 0)
             {
                 DataRow totalsRow = vm.dt.NewRow();
-                totalsRow["EMPLOYEE NAME"] = "Total";
+                totalsRow["EMPLOYEE NAME"] = "TOTAL";
                 for (int j = 1; j < vm.dt.Columns.Count; j++)
                 {
                     DataColumn col = vm.dt.Columns[j];
@@ -602,7 +602,7 @@ namespace HR.Web.Controllers
             if (vm.dt != null && vm.dt.Columns.Count > 0)
             {
                 DataRow totalsRow = vm.dt.NewRow();
-                totalsRow["EMPLOYEE NAME"] = "Total";
+                totalsRow["EMPLOYEE NAME"] = "TOTAL";
                 for (int j = 1; j < vm.dt.Columns.Count; j++)
                 {
                     DataColumn col = vm.dt.Columns[j];
@@ -650,7 +650,7 @@ namespace HR.Web.Controllers
             if (vm.dt != null && vm.dt.Columns.Count > 0)
             {
                 DataRow totalsRow = vm.dt.NewRow();
-                totalsRow["EMPLOYEE NAME"] = "Total";
+                totalsRow["EMPLOYEE NAME"] = "TOTAL";
                 for (int j = 1; j < vm.dt.Columns.Count; j++)
                 {
                     DataColumn col = vm.dt.Columns[j];

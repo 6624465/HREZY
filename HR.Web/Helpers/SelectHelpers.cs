@@ -255,11 +255,11 @@ namespace HR.Web.Helpers
             {
                 var list = new List<int>();
                 list.Add(10000);
-                list.Add(10002);
-                list.Add(10004);
-                list.Add(10005);
-                list.Add(10007);
-                list.Add(10012);
+                //list.Add(10002);
+                //list.Add(10004);
+                //list.Add(10005);
+                //list.Add(10007);
+                //list.Add(10012);
 
                 return dbCntx.Branches.Where(x => !list.Contains(x.BranchID)).Select(x => new SelectListItem
                 {

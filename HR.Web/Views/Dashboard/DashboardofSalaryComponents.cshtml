@@ -89,13 +89,13 @@ new SelectListItem {Text = "December", Value = "12"}
                                 @if (ViewData["RoleCode"].ToString() == "ADMIN")
                                 {
                                     <div class="col-md-2">
-                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm", disabled = true })
+                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), "All", new { @class = "form-control input-sm", disabled = true })
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="col-md-2">
-                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
+                                        @Html.DropDownListFor(x => x.BranchID, SelectListItemHelper.ActiveCountryList(), "All", new { @class = "form-control input-sm", onchange = "ChangeMonth()" })
                                     </div>
                                 }
                                 @*<div class="col-md-2">
@@ -122,11 +122,11 @@ new SelectListItem {Text = "December", Value = "12"}
                             </div>
                         </div>
                         <div class="row css5">
-                            <div class="col-md-6">
-                                <div id="jqChartPie" style="width: 500px; height: 300px;"></div>
+                            <div class="col-md-7">
+                                <div id="jqChartPie" style="width: 100%; height: 300px;"></div>
                             </div>
-                            <div class="col-md-6">
-                                <div id="jqChart" style="width: 500px; height: 300px;"></div>
+                            <div class="col-md-5">
+                                <div id="jqChart" style="width: 100%; height: 300px;"></div>
                             </div>
                         </div>
                         <div class="row css10">
@@ -296,7 +296,7 @@ new SelectListItem {Text = "December", Value = "12"}
                         enabled: true
                     },
                     legend: {
-                        visible: false
+                        //visible: false
                     },
                     border: { visible: false },
                     series: [

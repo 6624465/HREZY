@@ -119,6 +119,7 @@ namespace HR.Web.ViewModels
     public partial class Salarycomponentreportytd
     {
         public Int32 BranchID { get; set; }
+        public string BranchName { get; set; }
         public string YTDMonth { get; set; }
         public Nullable<decimal> TotalSalary { get; set; }
     }
@@ -126,6 +127,7 @@ namespace HR.Web.ViewModels
     public partial class Salarycomponentreport
     {
         public Int32 BranchID { get; set; }
+        public string BranchName { get; set; }
         public string ComponentName { get; set; }
         public Nullable<decimal> Amount { get; set; }
     }

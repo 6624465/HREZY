@@ -556,6 +556,7 @@ namespace HR.Web.Controllers
                         {
                             Salarycomponentreportytd countryItem = new Salarycomponentreportytd();
                             countryItem.BranchID = Convert.ToInt32(item.Value);
+                            countryItem.BranchName = item.Text;
                             countryItem.YTDMonth = info.YTDMonth;
                             countryItem.TotalSalary = info.TotalSalary;
                             salarycomponentreportytd.Add(countryItem);
@@ -566,6 +567,7 @@ namespace HR.Web.Controllers
                         {
                             Salarycomponentreport countryItem = new Salarycomponentreport();
                             countryItem.BranchID = Convert.ToInt32(item.Value);
+                            countryItem.BranchName = item.Text;
                             countryItem.ComponentName = info.ComponentName;
                             countryItem.Amount = info.Amount;
                             salarycomponentreport.Add(countryItem);

@@ -548,18 +548,21 @@ namespace HR.Web.Controllers
                 List<Salarycomponentreport> salarycomponentreport = new List<Salarycomponentreport>();
                 if (BranchId == -1 || BranchId == null)
                 {
-                    var countryList = SelectListItemHelper.ActiveCountryListForSC();
+                    var countryList = SelectListItemHelper.ActiveCountryList();
                     foreach (var item in countryList)
                     {
                         var list = dbCntx.USP_SALARYCOMPONENTREPORTYTD(Convert.ToInt32(item.Value), Year, EmployeeId).ToList();
-                        foreach (var info in list)
+                        if (list.Sum(x => x.TotalSalary) > 0)
                         {
-                            Salarycomponentreportytd countryItem = new Salarycomponentreportytd();
-                            countryItem.BranchID = Convert.ToInt32(item.Value);
-                            countryItem.BranchName = item.Text;
-                            countryItem.YTDMonth = info.YTDMonth;
-                            countryItem.TotalSalary = info.TotalSalary;
-                            salarycomponentreportytd.Add(countryItem);
+                            foreach (var info in list)
+                            {
+                                Salarycomponentreportytd countryItem = new Salarycomponentreportytd();
+                                countryItem.BranchID = Convert.ToInt32(item.Value);
+                                countryItem.BranchName = item.Text;
+                                countryItem.YTDMonth = info.YTDMonth;
+                                countryItem.TotalSalary = info.TotalSalary;
+                                salarycomponentreportytd.Add(countryItem);
+                            }
                         }
 
                         var SalaryComponantReport = dbCntx.USP_SALARYCOMPONENTREPORT(Convert.ToInt32(item.Value), Year, Month, EmployeeId).ToList();

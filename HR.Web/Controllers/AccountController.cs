@@ -93,8 +93,8 @@ namespace HR.Web.Controllers
             Session.Abandon();
             Session.Clear();
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
-            //return Redirect("http://eportal.ezy-corp.com");
+            //return RedirectToAction("Login");
+            return Redirect("http://eportal.ezy-corp.com");
         }
 
         [HttpGet]

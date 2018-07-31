@@ -140,15 +140,16 @@ new SelectListItem {Text = "December", Value = "12"}
                                         <div id="chartContainer0" style="height: 100%; width: 100%;"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-4" style="padding-left:120px">
+                                <div class="col-md-4">
                                     @if (Model.EmployeeID != null)
                                     {
-                                        foreach (var item in Model.consReport.Select(x => x.LeaveType).Distinct())
+                                        for (int i = 0; i < Model.consReport.Select(x => x.LeaveType).Distinct().Count(); i++)
                                         {
                                             <text>
-                                                <div class="row oval" style="text-align:center;padding-top:20px">
-                                                    <span style="color:white">@item<br />@Model.consReport.Where(x => x.LeaveType == item).FirstOrDefault().BalanceLeaves</span>
-                                                </div>
+                                                <div id="jqChartPie@(i)" style="width: 150px; height: 150px;"></div>
+                                                @*<div class="row oval" style="text-align:center;padding-top:20px">
+                                                        <span style="color:white">@item<br />@Model.consReport.Where(x => x.LeaveType == item).FirstOrDefault().BalanceLeaves</span>
+                                                    </div>*@
                                             </text>
                                         }
                                     }
@@ -370,5 +371,43 @@ new SelectListItem {Text = "December", Value = "12"}
             chart.render();
             //count++;
        // }
+
+               var count = 0;
+
+        @foreach (var item in Model.consReport.Select(x => x.LeaveType).Distinct())
+        {
+
+    <text>
+        $('#jqChartPie' + count).jqChart({
+            title: { text: '@item', font: '15px sans-serif' },
+                legend: { title: 'Countries', visible: false },
+                shadows: {
+                    enabled: false
+                },
+                border: { visible: false },
+                series: [
+                      {
+                        type: 'pie',
+                        //innerExtent: 0.5,
+                        //outerExtent: 1.0,
+                        fillStyles: ['#808000', '#000080'],
+                        labels: {
+                            stringFormat: '%.0f',
+                            //valueType: 'percentage',
+                            font: '15px sans-serif',
+                            fillStyle: '#FFFFFF'
+                        },
+                        data: [['Availed', @Model.consReport.Where(x => x.LeaveType == item).Sum(y=>y.TotalLeaves)], ['Balance', @Model.consReport.Where(x => x.LeaveType == item).FirstOrDefault().BalanceLeaves]],
+                        labelsPosition: 'inside', // inside, outside
+                        labelsAlign: 'circle', // circle, column
+                        labelsExtend: 20,
+                        leaderLineWidth: 1,
+                        leaderLineStrokeStyle: 'black'
+                    }
+                ]
+        });
+        count++;
+        </text>
+        }
     </script>
 }

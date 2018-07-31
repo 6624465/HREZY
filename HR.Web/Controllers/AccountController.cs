@@ -94,6 +94,7 @@ namespace HR.Web.Controllers
             Session.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
+            //return Redirect("http://eportal.ezy-corp.com");
         }
 
         [HttpGet]

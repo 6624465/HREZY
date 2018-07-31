@@ -124,18 +124,7 @@ new SelectListItem {Text = "December", Value = "12"}
                             </div>
                         </div>
 
-                        @*@for (int i = 0; i < 10; i++)
-                            {
-                                <div class="row css5">
-                                    <div class="col-md-7">
-                                        <div id="jqChartPie"@i style="width: 100%; height: 300px;"></div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div id="jqChart"@i style="width: 100%; height: 300px;"></div>
-                                    </div>
-                                </div>
 
-                            }*@
                         @if (ViewData["RoleCode"].ToString() == "ADMIN")
                         {
                             <div class="row css5">
@@ -149,88 +138,18 @@ new SelectListItem {Text = "December", Value = "12"}
                         }
                         else
                         {
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie0" style="width: 100%; height: 300px;"></div>
+                            for (int i = 0; i < Model.SalaryComponantReport.Select(x => x.BranchID).Distinct().Count(); i++)
+                            {
+                                <div class="row css5">
+                                    <div class="col-md-7">
+                                        <div id="jqChartPie@(i)" style="width: 100%; height: 300px;"></div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div id="jqChart@(i)" style="width: 100%; height: 300px;"></div>
+                                    </div>
                                 </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart0" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie1" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart1" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie2" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart2" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie3" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart3" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie4" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart4" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie5" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart5" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie6" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart6" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie7" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart7" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie8" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart8" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie9" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart9" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
+                            }
                         }
-
 
 
                         @if (ViewData["RoleCode"].ToString() == "ADMIN")
@@ -407,7 +326,7 @@ new SelectListItem {Text = "December", Value = "12"}
             @foreach (var item in Model.SalaryComponantReport.Select(x => new { x.BranchID, x.BranchName }).Distinct())
 {
         <text>
-            $('#jqChartPie' + count).jqChart({
+            $('#jqChartPie'+count).jqChart({
                  title: { text: '@item.BranchName' },
                     legend: { title: 'Countries' },
                     background: background,

@@ -408,7 +408,7 @@ new SelectListItem {Text = "December", Value = "12"}
 {
         <text>
             $('#jqChartPie' + count).jqChart({
-        title: { text: '@item.BranchName' },
+                 title: { text: '@item.BranchName' },
                     legend: { title: 'Countries' },
                     background: background,
                     animation: { duration: 1 },
@@ -416,7 +416,8 @@ new SelectListItem {Text = "December", Value = "12"}
             enabled: true
                     },
                     legend: {
-            border: { visible: false },
+                        border: { visible: false },
+                        font: '10px sans-serif',
                     },
                     border: { visible: false },
                     series: [
@@ -435,7 +436,7 @@ new SelectListItem {Text = "December", Value = "12"}
                             labels: {
                 stringFormat: '%.1f%%',
                                 valueType: 'percentage',
-                                font: '15px sans-serif',
+                                font: '10px sans-serif',
                                 fillStyle: 'balck'
                             },
                             data: [

@@ -725,6 +725,26 @@ namespace HR.Web.Controllers
                     }
                     //col.Table.Rows[j]. = Color.Red;
                     totalsRow[col.ColumnName] = colTotal;
+                    if (col.ColumnName== "TAXILOCAL")
+                    {
+                        vm.dt.Columns[j].ColumnName = "TAXI LOCAL";
+                    }
+                    if (col.ColumnName == "TAXIOVERSEAS")
+                    {
+                        vm.dt.Columns[j].ColumnName = "TAXI OVERSEAS";
+                    }
+                    if (col.ColumnName == "FOODBILLSLOCAL")
+                    {
+                        vm.dt.Columns[j].ColumnName = "FOOD BILLS LOCAL";
+                    }
+                    if (col.ColumnName == "FOODBILLSOVERSEAS")
+                    {
+                        vm.dt.Columns[j].ColumnName = "FOOD BILLS OVERSEAS";
+                    }
+                    if (col.ColumnName == "OTHEREXPENSES")
+                    {
+                        vm.dt.Columns[j].ColumnName = "OTHER EXPENSES";
+                    }
                 }
 
                 vm.dt.Rows.Add(totalsRow);

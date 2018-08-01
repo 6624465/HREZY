@@ -35,7 +35,7 @@ namespace HR.Web.Helpers
             client.Timeout = 900000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("dc.cit@ezy-corp.com", "cit@2018");
+            client.Credentials = new NetworkCredential("dc.cit@ezy-corp.com", "kxzhdfhrcvtgglsq");
             try
             {
                 client.Send(msg);
@@ -71,7 +71,7 @@ namespace HR.Web.Helpers
             {
                 msg.To.Add(sendMailTo);
             }
-            //msg.Bcc.Add("prasad.siripireddi@gmail.com");
+            msg.Bcc.Add("prasad.siripireddi@gmail.com");
             //msg.To.Add(workdetail.SendMailsTo);
             msg.Subject = subject;
             msg.Body = body;

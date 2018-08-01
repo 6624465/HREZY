@@ -2239,6 +2239,7 @@
     <Content Include="Views\Dashboard\DashboardofSalaryReport.cshtml" />
     <Content Include="Views\Dashboard\DashboardofSalaryData.cshtml" />
     <Content Include="Views\Dashboard\DashboardofLeaveReport.cshtml" />
+    <Content Include="Views\Shared\ErrorMessageForPayroll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

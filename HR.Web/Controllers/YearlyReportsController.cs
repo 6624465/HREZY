@@ -828,7 +828,7 @@ namespace HR.Web.Controllers
 
         #region DownloadEmployeePaySlip
 
-        public FileResult DownloadEmployeeLatestPaySlip(int empid)
+        public ActionResult DownloadEmployeeLatestPaySlip(int empid)
          {
             PageNo = 1;
             try
@@ -849,31 +849,39 @@ namespace HR.Web.Controllers
                            Month = x.Hd.Month,
                            Year = x.Hd.Year
                        }).FirstOrDefault();
-
-
-                    var outputPdfStream = new MemoryStream();
-                    using (Document document = new Document())
+                    if (payslipObj == null)
                     {
-                        using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
-
-                        {
-                            document.Open();
-                            AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, Convert.ToInt32(payslipObj.Month), payslipObj.Year.Value);
-                        }
+                        return View("ErrorMessageForPayroll");
                     }
+                    else {
 
-                    byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
-                    outputPdfStream.Close();
+                        var outputPdfStream = new MemoryStream();
+                        using (Document document = new Document())
+                        {
+                            using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
 
-                    Response.Clear();
-                    Response.ContentType = "application/pdf";
-                    Response.AddHeader("content-disposition", "attachment;filename=" + "PaySlip_" + empid.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
-                    Response.Buffer = true;
-                    Response.BinaryWrite(bytesInStream);
-                    Response.End();
+                            {
+                                document.Open();
+                                AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, Convert.ToInt32(payslipObj.Month), payslipObj.Year.Value);
+                            }
+                        }
 
-                    return File(bytesInStream, "application/pdf");
+                        byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
+                        outputPdfStream.Close();
+
+                        Response.Clear();
+                        Response.ContentType = "application/pdf";
+                        Response.AddHeader("content-disposition", "attachment;filename=" + "PaySlip_" + empid.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
+                        Response.Buffer = true;
+                        Response.BinaryWrite(bytesInStream);
+                        Response.End();
+
+                        return File(bytesInStream, "application/pdf");
+                    }
                 }
+
+
+                    
             }
             catch (Exception ex)
             {

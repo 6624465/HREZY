@@ -123,11 +123,11 @@ new SelectListItem {Text = "December", Value = "12"}
                             </div>
                         </div>
                         <div class="row css5">
-                            <div class="col-md-6">
-                                <div id="jqChartPie" style="width: 500px; height: 300px;"></div>
+                            <div class="col-md-7">
+                                <div id="jqChartPie" style="width: 100%; height: 300px;"></div>
                             </div>
-                            <div class="col-md-6">
-                                <div id="jqChart" style="width: 500px; height: 300px;"></div>
+                            <div class="col-md-5">
+                                <div id="jqChart" style="width: 100%; height: 300px;"></div>
                             </div>
                         </div>
                         <div class="row css10">
@@ -287,13 +287,18 @@ new SelectListItem {Text = "December", Value = "12"}
 
             $('#jqChartPie').jqChart({
                 title: { text: '' },
-                legend: { visible: false },
+                //legend: { visible: false },
                 border: { strokeStyle: 'black', visible: false },
                 background: background,
                 animation: { duration: 1 },
                 shadows: {
                     enabled: true
                 },
+                legend: {
+                    border: { visible: false },
+                    font: '10px sans-serif',
+                },
+                border: { visible: false },
                 series: [
                     {
                         type: 'doughnut',
@@ -308,9 +313,9 @@ new SelectListItem {Text = "December", Value = "12"}
                             '#00FF00', '#0000CD', '#FF4500', '#800080', '#9ACD32', '#008080',
                         ],
                         labels: {
-                            stringFormat: '%.1f%%',
+                            stringFormat: '%.2f%%',
                             valueType: 'percentage',
-                            font: '15px sans-serif',
+                            font: '10px sans-serif',
                             fillStyle: 'balck'
                         },
                         data: [

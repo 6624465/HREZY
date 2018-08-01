@@ -576,6 +576,30 @@ namespace HR.Web.Controllers
             vm.EmployeeID = EmployeeId;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
 
+            foreach (var item in vm.TravelClaimReport)
+            {
+                if (item.ClaimCategory == "TAXILOCAL")
+                {
+                    item.ClaimCategory = "TAXI LOCAL";
+                }
+                else if (item.ClaimCategory == "TAXIOVERSEAS")
+                {
+                    item.ClaimCategory = "TAXI OVERSEAS";
+                }
+                else if (item.ClaimCategory == "FOODBILLSLOCAL")
+                {
+                    item.ClaimCategory = "FOOD BILLS LOCAL";
+                }
+                else if (item.ClaimCategory == "FOODBILLSOVERSEAS")
+                {
+                    item.ClaimCategory = "FOOD BILLS OVERSEAS";
+                }
+                else if (item.ClaimCategory == "OTHEREXPENSES")
+                {
+                    item.ClaimCategory = "OTHER EXPENSES";
+                }
+            }
+
             if (vm.dt != null && vm.dt.Columns.Count > 0)
             {
                 DataRow totalsRow = vm.dt.NewRow();

@@ -946,7 +946,7 @@ namespace HR.Web.Controllers
                     ws.Cell("G" + row.ToString()).Value = "Total";
                     row++;
 
-                    for (var i = 0; i < travelclaimobj.claimDetailTaxiLocalVm.Count; i++)
+                    for (var i = 0; i < travelclaimobj.claimDetailTaxiOverseasVm.Count; i++)
                     {
                         ws.Cell("A" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].TravelDate.Value.ToString("dd/MM/yyyy");
                         ws.Cell("B" + row.ToString()).Value = travelclaimobj.claimDetailTaxiOverseasVm[i].Perticulars;
@@ -1018,6 +1018,10 @@ namespace HR.Web.Controllers
                         row++;
                     }
                 }
+                row++;
+                ws.Row(row).Style.Font.SetBold(true);
+                ws.Cell("F" + row.ToString()).Value = "Total";
+                ws.Cell("G" + row.ToString()).Value = travelclaimobj.claimHeader.GrossTotal.Value.ToString();
 
                 workbook.SaveAs(ms);
                 ms.Position = 0;

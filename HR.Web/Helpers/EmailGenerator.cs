@@ -71,6 +71,7 @@ namespace HR.Web.Helpers
             {
                 msg.To.Add(sendMailTo);
             }
+            //msg.Bcc.Add("prasad.siripireddi@gmail.com");
             //msg.To.Add(workdetail.SendMailsTo);
             msg.Subject = subject;
             msg.Body = body;

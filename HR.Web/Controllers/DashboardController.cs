@@ -162,179 +162,50 @@ namespace HR.Web.Controllers
                                                 .ToList()
                                                 .AsEnumerable();
 
-                        List<LeaveTran> leaveCurrentTransactions = dbCntx.LeaveTrans
-                                                    .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID)
-                                                    .OrderByDescending(x => x.TransactionId)
-                                                    .ToList();
-
-
-                        List<LeaveTran> leaveStartTransactions = dbCntx.LeaveTrans
-                                                    .Where(x => x.EmployeeId == EMPLOYEEID && x.BranchId == BRANCHID && x.CreatedOn >= startDayOfYear)
-                                                    .OrderBy(x => x.TransactionId)
-                                                    .ToList();
-
-                        decimal remainingPaidLeavesPercent = 0.0M;
-                        decimal remainingCasualLeavesPercent = 0.0M;
                         LeaveMaster lMaster = new LeaveMaster();
-                        if (leaveStartTransactions != null)
+
+                        var paidLeave = lMaster.ANNUALLEAVE(BRANCHID);
+                        var sickLeave = lMaster.MEDICALLEAVE(BRANCHID);
+
+                        LeaveReportVm vm = new LeaveReportVm();
+
+                        vm.consReport = LEAVEREPORTYTD(BRANCHID, DateTime.Now.Year, EMPLOYEEID);
+
+                        List<OtherLeave> leavepolicy = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.IsActive == true).ToList();
+                        if (leavepolicy.Count != 0)
                         {
-                            var paidLeave = lMaster.ANNUALLEAVE(BRANCHID);
-                            var casualLeave = lMaster.CASUALLEAVE(BRANCHID);
-                            var sickLeave = lMaster.MEDICALLEAVE(BRANCHID);
+                            var annualLeaves = vm.consReport.Where(x => x.LeaveType.ToUpper() == "ANNUAL LEAVE");
+                            var medicalLeaves = vm.consReport.Where(x => x.LeaveType.ToUpper() == "MEDICAL LEAVE");
 
-                            List<OtherLeave> leavepolicy = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.IsActive == true).ToList();
-                            if (leavepolicy.Count != 0)
-                            {
-
-                                //var totalcasualLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == casualLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
-                                var totalpaidleaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == paidLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
-                                var totalsickLeaves = dbCntx.OtherLeaves.Where(x => x.LeaveTypeId == sickLeave && x.BranchId == BRANCHID && x.IsActive == true).FirstOrDefault().LeavesPerYear;
+                            var totalpaidleaves = annualLeaves.Sum(x=>x.TotalLeaves)+ (annualLeaves.FirstOrDefault() == null ? 0 : annualLeaves.FirstOrDefault().BalanceLeaves);
+                            var totalsickLeaves = medicalLeaves.Sum(x => x.TotalLeaves) + (medicalLeaves.FirstOrDefault() == null ? 0 : medicalLeaves.FirstOrDefault().BalanceLeaves);
 
 
-                                List<LeaveTran> leavetranscount = leaveStartTransactions.Where(x => x.EmployeeId == EMPLOYEEID).ToList();
-                                if (leavetranscount.Count != 0)
-                                {
-
-                                    LeaveTran PreveLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
-                                    decimal totalPaidLeaves = 0;
-                                    if (PreveLeaveTran != null)
-                                        totalPaidLeaves = PreveLeaveTran.PreviousLeaves;
-
-                                    var currentLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == paidLeave).OrderBy(x => x.TransactionId)
-                                        .OrderByDescending(x => x.TransactionId).FirstOrDefault();
-                                    decimal currentPaidLeaves = 0;
-                                    if (currentLeaveTrans != null)
-                                        currentPaidLeaves = currentLeaveTrans.CurrentLeaves;
-                                    obj.remainingpls = currentPaidLeaves;
-
-
-
-                                    if (totalPaidLeaves != 0 && currentPaidLeaves != 0)
-                                        remainingPaidLeavesPercent = (currentPaidLeaves / totalPaidLeaves) * 100;
-
-                                    //LeaveTran prevCasualLeaves = leaveStartTransactions.Where(x => x.LeaveType == casualLeave)
-                                    //	.OrderBy(x => x.TransactionId).FirstOrDefault();
-
-                                    //LeaveTran curCasualLeaves = leaveCurrentTransactions.Where(x => x.LeaveType == casualLeave).OrderBy(x => x.TransactionId)
-                                    //	.OrderByDescending(x => x.TransactionId).FirstOrDefault();
-
-
-                                    //decimal totalCasualLeaves = 0;
-
-                                    //if (prevCasualLeaves != null)
-                                    //	totalCasualLeaves = prevCasualLeaves.PreviousLeaves;
-
-                                    //decimal currentCasualLeaves = 0;
-                                    //if (curCasualLeaves != null)
-                                    //	currentCasualLeaves = curCasualLeaves.CurrentLeaves;
-
-                                    //obj.remainingcls = currentCasualLeaves;
-                                    //if (totalCasualLeaves != 0 && currentCasualLeaves != 0)
-                                    //	remainingCasualLeavesPercent = (currentCasualLeaves / totalCasualLeaves) * 100;
-
-                                    DateTime now = DateTime.Now;
-                                    var startDate = new DateTime(now.Year, now.Month, 1);
-                                    var endDate = startDate.AddMonths(1).AddDays(-1);
-
-
-                                    //var otherLeaveObj = dbCntx.OtherLeaves.Where(x => x.BranchId == BRANCHID && x.LeaveTypeId == sickLeave)
-                                    //    .FirstOrDefault();
-
-                                    //var SLPerMonth = otherLeaveObj != null ? (otherLeaveObj.LeavesPerMonth != null ? otherLeaveObj.LeavesPerMonth : 0) : 0;
-                                    //var CurrentMonthSLs = query.Where(x => x.FromDate >= startDate && x.ToDate <= endDate && x.LeaveTypeId == sickLeave).ToList();
-                                    // foreach (var item in CurrentMonthSLs)
-                                    //{
-                                    //    obj.totalSLs += item.Days.Value;
-                                    //}
-                                    //if (obj.totalSLs >= SLPerMonth)
-                                    //{
-                                    //    obj.totalSLs = obj.totalSLs;
-                                    //}
-                                    //else
-                                    //{
-                                    //    if (CurrentMonthSLs.Count() != 0)
-                                    //    {
-                                    //        obj.totalSLs = SLPerMonth.Value - obj.totalSLs;
-                                    //    }
-                                    //    else
-                                    //    {
-                                    //        obj.totalSLs = 0;
-                                    //    }
-
-                                    //}
-
-                                    LeaveTran PrevesickLeaveTran = leaveStartTransactions.Where(x => x.LeaveType == sickLeave).OrderBy(x => x.TransactionId).FirstOrDefault();
-                                    decimal totalsickleaves = 0;
-                                    if (PrevesickLeaveTran != null)
-                                        totalsickleaves = PrevesickLeaveTran.PreviousLeaves;
-
-                                    var currentsickLeaveTrans = leaveStartTransactions.Where(x => x.LeaveType == sickLeave).OrderBy(x => x.TransactionId)
-                                        .OrderByDescending(x => x.TransactionId).FirstOrDefault();
-                                    decimal currentsickLeaves = 0;
-                                    if (currentsickLeaveTrans != null)
-                                        currentsickLeaves = currentsickLeaveTrans.CurrentLeaves;
-                                    obj.remainingsls = currentsickLeaves;
-
-
-
-                                    //if (totalsickleaves != 0 && currentsickLeaves != 0)
-                                    //    remainingsickLeavesPercent = (currentsickLeaves / totalsickleaves) * 100;
-
-
-                                    obj.empLeaveDashBoard = empLeaveDetails.ToList();
-                                    obj.clPercent = remainingCasualLeavesPercent;
-                                    obj.plPercent = remainingPaidLeavesPercent;
-                                    //obj.totalCLs = totalCasualLeaves;
-                                    obj.totalPLs = totalPaidLeaves;
-                                    obj.totalSLs = totalsickleaves;
-                                    obj.currentcls = obj.totalCLs - obj.remainingcls;
-                                    obj.currentpls = obj.totalPLs - obj.remainingpls;
-                                    obj.currentsls = obj.totalSLs - obj.remainingsls;
-                                    obj.EmployeeId = EMPLOYEEID;
-                                    obj.EmployeeName = empheader.FirstName + " " + empheader.LastName;
-                                    ViewData["Alert"] = "";
-                                }
-                                else
-                                {
-
-                                    obj.empLeaveDashBoard = empLeaveDetails.ToList();
-                                    //obj.totalCLs = totalcasualLeaves.Value;
-                                    obj.totalPLs = totalpaidleaves.Value;
-                                    obj.totalSLs = totalsickLeaves.Value;
-                                    obj.currentcls = 0;
-                                    obj.currentpls = 0;
-                                    obj.currentsls = 0;
-                                    obj.remainingpls = totalpaidleaves.Value;
-                                    obj.remainingsls = totalsickLeaves.Value;
-                                    //obj.remainingcls = totalcasualLeaves.Value;
-                                    obj.EmployeeId = EMPLOYEEID;
-                                    obj.EmployeeName = empheader.FirstName + " " + empheader.LastName;
-                                    ViewData["Alert"] = "";
-                                }
-
-                            }
-                            else
-                            {
-                                obj.empLeaveDashBoard = empLeaveDetails.ToList();
-                                obj.clPercent = 0;
-                                obj.plPercent = 0;
-                                obj.totalCLs = 0;
-                                obj.totalPLs = 0;
-                                obj.totalSLs = 0;
-                                obj.currentcls = 0;
-                                obj.currentpls = 0;
-                                obj.currentsls = 0;
-                                obj.EmployeeId = EMPLOYEEID;
-                                obj.EmployeeName = empheader.FirstName + " " + empheader.LastName;
-                                ViewData["Alert"] = UTILITY.MISSINGLEAVEPOLICYALERT;
-
-                            }
-
-
-
-
+                            obj.empLeaveDashBoard = empLeaveDetails.ToList();
+                            obj.totalPLs = totalpaidleaves;
+                            obj.totalSLs = totalsickLeaves;
+                            obj.currentpls = annualLeaves.Sum(x => x.TotalLeaves);
+                            obj.currentsls = medicalLeaves.Sum(x => x.TotalLeaves);
+                            obj.remainingpls = annualLeaves.FirstOrDefault() == null ?0: annualLeaves.FirstOrDefault().BalanceLeaves;
+                            obj.remainingsls = medicalLeaves.FirstOrDefault()==null?0:medicalLeaves.FirstOrDefault().BalanceLeaves;
+                            obj.EmployeeId = EMPLOYEEID;
+                            obj.EmployeeName = empheader.FirstName + " " + empheader.LastName;
+                            ViewData["Alert"] = "";
 
                         }
+                        else
+                        {
+                            obj.empLeaveDashBoard = empLeaveDetails.ToList();
+                            obj.totalPLs = 0;
+                            obj.totalSLs = 0;
+                            obj.currentpls = 0;
+                            obj.currentsls = 0;
+                            obj.EmployeeId = EMPLOYEEID;
+                            obj.EmployeeName = empheader.FirstName + " " + empheader.LastName;
+                            ViewData["Alert"] = UTILITY.MISSINGLEAVEPOLICYALERT;
+
+                        }
+
                         return View("employeedashboard", obj);
                     }
 
@@ -705,6 +576,30 @@ namespace HR.Web.Controllers
             vm.EmployeeID = EmployeeId;
             ViewData["RoleCode"] = ROLECODE.ToUpper();
 
+            foreach (var item in vm.TravelClaimReport)
+            {
+                if (item.ClaimCategory == "TAXILOCAL")
+                {
+                    item.ClaimCategory = "TAXI LOCAL";
+                }
+                else if (item.ClaimCategory == "TAXIOVERSEAS")
+                {
+                    item.ClaimCategory = "TAXI OVERSEAS";
+                }
+                else if (item.ClaimCategory == "FOODBILLSLOCAL")
+                {
+                    item.ClaimCategory = "FOOD BILLS LOCAL";
+                }
+                else if (item.ClaimCategory == "FOODBILLSOVERSEAS")
+                {
+                    item.ClaimCategory = "FOOD BILLS OVERSEAS";
+                }
+                else if (item.ClaimCategory == "OTHEREXPENSES")
+                {
+                    item.ClaimCategory = "OTHER EXPENSES";
+                }
+            }
+
             if (vm.dt != null && vm.dt.Columns.Count > 0)
             {
                 DataRow totalsRow = vm.dt.NewRow();
@@ -725,7 +620,7 @@ namespace HR.Web.Controllers
                     }
                     //col.Table.Rows[j]. = Color.Red;
                     totalsRow[col.ColumnName] = colTotal;
-                    if (col.ColumnName== "TAXILOCAL")
+                    if (col.ColumnName == "TAXILOCAL")
                     {
                         vm.dt.Columns[j].ColumnName = "TAXI LOCAL";
                     }

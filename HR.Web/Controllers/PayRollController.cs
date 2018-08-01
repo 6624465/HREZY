@@ -2101,7 +2101,10 @@ namespace HR.Web.Controllers
                 var travelclaimid = travelclaimheader.TableData[i].TravelClaimId;
                 var travelclaim = travelClaimHeaderBO.GetById(travelclaimid);
                 travelclaim.TotalAmtPaid = travelclaimheader.TableData[i].TotalAmtPaid;
-                travelClaimHeaderBO.ApproveTravelClaimSave(travelclaim);
+                if (travelclaim.TotalAmtPaid > 0.0M)
+                {
+                    travelClaimHeaderBO.ApproveTravelClaimSave(travelclaim);
+                }
             }
             return RedirectToAction("ApprovedClaimsList");
         }

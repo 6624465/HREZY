@@ -65,25 +65,25 @@
                         Total Amount Paid
                     </th>
 
-        }
+                 }
                         @if (ViewData["Status"].ToString() == UTILITY.TRAVELCLAIMREJECTED)
-    {
+                            {
                     <th>
                         Rejected On
                     </th>
                     <th>
                         Rejected By
                     </th>
-}
-else
-{
+                            }
+                        else
+                        {
                     <th>
                         Approved On
                     </th>
                     <th>
                         Approved By
                     </th>
-}
+                        }
                         <th>
                             View
                         </th>
@@ -260,22 +260,29 @@ else
                 //    swal("Please Select the Checkbox which you want to approve");
                 //}
                 //else {
-                        $('#frmclaim').submit();
+                debugger;
+                var length = $('.length').length;
+                if (length > 0) {
+                    $('#frmclaim').submit();
 
-                        swal({
-                            title: "Saved Successfully",
-                            text: "",
-                            closeOnConfirm: true,
-                            confirmButtonText: "Ok",
-                            confirmButtonClass: "btn-primary",
-                            timer: 5000
-                        },
-                            function () {
-                                $.loader({
-                                    className: "blue-with-image-2",
-                                    content: '',
-                                });
-                            })
+                    swal({
+                        title: "Saved Successfully",
+                        text: "",
+                        closeOnConfirm: true,
+                        confirmButtonText: "Ok",
+                        confirmButtonClass: "btn-primary",
+                        timer: 5000
+                    },
+                        function () {
+                            $.loader({
+                                className: "blue-with-image-2",
+                                content: '',
+                            });
+                        })
+                }
+                else {
+                    swal("There are no records to save");
+                }  
                     
                 //}
             }

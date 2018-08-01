@@ -146,7 +146,9 @@ new SelectListItem {Text = "December", Value = "12"}
                                         for (int i = 0; i < Model.consReport.Select(x => x.LeaveType).Distinct().Count(); i++)
                                         {
                                             <text>
-                                                <div id="jqChartPie@(i)" style="width: 150px; height: 150px;"></div>
+                                                <div class="col-md-6">
+                                                    <div id="jqChartPie@(i)" style="width: 150px; height: 150px;"></div>
+                                                </div>
                                                 @*<div class="row oval" style="text-align:center;padding-top:20px">
                                                         <span style="color:white">@item<br />@Model.consReport.Where(x => x.LeaveType == item).FirstOrDefault().BalanceLeaves</span>
                                                     </div>*@

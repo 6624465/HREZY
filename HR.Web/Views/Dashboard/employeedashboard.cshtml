@@ -276,91 +276,8 @@
 @section Scripts{
 
     <script type="text/javascript">
-        //$(function () {
-        //    $('.percentage').easyPieChart({
-        //        barColor: '#CDDC39',
-        //        trackColor: '#3f51b5',
-        //        scaleColor: '#3f51b5',
-        //        lineCap: 'round',
-        //        scaleLength: 8,
-        //        size: 120,
-        //        lineWidth: 4,
-        //        animate: {
-        //            duration: 1000,
-        //            enabled: true
-        //        },
-        //    });
-        //    //initCharts();
-
-
-        //    $('#li_dashboard').addClass('active');
-
-        //});
-
-        //var initCharts = function () {
-        //    var charts = $('.percentage');
-        //    charts.easyPieChart({
-        //        animate: 1000,
-        //        onStep: function (value) {
-        //            this.$el.find('span').text(~~value);
-        //        }
-        //    });
-        //    $('.updatePieCharts').on('click', function (e) {
-        //        e.preventDefault();
-        //        charts.each(function () {
-        //            $(this).data('easyPieChart').update(Math.floor(100 * Math.random()));
-        //        });
-        //    });
-        //}
-        @*var casualleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
-        debugger;
-
-        Highcharts.chart('CasualLeavesContainer', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie',
-            },
-                    "colors": [
-               "#2f6e91",
-               "#ff9332",
-               "#6a2329",
-               "#092f46",
-               "#d95c1f",
-               "#33765e",
-               "#845285",
-               "#70bde8",
-               "#12484f",
-               "#4d3d5a"],
-
-                    title: {
-                        text: 'Total Casual Leaves Per Year :' + " " + casualleaves.totalCLs
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            return '<b>' + this.series.name + '</b><br/>' + '<b>' + this.point.name + '</b> is <b>' + this.point.y+ '</b>';
-                        }
-                    },
-
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.y}',
-
-                            }
-                        }
-                    },
-            series: [{
-                name: 'Casual Leaves',
-                colorByPoint: true,
-                data: [{ name: 'Balance', y: casualleaves.remainingcls }, { name: 'Applied', y: casualleaves.currentcls }]
-            }]
-        });*@
-        var paidleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+        
+        //var paidleaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
         debugger;
 
         Highcharts.chart('paidLeavesContainer', {
@@ -383,7 +300,7 @@
        "#4d3d5a"],
 
             title: {
-                text: 'Total Annual Leaves Per Year :' + " " + paidleaves.totalPLs
+                text: 'Total Annual Leaves Per Year :' + " " + @Model.totalPLs
             },
             tooltip: {
                 formatter: function () {
@@ -405,10 +322,10 @@
             series: [{
                 name: 'Paid Leaves',
                 colorByPoint: true,
-                data: [{ name: 'Balance', y: paidleaves.remainingpls }, { name: 'Applied', y: paidleaves.currentpls }]
+                data: [{ name: 'Balance', y: @Model.remainingpls }, { name: 'Applied', y: @Model.currentpls }]
             }]
         });
-        var SickLeaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
+        //var SickLeaves = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model))');
         debugger;
 
         Highcharts.chart('SickLeavesContainer', {
@@ -431,7 +348,7 @@
        "#4d3d5a"],
 
             title: {
-                text: 'Total Medical Leaves Per Year :' + " " + SickLeaves.totalSLs
+                text: 'Total Medical Leaves Per Year :' + " " + @Model.totalSLs
             },
             tooltip: {
                 formatter: function () {
@@ -453,7 +370,7 @@
             series: [{
                 name: 'Sick Leaves',
                 colorByPoint: true,
-                data: [{ name: 'Balance', y: SickLeaves.remainingsls }, { name: 'Applied', y: SickLeaves.currentsls }]
+                data: [{ name: 'Balance', y: @Model.remainingsls }, { name: 'Applied', y: @Model.currentsls }]
             }]
         });
 

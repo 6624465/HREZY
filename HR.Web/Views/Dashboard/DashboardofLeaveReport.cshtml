@@ -141,7 +141,7 @@ new SelectListItem {Text = "December", Value = "12"}
                         <div class="row" style="padding-left:20px;">
                             <div class="col-md-12" style="height:370px">
                                 <div class="col-md-8">
-                                    <div class="row" style="margin-top:10px; border:1px solid #d2d6de">
+                                    <div class="row css10">
                                         <div id="chartContainer0" style="height: 100%; width: 100%;"></div>
                                     </div>
                                 </div>
@@ -314,16 +314,16 @@ new SelectListItem {Text = "December", Value = "12"}
 
         });
         debugger;
-        var fillStyles = ['#6495ED', '#DC143C', '#00FFFF', '#00008B', '#008B8B', '#B8860B',
+        var fillStyles = ['#000080', '#8B0000', '#008000', '#DC143C', '#00FFFF', '#00008B', '#008B8B', '#B8860B',
             '#418CF0', '#FCB441', '#E0400A', '#056492', '#1A3B69', '#0000FF',
             '#8A2BE2', '#A52A2A', '#DEB887', '#5F9EA0', '#D2691E', '#FF7F50',
 
-            '#006400', '#8B008B', '#556B2F', '#FF8C00', '#8B0000', '#FF1493',
+            '#006400', '#8B008B', '#556B2F', '#FF8C00',  '#FF1493',
             '#1E90FF', '#B22222', '#228B22', '#008000', '#4B0082', '#F08080',
             '#00FF00', '#0000CD', '#FF4500', '#800080', '#9ACD32', '#008080',
         ];
 
-        var chart = new CanvasJS.Chart("chartContainer0", {
+        @*var chart = new CanvasJS.Chart("chartContainer0", {
             theme: "light2", // "light1", "light2", "dark1", "dark2"
             animationEnabled: true,
             title: {
@@ -376,9 +376,48 @@ new SelectListItem {Text = "December", Value = "12"}
                 ]
 
             });
-            chart.render();
-            //count++;
-       // }
+            chart.render();*@
+        var styleCount = 0;
+   $('#chartContainer0').jqChart({
+            title: { text: '' },
+       animation: { duration: 1 },
+       shadows:
+           {
+               enabled: true
+           },
+       border: { visible: false },
+       legend:{
+           border: { visible: false },
+       },
+       series: [
+            @foreach (var item in LeaveType.ToList())
+                    {
+
+                   <text>
+                               {
+                            type: 'column',
+                           title: '@item',
+               fillStyle: fillStyles[@colorCnt],
+                   data: [
+                                @foreach (var info in Model.consReport.Where(l => l.LeaveType == item).ToList())
+                                {
+                                <text>
+                                     [
+                                       '@info.YTDMonth',
+                                       @info.TotalLeaves
+                                    ],
+                               </text>
+                                }
+                           ]
+                 },
+                   </text>
+                colorCnt++;
+
+            }
+
+       ]
+
+        });
 
                var count = 0;
 

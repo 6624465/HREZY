@@ -14,6 +14,11 @@
             <i class="ion ion-monitor" aria-hidden="true"></i>&nbsp;&nbsp;Dashboard
         </a>
     </li>
+    <li id="li_dashboard">
+        <a class="ajaxCss" href="@Url.Content("~/Dashboard/DownloadPayslipForEmployee")">
+            <i class="ion ion-document" aria-hidden="true"></i>&nbsp;&nbsp;DownLoad Pay slip
+        </a>
+    </li>
     @if (Model.IsManager)
     {
 
@@ -55,8 +60,10 @@
             </a>
         </li>
         <li id="li_TravelClaim">
-            <a class="ajaxCss" href="@Url.Content("~/PayRoll/ProcessTravelClaim")"> 
-            <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Submitted Claims</a></li>
+            <a class="ajaxCss" href="@Url.Content("~/PayRoll/ProcessTravelClaim")">
+                <i class="ion ion-plane" aria-hidden="true"></i>&nbsp;&nbsp;Submitted Claims
+            </a>
+        </li>
     }
     <li id="li_empadd">
         <a class="ajaxCss" href="@Url.Content("~/Leave/ViewLeavesList")">

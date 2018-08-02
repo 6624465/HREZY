@@ -82,9 +82,15 @@
                     <span class="label label-danger" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
                 </label>
         }
+                            else if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMPROCESSED)
+            {
+                <label class="control-label">
+                    <span class="label label-primary" style="font-weight:bold;font-size:12px;">@Model.TableData[i].Status</span>
+                </label>
+        }
                         </td>
                         <td>
-                            @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED || Model.TableData[i].Status == UTILITY.TRAVELCLAIMAPPROVED)
+                            @if (Model.TableData[i].Status == UTILITY.TRAVELCLAIMSUBMITTED || Model.TableData[i].Status == UTILITY.TRAVELCLAIMAPPROVED || Model.TableData[i].Status== UTILITY.TRAVELCLAIMPROCESSED)
                         {
                             <button class="btn btn-xs btn-raised waves-effect btn-sm ajaxCss" disabled="disabled"
                                     style="padding-left: 5px;margin-left: 6px;"

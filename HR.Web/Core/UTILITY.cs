@@ -127,6 +127,7 @@ namespace HR.Web
         public static string TRAVELCLAIMSUBMITTED = "SUBMITTED";
         public static string TRAVELCLAIMAPPROVED = "APPROVED";
         public static string TRAVELCLAIMREJECTED = "REJECTED";
+        public static string TRAVELCLAIMPROCESSED = "PROCESSED";
 
         /* Travel Claim DocumentTypeId */
 

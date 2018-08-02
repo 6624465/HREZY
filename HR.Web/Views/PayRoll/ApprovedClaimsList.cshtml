@@ -109,12 +109,14 @@
             @Model.TableData[i].CreatedOn.Value.ToString("dd/MM/yyyy")
         </td>*@
                         <td>@Model.TableData[i].GrossTotal</td>
-                        @if (ViewData["Status"].ToString() == UTILITY.TRAVELCLAIMAPPROVED)
-    {
-                    <td>@Html.TextBoxFor(x => Model.TableData[i].TotalAmtPaid, new { @class = "form-control input-sm decimalCss txtCss", id = i + "_TotalAmtPaid" })</td>
-}
-                        @if (ViewData["Status"].ToString() == "PROCESSED")
-                         {
+                        @if (ViewData["Status"].ToString() == UTILITY.TRAVELCLAIMAPPROVED && Model.TableData[i].TotalAmtPaid==0.000M)
+                        {
+                        <td>
+                        @Html.TextBoxFor(x => Model.TableData[i].TotalAmtPaid, new { Value="",@class = "form-control input-sm decimalCss txtCss", id = i + "_TotalAmtPaid" , required="required"})
+                        </td>
+                        }
+                            @if (ViewData["Status"].ToString() == UTILITY.TRAVELCLAIMPROCESSED)
+                            {
                              <td>@Model.TableData[i].TotalAmtPaid</td>
                             }
 
@@ -256,29 +258,29 @@
 
                 //var atleastOneChecked = $('.myChk').is(':checked');
                 
-                //if (!atleastOneChecked) {
-                //    swal("Please Select the Checkbox which you want to approve");
-                //}
-                //else {
+               
                 debugger;
                 var length = $('.length').length;
                 if (length > 0) {
-                    $('#frmclaim').submit();
+                    if ($('#frmclaim').valid()) {
+                        $('#frmclaim').submit();
 
-                    swal({
-                        title: "Settled Successfully",
-                        text: "",
-                        closeOnConfirm: true,
-                        confirmButtonText: "Ok",
-                        confirmButtonClass: "btn-primary",
-                        timer: 5000
-                    },
-                        function () {
-                            $.loader({
-                                className: "blue-with-image-2",
-                                content: '',
-                            });
-                        })
+                        swal({
+                            title: "Settled Successfully",
+                            text: "",
+                            closeOnConfirm: true,
+                            confirmButtonText: "Ok",
+                            confirmButtonClass: "btn-primary",
+                            timer: 5000
+                        },
+                            function () {
+                                $.loader({
+                                    className: "blue-with-image-2",
+                                    content: '',
+                                });
+                            })
+                    }
+                   
                 }
                 else {
                     swal("There are no records to settle");

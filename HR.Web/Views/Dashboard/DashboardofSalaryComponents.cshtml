@@ -70,6 +70,12 @@ new SelectListItem {Text = "December", Value = "12"}
         .css5 {
             padding-top: 10px
         }
+        .oval {
+            width: 180px;
+            height: 180px;
+            background: #8B008B;
+            border-radius: 90px / 90px;
+        }
     </style>
 }
 
@@ -127,27 +133,37 @@ new SelectListItem {Text = "December", Value = "12"}
 
                         @if (ViewData["RoleCode"].ToString() == "ADMIN")
                         {
-                            <div class="row css5">
-                                <div class="col-md-7">
-                                    <div id="jqChartPie0" style="width: 100%; height: 300px;"></div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div id="jqChart0" style="width: 100%; height: 300px;"></div>
+                        <div class="row css5">
+                            <div class="col-md-2" style="padding-top: 60px;padding-left:30px">
+                                <div class="row oval" style="text-align:center;padding-top:65px;">
+                                    <span style="color:white;">Total <br />@Model.SalaryComponantReport.Sum(x => x.Amount)</span>
                                 </div>
                             </div>
+                            <div class="col-md-5">
+                                <div id="jqChartPie0" style="width: 100%; height: 300px;"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="jqChart0" style="width: 100%; height: 300px;"></div>
+                            </div>
+                        </div>
                         }
                         else
                         {
                             for (int i = 0; i < Model.SalaryComponantReport.Select(x => x.BranchID).Distinct().Count(); i++)
                             {
-                                <div class="row css5">
-                                    <div class="col-md-7">
-                                        <div id="jqChartPie@(i)" style="width: 100%; height: 300px;"></div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div id="jqChart@(i)" style="width: 100%; height: 300px;"></div>
-                                    </div>
+                        <div class="row css5">
+                            <div class="col-md-2" style="padding-top: 60px;padding-left:30px">
+                                <div class="row oval" style="text-align:center;padding-top:65px;">
+                                    <span style="color:white;">Total <br />@Model.SalaryComponantReport.Sum(x => x.Amount)</span>
                                 </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="jqChartPie@(i)" style="width: 100%; height: 300px;"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="jqChart@(i)" style="width: 100%; height: 300px;"></div>
+                            </div>
+                        </div>
                             }
                         }
 

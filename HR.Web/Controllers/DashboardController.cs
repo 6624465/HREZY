@@ -177,7 +177,7 @@ namespace HR.Web.Controllers
                             var annualLeaves = vm.consReport.Where(x => x.LeaveType.ToUpper() == "ANNUAL LEAVE");
                             var medicalLeaves = vm.consReport.Where(x => x.LeaveType.ToUpper() == "MEDICAL LEAVE");
 
-                            var totalpaidleaves = annualLeaves.Sum(x=>x.TotalLeaves)+ (annualLeaves.FirstOrDefault() == null ? 0 : annualLeaves.FirstOrDefault().BalanceLeaves);
+                            var totalpaidleaves = annualLeaves.Sum(x => x.TotalLeaves) + (annualLeaves.FirstOrDefault() == null ? 0 : annualLeaves.FirstOrDefault().BalanceLeaves);
                             var totalsickLeaves = medicalLeaves.Sum(x => x.TotalLeaves) + (medicalLeaves.FirstOrDefault() == null ? 0 : medicalLeaves.FirstOrDefault().BalanceLeaves);
 
 
@@ -186,8 +186,8 @@ namespace HR.Web.Controllers
                             obj.totalSLs = totalsickLeaves;
                             obj.currentpls = annualLeaves.Sum(x => x.TotalLeaves);
                             obj.currentsls = medicalLeaves.Sum(x => x.TotalLeaves);
-                            obj.remainingpls = annualLeaves.FirstOrDefault() == null ?0: annualLeaves.FirstOrDefault().BalanceLeaves;
-                            obj.remainingsls = medicalLeaves.FirstOrDefault()==null?0:medicalLeaves.FirstOrDefault().BalanceLeaves;
+                            obj.remainingpls = annualLeaves.FirstOrDefault() == null ? 0 : annualLeaves.FirstOrDefault().BalanceLeaves;
+                            obj.remainingsls = medicalLeaves.FirstOrDefault() == null ? 0 : medicalLeaves.FirstOrDefault().BalanceLeaves;
                             obj.EmployeeId = EMPLOYEEID;
                             obj.EmployeeName = empheader.FirstName + " " + empheader.LastName;
                             ViewData["Alert"] = "";
@@ -690,6 +690,22 @@ namespace HR.Web.Controllers
                 vm.dtBalance = EMPLOYEELEAVESUMMARYYTD(BranchId, Year, 1);
                 vm.consReport = LEAVEREPORTYTD(BranchId, Year, EmployeeId);
             }
+
+            //vm.dtAvailed.Columns.Add("ANNUAL LEAVE1");
+            //vm.dtAvailed.Columns.Add("MATERNITY LEAVE1");
+            //vm.dtAvailed.Columns.Add("MEDICAL LEAVE1");
+            for (int i = 1; i < vm.dtBalance.Columns.Count; i++)
+            {
+                vm.dtAvailed.Columns.Add("BALANCE " + vm.dtBalance.Columns[i]);
+                for (int j = 0; j < vm.dtAvailed.Rows.Count; j++)
+                {
+                    vm.dtAvailed.Rows[j]["BALANCE " + vm.dtBalance.Columns[i]] = vm.dtBalance.Rows[j][vm.dtBalance.Columns[i]];
+                }
+            }
+
+
+
+
             vm.BranchID = BranchId;
             vm.Year = Year;
             vm.EmployeeID = EmployeeId;

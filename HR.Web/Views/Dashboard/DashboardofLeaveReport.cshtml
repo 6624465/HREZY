@@ -80,6 +80,11 @@ new SelectListItem {Text = "December", Value = "12"}
         .canvasjs-chart-credit {
             display: none !important
         }
+
+        .changecolor {
+            background-color: #FFA07A !important;
+            color: white;
+        }
     </style>
 }
 <div class="page">
@@ -159,97 +164,98 @@ new SelectListItem {Text = "December", Value = "12"}
                             </div>
                         </div>
                         <div class="row css10">
-                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h3>Availed</h3>
-                                </div>
-                                <div class="col-md-6">
-                                    <h3>Balance</h3>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <div class="col-md-12">
-                                        @if (Model.dtAvailed != null && Model.dtAvailed.Rows.Count > 0)
-                                        {
-                                            <script type="text/javascript">
-                                                $(function () {
-                                                    // //$('#payslipBatchHeader_BatchNo').val('');
-                                                });
-                                            </script>
-                                            <table id="dtAvailed" class="example table table-striped table-bordered nowrap stripe order-column" style="width:100%">
-                                                <thead>
-                                                    @for (var i = 0; i < Model.dtAvailed.Columns.Count; i++)
-                                                    {
-                                                        <text>
-                                                        <th>@Model.dtAvailed.Columns[i].ColumnName</th>
-                                                        </text>
-                                                    }
-                                                    </thead>
-                                                    <tbody>
-                                                        @for (var i = 0; i < Model.dtAvailed.Rows.Count; i++)
-                                                        {
-                                                            <tr>
-                                                                @for (var j = 0; j < Model.dtAvailed.Columns.Count; j++)
-                                                                {
-                                                                    <td>
-                                                                        @if (Model.dtAvailed.Rows[i][Model.dtAvailed.Columns[j].ColumnName] != null)
-                                                                        {
-                                                                            <text>
-                                                                                @Model.dtAvailed.Rows[i][Model.dtAvailed.Columns[j].ColumnName].ToString()
-                                                                            </text>
-                                                                        }
-                                                                    </td>
-                                                                }
-                                                            </tr>
 
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            }
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
+                            <div class="col-md-12">
+                                @if (Model.dtAvailed != null && Model.dtAvailed.Rows.Count > 0)
+                                {
                                     <div class="col-md-12">
-                                        @if (Model.dtBalance != null && Model.dtBalance.Rows.Count > 0)
-                                        {
-                                            <script type="text/javascript">
-                                                $(function () {
-                                                    // //$('#payslipBatchHeader_BatchNo').val('');
-                                                });
-                                            </script>
-                                            <table id="dtBalance" class="example table table-striped table-bordered nowrap stripe order-column" style="width:100%">
-                                                <thead>
-                                                    @for (var i = 0; i < Model.dtBalance.Columns.Count; i++)
-                                                    {
-                                                        <text>
-                                                        <th>@Model.dtBalance.Columns[i].ColumnName</th>
-                                                        </text>
-                                                    }
-                                                    </thead>
-                                                    <tbody>
-                                                        @for (var i = 0; i < Model.dtBalance.Rows.Count; i++)
-                                                        {
-                                                            <tr>
-                                                                @for (var j = 0; j < Model.dtBalance.Columns.Count; j++)
-                                                                {
-                                                                    <td>
-                                                                        @if (Model.dtBalance.Rows[i][Model.dtBalance.Columns[j].ColumnName] != null)
-                                                                        {
-                                                                            <text>
-                                                                                @Model.dtBalance.Rows[i][Model.dtBalance.Columns[j].ColumnName].ToString()
-                                                                            </text>
-                                                                        }
-                                                                    </td>
-                                                                }
-                                                            </tr>
-
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            }
+                                        <div class="col-md-6">
+                                            <span style="float:right"><h3>Availed</h3></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span style="float:right"><h3>Balance</h3></span>
+                                        </div>
                                     </div>
-                                </div>
+                                    <table id="dtAvailed" class="example table table-striped table-bordered nowrap stripe order-column" style="width:100%">
+                                        @*<thead>
+                                            <th colspan="4">Availed</th>
+                                            <th colspan="3">Balance</th>
+                                            </thead>*@
+                                        <thead>
+                                            @for (var i = 0; i < Model.dtAvailed.Columns.Count; i++)
+                                            {
+                                                <text>
+                                                <th>@Model.dtAvailed.Columns[i].ColumnName.Replace("BALANCE ", "")</th>
+                                                </text>
+                                            }
+                                            </thead>
+                                            <tbody>
+                                                @for (var i = 0; i < Model.dtAvailed.Rows.Count; i++)
+                                                {
+                                                    <tr>
+                                                        @for (var j = 0; j < Model.dtAvailed.Columns.Count; j++)
+                                                        {
+                                                            if (Model.dtAvailed.Rows[i][Model.dtAvailed.Columns[j].ColumnName] != null)
+                                                            {
+                                                                <text>
+                                                                    @if (Model.dtAvailed.Columns[j].ColumnName.Contains("BALANCE"))
+                                                                    {
+                                                                        <td class="changecolor">
+                                                                            @Model.dtAvailed.Rows[i][Model.dtAvailed.Columns[j].ColumnName].ToString()
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            @Model.dtAvailed.Rows[i][Model.dtAvailed.Columns[j].ColumnName].ToString()
+                                                                        </td>
+                                                                    }
+
+                                                                </text>
+                                                            }
+                                                        }
+                                                    </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                    @*<div class="col-md-6">
+                                        <div class="col-md-12">
+                                            @if (Model.dtBalance != null && Model.dtBalance.Rows.Count > 0)
+                                            {
+                                                <table id="dtBalance" class="example table table-striped table-bordered nowrap stripe order-column" style="width:100%">
+                                                    <thead>
+                                                        @for (var i = 0; i < Model.dtBalance.Columns.Count; i++)
+                                                        {
+                                                            <text>
+                                                            <th>@Model.dtBalance.Columns[i].ColumnName</th>
+                                                            </text>
+                                                        }
+                                                        </thead>
+                                                        <tbody>
+                                                            @for (var i = 0; i < Model.dtBalance.Rows.Count; i++)
+                                                            {
+                                                                <tr>
+                                                                    @for (var j = 0; j < Model.dtBalance.Columns.Count; j++)
+                                                                    {
+                                                                        <td>
+                                                                            @if (Model.dtBalance.Rows[i][Model.dtBalance.Columns[j].ColumnName] != null)
+                                                                            {
+                                                                                <text>
+                                                                                    @Model.dtBalance.Rows[i][Model.dtBalance.Columns[j].ColumnName].ToString()
+                                                                                </text>
+                                                                            }
+                                                                        </td>
+                                                                    }
+                                                                </tr>
+
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                                    }
+                                                                </div>
+                                                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -381,7 +387,7 @@ new SelectListItem {Text = "December", Value = "12"}
 
     <text>
         $('#jqChartPie' + count).jqChart({
-            title: { text: '@item', font: '15px sans-serif' },
+            title: { text: '@item', font: '10px sans-serif' },
                 legend: { title: 'Countries', visible: false },
                 shadows: {
                     enabled: false
@@ -392,7 +398,7 @@ new SelectListItem {Text = "December", Value = "12"}
                         type: 'pie',
                         //innerExtent: 0.5,
                         //outerExtent: 1.0,
-                        fillStyles: ['#808000', '#000080'],
+                        fillStyles: ['#808000', '#FF4500'],
                         labels: {
                             stringFormat: '%.0f',
                             //valueType: 'percentage',

@@ -809,6 +809,10 @@ namespace HR.Web.Controllers
             }
 
         }
+        public ViewResult DownloadPayslipForEmployee()
+        {
+            return View();
+        }
     }
 
     //public class DashBoard {

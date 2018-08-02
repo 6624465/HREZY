@@ -894,8 +894,10 @@ namespace HR.Web.Controllers
 
 
 
-        public FileResult DownloadEmployeePaySlip(int year, int month, int empid)
+        public ActionResult DownloadEmployeePaySlip(int year, int month, int empid)
         {
+            if (empid == 0)
+                empid = EMPLOYEEID;
             PageNo = 1;
             try
             {
@@ -905,30 +907,48 @@ namespace HR.Web.Controllers
                 //            BaseFont.EMBEDDED);
                 //          Font fntHead =
                 //new Font(bfR, 12, NORMAL, clrBlack);
-
-
-
-                var outputPdfStream = new MemoryStream();
-                using (Document document = new Document())
+                
+                using (var dbcnx = new HrDataContext())
                 {
-                    using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
-                    {
-                        document.Open();
-                        AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, month, year);
-                    }
+
+                   var payslipObj = dbcnx.PayslipBatchHeaders.
+                        Join(dbcnx.PayslipBatchDetails,
+                       hd => hd.BatchHeaderId, dt => dt.BatchHeaderId,
+                       (hd, dt) => new { Hd = hd, Dt = dt }).
+                       Where(x => x.Dt.EmployeeId == empid && x.Hd.BranchId == BRANCHID && x.Hd.Month == month && x.Hd.Year == year).
+                       FirstOrDefault();
+                
+                if (payslipObj == null)
+                {
+                    return View("ErrorMessageForPayroll");
                 }
 
-                byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
-                outputPdfStream.Close();
+                else
+                {
 
-                Response.Clear();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("content-disposition", "attachment;filename=" + "PaySlip_" + empid.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
-                Response.Buffer = true;
-                Response.BinaryWrite(bytesInStream);
-                Response.End();
+                    var outputPdfStream = new MemoryStream();
+                    using (Document document = new Document())
+                    {
+                        using (PdfSmartCopy copy = new PdfSmartCopy(document, outputPdfStream))
+                        {
+                            document.Open();
+                            AddEmployeePaySlipDataSheets(copy, BRANCHID, empid, month, year);
+                        }
+                    }
 
-                return File(bytesInStream, "application/pdf");
+                    byte[] bytesInStream = outputPdfStream.ToArray(); // simpler way of converting to array
+                    outputPdfStream.Close();
+
+                    Response.Clear();
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment;filename=" + "PaySlip_" + empid.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".pdf");
+                    Response.Buffer = true;
+                    Response.BinaryWrite(bytesInStream);
+                    Response.End();
+
+                    return File(bytesInStream, "application/pdf");
+                }
+                }
             }
             catch (Exception ex)
             {
@@ -940,6 +960,7 @@ namespace HR.Web.Controllers
 
         public void AddEmployeePaySlipDataSheets(PdfCopy copy, int branchID, int empid, int year, int month)
         {
+           
             using (var dbCntx = new HrDataContext())
             {
                 usp_EmployeePaySlipHeaderTH_Result PayslipHeader = dbCntx.usp_EmployeePaySlipHeaderTH(BRANCHID, empid, year, month).FirstOrDefault();

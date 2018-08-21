@@ -35,7 +35,7 @@ namespace HR.Web.Helpers
             client.Timeout = 900000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("dc.cit@ezy-corp.com", "kxzhdfhrcvtgglsq");
+            client.Credentials = new NetworkCredential("dc.cit@ezy-corp.com", "gyrcqzvrxvwctbnw");
             try
             {
                 client.Send(msg);

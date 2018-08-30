@@ -298,7 +298,8 @@
         var date = new Date();
         var year =(new Date()).getFullYear();
         var month=(new Date()).getMonth();
-        var daet=(new Date()).getDate();
+        var daet = (new Date()).getDate();
+        date.setDate(date.getDate() - 7);
         $('.dtCss').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',

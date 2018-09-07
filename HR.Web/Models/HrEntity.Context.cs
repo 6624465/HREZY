@@ -64,6 +64,7 @@ namespace HR.Web.Models
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
         public virtual DbSet<SalaryStructureDetail> SalaryStructureDetails { get; set; }
+        public virtual DbSet<EmployeeLeavePolicy> EmployeeLeavePolicies { get; set; }
         public virtual DbSet<TaxAssessmentDetail> TaxAssessmentDetails { get; set; }
     
         public virtual ObjectResult<usp_EmployeeDateOfJoiningDate_Result> usp_EmployeeDateOfJoiningDate(Nullable<System.DateTime> currentDt, Nullable<int> branchId)

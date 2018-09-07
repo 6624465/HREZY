@@ -17,6 +17,11 @@ namespace HR.Web.ViewModels
         public EmployeeBankdetail empBankdetail { get; set; }
         public List<EmployeeDocumentVm> empDocument { get; set; }
 
+        //public List<EmployeeLeavePolicy> empleavepolicy { get; set; }
+        //public List<OtherLeave> leaveslist { get; set; }
+
+            public List<AssignLeaves> ListAssignLeaves { get; set; }
+
         public List<Documents> documents { get; set; }
         //public HttpPostedFileBase UIDCard { get; set; }
         //public HttpPostedFileBase EducationDocument { get; set; }
@@ -68,5 +73,22 @@ namespace HR.Web.ViewModels
         public int? EmployeeType { get; set; }
 
         public int pageNumber { get; set; }
+    }
+    public class AssignLeaves
+    {
+        public int BranchID { get; set; }
+        public short LeaveYear { get; set; }
+        public int EmployeeID { get; set; }
+        public int LeaveTypeID { get; set; }
+        public Nullable<decimal> LeavesPerYear { get; set; }
+        public Nullable<decimal> CarryForwardLeaves { get; set; }
+        public Nullable<decimal> TotalLeaves { get; set; }
+        public Nullable<decimal> BalanceLeaves { get; set; }
+        public int LeaveId { get; set; }
+        public Nullable<decimal> LeavesPerMonth { get; set; }
+        public bool IsCarryForward { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
+        
     }
 }

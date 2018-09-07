@@ -33,7 +33,7 @@
 }
 
 
-@using (Html.BeginForm("SaveEmployee", "Employee", FormMethod.Post, new { id = "frmEmp", name = "frmEmp", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("saveemployee", "Employee", FormMethod.Post, new { id = "frmEmp", name = "frmEmp", enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(x => x.empHeader.EmployeeId)
     @Html.HiddenFor(x => x.empHeader.BranchId)
@@ -54,23 +54,23 @@
                 <div class="panel panel-default panel-hovered panel-stacked mb10">
                     <div class="panel-heading">
                         @if (Model.empHeader.EmployeeId != -1)
+                    {
+
+                        if (detailid != 0)
                         {
+                            <img height="32" width="32"
+                                 class="img-circle"
+                                 src="@Url.Content("~/Uploads/" + Model.empHeader.EmployeeId + "/" + detailid + "/" + filename)"
+                                 onerror="this.src='@Url.Content("~/Images/user.png")'">
+                    }
+                    else
+                    {
+                        <img height="32" width="32"
+                             class="img-circle"
+                             src="@Url.Content("~/Images/user.png")" onerror="this.src='@Url.Content("~/images/admin.jpg")'">
+                }
 
-                            if (detailid != 0)
-                            {
-                                <img height="32" width="32"
-                                     class="img-circle"
-                                     src="@Url.Content("~/Uploads/" + Model.empHeader.EmployeeId + "/" + detailid + "/" + filename)"
-                                     onerror="this.src='@Url.Content("~/Images/user.png")'">
-                            }
-                            else
-                            {
-                                <img height="32" width="32"
-                                     class="img-circle"
-                                     src="@Url.Content("~/Images/user.png")" onerror="this.src='@Url.Content("~/images/admin.jpg")'">
-                            }
-
-                        }
+            }
                         @Model.empHeader.FirstName&nbsp;@Model.empHeader.LastName&nbsp;Profile
                     </div>
                     <div class="panel-body">
@@ -81,9 +81,9 @@
                                 </label>
                                 <div class="col-md-5">
                                     @Html.DropDownListFor(x => x.empHeader.IDType,
-                            SelectListItemHelper.EmployeeType(),
-                                    "Select Type",
-                       new { @class = "form-control input-sm" })
+                             SelectListItemHelper.EmployeeType(),
+                                     "Select Type",
+                        new { @class = "form-control input-sm" })
                                 </div>
                                 <label class="col-md-1 control-label">
                                     <span>Date Of Joining</span>
@@ -186,12 +186,12 @@ new { @class = "form-control input-sm maxlength uppercase", @maxlength = "30" })
 SelectListItemHelper.CountryList(), "Select Country",
 new { @class = "form-control input-sm" })
                                 @*<label class="col-md-2 control-label">
-                                                                   <span class="pull-right">Emg. Contact Name</span>
-                                                               </label>
-                                                               <div class="col-md-4">
-                                                                   @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
-                                    new { @class = "form-control input-sm" })
-                                                               </div>*@
+                                                               <span class="pull-right">Emg. Contact Name</span>
+                                                           </label>
+                                                           <div class="col-md-4">
+                                                               @Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactName,
+                                new { @class = "form-control input-sm" })
+                                                           </div>*@
                             </div>
 
 
@@ -204,14 +204,14 @@ new { @class = "form-control input-sm" })
 
 
                                 @*@if (Model.empHeader.EmployeeId != -1)
-                                                            {
-                                                                <div class="col-md-5">
-                                                                    @Html.TextBoxFor(x => x.empHeader.UserEmailId,
-                                    new { @class = "form-control input-sm uppercase", @readonly = "true" })
-                                                                </div>
-                                                            }
-                                                            else
-                                                            {*@
+                                                        {
+                                                            <div class="col-md-5">
+                                                                @Html.TextBoxFor(x => x.empHeader.UserEmailId,
+                                new { @class = "form-control input-sm uppercase", @readonly = "true" })
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {*@
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(x => x.empHeader.UserEmailId,
 new { @class = "form-control input-sm uppercase", onblur = "appendEmail(this," + Model.empHeader.EmployeeId + ")" })
@@ -225,7 +225,7 @@ new { @class = "form-control input-sm uppercase", onblur = "appendEmail(this," +
                                 </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.PasspostNo,
-                                        new { @class = "form-control input-sm uppercase" })
+                                         new { @class = "form-control input-sm uppercase" })
                                 </div>
 
                             </div>
@@ -239,8 +239,8 @@ new { @class = "form-control input-sm uppercase", onblur = "appendEmail(this," +
                                     @Html.TextBoxFor(x => x.address.MobileNo,
 new
 {
-    @class = "form-control numCssPlus input-sm",
-    @maxlength = "15"
+@class = "form-control numCssPlus input-sm",
+@maxlength = "15"
 })
                                 </div>
 
@@ -249,9 +249,9 @@ new
                                 </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.EPFNO,
-                                        new { @class = "form-control input-sm uppercase" })
+                                         new { @class = "form-control input-sm uppercase" })
                                     @*@Html.TextBoxFor(x => x.empPersonalDetail.EmergencyContactNumber,
-                                        new { @class = "form-control numCssPlus input-sm" })*@
+                                    new { @class = "form-control numCssPlus input-sm" })*@
                                 </div>
                             </div>
 
@@ -265,9 +265,9 @@ new
                                 </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(x => x.empPersonalDetail.SocialWelfareNo, new
-                               {
-                                   @class = "form-control input-sm uppercase"
-                               })
+                                {
+                                    @class = "form-control input-sm uppercase"
+                                })
                                 </div>
                             </div>
                         </div>
@@ -295,7 +295,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.TextAreaFor(x => x.address.Address1, new
-                               { @class = "form-control input-sm uppercase", @cols = 80, @rows = 2 })
+                                { @class = "form-control input-sm uppercase", @cols = 80, @rows = 2 })
                                 </div>
                             </div>
                         </div>
@@ -306,7 +306,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.TextBoxFor(x => x.address.CityName,
-     new { @class = "form-control input-sm uppercase" })
+new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -317,7 +317,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.TextBoxFor(x => x.address.StateName,
-     new { @class = "form-control input-sm uppercase" })
+new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -328,7 +328,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.TextBoxFor(x => x.address.ZipCode,
-     new { @class = "form-control numCss input-sm" })
+new { @class = "form-control numCss input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -339,7 +339,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.address.CountryCode, SelectListItemHelper.CountryList(), "Select",
-     new { @class = "form-control input-sm uppercase" })
+new { @class = "form-control input-sm uppercase" })
                                 </div>
                             </div>
                         </div>
@@ -358,9 +358,9 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DesignationId,
-      SelectListItemHelper.Designation((int)ViewData["BranchId"]),
-      "Select Designation",
-      new { @class = "form-control input-sm" })
+SelectListItemHelper.Designation((int)ViewData["BranchId"]),
+"Select Designation",
+new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -371,9 +371,9 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.empWorkDetail.DepartmentId,
-      SelectListItemHelper.Department(),
-      "Select Department",
-      new { @class = "form-control input-sm" })
+SelectListItemHelper.Department(),
+"Select Department",
+new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -384,9 +384,9 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.empWorkDetail.NoticePeriod,
-      SelectListItemHelper.NoticePeriod(),
-      "Select NoticePeriod",
-      new { @class = "form-control input-sm" })
+SelectListItemHelper.NoticePeriod(),
+"Select NoticePeriod",
+new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -397,9 +397,9 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(x => x.empWorkDetail.ProbationPeriod,
-      SelectListItemHelper.ProhibationPeriod(),
-      "Select Probation",
-      new { @class = "form-control input-sm" })
+SelectListItemHelper.ProhibationPeriod(),
+"Select Probation",
+new { @class = "form-control input-sm" })
                                 </div>
                             </div>
                         </div>
@@ -434,25 +434,25 @@ new
                             </div>
                         </div>
                         <div class="row css5">
-							<div class="form-group" style="white-space:nowrap">
+                            <div class="form-group" style="white-space:nowrap">
 
-								<label class="col-md-2 control-label">
-									<span>Reporting To</span>
-								</label>
+                                <label class="col-md-2 control-label">
+                                    <span>Reporting To</span>
+                                </label>
 
-								<div id="isReportingTo">
-									<div class="col-md-6">
-										@Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
- new { @class = "form-control input-sm" })
-									</div>
-								</div>
-								<div class="col-md-2">
-									<label class="col-md-2 control-label"><span>Authorize</span></label>
-								</div>
-								<div class="col-md-1 pull-left" style="margin-top:10px">
-								@Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
-								</div>
-							</div>
+                                <div id="isReportingTo">
+                                    <div class="col-md-6">
+                                        @Html.DropDownListFor(x => x.empHeader.ManagerId, SelectListItemHelper.EmployeeList((int)ViewData["BranchId"], true), "Select",
+new { @class = "form-control input-sm" })
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="col-md-2 control-label"><span>Authorize</span></label>
+                                </div>
+                                <div class="col-md-1 pull-left" style="margin-top:10px">
+                                    @Html.CheckBoxFor(x => x.empHeader.IsReportingAuthority)
+                                </div>
+                            </div>
                         </div>
                         <div class="row css5">
                             <div class="form-group">
@@ -490,13 +490,13 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.PasswordFor(x => x.empHeader.Password,
-     new
-     {
-         @class = "form-control input-sm",
-         value = Model.empHeader.Password,
-         @maxlength = "15",
-         @minlength = "5"
-     })
+new
+{
+@class = "form-control input-sm",
+value = Model.empHeader.Password,
+@maxlength = "15",
+@minlength = "5"
+})
                                 </div>
                             </div>
                         </div>
@@ -507,7 +507,7 @@ new
                                 </label>
                                 <div class="col-md-10">
                                     @Html.PasswordFor(x => x.empHeader.ConfirmPassword,
-     new { @class = "form-control input-sm", value = Model.empHeader.ConfirmPassword })
+new { @class = "form-control input-sm", value = Model.empHeader.ConfirmPassword })
                                 </div>
                             </div>
                         </div>
@@ -522,6 +522,7 @@ new
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -584,26 +585,34 @@ new
                 </div>
             </div>
         </div>
-        <div class="row css5">
-            @*<div class="form-group">
-                    <label class="col-md-3 control-label">
-                        <span class="pull-right">Link</span>
-                    </label>
-                    <div class="col-md-9">
-                        <select class="form-control input-sm">
-                            <option value="BASIC">BASIC STRUCT</option>
-                            <option value="HRA">HRA STRUCT</option>
-                            <option value="OTHER">OTHER STRUCT</option>
-                        </select>
+        @if (Model.empHeader.EmployeeId == -1)
+        {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default panel-hovered panel-stacked mb10">
+                    <div class="panel-heading">Leave Details</div>
+                    <div class="panel-body">
+                        @for (var i = 0; i < Model.ListAssignLeaves.Count(); i++)
+                            {
+                    <div class="row css5">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                <span>@Model.ListAssignLeaves[i].Description</span>
+                            </label>
+                            <div class="col-md-10">
+                                @Html.HiddenFor(x=>x.ListAssignLeaves[i].LeaveTypeID)
+                                @Html.TextBoxFor(x => x.ListAssignLeaves[i].LeavesPerYear, new { @class = "form-control input-sm uppercase", required = "required" })
+                            </div>
+                        </div>
                     </div>
-                </div>*@
-            <div class="form-group">
-                <label class="col-md-3 control-label">
-                    <span class="pull-right"></span>
-                </label>
+                        }
 
+                    </div>
+                </div>
             </div>
+
         </div>
+}
 
 
         <div class="row">
@@ -625,43 +634,43 @@ new
                                     </thead>
                                     <tbody>
                                         @{
-                                            var documentsPath = ViewData["empdocumentsPath"];
+                                        var documentsPath = ViewData["empdocumentsPath"];
                                         }
                                         @for (int i = 0; i < Model.empDocument.Count(); i++)
-                                        {
-                                            <tr>
-                                                <td>@Html.DisplayFor(x => x.empDocument[i].DocumentDescription)</td>
-                                                @Html.HiddenFor(x => x.empDocument[i].DocumentType)
-                                                <td>
-                                                    @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)" })
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(x => x.empDocument[i].DocumentDescription)</td>
+                                            @Html.HiddenFor(x => x.empDocument[i].DocumentType)
+                                            <td>
+                                                @Html.TextBoxFor(x => x.empDocument[i].Document, new { type = "file", onchange = "CheckFileName(this)" })
 
-                                                </td>
-                                                <td>
-                                                    @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
-                                                    {
-                                                        <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+"/" + Model.empDocument[i].fileName)" target="_self" download="@Model.empDocument[i].fileName">download</a>
-                                                    }
-                                                </td>
+                                            </td>
+                                            <td>
+                                                @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
+                                            {
+                                                <a href="@Url.Content("~/" + documentsPath + "/" + Model.empDocument[i].DocumentDetailId+"/" + Model.empDocument[i].fileName)" target="_self" download="@Model.empDocument[i].fileName">download</a>
+                                        }
+                                            </td>
 
-                                                <td>
-                                                    @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
-                                                    {
-                                                        <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
-                                                                style="padding-left: 5px;margin-left: 6px;"
-                                                                onclick="location.href='@Url.Content("~/Employee/DeleteEmployeeDocs?docdetailid=" + Model.empDocument[i].DocumentDetailId)'">
-                                                            <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
-                                                        </button>
-
-                                                    }
-                                                </td>
-
-                                                @*<td>
-                                                    @if(Model.empDocument[i].fileName != null) {
-                                                    <img src="@Url.Content("~/Uploads/"+Model.empHeader.EmployeeId+"/"+Model.empDocument[i].DocumentDetailId +"/" + Model.empDocument[i].fileName)" alt="image" height="50" width="50" />
-                                                    }</td>*@
-                                            </tr>
+                                            <td>
+                                                @if (!string.IsNullOrWhiteSpace(Model.empDocument[i].fileName))
+                                            {
+                                                <button class="btn btn-xs  btn-sm ajaxCss btn-danger" type="button"
+                                                        style="padding-left: 5px;margin-left: 6px;"
+                                                        onclick="location.href='@Url.Content("~/Employee/DeleteEmployeeDocs?docdetailid=" + Model.empDocument[i].DocumentDetailId)'">
+                                                    <i class="fa fa-trash-o" style="padding-left: 5px;"></i>
+                                                </button>
 
                                         }
+                                            </td>
+
+                                            @*<td>
+                                            @if(Model.empDocument[i].fileName != null) {
+                                            <img src="@Url.Content("~/Uploads/"+Model.empHeader.EmployeeId+"/"+Model.empDocument[i].DocumentDetailId +"/" + Model.empDocument[i].fileName)" alt="image" height="50" width="50" />
+                                            }</td>*@
+                                        </tr>
+
+                                }
                                     </tbody>
                                 </table>
                             </div>
@@ -676,14 +685,14 @@ new
             </div>
             <div class="col-md-6">
                 @if (ViewData["RoleCode"].ToString() == UTILITY.ROLE_EMPLOYEE)
-                {
-                    <button class="btn btn-primary btn-sm pull-right" id="btnback" type="button" onclick="location.href='@Url.Content("~/Dashboard/Index")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
+            {
+                <button class="btn btn-primary btn-sm pull-right" id="btnback" type="button" onclick="location.href='@Url.Content("~/Dashboard/Index")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
 
-                }
-                else
-                {
-                    <button class="btn btn-primary btn-sm pull-right" type="button" onclick="location.href='@Url.Content("~/employee/employeedirectory")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
-                }
+        }
+        else
+        {
+            <button class="btn btn-primary btn-sm pull-right" type="button" onclick="location.href='@Url.Content("~/employee/employeedirectory")'"><i class="fa fa-arrow-left"></i><b>Back</b></button>
+    }
             </div>
         </div>
     </div>

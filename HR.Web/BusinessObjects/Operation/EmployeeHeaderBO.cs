@@ -18,6 +18,7 @@ namespace HR.Web.BusinessObjects.Operation
         EmployeeWorkDetailBO empWorkDetailBO = null;
         AddressBO addressBO = null;
         EmployeeBankDetailBO empbankdetailBO = null;
+        EmployeeLeavePolicyBO employeeleavepolicyBo = null;
         public EmployeeHeaderBO(SessionObj _sessionObj)
         {
             sessionObj = _sessionObj;
@@ -27,6 +28,7 @@ namespace HR.Web.BusinessObjects.Operation
             empWorkDetailBO = new EmployeeWorkDetailBO(sessionObj);
             addressBO = new AddressBO(sessionObj);
             empbankdetailBO = new EmployeeBankDetailBO(sessionObj);
+            employeeleavepolicyBo = new EmployeeLeavePolicyBO(sessionObj);
         }
 
         public void SaveEmployeeVm(EmployeeVm empVm)
@@ -135,6 +137,23 @@ namespace HR.Web.BusinessObjects.Operation
                     SwiftCode = empVm.empBankdetail.SwiftCode
                 };
                 empbankdetailBO.Add(empbankdetail);
+                foreach (var item in empVm.ListAssignLeaves)
+                {
+
+                
+                var empleavepolicy = new EmployeeLeavePolicy
+                {
+                    BranchID = sessionObj.BRANCHID,
+                    LeaveYear = Convert.ToInt16(DateTime.Now.Year),
+                    EmployeeID = empHeader.EmployeeId,
+                    LeaveTypeID = item.LeaveTypeID,
+                    LeavesPerYear = item.LeavesPerYear,
+                    CarryForwardLeaves = 0 ,
+                    TotalLeaves = item.LeavesPerYear,
+                    BalanceLeaves = item.LeavesPerYear
+                    };
+                    employeeleavepolicyBo.Add(empleavepolicy);
+                }
 
 
                 foreach (var item in empVm.empDocument)

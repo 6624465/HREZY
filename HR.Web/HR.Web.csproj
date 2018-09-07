@@ -1784,6 +1784,7 @@
     <Compile Include="BusinessObjects\Operation\EmployeeBankDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeDocumentDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeLeaveListBO.cs" />
+    <Compile Include="BusinessObjects\Operation\EmployeeLeavePolicyBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeePersonalDetailBO.cs" />
     <Compile Include="BusinessObjects\Operation\AddressBO.cs" />
     <Compile Include="BusinessObjects\Operation\EmployeeWorkDetailBO.cs" />
@@ -1869,6 +1870,9 @@
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeeLeaveList.cs">
+      <DependentUpon>HrEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeLeavePolicy.cs">
       <DependentUpon>HrEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeePersonalDetail.cs">
@@ -2035,6 +2039,7 @@
     <Compile Include="Services\Operation\EmployeeDocumentDetailService.cs" />
     <Compile Include="Services\Operation\EmployeeHeaderService.cs" />
     <Compile Include="Services\Operation\EmployeeLeaveListService.cs" />
+    <Compile Include="Services\Operation\EmployeeLeavePolicyService.cs" />
     <Compile Include="Services\Operation\EmployeePersonalDetailService.cs" />
     <Compile Include="Services\Operation\EmployeeWorkDetailService.cs" />
     <Compile Include="Services\Operation\EmpSalaryStructureDetailService.cs" />

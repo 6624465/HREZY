@@ -256,6 +256,22 @@
           <Property Name="IsLossOfPay" Type="bit" Nullable="false" />
           <Property Name="Session" Type="nvarchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="EmployeeLeavePolicy">
+          <Key>
+            <PropertyRef Name="BranchID" />
+            <PropertyRef Name="LeaveYear" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="LeaveTypeID" />
+          </Key>
+          <Property Name="BranchID" Type="int" Nullable="false" />
+          <Property Name="LeaveYear" Type="smallint" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="LeaveTypeID" Type="int" Nullable="false" />
+          <Property Name="LeavesPerYear" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CarryForwardLeaves" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalLeaves" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BalanceLeaves" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="EmployeePersonalDetail">
           <Key>
             <PropertyRef Name="PersonalDetailID" />
@@ -793,6 +809,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <EntitySet Name="EmployeeDocumentDetail" EntityType="Self.EmployeeDocumentDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeHeader" EntityType="Self.EmployeeHeader" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeLeaveList" EntityType="Self.EmployeeLeaveList" Schema="Operation" store:Type="Tables" />
+          <EntitySet Name="EmployeeLeavePolicy" EntityType="Self.EmployeeLeavePolicy" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeePersonalDetail" EntityType="Self.EmployeePersonalDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmployeeWorkDetail" EntityType="Self.EmployeeWorkDetail" Schema="Operation" store:Type="Tables" />
           <EntitySet Name="EmpSalaryStructureDetail" EntityType="Self.EmpSalaryStructureDetail" Schema="Operation" store:Type="Tables" />
@@ -973,7 +990,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           
           
           
-          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
+     
           
           
           <FunctionImport Name="USP_TRAVELCLAIMREPORT" ReturnType="Collection(DB_9F30C5_HRDBModel.USP_TRAVELCLAIMREPORT_Result)">
@@ -998,6 +1015,8 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="EmployeeLeavePolicies" EntityType="DB_9F30C5_HRDBModel.EmployeeLeavePolicy" />
+          <EntitySet Name="TaxAssessmentDetails" EntityType="DB_9F30C5_HRDBModel.TaxAssessmentDetail" />
           
           
          
@@ -1896,22 +1915,6 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
         
         
         
-        <EntityType Name="TaxAssessmentDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HeaderID" Type="Int32" />
-          <Property Name="SalaryFrom" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SalaryTo" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
-        
         
         <ComplexType Name="USP_TRAVELCLAIMREPORT_Result">
           <Property Type="String" Name="ClaimCategory" Nullable="true" MaxLength="100" />
@@ -1929,6 +1932,37 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
           <Property Type="String" Name="YTDMonth" Nullable="true" MaxLength="20" />
           <Property Type="Decimal" Name="TotalSalary" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
+        <EntityType Name="EmployeeLeavePolicy">
+          <Key>
+            <PropertyRef Name="BranchID" />
+            <PropertyRef Name="LeaveYear" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="LeaveTypeID" />
+          </Key>
+          <Property Name="BranchID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveYear" Type="Int16" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveTypeID" Type="Int32" Nullable="false" />
+          <Property Name="LeavesPerYear" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CarryForwardLeaves" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalLeaves" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BalanceLeaves" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TaxAssessmentDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeaderID" Type="Int32" />
+          <Property Name="SalaryFrom" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SalaryTo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Maxamount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
         
         
       
@@ -2931,22 +2965,7 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="TaxAssessmentDetails">
-            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
-              <MappingFragment StoreEntitySet="TaxAssessmentDetail">
-                <ScalarProperty Name="Maxamount" ColumnName="Maxamount" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
-                <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
-                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+         
           
           <FunctionImportMapping FunctionImportName="USP_TRAVELCLAIMREPORT" FunctionName="DB_9F30C5_HRDBModel.Store.USP_TRAVELCLAIMREPORT">
             <ResultMapping>
@@ -2980,6 +2999,36 @@ warning 6002: The table/view 'HRMS.Security.Role' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="EmployeeLeavePolicies">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.EmployeeLeavePolicy">
+              <MappingFragment StoreEntitySet="EmployeeLeavePolicy">
+                <ScalarProperty Name="BalanceLeaves" ColumnName="BalanceLeaves" />
+                <ScalarProperty Name="TotalLeaves" ColumnName="TotalLeaves" />
+                <ScalarProperty Name="CarryForwardLeaves" ColumnName="CarryForwardLeaves" />
+                <ScalarProperty Name="LeavesPerYear" ColumnName="LeavesPerYear" />
+                <ScalarProperty Name="LeaveTypeID" ColumnName="LeaveTypeID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="LeaveYear" ColumnName="LeaveYear" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxAssessmentDetails">
+            <EntityTypeMapping TypeName="DB_9F30C5_HRDBModel.TaxAssessmentDetail">
+              <MappingFragment StoreEntitySet="TaxAssessmentDetail">
+                <ScalarProperty Name="Maxamount" ColumnName="Maxamount" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
+                <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           
           
         </EntityContainerMapping>

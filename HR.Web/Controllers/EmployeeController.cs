@@ -14,6 +14,7 @@ using HR.Web.BusinessObjects.Operation;
 using HR.Web.BusinessObjects.Security;
 using HR.Web.BusinessObjects.LookUpMaster;
 using HR.Web.BusinessObjects.Payroll;
+using HR.Web.BusinessObjects.LeaveMaster;
 using HR.Web.Helpers;
 
 namespace HR.Web.Controllers
@@ -34,6 +35,9 @@ namespace HR.Web.Controllers
         LeaveTransBO leaveTransBO = null;
         SalaryStructureHeaderBO salaryStructureHeaderBO = null;
         EmployeeBankDetailBO empbankdetailBO = null;
+        OtherLeaveBO otherleaveBo = null;
+        EmployeeLeavePolicyBO employeeLeavePolicyBo = null;
+        
         public EmployeeController()
         {
 
@@ -48,6 +52,8 @@ namespace HR.Web.Controllers
             leaveTransBO = new LeaveTransBO(SESSIONOBJ);
             salaryStructureHeaderBO = new SalaryStructureHeaderBO(SESSIONOBJ);
             empbankdetailBO = new EmployeeBankDetailBO(SESSIONOBJ);
+            otherleaveBo = new OtherLeaveBO(SESSIONOBJ);
+            employeeLeavePolicyBo = new EmployeeLeavePolicyBO(SESSIONOBJ);
         }
         [HttpGet]
         public ViewResult employeedirectory()
@@ -249,11 +255,28 @@ namespace HR.Web.Controllers
                                             DocumentType = x.LookUpID,
                                             DocumentDescription = x.LookUpDescription
                                         }).ToList();
+                var listleave = new List<OtherLeave>();
+                listleave = otherleaveBo.GetListByProperty(x => x.BranchId == BRANCHID && x.IsActive == true).ToList();
+                
+                var List = new List<AssignLeaves>();
+                foreach (var item in listleave)
+                {
+                    var AssignLeaves = new AssignLeaves()
+                    {
+                        LeaveTypeID = item.LeaveTypeId.Value,
+                        Description = item.Description,
+                    };
+                    
+                    List.Add(AssignLeaves);
+                }
+                
                 return View(new EmployeeVm
                 {
+                   
                     empHeader = new EmployeeHeader
                     { EmployeeId = -1, IsActive = true },
                     empDocument = documentTypes,
+                    ListAssignLeaves= List,
                     empPersonalDetail = new EmployeePersonalDetail() { Gender = 101 }
                 });
             }

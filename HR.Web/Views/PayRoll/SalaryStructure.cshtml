@@ -116,7 +116,7 @@
                                                     <th></th>
                                                     <th>Code</th>
                                                     <th>Description</th>
-                                                    <th class="no-wrap">Variable Pay</th>
+                                                    <th>VP</th>
                                                     <th>Computation</th>
                                                     <th>Amount</th>
                                                     <th>Total</th>
@@ -140,11 +140,11 @@
                                                            new { @class = "form-control chkCssSalaryPayment input-sm", data_index = i })
                                                         </td>
                                                         @Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].Code)
-                                                        <td>
+                                                        <td style="width:100px;">
                                                             @Html.DisplayFor(x => x.structureSalaryPaymentDetail[i].Code)
                                                             @Html.HiddenFor(x => x.structureSalaryPaymentDetail[i].Description)
                                                         </td>
-                                                        <td style="width:250px;">
+                                                        <td style="width:200px;" >
                                                             @Html.DisplayFor(x => x.structureSalaryPaymentDetail[i].Description)
                                                         </td>
                                                         <td>
@@ -192,7 +192,7 @@
                                                     <th></th>
                                                     <th>Code</th>
                                                     <th>Description</th>
-                                                    <th class="no-wrap">Variable Pay</th>
+                                                    <th>VP</th>
                                                     <th>SP</th>
                                                     <th>Computation</th>
                                                     <th>Amount</th>
@@ -212,11 +212,11 @@
                                                            new { @class = "form-control chkCssEmployerContribution input-sm", data_index = i })
                                                         </td>
                                                         @Html.HiddenFor(x => x.structureEmployerContributionDetail[i].Code)
-                                                        <td>
+                                                        <td style="width:100px;">
                                                             @Html.DisplayFor(x => x.structureEmployerContributionDetail[i].Code)
                                                             @Html.HiddenFor(x => x.structureEmployerContributionDetail[i].Description)
                                                         </td>
-                                                        <td style="width:250px;">@Html.DisplayFor(x => x.structureEmployerContributionDetail[i].Description)</td>
+                                                        <td style="width:200px;">@Html.DisplayFor(x => x.structureEmployerContributionDetail[i].Description)</td>
                                                         <td>
                                                             @Html.CheckBoxFor(x => x.structureEmployerContributionDetail[i].IsVariablePay)
                                                         </td>
@@ -268,7 +268,7 @@
                                                     <th></th>
                                                     <th>Code</th>
                                                     <th>Description</th>
-                                                    <th class="no-wrap">Variable Pay</th>
+                                                    <th>VP</th>
                                                     <th>SP</th>
                                                     <th>Computation</th>
                                                     <th>Amount</th>
@@ -288,11 +288,11 @@
                                                            new { @class = "form-control chkCssEmployeeContribution input-sm", data_index = i })
                                                         </td>
                                                         @Html.HiddenFor(x => x.structureEmployeeContributionDetail[i].Code)
-                                                        <td>
+                                                        <td style="width:100px;">
                                                             @Html.DisplayFor(x => x.structureEmployeeContributionDetail[i].Code)
                                                             @Html.HiddenFor(x => x.structureEmployeeContributionDetail[i].Description)
                                                         </td>
-                                                        <td style="width:250px;">@Html.DisplayFor(x => x.structureEmployeeContributionDetail[i].Description)</td>
+                                                        <td style="width:200px;">@Html.DisplayFor(x => x.structureEmployeeContributionDetail[i].Description)</td>
                                                         <td>
                                                             @Html.CheckBoxFor(x => x.structureEmployeeContributionDetail[i].IsVariablePay)
                                                         </td>

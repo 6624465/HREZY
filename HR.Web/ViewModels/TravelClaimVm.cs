@@ -264,7 +264,7 @@ namespace HR.Web.ViewModels
 
         public string EmployeeName { get; set; }
         public DateTime SubmissionDate { get; set; }
-        public decimal TotalClaim { get; set; }
+        public decimal? TotalClaim { get; set; }
         public int Employeeid { get; set; }
         public int ManagerId { get; set; }
         public int TravelclaimId { get; set; }
